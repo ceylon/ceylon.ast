@@ -1,0 +1,9 @@
+# IDEs
+.settings
+
+# build
+/classes
+/modules
+
+# backup files
+*~

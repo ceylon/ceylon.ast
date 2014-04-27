@@ -19,3 +19,7 @@ Follow [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit
 * markdown-ish (bullets, \*emphasis\*, etc.)
 
 If you use `vim` to write commit messages, these guidelines should automatically be applied (keep your first line yellow).
+
+Last but not least…
+-------------------
+Don’t worry; if you submit a pull request and didn’t follow all these rules, we’ll probably happily accept it anyways :)

@@ -1,4 +1,4 @@
-ceylon.ast
+ceylon.ast [![Gitter chat](https://badges.gitter.im/ceylon/ceylon.ast.png)](https://gitter.im/ceylon/ceylon.ast)
 ==========
 
 `ceylon.ast` will be a Ceylon module that allows you to construct a Ceylon Abstract Syntax Tree (AST) in your program.

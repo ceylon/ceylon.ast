@@ -1,0 +1,6 @@
+
+[compiler]
+source=./source
+
+[defaults]
+encoding=UTF-8

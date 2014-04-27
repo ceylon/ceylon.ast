@@ -7,3 +7,4 @@
 
 # backup files
 *~
+.ceylon/config.old

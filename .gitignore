@@ -4,6 +4,7 @@
 # build
 /classes
 /modules
+/.exploded
 
 # backup files
 *~

@@ -1,6 +1,11 @@
 Information for contributors
 ============================
 
+First of all…
+-------------
+These are guidelines, not rules.
+It would be nice if you read and followed them when contributing, but if you submit a pull request and didn’t follow all these rules, we’ll probably happily accept it anyways :)
+
 Coding style
 ------------
 All code *should* be formatted with the [`ceylon.formatter`](https://github.com/lucaswerkmeister/ceylon.formatter);
@@ -25,7 +30,3 @@ Follow [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit
 * markdown-ish (bullets, \*emphasis\*, etc.)
 
 If you use `vim` to write commit messages, these guidelines should automatically be applied (keep your first line yellow).
-
-Last but not least…
--------------------
-Don’t worry; if you submit a pull request and didn’t follow all these rules, we’ll probably happily accept it anyways :)

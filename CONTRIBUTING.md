@@ -21,6 +21,10 @@ If you’ve been working for a while and want to commit your changes in several 
 
 (If you make your commits *very* small, you can still do a `git rebase --interactive origin/master` to squash small fixes and clean up history in general before you submit your pull request.)
 
+Commit tests separately; that way, it’s possible to revert the associated changes without reverting the tests.
+As all tests on master *should* always be green, the tests should usually be committed directly after the changes;
+an exception to this is when the test for a bug has been around for a while (ignored) before a fix was found (in which case the fix commit would un-ignore the test).
+
 ### Commit messages
 Follow [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html); TLDR:
 * first line: Short (≤50 chars, if possible) summary in imperative (“Fix X”, not “Fixed X” or “Fixes X”)

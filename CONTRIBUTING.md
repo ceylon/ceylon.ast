@@ -18,7 +18,7 @@ If you’ve been working for a while and want to commit your changes in several 
 
 ### Commit messages
 Follow [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html); TLDR:
-* first line: Short (≤50 chars, if possible) summary in imperative (“Fix X”, not “Fixed X” or “Fixes X”)
+* first line: Short (≤50 chars, if possible) summary in imperative (“Fix X”, not “Fixed X” or “Fixes X”)
   * you can specify the file or general part of the project the commit affects like this: “CONTRIBUTING.md: add info”
 * blank line
 * body: wrap at ~72 characters

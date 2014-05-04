@@ -40,3 +40,17 @@ test shared void identifier() {
         assertEquals(parseIdentifier(parseIdentifier(text).string), parseIdentifier(text), "identifier parsed from text of identifier parsed from '``text``'");
     }
 }
+
+test shared void identifierCopy() {
+    value lid = LIdentifier("lid");
+    value uid = UIdentifier("Uid");
+    value lidf = lid.copy("Lid");
+    value uidf = uid.copy("uid");
+    value lidp = lid.copy { enforcePrefix = true; };
+    value uidp = uid.copy { enforcePrefix = true; };
+    
+    assertTrue(lidf.usePrefix, "uppercase LIdentifier needs prefix");
+    assertTrue(uidf.usePrefix, "lowercase UIdentifier needs prefix");
+    assertTrue(lidp.usePrefix, "copy of LIdentifier uses prefix");
+    assertTrue(uidp.usePrefix, "copy of UIdentifier uses prefix");
+}

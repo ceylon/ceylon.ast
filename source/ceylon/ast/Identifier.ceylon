@@ -31,6 +31,10 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier
     
     "The text of this identifier, that is its [[name]] and, if [[used|usePrefix]], the prefix."
     shared actual formal String string;
+    
+    "Creates a copy of this identifier.
+     All parameters default to the value of the corresponding parameter of this instance."
+    shared formal Identifier copy(String name = this.name, Boolean enforcePrefix = this.enforcePrefix);
 }
 
 "An initial lowercase identifier."
@@ -54,6 +58,9 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             return false;
         }
     }
+    
+    shared actual LIdentifier copy(String name, Boolean enforcePrefix)
+            => LIdentifier(name, enforcePrefix);
     
     string => usePrefix then "\\i" + name else name;
 }
@@ -79,6 +86,9 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             return false;
         }
     }
+    
+    shared actual UIdentifier copy(String name, Boolean enforcePrefix)
+            => UIdentifier(name, enforcePrefix);
     
     string => usePrefix then "\\I" + name else name;
 }

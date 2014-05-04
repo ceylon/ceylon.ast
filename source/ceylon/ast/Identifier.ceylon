@@ -50,6 +50,8 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     usePrefix
             = enforcePrefix || first.uppercase || name in keywords;
     
+    visit(Visitor visitor) => visitor.visitLIdentifier(this);
+    
     shared actual Boolean equals(Object other) {
         if (is LIdentifier other) {
             return name == other.name;
@@ -77,6 +79,8 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     usePrefix
             = enforcePrefix || first.lowercase || first == '_' /* || name in keywords */; // there are no uppercase keywords
+    
+    visit(Visitor visitor) => visitor.visitUIdentifier(this);
     
     shared actual Boolean equals(Object other) {
         if (is UIdentifier other) {

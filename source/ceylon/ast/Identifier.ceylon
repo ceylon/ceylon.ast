@@ -82,3 +82,24 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     string => usePrefix then "\\I" + name else name;
 }
+
+"Parses an identifier from its text. The text may contain the prefix, but no escape sequences."
+shared Identifier identifier(String text) {
+    "Text must not be empty"
+    assert (exists first = text.first);
+    if (first == '\\') {
+        if (text.startsWith("\\i")) {
+            return LIdentifier(text[2...], true);
+        } else if (text.startsWith("\\I")) {
+            return UIdentifier(text[2...], true);
+        } else {
+            throw AssertionError("Identifier text can’t contain escape sequences");
+        }
+    } else {
+        if (first.lowercase || first == '_') {
+            return LIdentifier(text);
+        } else {
+            return UIdentifier(text);
+        }
+    }
+}

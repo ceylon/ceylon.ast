@@ -28,6 +28,9 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier
     
     shared actual Integer hash
             => name.hash;
+    
+    "The text of this identifier, that is its [[name]] and, if [[used|usePrefix]], the prefix."
+    shared actual formal String string;
 }
 
 "An initial lowercase identifier."
@@ -51,6 +54,8 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             return false;
         }
     }
+    
+    string => usePrefix then "\\i" + name else name;
 }
 
 "An initial uppercase identifier."
@@ -74,4 +79,6 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             return false;
         }
     }
+    
+    string => usePrefix then "\\I" + name else name;
 }

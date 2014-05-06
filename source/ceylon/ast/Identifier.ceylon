@@ -55,8 +55,7 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     shared actual Boolean equals(Object other) {
         if (is LIdentifier other) {
             return name == other.name;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -85,8 +84,7 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     shared actual Boolean equals(Object other) {
         if (is UIdentifier other) {
             return name == other.name;
-        }
-        else {
+        } else {
             return false;
         }
     }

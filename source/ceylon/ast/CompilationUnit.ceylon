@@ -10,8 +10,7 @@ shared class CompilationUnit() extends Node([]) {
     shared actual Boolean equals(Object other) {
         if (is CompilationUnit other) {
             return children == other.children;
-        }
-        else {
+        } else {
             return false;
         }
     }

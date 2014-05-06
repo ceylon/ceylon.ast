@@ -1,7 +1,18 @@
-import ceylon.test { test, assertEquals, assertNotEquals, assertTrue, assertFalse }
-import ceylon.ast { LIdentifier, UIdentifier, parseIdentifier=identifier }
+import ceylon.test {
+    test,
+    assertEquals,
+    assertNotEquals,
+    assertTrue,
+    assertFalse
+}
+import ceylon.ast {
+    LIdentifier=LIdentifier,
+    UIdentifier,
+    parseIdentifier=identifier
+}
 
-test shared void \iIdentifier() {
+test
+shared void \iIdentifier() {
     assertEquals(LIdentifier("name"), LIdentifier("name"), "LIdentifier equals without prefix");
     assertEquals(UIdentifier("name"), UIdentifier("name"), "UIdentifier equals without prefix");
     assertEquals(LIdentifier("name", true), LIdentifier("name", true), "LIdentifier equals with prefix");
@@ -13,7 +24,8 @@ test shared void \iIdentifier() {
     assertNotEquals(UIdentifier("name"), UIdentifier("text"), "UIdentifier name not equals");
 }
 
-test shared void identifier() {
+test
+shared void identifier() {
     value lid = parseIdentifier("lid");
     value uid = parseIdentifier("Uid");
     value lidf = parseIdentifier("\\iLid");
@@ -41,7 +53,8 @@ test shared void identifier() {
     }
 }
 
-test shared void identifierCopy() {
+test
+shared void identifierCopy() {
     value lid = LIdentifier("lid");
     value uid = UIdentifier("Uid");
     value lidf = lid.copy("Lid");

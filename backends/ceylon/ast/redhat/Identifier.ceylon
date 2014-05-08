@@ -43,3 +43,38 @@ shared JIdentifier identifierFromCeylon(Identifier identifier, TokenFactory toke
         return JIdentifier(tokens.token(identifier.name, uidentifier, identifier.usePrefix then identifier.name.size + 2 else identifier.name.size));
     }
 }
+
+"Compiles the given [[code]] for an Identifier
+ into an [[Identifier]] using the Ceylon compiler
+ (more specifically, the rule for an Import Name)."
+shared Identifier? compileIdentifier(String code) {
+    if (exists jidentifier = createParser(code).importName()) {
+        return identifierToCeylon(jidentifier);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for a Lowercase Identifier
+ into an [[LIdentifier]] using the Ceylon compiler
+ (more specifically, the rule for a Member Name)."
+shared LIdentifier? compileLIdentifier(String code) {
+    if (exists jidentifier = createParser(code).memberName()) {
+        assert (is LIdentifier identifier = identifierToCeylon(jidentifier));
+        return identifier;
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for an Uppercase Identifier
+ into a [[UIdentifier]] using the Ceylon compiler
+ (more specifically, the rule for a Type Name)."
+shared UIdentifier? compileUIdentifier(String code) {
+    if (exists jidentifier = createParser(code).typeName()) {
+        assert (is UIdentifier identifier = identifierToCeylon(jidentifier));
+        return identifier;
+    } else {
+        return null;
+    }
+}

@@ -3,5 +3,5 @@
  Using the conversion functions defined in the `ceylon.ast.redhat` module,
  you can compile it with the Ceylon compiler or write it as code with the
  Ceylon formatter (`ceylon.formatter` module, function `format`)."
-module ceylon.ast "1.1.0" {
+module ceylon.ast.api "1.1.0" {
 }

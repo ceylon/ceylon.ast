@@ -1,4 +1,4 @@
-import ceylon.ast {
+import ceylon.ast.api {
     Identifier,
     LIdentifier,
     UIdentifier

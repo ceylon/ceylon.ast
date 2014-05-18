@@ -7,6 +7,8 @@ shared class CompilationUnit() extends Node([]) {
     
     shared actual void visit(Visitor visitor) => visitor.visitCompilationUnit(this);
     
+    toCeylonExpression() => "CompilationUnit()";
+    
     shared actual Boolean equals(Object other) {
         if (is CompilationUnit other) {
             return children == other.children;

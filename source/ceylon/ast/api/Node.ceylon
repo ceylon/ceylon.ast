@@ -18,6 +18,32 @@ shared abstract class Node(children) extends Object() {
         }
     }
     
+    "Returns a Ceylon expression that evaluates to a copy of this node.
+     
+     Note: do not call this method directly, as it can be expensive;
+     instead, use [[ceylonExpression]], which caches the result
+     after it has been calculated once."
+    see(`value ceylonExpression`)
+    shared formal String toCeylonExpression();
+    "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
+    see(`function toCeylonExpression`, `value ceylonExpression`)
+    variable String? ceylonExpression_cache = null;
+    "A Ceylon expression that evaluates to a copy of this node."
+    see(`function toCeylonExpression`)
+    shared String ceylonExpression {
+        if (exists cache = ceylonExpression_cache) {
+            return cache;
+        }
+        value expression = toCeylonExpression();
+        ceylonExpression_cache = expression;
+        return expression;
+    }
+    "A developer-friendly string representing the instance.
+     
+     At the moment, this is [[ceylonExpression]], but this may change in the future;
+     for anything other than diagnostic information, use [[ceylonExpression]] or one of the other attributes directly."
+    shared actual String string => ceylonExpression;
+    
     // force subclasses to define equals…
     shared actual formal Boolean equals(Object other);
     // … and hashcode

@@ -35,12 +35,6 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier
     shared actual Integer hash
             => name.hash;
     
-    "A developer-friendly string representing the instance.
-     
-     At the moment, this is the [[text]] of the identifier, but this may change in the future;
-     for anything other than diagnostic information, use [[text]] or one of the other attributes directly."
-    shared actual String string => text;
-    
     "Creates a copy of this identifier.
      All parameters default to the value of the corresponding parameter of this instance."
     shared formal Identifier copy(String name = this.name, Boolean enforcePrefix = this.enforcePrefix);
@@ -61,6 +55,8 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     prefix = "\\i";
     
     visit(Visitor visitor) => visitor.visitLIdentifier(this);
+    
+    toCeylonExpression() => "LIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
     
     shared actual Boolean equals(Object other) {
         if (is LIdentifier other) {
@@ -89,6 +85,8 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     prefix = "\\I";
     
     visit(Visitor visitor) => visitor.visitUIdentifier(this);
+    
+    toCeylonExpression() => "UIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
     
     shared actual Boolean equals(Object other) {
         if (is UIdentifier other) {

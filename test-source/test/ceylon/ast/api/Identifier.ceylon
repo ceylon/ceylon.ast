@@ -67,3 +67,21 @@ shared void identifierCopy() {
     assertTrue(lidp.usePrefix, "copy of LIdentifier uses prefix");
     assertTrue(uidp.usePrefix, "copy of UIdentifier uses prefix");
 }
+
+test
+shared void identifierCeylonExpression() {
+    void test(LIdentifier|UIdentifier identifier) {
+        String type = identifier is LIdentifier then "LIdentifier" else "UIdentifier";
+        assertTrue(identifier.ceylonExpression in { for (name in { "\"``identifier.name``\"", "\"\"\"``identifier.name``\"\"\"" }) for (enforcePrefix in identifier.enforcePrefix then { ", true" } else { "", ", false" }) "``type``(``name + enforcePrefix``)" }, "ceylonExpression of identifier '``identifier``'");
+    }
+    for (i in 0:2) {
+        // the second run is to test if the caching isn’t wrong
+        // (we can’t really test if caching happens at all)
+        test(LIdentifier("lid"));
+        test(UIdentifier("Uid"));
+        test(LIdentifier("Lid"));
+        test(UIdentifier("uid"));
+        test(LIdentifier("lid", true));
+        test(UIdentifier("Uid", true));
+    }
+}

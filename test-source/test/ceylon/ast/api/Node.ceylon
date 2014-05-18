@@ -3,15 +3,17 @@ import ceylon.test {
     assertEquals
 }
 import ceylon.ast.api {
-    Node, Visitor
+    Node,
+    Visitor
 }
 
-test void nodeCeylonExpression() {
+test
+void nodeCeylonExpression() {
     class MyNode() extends Node([]) {
         
         shared variable Integer accessCounter = 0;
         
-        toCeylonExpression() => "``++accessCounter``";
+        toCeylonExpression() => "`` ++accessCounter ``";
         
         equals(Object other) => true;
         hash = 1;

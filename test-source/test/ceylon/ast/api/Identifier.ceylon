@@ -72,7 +72,7 @@ test
 shared void identifierCeylonExpression() {
     void test(LIdentifier|UIdentifier identifier) {
         String type = identifier is LIdentifier then "LIdentifier" else "UIdentifier";
-        assertTrue(identifier.ceylonExpression in { for (name in { "\"``identifier.name``\"", "\"\"\"``identifier.name``\"\"\"" }) for (enforcePrefix in identifier.enforcePrefix then { ", true" } else { "", ", false" }) "``type``(``name + enforcePrefix``)" }, "ceylonExpression of identifier '``identifier``'");
+        assertTrue(identifier.ceylonExpression in { for (name in { "\"``identifier.name``\"", "\"\"\"``identifier.name``\"\"\"" }) for (enforcePrefix in identifier.enforcePrefix then { ", true" } else { "", ", false" }) "``type``(`` name + enforcePrefix ``)" }, "ceylonExpression of identifier '``identifier``'");
     }
     for (i in 0:2) {
         // the second run is to test if the caching isn’t wrong

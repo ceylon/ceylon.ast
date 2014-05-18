@@ -31,10 +31,10 @@ shared void identifier() {
 test
 shared void compileIdentifier() {
     value identifiers = [
-        "lid" -> LIdentifier("lid"),
-        "Uid" -> UIdentifier("Uid"),
-        "\\iLid" -> LIdentifier("Lid"),
-        "\\Iuid" -> UIdentifier("uid")
+        "lid"->LIdentifier("lid"),
+        "Uid"->UIdentifier("Uid"),
+        "\\iLid"->LIdentifier("Lid"),
+        "\\Iuid"->UIdentifier("uid")
     ];
     for (identifier in identifiers) {
         value compiled = compile(identifier.key);

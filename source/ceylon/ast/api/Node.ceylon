@@ -23,13 +23,13 @@ shared abstract class Node(children) extends Object() {
      Note: do not call this method directly, as it can be expensive;
      instead, use [[ceylonExpression]], which caches the result
      after it has been calculated once."
-    see(`value ceylonExpression`)
+    see (`value ceylonExpression`)
     shared formal String toCeylonExpression();
     "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
-    see(`function toCeylonExpression`, `value ceylonExpression`)
+    see (`function toCeylonExpression`, `value ceylonExpression`)
     variable String? ceylonExpression_cache = null;
     "A Ceylon expression that evaluates to a copy of this node."
-    see(`function toCeylonExpression`)
+    see (`function toCeylonExpression`)
     shared String ceylonExpression {
         if (exists cache = ceylonExpression_cache) {
             return cache;

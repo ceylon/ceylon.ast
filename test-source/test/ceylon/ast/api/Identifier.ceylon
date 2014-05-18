@@ -48,8 +48,8 @@ shared void identifier() {
     assertTrue(uidp.enforcePrefix, "UIdentifier with unnecessary prefix keeps prefix");
     
     for (text in { "lid", "Uid", "\\iLid", "\\Iuid", "\\ilid", "\\IUid" }) {
-        assertEquals(parseIdentifier(text).string, text, "text of identifier parsed from '``text``'");
-        assertEquals(parseIdentifier(parseIdentifier(text).string), parseIdentifier(text), "identifier parsed from text of identifier parsed from '``text``'");
+        assertEquals(parseIdentifier(text).text, text, "text of identifier parsed from '``text``'");
+        assertEquals(parseIdentifier(parseIdentifier(text).text), parseIdentifier(text), "identifier parsed from text of identifier parsed from '``text``'");
     }
 }
 

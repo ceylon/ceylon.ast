@@ -12,7 +12,7 @@ String[] keywords = [
 
 shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier extends Node([]) {
     
-    "The name or text of the identifier."
+    "The name of the identifier."
     shared default String name;
     
     """If [[true]], enforce the `\i`/`\I` prefix.
@@ -25,12 +25,21 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier
        or if it is necessary because the text’s case doesn’t match
        that of the identifier, or because it’s a keyword (e. g. `\ithis`)."""
     shared formal Boolean usePrefix;
+    "The prefix for this kind of identifier – `\\i` for a [[lowercase identifier|LIdentifier]],
+     `\\I` for an [[uppercase identifier|UIdentifier]]."
+    shared formal String prefix;
+    
+    "The text of the identifier, that is its [[name]] and, if [[used|usePrefix]], the prefix."
+    shared String text => usePrefix then prefix + name else name;
     
     shared actual Integer hash
             => name.hash;
     
-    "The text of this identifier, that is its [[name]] and, if [[used|usePrefix]], the prefix."
-    shared actual formal String string;
+    "A developer-friendly string representing the instance.
+     
+     At the moment, this is the [[text]] of the identifier, but this may change in the future;
+     for anything other than diagnostic information, use [[text]] or one of the other attributes directly."
+    shared actual String string => text;
     
     "Creates a copy of this identifier.
      All parameters default to the value of the corresponding parameter of this instance."
@@ -49,6 +58,7 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     usePrefix
             = enforcePrefix || first.uppercase || name in keywords;
+    prefix = "\\i";
     
     visit(Visitor visitor) => visitor.visitLIdentifier(this);
     
@@ -62,8 +72,6 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     shared actual LIdentifier copy(String name, Boolean enforcePrefix)
             => LIdentifier(name, enforcePrefix);
-    
-    string => usePrefix then "\\i" + name else name;
 }
 
 "An initial uppercase identifier."
@@ -78,6 +86,7 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     usePrefix
             = enforcePrefix || first.lowercase || first == '_' /* || name in keywords */; // there are no uppercase keywords
+    prefix = "\\I";
     
     visit(Visitor visitor) => visitor.visitUIdentifier(this);
     
@@ -91,8 +100,6 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     shared actual UIdentifier copy(String name, Boolean enforcePrefix)
             => UIdentifier(name, enforcePrefix);
-    
-    string => usePrefix then "\\I" + name else name;
 }
 
 "Parses an identifier from its text. The text may contain the prefix, but no escape sequences."

@@ -55,6 +55,7 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     prefix = "\\i";
     
     visit(Visitor visitor) => visitor.visitLIdentifier(this);
+    edit(Editor editor) => editor.editLIdentifier(this);
     
     toCeylonExpression() => "LIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
     
@@ -85,6 +86,7 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     prefix = "\\I";
     
     visit(Visitor visitor) => visitor.visitUIdentifier(this);
+    edit(Editor editor) => editor.editUIdentifier(this);
     
     toCeylonExpression() => "UIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
     

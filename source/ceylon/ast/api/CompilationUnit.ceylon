@@ -6,6 +6,7 @@ shared class CompilationUnit() extends Node([]) {
     // TODO implement
     
     shared actual void visit(Visitor visitor) => visitor.visitCompilationUnit(this);
+    shared actual CompilationUnit edit(Editor editor) => editor.editCompilationUnit(this);
     
     toCeylonExpression() => "CompilationUnit()";
     

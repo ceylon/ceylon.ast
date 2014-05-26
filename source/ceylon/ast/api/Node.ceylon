@@ -18,6 +18,14 @@ shared abstract class Node(children) extends Object() {
         }
     }
     
+    "Edit this node with the given [[editor]], and return the edited copy.
+     Calls the appropriate `editX` method on the editor and returns its result."
+    shared formal Node edit(Editor editor);
+    "Edit the children of this node with the given [[editor]].
+     Calls [[edit]] on each [[child node|children]]."
+    shared Node[] editChildren(Editor editor)
+            => children.collect((Node node) => node.edit(editor));
+    
     "Returns a Ceylon expression that evaluates to a copy of this node.
      
      Note: do not call this method directly, as it can be expensive;

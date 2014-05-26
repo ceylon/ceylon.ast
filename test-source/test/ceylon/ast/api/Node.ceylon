@@ -4,7 +4,8 @@ import ceylon.test {
 }
 import ceylon.ast.api {
     Node,
-    Visitor
+    Visitor,
+    Editor
 }
 
 test
@@ -18,6 +19,7 @@ void nodeCeylonExpression() {
         equals(Object other) => true;
         hash = 1;
         visit(Visitor visitor) => visitor.visitNode(this);
+        edit(Editor editor) => editor.editNode(this);
     }
     value node = MyNode();
     assertEquals(node.ceylonExpression, "1", "toCeylonExpression() called");

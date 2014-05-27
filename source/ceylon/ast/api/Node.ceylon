@@ -4,8 +4,12 @@
  the identity of a particular instance is meaningless."
 shared abstract class Node(children) extends Object() {
     
+    "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
+    see (`function toCeylonExpression`, `value ceylonExpression`)
+    variable String? ceylonExpression_cache = null;
+    
     "The child nodes of this node."
-    shared Node[] children;
+    shared default Node[] children;
     
     "Visit this node with the given [[visitor]].
      Calls the appropriate `visitX` method on the visitor."
@@ -33,9 +37,6 @@ shared abstract class Node(children) extends Object() {
      after it has been calculated once."
     see (`value ceylonExpression`)
     shared formal String toCeylonExpression();
-    "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
-    see (`function toCeylonExpression`, `value ceylonExpression`)
-    variable String? ceylonExpression_cache = null;
     "A Ceylon expression that evaluates to a copy of this node."
     see (`function toCeylonExpression`)
     shared String ceylonExpression {

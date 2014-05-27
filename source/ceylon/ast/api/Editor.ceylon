@@ -27,6 +27,8 @@ shared abstract class Editor() {
     }
     shared default Identifier editIdentifier(Identifier that)
             => that.copy();
+    shared default IntegerLiteral editIntegerLiteral(IntegerLiteral that)
+            => that.copy();
     shared default LIdentifier editLIdentifier(LIdentifier that)
             => that.copy();
     shared default Node editNode(Node that) {

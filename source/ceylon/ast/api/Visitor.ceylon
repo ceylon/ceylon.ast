@@ -14,6 +14,7 @@
 shared abstract class Visitor() {
     shared default void visitCompilationUnit(CompilationUnit that) => visitNode(that);
     shared default void visitIdentifier(Identifier that) => visitNode(that);
+    shared default void visitIntegerLiteral(IntegerLiteral that) => visitNode(that); // TODO visitLiteral(that);
     shared default void visitLIdentifier(LIdentifier that) => visitIdentifier(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
     shared default void visitUIdentifier(UIdentifier that) => visitIdentifier(that);

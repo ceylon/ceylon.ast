@@ -2,7 +2,8 @@
  
  Note that nodes are not [[Identifiable]]: as they are immutable,
  the identity of a particular instance is meaningless."
-shared abstract class Node(children) extends Object() {
+shared abstract class Node(children) extends Object()
+/* TODO case types */ {
     
     "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
     see (`function toCeylonExpression`, `value ceylonExpression`)

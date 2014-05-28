@@ -12,7 +12,7 @@ import ceylon.ast.api {
 }
 
 test
-shared void \iIdentifier() {
+shared void identifier() {
     assertEquals(LIdentifier("name"), LIdentifier("name"), "LIdentifier equals without prefix");
     assertEquals(UIdentifier("name"), UIdentifier("name"), "UIdentifier equals without prefix");
     assertEquals(LIdentifier("name", true), LIdentifier("name", true), "LIdentifier equals with prefix");
@@ -25,7 +25,7 @@ shared void \iIdentifier() {
 }
 
 test
-shared void identifier() {
+shared void identifierFunction() {
     value lid = parseIdentifier("lid");
     value uid = parseIdentifier("Uid");
     value lidf = parseIdentifier("\\iLid");

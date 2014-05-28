@@ -8,7 +8,7 @@ import ceylon.ast.api {
 }
 
 test
-shared void \iIntegerLiteral() {
+shared void integerLiteral() {
     value il1 = IntLit("42");
     value i1 = 42;
     value il2 = IntLit("1138");

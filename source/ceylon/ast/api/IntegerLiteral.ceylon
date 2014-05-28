@@ -27,7 +27,7 @@ shared class IntegerLiteral(text) extends Expression([]) /* TODO extend Literal 
         throw AssertionError("text must not be empty");
     }
     else {
-        throw AssertionError("Unexpected first character '``text.first else ""``' of text, expected '$', '#', or digit");
+        throw AssertionError("Unexpected first character '`` text.first else "" ``' of text, expected '$', '#', or digit");
     }
     assert (exists _integer = parseInteger(radix == 10 then text else text.rest, radix));
     integer = _integer;
@@ -43,8 +43,7 @@ shared class IntegerLiteral(text) extends Expression([]) /* TODO extend Literal 
     shared actual Boolean equals(Object other) {
         if (is IntegerLiteral other) {
             return text == other.text;
-        }
-        else {
+        } else {
             return false;
         }
     }

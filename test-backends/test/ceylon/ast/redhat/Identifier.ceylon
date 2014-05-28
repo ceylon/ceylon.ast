@@ -1,9 +1,6 @@
 import ceylon.test {
     test,
-    assertEquals,
-    assertNotEquals,
-    assertTrue,
-    assertFalse
+    assertEquals
 }
 import ceylon.ast.api {
     LIdentifier,

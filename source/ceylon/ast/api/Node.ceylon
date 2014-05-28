@@ -53,9 +53,4 @@ shared abstract class Node(children) extends Object()
      At the moment, this is [[ceylonExpression]], but this may change in the future;
      for anything other than diagnostic information, use [[ceylonExpression]] or one of the other attributes directly."
     shared actual String string => ceylonExpression;
-    
-    // force subclasses to define equals…
-    shared actual formal Boolean equals(Object other);
-    // … and hashcode
-    shared actual formal Integer hash;
 }

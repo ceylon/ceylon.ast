@@ -20,4 +20,4 @@ shared void integerLiteral()
 
 test
 shared void compileIntegerLiteral()
-        => testCompilation(compile, *{ for (text in { "1138", "#7EA_BABE", "$101010" }) text->IntegerLiteral(text) });
+        => testCompilation(compile, for (text in { "1138", "#7EA_BABE", "$101010" }) text->IntegerLiteral(text));

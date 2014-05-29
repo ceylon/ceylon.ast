@@ -21,6 +21,8 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[visitBody]])."
 shared abstract class Editor() {
+    shared default CharacterLiteral editCharacterLiteral(CharacterLiteral that)
+            => that.copy();
     shared default CompilationUnit editCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");

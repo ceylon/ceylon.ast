@@ -13,6 +13,7 @@
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared abstract class Visitor() {
     shared default void visitCompilationUnit(CompilationUnit that) => visitNode(that);
+    shared default void visitFloatLiteral(FloatLiteral that) => visitNode(that); // TODO visitLiteral(that);
     shared default void visitIdentifier(Identifier that) => visitNode(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => visitNode(that); // TODO visitLiteral(that);
     shared default void visitLIdentifier(LIdentifier that) => visitIdentifier(that);

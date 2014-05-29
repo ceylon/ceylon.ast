@@ -25,6 +25,8 @@ shared abstract class Editor() {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
+    shared default FloatLiteral editFloatLiteral(FloatLiteral that)
+            => that.copy();
     shared default Identifier editIdentifier(Identifier that)
             => that.copy();
     shared default IntegerLiteral editIntegerLiteral(IntegerLiteral that)

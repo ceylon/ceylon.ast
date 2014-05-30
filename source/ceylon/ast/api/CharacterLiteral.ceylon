@@ -4,11 +4,11 @@
  isn’t verified, and there is no attribute to get the [[Character]] value of the literal;
  getting that value requires unicode support (to parse '\\{CHARACTER NAME}') that isn’t
  available on all platforms."
-shared class CharacterLiteral(text) extends Node([]) {
+shared class CharacterLiteral(text) extends Literal(text) {
     
     "The text of the character literal (without quotes),
      i. e. either a single character or an escape sequence."
-    shared String text;
+    shared actual String text;
     
     visit(Visitor visitor) => visitor.visitCharacterLiteral(this);
     edit(Editor editor) => editor.editCharacterLiteral(this);

@@ -2,10 +2,10 @@
  hexadecimal (prefix ‘#’) or binary (prefix ‘$’) notation.
  Integer literals may be grouped with underscores, and may contain
  a magnitude."
-shared class IntegerLiteral(text) extends Expression([]) /* TODO extend Literal */ {
+shared class IntegerLiteral(text) extends Literal(text) {
     
     "The text of the literal, including prefixes, magnitude, etc."
-    shared String text;
+    shared actual String text;
     shared Integer radix;
     shared Integer integer;
     

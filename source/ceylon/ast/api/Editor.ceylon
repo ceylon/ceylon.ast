@@ -35,6 +35,13 @@ shared abstract class Editor() {
             => that.copy();
     shared default LIdentifier editLIdentifier(LIdentifier that)
             => that.copy();
+    shared default Literal editLiteral(Literal that) {
+        switch (that)
+        case (is StringLiteral) { return editStringLiteral(that); }
+        case (is CharacterLiteral) { return editCharacterLiteral(that); }
+        case (is IntegerLiteral) { return editIntegerLiteral(that); }
+        case (is FloatLiteral) { return editFloatLiteral(that); } 
+    }
     shared default Node editNode(Node that) {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");

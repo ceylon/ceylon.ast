@@ -1,10 +1,10 @@
 "A *floating point literal* is distinguished from an
  [[*integer literal*|IntegerLiteral]] by the presence of
  fractional digits or a fractional magnitude."
-shared class FloatLiteral(text) extends Node([]) {
+shared class FloatLiteral(text) extends Literal(text) {
     
     "The text of the literal, including exponent, magnitude, etc."
-    shared String text;
+    shared actual String text;
     shared Float float;
     
     // verify, parse

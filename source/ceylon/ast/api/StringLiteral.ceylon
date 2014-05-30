@@ -5,10 +5,10 @@
  isn’t verified, and there is no attribute to get the [[String]] value of the literal;
  getting that value requires unicode support (to parse '\\{CHARACTER NAME}') that isn’t
  available on all platforms."
-shared class StringLiteral(text, isVerbatim = false) extends Node([]) {
+shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     
     "The text of the string literal (without quotes)."
-    shared String text;
+    shared actual String text;
     "If the string literal is verbatim or not. Verbatim string literals are
      surrounded by three quotes instead of one, and do not contain escape sequences.
      

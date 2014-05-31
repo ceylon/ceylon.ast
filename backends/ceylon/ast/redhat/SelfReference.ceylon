@@ -1,0 +1,163 @@
+import ceylon.ast.api {
+    SelfReference,
+    This,
+    Super,
+    Outer,
+    Package,
+    thisInstance,
+    superInstance,
+    outerInstance,
+    packageInstance
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JSelfExpression=SelfExpression,
+        JThis=This,
+        JSuper=Super,
+        JOuter=Outer,
+        JPackage=Package
+    }
+}
+import com.redhat.ceylon.compiler.typechecker.parser {
+    CeylonLexer {
+        thisType=\iTHIS,
+        superType=\iSUPER,
+        outerType=\iOUTER,
+        packageType=\iPACKAGE
+    }
+}
+import org.antlr.runtime { CommonTokenStream, ANTLRStringStream }
+
+"Converts a RedHat AST [[SelfExpression|JSelfExpression]], [[Outer|JOuter]] or [[Package|JPackage]]
+ to a `ceylon.ast` [[SelfReference]]."
+throws (`class AssertionError`, "If the token type is wrong.")
+shared SelfReference selfReferenceToCeylon(JSelfExpression|JOuter|JPackage selfReference) {
+    assert (is JThis|JSuper|JOuter|JPackage selfReference);
+    switch (selfReference)
+    case (is JThis) { return thisToCeylon(selfReference); }
+    case (is JSuper) { return superToCeylon(selfReference); }
+    case (is JOuter) { return outerToCeylon(selfReference); }
+    case (is JPackage) { return packageToCeylon(selfReference); }
+}
+
+"Converts a RedHat AST [[This|JThis]] to a `ceylon.ast` [[This]]."
+throws (`class AssertionError`, "If the token type is not `THIS` or the token text is not `this`.")
+shared This thisToCeylon(JThis \ithis) {
+    assert (\ithis.mainToken.type == thisType, \ithis.mainToken.text == "this");
+    return thisInstance;
+}
+
+"Converts a RedHat AST [[Super|JSuper]] to a `ceylon.ast` [[Super]]."
+throws (`class AssertionError`, "If the token type is not `SUPER` or the token text is not `super`.")
+shared Super superToCeylon(JSuper \isuper) {
+    "Workaround for [ceylon/ceylon-compiler#1658](https://github.com/ceylon/ceylon-compiler/issues/1658):
+     The JVM doesn’t handle member operations on variables named `super` very well."
+    void ceylonCompiler1658Workaround(JSuper theSuper) {
+        assert (theSuper.mainToken.type == superType, theSuper.mainToken.text == "super");
+    }
+    ceylonCompiler1658Workaround(\isuper);
+    /*
+     TODO: use
+     assert (\isuper.mainToken.type == superType, \isuper.mainToken.text == "super");
+     instead when ceylon/ceylon-compiler#1658 is fixed
+     */
+    return superInstance;
+}
+
+"Converts a RedHat AST [[Outer|JOuter]] to a `ceylon.ast` [[Outer]]."
+throws (`class AssertionError`, "If the token type is not `OUTER` or the token text is not `outer`.")
+shared Outer outerToCeylon(JOuter \iouter) {
+    assert (\iouter.mainToken.type == outerType, \iouter.mainToken.text == "outer");
+    return outerInstance;
+}
+
+"Converts a RedHat AST [[Package|JPackage]] to a `ceylon.ast` [[Package]]."
+throws (`class AssertionError`, "If the token type is not `PACKAGE` or the token text is not `package`.")
+shared Package packageToCeylon(JPackage \ipackage) {
+    assert (\ipackage.mainToken.type == packageType, \ipackage.mainToken.text == "package");
+    return packageInstance;
+}
+
+"Converts a `ceylon.ast` [[SelfReference]] to a RedHat AST [[SelfExpression|JSelfExpression]],
+ [[Outer|JOuter]] or [[Package|JPackage]]."
+shared JSelfExpression|JOuter|JPackage selfReferenceFromCeylon(SelfReference selfReference, TokenFactory tokens) {
+    switch (selfReference)
+    case (is This) { return thisFromCeylon(selfReference, tokens); }
+    case (is Super) { return superFromCeylon(selfReference, tokens); }
+    case (is Outer) { return outerFromCeylon(selfReference, tokens); }
+    case (is Package) { return packageFromCeylon(selfReference, tokens); }
+}
+
+"Converts a `ceylon.ast` [[This]] to a RedHat AST [[This|JThis]]."
+shared JThis thisFromCeylon(This \ithis, TokenFactory tokens)
+        => JThis(tokens.token("this", thisType));
+
+"Converts a `ceylon.ast` [[Super]] to a RedHat AST [[Super|JSuper]]."
+shared JSuper superFromCeylon(Super \isuper, TokenFactory tokens)
+        => JSuper(tokens.token("super", superType));
+
+"Converts a `ceylon.ast` [[Outer]] to a RedHat AST [[Outer|JOuter]]."
+shared JOuter outerFromCeylon(Outer \iouter, TokenFactory tokens)
+        => JOuter(tokens.token("outer", outerType));
+
+"Converts a `ceylon.ast` [[Package]] to a RedHat AST [[Package|JPackage]]."
+shared JPackage packageFromCeylon(Package \ipackage, TokenFactory tokens)
+        => JPackage(tokens.token("package", packageType));
+
+// TODO the compile functions don’t work because the lexer returns LIDENTIFIER tokens
+
+"Compiles the given [[code]] for a Self Reference
+ into a [[SelfReference]] using the Ceylon compiler
+ (more specifically, the rule for a `selfReference`)."
+shared SelfReference? compileSelfReference(String code) {
+    if (exists jSelfReference = createParser(code).selfReference()) {
+        assert (is JSelfExpression|JOuter|JPackage jSelfReference);
+        return selfReferenceToCeylon(jSelfReference);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for a This
+ into a [[This]] using the Ceylon compiler
+ (more specifically, the rule for a `selfReference`)."
+shared This? compileThis(String code) {
+    if (is JThis jThis = createParser(code).selfReference()) {
+        return thisToCeylon(jThis);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for a Super
+ into a [[Super]] using the Ceylon compiler
+ (more specifically, the rule for a `selfReference`)."
+shared Super? compileSuper(String code) {
+    if (is JSuper jSuper = createParser(code).selfReference()) {
+        return superToCeylon(jSuper);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for an Outer
+ into an [[Outer]] using the Ceylon compiler
+ (more specifically, the rule for a `selfReference`)."
+shared Outer? compileOuter(String code) {
+    if (is JOuter jOuter = createParser(code).selfReference()) {
+        return outerToCeylon(jOuter);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for a Package
+ into a [[Package]] using the Ceylon compiler
+ (more specifically, the rule for a `selfReference`)."
+shared Package? compilePackage(String code) {
+    if (is JPackage jPackage = createParser(code).selfReference()) {
+        return packageToCeylon(jPackage);
+    } else {
+        return null;
+    }
+}

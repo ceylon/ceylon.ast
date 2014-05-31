@@ -46,7 +46,22 @@ shared abstract class Editor() {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
+    shared default Outer editOuter(Outer that)
+            => that.copy();
+    shared default Package editPackage(Package that)
+            => that.copy();
+    shared default SelfReference editSelfReference(SelfReference that) {
+        switch (that)
+        case (is This) { return editThis(that); }
+        case (is Super) { return editSuper(that); }
+        case (is Outer) { return editOuter(that); }
+        case (is Package) { return editPackage(that); }
+    }
     shared default StringLiteral editStringLiteral(StringLiteral that)
+            => that.copy();
+    shared default Super editSuper(Super that)
+            => that.copy();
+    shared default This editThis(This that)
             => that.copy();
     shared default UIdentifier editUIdentifier(UIdentifier that)
             => that.copy();

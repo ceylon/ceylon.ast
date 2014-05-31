@@ -21,6 +21,11 @@ shared abstract class Visitor() {
     shared default void visitLIdentifier(LIdentifier that) => visitIdentifier(that);
     shared default void visitLiteral(Literal that) => visitExpression(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
+    shared default void visitOuter(Outer that) => visitSelfReference(that);
+    shared default void visitPackage(Package that) => visitSelfReference(that);
+    shared default void visitSelfReference(SelfReference that) => visitExpression(that); // TODO visitAtom?
     shared default void visitStringLiteral(StringLiteral that) => visitLiteral(that);
+    shared default void visitSuper(Super that) => visitSelfReference(that);
+    shared default void visitThis(This that) => visitSelfReference(that);
     shared default void visitUIdentifier(UIdentifier that) => visitIdentifier(that);
 }

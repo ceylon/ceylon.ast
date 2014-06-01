@@ -1,6 +1,5 @@
 import ceylon.test {
-    test,
-    ignore
+    test
 }
 import ceylon.ast.api {
     This,
@@ -23,7 +22,6 @@ shared void selfReference()
     Package()
 );
 
-ignore("compilation doesn’t yet work – the lexer returns LIDENTIFIER tokens instead of THIS, etc. tokens.")
 test
 shared void compileSelfReference()
         => testCompilation(compile,

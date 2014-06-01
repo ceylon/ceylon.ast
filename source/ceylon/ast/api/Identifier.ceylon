@@ -10,6 +10,10 @@ String[] keywords = [
     "is", "exists", "nonempty"
 ];
 
+shared alias TypeName => UIdentifier;
+shared alias MemberName => LIdentifier;
+shared alias PackageName => LIdentifier;
+
 shared abstract class Identifier(name, enforcePrefix) of LIdentifier|UIdentifier extends Node([]) {
     
     "The name of the identifier."

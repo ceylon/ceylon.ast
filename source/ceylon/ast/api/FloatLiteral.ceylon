@@ -9,7 +9,7 @@ shared class FloatLiteral(text) extends Literal(text) {
     
     // verify, parse
     switch (text.first)
-    case ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9') { /* okay, do nothing */ }
+    case ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9') {/* okay, do nothing */}
     case (null) {
         throw AssertionError("text must not be empty");
     }

@@ -1,5 +1,9 @@
 import ceylon.ast.api {
-    Literal, StringLiteral, CharacterLiteral, IntegerLiteral, FloatLiteral
+    Literal,
+    StringLiteral,
+    CharacterLiteral,
+    IntegerLiteral,
+    FloatLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {

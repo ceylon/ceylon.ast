@@ -8,7 +8,6 @@
 abstract shared class SelfReference()
         of This|Super|Outer|Package
         extends Expression([]) /* TODO extends Atom? */ {
-    
 }
 
 "The value of this expression is the current instance, and its type is

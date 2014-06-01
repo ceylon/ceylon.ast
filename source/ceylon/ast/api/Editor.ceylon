@@ -40,7 +40,7 @@ shared abstract class Editor() {
         case (is StringLiteral) { return editStringLiteral(that); }
         case (is CharacterLiteral) { return editCharacterLiteral(that); }
         case (is IntegerLiteral) { return editIntegerLiteral(that); }
-        case (is FloatLiteral) { return editFloatLiteral(that); } 
+        case (is FloatLiteral) { return editFloatLiteral(that); }
     }
     shared default Node editNode(Node that) {
         // TODO switch on case types, call appropriate editSubclass(that) function

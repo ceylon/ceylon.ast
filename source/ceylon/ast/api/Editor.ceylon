@@ -63,6 +63,10 @@ shared abstract class Editor() {
             => that.copy();
     shared default This editThis(This that)
             => that.copy();
+    shared default Type editType(Type that) {
+        // TODO switch on case types, call appropriate editSubclass(that) function
+        throw Error("Not yet implemented");
+    }
     shared default UIdentifier editUIdentifier(UIdentifier that)
             => that.copy();
 }

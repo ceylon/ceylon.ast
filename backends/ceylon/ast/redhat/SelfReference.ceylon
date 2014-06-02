@@ -53,17 +53,7 @@ shared This thisToCeylon(JThis \ithis) {
 "Converts a RedHat AST [[Super|JSuper]] to a `ceylon.ast` [[Super]]."
 throws (`class AssertionError`, "If the token type is not `SUPER` or the token text is not `super`.")
 shared Super superToCeylon(JSuper \isuper) {
-    "Workaround for [ceylon/ceylon-compiler#1658](https://github.com/ceylon/ceylon-compiler/issues/1658):
-     The JVM doesn’t handle member operations on variables named `super` very well."
-    void ceylonCompiler1658Workaround(JSuper theSuper) {
-        assert (theSuper.mainToken.type == superType, theSuper.mainToken.text == "super");
-    }
-    ceylonCompiler1658Workaround(\isuper);
-    /*
-     TODO: use
-     assert (\isuper.mainToken.type == superType, \isuper.mainToken.text == "super");
-     instead when ceylon/ceylon-compiler#1658 is fixed
-     */
+    assert (\isuper.mainToken.type == superType, \isuper.mainToken.text == "super");
     return superInstance;
 }
 

@@ -107,8 +107,6 @@ shared JOuter outerFromCeylon(Outer \iouter, TokenFactory tokens)
 shared JPackage packageFromCeylon(Package \ipackage, TokenFactory tokens)
         => JPackage(tokens.token("package", packageType));
 
-// TODO the compile functions don’t work because the lexer returns LIDENTIFIER tokens
-
 "Compiles the given [[code]] for a Self Reference
  into a [[SelfReference]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."

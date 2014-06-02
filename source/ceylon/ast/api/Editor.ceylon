@@ -67,6 +67,8 @@ shared abstract class Editor() {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
+    shared default TypeNameWithArguments editTypeNameWithArguments(TypeNameWithArguments that)
+            => that.copy();
     shared default UIdentifier editUIdentifier(UIdentifier that)
             => that.copy();
 }

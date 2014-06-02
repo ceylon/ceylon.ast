@@ -28,5 +28,6 @@ shared abstract class Visitor() {
     shared default void visitSuper(Super that) => visitSelfReference(that);
     shared default void visitThis(This that) => visitSelfReference(that);
     shared default void visitType(Type that) => visitNode(that);
+    shared default void visitTypeNameWithArguments(TypeNameWithArguments that) => visitType(that);
     shared default void visitUIdentifier(UIdentifier that) => visitIdentifier(that);
 }

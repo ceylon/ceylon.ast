@@ -1,6 +1,8 @@
+"Workaround for [ceylon/ceylon-compiler#1665](https://github.com/ceylon/ceylon-compiler/issues/1665)"
+<Type|TypeName>[] bug1665Workaround2(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
 "The basis of the type node hierarchy: A type name with optional type arguments."
 shared class TypeNameWithArguments(name, arguments)
-        extends Type([name, *(arguments else [])]) {
+        extends Type(bug1665Workaround2(name, arguments)) { // TODO extends Type([name, *(arguments else [])]) {
     
     "The type name."
     shared TypeName name;

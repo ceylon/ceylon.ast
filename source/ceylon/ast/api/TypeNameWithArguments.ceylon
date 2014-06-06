@@ -12,24 +12,6 @@ shared class TypeNameWithArguments(name, arguments)
     shared actual void visit(Visitor visitor) => visitor.visitTypeNameWithArguments(this);
     shared actual Node edit(Editor editor) => editor.editTypeNameWithArguments(this);
     
-    shared actual String toCeylonExpression() {
-        if (exists arguments) {
-            if (arguments.empty) {
-                return "TypeNameWithArguments(``name.ceylonExpression``, [])";
-            } else {
-                return
-                "TypeNameWithArguments {
-                     name = ``name.ceylonExpression``;
-                     arguments = [
-                     ``"\n".join({ for (argument in arguments) ("        " + argument.ceylonExpression) })``
-                     ];
-                 }";
-            }
-        } else {
-            return "TypeNameWithArguments(``name.ceylonExpression``, null)";
-        }
-    }
-    
     shared actual Boolean equals(Object that) {
         if (is TypeNameWithArguments that) {
             if (name != that.name) {

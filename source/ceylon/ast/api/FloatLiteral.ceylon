@@ -25,8 +25,6 @@ shared class FloatLiteral(text) extends Literal(text) {
     visit(Visitor visitor) => visitor.visitFloatLiteral(this);
     edit(Editor editor) => editor.editFloatLiteral(this);
     
-    toCeylonExpression() => "FloatLiteral(\"``text``\")";
-    
     "Float literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same [[float]] values but different representations
      (grouping, magnitude, leading and/or trailing zeroes, and/or radix differ) are considered different."

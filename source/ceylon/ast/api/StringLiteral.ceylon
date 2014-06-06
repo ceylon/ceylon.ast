@@ -20,8 +20,6 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     visit(Visitor visitor) => visitor.visitStringLiteral(this);
     edit(Editor editor) => editor.editStringLiteral(this);
     
-    toCeylonExpression() => "StringLiteral(\"\"\"``text``\"\"\", ``isVerbatim``)";
-    
     shared actual Boolean equals(Object other) {
         if (is StringLiteral other) {
             return isVerbatim == other.isVerbatim && text == other.text;

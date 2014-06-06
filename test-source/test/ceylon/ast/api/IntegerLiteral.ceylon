@@ -43,5 +43,5 @@ shared void integerLiteralCopy() {
 
 test
 shared void integerLiteralCeylonExpression() {
-    assert (IntLit("#7EA_BABE").ceylonExpression in { for (quotes in { "\"", "\"\"\"" }) "IntegerLiteral(``quotes``#7EA_BABE``quotes``)" });
+    assert (IntLit("#7EA_BABE").string in { for (quotes in { "\"", "\"\"\"" }) "IntegerLiteral(``quotes``#7EA_BABE``quotes``)" });
 }

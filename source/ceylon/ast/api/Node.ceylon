@@ -5,10 +5,6 @@
 shared abstract class Node(children) extends Object()
 /* TODO case types */ {
     
-    "Cache of [[toCeylonExpression]] for [[ceylonExpression]]."
-    see (`function toCeylonExpression`, `value ceylonExpression`)
-    variable String? ceylonExpression_cache = null;
-    
     "The child nodes of this node."
     shared default Node[] children;
     
@@ -31,26 +27,15 @@ shared abstract class Node(children) extends Object()
     shared Node[] editChildren(Editor editor)
             => children.collect((Node node) => node.edit(editor));
     
-    "Returns a Ceylon expression that evaluates to a copy of this node.
-     
-     Note: do not call this method directly, as it can be expensive;
-     instead, use [[ceylonExpression]], which caches the result
-     after it has been calculated once."
-    see (`value ceylonExpression`)
-    shared formal String toCeylonExpression();
-    "A Ceylon expression that evaluates to a copy of this node."
-    see (`function toCeylonExpression`)
-    shared String ceylonExpression {
-        if (exists cache = ceylonExpression_cache) {
-            return cache;
-        }
-        value expression = toCeylonExpression();
-        ceylonExpression_cache = expression;
-        return expression;
-    }
     "A developer-friendly string representing the instance.
      
-     At the moment, this is [[ceylonExpression]], but this may change in the future;
-     for anything other than diagnostic information, use [[ceylonExpression]] or one of the other attributes directly."
-    shared actual String string => ceylonExpression;
+     At the moment, this is a Ceylon expression (created by [[CeylonExpressionVisitor]]), but this may change in the future;
+     for anything other than diagnostic information, use [[CeylonExpressionVisitor]] or one of the other attributes directly."
+    shared actual String string {
+        // TODO investigate performance for big nodes. Should we cache the result?
+        // (not all that useful since CEV won’t use the cached result for sub-nodes.)
+        value cev = CeylonExpressionVisitor();
+        visit(cev);
+        return cev.string;
+    }
 }

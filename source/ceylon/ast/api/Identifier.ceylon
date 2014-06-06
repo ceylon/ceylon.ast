@@ -61,8 +61,6 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     visit(Visitor visitor) => visitor.visitLIdentifier(this);
     edit(Editor editor) => editor.editLIdentifier(this);
     
-    toCeylonExpression() => "LIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
-    
     shared actual Boolean equals(Object other) {
         if (is LIdentifier other) {
             return name == other.name;
@@ -91,8 +89,6 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     visit(Visitor visitor) => visitor.visitUIdentifier(this);
     edit(Editor editor) => editor.editUIdentifier(this);
-    
-    toCeylonExpression() => "UIdentifier(\"\"\"``name``\"\"\"" + (enforcePrefix then ", true)" else ")");
     
     shared actual Boolean equals(Object other) {
         if (is UIdentifier other) {

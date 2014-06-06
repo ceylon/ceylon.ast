@@ -22,5 +22,5 @@ shared void characterLiteralCopy() {
 
 test
 shared void characterLiteralCeylonExpression() {
-    assert (CharacterLiteral("c").ceylonExpression == "CharacterLiteral(\"\"\"c\"\"\")");
+    assert (CharacterLiteral("c").string == "CharacterLiteral(\"\"\"c\"\"\")");
 }

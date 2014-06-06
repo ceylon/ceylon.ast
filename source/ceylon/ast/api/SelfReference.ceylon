@@ -20,7 +20,6 @@ shared class This() extends SelfReference() {
     shared This copy() => this;
     visit(Visitor visitor) => visitor.visitThis(this);
     edit(Editor editor) => editor.editThis(this);
-    toCeylonExpression() => "This()";
     equals(Object that) => that is This;
 }
 shared This thisInstance = This();
@@ -36,7 +35,6 @@ shared class Super() extends SelfReference() {
     shared Super copy() => this;
     visit(Visitor visitor) => visitor.visitSuper(this);
     edit(Editor editor) => editor.editSuper(this);
-    toCeylonExpression() => "Super()";
     equals(Object that) => that is Super;
 }
 shared Super superInstance = Super();
@@ -52,7 +50,6 @@ shared class Outer() extends SelfReference() {
     shared Outer copy() => this;
     visit(Visitor visitor) => visitor.visitOuter(this);
     edit(Editor editor) => editor.editOuter(this);
-    toCeylonExpression() => "Outer()";
     equals(Object that) => that is Outer;
 }
 shared Outer outerInstance = Outer();
@@ -67,7 +64,6 @@ shared class Package() extends SelfReference() {
     shared Package copy() => this;
     visit(Visitor visitor) => visitor.visitPackage(this);
     edit(Editor editor) => editor.editPackage(this);
-    toCeylonExpression() => "Package()";
     equals(Object that) => that is Package;
 }
 shared Package packageInstance = Package();

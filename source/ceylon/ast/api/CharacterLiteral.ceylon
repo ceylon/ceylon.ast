@@ -13,8 +13,6 @@ shared class CharacterLiteral(text) extends Literal(text) {
     visit(Visitor visitor) => visitor.visitCharacterLiteral(this);
     edit(Editor editor) => editor.editCharacterLiteral(this);
     
-    toCeylonExpression() => "CharacterLiteral(\"\"\"``text``\"\"\")";
-    
     shared actual Boolean equals(Object other) {
         if (is CharacterLiteral other) {
             return text == other.text;

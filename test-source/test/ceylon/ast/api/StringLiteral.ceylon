@@ -31,5 +31,5 @@ shared void stringLiteralCopy() {
 
 test
 shared void stringLiteralCeylonExpression() {
-    assert (StringLiteral("c").ceylonExpression in { for (isVerbatim in { "", ", false" }) "StringLiteral(\"\"\"c\"\"\"``isVerbatim``)" });
+    assert (StringLiteral("c").string in { for (isVerbatim in { "", ", false" }) "StringLiteral(\"\"\"c\"\"\"``isVerbatim``)" });
 }

@@ -40,5 +40,5 @@ shared void floatLiteralCopy() {
 
 test
 shared void floatLiteralCeylonExpression() {
-    assert (FloatLiteral("0.042k").ceylonExpression in { for (quotes in { "\"", "\"\"\"" }) "FloatLiteral(``quotes``0.042k``quotes``)" });
+    assert (FloatLiteral("0.042k").string in { for (quotes in { "\"", "\"\"\"" }) "FloatLiteral(``quotes``0.042k``quotes``)" });
 }

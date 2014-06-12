@@ -2,8 +2,10 @@
  There is one method per AST node; override the methods for which you need to change the AST,
  and leave the others untouched.
  
- The default operation for all node types is to create a copy of the node, with editing results
- of the children as the new children. By itself, an [[Editor]] will not actually edit the AST –
+ The default operation for “bottom“ node types’ methods is to copy the node, editing the children.
+ (The default operation for non-“bottom” node types’ methods is inherited from [[NarrowingTransformer]],
+ see there.)
+ By itself, an [[Editor]] will not actually edit the AST –
  it’s only scaffolding that allows you to easily edit parts of the AST without having to bother with
  the deep nesting of the nodes.
  
@@ -19,56 +21,56 @@
  Note that this deep copy of the AST can be expensive; if you know that you will not touch
  certain parts of the AST – for example, you only edit method names, and never instructions –
  you might want to override some methods to `return this` instead of a deep copy
- (in this example, override [[visitBody]])."
-shared abstract class Editor() {
-    shared default CharacterLiteral editCharacterLiteral(CharacterLiteral that)
+ (in this example, override [[transformBody]])."
+shared abstract class Editor() extends NarrowingTransformer<Node>() {
+    shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
-    shared default CompilationUnit editCompilationUnit(CompilationUnit that) {
+    shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
-    shared default FloatLiteral editFloatLiteral(FloatLiteral that)
+    shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
-    shared default Identifier editIdentifier(Identifier that)
+    shared actual default Identifier transformIdentifier(Identifier that)
             => that.copy();
-    shared default IntegerLiteral editIntegerLiteral(IntegerLiteral that)
+    shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
-    shared default LIdentifier editLIdentifier(LIdentifier that)
+    shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
-    shared default Literal editLiteral(Literal that) {
+    shared actual default Literal transformLiteral(Literal that) {
         switch (that)
-        case (is StringLiteral) { return editStringLiteral(that); }
-        case (is CharacterLiteral) { return editCharacterLiteral(that); }
-        case (is IntegerLiteral) { return editIntegerLiteral(that); }
-        case (is FloatLiteral) { return editFloatLiteral(that); }
+        case (is StringLiteral) { return transformStringLiteral(that); }
+        case (is CharacterLiteral) { return transformCharacterLiteral(that); }
+        case (is IntegerLiteral) { return transformIntegerLiteral(that); }
+        case (is FloatLiteral) { return transformFloatLiteral(that); }
     }
-    shared default Node editNode(Node that) {
+    shared actual default Node transformNode(Node that) {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
-    shared default Outer editOuter(Outer that)
+    shared actual default Outer transformOuter(Outer that)
             => that.copy();
-    shared default Package editPackage(Package that)
+    shared actual default Package transformPackage(Package that)
             => that.copy();
-    shared default SelfReference editSelfReference(SelfReference that) {
+    shared actual default SelfReference transformSelfReference(SelfReference that) {
         switch (that)
-        case (is This) { return editThis(that); }
-        case (is Super) { return editSuper(that); }
-        case (is Outer) { return editOuter(that); }
-        case (is Package) { return editPackage(that); }
+        case (is This) { return transformThis(that); }
+        case (is Super) { return transformSuper(that); }
+        case (is Outer) { return transformOuter(that); }
+        case (is Package) { return transformPackage(that); }
     }
-    shared default StringLiteral editStringLiteral(StringLiteral that)
+    shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
-    shared default Super editSuper(Super that)
+    shared actual default Super transformSuper(Super that)
             => that.copy();
-    shared default This editThis(This that)
+    shared actual default This transformThis(This that)
             => that.copy();
-    shared default Type editType(Type that) {
+    shared actual default Type transformType(Type that) {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
-    shared default TypeNameWithArguments editTypeNameWithArguments(TypeNameWithArguments that)
+    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that)
             => that.copy();
-    shared default UIdentifier editUIdentifier(UIdentifier that)
+    shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
 }

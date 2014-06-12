@@ -5,14 +5,14 @@ import ceylon.ast.api {
     StringLiteral
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     stringLiteralToCeylon,
-    stringLiteralFromCeylon,
     compile=compileStringLiteral
 }
 
 test
 shared void stringLiteral()
-        => testConversion(stringLiteralFromCeylon, stringLiteralToCeylon,
+        => testConversion(RedHatTransformer.transformStringLiteral, stringLiteralToCeylon,
     StringLiteral("\{LATIN CAPITAL LETTER C}", false),
     StringLiteral("\\{LATIN CAPITAL LETTER C}", false),
     StringLiteral("\{LATIN CAPITAL LETTER C}", true),

@@ -8,24 +8,29 @@ shared abstract class Node(children) extends Object()
     "The child nodes of this node."
     shared default Node[] children;
     
+    "Transform this node with the given [[transformer]] by calling the appropriate
+     `transformX` method on the transformer.
+     
+     If you have a `Node node` that’s actually an [[LIdentifier]] instance, then the
+     runtime will call `LIdentifier.transform`; therefore, this method is by nature *narrowing*.
+     This means that if [[transformer]] is a [[NarrowingTransformer]], calling
+     `node.transform(transformer)` is equivalent to calling `transformer.transformNode(node)`.
+     On the other hand, if [[transformer]] is a [[WideningTransformer]], then the two
+     operations are very different."
+    see (`class NarrowingTransformer`, `class WideningTransformer`)
+    shared formal Result transform<out Result>(Transformer<Result> transformer);
+    "Transform all [[child nodes|children]] by calling their [[transform]] methods."
+    shared Result[] transformChildren<out Result>(Transformer<Result> transformer) => [
+        for (child in children)
+            child.transform(transformer)
+    ];
+    
     "Visit this node with the given [[visitor]].
      Calls the appropriate `visitX` method on the visitor."
-    shared formal void visit(Visitor visitor);
+    shared void visit(Visitor visitor) => transform(visitor);
     "Visit the children of this node with the given [[visitor]].
      Calls [[visit]] on each [[child node|children]]."
-    shared void visitChildren(Visitor visitor) {
-        for (child in children) {
-            child.visit(visitor);
-        }
-    }
-    
-    "Edit this node with the given [[editor]], and return the edited copy.
-     Calls the appropriate `editX` method on the editor and returns its result."
-    shared formal Node edit(Editor editor);
-    "Edit the children of this node with the given [[editor]].
-     Calls [[edit]] on each [[child node|children]]."
-    shared Node[] editChildren(Editor editor)
-            => children.collect((Node node) => node.edit(editor));
+    shared void visitChildren(Visitor visitor) => transformChildren(visitor);
     
     "A developer-friendly string representing the instance.
      

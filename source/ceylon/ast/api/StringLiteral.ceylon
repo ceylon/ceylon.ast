@@ -17,8 +17,8 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
      this makes your code more robust, especially if the [[text]] is coming from an external source."
     shared Boolean isVerbatim;
     
-    visit(Visitor visitor) => visitor.visitStringLiteral(this);
-    edit(Editor editor) => editor.editStringLiteral(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformStringLiteral(this);
     
     shared actual Boolean equals(Object other) {
         if (is StringLiteral other) {

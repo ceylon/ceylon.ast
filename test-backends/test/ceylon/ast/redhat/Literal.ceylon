@@ -8,14 +8,14 @@ import ceylon.ast.api {
     FloatLiteral
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     literalToCeylon,
-    literalFromCeylon,
     compile=compileLiteral
 }
 
 test
 shared void literal()
-        => testConversion(literalFromCeylon, literalToCeylon,
+        => testConversion(RedHatTransformer.transformLiteral, literalToCeylon,
     StringLiteral("Hello, World!"),
     StringLiteral("\\{WHITE SMILING FACE}"),
     StringLiteral("ceylon.ast", true),

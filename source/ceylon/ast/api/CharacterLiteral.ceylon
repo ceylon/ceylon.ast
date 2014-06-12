@@ -10,8 +10,8 @@ shared class CharacterLiteral(text) extends Literal(text) {
      i. e. either a single character or an escape sequence."
     shared actual String text;
     
-    visit(Visitor visitor) => visitor.visitCharacterLiteral(this);
-    edit(Editor editor) => editor.editCharacterLiteral(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformCharacterLiteral(this);
     
     shared actual Boolean equals(Object other) {
         if (is CharacterLiteral other) {

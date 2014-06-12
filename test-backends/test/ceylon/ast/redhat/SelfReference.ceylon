@@ -8,14 +8,14 @@ import ceylon.ast.api {
     Package
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     selfReferenceToCeylon,
-    selfReferenceFromCeylon,
     compile=compileSelfReference
 }
 
 test
 shared void selfReference()
-        => testConversion(selfReferenceFromCeylon, selfReferenceToCeylon,
+        => testConversion(RedHatTransformer.transformSelfReference, selfReferenceToCeylon,
     This(),
     Super(),
     Outer(),

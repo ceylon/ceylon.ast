@@ -23,8 +23,8 @@ shared class IntegerLiteral(text) extends Literal(text) {
     assert (exists _integer = parseInteger(radix == 10 then text else text.rest, radix));
     integer = _integer;
     
-    visit(Visitor visitor) => visitor.visitIntegerLiteral(this);
-    edit(Editor editor) => editor.editIntegerLiteral(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformIntegerLiteral(this);
     
     "Integer literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same [[integer]] values but different representations

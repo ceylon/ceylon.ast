@@ -49,15 +49,6 @@ shared Literal literalToCeylon(JLiteral literal) {
     }
 }
 
-"Converts a `ceylon.ast` [[Literal]] to a RedHat AST [[Literal|JLiteral]]."
-shared JLiteral literalFromCeylon(Literal literal, TokenFactory tokens) {
-    switch (literal)
-    case (is StringLiteral) { return stringLiteralFromCeylon(literal, tokens); }
-    case (is CharacterLiteral) { return characterLiteralFromCeylon(literal, tokens); }
-    case (is IntegerLiteral) { return integerLiteralFromCeylon(literal, tokens); }
-    case (is FloatLiteral) { return floatLiteralFromCeylon(literal, tokens); }
-}
-
 "Compiles the given [[code]] for a Literal
  into a [[Literal]] using the Ceylon compiler
  (more specifically, the rules for a `stringLiteral` and a `nonstringLiteral`)."

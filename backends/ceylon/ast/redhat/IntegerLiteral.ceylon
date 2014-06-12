@@ -19,10 +19,6 @@ shared IntegerLiteral integerLiteralToCeylon(JIntegerLiteral integerLiteral) {
     return IntegerLiteral(integerLiteral.text);
 }
 
-"Converts a `ceylon.ast` [[IntegerLiteral]] to a RedHat AST [[NaturalLiteral|JIntegerLiteral]]."
-shared JIntegerLiteral integerLiteralFromCeylon(IntegerLiteral integerLiteral, TokenFactory tokens)
-        => JIntegerLiteral(tokens.token(integerLiteral.text, naturalLiteral));
-
 "Compiles the given [[code]] for an Integer Literal
  into an [[IntegerLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonstringLiteral`)."

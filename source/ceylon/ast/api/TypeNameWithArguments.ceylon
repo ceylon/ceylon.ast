@@ -9,8 +9,8 @@ shared class TypeNameWithArguments(name, arguments)
     "The type arguments, if any."
     shared TypeArguments? arguments;
     
-    shared actual void visit(Visitor visitor) => visitor.visitTypeNameWithArguments(this);
-    shared actual Node edit(Editor editor) => editor.editTypeNameWithArguments(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformTypeNameWithArguments(this);
     
     shared actual Boolean equals(Object that) {
         if (is TypeNameWithArguments that) {

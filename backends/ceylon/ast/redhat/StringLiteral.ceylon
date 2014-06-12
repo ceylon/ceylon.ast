@@ -27,12 +27,6 @@ shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral) {
     }
 }
 
-"Converts a `ceylon.ast` [[StringLiteral]] to a RedHat AST [[StringLiteral|JStringLiteral]]."
-shared JStringLiteral stringLiteralFromCeylon(StringLiteral stringLiteral, TokenFactory tokens) {
-    value quotes = stringLiteral.isVerbatim then "\"\"\"" else "\"";
-    return JStringLiteral(tokens.token(quotes + stringLiteral.text + quotes, stringLiteral.isVerbatim then verbatim_string_literal else string_literal));
-}
-
 "Compiles the given [[code]] for a String Literal
  into a [[StringLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `stringLiteral`)."

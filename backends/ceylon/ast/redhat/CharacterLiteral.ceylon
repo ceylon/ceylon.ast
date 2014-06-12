@@ -19,10 +19,6 @@ shared CharacterLiteral characterLiteralToCeylon(JCharacterLiteral characterLite
     return CharacterLiteral(characterLiteral.text[1 .. characterLiteral.text.size - 2]);
 }
 
-"Converts a `ceylon.ast` [[CharacterLiteral]] to a RedHat AST [[CharLiteral|JCharacterLiteral]]."
-shared JCharacterLiteral characterLiteralFromCeylon(CharacterLiteral characterLiteral, TokenFactory tokens)
-        => JCharacterLiteral(tokens.token("'``characterLiteral.text``'", character_literal));
-
 "Compiles the given [[code]] for a Character Literal
  into a [[CharacterLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonStringLiteral`)."

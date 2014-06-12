@@ -19,10 +19,6 @@ shared FloatLiteral floatLiteralToCeylon(JFloatLiteral floatLiteral) {
     return FloatLiteral(floatLiteral.text);
 }
 
-"Converts a `ceylon.ast` [[FloatLiteral]] to a RedHat AST [[FloatLiteral|JFloatLiteral]]."
-shared JFloatLiteral floatLiteralFromCeylon(FloatLiteral floatLiteral, TokenFactory tokens)
-        => JFloatLiteral(tokens.token(floatLiteral.text, float_literal));
-
 "Compiles the given [[code]] for a Float Literal
  into a [[FloatLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonStringLiteral`)."

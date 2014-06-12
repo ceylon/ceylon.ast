@@ -5,8 +5,8 @@
 shared class CompilationUnit() extends Node([]) {
     // TODO implement
     
-    visit(Visitor visitor) => visitor.visitCompilationUnit(this);
-    edit(Editor editor) => editor.editCompilationUnit(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformCompilationUnit(this);
     
     shared actual Boolean equals(Object other) {
         if (is CompilationUnit other) {

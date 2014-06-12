@@ -5,17 +5,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node
 }
 import ceylon.ast.redhat {
-    TokenFactory
+    RedHatTransformer
 }
 import ceylon.test {
     assertEquals
 }
 
-void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(CeylonAstType node, TokenFactory tokens), CeylonAstType toCeylon(RedHatType node), CeylonAstType+ nodes)
-        given CeylonAstType satisfies Node
-        given RedHatType satisfies JNode {
+void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node), CeylonAstType+ nodes)
+        given CeylonAstType satisfies Node {
     for (node in nodes) {
-        assertEquals(toCeylon(fromCeylon(node, SimpleTokenFactory())), node, "Double parse of ``node``");
+        assertEquals(toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node)), node, "Double parse of ``node``");
     }
 }
 

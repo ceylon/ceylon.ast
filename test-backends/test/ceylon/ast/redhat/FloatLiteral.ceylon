@@ -5,14 +5,14 @@ import ceylon.ast.api {
     FloatLiteral
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     floatLiteralToCeylon,
-    floatLiteralFromCeylon,
     compile=compileFloatLiteral
 }
 
 test
 shared void floatLiteral()
-        => testConversion(floatLiteralFromCeylon, floatLiteralToCeylon,
+        => testConversion(RedHatTransformer.transformFloatLiteral, floatLiteralToCeylon,
     FloatLiteral("0.042k"),
     FloatLiteral("10.1010")
 );

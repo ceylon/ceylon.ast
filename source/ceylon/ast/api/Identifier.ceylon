@@ -58,8 +58,8 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             = enforcePrefix || first.uppercase || name in keywords;
     prefix = "\\i";
     
-    visit(Visitor visitor) => visitor.visitLIdentifier(this);
-    edit(Editor editor) => editor.editLIdentifier(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformLIdentifier(this);
     
     shared actual Boolean equals(Object other) {
         if (is LIdentifier other) {
@@ -87,8 +87,8 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
             = enforcePrefix || first.lowercase || first == '_' /* || name in keywords */; // there are no uppercase keywords
     prefix = "\\I";
     
-    visit(Visitor visitor) => visitor.visitUIdentifier(this);
-    edit(Editor editor) => editor.editUIdentifier(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformUIdentifier(this);
     
     shared actual Boolean equals(Object other) {
         if (is UIdentifier other) {

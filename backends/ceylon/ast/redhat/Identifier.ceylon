@@ -33,17 +33,6 @@ shared Identifier identifierToCeylon(JIdentifier identifier) {
     }
 }
 
-"Converts a `ceylon.ast` [[Identifier]] to a RedHat AST [[Identifier|JIdentifier]]."
-shared JIdentifier identifierFromCeylon(Identifier identifier, TokenFactory tokens) {
-    switch (identifier)
-    case (is LIdentifier) {
-        return JIdentifier(tokens.token(identifier.name, lidentifier, identifier.usePrefix then identifier.name.size + 2 else identifier.name.size));
-    }
-    case (is UIdentifier) {
-        return JIdentifier(tokens.token(identifier.name, uidentifier, identifier.usePrefix then identifier.name.size + 2 else identifier.name.size));
-    }
-}
-
 "Compiles the given [[code]] for an Identifier
  into an [[Identifier]] using the Ceylon compiler
  (more specifically, the rule for an Import Name)."

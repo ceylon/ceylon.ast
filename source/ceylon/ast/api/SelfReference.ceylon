@@ -18,8 +18,8 @@ abstract shared class SelfReference()
 shared class This() extends SelfReference() {
     hash = 1;
     shared This copy() => this;
-    visit(Visitor visitor) => visitor.visitThis(this);
-    edit(Editor editor) => editor.editThis(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformThis(this);
     equals(Object that) => that is This;
 }
 shared This thisInstance = This();
@@ -33,8 +33,8 @@ shared This thisInstance = This();
 shared class Super() extends SelfReference() {
     hash = 2;
     shared Super copy() => this;
-    visit(Visitor visitor) => visitor.visitSuper(this);
-    edit(Editor editor) => editor.editSuper(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformSuper(this);
     equals(Object that) => that is Super;
 }
 shared Super superInstance = Super();
@@ -48,8 +48,8 @@ shared Super superInstance = Super();
 shared class Outer() extends SelfReference() {
     hash = 3;
     shared Outer copy() => this;
-    visit(Visitor visitor) => visitor.visitOuter(this);
-    edit(Editor editor) => editor.editOuter(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformOuter(this);
     equals(Object that) => that is Outer;
 }
 shared Outer outerInstance = Outer();
@@ -62,8 +62,8 @@ shared Outer outerInstance = Outer();
 shared class Package() extends SelfReference() {
     hash = 4;
     shared Package copy() => this;
-    visit(Visitor visitor) => visitor.visitPackage(this);
-    edit(Editor editor) => editor.editPackage(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformPackage(this);
     equals(Object that) => that is Package;
 }
 shared Package packageInstance = Package();

@@ -5,14 +5,14 @@ import ceylon.ast.api {
     IntegerLiteral
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     integerLiteralToCeylon,
-    integerLiteralFromCeylon,
     compile=compileIntegerLiteral
 }
 
 test
 shared void integerLiteral()
-        => testConversion(integerLiteralFromCeylon, integerLiteralToCeylon,
+        => testConversion(RedHatTransformer.transformIntegerLiteral, integerLiteralToCeylon,
     IntegerLiteral("1138"),
     IntegerLiteral("#7EA_BABE"),
     IntegerLiteral("$101010")

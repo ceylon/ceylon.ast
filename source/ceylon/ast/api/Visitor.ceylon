@@ -11,23 +11,42 @@
  Thus, the default visitor will already traverse the AST fully,
  and if you need to perform some operation only for some node type that might appear
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
-shared abstract class Visitor() {
-    shared default void visitCharacterLiteral(CharacterLiteral that) => visitLiteral(that);
-    shared default void visitCompilationUnit(CompilationUnit that) => visitNode(that);
-    shared default void visitExpression(Expression that) => visitNode(that);
-    shared default void visitFloatLiteral(FloatLiteral that) => visitLiteral(that);
-    shared default void visitIdentifier(Identifier that) => visitNode(that);
-    shared default void visitIntegerLiteral(IntegerLiteral that) => visitLiteral(that);
-    shared default void visitLIdentifier(LIdentifier that) => visitIdentifier(that);
-    shared default void visitLiteral(Literal that) => visitExpression(that);
+shared abstract class Visitor() extends WideningTransformer<Anything>() {
+    transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
+    transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
+    transformExpression(Expression that) => visitExpression(that);
+    transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
+    transformIdentifier(Identifier that) => visitIdentifier(that);
+    transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
+    transformLiteral(Literal that) => visitLiteral(that);
+    transformNode(Node that) => visitNode(that);
+    transformOuter(Outer that) => visitOuter(that);
+    transformPackage(Package that) => visitPackage(that);
+    transformSelfReference(SelfReference that) => visitSelfReference(that);
+    transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
+    transformSuper(Super that) => visitSuper(that);
+    transformThis(This that) => visitThis(that);
+    transformType(Type that) => visitType(that);
+    transformTypeNameWithArguments(TypeNameWithArguments that) => visitTypeNameWithArguments(that);
+    transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
+    
+    shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
+    shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
+    shared default void visitExpression(Expression that) => super.transformExpression(that);
+    shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
+    shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
+    shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
+    shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
+    shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
-    shared default void visitOuter(Outer that) => visitSelfReference(that);
-    shared default void visitPackage(Package that) => visitSelfReference(that);
-    shared default void visitSelfReference(SelfReference that) => visitExpression(that); // TODO visitAtom?
-    shared default void visitStringLiteral(StringLiteral that) => visitLiteral(that);
-    shared default void visitSuper(Super that) => visitSelfReference(that);
-    shared default void visitThis(This that) => visitSelfReference(that);
-    shared default void visitType(Type that) => visitNode(that);
-    shared default void visitTypeNameWithArguments(TypeNameWithArguments that) => visitType(that);
-    shared default void visitUIdentifier(UIdentifier that) => visitIdentifier(that);
+    shared default void visitOuter(Outer that) => super.transformOuter(that);
+    shared default void visitPackage(Package that) => super.transformPackage(that);
+    shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
+    shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
+    shared default void visitSuper(Super that) => super.transformSuper(that);
+    shared default void visitThis(This that) => super.transformThis(that);
+    shared default void visitType(Type that) => super.transformType(that);
+    shared default void visitTypeNameWithArguments(TypeNameWithArguments that) => super.transformTypeNameWithArguments(that);
+    shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
 }

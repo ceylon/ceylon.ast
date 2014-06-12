@@ -22,8 +22,8 @@ shared class FloatLiteral(text) extends Literal(text) {
     assert (exists _float = parseFloat(text));
     float = _float;
     
-    visit(Visitor visitor) => visitor.visitFloatLiteral(this);
-    edit(Editor editor) => editor.editFloatLiteral(this);
+    shared actual Result transform<out Result>(Transformer<Result> transformer)
+            => transformer.transformFloatLiteral(this);
     
     "Float literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same [[float]] values but different representations

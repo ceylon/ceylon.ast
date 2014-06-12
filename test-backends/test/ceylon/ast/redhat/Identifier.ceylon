@@ -6,14 +6,14 @@ import ceylon.ast.api {
     UIdentifier
 }
 import ceylon.ast.redhat {
+    RedHatTransformer,
     identifierToCeylon,
-    identifierFromCeylon,
     compile=compileIdentifier
 }
 
 test
 shared void identifier()
-        => testConversion(identifierFromCeylon, identifierToCeylon,
+        => testConversion(RedHatTransformer.transformIdentifier, identifierToCeylon,
     LIdentifier("lid"),
     UIdentifier("Uid"),
     LIdentifier("Lid"),

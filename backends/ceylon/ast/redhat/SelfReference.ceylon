@@ -71,32 +71,6 @@ shared Package packageToCeylon(JPackage \ipackage) {
     return packageInstance;
 }
 
-"Converts a `ceylon.ast` [[SelfReference]] to a RedHat AST [[SelfExpression|JSelfExpression]],
- [[Outer|JOuter]] or [[Package|JPackage]]."
-shared JSelfExpression|JOuter|JPackage selfReferenceFromCeylon(SelfReference selfReference, TokenFactory tokens) {
-    switch (selfReference)
-    case (is This) { return thisFromCeylon(selfReference, tokens); }
-    case (is Super) { return superFromCeylon(selfReference, tokens); }
-    case (is Outer) { return outerFromCeylon(selfReference, tokens); }
-    case (is Package) { return packageFromCeylon(selfReference, tokens); }
-}
-
-"Converts a `ceylon.ast` [[This]] to a RedHat AST [[This|JThis]]."
-shared JThis thisFromCeylon(This \ithis, TokenFactory tokens)
-        => JThis(tokens.token("this", thisType));
-
-"Converts a `ceylon.ast` [[Super]] to a RedHat AST [[Super|JSuper]]."
-shared JSuper superFromCeylon(Super \isuper, TokenFactory tokens)
-        => JSuper(tokens.token("super", superType));
-
-"Converts a `ceylon.ast` [[Outer]] to a RedHat AST [[Outer|JOuter]]."
-shared JOuter outerFromCeylon(Outer \iouter, TokenFactory tokens)
-        => JOuter(tokens.token("outer", outerType));
-
-"Converts a `ceylon.ast` [[Package]] to a RedHat AST [[Package|JPackage]]."
-shared JPackage packageFromCeylon(Package \ipackage, TokenFactory tokens)
-        => JPackage(tokens.token("package", packageType));
-
 "Compiles the given [[code]] for a Self Reference
  into a [[SelfReference]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."

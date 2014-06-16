@@ -34,13 +34,13 @@ shared abstract class Node(children) extends Object()
     
     "A developer-friendly string representing the instance.
      
-     At the moment, this is a Ceylon expression (created by [[CeylonExpressionVisitor]]), but this may change in the future;
-     for anything other than diagnostic information, use [[CeylonExpressionVisitor]] or one of the other attributes directly."
+     At the moment, this is a Ceylon expression (created by [[CeylonExpressionTransformer]]), but this may change in the future;
+     for anything other than diagnostic information, use [[CeylonExpressionTransformer]] or one of the other attributes directly."
     shared actual String string {
         // TODO investigate performance for big nodes. Should we cache the result?
-        // (not all that useful since CEV won’t use the cached result for sub-nodes.)
-        value cev = CeylonExpressionVisitor();
-        visit(cev);
-        return cev.string;
+        // (not all that useful since CET won’t use the cached result for sub-nodes.)
+        return transform(CeylonExpressionTransformer());
+        // (using the same CET every time might also improve performance)
+        // (but not across multiple nodes! it carries state in its indentation)
     }
 }

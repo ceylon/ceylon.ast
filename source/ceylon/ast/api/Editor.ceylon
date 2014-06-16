@@ -26,8 +26,8 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
-        // TODO switch on case types, call appropriate editSubclass(that) function
-        throw Error("Not yet implemented");
+        assert (is CompilationUnit ret = super.transformCompilationUnit(that));
+        return ret;
     }
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
@@ -38,26 +38,16 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
     shared actual default Literal transformLiteral(Literal that) {
-        switch (that)
-        case (is StringLiteral) { return transformStringLiteral(that); }
-        case (is CharacterLiteral) { return transformCharacterLiteral(that); }
-        case (is IntegerLiteral) { return transformIntegerLiteral(that); }
-        case (is FloatLiteral) { return transformFloatLiteral(that); }
-    }
-    shared actual default Node transformNode(Node that) {
-        // TODO switch on case types, call appropriate editSubclass(that) function
-        throw Error("Not yet implemented");
+        assert (is Literal ret = super.transformLiteral(that));
+        return ret;
     }
     shared actual default Outer transformOuter(Outer that)
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
     shared actual default SelfReference transformSelfReference(SelfReference that) {
-        switch (that)
-        case (is This) { return transformThis(that); }
-        case (is Super) { return transformSuper(that); }
-        case (is Outer) { return transformOuter(that); }
-        case (is Package) { return transformPackage(that); }
+        assert (is SelfReference ret = super.transformSelfReference(that));
+        return ret;
     }
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
@@ -66,8 +56,8 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
     shared actual default This transformThis(This that)
             => that.copy();
     shared actual default Type transformType(Type that) {
-        // TODO switch on case types, call appropriate editSubclass(that) function
-        throw Error("Not yet implemented");
+        assert (is Type ret = super.transformType(that));
+        return ret;
     }
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy();

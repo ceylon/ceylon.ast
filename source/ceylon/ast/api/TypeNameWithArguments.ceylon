@@ -1,9 +1,10 @@
 "Workaround for [ceylon/ceylon-compiler#1665](https://github.com/ceylon/ceylon-compiler/issues/1665)"
 <Type|TypeName>[] bug1665Workaround2(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
-"The basis of the type node hierarchy: A type name with optional type arguments."
-shared class TypeNameWithArguments(name, arguments)
-        extends Type(bug1665Workaround2(name, arguments)) { // TODO extends Type([name, *(arguments else [])]) {
-    
+
+"A type name and, optionally, type arguments."
+see (`class BaseType`/*TODO `class QualifiedType` as well */)
+shared class TypeNameWithArguments(name, arguments = null)
+        extends Node(bug1665Workaround2(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
     "The type name."
     shared TypeName name;
     "The type arguments, if any."
@@ -14,17 +15,14 @@ shared class TypeNameWithArguments(name, arguments)
     
     shared actual Boolean equals(Object that) {
         if (is TypeNameWithArguments that) {
-            if (name != that.name) {
-                return false;
-            }
             if (exists arguments) {
                 if (exists args = that.arguments) {
-                    return arguments == args;
+                    return name == that.name && arguments == args; 
                 } else {
                     return false;
                 }
             } else {
-                return !(that.arguments exists);
+                return !(that.arguments exists) && name == that.name;
             }
         } else {
             return false;
@@ -34,7 +32,7 @@ shared class TypeNameWithArguments(name, arguments)
     shared actual Integer hash {
         variable value hash = 1;
         hash = 31 * hash + name.hash;
-        hash = 31 * hash + (arguments else 0).hash;
+        hash = 31 * hash + (arguments?.hash else 0);
         return hash;
     }
     

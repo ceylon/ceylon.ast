@@ -69,7 +69,7 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
         // TODO switch on case types, call appropriate editSubclass(that) function
         throw Error("Not yet implemented");
     }
-    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that)
+    shared actual default BaseType transformBaseType(BaseType that)
             => that.copy();
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();

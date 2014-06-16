@@ -4,7 +4,7 @@ shared alias TypeArguments => [Type+];
 shared abstract class Type(children)
         /* TODO of UnionedType|EntryType */
         extends Node(children) {
-    shared actual <Type|TypeName>[] children;
+    shared actual <Type|TypeNameWithArguments>[] children;
     
     "Tests for equality of two type nodes.
      

@@ -29,5 +29,6 @@ shared abstract class Transformer<out Result>() {
     shared formal Result transformThis(This that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeNameWithArguments(TypeNameWithArguments that);
+    shared formal Result transformBaseType(BaseType that);
     shared formal Result transformUIdentifier(UIdentifier that);
 }

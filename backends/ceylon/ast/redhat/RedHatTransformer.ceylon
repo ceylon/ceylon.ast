@@ -4,6 +4,7 @@ import ceylon.ast.api {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JBaseType=BaseType,
         JCharacterLiteral=CharLiteral,
         JFloatLiteral=FloatLiteral,
         JIntegerLiteral=NaturalLiteral,
@@ -35,7 +36,24 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     }
 }
 
-shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer<JNode|[JNode?+]>() {
+shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer<JNode>() {
+    shared actual JBaseType transformBaseType(BaseType that) {
+        JTypeArgumentList? typeArgumentList;
+        if (exists arguments = that.nameAndArgs.arguments) {
+            value typeArgList = JTypeArgumentList(null);
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgumentList = typeArgList;
+        } else {
+            typeArgumentList = null;
+        }
+        JBaseType ret = JBaseType(null);
+        ret.identifier = transformUIdentifier(that.nameAndArgs.name);
+        ret.typeArgumentList = typeArgumentList;
+        return ret;
+    }
+    
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
     
@@ -85,12 +103,10 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
         return ret;
     }
     
-    shared actual [JIdentifier, JTypeArgumentList?] transformTypeNameWithArguments(TypeNameWithArguments that) {
-        JTypeArgumentList typeArguments = JTypeArgumentList(null);
-        for (Type type in that.arguments else []) {
-            typeArguments.addType(transformType(type));
-        }
-        return [transformUIdentifier(that.name), typeArguments];
+    "The RedHat AST has no direct equivalent of [[TypeNameWithArguments]];
+     this method throws."
+    shared actual Nothing transformTypeNameWithArguments(TypeNameWithArguments that) {
+        throw Exception("TypeNameWithArguments has no RedHat AST equivalent!");
     }
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)

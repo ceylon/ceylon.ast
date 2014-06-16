@@ -3,6 +3,7 @@
  [[transformNode]], which ([[Node]] being without a superclass) is the only `formal` method left."
 see (`class Visitor`)
 shared abstract class WideningTransformer<out Result>() extends Transformer<Result>() {
+    shared actual default Result transformBaseType(BaseType that) => transformType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
     shared actual default Result transformExpression(Expression that) => transformNode(that);
@@ -18,6 +19,6 @@ shared abstract class WideningTransformer<out Result>() extends Transformer<Resu
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
     shared actual default Result transformType(Type that) => transformNode(that);
-    shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformType(that);
+    shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformNode(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
 }

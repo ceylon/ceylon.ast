@@ -15,6 +15,14 @@ shared class CeylonExpressionVisitor() extends Visitor() {
     
     string => code.string;
     
+    shared actual void visitBaseType(BaseType that) {
+        code.append("BaseType(");
+        value origIndent = indent;
+        indent += "    ";
+        that.nameAndArgs.visit(this);
+        indent = origIndent;
+        code.append(")");
+    }
     visitCharacterLiteral(CharacterLiteral that) => code.append("CharacterLiteral(\"\"\"``that.text``\"\"\")");
     visitCompilationUnit(CompilationUnit that) => code.append("CompilationUnit()");
     visitFloatLiteral(FloatLiteral that) => code.append("FloatLiteral(\"``that.text``\")");

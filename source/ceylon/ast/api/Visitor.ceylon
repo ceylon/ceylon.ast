@@ -12,6 +12,7 @@
  and if you need to perform some operation only for some node type that might appear
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared abstract class Visitor() extends WideningTransformer<Anything>() {
+    transformBaseType(BaseType that) => visitBaseType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformExpression(Expression that) => visitExpression(that);
@@ -31,6 +32,7 @@ shared abstract class Visitor() extends WideningTransformer<Anything>() {
     transformTypeNameWithArguments(TypeNameWithArguments that) => visitTypeNameWithArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     
+    shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);

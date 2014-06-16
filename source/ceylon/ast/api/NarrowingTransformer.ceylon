@@ -8,8 +8,10 @@ shared abstract class NarrowingTransformer<out Result>() extends Transformer<Res
         throw Error("Not yet implemented!");
     }
     shared actual default Result transformExpression(Expression that) {
-        // TODO switch on case types, call appropriate transformSubclass(that)
-        throw Error("Not yet implemented!");
+        switch (that)
+        case (is Literal) { return transformLiteral(that); }
+        case (is SelfReference) { return transformSelfReference(that); }
+        else { throw Error("Not yet implemented!"); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -35,7 +37,8 @@ shared abstract class NarrowingTransformer<out Result>() extends Transformer<Res
         case (is Package) { return transformPackage(that); }
     }
     shared actual default Result transformType(Type that) {
-        // TODO switch on case types, call appropriate transformSubclass(that)
-        throw Error("Not yet implemented!");
+        switch (that)
+        case (is BaseType) { return transformBaseType(that); }
+        else { throw Error("Not yet implemented!"); }
     }
 }

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Type typeToCeylon(JType type) {
     switch (type)
     case (is JBaseType) {
-        return typeNameWithArgumentsToCeylon([type.identifier, type.typeArgumentList]);
+        return baseTypeToCeylon(type);
     }
     else {
         throw Error("Not yet implemented!"); // TODO

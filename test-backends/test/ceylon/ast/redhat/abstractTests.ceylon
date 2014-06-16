@@ -12,7 +12,8 @@ import ceylon.test {
 }
 
 void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node), CeylonAstType+ nodes)
-        given CeylonAstType satisfies Node {
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
     for (node in nodes) {
         assertEquals(toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node)), node, "Double parse of ``node``");
     }

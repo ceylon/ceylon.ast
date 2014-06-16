@@ -2,7 +2,7 @@ shared alias TypeArguments => [Type+];
 
 "Representation of a type."
 shared abstract class Type(children)
-        /* TODO of UnionedType|EntryType */
+/* TODO of UnionedType|EntryType */
         extends Node(children) {
     shared actual <Type|TypeNameWithArguments>[] children;
     

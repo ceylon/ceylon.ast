@@ -2,7 +2,7 @@
 <Type|TypeName>[] bug1665Workaround1(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
 
 "A type name and, optionally, type arguments."
-see (`class BaseType`/*TODO `class QualifiedType` as well */)
+see (`class BaseType`, `class QualifiedType`)
 shared class TypeNameWithArguments(name, arguments = null)
         extends Node(bug1665Workaround1(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
     "The type name."
@@ -17,7 +17,7 @@ shared class TypeNameWithArguments(name, arguments = null)
         if (is TypeNameWithArguments that) {
             if (exists arguments) {
                 if (exists args = that.arguments) {
-                    return name == that.name && arguments == args; 
+                    return name == that.name && arguments == args;
                 } else {
                     return false;
                 }

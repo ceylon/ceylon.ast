@@ -36,9 +36,14 @@ shared abstract class NarrowingTransformer<out Result>() extends Transformer<Res
         case (is Outer) { return transformOuter(that); }
         case (is Package) { return transformPackage(that); }
     }
-    shared actual default Result transformType(Type that) {
+    shared actual default Result transformSimpleType(SimpleType that) {
         switch (that)
         case (is BaseType) { return transformBaseType(that); }
+        case (is QualifiedType) { return transformQualifiedType(that); }
+    }
+    shared actual default Result transformType(Type that) {
+        switch (that)
+        case (is SimpleType) { return transformSimpleType(that); }
         else { throw Error("Not yet implemented!"); }
     }
 }

@@ -12,7 +12,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JOuter=Outer,
         JPackage=Package,
+        JQualifiedType=QualifiedType,
         JSelfExpression=SelfExpression,
+        JSimpleType=SimpleType,
         JStringLiteral=StringLiteral,
         JSuper=Super,
         JThis=This,
@@ -81,6 +83,29 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JQualifiedType transformQualifiedType(QualifiedType that) {
+        JTypeArgumentList? typeArgumentList;
+        if (exists arguments = that.nameAndArgs.arguments) {
+            value typeArgList = JTypeArgumentList(null);
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgumentList = typeArgList;
+        } else {
+            typeArgumentList = null;
+        }
+        JQualifiedType ret = JQualifiedType(null);
+        ret.identifier = transformUIdentifier(that.nameAndArgs.name);
+        ret.typeArgumentList = typeArgumentList;
+        ret.outerType = transformSimpleType(that.qualifyingType);
+        return ret;
+    }
+    
+    shared actual JSimpleType transformSimpleType(SimpleType that) {
+        assert (is JSimpleType ret = super.transformSimpleType(that));
+        return ret;
+    }
     
     shared actual JStringLiteral transformStringLiteral(StringLiteral that) {
         value quotes = that.isVerbatim then "\"\"\"" else "\"";

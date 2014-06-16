@@ -1,10 +1,10 @@
 "Workaround for [ceylon/ceylon-compiler#1665](https://github.com/ceylon/ceylon-compiler/issues/1665)"
-<Type|TypeName>[] bug1665Workaround2(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
+<Type|TypeName>[] bug1665Workaround1(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
 
 "A type name and, optionally, type arguments."
 see (`class BaseType`/*TODO `class QualifiedType` as well */)
 shared class TypeNameWithArguments(name, arguments = null)
-        extends Node(bug1665Workaround2(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
+        extends Node(bug1665Workaround1(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
     "The type name."
     shared TypeName name;
     "The type arguments, if any."

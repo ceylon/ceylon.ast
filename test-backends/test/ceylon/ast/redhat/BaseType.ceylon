@@ -11,6 +11,10 @@ import ceylon.ast.redhat {
     baseTypeToCeylon,
     compile=compileBaseType
 }
+import test.ceylon.ast.redhat {
+    testCompilation,
+    testConversion
+}
 
 test
 shared void baseType()

@@ -27,6 +27,25 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
+    shared actual String transformQualifiedType(QualifiedType that) {
+        StringBuilder code = StringBuilder();
+        code.append("QualifiedType {");
+        value origIndent = indent;
+        indent += "    ";
+        code.appendNewline();
+        code.append(indent);
+        code.append("qualifyingType = ");
+        code.append(that.qualifyingType.transform(this));
+        code.append(";");
+        code.appendNewline();
+        code.append(indent);
+        code.append("nameAndArgs = ");
+        code.append(that.nameAndArgs.transform(this));
+        code.append(";");
+        indent = origIndent;
+        code.append("}");
+        return code.string;
+    }
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";
     transformThis(This that) => "This()";

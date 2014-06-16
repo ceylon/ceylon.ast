@@ -49,6 +49,10 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
         assert (is SelfReference ret = super.transformSelfReference(that));
         return ret;
     }
+    shared actual default SimpleType transformSimpleType(SimpleType that) {
+        assert (is SimpleType ret = super.transformSimpleType(that));
+        return ret;
+    }
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
     shared actual default Super transformSuper(Super that)

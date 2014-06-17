@@ -8,7 +8,7 @@
 shared class QualifiedType(qualifyingType, TypeNameWithArguments nameAndArgs)
         extends SimpleType(nameAndArgs) {
     
-    shared SimpleType qualifyingType;
+    shared SimpleType|GroupedType qualifyingType;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedType(this);
@@ -24,6 +24,6 @@ shared class QualifiedType(qualifyingType, TypeNameWithArguments nameAndArgs)
     shared actual Integer hash
             => 31 * nameAndArgs.hash + nameAndArgs.hash;
     
-    shared QualifiedType copy(SimpleType qualifyingtype = this.qualifyingType, TypeNameWithArguments nameAndArgs = this.nameAndArgs)
+    shared QualifiedType copy(SimpleType|GroupedType qualifyingtype = this.qualifyingType, TypeNameWithArguments nameAndArgs = this.nameAndArgs)
             => QualifiedType(qualifyingType, nameAndArgs);
 }

@@ -105,7 +105,7 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
         JQualifiedType ret = JQualifiedType(null);
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
-        ret.outerType = transformSimpleType(that.qualifyingType);
+        ret.outerType = transformType(that.qualifyingType);
         return ret;
     }
     

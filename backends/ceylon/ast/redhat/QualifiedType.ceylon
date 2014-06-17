@@ -1,13 +1,15 @@
 import ceylon.ast.api {
-    TypeArguments,
+    GroupedType,
     QualifiedType,
     SimpleType,
+    TypeArguments,
     TypeName,
     TypeNameWithArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
+        JGroupedType=GroupedType,
         JQualifiedType=QualifiedType
     }
 }
@@ -28,11 +30,12 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     } else {
         arguments = null;
     }
-    SimpleType qualifyingType;
-    assert (is JBaseType|JQualifiedType jQualifyingType = qualifiedType.outerType);
+    SimpleType|GroupedType qualifyingType;
+    assert (is JBaseType|JQualifiedType|JGroupedType jQualifyingType = qualifiedType.outerType);
     switch (jQualifyingType)
-    case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType); }
     case (is JBaseType) { qualifyingType = baseTypeToCeylon(jQualifyingType); }
+    case (is JGroupedType) { qualifyingType = groupedTypeToCeylon(jQualifyingType); }
+    case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType); }
     return QualifiedType(qualifyingType, TypeNameWithArguments(name, arguments));
 }
 

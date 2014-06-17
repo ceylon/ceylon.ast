@@ -1,4 +1,4 @@
-"A [[Transformer]] with the default operation to narrow the type of teh visited subject:
+"A [[Transformer]] with the default operation to narrow the type of the visited subject:
  [[transformIdentifier]] switches on the subject and descends into the `transform` method
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)

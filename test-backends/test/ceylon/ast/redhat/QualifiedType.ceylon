@@ -3,6 +3,7 @@ import ceylon.test {
 }
 import ceylon.ast.api {
     BaseType,
+    GroupedType,
     QualifiedType,
     UIdentifier,
     TypeNameWithArguments
@@ -20,15 +21,23 @@ QualifiedType t = QualifiedType {
     };
     nameAndArgs = TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))]);
 };
+QualifiedType t2 = QualifiedType {
+    qualifyingType = GroupedType {
+        type = t;
+    };
+    nameAndArgs = TypeNameWithArguments(UIdentifier("Inner"));
+};
 
 test
 shared void qualifiedType()
         => testConversion(RedHatTransformer.transformQualifiedType, qualifiedTypeToCeylon,
-    t
+    t,
+    t2
 );
 
 test
 shared void compileQualifiedType()
         => testCompilation(compile,
-    "String.Foo<Nothing>.Iterable<String>"->t
+    "String.Foo<Nothing>.Iterable<String>"->t,
+    "<String.Foo<Nothing>.Iterable<String>>.Inner"->t2
 );

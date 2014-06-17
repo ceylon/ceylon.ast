@@ -3,7 +3,7 @@ import ceylon.ast.api {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JBaseType=BaseType,
+        JSimpleType=SimpleType,
         JType=Type
     }
 }
@@ -11,9 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Type|JType]] to a `ceylon.ast` [[Type]]."
 shared Type typeToCeylon(JType type) {
     switch (type)
-    case (is JBaseType) {
-        return baseTypeToCeylon(type);
-    }
+    case (is JSimpleType) { return simpleTypeToCeylon(type); }
     else {
         throw Error("Not yet implemented!"); // TODO
     }

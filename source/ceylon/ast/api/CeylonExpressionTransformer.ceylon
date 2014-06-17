@@ -23,6 +23,16 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
+    shared actual String transformGroupedType(GroupedType that) {
+        StringBuilder code = StringBuilder();
+        code.append("GroupedType(");
+        value origIndent = indent;
+        indent += "    ";
+        code.append(that.type.transform(this));
+        indent = origIndent;
+        code.append(")");
+        return code.string;
+    }
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformOuter(Outer that) => "Outer()";

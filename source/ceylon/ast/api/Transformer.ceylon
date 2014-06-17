@@ -17,6 +17,7 @@ shared abstract class Transformer<out Result>() {
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformGroupedType(GroupedType that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformLIdentifier(LIdentifier that);

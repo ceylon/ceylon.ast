@@ -3,6 +3,7 @@ import ceylon.ast.api {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JGroupedType=GroupedType,
         JSimpleType=SimpleType,
         JType=Type
     }
@@ -12,6 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Type typeToCeylon(JType type) {
     switch (type)
     case (is JSimpleType) { return simpleTypeToCeylon(type); }
+    case (is JGroupedType) { return groupedTypeToCeylon(type); }
     else {
         throw Error("Not yet implemented!"); // TODO
     }

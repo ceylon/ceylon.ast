@@ -8,6 +8,7 @@ shared abstract class WideningTransformer<out Result>() extends Transformer<Resu
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
     shared actual default Result transformExpression(Expression that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
+    shared actual default Result transformGroupedType(GroupedType that) => transformType(that);
     shared actual default Result transformIdentifier(Identifier that) => transformNode(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);

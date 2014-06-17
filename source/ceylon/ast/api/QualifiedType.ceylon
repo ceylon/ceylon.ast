@@ -1,3 +1,10 @@
+"A qualified type, consisting of a [[qualifying type|qualifyingType]] and
+ a [[type name with arguments|nameAndArgs]], separated by a member operator.
+ 
+ ~~~
+ Foo.Bar // Foo is the qualifying type, Bar the type name
+ X<A>.Y<B>.Z<C> // X<A>.Y<B> is the qualifying type – another qualified type –, Z the type name and B the type arguments
+ ~~~"
 shared class QualifiedType(qualifyingType, TypeNameWithArguments nameAndArgs)
         extends SimpleType(nameAndArgs) {
     

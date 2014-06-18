@@ -45,6 +45,7 @@ shared abstract class NarrowingTransformer<out Result>() extends Transformer<Res
         switch (that)
         case (is SimpleType) { return transformSimpleType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
+        case (is IterableType) { return transformIterableType(that); }
         else { throw Error("Not yet implemented!"); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {

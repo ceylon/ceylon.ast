@@ -2,7 +2,7 @@ shared alias TypeArguments => [Type+];
 
 "All node types in the type sub-hierarchy:
  [[Type]] and some auxiliary node types."
-shared alias TypeIsh => Type|TypeNameWithArguments;
+shared alias TypeIsh => Type|TypeNameWithArguments|VariadicType;
 
 "Representation of a type."
 shared abstract class Type(children)

@@ -34,4 +34,5 @@ shared abstract class Transformer<out Result>() {
     shared formal Result transformType(Type that);
     shared formal Result transformTypeNameWithArguments(TypeNameWithArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
+    shared formal Result transformVariadicType(VariadicType that);
 }

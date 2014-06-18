@@ -24,4 +24,5 @@ shared abstract class WideningTransformer<out Result>() extends Transformer<Resu
     shared actual default Result transformType(Type that) => transformNode(that);
     shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformNode(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
+    shared actual default Result transformVariadicType(VariadicType that) => transformNode(that);
 }

@@ -15,6 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackage=Package,
         JQualifiedType=QualifiedType,
         JSelfExpression=SelfExpression,
+        JSequencedType=SequencedType,
         JSimpleType=SimpleType,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
@@ -143,4 +144,11 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)
             => JIdentifier(tokens.token(that.name, uidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+    
+    shared actual JSequencedType transformVariadicType(VariadicType that) {
+        JSequencedType ret = JSequencedType(null);
+        ret.type = transformType(that.elementType);
+        ret.atLeastOne = that.isNonempty;
+        return ret;
+    }
 }

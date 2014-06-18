@@ -69,4 +69,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") extends Na
         }
     }
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    transformVariadicType(VariadicType that)
+            => that.isNonempty
+            then "VariadicType {
+                  `` indent + indentLevel ``elementType = ``transformWithIndent(that.elementType)``;
+                  `` indent + indentLevel ``isNonempty = true;
+                  ``indent``}"
+            else "VariadicType(``transformWithIndent(that.elementType)``)";
 }

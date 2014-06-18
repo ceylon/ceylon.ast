@@ -73,4 +73,6 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
             => that.copy();
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
+    shared actual default VariadicType transformVariadicType(VariadicType that)
+            => that.copy();
 }

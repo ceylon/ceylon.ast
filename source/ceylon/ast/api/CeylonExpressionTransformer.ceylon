@@ -6,13 +6,13 @@
  ~~~
  myNode.transform(CeylonExpressionTransformer());
  ~~~"
-shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>() {
+shared class CeylonExpressionTransformer(String indentLevel = "    ") extends NarrowingTransformer<String>() {
     
     variable String indent = "";
     
     String transformWithIndent(Node that) {
         value origIndent = indent;
-        indent += "    ";
+        indent += indentLevel;
         value ret = that.transform(this);
         indent = origIndent;
         return ret;
@@ -29,8 +29,8 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
     transformPackage(Package that) => "Package()";
     transformQualifiedType(QualifiedType that)
             => "QualifiedType {
-                ``indent``    qualifyingType = ``transformWithIndent(that.qualifyingType)``;
-                ``indent``    nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                `` indent + indentLevel ``qualifyingType = ``transformWithIndent(that.qualifyingType)``;
+                `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";
@@ -40,7 +40,7 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
             StringBuilder code = StringBuilder();
             code.append("TypeNameWithArguments {");
             value origIndent = indent;
-            indent += "    ";
+            indent += indentLevel;
             code.appendNewline();
             code.append(indent);
             code.append("name = ");
@@ -50,14 +50,14 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
             code.append(indent);
             code.append("arguments = [");
             code.appendNewline();
-            indent += "    ";
+            indent += indentLevel;
             for (argument in arguments) {
                 code.append(indent);
                 code.append(argument.transform(this));
                 code.append(",");
                 code.appendNewline();
             }
-            code.append(origIndent + "    ");
+            code.append(origIndent + indentLevel);
             code.append("];");
             code.appendNewline();
             indent = origIndent;

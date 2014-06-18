@@ -23,6 +23,8 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
 shared abstract class Editor() extends NarrowingTransformer<Node>() {
+    shared actual default BaseType transformBaseType(BaseType that)
+            => that.copy();
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
@@ -30,6 +32,8 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
         return ret;
     }
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
+            => that.copy();
+    shared actual default GroupedType transformGroupedType(GroupedType that)
             => that.copy();
     shared actual default Identifier transformIdentifier(Identifier that)
             => that.copy();
@@ -44,6 +48,8 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
     shared actual default Outer transformOuter(Outer that)
             => that.copy();
     shared actual default Package transformPackage(Package that)
+            => that.copy();
+    shared actual default QualifiedType transformQualifiedType(QualifiedType that)
             => that.copy();
     shared actual default SelfReference transformSelfReference(SelfReference that) {
         assert (is SelfReference ret = super.transformSelfReference(that));
@@ -63,7 +69,7 @@ shared abstract class Editor() extends NarrowingTransformer<Node>() {
         assert (is Type ret = super.transformType(that));
         return ret;
     }
-    shared actual default BaseType transformBaseType(BaseType that)
+    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that)
             => that.copy();
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();

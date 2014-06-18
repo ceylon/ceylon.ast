@@ -10,7 +10,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
         JGroupedType=GroupedType,
-        JQualifiedType=QualifiedType
+        JQualifiedType=QualifiedType,
+        JStaticType=StaticType,
+        JType=Type
     }
 }
 import ceylon.interop.java {
@@ -26,7 +28,10 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     assert (is TypeName name = identifierToCeylon(qualifiedType.identifier));
     TypeArguments? arguments;
     if (exists jArgs = qualifiedType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
-        arguments = jArguments.collect(typeToCeylon);
+        arguments = jArguments.collect((JType jType) {
+                assert (is JStaticType jType);
+                return typeToCeylon(jType);
+            });
     } else {
         arguments = null;
     }

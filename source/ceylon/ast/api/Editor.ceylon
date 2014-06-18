@@ -37,6 +37,8 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
             => that.copy();
     shared actual default Identifier transformIdentifier(Identifier that)
             => that.copy();
+    shared actual default IterableType transformIterableType(IterableType that)
+            => that.copy();
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
@@ -67,6 +69,10 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
             => that.copy();
     shared actual default Type transformType(Type that) {
         assert (is Type ret = super.transformType(that));
+        return ret;
+    }
+    shared actual default TypeIsh transformTypeIsh(TypeIsh that) {
+        assert (is TypeIsh ret = super.transformTypeIsh(that));
         return ret;
     }
     shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that)

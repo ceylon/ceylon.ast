@@ -20,6 +20,7 @@ shared abstract class Transformer<out Result>() {
     shared formal Result transformGroupedType(GroupedType that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformNode(Node that);
@@ -32,6 +33,7 @@ shared abstract class Transformer<out Result>() {
     shared formal Result transformSuper(Super that);
     shared formal Result transformThis(This that);
     shared formal Result transformType(Type that);
+    shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeNameWithArguments(TypeNameWithArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformVariadicType(VariadicType that);

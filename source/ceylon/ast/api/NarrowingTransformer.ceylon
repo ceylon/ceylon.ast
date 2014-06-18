@@ -47,4 +47,10 @@ shared abstract class NarrowingTransformer<out Result>() extends Transformer<Res
         case (is GroupedType) { return transformGroupedType(that); }
         else { throw Error("Not yet implemented!"); }
     }
+    shared actual default Result transformTypeIsh(TypeIsh that) {
+        switch (that)
+        case (is Type) { return transformType(that); }
+        case (is TypeNameWithArguments) { return transformTypeNameWithArguments(that); }
+        case (is VariadicType) { return transformVariadicType(that); }
+    }
 }

@@ -2,7 +2,8 @@
  or a \"+\" (nonempty)."
 //see (`class IterableType`, `class TypeList`)
 shared class VariadicType(elementType, isNonempty = false)
-        extends Node([elementType]) {
+        extends TypeIsh([elementType]) {
+    
     "The element type."
     shared Type /* TODO UnionedType */ elementType;
     "[[true]] for a nonempty variadic type (`Type+`),

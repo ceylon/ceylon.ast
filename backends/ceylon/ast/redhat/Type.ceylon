@@ -5,12 +5,17 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JGroupedType=GroupedType,
         JSimpleType=SimpleType,
-        JType=Type
+        JStaticType=StaticType
     }
 }
+import ceylon.ast.redhat {
+    groupedTypeToCeylon,
+    createParser,
+    simpleTypeToCeylon
+}
 
-"Converts a RedHat AST [[Type|JType]] to a `ceylon.ast` [[Type]]."
-shared Type typeToCeylon(JType type) {
+"Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[Type]]."
+shared Type typeToCeylon(JStaticType type) {
     switch (type)
     case (is JSimpleType) { return simpleTypeToCeylon(type); }
     case (is JGroupedType) { return groupedTypeToCeylon(type); }

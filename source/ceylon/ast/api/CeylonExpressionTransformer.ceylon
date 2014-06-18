@@ -10,12 +10,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") extends Na
     
     variable String indent = "";
     
-    String transformWithIndent(Node that) {
-        value origIndent = indent;
-        indent += indentLevel;
-        value ret = that.transform(this);
-        indent = origIndent;
-        return ret;
+    String transformWithIndent(Node? that) {
+        if (exists that) {
+            value origIndent = indent;
+            indent += indentLevel;
+            value ret = that.transform(this);
+            indent = origIndent;
+            return ret;
+        } else {
+            return "null";
+        }
     }
     
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
@@ -24,6 +28,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") extends Na
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
+    transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

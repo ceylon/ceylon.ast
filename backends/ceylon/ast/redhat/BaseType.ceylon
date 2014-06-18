@@ -7,6 +7,8 @@ import ceylon.ast.api {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
+        JStaticType=StaticType,
+        JType=Type,
         JTypeArgumentList=TypeArgumentList
     }
 }
@@ -23,7 +25,10 @@ shared BaseType baseTypeToCeylon(JBaseType baseType) {
     assert (is TypeName name = identifierToCeylon(baseType.identifier));
     TypeArguments? arguments;
     if (exists jArgs = baseType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
-        arguments = jArguments.collect(typeToCeylon);
+        arguments = jArguments.collect((JType jType) {
+                assert (is JStaticType jType);
+                return typeToCeylon(jType);
+            });
     } else {
         arguments = null;
     }

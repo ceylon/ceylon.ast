@@ -4,7 +4,7 @@
 "A type name and, optionally, type arguments."
 see (`class BaseType`, `class QualifiedType`)
 shared class TypeNameWithArguments(name, arguments = null)
-        extends Node(bug1665Workaround1(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
+        extends TypeIsh(bug1665Workaround1(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
     "The type name."
     shared TypeName name;
     "The type arguments, if any."

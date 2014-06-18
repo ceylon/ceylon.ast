@@ -11,6 +11,7 @@ shared abstract class WideningTransformer<out Result>() extends Transformer<Resu
     shared actual default Result transformGroupedType(GroupedType that) => transformType(that);
     shared actual default Result transformIdentifier(Identifier that) => transformNode(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
+    shared actual default Result transformIterableType(IterableType that) => transformType(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
@@ -21,8 +22,9 @@ shared abstract class WideningTransformer<out Result>() extends Transformer<Resu
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
-    shared actual default Result transformType(Type that) => transformNode(that);
-    shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformNode(that);
+    shared actual default Result transformType(Type that) => transformTypeIsh(that);
+    shared actual default Result transformTypeIsh(TypeIsh that) => transformNode(that);
+    shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformTypeIsh(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
-    shared actual default Result transformVariadicType(VariadicType that) => transformNode(that);
+    shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);
 }

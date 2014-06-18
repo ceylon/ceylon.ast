@@ -3,7 +3,8 @@ import ceylon.ast.api {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JSequencedType=SequencedType
+        JSequencedType=SequencedType,
+        JStaticType=StaticType
     }
 }
 import ceylon.ast.redhat {
@@ -11,8 +12,10 @@ import ceylon.ast.redhat {
 }
 
 "Converts a RedHat AST [[SequencedType|JSequencedType]] to a `ceylon.ast` [[VariadicType]]."
-shared VariadicType variadicTypeToCeylon(JSequencedType sequencedType)
-        => VariadicType(typeToCeylon(sequencedType.type), sequencedType.atLeastOne);
+shared VariadicType variadicTypeToCeylon(JSequencedType sequencedType) {
+    assert (is JStaticType type = sequencedType.type);
+    return VariadicType(typeToCeylon(type), sequencedType.atLeastOne);
+}
 
 "Compiles the given [[code]] for a Variadic Type
  into a [[VariadicType]] using the Ceylon compiler

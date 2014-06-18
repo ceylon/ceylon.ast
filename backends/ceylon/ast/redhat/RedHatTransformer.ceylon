@@ -10,6 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIntegerLiteral=NaturalLiteral,
         JIdentifier=Identifier,
+        JIterableType=IterableType,
         JLiteral=Literal,
         JOuter=Outer,
         JPackage=Package,
@@ -21,6 +22,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStringLiteral=StringLiteral,
         JSuper=Super,
         JThis=This,
+        JType=Type,
         JTypeArgumentList=TypeArgumentList
     }
 }
@@ -78,6 +80,14 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
+    shared actual JIterableType transformIterableType(IterableType that) {
+        JIterableType ret = JIterableType(null);
+        if (exists varType = that.variadicType) {
+            ret.elementType = transformVariadicType(varType);
+        }
+        return ret;
+    }
+    
     shared actual JIdentifier transformLIdentifier(LIdentifier that)
             => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
     
@@ -133,6 +143,11 @@ shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer
     
     shared actual JStaticType transformType(Type that) {
         assert (is JStaticType ret = super.transformType(that));
+        return ret;
+    }
+    
+    shared actual JType transformTypeIsh(TypeIsh that) {
+        assert (is JType ret = super.transformTypeIsh(that));
         return ret;
     }
     

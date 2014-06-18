@@ -20,6 +20,7 @@ shared /* abstract */ class Visitor() extends WideningTransformer<Anything>() { 
     transformGroupedType(GroupedType that) => visitGroupedType(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformNode(Node that) => visitNode(that);
@@ -43,6 +44,7 @@ shared /* abstract */ class Visitor() extends WideningTransformer<Anything>() { 
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
+    shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitNode(Node that) => that.visitChildren(this);

@@ -1,10 +1,14 @@
 shared alias TypeArguments => [Type+];
 
+"All node types in the type sub-hierarchy:
+ [[Type]] and some auxiliary node types."
+shared alias TypeIsh => Type|TypeNameWithArguments;
+
 "Representation of a type."
 shared abstract class Type(children)
 /* TODO of UnionedType|EntryType */
         extends Node(children) {
-    shared actual <Type|TypeNameWithArguments>[] children;
+    shared actual TypeIsh[] children;
     
     "Tests for equality of two type nodes.
      

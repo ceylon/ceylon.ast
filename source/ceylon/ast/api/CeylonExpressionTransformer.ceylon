@@ -10,52 +10,28 @@ shared class CeylonExpressionTransformer() extends NarrowingTransformer<String>(
     
     variable String indent = "";
     
-    shared actual String transformBaseType(BaseType that) {
-        StringBuilder code = StringBuilder();
-        code.append("BaseType(");
+    String transformWithIndent(Node that) {
         value origIndent = indent;
         indent += "    ";
-        code.append(that.nameAndArgs.transform(this));
+        value ret = that.transform(this);
         indent = origIndent;
-        code.append(")");
-        return code.string;
+        return ret;
     }
+    
+    transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
-    shared actual String transformGroupedType(GroupedType that) {
-        StringBuilder code = StringBuilder();
-        code.append("GroupedType(");
-        value origIndent = indent;
-        indent += "    ";
-        code.append(that.type.transform(this));
-        indent = origIndent;
-        code.append(")");
-        return code.string;
-    }
+    transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
-    shared actual String transformQualifiedType(QualifiedType that) {
-        StringBuilder code = StringBuilder();
-        code.append("QualifiedType {");
-        value origIndent = indent;
-        indent += "    ";
-        code.appendNewline();
-        code.append(indent);
-        code.append("qualifyingType = ");
-        code.append(that.qualifyingType.transform(this));
-        code.append(";");
-        code.appendNewline();
-        code.append(indent);
-        code.append("nameAndArgs = ");
-        code.append(that.nameAndArgs.transform(this));
-        code.append(";");
-        indent = origIndent;
-        code.append("}");
-        return code.string;
-    }
+    transformQualifiedType(QualifiedType that)
+            => "QualifiedType {
+                ``indent``    qualifyingType = ``transformWithIndent(that.qualifyingType)``;
+                ``indent``    nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                ``indent``}";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";
     transformThis(This that) => "This()";

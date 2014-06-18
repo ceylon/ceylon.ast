@@ -24,7 +24,7 @@
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // TODO make abstract again
     shared actual default BaseType transformBaseType(BaseType that)
-            => that.copy();
+            => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
@@ -34,11 +34,16 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default GroupedType transformGroupedType(GroupedType that)
-            => that.copy();
+            => that.copy(transformType(that.type));
     shared actual default Identifier transformIdentifier(Identifier that)
             => that.copy();
-    shared actual default IterableType transformIterableType(IterableType that)
-            => that.copy();
+    shared actual default IterableType transformIterableType(IterableType that) {
+        if (exists variadicType = that.variadicType) {
+            return that.copy(transformVariadicType(variadicType));
+        } else {
+            return that.copy(null);
+        }
+    }
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
@@ -51,8 +56,12 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
-    shared actual default QualifiedType transformQualifiedType(QualifiedType that)
-            => that.copy();
+    shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
+        value qualifyingType = that.qualifyingType;
+        switch (qualifyingType)
+        case (is SimpleType) { return that.copy(transformSimpleType(qualifyingType)); }
+        case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
+    }
     shared actual default SelfReference transformSelfReference(SelfReference that) {
         assert (is SelfReference ret = super.transformSelfReference(that));
         return ret;
@@ -75,10 +84,15 @@ shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // T
         assert (is TypeIsh ret = super.transformTypeIsh(that));
         return ret;
     }
-    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that)
-            => that.copy();
+    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that) {
+        if (exists args = that.arguments) {
+            return that.copy(transformUIdentifier(that.name), args.collect(transformType));
+        } else {
+            return that.copy(transformUIdentifier(that.name), null);
+        }
+    }
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
     shared actual default VariadicType transformVariadicType(VariadicType that)
-            => that.copy();
+            => that.copy(transformType(that.elementType));
 }

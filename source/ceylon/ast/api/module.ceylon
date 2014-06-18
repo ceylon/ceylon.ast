@@ -13,7 +13,11 @@
  *doesn’t* check if there are non-defaulted types after defaulted ones, even though it could.
  On the other hand, the [[UIdentifier]] initializer does check that the name isn’t empty
  and only consists of valid identifier characters, because `UIdentifier(\"My Identifier\")`
- can’t be parsed, and isn’t syntactically valid."
+ can’t be parsed, and isn’t syntactically valid.
+ 
+ (Syntactical validity is defined after the Ceylon Language Specification’s grammar.
+ The RedHat compiler’s grammar allows some more syntax so that it can produce more meaningful error messages,
+ but that additional syntax is not considered valid here.)"
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 module ceylon.ast.api "1.1.0" {

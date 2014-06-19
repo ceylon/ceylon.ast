@@ -109,7 +109,51 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         }
     }
     
+    void generateBackend() {
+        String filename = "source/ceylon/ast/redhat/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender()) {
+            assert (exists firstChar = type.first);
+            value ltype = String { firstChar.lowercased, *type.rest };
+            variable value splitType = type;
+            for (char in 'A'..'Z') {
+                splitType.replace(String { char }, String { ' ', char });
+            }
+            splitType = splitType[1...];
+            w.writeLine(
+                "import ceylon.ast.api {
+                     ``type``
+                 }
+                 import com.redhat.ceylon.compiler.typechecker.tree {
+                     Tree {
+                         J``type``=``type``
+                     }
+                 }
+                 import ceylon.ast.redhat {
+                     createParser
+                 }
+                 
+                 \"Converts a RedHat AST [[``type``|J``type``]] to a `ceylon.ast` [[``type``]].\"
+                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``) {
+                     return ``type``(TODO);
+                 }
+                 
+                 \"Compiles the given [[code]] for a ``splitType``
+                  into a [[``type``]] using the Ceylon compiler
+                  (more specifically, the rule for a \```ltype``\`).\"
+                 shared ``type``? compile``type``(String code) {
+                     if (exists j``type`` = createParser(code).``ltype``()) {
+                         return ``ltype``ToCeylon(j``type``);
+                     } else {
+                         return null;
+                     }
+                 }");
+        }
+    }
+    
     shared void run() {
         generateClass();
+        generateBackend();
     }
 }

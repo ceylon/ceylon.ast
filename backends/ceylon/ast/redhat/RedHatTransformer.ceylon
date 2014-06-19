@@ -6,6 +6,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
         JCharacterLiteral=CharLiteral,
+        JDefaultedType=DefaultedType,
         JFloatLiteral=FloatLiteral,
         JGroupedType=GroupedType,
         JIntegerLiteral=NaturalLiteral,
@@ -62,6 +63,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JDefaultedType transformDefaultedType(DefaultedType that) {
+        JDefaultedType ret = JDefaultedType(null);
+        ret.type = transformType(that.type);
+        return ret;
+    }
     
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));

@@ -31,6 +31,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is CompilationUnit ret = super.transformCompilationUnit(that));
         return ret;
     }
+    shared actual default DefaultedType transformDefaultedType(DefaultedType that)
+            => that.copy(transformType(that.type));
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default GroupedType transformGroupedType(GroupedType that)

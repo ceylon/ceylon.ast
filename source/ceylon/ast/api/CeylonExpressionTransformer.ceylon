@@ -25,6 +25,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
+    transformDefaultedType(DefaultedType that) => "DefaultedType(``transformWithIndent(that.type)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";

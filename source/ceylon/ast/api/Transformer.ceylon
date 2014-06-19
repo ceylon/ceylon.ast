@@ -15,6 +15,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
+    shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformGroupedType(GroupedType that);

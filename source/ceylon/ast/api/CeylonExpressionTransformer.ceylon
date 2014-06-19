@@ -92,12 +92,15 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             code.append("arguments = [");
             code.appendNewline();
             indent += indentLevel;
-            for (argument in arguments) {
-                code.append(indent);
-                code.append(argument.transform(this));
+            code.append(indent);
+            code.append(arguments.first.transform(this));
+            for (argument in arguments.rest) {
                 code.append(",");
                 code.appendNewline();
+                code.append(indent);
+                code.append(argument.transform(this));
             }
+            code.appendNewline();
             code.append(origIndent + indentLevel);
             code.append("];");
             code.appendNewline();

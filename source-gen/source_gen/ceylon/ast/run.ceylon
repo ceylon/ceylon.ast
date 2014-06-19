@@ -22,6 +22,7 @@ shared void run() {
     StringBuilder doc = StringBuilder();
     while (exists l = line) {
         doc.append(l);
+        doc.appendNewline();
         line = process.readLine();
     }
     Generator(type, superType, params.sequence(), doc.string).run();

@@ -185,9 +185,66 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         }
     }
     
+    void expandFile(String filename, String head, String customTail) {
+        value newLine = head + customTail;
+        
+        assert (is File file = parsePath(filename).resource);
+        value l = ArrayList<String>();
+        try (r = file.Reader()) {
+            while (exists line = r.readLine()) {
+                variable Boolean? inRightPlace = null;
+                if (exists prevLine = l.last) {
+                    if (prevLine.startsWith(head)) {
+                        inRightPlace = prevLine < newLine;
+                    }
+                }
+                if (line.startsWith(head)) {
+                    if (exists b = inRightPlace) {
+                        inRightPlace = b && newLine < line;
+                    } else {
+                        inRightPlace = newLine < line;
+                    }
+                }
+                if (exists b = inRightPlace, b) {
+                    l.add(newLine);
+                }
+                l.add(line);
+            }
+        }
+        try (w = file.Overwriter()) {
+            for (line in l) {
+                w.writeLine(line);
+            }
+        }
+    }
+    
+    void expandTransformer()
+            => expandFile(
+        "source/ceylon/ast/api/Transformer.ceylon",
+        "    shared formal Result transform", "``type``(``type`` that);");
+    
+    void expandWideningTransformer()
+            => expandFile(
+        "source/ceylon/ast/api/WideningTransformer.ceylon",
+        "    shared actual default Result transform",
+        "``type``(``type`` that) => transform``superType``(that);");
+    
+    void expandVisitor() {
+        value filename = "source/ceylon/ast/api/Visitor.ceylon";
+        expandFile(filename,
+            "    transform",
+            "``type``(``type`` that) => visit``type``(that);");
+        expandFile(filename,
+            "    shared default void visit",
+            "``type``(``type`` that) => super.transform``type``(that);");
+    }
+    
     shared void run() {
         generateClass();
         generateBackend();
         generateBackendTest();
+        expandTransformer();
+        expandWideningTransformer();
+        expandVisitor();
     }
 }

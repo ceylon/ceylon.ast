@@ -9,6 +9,14 @@ import ceylon.collection {
 //                                             Type -> name
 class Generator(String type, String superType, [<String->String>*] params, String documentation) {
     
+    assert (exists firstChar = type.first);
+    value ltype = String { firstChar.lowercased, *type.rest };
+    variable value splitType = type;
+    for (char in 'A'..'Z') {
+        splitType.replace(String { char }, String { ' ', char });
+    }
+    splitType = splitType[1...];
+    
     void generateClass() {
         String filename = "source/ceylon/ast/api/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
@@ -114,13 +122,6 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
         try (w = file.Appender()) {
-            assert (exists firstChar = type.first);
-            value ltype = String { firstChar.lowercased, *type.rest };
-            variable value splitType = type;
-            for (char in 'A'..'Z') {
-                splitType.replace(String { char }, String { ' ', char });
-            }
-            splitType = splitType[1...];
             w.writeLine(
                 "import ceylon.ast.api {
                      ``type``
@@ -152,8 +153,41 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         }
     }
     
+    void generateBackendTest() {
+        String filename = "source/test/ceylon/ast/redhat/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender()) {
+            w.writeLine(
+                "import ceylon.test {
+                     test
+                 }
+                 import ceylon.ast.api {
+                     ``type``
+                 }
+                 import ceylon.ast.redhat {
+                     RedHatTransformer,
+                     ``ltype``ToCeylon,
+                     compile=compile``type``
+                 }
+                 
+                 test
+                 shared void ``ltype``()
+                         => testConversion(RedHatTransformer.transform``type``, ``ltype``ToCeylon,
+                     ``type``(``", ".join { for (param in params) "nothing" }``) // TODO fix sample, add more!
+                 );
+                 
+                 test
+                 shared void compile``type``()
+                         => testCompilation(compile,
+                     \"code\"->``type``(``", ".join { for (param in params) "nothing" }``) // TODO fix sample, add more!
+                 );");
+        }
+    }
+    
     shared void run() {
         generateClass();
         generateBackend();
+        generateBackendTest();
     }
 }

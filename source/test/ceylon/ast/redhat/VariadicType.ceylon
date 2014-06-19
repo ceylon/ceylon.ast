@@ -12,10 +12,6 @@ import ceylon.ast.redhat {
     variadicTypeToCeylon,
     compile=compileVariadicType
 }
-import test.ceylon.ast.redhat {
-    testCompilation,
-    testConversion
-}
 
 test
 shared void variadicType()

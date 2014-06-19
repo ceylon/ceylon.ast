@@ -13,10 +13,6 @@ import ceylon.ast.redhat {
     iterableTypeToCeylon,
     compile=compileIterableType
 }
-import test.ceylon.ast.redhat {
-    testCompilation,
-    testConversion
-}
 
 test
 shared void iterableType()

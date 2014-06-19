@@ -12,10 +12,6 @@ import ceylon.ast.redhat {
     groupedTypeToCeylon,
     compile=compileGroupedType
 }
-import test.ceylon.ast.redhat {
-    testCompilation,
-    testConversion
-}
 
 test
 shared void groupedType()

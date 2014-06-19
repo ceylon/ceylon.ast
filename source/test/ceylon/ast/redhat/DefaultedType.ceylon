@@ -12,10 +12,6 @@ import ceylon.ast.redhat {
     defaultedTypeToCeylon,
     compile=compileDefaultedType
 }
-import test.ceylon.ast.redhat {
-    testCompilation,
-    testConversion
-}
 
 test
 shared void defaultedType()

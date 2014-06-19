@@ -158,6 +158,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[TypeList]];
+     this method throws."
+    shared actual Nothing transformTypeList(TypeList that) {
+        throw Exception("TypeList has no RedHat AST equivalent!");
+    }
+    
     "The RedHat AST has no direct equivalent of [[TypeNameWithArguments]];
      this method throws."
     shared actual Nothing transformTypeNameWithArguments(TypeNameWithArguments that) {

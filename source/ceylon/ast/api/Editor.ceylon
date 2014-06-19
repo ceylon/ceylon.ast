@@ -86,6 +86,18 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is TypeIsh ret = super.transformTypeIsh(that));
         return ret;
     }
+    shared actual default TypeList transformTypeList(TypeList that) {
+        Type|DefaultedType transformTypeOrDefaultedType(Type|DefaultedType that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is DefaultedType) { return transformDefaultedType(that); }
+        }
+        if (exists var = that.variadic) {
+            return that.copy(that.elements.collect(transformTypeOrDefaultedType), transformVariadicType(var));
+        } else {
+            return that.copy(that.elements.collect(transformTypeOrDefaultedType));
+        }
+    }
     shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that) {
         if (exists args = that.arguments) {
             return that.copy(transformUIdentifier(that.name), args.collect(transformType));

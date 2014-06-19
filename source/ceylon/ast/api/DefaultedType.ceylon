@@ -4,7 +4,7 @@
  
      String=
      Integer->String="
-// see (`class TypeList`) TODO
+see (`class TypeList`)
 shared class DefaultedType(type)
         extends TypeIsh([type]) {
     

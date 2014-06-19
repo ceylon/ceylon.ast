@@ -54,5 +54,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeNameWithArguments) { return transformTypeNameWithArguments(that); }
         case (is VariadicType) { return transformVariadicType(that); }
         case (is DefaultedType) { return transformDefaultedType(that); }
+        case (is TypeList) { return transformTypeList(that); }
     }
 }

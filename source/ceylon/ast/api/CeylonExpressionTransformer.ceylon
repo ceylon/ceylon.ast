@@ -41,6 +41,41 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";
     transformThis(This that) => "This()";
+    shared actual String transformTypeList(TypeList that) {
+        if (nonempty elements = that.elements) {
+            StringBuilder code = StringBuilder();
+            code.append("TypeList([");
+            value origIndent = indent;
+            indent = indent + indentLevel + indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append(elements.first.transform(this));
+            for (element in elements.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(element.transform(this));
+            }
+            code.appendNewline();
+            indent = origIndent + indentLevel;
+            code.append("]");
+            if (exists var = that.variadic) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(var.transform(this));
+            }
+            code.append(")");
+            indent = origIndent;
+            return code.string;
+        } else {
+            if (exists var = that.variadic) {
+                return "TypeList([], ``transformWithIndent(var)``)";
+            } else {
+                return "TypeList([])";
+            }
+        }
+    }
     shared actual String transformTypeNameWithArguments(TypeNameWithArguments that) {
         if (exists arguments = that.arguments) {
             StringBuilder code = StringBuilder();

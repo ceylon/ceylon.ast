@@ -42,7 +42,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     }
 }
 
-shared class RedHatTransformer(TokenFactory tokens) extends NarrowingTransformer<JNode>() {
+shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     shared actual JBaseType transformBaseType(BaseType that) {
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {

@@ -11,7 +11,7 @@
    to the respective `transform` methods of the subclasses.
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
-shared abstract class Transformer<out Result>() {
+shared interface Transformer<out Result> {
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);

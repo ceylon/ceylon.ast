@@ -22,7 +22,7 @@
  certain parts of the AST – for example, you only edit method names, and never instructions –
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
-shared /* abstract */ class Editor() extends NarrowingTransformer<Node>() { // TODO make abstract again
+shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)

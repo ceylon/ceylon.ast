@@ -2,7 +2,7 @@
  [[transformLIdentifier]] delegates to [[transformIdentifier]], which in turn delegates to
  [[transformNode]], which ([[Node]] being without a superclass) is the only `formal` method left."
 see (`class Visitor`)
-shared abstract class WideningTransformer<out Result>() extends Transformer<Result>() {
+shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);

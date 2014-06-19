@@ -2,7 +2,7 @@
  [[transformIdentifier]] switches on the subject and descends into the `transform` method
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
-shared abstract class NarrowingTransformer<out Result>() extends Transformer<Result>() {
+shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");

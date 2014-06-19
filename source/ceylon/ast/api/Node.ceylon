@@ -17,7 +17,7 @@ shared abstract class Node(children) extends Object()
      `node.transform(transformer)` is equivalent to calling `transformer.transformNode(node)`.
      On the other hand, if [[transformer]] is a [[WideningTransformer]], then the two
      operations are very different."
-    see (`class NarrowingTransformer`, `class WideningTransformer`)
+    see (`interface NarrowingTransformer`, `interface WideningTransformer`)
     shared formal Result transform<out Result>(Transformer<Result> transformer);
     "Transform all [[child nodes|children]] by calling their [[transform]] methods."
     shared Result[] transformChildren<out Result>(Transformer<Result> transformer) => [

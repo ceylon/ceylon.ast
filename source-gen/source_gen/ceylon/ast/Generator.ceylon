@@ -60,7 +60,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                 assert (nonempty seq = sortedParams.sequence());
                 w.writeLine(
                     "        if (is ``type`` that) {
-                     ``"\n".join(makeEquals(seq).lines.collect("        ".plus))``
+                     ``"\n".join(makeEquals(seq).lines.collect("            ".plus))``
                              } else {
                                  return false;
                              }");

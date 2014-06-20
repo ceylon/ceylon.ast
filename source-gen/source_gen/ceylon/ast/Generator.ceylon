@@ -45,7 +45,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                          shared ``paramType`` ``paramName``;");
             }
             if (nonempty params) {
-                w.writeLine();
+                w.writeLine("    ");
             }
             w.writeLine(
                 "    shared actual Result transform<out Result>(Transformer<Result> transformer)

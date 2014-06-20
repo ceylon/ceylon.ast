@@ -34,12 +34,20 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         character_literal=\iCHAR_LITERAL,
         float_literal=\iFLOAT_LITERAL,
         integer_literal=\iNATURAL_LITERAL,
+        larger_op=\iLARGER_OP,
+        lbrace=\iLBRACE,
         lidentifier=\iLIDENTIFIER,
+        member_op=\iMEMBER_OP,
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
+        product_op=\iPRODUCT_OP,
+        rbrace=\iRBRACE,
         rbracket=\iRBRACKET,
+        smaller_op=\iSMALLER_OP,
+        specify=\iSPECIFY,
         string_literal=\iSTRING_LITERAL,
+        sum_op=\iSUM_OP,
         superType=\iSUPER,
         thisType=\iTHIS,
         uidentifier=\iUIDENTIFIER,
@@ -51,7 +59,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JBaseType transformBaseType(BaseType that) {
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
-            value typeArgList = JTypeArgumentList(null);
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            typeArgList.endToken = tokens.token(">", larger_op);
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
             }
@@ -70,6 +79,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JDefaultedType transformDefaultedType(DefaultedType that) {
         JDefaultedType ret = JDefaultedType(null);
+        ret.endToken = tokens.token("=", specify);
         ret.type = transformType(that.type);
         return ret;
     }
@@ -78,7 +88,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
     shared actual JGroupedType transformGroupedType(GroupedType that) {
-        JGroupedType ret = JGroupedType(null);
+        JGroupedType ret = JGroupedType(tokens.token("<", smaller_op));
+        ret.endToken = tokens.token(">", larger_op);
         ret.type = transformType(that.type);
         return ret;
     }
@@ -92,7 +103,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
     shared actual JIterableType transformIterableType(IterableType that) {
-        JIterableType ret = JIterableType(null);
+        JIterableType ret = JIterableType(tokens.token("{", lbrace));
+        ret.endToken = tokens.token("}", rbrace);
         if (exists varType = that.variadicType) {
             ret.elementType = transformVariadicType(varType);
         }
@@ -128,7 +140,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JQualifiedType transformQualifiedType(QualifiedType that) {
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
-            value typeArgList = JTypeArgumentList(null);
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            typeArgList.endToken = tokens.token(">", larger_op);
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
             }
@@ -136,7 +149,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         } else {
             typeArgumentList = null;
         }
-        JQualifiedType ret = JQualifiedType(null);
+        JQualifiedType ret = JQualifiedType(tokens.token(".", member_op));
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
         ret.outerType = transformType(that.qualifyingType);
@@ -198,6 +211,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSequencedType transformVariadicType(VariadicType that) {
         JSequencedType ret = JSequencedType(null);
+        if (that.isNonempty) {
+            ret.endToken = tokens.token("+", sum_op);
+        } else {
+            ret.endToken = tokens.token("*", product_op);
+        }
         ret.type = transformType(that.elementType);
         ret.atLeastOne = that.isNonempty;
         return ret;

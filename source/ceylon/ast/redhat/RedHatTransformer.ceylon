@@ -109,6 +109,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
     
+    shared actual JStaticType transformPrimaryType(PrimaryType that) {
+        assert (is JStaticType ret = super.transformPrimaryType(that));
+        return ret;
+    }
+    
     shared actual JQualifiedType transformQualifiedType(QualifiedType that) {
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {

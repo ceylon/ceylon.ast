@@ -8,7 +8,7 @@
 
 "An iterable type, like `{String*}` or `{}`."
 shared class IterableType(variadicType)
-        extends Type(emptyIfNull(variadicType)) {
+        extends PrimaryType(emptyIfNull(variadicType)) {
     
     "The element type, or [[null]] if there is no element type (means `Iterable<Nothing, Null>`)."
     shared VariadicType? variadicType;

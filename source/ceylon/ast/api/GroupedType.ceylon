@@ -14,7 +14,7 @@
  
      <String->String>[]"
 shared class GroupedType(type)
-        extends Type([type]) {
+        extends PrimaryType([type]) {
     
     "The inner / wrapped type."
     shared Type type;

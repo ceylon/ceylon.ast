@@ -27,6 +27,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNode(Node that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSimpleType(SimpleType that);

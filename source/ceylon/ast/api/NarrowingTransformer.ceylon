@@ -29,6 +29,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");
     }
+    shared actual default Result transformPrimaryType(PrimaryType that) {
+        switch (that)
+        case (is SimpleType) { return transformSimpleType(that); }
+        case (is IterableType) { return transformIterableType(that); }
+        case (is GroupedType) { return transformGroupedType(that); }
+    }
     shared actual default Result transformSelfReference(SelfReference that) {
         switch (that)
         case (is This) { return transformThis(that); }

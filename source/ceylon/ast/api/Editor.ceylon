@@ -58,6 +58,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
+    shared actual default PrimaryType transformPrimaryType(PrimaryType that) {
+        assert (is PrimaryType ret = super.transformPrimaryType(that));
+        return ret;
+    }
     shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
         value qualifyingType = that.qualifyingType;
         switch (qualifyingType)

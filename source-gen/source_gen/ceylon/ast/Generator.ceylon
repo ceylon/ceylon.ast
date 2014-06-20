@@ -13,7 +13,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     value ltype = String { firstChar.lowercased, *type.rest };
     variable value splitType = type;
     for (char in 'A'..'Z') {
-        splitType.replace(String { char }, String { ' ', char });
+        splitType = splitType.replace(String { char }, String { ' ', char });
     }
     splitType = splitType[1...];
     

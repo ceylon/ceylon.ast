@@ -60,10 +60,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            typeArgList.endToken = tokens.token(">", larger_op);
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
             }
+            typeArgList.endToken = tokens.token(">", larger_op);
             typeArgumentList = typeArgList;
         } else {
             typeArgumentList = null;
@@ -79,8 +79,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JDefaultedType transformDefaultedType(DefaultedType that) {
         JDefaultedType ret = JDefaultedType(null);
-        ret.endToken = tokens.token("=", specify);
         ret.type = transformType(that.type);
+        ret.endToken = tokens.token("=", specify);
         return ret;
     }
     
@@ -89,8 +89,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JGroupedType transformGroupedType(GroupedType that) {
         JGroupedType ret = JGroupedType(tokens.token("<", smaller_op));
-        ret.endToken = tokens.token(">", larger_op);
         ret.type = transformType(that.type);
+        ret.endToken = tokens.token(">", larger_op);
         return ret;
     }
     
@@ -104,10 +104,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIterableType transformIterableType(IterableType that) {
         JIterableType ret = JIterableType(tokens.token("{", lbrace));
-        ret.endToken = tokens.token("}", rbrace);
         if (exists varType = that.variadicType) {
             ret.elementType = transformVariadicType(varType);
         }
+        ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
     
@@ -121,8 +121,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JOptionalType transformOptionalType(OptionalType that) {
         JOptionalType ret = JOptionalType(null);
-        ret.endToken = tokens.token("?", optionalType);
         ret.definiteType = transformPrimaryType(that.definiteType);
+        ret.endToken = tokens.token("?", optionalType);
         return ret;
     }
     
@@ -141,18 +141,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            typeArgList.endToken = tokens.token(">", larger_op);
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
             }
+            typeArgList.endToken = tokens.token(">", larger_op);
             typeArgumentList = typeArgList;
         } else {
             typeArgumentList = null;
         }
+        value outerType = transformType(that.qualifyingType);
         JQualifiedType ret = JQualifiedType(tokens.token(".", member_op));
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
-        ret.outerType = transformType(that.qualifyingType);
+        ret.outerType = outerType;
         return ret;
     }
     
@@ -173,8 +174,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSequenceType transformSequentialType(SequentialType that) {
         JSequenceType ret = JSequenceType(null);
-        ret.endToken = tokens.token("]", rbracket);
         ret.elementType = transformPrimaryType(that.elementType);
+        ret.endToken = tokens.token("[", lbracket); // unreachable, but we need to have it in the token stream
+        ret.endToken = tokens.token("]", rbracket);
         return ret;
     }
     
@@ -211,12 +213,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSequencedType transformVariadicType(VariadicType that) {
         JSequencedType ret = JSequencedType(null);
+        ret.type = transformType(that.elementType);
         if (that.isNonempty) {
             ret.endToken = tokens.token("+", sum_op);
         } else {
             ret.endToken = tokens.token("*", product_op);
         }
-        ret.type = transformType(that.elementType);
         ret.atLeastOne = that.isNonempty;
         return ret;
     }

@@ -8,6 +8,15 @@ shared abstract class Node(children) extends Object()
     "The child nodes of this node."
     shared default Node[] children;
     
+    "Additional information that’s attached to this node.
+     
+     This allows users of the AST to add additional information to some nodes;
+     for example, a parser might add tokens, a compiler typing information, etc.
+     
+     The extra information is *not* considered part of the node;
+     [[equals]] and [[hash]] don’t use it."
+    shared variable Anything extraInfo = null;
+    
     "Transform this node with the given [[transformer]] by calling the appropriate
      `transformX` method on the transformer.
      

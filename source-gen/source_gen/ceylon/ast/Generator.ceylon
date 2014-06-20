@@ -56,7 +56,12 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                 value sortedParams = ArrayList { elements = optionalParams; };
                 sortedParams.addAll(nonOptionalParams);
                 assert (nonempty seq = sortedParams.sequence());
-                w.writeLine("\n".join(makeEquals(seq).lines.collect("        ".plus)));
+                w.writeLine(
+                    "        if (is ``type`` that) {
+                     ``"\n".join(makeEquals(seq).lines.collect("        ".plus))``
+                             } else {
+                                 return false;
+                             }");
             } else {
                 w.writeLine("        return that is ``type``;");
             }

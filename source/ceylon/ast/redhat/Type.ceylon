@@ -4,8 +4,12 @@ import ceylon.ast.api {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JGroupedType=GroupedType,
+        JIterableType=IterableType,
+        JOptionalType=OptionalType,
+        JSequenceType=SequenceType,
         JSimpleType=SimpleType,
-        JStaticType=StaticType
+        JStaticType=StaticType,
+        JTupleType=TupleType
     }
 }
 import ceylon.ast.redhat {
@@ -18,7 +22,11 @@ import ceylon.ast.redhat {
 shared Type typeToCeylon(JStaticType type) {
     switch (type)
     case (is JSimpleType) { return simpleTypeToCeylon(type); }
+    case (is JTupleType) { return tupleTypeToCeylon(type); }
+    case (is JIterableType) { return iterableTypeToCeylon(type); }
     case (is JGroupedType) { return groupedTypeToCeylon(type); }
+    case (is JOptionalType) { return optionalTypeToCeylon(type); }
+    case (is JSequenceType) { return sequentialTypeToCeylon(type); }
     else {
         throw Error("Not yet implemented!"); // TODO
     }

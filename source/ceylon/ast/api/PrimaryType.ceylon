@@ -1,6 +1,6 @@
 "A primary type; only [[intersection|IntersectionType]]
  and [[union types|UnionType]] come before these."
 shared abstract class PrimaryType(TypeIsh[] children)
-        of SimpleType|IterableType|GroupedType
+        of SimpleType|IterableType|GroupedType|OptionalType
         extends Type(children) {
 }

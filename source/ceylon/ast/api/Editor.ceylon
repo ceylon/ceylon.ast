@@ -54,6 +54,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Literal ret = super.transformLiteral(that));
         return ret;
     }
+    shared actual default OptionalType transformOptionalType(OptionalType that)
+            => that.copy(transformPrimaryType(that.definiteType));
     shared actual default Outer transformOuter(Outer that)
             => that.copy();
     shared actual default Package transformPackage(Package that)

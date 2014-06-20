@@ -25,6 +25,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformNode(Node that) => visitNode(that);
+    transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
@@ -51,6 +52,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
+    shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOuter(Outer that) => super.transformOuter(that);
     shared default void visitPackage(Package that) => super.transformPackage(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);

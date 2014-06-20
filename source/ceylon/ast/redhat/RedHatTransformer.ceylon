@@ -13,6 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdentifier=Identifier,
         JIterableType=IterableType,
         JLiteral=Literal,
+        JOptionalType=OptionalType,
         JOuter=Outer,
         JPackage=Package,
         JQualifiedType=QualifiedType,
@@ -33,6 +34,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         float_literal=\iFLOAT_LITERAL,
         integer_literal=\iNATURAL_LITERAL,
         lidentifier=\iLIDENTIFIER,
+        optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
         string_literal=\iSTRING_LITERAL,
@@ -100,6 +102,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
+        return ret;
+    }
+    
+    shared actual JOptionalType transformOptionalType(OptionalType that) {
+        JOptionalType ret = JOptionalType(null);
+        ret.endToken = tokens.token("?", optionalType);
+        ret.definiteType = transformPrimaryType(that.definiteType);
         return ret;
     }
     

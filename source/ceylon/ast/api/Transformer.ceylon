@@ -25,6 +25,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformNode(Node that);
+    shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
     shared formal Result transformPrimaryType(PrimaryType that);

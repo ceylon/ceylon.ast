@@ -31,6 +31,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
     transformQualifiedType(QualifiedType that)

@@ -34,6 +34,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SimpleType) { return transformSimpleType(that); }
         case (is IterableType) { return transformIterableType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
+        case (is OptionalType) { return transformOptionalType(that); }
     }
     shared actual default Result transformSelfReference(SelfReference that) {
         switch (that)

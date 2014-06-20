@@ -86,6 +86,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default This transformThis(This that)
             => that.copy();
+    shared actual default TupleType transformTupleType(TupleType that)
+            => that.copy(transformTypeList(that.typeList));
     shared actual default Type transformType(Type that) {
         assert (is Type ret = super.transformType(that));
         return ret;

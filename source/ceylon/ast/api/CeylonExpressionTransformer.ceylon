@@ -43,6 +43,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";
     transformThis(This that) => "This()";
+    transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     shared actual String transformTypeList(TypeList that) {
         if (nonempty elements = that.elements) {
             StringBuilder code = StringBuilder();

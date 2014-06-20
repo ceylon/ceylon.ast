@@ -32,6 +32,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)
         case (is SimpleType) { return transformSimpleType(that); }
+        case (is TupleType) { return transformTupleType(that); }
         case (is IterableType) { return transformIterableType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
         case (is OptionalType) { return transformOptionalType(that); }

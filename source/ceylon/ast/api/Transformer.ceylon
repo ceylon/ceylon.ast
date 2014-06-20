@@ -36,6 +36,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSuper(Super that);
     shared formal Result transformThis(This that);
+    shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeList(TypeList that);

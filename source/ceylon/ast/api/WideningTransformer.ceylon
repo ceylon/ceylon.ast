@@ -26,6 +26,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
+    shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformNode(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);

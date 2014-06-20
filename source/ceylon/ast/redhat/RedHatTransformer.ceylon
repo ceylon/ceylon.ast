@@ -25,6 +25,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStringLiteral=StringLiteral,
         JSuper=Super,
         JThis=This,
+        JTupleType=TupleType,
         JType=Type,
         JTypeArgumentList=TypeArgumentList
     }
@@ -36,6 +37,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         integer_literal=\iNATURAL_LITERAL,
         larger_op=\iLARGER_OP,
         lbrace=\iLBRACE,
+        lbracket=\iLBRACKET,
         lidentifier=\iLIDENTIFIER,
         member_op=\iMEMBER_OP,
         optionalType=\iOPTIONAL,
@@ -185,6 +187,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JThis transformThis(This that)
             => JThis(tokens.token("this", thisType));
+    
+    shared actual JTupleType transformTupleType(TupleType that) {
+        JTupleType ret = JTupleType(tokens.token("[", lbracket));
+        for (elementType in that.typeList.elements) {
+            switch (elementType)
+            case (is Type) { ret.addElementType(transformType(elementType)); }
+            case (is DefaultedType) { ret.addElementType(transformDefaultedType(elementType)); }
+        }
+        if (exists var = that.typeList.variadic) {
+            ret.addElementType(transformVariadicType(var));
+        }
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
     
     shared actual JStaticType transformType(Type that) {
         assert (is JStaticType ret = super.transformType(that));

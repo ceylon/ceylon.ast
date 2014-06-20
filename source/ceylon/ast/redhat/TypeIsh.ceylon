@@ -15,6 +15,7 @@ shared TypeIsh typeIshToCeylon(JType typeIsh) {
     switch (typeIsh)
     case (is JStaticType) { return typeToCeylon(typeIsh); }
     case (is JSequencedType) { return variadicTypeToCeylon(typeIsh); }
+    case (is JDefaultedType) { return defaultedTypeToCeylon(typeIsh); }
     // TODO more cases
     else {
         throw Exception("Unknown RedHat AST type!");

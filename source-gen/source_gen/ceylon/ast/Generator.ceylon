@@ -17,6 +17,8 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     }
     splitType = splitType[1...];
     
+    value aAn = firstChar in "aeiouAEIOU" then "an" else "a";
+    
     void generateClass() {
         String filename = "source/ceylon/ast/api/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
@@ -145,9 +147,9 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                      return ``type``(TODO);
                  }
                  
-                 \"Compiles the given [[code]] for a ``splitType``
-                  into a [[``type``]] using the Ceylon compiler
-                  (more specifically, the rule for a \```ltype``\`).\"
+                 \"Compiles the given [[code]] for ``aAn`` ``splitType``
+                  into ``aAn`` [[``type``]] using the Ceylon compiler
+                  (more specifically, the rule for ``aAn`` \```ltype``\`).\"
                  shared ``type``? compile``type``(String code) {
                      if (exists j``type`` = createParser(code).``ltype``()) {
                          return ``ltype``ToCeylon(j``type``);

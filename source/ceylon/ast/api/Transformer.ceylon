@@ -31,6 +31,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformSelfReference(SelfReference that);
+    shared formal Result transformSequentialType(SequentialType that);
     shared formal Result transformSimpleType(SimpleType that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSuper(Super that);

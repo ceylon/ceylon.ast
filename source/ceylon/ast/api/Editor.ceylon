@@ -74,6 +74,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is SelfReference ret = super.transformSelfReference(that));
         return ret;
     }
+    shared actual default SequentialType transformSequentialType(SequentialType that)
+            => that.copy(transformPrimaryType(that.elementType));
     shared actual default SimpleType transformSimpleType(SimpleType that) {
         assert (is SimpleType ret = super.transformSimpleType(that));
         return ret;

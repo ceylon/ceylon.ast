@@ -18,6 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackage=Package,
         JQualifiedType=QualifiedType,
         JSelfExpression=SelfExpression,
+        JSequenceType=SequenceType,
         JSequencedType=SequencedType,
         JSimpleType=SimpleType,
         JStaticType=StaticType,
@@ -37,6 +38,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
+        rbracket=\iRBRACKET,
         string_literal=\iSTRING_LITERAL,
         superType=\iSUPER,
         thisType=\iTHIS,
@@ -153,6 +155,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSelfExpression|JOuter|JPackage transformSelfReference(SelfReference that) {
         assert (is JSelfExpression|JOuter|JPackage ret = super.transformSelfReference(that));
+        return ret;
+    }
+    
+    shared actual JSequenceType transformSequentialType(SequentialType that) {
+        JSequenceType ret = JSequenceType(null);
+        ret.endToken = tokens.token("]", rbracket);
+        ret.elementType = transformPrimaryType(that.elementType);
         return ret;
     }
     

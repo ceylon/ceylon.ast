@@ -8,6 +8,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
         JFloatLiteral=FloatLiteral,
+        JFunctionType=FunctionType,
         JGroupedType=GroupedType,
         JIntegerLiteral=NaturalLiteral,
         JIdentifier=Identifier,
@@ -39,6 +40,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         lbrace=\iLBRACE,
         lbracket=\iLBRACKET,
         lidentifier=\iLIDENTIFIER,
+        lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
@@ -46,6 +48,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         product_op=\iPRODUCT_OP,
         rbrace=\iRBRACE,
         rbracket=\iRBRACKET,
+        rparen=\iRPAREN,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
         string_literal=\iSTRING_LITERAL,
@@ -73,6 +76,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JBaseType ret = JBaseType(null);
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
+        return ret;
+    }
+    
+    shared actual JFunctionType transformCallableType(CallableType that) {
+        JStaticType returnType = transformPrimaryType(that.returnType);
+        JFunctionType ret = JFunctionType(tokens.token("(", lparen));
+        ret.returnType = returnType;
+        for (elementType in that.argumentTypes.elements) {
+            switch (elementType)
+            case (is Type) { ret.addArgumentType(transformType(elementType)); }
+            case (is DefaultedType) { ret.addArgumentType(transformDefaultedType(elementType)); }
+        }
+        if (exists var = that.argumentTypes.variadic) {
+            ret.addArgumentType(transformVariadicType(var));
+        }
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

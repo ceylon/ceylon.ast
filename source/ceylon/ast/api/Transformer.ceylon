@@ -13,6 +13,7 @@
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
     shared formal Result transformBaseType(BaseType that);
+    shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformDefaultedType(DefaultedType that);

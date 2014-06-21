@@ -23,6 +23,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     }
     
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
+    transformCallableType(CallableType that)
+            => "CallableType {
+                `` indent + indentLevel ``returnType = ``transformWithIndent(that.returnType)``;
+                `` indent + indentLevel ``argumentTypes = ``transformWithIndent(that.argumentTypes)``;
+                ``indent``}";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
     transformDefaultedType(DefaultedType that) => "DefaultedType(``transformWithIndent(that.type)``)";

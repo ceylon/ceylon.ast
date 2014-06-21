@@ -25,6 +25,8 @@
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
+    shared actual default CallableType transformCallableType(CallableType that)
+            => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {

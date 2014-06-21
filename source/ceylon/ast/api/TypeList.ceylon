@@ -41,6 +41,9 @@ shared class TypeList(elements, variadic = null)
     shared actual Integer hash
             => 31 * elements.hash + (variadic?.hash else 0);
     
-    shared TypeList copy(<Type|DefaultedType>[] elements = this.elements, VariadicType? variadic = this.variadic)
-            => TypeList(elements, variadic);
+    shared TypeList copy(<Type|DefaultedType>[] elements = this.elements, VariadicType? variadic = this.variadic) {
+        value ret = TypeList(elements, variadic);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

@@ -38,6 +38,9 @@ shared class FloatLiteral(text) extends Literal(text) {
     
     hash => text.hash;
     
-    shared FloatLiteral copy(String text = this.text)
-            => FloatLiteral(text);
+    shared FloatLiteral copy(String text = this.text) {
+        value ret = FloatLiteral(text);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

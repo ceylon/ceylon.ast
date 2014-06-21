@@ -23,6 +23,9 @@ shared class CharacterLiteral(text) extends Literal(text) {
     
     hash => text.hash;
     
-    shared CharacterLiteral copy(String text = this.text)
-            => CharacterLiteral(text);
+    shared CharacterLiteral copy(String text = this.text) {
+        value ret = CharacterLiteral(text);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

@@ -16,6 +16,9 @@ shared class BaseType(TypeNameWithArguments nameAndArgs)
     shared actual Integer hash
             => nameAndArgs.hash;
     
-    shared BaseType copy(TypeNameWithArguments nameAndArgs = this.nameAndArgs)
-            => BaseType(nameAndArgs);
+    shared BaseType copy(TypeNameWithArguments nameAndArgs = this.nameAndArgs) {
+        value ret = BaseType(nameAndArgs);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

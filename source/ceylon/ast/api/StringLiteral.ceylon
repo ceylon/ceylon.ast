@@ -30,6 +30,9 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     
     hash => 31 * text.hash + isVerbatim.hash;
     
-    shared StringLiteral copy(String text = this.text, Boolean isVerbatim = this.isVerbatim)
-            => StringLiteral(text, isVerbatim);
+    shared StringLiteral copy(String text = this.text, Boolean isVerbatim = this.isVerbatim) {
+        value ret = StringLiteral(text, isVerbatim);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

@@ -28,6 +28,9 @@ shared class CallableType(returnType, argumentTypes)
     shared actual Integer hash
             => 31 * (returnType.hash + 31 * argumentTypes.hash);
     
-    shared CallableType copy(PrimaryType returnType = this.returnType, TypeList argumentTypes = this.argumentTypes)
-            => CallableType(returnType, argumentTypes);
+    shared CallableType copy(PrimaryType returnType = this.returnType, TypeList argumentTypes = this.argumentTypes) {
+        value ret = CallableType(returnType, argumentTypes);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

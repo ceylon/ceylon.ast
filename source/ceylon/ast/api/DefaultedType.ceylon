@@ -25,6 +25,9 @@ shared class DefaultedType(type)
     shared actual Integer hash
             => 31 * type.hash;
     
-    shared DefaultedType copy(Type type = this.type)
-            => DefaultedType(type);
+    shared DefaultedType copy(Type type = this.type) {
+        value ret = DefaultedType(type);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

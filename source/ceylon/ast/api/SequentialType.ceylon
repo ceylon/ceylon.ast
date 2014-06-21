@@ -24,6 +24,9 @@ shared class SequentialType(elementType)
     shared actual Integer hash
             => 31 * elementType.hash;
     
-    shared SequentialType copy(PrimaryType elementType = this.elementType)
-            => SequentialType(elementType);
+    shared SequentialType copy(PrimaryType elementType = this.elementType) {
+        value ret = SequentialType(elementType);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

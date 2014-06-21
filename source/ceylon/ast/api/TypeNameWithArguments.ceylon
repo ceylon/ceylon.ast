@@ -36,6 +36,9 @@ shared class TypeNameWithArguments(name, arguments = null)
         return hash;
     }
     
-    shared TypeNameWithArguments copy(TypeName name = this.name, TypeArguments? arguments = this.arguments)
-            => TypeNameWithArguments(name, arguments);
+    shared TypeNameWithArguments copy(TypeName name = this.name, TypeArguments? arguments = this.arguments) {
+        value ret = TypeNameWithArguments(name, arguments);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

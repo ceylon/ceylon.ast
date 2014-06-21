@@ -35,6 +35,9 @@ shared class IterableType(variadicType)
     shared actual Integer hash
             => variadicType?.hash else 0;
     
-    shared IterableType copy(VariadicType? elementType = this.variadicType)
-            => IterableType(elementType);
+    shared IterableType copy(VariadicType? elementType = this.variadicType) {
+        value ret = IterableType(elementType);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

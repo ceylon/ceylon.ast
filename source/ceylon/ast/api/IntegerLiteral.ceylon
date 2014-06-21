@@ -39,6 +39,9 @@ shared class IntegerLiteral(text) extends Literal(text) {
     
     hash => text.hash;
     
-    shared IntegerLiteral copy(String text = this.text)
-            => IntegerLiteral(text);
+    shared IntegerLiteral copy(String text = this.text) {
+        value ret = IntegerLiteral(text);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

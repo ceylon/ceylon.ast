@@ -24,6 +24,9 @@ shared class VariadicType(elementType, isNonempty = false)
     shared actual Integer hash
             => 31 * elementType.hash + isNonempty.hash;
     
-    shared VariadicType copy(Type /* TODO */ elementType = this.elementType, Boolean isNonempty = this.isNonempty)
-            => VariadicType(elementType, isNonempty);
+    shared VariadicType copy(Type /* TODO */ elementType = this.elementType, Boolean isNonempty = this.isNonempty) {
+        value ret = VariadicType(elementType, isNonempty);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

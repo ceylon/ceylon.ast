@@ -69,8 +69,11 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
         }
     }
     
-    shared actual LIdentifier copy(String name, Boolean enforcePrefix)
-            => LIdentifier(name, enforcePrefix);
+    shared actual LIdentifier copy(String name, Boolean enforcePrefix) {
+        value ret = LIdentifier(name, enforcePrefix);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }
 
 "An initial uppercase identifier."
@@ -98,8 +101,11 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
         }
     }
     
-    shared actual UIdentifier copy(String name, Boolean enforcePrefix)
-            => UIdentifier(name, enforcePrefix);
+    shared actual UIdentifier copy(String name, Boolean enforcePrefix) {
+        value ret = UIdentifier(name, enforcePrefix);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }
 
 "Parses an identifier from its text. The text may contain the prefix, but no escape sequences."

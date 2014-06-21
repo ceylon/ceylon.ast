@@ -27,6 +27,9 @@ shared class OptionalType(definiteType)
     shared actual Integer hash
             => 31 * definiteType.hash;
     
-    shared OptionalType copy(PrimaryType definiteType = this.definiteType)
-            => OptionalType(definiteType);
+    shared OptionalType copy(PrimaryType definiteType = this.definiteType) {
+        value ret = OptionalType(definiteType);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

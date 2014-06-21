@@ -8,6 +8,7 @@
 abstract shared class SelfReference()
         of This|Super|Outer|Package
         extends Expression([]) /* TODO extends Atom? */ {
+    shared formal SelfReference copy();
 }
 
 "The value of this expression is the current instance, and its type is
@@ -17,7 +18,11 @@ abstract shared class SelfReference()
  instead of creating new instances of this class in order to save memory."
 shared class This() extends SelfReference() {
     hash = 1;
-    shared This copy() => this;
+    shared actual This copy() {
+        value ret = This();
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformThis(this);
     equals(Object that) => that is This;
@@ -32,7 +37,11 @@ shared This thisInstance = This();
  instead of creating new instances of this class in order to save memory."
 shared class Super() extends SelfReference() {
     hash = 2;
-    shared Super copy() => this;
+    shared actual Super copy() {
+        value ret = Super();
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSuper(this);
     equals(Object that) => that is Super;
@@ -47,7 +56,11 @@ shared Super superInstance = Super();
  instead of creating new instances of this class in order to save memory."
 shared class Outer() extends SelfReference() {
     hash = 3;
-    shared Outer copy() => this;
+    shared actual Outer copy() {
+        value ret = Outer();
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOuter(this);
     equals(Object that) => that is Outer;
@@ -61,7 +74,11 @@ shared Outer outerInstance = Outer();
  instead of creating new instances of this class in order to save memory."
 shared class Package() extends SelfReference() {
     hash = 4;
-    shared Package copy() => this;
+    shared actual Package copy() {
+        value ret = Package();
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPackage(this);
     equals(Object that) => that is Package;

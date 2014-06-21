@@ -25,6 +25,9 @@ shared class TupleType(typeList)
     shared actual Integer hash
             => 31 * typeList.hash;
     
-    shared TupleType copy(TypeList typeList = this.typeList)
-            => TupleType(typeList);
+    shared TupleType copy(TypeList typeList = this.typeList) {
+        value ret = TupleType(typeList);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

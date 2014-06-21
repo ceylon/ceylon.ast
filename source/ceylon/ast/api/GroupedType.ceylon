@@ -32,6 +32,9 @@ shared class GroupedType(type)
     
     shared actual Integer hash => 31 * type.hash;
     
-    shared GroupedType copy(Type type = this.type)
-            => GroupedType(type);
+    shared GroupedType copy(Type type = this.type) {
+        value ret = GroupedType(type);
+        ret.extraInfo = extraInfo;
+        return ret;
+    }
 }

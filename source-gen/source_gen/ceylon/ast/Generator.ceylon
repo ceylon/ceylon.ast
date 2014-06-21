@@ -80,8 +80,11 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
             }
             w.writeLine(
                 "    
-                     shared ``type`` copy(``", ".join(params.collect((String->String elem) => "``elem.key`` ``elem.item`` = this.``elem.item``"))``)
-                             => ``type``(``", ".join(params.collect(Entry<String,String>.item))``);
+                     shared ``type`` copy(``", ".join(params.collect((String->String elem) => "``elem.key`` ``elem.item`` = this.``elem.item``"))``) {
+                         value ret = ``type``(``", ".join(params.collect(Entry<String,String>.item))``);
+                         ret.extraInfo = extraInfo;
+                         return ret;
+                     }
                  }");
         }
     }

@@ -180,14 +180,8 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                  
                  test
                  shared void ``ltype``()
-                         => testConversion(RedHatTransformer.transform``type``, ``ltype``ToCeylon,
+                         => doTest(compile, RedHatTransformer.transform``type``, ``ltype``ToCeylon,
                      ``type``(``", ".join { for (param in params) "nothing" }``) // TODO fix sample, add more!
-                 );
-                 
-                 test
-                 shared void compile``type``()
-                         => testCompilation(compile,
-                     \"code\"->``type``(``", ".join { for (param in params) "nothing" }``) // TODO fix sample, add more!
                  );");
         }
     }

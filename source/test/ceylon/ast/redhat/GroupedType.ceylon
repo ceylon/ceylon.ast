@@ -15,14 +15,7 @@ import ceylon.ast.redhat {
 
 test
 shared void groupedType()
-        => testConversion(RedHatTransformer.transformGroupedType, groupedTypeToCeylon,
-    GroupedType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    GroupedType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
-);
-
-test
-shared void compileGroupedType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformGroupedType, groupedTypeToCeylon,
     "<String>"->GroupedType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
     "<Iterable<String>>"->GroupedType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
 );

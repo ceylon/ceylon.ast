@@ -11,6 +11,16 @@ import ceylon.test {
     assertEquals
 }
 
+void doTest<CeylonAstType,RedHatType>(
+    CeylonAstType? compile(String code),
+    RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node),
+    <String->CeylonAstType>+ codes)
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    testCompilation(compile, *codes);
+    testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
+}
+
 void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node), CeylonAstType+ nodes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {

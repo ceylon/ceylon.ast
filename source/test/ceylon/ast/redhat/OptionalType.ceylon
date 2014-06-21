@@ -15,14 +15,7 @@ import ceylon.ast.redhat {
 
 test
 shared void optionalType()
-        => testConversion(RedHatTransformer.transformOptionalType, optionalTypeToCeylon,
-    OptionalType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    OptionalType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
-);
-
-test
-shared void compileOptionalType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformOptionalType, optionalTypeToCeylon,
     "String?"->OptionalType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
     "Iterable<String>?"->OptionalType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
 );

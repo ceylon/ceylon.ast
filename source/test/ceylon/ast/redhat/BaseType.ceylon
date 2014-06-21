@@ -14,14 +14,7 @@ import ceylon.ast.redhat {
 
 test
 shared void baseType()
-        => testConversion(RedHatTransformer.transformBaseType, baseTypeToCeylon,
-    BaseType(TypeNameWithArguments(UIdentifier("String"), null)),
-    BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))]))
-);
-
-test
-shared void compileBaseType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformBaseType, baseTypeToCeylon,
     "String"->BaseType(TypeNameWithArguments(UIdentifier("String"), null)),
     "Iterable<String>"->BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))]))
 );

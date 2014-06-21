@@ -12,13 +12,5 @@ import ceylon.ast.redhat {
 
 test
 shared void stringLiteral()
-        => testConversion(RedHatTransformer.transformStringLiteral, stringLiteralToCeylon,
-    StringLiteral("\{LATIN CAPITAL LETTER C}", false),
-    StringLiteral("\\{LATIN CAPITAL LETTER C}", false),
-    StringLiteral("\{LATIN CAPITAL LETTER C}", true),
-    StringLiteral("\\{LATIN CAPITAL LETTER C}", true)
-);
-
-test
-shared void compileStringLiteral()
-        => testCompilation(compile, for (text in { "\{LATIN CAPITAL LETTER C}", "\\{LATIN CAPITAL LETTER C}" }) for (isVerbatim in { true, false }) (isVerbatim then "\"\"\"``text``\"\"\"" else "\"``text``\"")->StringLiteral(text, isVerbatim));
+        => doTest(compile, RedHatTransformer.transformStringLiteral, stringLiteralToCeylon,
+    for (text in { "\{LATIN CAPITAL LETTER C}", "\\{LATIN CAPITAL LETTER C}" }) for (isVerbatim in { true, false }) (isVerbatim then "\"\"\"``text``\"\"\"" else "\"``text``\"")->StringLiteral(text, isVerbatim));

@@ -16,15 +16,7 @@ import ceylon.ast.redhat {
 
 test
 shared void iterableType()
-        => testConversion(RedHatTransformer.transformIterableType, iterableTypeToCeylon,
-    IterableType(VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"), null)))),
-    IterableType(VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])), true)),
-    IterableType(null)
-);
-
-test
-shared void compileIterableType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformIterableType, iterableTypeToCeylon,
     "{String*}"->IterableType(VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"), null)))),
     "{Iterable<String>+}"->IterableType(VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])), true)),
     "{}"->IterableType(null)

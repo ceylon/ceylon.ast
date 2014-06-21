@@ -15,16 +15,7 @@ import ceylon.ast.redhat {
 
 test
 shared void selfReference()
-        => testConversion(RedHatTransformer.transformSelfReference, selfReferenceToCeylon,
-    This(),
-    Super(),
-    Outer(),
-    Package()
-);
-
-test
-shared void compileSelfReference()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformSelfReference, selfReferenceToCeylon,
     "this"->This(),
     "super"->Super(),
     "outer"->Outer(),

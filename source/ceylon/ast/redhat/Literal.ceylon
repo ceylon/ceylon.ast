@@ -1,9 +1,6 @@
 import ceylon.ast.api {
     Literal,
-    StringLiteral,
-    CharacterLiteral,
-    IntegerLiteral,
-    FloatLiteral
+    StringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -19,9 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         string_literal=\iSTRING_LITERAL,
         verbatim_string_literal=\iVERBATIM_STRING,
-        character_literal=\iCHAR_LITERAL,
-        integer_literal=\iNATURAL_LITERAL,
-        float_literal=\iFLOAT_LITERAL
+        character_literal=\iCHAR_LITERAL
     }
 }
 

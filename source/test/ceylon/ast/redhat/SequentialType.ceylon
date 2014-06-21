@@ -15,14 +15,7 @@ import ceylon.ast.redhat {
 
 test
 shared void sequentialType()
-        => testConversion(RedHatTransformer.transformSequentialType, sequentialTypeToCeylon,
-    SequentialType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    SequentialType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
-);
-
-test
-shared void compileSequentialType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformSequentialType, sequentialTypeToCeylon,
     "String[]"->SequentialType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
     "Iterable<String>[]"->SequentialType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
 );

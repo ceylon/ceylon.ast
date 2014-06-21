@@ -30,14 +30,7 @@ QualifiedType t2 = QualifiedType {
 
 test
 shared void qualifiedType()
-        => testConversion(RedHatTransformer.transformQualifiedType, qualifiedTypeToCeylon,
-    t,
-    t2
-);
-
-test
-shared void compileQualifiedType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformQualifiedType, qualifiedTypeToCeylon,
     "String.Foo<Nothing>.Iterable<String>"->t,
     "<String.Foo<Nothing>.Iterable<String>>.Inner"->t2
 );

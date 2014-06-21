@@ -15,18 +15,7 @@ import ceylon.ast.redhat {
 
 test
 shared void literal()
-        => testConversion(RedHatTransformer.transformLiteral, literalToCeylon,
-    StringLiteral("Hello, World!"),
-    StringLiteral("\\{WHITE SMILING FACE}"),
-    StringLiteral("ceylon.ast", true),
-    CharacterLiteral("a"),
-    IntegerLiteral("#7EA_BABE"),
-    FloatLiteral("1.138k")
-);
-
-test
-shared void compileLiteral()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformLiteral, literalToCeylon,
     "\"Hello, World!\""->StringLiteral("Hello, World!"),
     "\"\\{WHITE SMILING FACE}\""->StringLiteral("\\{WHITE SMILING FACE}"),
     "\"\"\"ceylon.ast\"\"\""->StringLiteral("ceylon.ast", true),

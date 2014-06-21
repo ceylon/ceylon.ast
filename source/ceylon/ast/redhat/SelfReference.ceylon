@@ -26,10 +26,6 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         packageType=\iPACKAGE
     }
 }
-import org.antlr.runtime {
-    CommonTokenStream,
-    ANTLRStringStream
-}
 
 "Converts a RedHat AST [[SelfExpression|JSelfExpression]], [[Outer|JOuter]] or [[Package|JPackage]]
  to a `ceylon.ast` [[SelfReference]]."

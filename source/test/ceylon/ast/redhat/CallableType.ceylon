@@ -20,22 +20,7 @@ import ceylon.ast.redhat {
 
 test
 shared void callableType()
-        => testConversion(RedHatTransformer.transformCallableType, callableTypeToCeylon,
-    CallableType(BaseType(TypeNameWithArguments(UIdentifier("Anything"))), TypeList([])),
-    CallableType(
-        OptionalType(TupleType(TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Float"))), true)))),
-        TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), true))),
-    CallableType(BaseType(TypeNameWithArguments(UIdentifier("Nothing"))), TypeList([
-                BaseType(TypeNameWithArguments(UIdentifier("Integer"))),
-                DefaultedType(BaseType(TypeNameWithArguments(UIdentifier("Float"))))
-            ],
-            VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), false)
-        ))
-);
-
-test
-shared void compileCallableType()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformCallableType, callableTypeToCeylon,
     "Anything()"->CallableType(BaseType(TypeNameWithArguments(UIdentifier("Anything"))), TypeList([])),
     "[Float+]?(String+)"->CallableType(
         OptionalType(TupleType(TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Float"))), true)))),

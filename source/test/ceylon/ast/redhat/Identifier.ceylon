@@ -13,16 +13,7 @@ import ceylon.ast.redhat {
 
 test
 shared void identifier()
-        => testConversion(RedHatTransformer.transformIdentifier, identifierToCeylon,
-    LIdentifier("lid"),
-    UIdentifier("Uid"),
-    LIdentifier("Lid"),
-    UIdentifier("uid")
-);
-
-test
-shared void compileIdentifier()
-        => testCompilation(compile,
+        => doTest(compile, RedHatTransformer.transformIdentifier, identifierToCeylon,
     "lid"->LIdentifier("lid"),
     "Uid"->UIdentifier("Uid"),
     "\\iLid"->LIdentifier("Lid"),

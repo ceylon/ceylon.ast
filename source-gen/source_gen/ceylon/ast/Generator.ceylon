@@ -19,15 +19,17 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     
     value aAn = firstChar in "aeiouAEIOU" then "an" else "a";
     
+    value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
+    
     void generateClass() {
         String filename = "source/ceylon/ast/api/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
         try (w = file.Appender()) {
-            if (exists firstLine = documentation.lines.first) {
+            if (exists firstLine = docLines.first) {
                 w.write("\"");
                 w.write(firstLine);
-                for (line in documentation.lines.rest) {
+                for (line in docLines.rest) {
                     w.writeLine();
                     w.write(" ");
                     w.write(line);

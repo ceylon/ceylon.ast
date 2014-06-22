@@ -50,6 +50,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
+    shared actual default IntersectionType transformIntersectionType(IntersectionType that)
+            => that.copy();
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
     shared actual default Literal transformLiteral(Literal that) {

@@ -36,7 +36,7 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType) {
         }).select((Anything a) => a exists).collect((Type|DefaultedType? element) {
             assert (exists element);
             return element;
-        });
+        }).sequence();
     return TupleType(TypeList(elementTypes, variadicType));
 }
 

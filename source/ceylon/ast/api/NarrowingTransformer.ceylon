@@ -53,10 +53,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformType(Type that) {
         switch (that)
-        case (is SimpleType) { return transformSimpleType(that); }
-        case (is GroupedType) { return transformGroupedType(that); }
-        case (is IterableType) { return transformIterableType(that); }
-        else { throw Error("Not yet implemented!"); }
+        case (is IntersectionType) { return transformIntersectionType(that); }
+        case (is PrimaryType) { return transformPrimaryType(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

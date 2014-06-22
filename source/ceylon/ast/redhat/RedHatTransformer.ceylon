@@ -11,6 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
         JIntegerLiteral=NaturalLiteral,
+        JIntersectionType=IntersectionType,
         JIdentifier=Identifier,
         JIterableType=IterableType,
         JLiteral=Literal,
@@ -122,6 +123,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
+    
+    shared actual JIntersectionType transformIntersectionType(IntersectionType that) {
+        JIntersectionType ret = JIntersectionType(null);
+        for (elementType in that.children) {
+            ret.addStaticType(transformPrimaryType(elementType));
+        }
+        return ret;
+    }
     
     shared actual JIterableType transformIterableType(IterableType that) {
         JIterableType ret = JIterableType(tokens.token("{", lbrace));

@@ -34,6 +34,26 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
+    shared actual String transformIntersectionType(IntersectionType that) {
+        StringBuilder code = StringBuilder();
+        code.append("IntersectionType([");
+        value origIndent = indent;
+        indent = indent + indentLevel + indentLevel;
+        code.appendNewline();
+        code.append(indent);
+        code.append(that.children.first.transform(this));
+        for (elementType in that.children) {
+            code.append(",");
+            code.appendNewline();
+            code.append(indent);
+            code.append(elementType.transform(this));
+        }
+        code.appendNewline();
+        code.append(origIndent + indentLevel);
+        code.append("])");
+        indent = origIndent;
+        return code.string;
+    }
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";

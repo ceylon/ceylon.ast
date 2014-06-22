@@ -22,6 +22,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformGroupedType(GroupedType that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);

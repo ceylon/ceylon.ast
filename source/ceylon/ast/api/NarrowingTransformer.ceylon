@@ -20,10 +20,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformLiteral(Literal that) {
         switch (that)
-        case (is StringLiteral) { return transformStringLiteral(that); }
-        case (is CharacterLiteral) { return transformCharacterLiteral(that); }
         case (is IntegerLiteral) { return transformIntegerLiteral(that); }
         case (is FloatLiteral) { return transformFloatLiteral(that); }
+        case (is StringLiteral) { return transformStringLiteral(that); }
+        case (is CharacterLiteral) { return transformCharacterLiteral(that); }
     }
     shared actual default Result transformNode(Node that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
@@ -32,11 +32,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)
         case (is SimpleType) { return transformSimpleType(that); }
+        case (is OptionalType) { return transformOptionalType(that); }
+        case (is SequentialType) { return transformSequentialType(that); }
         case (is TupleType) { return transformTupleType(that); }
         case (is IterableType) { return transformIterableType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
-        case (is OptionalType) { return transformOptionalType(that); }
-        case (is SequentialType) { return transformSequentialType(that); }
         case (is CallableType) { return transformCallableType(that); }
     }
     shared actual default Result transformSelfReference(SelfReference that) {
@@ -53,9 +53,9 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformType(Type that) {
         switch (that)
+        case (is PrimaryType) { return transformPrimaryType(that); }
         case (is UnionType) { return transformUnionType(that); }
         case (is IntersectionType) { return transformIntersectionType(that); }
-        case (is PrimaryType) { return transformPrimaryType(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

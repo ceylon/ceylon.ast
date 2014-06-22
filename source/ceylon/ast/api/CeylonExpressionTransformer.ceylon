@@ -66,6 +66,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             }
             code.appendNewline();
             indent = origIndent + indentLevel;
+            code.append(indent);
             code.append("]");
             if (exists var = that.variadic) {
                 code.append(",");

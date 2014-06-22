@@ -42,6 +42,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeNameWithArguments(TypeNameWithArguments that) => visitTypeNameWithArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
+    transformUnionType(UnionType that) => visitUnionType(that);
     
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
@@ -73,4 +74,5 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeList(TypeList that) => super.transformTypeList(that);
     shared default void visitTypeNameWithArguments(TypeNameWithArguments that) => super.transformTypeNameWithArguments(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
+    shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
 }

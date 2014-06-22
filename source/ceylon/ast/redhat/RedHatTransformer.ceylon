@@ -29,7 +29,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JThis=This,
         JTupleType=TupleType,
         JType=Type,
-        JTypeArgumentList=TypeArgumentList
+        JTypeArgumentList=TypeArgumentList,
+        JUnionType=UnionType
     }
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
@@ -254,6 +255,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)
             => JIdentifier(tokens.token(that.name, uidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+    
+    shared actual JUnionType transformUnionType(UnionType that) {
+        JUnionType ret = JUnionType(null);
+        for (elementType in that.children) {
+            switch (elementType)
+            case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
+            case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }
+        }
+        return ret;
+    }
     
     shared actual JSequencedType transformVariadicType(VariadicType that) {
         JSequencedType ret = JSequencedType(null);

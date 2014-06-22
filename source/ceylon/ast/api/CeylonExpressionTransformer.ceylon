@@ -142,6 +142,26 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
     }
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    shared actual String transformUnionType(UnionType that) {
+        StringBuilder code = StringBuilder();
+        code.append("UnionType([");
+        value origIndent = indent;
+        indent = indent + indentLevel + indentLevel;
+        code.appendNewline();
+        code.append(indent);
+        code.append(that.children.first.transform(this));
+        for (elementType in that.children) {
+            code.append(",");
+            code.appendNewline();
+            code.append(indent);
+            code.append(elementType.transform(this));
+        }
+        code.appendNewline();
+        code.append(origIndent + indentLevel);
+        code.append("])");
+        indent = origIndent;
+        return code.string;
+    }
     transformVariadicType(VariadicType that)
             => that.isNonempty
             then "VariadicType {

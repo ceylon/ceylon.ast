@@ -53,6 +53,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformType(Type that) {
         switch (that)
+        case (is UnionType) { return transformUnionType(that); }
         case (is IntersectionType) { return transformIntersectionType(that); }
         case (is PrimaryType) { return transformPrimaryType(that); }
     }

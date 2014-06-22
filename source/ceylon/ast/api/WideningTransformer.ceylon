@@ -34,5 +34,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
     shared actual default Result transformTypeNameWithArguments(TypeNameWithArguments that) => transformTypeIsh(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
+    shared actual default Result transformUnionType(UnionType that) => transformType(that);
     shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);
 }

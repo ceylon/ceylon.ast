@@ -9,10 +9,10 @@ shared class EntryType(key, item)
         extends Type([key, item]) {
     
     "The left, or “Key” type."
-    see (`given Entry.Key`)
+    //see (`given Entry.Key`)
     shared MainType key;
     "The right, or “Item” / “Value” type."
-    see (`given Entry.Item`)
+    //see (`given Entry.Item`)
     shared MainType item;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

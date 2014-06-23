@@ -197,21 +197,13 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         assert (is File file = parsePath(filename).resource);
         value l = ArrayList<String>();
         try (r = file.Reader()) {
+            "If the tail was already inserted."
+            variable Boolean done = false;
             while (exists line = r.readLine()) {
-                variable Boolean? inRightPlace = null;
-                if (exists prevLine = l.last) {
-                    if (prevLine.startsWith(head)) {
-                        inRightPlace = prevLine < newLine;
-                    }
-                }
-                if (line.startsWith(head)) {
-                    if (exists b = inRightPlace) {
-                        inRightPlace = b && newLine < line;
-                    } else {
-                        inRightPlace = newLine < line;
-                    }
-                }
-                if (exists b = inRightPlace, b) {
+                if (!done,
+                    line.startsWith(head),
+                    newLine < line) {
+                    done = true;
                     l.add(newLine);
                 }
                 l.add(line);
@@ -245,6 +237,21 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
             "``type``(``type`` that) => super.transform``type``(that);");
     }
     
+    void expandRedHatTransformer() {
+        value filename = "source/ceylon/ast/redhat/RedHatTransformer.ceylon";
+        expandFile(filename,
+            "        J",
+            "``type``=``type``,");
+        expandFile(filename,
+            "    shared actual J",
+            "``type`` transform``type``(``type`` that) {
+                     J``type`` ret = J``type``(null);
+                     ret.TODO = transformTODO(that.TODO);
+                     return ret;
+                 }
+                 ");
+    }
+    
     shared void run() {
         generateClass();
         generateBackend();
@@ -252,5 +259,6 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         expandTransformer();
         expandWideningTransformer();
         expandVisitor();
+        expandRedHatTransformer();
     }
 }

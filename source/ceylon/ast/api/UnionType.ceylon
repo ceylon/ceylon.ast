@@ -4,7 +4,7 @@
  
      String|Integer|Float"
 shared class UnionType(children)
-        extends Type(children) {
+        extends MainType(children) {
     
     "The child types of this union type.
      

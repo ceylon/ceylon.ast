@@ -25,6 +25,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is StringLiteral) { return transformStringLiteral(that); }
         case (is CharacterLiteral) { return transformCharacterLiteral(that); }
     }
+    shared actual default Result transformMainType(MainType that) {
+        switch (that)
+        case (is UnionableType) { return transformUnionableType(that); }
+        case (is UnionType) { return transformUnionType(that); }
+    }
     shared actual default Result transformNode(Node that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");
@@ -53,9 +58,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformType(Type that) {
         switch (that)
-        case (is PrimaryType) { return transformPrimaryType(that); }
-        case (is UnionType) { return transformUnionType(that); }
-        case (is IntersectionType) { return transformIntersectionType(that); }
+        case (is MainType) { return transformMainType(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)
@@ -64,5 +67,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is VariadicType) { return transformVariadicType(that); }
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }
+    }
+    shared actual default Result transformUnionableType(UnionableType that) {
+        switch (that)
+        case (is PrimaryType) { return transformPrimaryType(that); }
+        case (is IntersectionType) { return transformIntersectionType(that); }
     }
 }

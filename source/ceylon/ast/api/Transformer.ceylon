@@ -26,6 +26,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
+    shared formal Result transformMainType(MainType that);
     shared formal Result transformNode(Node that);
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);
@@ -45,5 +46,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeNameWithArguments(TypeNameWithArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnionType(UnionType that);
+    shared formal Result transformUnionableType(UnionableType that);
     shared formal Result transformVariadicType(VariadicType that);
 }

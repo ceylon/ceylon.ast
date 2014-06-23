@@ -58,6 +58,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Literal ret = super.transformLiteral(that));
         return ret;
     }
+    shared actual default MainType transformMainType(MainType that) {
+        assert (is MainType ret = super.transformMainType(that));
+        return ret;
+    }
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default Outer transformOuter(Outer that)
@@ -121,6 +125,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
+    shared actual default UnionableType transformUnionableType(UnionableType that) {
+        assert (is UnionableType ret = super.transformUnionableType(that));
+        return ret;
+    }
     shared actual default UnionType transformUnionType(UnionType that)
             => that.copy();
     shared actual default VariadicType transformVariadicType(VariadicType that)

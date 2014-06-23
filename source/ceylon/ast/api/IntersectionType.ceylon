@@ -5,7 +5,7 @@
      Element&Identifiable
      Persistent&Printable&Identifiable"
 shared class IntersectionType(children)
-        extends Type(children) {
+        extends UnionableType(children) {
     
     "The child types of this intersection type.
      

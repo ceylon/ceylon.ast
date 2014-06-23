@@ -26,6 +26,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
+    transformMainType(MainType that) => visitMainType(that);
     transformNode(Node that) => visitNode(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
@@ -43,6 +44,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeNameWithArguments(TypeNameWithArguments that) => visitTypeNameWithArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnionType(UnionType that) => visitUnionType(that);
+    transformUnionableType(UnionableType that) => visitUnionableType(that);
     
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
@@ -58,6 +60,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
+    shared default void visitMainType(MainType that) => super.transformMainType(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOuter(Outer that) => super.transformOuter(that);
@@ -75,4 +78,5 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeNameWithArguments(TypeNameWithArguments that) => super.transformTypeNameWithArguments(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
+    shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);
 }

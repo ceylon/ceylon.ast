@@ -186,7 +186,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                  test
                  shared void ``ltype``()
                          => doTest(compile, RedHatTransformer.transform``type``, ``ltype``ToCeylon,
-                     ``type``(``", ".join { for (param in params) "nothing" }``) // TODO fix sample, add more!
+                     // TODO add sample(s)
                  );");
         }
     }

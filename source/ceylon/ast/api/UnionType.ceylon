@@ -9,7 +9,7 @@ shared class UnionType(children)
     "The child types of this union type.
      
      A union type must have at least two children."
-    shared actual [<IntersectionType|PrimaryType>+] children;
+    shared actual [<IntersectionType|PrimaryType>*] children; // TODO make nonempty when ceylon/ceylon-compiler#1695 is fixed
     
     "Union of less than two types is not allowed"
     assert (children.longerThan(1));
@@ -28,7 +28,7 @@ shared class UnionType(children)
     shared actual Integer hash
             => 31 * children.hash;
     
-    shared UnionType copy([<IntersectionType|PrimaryType>+] children = this.children) {
+    shared UnionType copy([<IntersectionType|PrimaryType>*] children = this.children) { // TODO ditto nonempty
         value ret = UnionType(children);
         ret.extraInfo = extraInfo;
         return ret;

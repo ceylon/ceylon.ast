@@ -149,7 +149,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         indent = indent + indentLevel + indentLevel;
         code.appendNewline();
         code.append(indent);
-        code.append(that.children.first.transform(this));
+        code.append(that.children.first?.transform(this) else nothing); // TODO use first.transform(this); CC ceylon/ceylon-compiler#1695
         for (elementType in that.children) {
             code.append(",");
             code.appendNewline();

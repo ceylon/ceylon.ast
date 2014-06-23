@@ -252,6 +252,13 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                  ");
     }
     
+    void expandEditor() {
+        expandFile("source/ceylon/ast/api/Editor.ceylon",
+            "    shared actual default ",
+            "``type`` transform``type``(``type`` that)
+                         => that.copy();");
+    }
+    
     shared void run() {
         generateClass();
         generateBackend();
@@ -260,5 +267,6 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         expandWideningTransformer();
         expandVisitor();
         expandRedHatTransformer();
+        expandEditor();
     }
 }

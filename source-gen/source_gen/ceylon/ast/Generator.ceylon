@@ -259,6 +259,27 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                          => that.copy();");
     }
     
+    void expandCeylonExpressionTransformer() {
+        if (params.longerThan(1)) {
+            // generate multi-line named args
+            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+                "    transform",
+                "``type``(``type`` that)
+                             => \"``type`` {
+                 ``"\n".join { for (param in params.collect(Entry<String,String>.item)) "                \`\` indent + indentLevel \`\```param`` = \`\`transformWithIndent(that.``param``)\`\`;" }``
+                                 \`\`indent\`\`}\";");
+        } else if (exists first = params.first) {
+            // generate inline positional args
+            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+                "    transform",
+                "``type``(``type`` that) => \"``type``(\`\`transformWithIndent(that.``first.item``)\`\`)\";");
+        } else {
+            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+                "    transform",
+                "``type``(``type`` that) => \"``type``()\";");
+        }
+    }
+    
     shared void run() {
         generateClass();
         generateBackend();
@@ -268,5 +289,6 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         expandVisitor();
         expandRedHatTransformer();
         expandEditor();
+        expandCeylonExpressionTransformer();
     }
 }

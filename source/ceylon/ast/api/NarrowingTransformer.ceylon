@@ -59,6 +59,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformType(Type that) {
         switch (that)
         case (is MainType) { return transformMainType(that); }
+        case (is EntryType) { return transformEntryType(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

@@ -7,6 +7,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBaseType=BaseType,
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
+        JEntryType=EntryType,
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
@@ -36,6 +37,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         character_literal=\iCHAR_LITERAL,
+        entry_op=\iENTRY_OP,
         float_literal=\iFLOAT_LITERAL,
         integer_literal=\iNATURAL_LITERAL,
         larger_op=\iLARGER_OP,
@@ -107,6 +109,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JEntryType transformEntryType(EntryType that) {
+        JEntryType ret = JEntryType(null);
+        ret.keyType = transformMainType(that.key);
+        ret.endToken = tokens.token("->", entry_op);
+        ret.valueType = transformMainType(that.item);
+        return ret;
+    }
+    
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
@@ -147,6 +157,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
+        return ret;
+    }
+    
+    shared actual JStaticType transformMainType(MainType that) {
+        assert (is JStaticType ret = super.transformMainType(that));
         return ret;
     }
     
@@ -255,6 +270,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)
             => JIdentifier(tokens.token(that.name, uidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+    
+    shared actual JStaticType transformUnionableType(UnionableType that) {
+        assert (is JStaticType ret = super.transformUnionableType(that));
+        return ret;
+    }
     
     shared actual JUnionType transformUnionType(UnionType that) {
         JUnionType ret = JUnionType(null);

@@ -13,7 +13,7 @@ shared abstract class TypeIsh(<TypeIsh|TypeName>[] kids)
 
 "Representation of a type."
 shared abstract class Type(TypeIsh[] kids)
-        of MainType /*|EntryType*/
+        of MainType|EntryType
         extends TypeIsh(kids) {
     
     shared actual default TypeIsh[] children = kids;

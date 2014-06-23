@@ -17,6 +17,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
+    transformEntryType(EntryType that) => visitEntryType(that);
     transformExpression(Expression that) => visitExpression(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
@@ -51,6 +52,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
+    shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);

@@ -6,8 +6,74 @@ import ceylon.file {
 import ceylon.collection {
     ArrayList
 }
-//                                             Type -> name
-class Generator(String type, String superType, [<String->String>*] params, String documentation) {
+
+interface Generator {
+    
+    shared formal void run();
+    
+    shared formal String type;
+    
+    shared void expandFile(String filename, String head, String customTail) {
+        
+        value newLine = head + customTail;
+        
+        assert (is File file = parsePath(filename).resource);
+        value l = ArrayList<String>();
+        try (r = file.Reader()) {
+            "If the tail was already inserted."
+            variable Boolean done = false;
+            while (exists line = r.readLine()) {
+                if (!done,
+                    line.startsWith(head),
+                    newLine < line) {
+                    done = true;
+                    l.add(newLine);
+                }
+                l.add(line);
+            }
+        }
+        try (w = file.Overwriter()) {
+            for (line in l) {
+                w.writeLine(line);
+            }
+        }
+    }
+    
+    shared void expandTransformer()
+            => expandFile(
+        "source/ceylon/ast/core/Transformer.ceylon",
+        "    shared formal Result transform", "``type``(``type`` that);");
+}
+
+interface ClassGenerator
+        satisfies Generator {
+    
+    shared formal String superType;
+    
+    shared void expandWideningTransformer()
+            => expandFile(
+        "source/ceylon/ast/core/WideningTransformer.ceylon",
+        "    shared actual default Result transform",
+        "``type``(``type`` that) => transform``superType``(that);");
+    
+    shared void expandVisitor() {
+        value filename = "source/ceylon/ast/core/Visitor.ceylon";
+        expandFile(filename,
+            "    transform",
+            "``type``(``type`` that) => visit``type``(that);");
+        expandFile(filename,
+            "    shared default void visit",
+            "``type``(``type`` that) => super.transform``type``(that);");
+    }
+}
+
+class ConcreteClassGenerator(
+    shared actual String type,
+    shared actual String superType,
+    "Type->name"
+    [<String->String>*] params,
+    String documentation)
+        satisfies ClassGenerator {
     
     assert (exists firstChar = type.first);
     value ltype = String { firstChar.lowercased, *type.rest };
@@ -191,52 +257,6 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         }
     }
     
-    void expandFile(String filename, String head, String customTail) {
-        value newLine = head + customTail;
-        
-        assert (is File file = parsePath(filename).resource);
-        value l = ArrayList<String>();
-        try (r = file.Reader()) {
-            "If the tail was already inserted."
-            variable Boolean done = false;
-            while (exists line = r.readLine()) {
-                if (!done,
-                    line.startsWith(head),
-                    newLine < line) {
-                    done = true;
-                    l.add(newLine);
-                }
-                l.add(line);
-            }
-        }
-        try (w = file.Overwriter()) {
-            for (line in l) {
-                w.writeLine(line);
-            }
-        }
-    }
-    
-    void expandTransformer()
-            => expandFile(
-        "source/ceylon/ast/core/Transformer.ceylon",
-        "    shared formal Result transform", "``type``(``type`` that);");
-    
-    void expandWideningTransformer()
-            => expandFile(
-        "source/ceylon/ast/core/WideningTransformer.ceylon",
-        "    shared actual default Result transform",
-        "``type``(``type`` that) => transform``superType``(that);");
-    
-    void expandVisitor() {
-        value filename = "source/ceylon/ast/core/Visitor.ceylon";
-        expandFile(filename,
-            "    transform",
-            "``type``(``type`` that) => visit``type``(that);");
-        expandFile(filename,
-            "    shared default void visit",
-            "``type``(``type`` that) => super.transform``type``(that);");
-    }
-    
     void expandRedHatTransformer() {
         value filename = "source/ceylon/ast/redhat/RedHatTransformer.ceylon";
         expandFile(filename,
@@ -280,7 +300,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         }
     }
     
-    shared void run() {
+    shared actual void run() {
         generateClass();
         generateBackend();
         generateBackendTest();

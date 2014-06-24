@@ -22,7 +22,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
     
     void generateClass() {
-        String filename = "source/ceylon/ast/api/``type``.ceylon";
+        String filename = "source/ceylon/ast/core/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
         try (w = file.Appender()) {
@@ -135,7 +135,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
         File file = n.createFile();
         try (w = file.Appender()) {
             w.writeLine(
-                "import ceylon.ast.api {
+                "import ceylon.ast.core {
                      ``type``
                  }
                  import com.redhat.ceylon.compiler.typechecker.tree {
@@ -174,7 +174,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                 "import ceylon.test {
                      test
                  }
-                 import ceylon.ast.api {
+                 import ceylon.ast.core {
                      ``type``
                  }
                  import ceylon.ast.redhat {
@@ -218,17 +218,17 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     
     void expandTransformer()
             => expandFile(
-        "source/ceylon/ast/api/Transformer.ceylon",
+        "source/ceylon/ast/core/Transformer.ceylon",
         "    shared formal Result transform", "``type``(``type`` that);");
     
     void expandWideningTransformer()
             => expandFile(
-        "source/ceylon/ast/api/WideningTransformer.ceylon",
+        "source/ceylon/ast/core/WideningTransformer.ceylon",
         "    shared actual default Result transform",
         "``type``(``type`` that) => transform``superType``(that);");
     
     void expandVisitor() {
-        value filename = "source/ceylon/ast/api/Visitor.ceylon";
+        value filename = "source/ceylon/ast/core/Visitor.ceylon";
         expandFile(filename,
             "    transform",
             "``type``(``type`` that) => visit``type``(that);");
@@ -253,7 +253,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     }
     
     void expandEditor() {
-        expandFile("source/ceylon/ast/api/Editor.ceylon",
+        expandFile("source/ceylon/ast/core/Editor.ceylon",
             "    shared actual default ",
             "``type`` transform``type``(``type`` that)
                          => that.copy();");
@@ -262,7 +262,7 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
     void expandCeylonExpressionTransformer() {
         if (params.longerThan(1)) {
             // generate multi-line named args
-            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+            expandFile("source/ceylon/ast/core/CeylonExpressionTransformer.ceylon",
                 "    transform",
                 "``type``(``type`` that)
                              => \"``type`` {
@@ -270,11 +270,11 @@ class Generator(String type, String superType, [<String->String>*] params, Strin
                                  \`\`indent\`\`}\";");
         } else if (exists first = params.first) {
             // generate inline positional args
-            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+            expandFile("source/ceylon/ast/core/CeylonExpressionTransformer.ceylon",
                 "    transform",
                 "``type``(``type`` that) => \"``type``(\`\`transformWithIndent(that.``first.item``)\`\`)\";");
         } else {
-            expandFile("source/ceylon/ast/api/CeylonExpressionTransformer.ceylon",
+            expandFile("source/ceylon/ast/core/CeylonExpressionTransformer.ceylon",
                 "    transform",
                 "``type``(``type`` that) => \"``type``()\";");
         }

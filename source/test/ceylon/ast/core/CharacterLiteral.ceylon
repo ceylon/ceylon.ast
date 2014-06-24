@@ -3,7 +3,7 @@ import ceylon.test {
     assertEquals,
     assertNotEquals
 }
-import ceylon.ast.api {
+import ceylon.ast.core {
     CharacterLiteral
 }
 

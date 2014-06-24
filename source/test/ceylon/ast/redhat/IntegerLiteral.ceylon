@@ -1,7 +1,7 @@
 import ceylon.test {
     test
 }
-import ceylon.ast.api {
+import ceylon.ast.core {
     IntegerLiteral
 }
 import ceylon.ast.redhat {

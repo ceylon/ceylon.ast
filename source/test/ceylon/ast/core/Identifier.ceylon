@@ -5,7 +5,7 @@ import ceylon.test {
     assertTrue,
     assertFalse
 }
-import ceylon.ast.api {
+import ceylon.ast.core {
     LIdentifier=LIdentifier,
     UIdentifier,
     parseIdentifier=identifier

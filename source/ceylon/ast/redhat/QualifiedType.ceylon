@@ -1,4 +1,4 @@
-import ceylon.ast.api {
+import ceylon.ast.core {
     GroupedType,
     QualifiedType,
     SimpleType,

@@ -1,4 +1,4 @@
-import ceylon.ast.api {
+import ceylon.ast.core {
     CharacterLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {

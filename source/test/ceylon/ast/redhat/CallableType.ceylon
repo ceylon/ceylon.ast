@@ -1,7 +1,7 @@
 import ceylon.test {
     test
 }
-import ceylon.ast.api {
+import ceylon.ast.core {
     BaseType,
     CallableType,
     DefaultedType,

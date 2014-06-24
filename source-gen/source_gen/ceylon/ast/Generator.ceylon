@@ -32,7 +32,7 @@ interface Generator {
                 l.add(line);
             }
         }
-        try (w = file.Overwriter()) {
+        try (w = file.Overwriter("UTF-8")) {
             for (line in l) {
                 w.writeLine(line);
             }
@@ -121,7 +121,7 @@ class ConcreteClassGenerator(
         String filename = "source/ceylon/ast/core/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
-        try (w = file.Appender()) {
+        try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
                 w.write("\"");
                 w.write(firstLine);
@@ -229,7 +229,7 @@ class ConcreteClassGenerator(
         String filename = "source/ceylon/ast/redhat/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
-        try (w = file.Appender()) {
+        try (w = file.Appender("UTF-8")) {
             w.writeLine(
                 "import ceylon.ast.core {
                      ``type``
@@ -265,7 +265,7 @@ class ConcreteClassGenerator(
         String filename = "source/test/ceylon/ast/redhat/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
-        try (w = file.Appender()) {
+        try (w = file.Appender("UTF-8")) {
             w.writeLine(
                 "import ceylon.test {
                      test
@@ -352,7 +352,7 @@ class AliasGenerator(shared actual String type, shared actual String[] cases, St
         String filename = "source/ceylon/ast/core/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
-        try (w = file.Appender()) {
+        try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
                 w.write("\"");
                 w.write(firstLine);
@@ -388,7 +388,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         String filename = "source/ceylon/ast/core/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
-        try (w = file.Appender()) {
+        try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
                 w.write("\"");
                 w.write(firstLine);

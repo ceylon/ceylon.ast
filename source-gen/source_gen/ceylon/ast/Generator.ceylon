@@ -312,3 +312,63 @@ class ConcreteClassGenerator(
         expandCeylonExpressionTransformer();
     }
 }
+
+class AliasGenerator(shared actual String type, String[] cases, String documentation)
+        satisfies Generator {
+    
+    value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
+    
+    void generateAlias() {
+        String filename = "source/ceylon/ast/core/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender()) {
+            if (exists firstLine = docLines.first) {
+                w.write("\"");
+                w.write(firstLine);
+                for (line in docLines.rest) {
+                    w.writeLine();
+                    w.write(" ");
+                    w.write(line);
+                }
+                w.write("\"");
+                w.writeLine();
+            }
+            w.writeLine(
+                "shared alias ``type``
+                         => ``"|".join(cases)``;"
+            );
+        }
+    }
+    
+    void expandNarrowingTransformer()
+            => expandFile("source/ceylon/ast/core/NarrowingTransformer.ceylon",
+        "    shared actual default Result transform",
+        "``type``(``type`` that) {
+                 switch (that)
+         ``"\n".join { for (caseType in cases) "        case (is ``caseType``) { return transform``caseType``(that); }" }``
+             }");
+    
+    void expandEditor()
+            => expandFile("source/ceylon/ast/core/Editor.ceylon",
+        "    shared actual default ",
+        "``type`` transform``type``(``type`` that) {
+                 assert (is ``type`` ret = super.transform``type``(that));
+                 return ret;
+             }");
+    
+    void expandRedHatTransformer()
+            => expandFile("source/ceylon/ast/redhat/RedHatTransformer.ceylon",
+        "    shared actual J",
+        "``type`` transform``type``(``type`` that) {
+                 assert (is J``type`` ret = super.transform``type``(that));
+                 return ret;
+             }");
+    
+    shared actual void run() {
+        generateAlias();
+        expandNarrowingTransformer();
+        expandEditor();
+        expandRedHatTransformer();
+    }
+}

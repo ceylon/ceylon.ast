@@ -3,6 +3,17 @@ import ceylon.collection {
     ArrayList
 }
 
+String readDoc() {
+    variable String? line = process.readLine();
+    StringBuilder doc = StringBuilder();
+    while (exists l = line) {
+        doc.append(l);
+        doc.appendNewline();
+        line = process.readLine();
+    }
+    return doc.string;
+}
+
 ConcreteClassGenerator makeConcreteClassGenerator(String[] arguments) {
     assert (exists type = arguments[0], exists superType = arguments[1]);
     variable Integer i = 2;
@@ -12,14 +23,12 @@ ConcreteClassGenerator makeConcreteClassGenerator(String[] arguments) {
         assert (exists paramName = arguments[i++]);
         params.add(paramType->paramName);
     }
-    variable String? line = process.readLine();
-    StringBuilder doc = StringBuilder();
-    while (exists l = line) {
-        doc.append(l);
-        doc.appendNewline();
-        line = process.readLine();
-    }
-    return ConcreteClassGenerator(type, superType, params.sequence(), doc.string);
+    return ConcreteClassGenerator(type, superType, params.sequence(), readDoc());
+}
+
+AliasGenerator makeAliasGenerator(String[] arguments) {
+    assert (exists type = arguments[0], exists cases = arguments[1]);
+    return AliasGenerator(type, cases.split('|'.equals).sequence(), readDoc());
 }
 
 "Run the module `source_gen.ceylon.ast`.
@@ -32,6 +41,9 @@ shared void run() {
         case ("--help") {
             print("https://gist.github.com/lucaswerkmeister/a4da0fa5d9d5b14cc3e9");
             return;
+        }
+        case ("--alias") {
+            generator = makeAliasGenerator(process.arguments.rest);
         }
         else {
             generator = makeConcreteClassGenerator(process.arguments);

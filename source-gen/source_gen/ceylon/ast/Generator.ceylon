@@ -67,6 +67,36 @@ interface ClassGenerator
     }
 }
 
+interface EnumeratedTypeGenerator
+        satisfies Generator {
+    
+    shared formal String[] cases;
+    
+    shared void expandNarrowingTransformer()
+            => expandFile("source/ceylon/ast/core/NarrowingTransformer.ceylon",
+        "    shared actual default Result transform",
+        "``type``(``type`` that) {
+                 switch (that)
+         ``"\n".join { for (caseType in cases) "        case (is ``caseType``) { return transform``caseType``(that); }" }``
+             }");
+    
+    shared void expandEditor()
+            => expandFile("source/ceylon/ast/core/Editor.ceylon",
+        "    shared actual default ",
+        "``type`` transform``type``(``type`` that) {
+                 assert (is ``type`` ret = super.transform``type``(that));
+                 return ret;
+             }");
+    
+    shared void expandRedHatTransformer()
+            => expandFile("source/ceylon/ast/redhat/RedHatTransformer.ceylon",
+        "    shared actual J",
+        "``type`` transform``type``(``type`` that) {
+                 assert (is J``type`` ret = super.transform``type``(that));
+                 return ret;
+             }");
+}
+
 class ConcreteClassGenerator(
     shared actual String type,
     shared actual String superType,
@@ -313,8 +343,8 @@ class ConcreteClassGenerator(
     }
 }
 
-class AliasGenerator(shared actual String type, String[] cases, String documentation)
-        satisfies Generator {
+class AliasGenerator(shared actual String type, shared actual String[] cases, String documentation)
+        satisfies EnumeratedTypeGenerator {
     
     value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
     
@@ -341,34 +371,56 @@ class AliasGenerator(shared actual String type, String[] cases, String documenta
         }
     }
     
-    void expandNarrowingTransformer()
-            => expandFile("source/ceylon/ast/core/NarrowingTransformer.ceylon",
-        "    shared actual default Result transform",
-        "``type``(``type`` that) {
-                 switch (that)
-         ``"\n".join { for (caseType in cases) "        case (is ``caseType``) { return transform``caseType``(that); }" }``
-             }");
-    
-    void expandEditor()
-            => expandFile("source/ceylon/ast/core/Editor.ceylon",
-        "    shared actual default ",
-        "``type`` transform``type``(``type`` that) {
-                 assert (is ``type`` ret = super.transform``type``(that));
-                 return ret;
-             }");
-    
-    void expandRedHatTransformer()
-            => expandFile("source/ceylon/ast/redhat/RedHatTransformer.ceylon",
-        "    shared actual J",
-        "``type`` transform``type``(``type`` that) {
-                 assert (is J``type`` ret = super.transform``type``(that));
-                 return ret;
-             }");
-    
     shared actual void run() {
         generateAlias();
         expandNarrowingTransformer();
         expandEditor();
+        expandRedHatTransformer();
+    }
+}
+
+class AbstractClassGenerator(shared actual String type, shared actual String superType, shared actual String[] cases, <String->String>[] params, String documentation)
+        satisfies ClassGenerator&EnumeratedTypeGenerator {
+    
+    value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
+    
+    void generateAbstractClass() {
+        String filename = "source/ceylon/ast/core/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender()) {
+            if (exists firstLine = docLines.first) {
+                w.write("\"");
+                w.write(firstLine);
+                for (line in docLines.rest) {
+                    w.writeLine();
+                    w.write(" ");
+                    w.write(line);
+                }
+                w.write("\"");
+                w.writeLine();
+            }
+            w.writeLine(
+                "shared abstract class ``type``(``", ".join(params.collect(Entry<String,String>.item))``)
+                         of ``"|".join(cases)``
+                         extends ``superType``([``", ".join(params.collect(Entry<String,String>.item))``]) {
+                     ");
+            for (paramType->paramName in params) {
+                w.writeLine(
+                    "    // TODO document!
+                         shared ``paramType`` ``paramName``;");
+            }
+            w.writeLine("}");
+        }
+    }
+    
+    shared actual void run() {
+        generateAbstractClass();
+        expandTransformer();
+        expandNarrowingTransformer();
+        expandEditor();
+        expandWideningTransformer();
+        expandVisitor();
         expandRedHatTransformer();
     }
 }

@@ -19,7 +19,7 @@ interface Generator {
         
         assert (is File file = parsePath(filename).resource);
         value l = ArrayList<String>();
-        try (r = file.Reader()) {
+        try (r = file.Reader("UTF-8")) {
             "If the tail was already inserted."
             variable Boolean done = false;
             while (exists line = r.readLine()) {

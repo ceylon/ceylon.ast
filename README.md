@@ -1,4 +1,4 @@
-ceylon.ast [![Gitter chat](https://badges.gitter.im/ceylon/ceylon.ast.png)](https://gitter.im/ceylon/ceylon.ast)
+ceylon.ast
 ==========
 
 This repository will contain several modules to work with a Ceylon Abstract Syntax Tree (AST):

@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    MainType,
     VariadicType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -13,8 +14,9 @@ import ceylon.ast.redhat {
 
 "Converts a RedHat AST [[SequencedType|JSequencedType]] to a `ceylon.ast` [[VariadicType]]."
 shared VariadicType variadicTypeToCeylon(JSequencedType sequencedType) {
-    assert (is JStaticType type = sequencedType.type);
-    return VariadicType(typeToCeylon(type), sequencedType.atLeastOne);
+    assert (is JStaticType jType = sequencedType.type,
+        is MainType type = typeToCeylon(jType));
+    return VariadicType(type, sequencedType.atLeastOne);
 }
 
 "Compiles the given [[code]] for a Variadic Type

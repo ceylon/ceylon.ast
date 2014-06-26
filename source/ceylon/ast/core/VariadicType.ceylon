@@ -1,11 +1,11 @@
-"A variadic type is a [[UnionedType]] followed by a \"*\" (possibly-empty)
+"A variadic type is a [[MainType]] followed by a \"*\" (possibly-empty)
  or a \"+\" (nonempty)."
-//see (`class IterableType`, `class TypeList`)
+see (`class IterableType`, `class TypeList`)
 shared class VariadicType(elementType, isNonempty = false)
         extends TypeIsh([elementType]) {
     
     "The element type."
-    shared Type /* TODO UnionedType */ elementType;
+    shared MainType elementType;
     "[[true]] for a nonempty variadic type (`Type+`),
      [[false]] for a possibly-empty variadic type (`Type*`)."
     shared Boolean isNonempty;
@@ -24,7 +24,7 @@ shared class VariadicType(elementType, isNonempty = false)
     shared actual Integer hash
             => 31 * elementType.hash + isNonempty.hash;
     
-    shared VariadicType copy(Type /* TODO */ elementType = this.elementType, Boolean isNonempty = this.isNonempty) {
+    shared VariadicType copy(MainType elementType = this.elementType, Boolean isNonempty = this.isNonempty) {
         value ret = VariadicType(elementType, isNonempty);
         ret.extraInfo = extraInfo;
         return ret;

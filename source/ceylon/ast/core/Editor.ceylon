@@ -134,5 +134,5 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default UnionType transformUnionType(UnionType that)
             => that.copy();
     shared actual default VariadicType transformVariadicType(VariadicType that)
-            => that.copy(transformType(that.elementType));
+            => that.copy(transformMainType(that.elementType));
 }

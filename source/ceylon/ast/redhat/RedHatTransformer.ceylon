@@ -40,6 +40,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         entry_op=\iENTRY_OP,
         float_literal=\iFLOAT_LITERAL,
         integer_literal=\iNATURAL_LITERAL,
+        intersection_op=\iINTERSECTION_OP,
         larger_op=\iLARGER_OP,
         lbrace=\iLBRACE,
         lbracket=\iLBRACKET,
@@ -60,6 +61,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         superType=\iSUPER,
         thisType=\iTHIS,
         uidentifier=\iUIDENTIFIER,
+        union_op=\iUNION_OP,
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
@@ -137,7 +139,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIntersectionType transformIntersectionType(IntersectionType that) {
         JIntersectionType ret = JIntersectionType(null);
+        ret.addStaticType(transformPrimaryType(that.children.first));
         for (elementType in that.children) {
+            tokens.token("&", intersection_op);
             ret.addStaticType(transformPrimaryType(elementType));
         }
         return ret;
@@ -278,7 +282,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JUnionType transformUnionType(UnionType that) {
         JUnionType ret = JUnionType(null);
+        value firstType = that.children.first;
+        switch (firstType)
+        case (is PrimaryType) { ret.addStaticType(transformPrimaryType(firstType)); }
+        case (is IntersectionType) { ret.addStaticType(transformIntersectionType(firstType)); }
         for (elementType in that.children) {
+            tokens.token("&", union_op);
             switch (elementType)
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }

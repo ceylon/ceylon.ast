@@ -403,8 +403,10 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
             w.writeLine(
                 "shared abstract class ``type``(``", ".join(params.collect(Entry<String,String>.item))``)
                          of ``"|".join(cases)``
-                         extends ``superType``([``", ".join(params.collect(Entry<String,String>.item))``]) {
-                     ");
+                         extends ``superType``([``", ".join(params.collect(Entry<String,String>.item))``]) {");
+            if (params nonempty) {
+                w.writeLine("    ");
+            }
             for (paramType->paramName in params) {
                 w.writeLine(
                     "    // TODO document!

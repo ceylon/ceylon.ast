@@ -7,7 +7,7 @@
  [[outerInstance]] and [[packageInstance]] instead of creating new instances every time."
 abstract shared class SelfReference()
         of This | Super | Outer | Package
-        extends Expression([]) /* TODO extends Atom? */ {
+        extends Atom([]) {
     shared formal SelfReference copy();
 }
 

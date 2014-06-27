@@ -41,6 +41,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
+    transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     shared actual String transformIntersectionType(IntersectionType that) {

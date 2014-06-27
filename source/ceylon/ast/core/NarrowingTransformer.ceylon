@@ -3,14 +3,19 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformAtom(Atom that) {
+        switch (that)
+        case (is Literal) { return transformLiteral(that); }
+        case (is SelfReference) { return transformSelfReference(that); }
+        case (is GroupedExpression) { return transformGroupedExpression(that); }
+    }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");
     }
     shared actual default Result transformExpression(Expression that) {
         switch (that)
-        case (is Literal) { return transformLiteral(that); }
-        case (is SelfReference) { return transformSelfReference(that); }
+        case (is ValueExpression) { return transformValueExpression(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -35,6 +40,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeIsh) { return transformTypeIsh(that); }
         case (is Identifier) { return transformIdentifier(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
+    }
+    shared actual default Result transformPrimary(Primary that) {
+        switch (that)
+        case (is Atom) { return transformAtom(that); }
     }
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)
@@ -75,5 +84,9 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is PrimaryType) { return transformPrimaryType(that); }
         case (is IntersectionType) { return transformIntersectionType(that); }
+    }
+    shared actual default Result transformValueExpression(ValueExpression that) {
+        switch (that)
+        case (is Primary) { return transformPrimary(that); }
     }
 }

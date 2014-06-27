@@ -4,10 +4,12 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JAtom=Atom,
         JBaseType=BaseType,
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
         JEntryType=EntryType,
+        JExpression=Expression,
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
@@ -19,6 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOptionalType=OptionalType,
         JOuter=Outer,
         JPackage=Package,
+        JPrimary=Primary,
         JQualifiedType=QualifiedType,
         JSelfExpression=SelfExpression,
         JSequenceType=SequenceType,
@@ -27,6 +30,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
         JSuper=Super,
+        JTerm=Term,
         JThis=This,
         JTupleType=TupleType,
         JType=Type,
@@ -67,6 +71,11 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
+    shared actual JAtom transformAtom(Atom that) {
+        assert (is JAtom ret = super.transformAtom(that));
+        return ret;
+    }
+    
     shared actual JBaseType transformBaseType(BaseType that) {
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
@@ -119,8 +128,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformExpression(Expression that) {
+        assert (is JTerm ret = super.transformExpression(that));
+        return ret;
+    }
+    
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
+    
+    shared actual JExpression transformGroupedExpression(GroupedExpression that) {
+        JExpression ret = JExpression(tokens.token("(", lparen));
+        ret.term = transformExpression(that.innerExpression);
+        ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
     
     shared actual JGroupedType transformGroupedType(GroupedType that) {
         JGroupedType ret = JGroupedType(tokens.token("<", smaller_op));
@@ -163,7 +184,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         assert (is JLiteral ret = super.transformLiteral(that));
         return ret;
     }
-    
     shared actual JStaticType transformMainType(MainType that) {
         assert (is JStaticType ret = super.transformMainType(that));
         return ret;
@@ -181,6 +201,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JPrimary transformPrimary(Primary that) {
+        assert (is JPrimary ret = super.transformPrimary(that));
+        return ret;
+    }
     
     shared actual JStaticType transformPrimaryType(PrimaryType that) {
         assert (is JStaticType ret = super.transformPrimaryType(that));
@@ -292,6 +317,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }
         }
+        return ret;
+    }
+    
+    shared actual JTerm transformValueExpression(ValueExpression that) {
+        assert (is JTerm ret = super.transformValueExpression(that));
         return ret;
     }
     

@@ -23,6 +23,10 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
+    shared actual default Atom transformAtom(Atom that) {
+        assert (is Atom ret = super.transformAtom(that));
+        return ret;
+    }
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
     shared actual default CallableType transformCallableType(CallableType that)
@@ -38,6 +42,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
+            => that.copy();
+    shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
             => that.copy();
     shared actual default GroupedType transformGroupedType(GroupedType that)
             => that.copy(transformType(that.type));
@@ -70,6 +76,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
+    shared actual default Primary transformPrimary(Primary that) {
+        assert (is Primary ret = super.transformPrimary(that));
+        return ret;
+    }
     shared actual default PrimaryType transformPrimaryType(PrimaryType that) {
         assert (is PrimaryType ret = super.transformPrimaryType(that));
         return ret;
@@ -133,6 +143,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UnionType transformUnionType(UnionType that)
             => that.copy();
+    shared actual default ValueExpression transformValueExpression(ValueExpression that) {
+        assert (is ValueExpression ret = super.transformValueExpression(that));
+        return ret;
+    }
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
 }

@@ -12,6 +12,7 @@
  and if you need to perform some operation only for some node type that might appear
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
+    transformAtom(Atom that) => visitAtom(that);
     transformBaseType(BaseType that) => visitBaseType(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
@@ -20,6 +21,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformEntryType(EntryType that) => visitEntryType(that);
     transformExpression(Expression that) => visitExpression(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
+    transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
@@ -32,6 +34,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
+    transformPrimary(Primary that) => visitPrimary(that);
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
@@ -47,6 +50,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     
+    shared default void visitAtom(Atom that) => super.transformAtom(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
@@ -55,6 +59,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
+    shared default void visitGroupedExpression(GroupedExpression that) => super.transformGroupedExpression(that);
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
@@ -67,6 +72,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOuter(Outer that) => super.transformOuter(that);
     shared default void visitPackage(Package that) => super.transformPackage(that);
+    shared default void visitPrimary(Primary that) => super.transformPrimary(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);

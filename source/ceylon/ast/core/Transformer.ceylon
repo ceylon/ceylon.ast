@@ -12,6 +12,7 @@
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
+    shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
@@ -20,6 +21,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
@@ -32,6 +34,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformSelfReference(SelfReference that);
@@ -48,5 +51,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);
+    shared formal Result transformValueExpression(ValueExpression that);
     shared formal Result transformVariadicType(VariadicType that);
 }

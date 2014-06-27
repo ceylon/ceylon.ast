@@ -6,7 +6,7 @@
  In order to save some memory, you can reuse [[thisInstance]], [[superInstance]],
  [[outerInstance]] and [[packageInstance]] instead of creating new instances every time."
 abstract shared class SelfReference()
-        of This|Super|Outer|Package
+        of This | Super | Outer | Package
         extends Expression([]) /* TODO extends Atom? */ {
     shared formal SelfReference copy();
 }

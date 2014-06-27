@@ -5,6 +5,6 @@
  In other words, this class is only there to represent how types are parsed,
  not their semantics."
 shared abstract class MainType(TypeIsh[] kids)
-        of UnionType|UnionableType
+        of UnionType | UnionableType
         extends Type(kids) {
 }

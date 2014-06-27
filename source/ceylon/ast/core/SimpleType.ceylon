@@ -10,7 +10,7 @@ TypeIsh[] bug1665Workaround2(TypeNameWithArguments nameAndArgs, TypeIsh[] otherC
  
  The type of every instance can be written as a `SimpleType`."
 shared abstract class SimpleType(nameAndArgs, TypeIsh[] otherChildren = [])
-        of BaseType|QualifiedType
+        of BaseType | QualifiedType
         extends PrimaryType(bug1665Workaround2(nameAndArgs, otherChildren)) { // TODO extends AtomicType([nameAndArgs, *otherChildren]) {
     
     "The type name and arguments."

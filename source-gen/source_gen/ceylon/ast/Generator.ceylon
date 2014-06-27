@@ -380,7 +380,7 @@ class AliasGenerator(shared actual String type, shared actual String[] cases, St
 }
 
 class AbstractClassGenerator(shared actual String type, shared actual String superType, shared actual String[] cases, <String->String>[] params, String documentation)
-        satisfies ClassGenerator&EnumeratedTypeGenerator {
+        satisfies ClassGenerator & EnumeratedTypeGenerator {
     
     value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
     

@@ -1,3 +1,7 @@
+import ceylon.collection {
+    StringBuilder
+}
+
 "Builds a Ceylon expression string for an AST node;
  compiling and evaluating the resulting string will yield
  a copy of the transformed node.

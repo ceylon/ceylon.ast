@@ -21,4 +21,5 @@
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 module ceylon.ast.core "1.1.0" {
+    import ceylon.collection "1.1.0";
 }

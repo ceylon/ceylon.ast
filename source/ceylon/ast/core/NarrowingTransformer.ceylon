@@ -11,7 +11,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Literal) { return transformLiteral(that); }
         case (is SelfReference) { return transformSelfReference(that); }
-        else { throw Error("Not yet implemented!"); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -31,8 +30,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is UnionType) { return transformUnionType(that); }
     }
     shared actual default Result transformNode(Node that) {
-        // TODO switch on case types, call appropriate transformSubclass(that)
-        throw Error("Not yet implemented!");
+        switch (that)
+        case (is Expression) { return transformExpression(that); }
+        case (is TypeIsh) { return transformTypeIsh(that); }
+        case (is Identifier) { return transformIdentifier(that); }
+        case (is CompilationUnit) { return transformCompilationUnit(that); }
     }
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)

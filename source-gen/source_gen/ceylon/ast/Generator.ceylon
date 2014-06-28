@@ -123,14 +123,23 @@ class ConcreteClassGenerator(
         File file = n.createFile();
         try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
-                w.write("\"");
+                String quotes;
+                String spaces;
+                if (documentation.contains('"')) {
+                    quotes = "\"\"\"";
+                    spaces = "   ";
+                } else {
+                    quotes = "\"";
+                    spaces = " ";
+                }
+                w.write(quotes);
                 w.write(firstLine);
                 for (line in docLines.rest) {
                     w.writeLine();
-                    w.write(" ");
+                    w.write(spaces);
                     w.write(line);
                 }
-                w.write("\"");
+                w.write(quotes);
                 w.writeLine();
             }
             w.writeLine(

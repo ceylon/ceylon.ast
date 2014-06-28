@@ -13,6 +13,7 @@
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
     transformAtom(Atom that) => visitAtom(that);
+    transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseType(BaseType that) => visitBaseType(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
@@ -53,6 +54,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     
     shared default void visitAtom(Atom that) => super.transformAtom(that);
+    shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);

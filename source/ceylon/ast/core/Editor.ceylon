@@ -27,6 +27,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Atom ret = super.transformAtom(that));
         return ret;
     }
+    shared actual default BaseExpression transformBaseExpression(BaseExpression that)
+            => that.copy();
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
     shared actual default CallableType transformCallableType(CallableType that)

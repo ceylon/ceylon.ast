@@ -4,6 +4,7 @@
 see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
+    shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);

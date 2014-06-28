@@ -49,6 +49,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformPrimary(Primary that) {
         switch (that)
         case (is Atom) { return transformAtom(that); }
+        case (is BaseExpression) { return transformBaseExpression(that); }
     }
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)

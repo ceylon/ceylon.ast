@@ -5,6 +5,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAtom=Atom,
+        JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
+        JBaseMemberExpression=BaseMemberExpression,
+        JBaseTypeExpression=BaseTypeExpression,
         JBaseType=BaseType,
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
@@ -13,6 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
+        JInferredTypeArguments=InferredTypeArguments,
         JIntegerLiteral=NaturalLiteral,
         JIntersectionType=IntersectionType,
         JIdentifier=Identifier,
@@ -73,6 +77,26 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     shared actual JAtom transformAtom(Atom that) {
         assert (is JAtom ret = super.transformAtom(that));
+        return ret;
+    }
+    
+    shared actual JBaseMemberOrTypeExpression transformBaseExpression(BaseExpression that) {
+        JBaseMemberOrTypeExpression ret;
+        value name = that.nameAndArgs.name;
+        switch (name)
+        case (is LIdentifier) { ret = JBaseMemberExpression(null); }
+        case (is UIdentifier) { ret = JBaseTypeExpression(null); }
+        ret.identifier = transformIdentifier(name);
+        if (exists arguments = that.nameAndArgs.typeArguments) {
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgList.endToken = tokens.token(">", larger_op);
+            ret.typeArguments = typeArgList;
+        } else {
+            ret.typeArguments = JInferredTypeArguments(null);
+        }
         return ret;
     }
     

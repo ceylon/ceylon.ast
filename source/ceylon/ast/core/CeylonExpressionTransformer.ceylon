@@ -26,6 +26,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
     }
     
+    transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformCallableType(CallableType that)
             => "CallableType {

@@ -1,10 +1,7 @@
-"Workaround for [ceylon/ceylon-compiler#1665](https://github.com/ceylon/ceylon-compiler/issues/1665)"
-<Type|TypeName>[] bug1665Workaround1(TypeName name, TypeArguments? arguments) => [name, *(arguments else [])];
-
 "A type name and, optionally, type arguments."
 see (`class BaseType`, `class QualifiedType`)
 shared class TypeNameWithArguments(name, arguments = null)
-        extends TypeIsh(bug1665Workaround1(name, arguments)) { // TODO extends Node([name, *(arguments else [])]) {
+        extends TypeIsh([name, *(arguments else [])]) {
     "The type name."
     shared TypeName name;
     "The type arguments, if any."

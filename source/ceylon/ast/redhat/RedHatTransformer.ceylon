@@ -77,6 +77,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JBaseType transformBaseType(BaseType that) {
+        JBaseType ret = JBaseType(null);
+        ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.arguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
@@ -88,8 +90,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         } else {
             typeArgumentList = null;
         }
-        JBaseType ret = JBaseType(null);
-        ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
         return ret;
     }

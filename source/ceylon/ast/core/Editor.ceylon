@@ -41,6 +41,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
+    shared actual default ExpressionIsh transformExpressionIsh(ExpressionIsh that) {
+        assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
+        return ret;
+    }
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
@@ -70,6 +74,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is MainType ret = super.transformMainType(that));
         return ret;
     }
+    shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that)
+            => that.copy();
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default Outer transformOuter(Outer that)

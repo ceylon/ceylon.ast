@@ -17,6 +17,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
     }
+    shared actual default Result transformExpressionIsh(ExpressionIsh that) {
+        switch (that)
+        case (is Expression) { return transformExpression(that); }
+        case (is NameWithTypeArguments) { return transformNameWithTypeArguments(that); }
+    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }
@@ -36,7 +41,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformNode(Node that) {
         switch (that)
-        case (is Expression) { return transformExpression(that); }
+        case (is ExpressionIsh) { return transformExpressionIsh(that); }
         case (is TypeIsh) { return transformTypeIsh(that); }
         case (is Identifier) { return transformIdentifier(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }

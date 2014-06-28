@@ -20,6 +20,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformEntryType(EntryType that) => visitEntryType(that);
     transformExpression(Expression that) => visitExpression(that);
+    transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
@@ -30,6 +31,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformMainType(MainType that) => visitMainType(that);
+    transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
     transformNode(Node that) => visitNode(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
@@ -58,6 +60,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
+    shared default void visitExpressionIsh(ExpressionIsh that) => super.transformExpressionIsh(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
     shared default void visitGroupedExpression(GroupedExpression that) => super.transformGroupedExpression(that);
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);
@@ -68,6 +71,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitMainType(MainType that) => super.transformMainType(that);
+    shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => super.transformNameWithTypeArguments(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOuter(Outer that) => super.transformOuter(that);

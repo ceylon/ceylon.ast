@@ -133,6 +133,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformExpressionIsh(ExpressionIsh that) {
+        assert (is JTerm ret = super.transformExpressionIsh(that));
+        return ret;
+    }
+    
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
@@ -184,6 +189,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         assert (is JLiteral ret = super.transformLiteral(that));
         return ret;
     }
+    
     shared actual JStaticType transformMainType(MainType that) {
         assert (is JStaticType ret = super.transformMainType(that));
         return ret;
@@ -194,6 +200,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.definiteType = transformPrimaryType(that.definiteType);
         ret.endToken = tokens.token("?", optionalType);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[NameWithTypeArguments]];
+     this method throws."
+    shared actual Nothing transformNameWithTypeArguments(NameWithTypeArguments that) {
+        throw Exception("NameWithTypeArguments has no RedHat AST equivalent!");
     }
     
     shared actual JOuter transformOuter(Outer that)

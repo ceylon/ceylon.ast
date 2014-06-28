@@ -20,6 +20,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformExpression(Expression that);
+    shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
@@ -30,6 +31,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformMainType(MainType that);
+    shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNode(Node that);
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);

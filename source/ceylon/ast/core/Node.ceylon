@@ -3,7 +3,7 @@
  Note that nodes are not [[Identifiable]]: as they are immutable,
  the identity of a particular instance is meaningless."
 shared abstract class Node(children)
-        of Expression | TypeIsh | Identifier | CompilationUnit // TODO other case types
+        of ExpressionIsh | TypeIsh | Identifier | CompilationUnit // TODO other case types
         extends Object() {
     
     "The child nodes of this node."

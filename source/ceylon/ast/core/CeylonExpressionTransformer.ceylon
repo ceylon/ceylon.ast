@@ -66,6 +66,42 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     }
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    shared actual String transformNameWithTypeArguments(NameWithTypeArguments that) {
+        if (exists typeArguments = that.typeArguments) {
+            StringBuilder code = StringBuilder();
+            code.append("NameWithTypeArguments {");
+            value origIndent = indent;
+            indent += indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append("name = ");
+            code.append(that.name.transform(this));
+            code.append(";");
+            code.appendNewline();
+            code.append(indent);
+            code.append("typeArguments = [");
+            code.appendNewline();
+            indent += indentLevel;
+            code.append(indent);
+            code.append(typeArguments.first.transform(this));
+            for (argument in typeArguments.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(argument.transform(this));
+            }
+            code.appendNewline();
+            code.append(origIndent + indentLevel);
+            code.append("];");
+            code.appendNewline();
+            indent = origIndent;
+            code.append(indent);
+            code.append("}");
+            return code.string;
+        } else {
+            return "NameWithTypeArguments(``that.name.transform(this)``)";
+        }
+    }
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

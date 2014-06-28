@@ -1,0 +1,206 @@
+<project name="Ceylon AST" basedir="." default="test">
+
+    <property file="build.properties" />
+    <property name="ceylon.verbosity" value="false"/>
+    <property name="ceylon.executable" value="${dist.bin.dir}/ceylon"/>
+    <property name="out.repo" location="modules"/>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="${dist.root.dir}/lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <taskdef resource="taskdef.properties">
+        <classpath>
+            <pathelement path="${dist.root.dir}/osgi/lib/org.osgi.impl.bundle.repoindex.ant-2.1.2.jar" />
+        </classpath>
+    </taskdef>
+
+    
+    <!-- Local repository -->
+    <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
+    
+    <path id="ant-tasks">
+        <pathelement location="${ceylon.ant.lib}"/>
+    </path>
+    
+    <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+    
+    <moduleset id="modules.source.core">
+        <module name="ceylon.ast.core"/> 
+    </moduleset>
+    
+    <moduleset id="modules.source.redhat">
+        <module name="ceylon.ast.redhat"/> 
+    </moduleset>
+    
+    <moduleset id="modules.source">
+        <moduleset refid="modules.source.core"/>
+        <moduleset refid="modules.source.redhat"/>
+    </moduleset>
+    
+    <moduleset id="modules.test.core">
+        <module name="test.ceylon.ast.core"/> 
+    </moduleset>
+    
+    <moduleset id="modules.test.redhat">
+        <module name="test.ceylon.ast.redhat"/> 
+    </moduleset>
+    
+    <moduleset id="modules.test">
+        <moduleset refid="modules.test.core"/>
+        <moduleset refid="modules.test.redhat"/>
+    </moduleset>
+	
+	<moduleset id="modules.all">
+		<moduleset refid="modules.source"/>
+		<moduleset refid="modules.test"/>
+	</moduleset>
+    
+    <target name="clean"
+        description="Deletes the modules directory">
+        <delete dir="${out.repo}"/>
+    </target>
+
+    <target name="compile-core"
+            description="Compiles the Ceylon AST core module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.source.core"/>
+        </ceylon-compile>
+    </target>
+
+    <target name="compile-redhat" depends="compile-core"
+            description="Compiles the Ceylon AST RedHat backend module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.source.redhat"/>
+        </ceylon-compile>
+    </target>
+
+    <target name="compile-source"
+            description="Compiles the Ceylon AST modules">
+    	 <!-- not depends="compile-core,compile-redhat" because it's faster to compile in one go -->
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.source"/>
+        </ceylon-compile>
+    </target>
+
+	<target name="compile-test-core" depends="compile-core"
+	        description="Compiles the Ceylon AST core test module">
+	    <ceylon-compile executable="${ceylon.executable}"
+	        verbose="${ceylon.verbosity}"
+	        encoding="UTF-8"
+	        pack200="true">
+	        <moduleset refid="modules.test.core"/>
+	    </ceylon-compile>
+	</target>
+
+	<target name="compile-test-redhat" depends="compile-redhat"
+	        description="Compiles the Ceylon AST RedHat backend test module">
+	    <ceylon-compile executable="${ceylon.executable}"
+	        verbose="${ceylon.verbosity}"
+	        encoding="UTF-8"
+	        pack200="true">
+	        <moduleset refid="modules.test.redhat"/>
+	    </ceylon-compile>
+	</target>
+    
+    <target name="compile-test" depends="compile"
+        description="Compiles the Ceylon AST test modules" >
+        <ceylon-compile executable="${ceylon.executable}"
+            out="${out.repo}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8">
+            <moduleset refid="modules.test"/>
+        </ceylon-compile>
+    </target>
+	
+    <target name="compile"
+        description="Compiles all the Ceylon AST modules" >
+        <ceylon-compile executable="${ceylon.executable}"
+            out="${out.repo}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8">
+            <moduleset refid="modules.all"/>
+        </ceylon-compile>
+    </target>
+	
+	<target name="test-core" depends="compile-test-core"
+		description="Tests the Ceylon AST core">
+        <ceylon-test>
+            <moduleset refid="modules.test.core"/>
+        </ceylon-test>
+	</target>
+		
+    <target name="test-redhat" depends="compile-test-redhat"
+        description="Tests the Ceylon AST RedHat backend">
+        <ceylon-test>
+            <moduleset refid="modules.test.redhat"/>
+        </ceylon-test>
+    </target>
+
+    <target name="test" depends="compile-test"
+        description="Tests all of the Ceylon AST project">
+        <ceylon-test>
+            <moduleset refid="modules.test"/>
+        </ceylon-test>
+    </target>
+
+    <target name="doc" 
+            description="Documents the Ceylon AST modules">
+        <ceylon-doc executable="${ceylon.executable}"
+            includesourcecode="true"
+            nomtimecheck="true"
+            encoding="UTF-8">
+            <moduleset refid="modules.source"/>
+            <linkset>
+                <link pattern="ceylon" url="http://modules.ceylon-lang.org/1/"/>
+            </linkset>
+        </ceylon-doc>
+        
+    </target>
+
+    <target name="publish" depends="compile-source"
+            description="Copies the Ceylon AST modules to the user's repository">
+        <copy todir="${ceylon.repo.dir}" overwrite="true">
+            <fileset dir="${out.repo}">
+                <include name="ceylon/ast/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="publish-herd">
+        <fail message="Please specify a target Herd upload repo url with -Dherd.repo=..." unless="herd.repo"/>
+        <fail message="Please specify a target Herd user name with -Dherd.user=..." unless="herd.user"/>
+        <fail message="Please specify a target Herd password with -Dherd.pass=..." unless="herd.pass"/>
+        
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            encoding="UTF-8">
+            <moduleset refid="modules.source"/>
+        </ceylon-compile>
+        
+        <ceylon-doc executable="${ceylon.executable}"
+            includesourcecode="true"
+            nomtimecheck="true"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            encoding="UTF-8">
+            <moduleset refid="modules.source"/>
+        </ceylon-doc>
+    	
+    </target>
+</project>

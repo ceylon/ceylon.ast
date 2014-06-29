@@ -4,7 +4,9 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAtom=Atom,
-        JPrimary=Primary
+        JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
+        JPrimary=Primary,
+        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
     }
 }
 import ceylon.ast.redhat {
@@ -15,6 +17,8 @@ import ceylon.ast.redhat {
 shared Primary primaryToCeylon(JPrimary primary) {
     switch (primary)
     case (is JAtom) { return atomToCeylon(primary); }
+    case (is JBaseMemberOrTypeExpression) { return baseExpressionToCeylon(primary); }
+    case (is JQualifiedMemberOrTypeExpression) { return qualifiedExpressionToCeylon(primary); }
     else {
         throw AssertionError("Unknown primary type, or not a primary");
     }

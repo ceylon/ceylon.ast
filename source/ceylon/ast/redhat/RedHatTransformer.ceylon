@@ -26,7 +26,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOuter=Outer,
         JPackage=Package,
         JPrimary=Primary,
+        JQualifiedMemberExpression=QualifiedMemberExpression,
+        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
         JQualifiedType=QualifiedType,
+        JQualifiedTypeExpression=QualifiedTypeExpression,
         JSelfExpression=SelfExpression,
         JSequenceType=SequenceType,
         JSequencedType=SequencedType,
@@ -245,6 +248,27 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType transformPrimaryType(PrimaryType that) {
         assert (is JStaticType ret = super.transformPrimaryType(that));
+        return ret;
+    }
+    
+    shared actual JQualifiedMemberOrTypeExpression transformQualifiedExpression(QualifiedExpression that) {
+        JQualifiedMemberOrTypeExpression ret;
+        value name = that.nameAndArgs.name;
+        switch (name)
+        case (is LIdentifier) { ret = JQualifiedMemberExpression(null); }
+        case (is UIdentifier) { ret = JQualifiedTypeExpression(null); }
+        ret.primary = transformPrimary(that.receiverExpression);
+        ret.identifier = transformIdentifier(name);
+        if (exists arguments = that.nameAndArgs.typeArguments) {
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgList.endToken = tokens.token(">", larger_op);
+            ret.typeArguments = typeArgList;
+        } else {
+            ret.typeArguments = JInferredTypeArguments(null);
+        }
         return ret;
     }
     

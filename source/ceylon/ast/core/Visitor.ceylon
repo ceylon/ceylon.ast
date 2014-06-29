@@ -38,6 +38,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
     transformPrimary(Primary that) => visitPrimary(that);
+    transformQualifiedExpression(QualifiedExpression that) => visitQualifiedExpression(that);
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
@@ -79,6 +80,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOuter(Outer that) => super.transformOuter(that);
     shared default void visitPackage(Package that) => super.transformPackage(that);
     shared default void visitPrimary(Primary that) => super.transformPrimary(that);
+    shared default void visitQualifiedExpression(QualifiedExpression that) => super.transformQualifiedExpression(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);

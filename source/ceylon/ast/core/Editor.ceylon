@@ -92,6 +92,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is PrimaryType ret = super.transformPrimaryType(that));
         return ret;
     }
+    shared actual default QualifiedExpression transformQualifiedExpression(QualifiedExpression that)
+            => that.copy();
     shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
         value qualifyingType = that.qualifyingType;
         switch (qualifyingType)

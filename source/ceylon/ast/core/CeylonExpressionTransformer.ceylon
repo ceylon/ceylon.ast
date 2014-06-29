@@ -106,6 +106,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
+    transformQualifiedExpression(QualifiedExpression that)
+            => "QualifiedExpression {
+                `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
+                `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                ``indent``}";
     transformQualifiedType(QualifiedType that)
             => "QualifiedType {
                 `` indent + indentLevel ``qualifyingType = ``transformWithIndent(that.qualifyingType)``;

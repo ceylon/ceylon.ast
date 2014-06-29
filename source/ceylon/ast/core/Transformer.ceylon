@@ -39,6 +39,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformPackage(Package that);
     shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
+    shared formal Result transformQualifiedExpression(QualifiedExpression that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);

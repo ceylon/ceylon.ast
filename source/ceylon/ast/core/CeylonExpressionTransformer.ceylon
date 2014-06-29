@@ -53,7 +53,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         code.appendNewline();
         code.append(indent);
         code.append(that.children.first.transform(this));
-        for (elementType in that.children) {
+        for (elementType in that.children.rest) {
             code.append(",");
             code.appendNewline();
             code.append(indent);
@@ -202,7 +202,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         code.appendNewline();
         code.append(indent);
         code.append(that.children.first.transform(this));
-        for (elementType in that.children) {
+        for (elementType in that.children.rest) {
             code.append(",");
             code.appendNewline();
             code.append(indent);

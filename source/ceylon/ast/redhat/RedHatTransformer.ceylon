@@ -193,7 +193,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JIntersectionType transformIntersectionType(IntersectionType that) {
         JIntersectionType ret = JIntersectionType(null);
         ret.addStaticType(transformPrimaryType(that.children.first));
-        for (elementType in that.children) {
+        for (elementType in that.children.rest) {
             tokens.token("&", intersection_op);
             ret.addStaticType(transformPrimaryType(elementType));
         }
@@ -371,7 +371,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         switch (firstType)
         case (is PrimaryType) { ret.addStaticType(transformPrimaryType(firstType)); }
         case (is IntersectionType) { ret.addStaticType(transformIntersectionType(firstType)); }
-        for (elementType in that.children) {
+        for (elementType in that.children.rest) {
             tokens.token("&", union_op);
             switch (elementType)
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }

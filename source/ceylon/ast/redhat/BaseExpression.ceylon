@@ -52,7 +52,7 @@ shared BaseExpression? compileBaseExpression(String code) {
             expr = JBaseTypeExpression(null);
         }
         expr.identifier = jBaseReference.identifier;
-        expr.typeArguments = jBaseReference.typeArgumentList;
+        expr.typeArguments = jBaseReference.typeArgumentList else JInferredTypeArguments(null);
         return baseExpressionToCeylon(expr);
     } else {
         return null;

@@ -52,11 +52,15 @@
         <moduleset refid="modules.test.core"/>
         <moduleset refid="modules.test.redhat"/>
     </moduleset>
-	
-	<moduleset id="modules.all">
-		<moduleset refid="modules.source"/>
-		<moduleset refid="modules.test"/>
-	</moduleset>
+    
+    <moduleset id="modules.all">
+        <moduleset refid="modules.source"/>
+        <moduleset refid="modules.test"/>
+    </moduleset>
+    
+    <moduleset id="modules.source-gen">
+         <module name="source_gen.ceylon.ast"/>
+    </moduleset>
     
     <target name="clean"
         description="Deletes the modules directory">
@@ -85,37 +89,38 @@
 
     <target name="compile-source"
             description="Compiles the Ceylon AST modules">
-    	 <!-- not depends="compile-core,compile-redhat" because it's faster to compile in one go -->
+         <!-- not depends="compile-core,compile-redhat" because it's faster to compile in one go -->
         <ceylon-compile executable="${ceylon.executable}"
+            src="source-gen"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
-            pack200="true">
+            pack200="true"> 
             <moduleset refid="modules.source"/>
         </ceylon-compile>
     </target>
 
-	<target name="compile-test-core" depends="compile-core"
-	        description="Compiles the Ceylon AST core test module">
-	    <ceylon-compile executable="${ceylon.executable}"
-	        verbose="${ceylon.verbosity}"
-	        encoding="UTF-8"
-	        pack200="true">
-	        <moduleset refid="modules.test.core"/>
-	    </ceylon-compile>
-	</target>
+    <target name="compile-test-core" depends="compile-core"
+            description="Compiles the Ceylon AST core test module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.test.core"/>
+        </ceylon-compile>
+    </target>
 
-	<target name="compile-test-redhat" depends="compile-redhat"
-	        description="Compiles the Ceylon AST RedHat backend test module">
-	    <ceylon-compile executable="${ceylon.executable}"
-	        verbose="${ceylon.verbosity}"
-	        encoding="UTF-8"
-	        pack200="true">
-	        <moduleset refid="modules.test.redhat"/>
-	    </ceylon-compile>
-	</target>
+    <target name="compile-test-redhat" depends="compile-redhat"
+            description="Compiles the Ceylon AST RedHat backend test module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.test.redhat"/>
+        </ceylon-compile>
+    </target>
     
     <target name="compile-test" depends="compile"
-        description="Compiles the Ceylon AST test modules" >
+        description="Compiles the Ceylon AST test modules">
         <ceylon-compile executable="${ceylon.executable}"
             out="${out.repo}"
             verbose="${ceylon.verbosity}"
@@ -123,9 +128,9 @@
             <moduleset refid="modules.test"/>
         </ceylon-compile>
     </target>
-	
+    
     <target name="compile"
-        description="Compiles all the Ceylon AST modules" >
+        description="Compiles all the Ceylon AST modules">
         <ceylon-compile executable="${ceylon.executable}"
             out="${out.repo}"
             verbose="${ceylon.verbosity}"
@@ -133,14 +138,25 @@
             <moduleset refid="modules.all"/>
         </ceylon-compile>
     </target>
-	
-	<target name="test-core" depends="compile-test-core"
-		description="Tests the Ceylon AST core">
+    
+    <target name="compile-source-gen"
+        description="Compiles the Ceylon AST source-gen module">
+        <ceylon-compile executable="${ceylon.executable}"
+                        src="source-gen"
+            out="${out.repo}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8">
+            <moduleset refid="modules.source-gen"/>
+        </ceylon-compile>
+    </target>
+    
+    <target name="test-core" depends="compile-test-core"
+        description="Tests the Ceylon AST core">
         <ceylon-test>
             <moduleset refid="modules.test.core"/>
         </ceylon-test>
-	</target>
-		
+    </target>
+        
     <target name="test-redhat" depends="compile-test-redhat"
         description="Tests the Ceylon AST RedHat backend">
         <ceylon-test>
@@ -201,6 +217,6 @@
             encoding="UTF-8">
             <moduleset refid="modules.source"/>
         </ceylon-doc>
-    	
+        
     </target>
 </project>

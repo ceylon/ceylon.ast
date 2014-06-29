@@ -19,5 +19,5 @@ test
 shared void baseExpression()
         => doTest(compile, RedHatTransformer.transformBaseExpression, baseExpressionToCeylon,
     "null"->BaseExpression(NameWithTypeArguments(LIdentifier("null"), null)),
-    "max<Integer,Nothing>"->BaseExpression(NameWithTypeArguments(LIdentifier("max"), [BaseType(TypeNameWithArguments(UIdentifier("Nothing")))]))
+    "max<Integer,Nothing>"->BaseExpression(NameWithTypeArguments(LIdentifier("max"), [BaseType(TypeNameWithArguments(UIdentifier("Integer"))), BaseType(TypeNameWithArguments(UIdentifier("Nothing")))]))
 );

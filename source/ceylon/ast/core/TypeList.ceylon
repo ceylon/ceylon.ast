@@ -1,18 +1,10 @@
-[T*] concatEmptyIfNull<T>(T[] ts, T? optional) {
-    if (exists optional) {
-        return [optional, *ts];
-    } else {
-        return ts;
-    }
-}
-
 "A list of types, with an optional trailing variadic type.
  
  Examples:
  
      String, String, String+"
 shared class TypeList(elements, variadic = null)
-        extends TypeIsh(concatEmptyIfNull(elements, variadic)) {
+        extends TypeIsh(concatenate(emptyOrSingleton(variadic), elements)) {
     
     "The element types."
     shared <Type|DefaultedType>[] elements;

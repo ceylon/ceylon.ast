@@ -1,14 +1,6 @@
-[T=] emptyIfNull<T>(T? t) {
-    if (exists t) {
-        return [t];
-    } else {
-        return [];
-    }
-}
-
 "An iterable type, like `{String*}` or `{}`."
 shared class IterableType(variadicType)
-        extends PrimaryType(emptyIfNull(variadicType)) {
+        extends PrimaryType(emptyOrSingleton(variadicType)) {
     
     "The element type, or [[null]] if there is no element type (means `Iterable<Nothing, Null>`)."
     shared VariadicType? variadicType;

@@ -27,6 +27,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     }
     
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
+    transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformCallableType(CallableType that)
             => "CallableType {
@@ -193,6 +194,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "TypeNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
+    transformTypeMeta(TypeMeta that) => "TypeMeta(``transformWithIndent(that.type)``)";
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     shared actual String transformUnionType(UnionType that) {
         StringBuilder code = StringBuilder();

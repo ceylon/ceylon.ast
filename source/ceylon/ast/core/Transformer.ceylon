@@ -14,6 +14,7 @@
 shared interface Transformer<out Result> {
     shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseExpression(BaseExpression that);
+    shared formal Result transformBaseMeta(BaseMeta that);
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
@@ -33,6 +34,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformMainType(MainType that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
+    shared formal Result transformMeta(Meta that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNode(Node that);
     shared formal Result transformOptionalType(OptionalType that);
@@ -52,6 +54,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformType(Type that);
     shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeList(TypeList that);
+    shared formal Result transformTypeMeta(TypeMeta that);
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnionType(UnionType that);

@@ -5,6 +5,7 @@ see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
+    shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
@@ -24,6 +25,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
+    shared actual default Result transformMeta(Meta that) => transformPrimary(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
@@ -42,6 +44,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
+    shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);
     shared actual default Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);

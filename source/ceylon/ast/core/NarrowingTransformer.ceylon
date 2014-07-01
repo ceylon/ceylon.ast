@@ -39,6 +39,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is UnionableType) { return transformUnionableType(that); }
         case (is UnionType) { return transformUnionType(that); }
     }
+    shared actual default Result transformMeta(Meta that) {
+        switch (that)
+        case (is TypeMeta) { return transformTypeMeta(that); }
+        case (is BaseMeta) { return transformBaseMeta(that); }
+    }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
         switch (that)
         case (is MemberNameWithTypeArguments) { return transformMemberNameWithTypeArguments(that); }
@@ -55,6 +60,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Atom) { return transformAtom(that); }
         case (is BaseExpression) { return transformBaseExpression(that); }
         case (is QualifiedExpression) { return transformQualifiedExpression(that); }
+        case (is Meta) { return transformMeta(that); }
     }
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)

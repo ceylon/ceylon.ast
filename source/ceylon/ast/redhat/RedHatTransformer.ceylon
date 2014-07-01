@@ -22,6 +22,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdentifier=Identifier,
         JIterableType=IterableType,
         JLiteral=Literal,
+        JMemberLiteral=MemberLiteral,
+        JMetaLiteral=MetaLiteral,
         JOptionalType=OptionalType,
         JOuter=Outer,
         JPackage=Package,
@@ -42,11 +44,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTupleType=TupleType,
         JType=Type,
         JTypeArgumentList=TypeArgumentList,
+        JTypeLiteral=TypeLiteral,
         JUnionType=UnionType
     }
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
+        backtick=\iBACKTICK,
         character_literal=\iCHAR_LITERAL,
         entry_op=\iENTRY_OP,
         float_literal=\iFLOAT_LITERAL,
@@ -103,6 +107,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JMemberLiteral transformBaseMeta(BaseMeta that) {
+        JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
+        ret.identifier = transformIdentifier(that.nameAndArgs.name);
+        if (exists arguments = that.nameAndArgs.typeArguments) {
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgList.endToken = tokens.token(">", larger_op);
+            ret.typeArgumentList = typeArgList;
+        }
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
     shared actual JBaseType transformBaseType(BaseType that) {
         JBaseType ret = JBaseType(null);
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
@@ -154,7 +173,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.valueType = transformMainType(that.item);
         return ret;
     }
-    
     shared actual JTerm transformExpression(Expression that) {
         assert (is JTerm ret = super.transformExpression(that));
         return ret;
@@ -226,6 +244,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
      this method throws."
     shared actual Nothing transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
         throw Exception("MemberNameWithTypeArguments has no RedHat AST equivalent!");
+    }
+    
+    shared actual JMetaLiteral transformMeta(Meta that) {
+        assert (is JMetaLiteral ret = super.transformMeta(that));
+        return ret;
     }
     
     shared actual JOptionalType transformOptionalType(OptionalType that) {
@@ -362,6 +385,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType transformUnionableType(UnionableType that) {
         assert (is JStaticType ret = super.transformUnionableType(that));
+        return ret;
+    }
+    
+    shared actual JTypeLiteral transformTypeMeta(TypeMeta that) {
+        JTypeLiteral ret = JTypeLiteral(tokens.token("`", backtick));
+        ret.type = transformType(that.type);
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     

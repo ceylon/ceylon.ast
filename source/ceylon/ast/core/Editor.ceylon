@@ -29,6 +29,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy();
+    shared actual default BaseMeta transformBaseMeta(BaseMeta that)
+            => that.copy();
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs));
     shared actual default CallableType transformCallableType(CallableType that)
@@ -78,6 +80,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.copy();
+    shared actual default Meta transformMeta(Meta that) {
+        assert (is Meta ret = super.transformMeta(that));
+        return ret;
+    }
     shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
@@ -142,6 +148,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             return that.copy(that.elements.collect(transformTypeOrDefaultedType));
         }
     }
+    shared actual default TypeMeta transformTypeMeta(TypeMeta that)
+            => that.copy();
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
         if (exists args = that.typeArguments) {
             return that.copy(transformUIdentifier(that.name), args.collect(transformType));

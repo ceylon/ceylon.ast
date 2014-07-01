@@ -1,4 +1,4 @@
-"A simple type: One or more [[TypeNamesWithArguments|TypeNameWithArguments]], separated by member operators.
+"A simple type: One or more [[TypeNamesWithArguments|TypeNameWithTypeArguments]], separated by member operators.
  
  ~~~
  String
@@ -12,5 +12,5 @@ shared abstract class SimpleType()
         extends PrimaryType() {
     
     "The type name and arguments."
-    shared formal TypeNameWithArguments nameAndArgs;
+    shared formal TypeNameWithTypeArguments nameAndArgs;
 }

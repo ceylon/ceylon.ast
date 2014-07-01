@@ -107,7 +107,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JBaseType ret = JBaseType(null);
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         JTypeArgumentList? typeArgumentList;
-        if (exists arguments = that.nameAndArgs.arguments) {
+        if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
@@ -222,17 +222,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[MemberNameWithTypeArguments]];
+     this method throws."
+    shared actual Nothing transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
+        throw Exception("MemberNameWithTypeArguments has no RedHat AST equivalent!");
+    }
+    
     shared actual JOptionalType transformOptionalType(OptionalType that) {
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
         ret.endToken = tokens.token("?", optionalType);
         return ret;
-    }
-    
-    "The RedHat AST has no direct equivalent of [[NameWithTypeArguments]];
-     this method throws."
-    shared actual Nothing transformNameWithTypeArguments(NameWithTypeArguments that) {
-        throw Exception("NameWithTypeArguments has no RedHat AST equivalent!");
     }
     
     shared actual JOuter transformOuter(Outer that)
@@ -274,7 +274,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JQualifiedType transformQualifiedType(QualifiedType that) {
         JTypeArgumentList? typeArgumentList;
-        if (exists arguments = that.nameAndArgs.arguments) {
+        if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
             for (Type type in arguments) {
                 typeArgList.addType(transformType(type));
@@ -351,10 +351,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         throw Exception("TypeList has no RedHat AST equivalent!");
     }
     
-    "The RedHat AST has no direct equivalent of [[TypeNameWithArguments]];
+    "The RedHat AST has no direct equivalent of [[TypeNameWithTypeArguments]];
      this method throws."
-    shared actual Nothing transformTypeNameWithArguments(TypeNameWithArguments that) {
-        throw Exception("TypeNameWithArguments has no RedHat AST equivalent!");
+    shared actual Nothing transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
+        throw Exception("TypeNameWithTypeArguments has no RedHat AST equivalent!");
     }
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)

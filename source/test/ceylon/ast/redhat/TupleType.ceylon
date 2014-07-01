@@ -6,7 +6,7 @@ import ceylon.ast.core {
     DefaultedType,
     TupleType,
     TypeList,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier,
     VariadicType
 }
@@ -20,11 +20,11 @@ test
 shared void tupleType()
         => doTest(compile, RedHatTransformer.transformTupleType, tupleTypeToCeylon,
     "[]"->TupleType(TypeList([])),
-    "[String+]"->TupleType(TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), true))),
+    "[String+]"->TupleType(TypeList([], VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), true))),
     "[Integer,Float=,String*]"->TupleType(TypeList([
-                BaseType(TypeNameWithArguments(UIdentifier("Integer"))),
-                DefaultedType(BaseType(TypeNameWithArguments(UIdentifier("Float"))))
+                BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))))
             ],
-            VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), false)
+            VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), false)
         ))
 );

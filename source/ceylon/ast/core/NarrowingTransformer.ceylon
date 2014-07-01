@@ -20,7 +20,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformExpressionIsh(ExpressionIsh that) {
         switch (that)
         case (is Expression) { return transformExpression(that); }
-        case (is NameWithTypeArguments) { return transformNameWithTypeArguments(that); }
+        case (is TypeIsh) { return transformTypeIsh(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -39,10 +39,14 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is UnionableType) { return transformUnionableType(that); }
         case (is UnionType) { return transformUnionType(that); }
     }
+    shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
+        switch (that)
+        case (is MemberNameWithTypeArguments) { return transformMemberNameWithTypeArguments(that); }
+        case (is TypeNameWithTypeArguments) { return transformTypeNameWithTypeArguments(that); }
+    }
     shared actual default Result transformNode(Node that) {
         switch (that)
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
-        case (is TypeIsh) { return transformTypeIsh(that); }
         case (is Identifier) { return transformIdentifier(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
     }
@@ -82,7 +86,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)
         case (is Type) { return transformType(that); }
-        case (is TypeNameWithArguments) { return transformTypeNameWithArguments(that); }
+        case (is NameWithTypeArguments) { return transformNameWithTypeArguments(that); }
         case (is VariadicType) { return transformVariadicType(that); }
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }

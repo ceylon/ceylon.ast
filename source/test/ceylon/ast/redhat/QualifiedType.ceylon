@@ -6,7 +6,7 @@ import ceylon.ast.core {
     GroupedType,
     QualifiedType,
     UIdentifier,
-    TypeNameWithArguments
+    TypeNameWithTypeArguments
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,16 +16,16 @@ import ceylon.ast.redhat {
 
 QualifiedType t = QualifiedType {
     qualifyingType = QualifiedType {
-        qualifyingType = BaseType(TypeNameWithArguments(UIdentifier("String")));
-        nameAndArgs = TypeNameWithArguments(UIdentifier("Foo"), [BaseType(TypeNameWithArguments(UIdentifier("Nothing"), null))]);
+        qualifyingType = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Foo"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"), null))]);
     };
-    nameAndArgs = TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))]);
+    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))]);
 };
 QualifiedType t2 = QualifiedType {
     qualifyingType = GroupedType {
         type = t;
     };
-    nameAndArgs = TypeNameWithArguments(UIdentifier("Inner"));
+    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Inner"));
 };
 
 test

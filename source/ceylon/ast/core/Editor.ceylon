@@ -30,7 +30,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy();
     shared actual default BaseType transformBaseType(BaseType that)
-            => that.copy(transformTypeNameWithArguments(that.nameAndArgs));
+            => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs));
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
@@ -76,8 +76,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is MainType ret = super.transformMainType(that));
         return ret;
     }
-    shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that)
+    shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.copy();
+    shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
+        assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
+        return ret;
+    }
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default Outer transformOuter(Outer that)
@@ -138,8 +142,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             return that.copy(that.elements.collect(transformTypeOrDefaultedType));
         }
     }
-    shared actual default TypeNameWithArguments transformTypeNameWithArguments(TypeNameWithArguments that) {
-        if (exists args = that.arguments) {
+    shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
+        if (exists args = that.typeArguments) {
             return that.copy(transformUIdentifier(that.name), args.collect(transformType));
         } else {
             return that.copy(transformUIdentifier(that.name), null);

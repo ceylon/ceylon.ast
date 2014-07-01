@@ -1,4 +1,4 @@
-"A sequential type, that is, a shortcut for `TypeNameWithArguments(UIdentifier(\"Sequential\"), [elementType])`.
+"A sequential type, that is, a shortcut for `TypeNameWithTypeArguments(UIdentifier(\"Sequential\"), [elementType])`.
  
  Examples:
  

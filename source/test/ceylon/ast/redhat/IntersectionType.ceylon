@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     IntersectionType,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier
 }
 import ceylon.ast.redhat {
@@ -17,8 +17,8 @@ test
 shared void intersectionType()
         => doTest(compile, RedHatTransformer.transformIntersectionType, intersectionTypeToCeylon,
     "Persistent&Printable&Identifiable"->IntersectionType([
-            BaseType(TypeNameWithArguments(UIdentifier("Persistent"))),
-            BaseType(TypeNameWithArguments(UIdentifier("Printable"))),
-            BaseType(TypeNameWithArguments(UIdentifier("Identifiable")))
+            BaseType(TypeNameWithTypeArguments(UIdentifier("Persistent"))),
+            BaseType(TypeNameWithTypeArguments(UIdentifier("Printable"))),
+            BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))
         ])
 );

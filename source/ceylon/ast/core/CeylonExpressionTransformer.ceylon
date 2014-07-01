@@ -67,10 +67,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     }
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
-    shared actual String transformNameWithTypeArguments(NameWithTypeArguments that) {
+    shared actual String transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
         if (exists typeArguments = that.typeArguments) {
             StringBuilder code = StringBuilder();
-            code.append("NameWithTypeArguments {");
+            code.append("MemberNameWithTypeArguments {");
             value origIndent = indent;
             indent += indentLevel;
             code.appendNewline();
@@ -100,7 +100,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             code.append("}");
             return code.string;
         } else {
-            return "NameWithTypeArguments(``that.name.transform(this)``)";
+            return "MemberNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
@@ -157,10 +157,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             }
         }
     }
-    shared actual String transformTypeNameWithArguments(TypeNameWithArguments that) {
-        if (exists arguments = that.arguments) {
+    shared actual String transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
+        if (exists arguments = that.typeArguments) {
             StringBuilder code = StringBuilder();
-            code.append("TypeNameWithArguments {");
+            code.append("TypeNameWithTypeArguments {");
             value origIndent = indent;
             indent += indentLevel;
             code.appendNewline();
@@ -190,7 +190,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             code.append("}");
             return code.string;
         } else {
-            return "TypeNameWithArguments(``that.name.transform(this)``)";
+            return "TypeNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";

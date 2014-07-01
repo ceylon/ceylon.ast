@@ -10,9 +10,9 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     
     "The qualifying type (the part before the member operator)."
     shared SimpleType|GroupedType qualifyingType;
-    shared actual TypeNameWithArguments nameAndArgs;
+    shared actual TypeNameWithTypeArguments nameAndArgs;
     
-    shared actual [TypeNameWithArguments, SimpleType|GroupedType] children = [nameAndArgs, qualifyingType];
+    shared actual [TypeNameWithTypeArguments, SimpleType|GroupedType] children = [nameAndArgs, qualifyingType];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedType(this);
@@ -28,7 +28,7 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     shared actual Integer hash
             => 31 * nameAndArgs.hash + nameAndArgs.hash;
     
-    shared QualifiedType copy(SimpleType|GroupedType qualifyingtype = this.qualifyingType, TypeNameWithArguments nameAndArgs = this.nameAndArgs) {
+    shared QualifiedType copy(SimpleType|GroupedType qualifyingtype = this.qualifyingType, TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = QualifiedType(qualifyingType, nameAndArgs);
         ret.extraInfo = extraInfo;
         return ret;

@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     EntryType,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier
 }
 import ceylon.ast.redhat {
@@ -16,6 +16,6 @@ import ceylon.ast.redhat {
 test
 shared void entryType()
         => doTest(compile, RedHatTransformer.transformEntryType, entryTypeToCeylon,
-    "String->Iterable<String>"->EntryType(BaseType(TypeNameWithArguments(UIdentifier("String"), null)),
-        BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
+    "String->Iterable<String>"->EntryType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null)),
+        BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))])))
 );

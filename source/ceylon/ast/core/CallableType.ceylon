@@ -1,5 +1,5 @@
 """A callable type, that is, a shortcut for
-   `SimpleType(TypeNameWithArguments(UIdentifier("Callable"), [returnType, TupleType(argumentTypes)]))`.
+   `SimpleType(TypeNameWithTypeArguments(UIdentifier("Callable"), [returnType, TupleType(argumentTypes)]))`.
    
    Examples:
    

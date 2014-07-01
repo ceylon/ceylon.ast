@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     SequentialType,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier
 }
 import ceylon.ast.redhat {
@@ -16,6 +16,6 @@ import ceylon.ast.redhat {
 test
 shared void sequentialType()
         => doTest(compile, RedHatTransformer.transformSequentialType, sequentialTypeToCeylon,
-    "String[]"->SequentialType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    "Iterable<String>[]"->SequentialType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
+    "String[]"->SequentialType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))),
+    "Iterable<String>[]"->SequentialType(BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))])))
 );

@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     UIdentifier,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     VariadicType
 }
 import ceylon.ast.redhat {
@@ -16,6 +16,6 @@ import ceylon.ast.redhat {
 test
 shared void variadicType()
         => doTest(compile, RedHatTransformer.transformVariadicType, variadicTypeToCeylon,
-    "String*"->VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    "Iterable<String>+"->VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])), true)
+    "String*"->VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))),
+    "Iterable<String>+"->VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))])), true)
 );

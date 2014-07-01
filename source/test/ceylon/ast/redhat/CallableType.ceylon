@@ -8,7 +8,7 @@ import ceylon.ast.core {
     OptionalType,
     TupleType,
     TypeList,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier,
     VariadicType
 }
@@ -21,14 +21,14 @@ import ceylon.ast.redhat {
 test
 shared void callableType()
         => doTest(compile, RedHatTransformer.transformCallableType, callableTypeToCeylon,
-    "Anything()"->CallableType(BaseType(TypeNameWithArguments(UIdentifier("Anything"))), TypeList([])),
+    "Anything()"->CallableType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))), TypeList([])),
     "[Float+]?(String+)"->CallableType(
-        OptionalType(TupleType(TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("Float"))), true)))),
-        TypeList([], VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), true))),
-    "Nothing(Integer,Float=,String*)"->CallableType(BaseType(TypeNameWithArguments(UIdentifier("Nothing"))), TypeList([
-                BaseType(TypeNameWithArguments(UIdentifier("Integer"))),
-                DefaultedType(BaseType(TypeNameWithArguments(UIdentifier("Float"))))
+        OptionalType(TupleType(TypeList([], VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))), true)))),
+        TypeList([], VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), true))),
+    "Nothing(Integer,Float=,String*)"->CallableType(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"))), TypeList([
+                BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))))
             ],
-            VariadicType(BaseType(TypeNameWithArguments(UIdentifier("String"))), false)
+            VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), false)
         ))
 );

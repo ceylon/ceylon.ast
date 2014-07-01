@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     BaseExpression,
-    NameWithTypeArguments,
+    nameWithTypeArguments,
     TypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -37,7 +37,7 @@ shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMem
     case (is JInferredTypeArguments) {
         typeArguments = null;
     }
-    return BaseExpression(NameWithTypeArguments(identifierToCeylon(baseMemberOrTypeExpression.identifier), typeArguments));
+    return BaseExpression(nameWithTypeArguments(identifierToCeylon(baseMemberOrTypeExpression.identifier), typeArguments));
 }
 
 "Compiles the given [[code]] for a Base Expression

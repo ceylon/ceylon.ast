@@ -2,9 +2,9 @@
 shared class BaseType(nameAndArgs)
         extends SimpleType() {
     
-    shared actual TypeNameWithArguments nameAndArgs;
+    shared actual TypeNameWithTypeArguments nameAndArgs;
     
-    shared actual [TypeNameWithArguments] children = [nameAndArgs];
+    shared actual [TypeNameWithTypeArguments] children = [nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBaseType(this);
@@ -20,7 +20,7 @@ shared class BaseType(nameAndArgs)
     shared actual Integer hash
             => nameAndArgs.hash;
     
-    shared BaseType copy(TypeNameWithArguments nameAndArgs = this.nameAndArgs) {
+    shared BaseType copy(TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = BaseType(nameAndArgs);
         ret.extraInfo = extraInfo;
         return ret;

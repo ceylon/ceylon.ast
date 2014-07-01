@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    NameWithTypeArguments,
+    nameWithTypeArguments,
     QualifiedExpression,
     TypeArguments
 }
@@ -35,7 +35,7 @@ shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExp
     case (is JInferredTypeArguments) {
         typeArguments = null;
     }
-    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), NameWithTypeArguments(identifierToCeylon(qualifiedMemberOrTypeExpression.identifier), typeArguments));
+    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), nameWithTypeArguments(identifierToCeylon(qualifiedMemberOrTypeExpression.identifier), typeArguments));
 }
 
 "Compiles the given [[code]] for a Qualified Expression

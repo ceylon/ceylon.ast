@@ -4,7 +4,7 @@ import ceylon.ast.core {
     SimpleType,
     TypeArguments,
     TypeName,
-    TypeNameWithArguments
+    TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -41,7 +41,7 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     case (is JBaseType) { qualifyingType = baseTypeToCeylon(jQualifyingType); }
     case (is JGroupedType) { qualifyingType = groupedTypeToCeylon(jQualifyingType); }
     case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType); }
-    return QualifiedType(qualifyingType, TypeNameWithArguments(name, arguments));
+    return QualifiedType(qualifyingType, TypeNameWithTypeArguments(name, arguments));
 }
 
 "Compiles the given [[code]] for a Qualified Type

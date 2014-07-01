@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     OptionalType,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier
 }
 import ceylon.ast.redhat {
@@ -16,6 +16,6 @@ import ceylon.ast.redhat {
 test
 shared void optionalType()
         => doTest(compile, RedHatTransformer.transformOptionalType, optionalTypeToCeylon,
-    "String?"->OptionalType(BaseType(TypeNameWithArguments(UIdentifier("String"), null))),
-    "Iterable<String>?"->OptionalType(BaseType(TypeNameWithArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithArguments(UIdentifier("String"), null))])))
+    "String?"->OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))),
+    "Iterable<String>?"->OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))])))
 );

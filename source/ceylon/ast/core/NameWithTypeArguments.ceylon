@@ -1,43 +1,20 @@
 "A name and, optionally, type arguments."
-shared class NameWithTypeArguments(name, typeArguments = null)
-        extends ExpressionIsh() {
+shared abstract class NameWithTypeArguments()
+        of TypeNameWithTypeArguments | MemberNameWithTypeArguments
+        extends TypeIsh() {
     
     "The name."
-    shared Identifier name;
+    shared formal Identifier name;
     "The type arguments, if any."
-    shared TypeArguments? typeArguments;
+    shared formal TypeArguments? typeArguments;
     
-    shared actual Tuple<Identifier|Type,Identifier,Type[]> children = [name, *(typeArguments else [])];
-    
-    shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformNameWithTypeArguments(this);
-    
-    shared actual Boolean equals(Object that) {
-        if (is NameWithTypeArguments that) {
-            if (exists typeArguments) {
-                if (exists typeArguments_ = that.typeArguments) {
-                    return typeArguments == typeArguments_ && name == that.name;
-                } else {
-                    return false;
-                }
-            } else {
-                if (!(that.typeArguments exists)) {
-                    return name == that.name;
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
-    
-    shared actual Integer hash
-            => 31 * (name.hash + 31 * (typeArguments?.hash else 0));
-    
-    shared NameWithTypeArguments copy(Identifier name = this.name, TypeArguments? typeArguments = this.typeArguments) {
-        value ret = NameWithTypeArguments(name, typeArguments);
-        ret.extraInfo = extraInfo;
-        return ret;
-    }
+    shared actual formal Tuple<Identifier|Type,Identifier,Type[]> children;
+}
+
+"Convenience function to create either a [[MemberNameWithTypeArguments]]
+ or a [[TypeNameWithTypeArguments]], depending on the type of [[name]]."
+shared NameWithTypeArguments nameWithTypeArguments(Identifier name, TypeArguments? typeArguments) {
+    switch (name)
+    case (is TypeName) { return TypeNameWithTypeArguments(name, typeArguments); }
+    case (is MemberName) { return MemberNameWithTypeArguments(name, typeArguments); }
 }

@@ -1,4 +1,4 @@
-"An entry type, that is, a shortcut for `TypeNameWithArguments(TypeName(UIdentifier(\"Entry\")), [left, right])`.
+"An entry type, that is, a shortcut for `TypeNameWithTypeArguments(TypeName(UIdentifier(\"Entry\")), [left, right])`.
  
  Examples:
  

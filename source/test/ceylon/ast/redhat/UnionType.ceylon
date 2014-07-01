@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseType,
     IntersectionType,
-    TypeNameWithArguments,
+    TypeNameWithTypeArguments,
     UIdentifier,
     UnionType
 }
@@ -18,9 +18,9 @@ test
 shared void unionType()
         => doTest(compile, RedHatTransformer.transformUnionType, unionTypeToCeylon,
     "String|Integer|Float"->UnionType([
-            BaseType(TypeNameWithArguments(UIdentifier("String"))),
-            BaseType(TypeNameWithArguments(UIdentifier("Integer"))),
-            BaseType(TypeNameWithArguments(UIdentifier("Float")))
+            BaseType(TypeNameWithTypeArguments(UIdentifier("String"))),
+            BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+            BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))
         ]),
     // from https://github.com/lucaswerkmeister/ceylon-typesystem-turing-complete/blob/eca01e028b71a8272480d16663f7e603be7a2fd8/source/ceylon/typesystem/demo/notDivisibleByThree/automaton.ceylon#L62
     " |\n".join {
@@ -33,11 +33,11 @@ shared void unionType()
                 for (j in 0..2)
                     IntersectionType {
                         children = [
-                            BaseType(TypeNameWithArguments(UIdentifier("S"))),
-                            BaseType(TypeNameWithArguments(UIdentifier("Q``i``"))),
-                            BaseType(TypeNameWithArguments(UIdentifier("C"))),
-                            BaseType(TypeNameWithArguments(UIdentifier("R``j``"))),
-                            BaseType(TypeNameWithArguments(UIdentifier("B"), [BaseType(TypeNameWithArguments(UIdentifier("Q`` (i + j) % 3 ``")))]))
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("S"))),
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("Q``i``"))),
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("C"))),
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("R``j``"))),
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("B"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Q`` (i + j) % 3 ``")))]))
                         ];
                     }
         ];

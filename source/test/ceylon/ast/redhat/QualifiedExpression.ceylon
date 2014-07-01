@@ -4,7 +4,7 @@ import ceylon.test {
 import ceylon.ast.core {
     BaseExpression,
     LIdentifier,
-    NameWithTypeArguments,
+    MemberNameWithTypeArguments,
     QualifiedExpression,
     StringLiteral
 }
@@ -17,11 +17,11 @@ import ceylon.ast.redhat {
 test
 shared void qualifiedExpression()
         => doTest(compile, RedHatTransformer.transformQualifiedExpression, qualifiedExpressionToCeylon,
-    """", ".join"""->QualifiedExpression(StringLiteral(""", """), NameWithTypeArguments(LIdentifier("join"))),
+    """", ".join"""->QualifiedExpression(StringLiteral(""", """), MemberNameWithTypeArguments(LIdentifier("join"))),
     "process.arguments.first"->QualifiedExpression(
         QualifiedExpression(
             BaseExpression(
-                NameWithTypeArguments(LIdentifier("process"))),
-            NameWithTypeArguments(LIdentifier("arguments"))),
-        NameWithTypeArguments(LIdentifier("first")))
+                MemberNameWithTypeArguments(LIdentifier("process"))),
+            MemberNameWithTypeArguments(LIdentifier("arguments"))),
+        MemberNameWithTypeArguments(LIdentifier("first")))
 );

@@ -2,7 +2,7 @@ import ceylon.ast.core {
     TypeArguments,
     BaseType,
     TypeName,
-    TypeNameWithArguments
+    TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -32,7 +32,7 @@ shared BaseType baseTypeToCeylon(JBaseType baseType) {
     } else {
         arguments = null;
     }
-    return BaseType(TypeNameWithArguments(name, arguments));
+    return BaseType(TypeNameWithTypeArguments(name, arguments));
 }
 
 "Compiles the given [[code]] for a Base Type

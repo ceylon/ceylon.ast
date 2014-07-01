@@ -431,7 +431,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
             }
             w.writeLine(
                 "shared abstract class ``type``()
-                         of ``"|".join(cases)``
+                         of ``" | ".join(cases)``
                          extends ``superType``() {");
             if (params nonempty) {
                 w.writeLine("    ");

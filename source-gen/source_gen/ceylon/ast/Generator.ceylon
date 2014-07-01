@@ -125,7 +125,7 @@ class ConcreteClassGenerator(
             if (exists firstLine = docLines.first) {
                 String quotes;
                 String spaces;
-                if (documentation.contains('"')) {
+                if (documentation.contains('"') || documentation.contains("""``""")) {
                     quotes = "\"\"\"";
                     spaces = "   ";
                 } else {
@@ -365,14 +365,23 @@ class AliasGenerator(shared actual String type, shared actual String[] cases, St
         File file = n.createFile();
         try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
-                w.write("\"");
+                String quotes;
+                String spaces;
+                if (documentation.contains('"') || documentation.contains("""``""")) {
+                    quotes = "\"\"\"";
+                    spaces = "   ";
+                } else {
+                    quotes = "\"";
+                    spaces = " ";
+                }
+                w.write(quotes);
                 w.write(firstLine);
                 for (line in docLines.rest) {
                     w.writeLine();
-                    w.write(" ");
+                    w.write(spaces);
                     w.write(line);
                 }
-                w.write("\"");
+                w.write(quotes);
                 w.writeLine();
             }
             w.writeLine(
@@ -401,14 +410,23 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         File file = n.createFile();
         try (w = file.Appender("UTF-8")) {
             if (exists firstLine = docLines.first) {
-                w.write("\"");
+                String quotes;
+                String spaces;
+                if (documentation.contains('"') || documentation.contains("""``""")) {
+                    quotes = "\"\"\"";
+                    spaces = "   ";
+                } else {
+                    quotes = "\"";
+                    spaces = " ";
+                }
+                w.write(quotes);
                 w.write(firstLine);
                 for (line in docLines.rest) {
                     w.writeLine();
-                    w.write(" ");
+                    w.write(spaces);
                     w.write(line);
                 }
-                w.write("\"");
+                w.write(quotes);
                 w.writeLine();
             }
             w.writeLine(

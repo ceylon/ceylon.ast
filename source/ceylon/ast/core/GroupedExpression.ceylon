@@ -7,7 +7,7 @@
 shared class GroupedExpression(innerExpression)
         extends Atom() {
     
-    // TODO document!
+    "The inner expression."
     shared Expression innerExpression;
     
     shared actual [Expression] children = [innerExpression];

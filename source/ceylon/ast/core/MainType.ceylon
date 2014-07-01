@@ -4,7 +4,7 @@
  since both of these can’t have entry types as children.
  In other words, this class is only there to represent how types are parsed,
  not their semantics."
-shared abstract class MainType(TypeIsh[] kids)
+shared abstract class MainType()
         of UnionType | UnionableType
-        extends Type(kids) {
+        extends Type() {
 }

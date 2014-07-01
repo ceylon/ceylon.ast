@@ -2,7 +2,7 @@
  A *compilation unit* is a text file with the filename extension `.ceylon`.
  
  TODO the three types of compilation units"
-shared class CompilationUnit() extends Node([]) {
+shared abstract class CompilationUnit() extends Node() {
     // TODO implement
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

@@ -1,11 +1,13 @@
 "A type name and, optionally, type arguments."
 see (`class BaseType`, `class QualifiedType`)
 shared class TypeNameWithArguments(name, arguments = null)
-        extends TypeIsh([name, *(arguments else [])]) {
+        extends TypeIsh() {
     "The type name."
     shared TypeName name;
     "The type arguments, if any."
     shared TypeArguments? arguments;
+    
+    shared actual Tuple<TypeName|Type,TypeName,Type[]> children = [name, *(arguments else [])];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeNameWithArguments(this);

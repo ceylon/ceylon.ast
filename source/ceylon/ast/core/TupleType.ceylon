@@ -6,10 +6,12 @@
      [Float,Integer*]
      []"
 shared class TupleType(typeList)
-        extends PrimaryType([typeList]) {
+        extends PrimaryType() {
     
     "The types of this tuple type."
     shared TypeList typeList;
+    
+    shared actual [TypeList] children = [typeList];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTupleType(this);

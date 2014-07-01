@@ -6,10 +6,12 @@
      Integer->String="
 see (`class TypeList`)
 shared class DefaultedType(type)
-        extends TypeIsh([type]) {
+        extends TypeIsh() {
     
     "The inner type."
     shared Type type;
+    
+    shared actual [Type] children = [type];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDefaultedType(this);

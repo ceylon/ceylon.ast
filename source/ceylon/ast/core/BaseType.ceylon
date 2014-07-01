@@ -1,6 +1,10 @@
 "A type name with optional type arguments."
-shared class BaseType(TypeNameWithArguments nameAndArgs)
-        extends SimpleType(nameAndArgs) {
+shared class BaseType(nameAndArgs)
+        extends SimpleType() {
+    
+    shared actual TypeNameWithArguments nameAndArgs;
+    
+    shared actual [TypeNameWithArguments] children = [nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBaseType(this);

@@ -10,10 +10,12 @@
      null
      max<Integer,Nothing>"
 shared class BaseExpression(nameAndArgs)
-        extends Primary([nameAndArgs]) {
+        extends Primary() {
     
     "The name and, if any, arguments."
     shared NameWithTypeArguments nameAndArgs;
+    
+    shared actual [NameWithTypeArguments] children = [nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBaseExpression(this);

@@ -5,10 +5,12 @@
      String[]
      <String->Integer>[]"
 shared class SequentialType(elementType)
-        extends PrimaryType([elementType]) {
+        extends PrimaryType() {
     
     "The element type."
     shared PrimaryType elementType;
+    
+    shared actual [PrimaryType] children = [elementType];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSequentialType(this);

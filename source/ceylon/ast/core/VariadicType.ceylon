@@ -2,13 +2,15 @@
  or a \"+\" (nonempty)."
 see (`class IterableType`, `class TypeList`)
 shared class VariadicType(elementType, isNonempty = false)
-        extends TypeIsh([elementType]) {
+        extends TypeIsh() {
     
     "The element type."
     shared MainType elementType;
     "[[true]] for a nonempty variadic type (`Type+`),
      [[false]] for a possibly-empty variadic type (`Type*`)."
     shared Boolean isNonempty;
+    
+    shared actual [MainType] children = [elementType];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformVariadicType(this);

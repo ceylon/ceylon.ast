@@ -5,10 +5,14 @@
  Foo.Bar // Foo is the qualifying type, Bar the type name
  X<A>.Y<B>.Z<C> // X<A>.Y<B> is the qualifying type – another qualified type –, Z the type name and B the type arguments
  ~~~"
-shared class QualifiedType(qualifyingType, TypeNameWithArguments nameAndArgs)
-        extends SimpleType(nameAndArgs) {
+shared class QualifiedType(qualifyingType, nameAndArgs)
+        extends SimpleType() {
     
+    "The qualifying type (the part before the member operator)."
     shared SimpleType|GroupedType qualifyingType;
+    shared actual TypeNameWithArguments nameAndArgs;
+    
+    shared actual [TypeNameWithArguments, SimpleType|GroupedType] children = [nameAndArgs, qualifyingType];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedType(this);

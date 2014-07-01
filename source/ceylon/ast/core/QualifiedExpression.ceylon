@@ -6,12 +6,14 @@
        ", ".join
        process.arguments.first"""
 shared class QualifiedExpression(receiverExpression, nameAndArgs)
-        extends Primary([receiverExpression, nameAndArgs]) {
+        extends Primary() {
     
     "The receiver expression."
     shared Primary receiverExpression;
     "The name and, if any, type arguments."
     shared NameWithTypeArguments nameAndArgs;
+    
+    shared actual [Primary, NameWithTypeArguments] children = [receiverExpression, nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedExpression(this);

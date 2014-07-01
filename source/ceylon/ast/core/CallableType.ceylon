@@ -6,13 +6,15 @@
        Integer(Integer,Integer)
        String(Character*)"""
 shared class CallableType(returnType, argumentTypes)
-        extends PrimaryType([returnType, argumentTypes]) {
+        extends PrimaryType() {
     
     "The return type, that is, the first type parameter to `Callable`."
     shared PrimaryType returnType;
     "The argument types, that is, the [[typeList|TupleType.typeList]]
      of the [[TupleType]] that’s the second type parameter to `Callable`."
     shared TypeList argumentTypes;
+    
+    shared actual [PrimaryType, TypeList] children = [returnType, argumentTypes];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCallableType(this);

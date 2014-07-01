@@ -6,7 +6,7 @@
      Printable&Persistent&Identifiable->Handle"
 see (`class Entry`)
 shared class EntryType(key, item)
-        extends Type([key, item]) {
+        extends Type() {
     
     "The left, or “Key” type."
     //see (`given Entry.Key`)
@@ -14,6 +14,8 @@ shared class EntryType(key, item)
     "The right, or “Item” / “Value” type."
     //see (`given Entry.Item`)
     shared MainType item;
+    
+    shared actual [MainType, MainType] children = [key, item];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformEntryType(this);

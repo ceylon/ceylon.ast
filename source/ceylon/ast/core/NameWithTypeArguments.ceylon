@@ -1,11 +1,13 @@
 "A name and, optionally, type arguments."
 shared class NameWithTypeArguments(name, typeArguments = null)
-        extends ExpressionIsh([name, *(typeArguments else [])]) {
+        extends ExpressionIsh() {
     
     "The name."
     shared Identifier name;
     "The type arguments, if any."
     shared TypeArguments? typeArguments;
+    
+    shared actual Tuple<Identifier|Type,Identifier,Type[]> children = [name, *(typeArguments else [])];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNameWithTypeArguments(this);

@@ -4,12 +4,14 @@
  
      String, String, String+"
 shared class TypeList(elements, variadic = null)
-        extends TypeIsh(concatenate(emptyOrSingleton(variadic), elements)) {
+        extends TypeIsh() {
     
     "The element types."
     shared <Type|DefaultedType>[] elements;
     "The trailing variadic type, if any."
     shared VariadicType? variadic;
+    
+    shared actual <VariadicType|Type|DefaultedType>[] children = concatenate(emptyOrSingleton(variadic), elements);
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeList(this);

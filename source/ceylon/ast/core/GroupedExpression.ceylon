@@ -5,10 +5,12 @@
      (1 + 2) * 3
      \"Hello, \" + (process.arguments.first else \"World\")"
 shared class GroupedExpression(innerExpression)
-        extends Atom([innerExpression]) {
+        extends Atom() {
     
     // TODO document!
     shared Expression innerExpression;
+    
+    shared actual [Expression] children = [innerExpression];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformGroupedExpression(this);

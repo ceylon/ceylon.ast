@@ -7,8 +7,10 @@
  [[outerInstance]] and [[packageInstance]] instead of creating new instances every time."
 abstract shared class SelfReference()
         of This | Super | Outer | Package
-        extends Atom([]) {
+        extends Atom() {
     shared formal SelfReference copy();
+    
+    shared actual [] children = [];
 }
 
 "The value of this expression is the current instance, and its type is

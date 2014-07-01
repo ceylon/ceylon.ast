@@ -14,7 +14,7 @@ shared alias TypeName => UIdentifier;
 shared alias MemberName => LIdentifier;
 shared alias PackageName => LIdentifier;
 
-shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifier extends Node([]) {
+shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifier extends Node() {
     
     "The name of the identifier."
     shared default String name;
@@ -32,6 +32,8 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifi
     "The prefix for this kind of identifier – `\\i` for a [[lowercase identifier|LIdentifier]],
      `\\I` for an [[uppercase identifier|UIdentifier]]."
     shared formal String prefix;
+    
+    shared actual [] children = [];
     
     "The text of the identifier, that is its [[name]] and, if [[used|usePrefix]], the prefix."
     shared String text => usePrefix then prefix + name else name;

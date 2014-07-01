@@ -14,10 +14,12 @@
  
      <String->String>[]"
 shared class GroupedType(type)
-        extends PrimaryType([type]) {
+        extends PrimaryType() {
     
     "The inner / wrapped type."
     shared Type type;
+    
+    shared actual [Type] children = [type];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformGroupedType(this);

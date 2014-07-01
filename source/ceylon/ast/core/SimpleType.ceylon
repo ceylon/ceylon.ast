@@ -7,10 +7,10 @@
  ~~~
  
  The type of every instance can be written as a `SimpleType`."
-shared abstract class SimpleType(nameAndArgs, TypeIsh[] otherChildren = [])
+shared abstract class SimpleType()
         of BaseType | QualifiedType
-        extends PrimaryType([nameAndArgs, *otherChildren]) {
+        extends PrimaryType() {
     
     "The type name and arguments."
-    shared TypeNameWithArguments nameAndArgs;
+    shared formal TypeNameWithArguments nameAndArgs;
 }

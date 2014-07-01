@@ -2,8 +2,10 @@
  a character string, or a numeric value."
 shared abstract class Literal(text)
         of StringLiteral | CharacterLiteral | IntegerLiteral | FloatLiteral
-        extends Atom([]) {
+        extends Atom() {
     
     "The text of the literal, without any quoting."
     shared default String text;
+    
+    shared actual [] children = [];
 }

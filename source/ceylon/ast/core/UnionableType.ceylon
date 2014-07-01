@@ -2,7 +2,7 @@
  
  This class is only there to represent how types are parsed,
  not their semantics."
-shared abstract class UnionableType(TypeIsh[] kids)
+shared abstract class UnionableType()
         of IntersectionType | PrimaryType
-        extends MainType(kids) {
+        extends MainType() {
 }

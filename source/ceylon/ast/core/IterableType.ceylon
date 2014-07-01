@@ -1,9 +1,11 @@
 "An iterable type, like `{String*}` or `{}`."
 shared class IterableType(variadicType)
-        extends PrimaryType(emptyOrSingleton(variadicType)) {
+        extends PrimaryType() {
     
     "The element type, or [[null]] if there is no element type (means `Iterable<Nothing, Null>`)."
     shared VariadicType? variadicType;
+    
+    shared actual [VariadicType=] children = emptyOrSingleton(variadicType);
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIterableType(this);

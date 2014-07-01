@@ -144,18 +144,20 @@ class ConcreteClassGenerator(
             }
             w.writeLine(
                 "shared class ``type``(``", ".join(params.collect(Entry<String,String>.item))``)
-                         extends ``superType``([``", ".join(params.collect(Entry<String,String>.item))``]) {
+                         extends ``superType``() {
                      ");
-            for (paramType->paramName in params) {
-                w.writeLine(
-                    "    // TODO document!
-                         shared ``paramType`` ``paramName``;");
-            }
             if (nonempty params) {
+                for (paramType->paramName in params) {
+                    w.writeLine(
+                        "    // TODO document!
+                             shared ``paramType`` ``paramName``;");
+                }
                 w.writeLine("    ");
             }
             w.writeLine(
-                "    shared actual Result transform<out Result>(Transformer<Result> transformer)
+                "    shared actual [``", ".join(params.collect(Entry<String,String>.key))``] children = [``", ".join(params.collect(Entry<String,String>.item))``];
+                     
+                     shared actual Result transform<out Result>(Transformer<Result> transformer)
                              => transformer.transform``type``(this);
                      
                      shared actual Boolean equals(Object that) {");
@@ -410,16 +412,18 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                 w.writeLine();
             }
             w.writeLine(
-                "shared abstract class ``type``(``", ".join(params.collect(Entry<String,String>.item))``)
+                "shared abstract class ``type``()
                          of ``"|".join(cases)``
-                         extends ``superType``([``", ".join(params.collect(Entry<String,String>.item))``]) {");
+                         extends ``superType``() {");
             if (params nonempty) {
                 w.writeLine("    ");
-            }
-            for (paramType->paramName in params) {
-                w.writeLine(
-                    "    // TODO document!
-                         shared ``paramType`` ``paramName``;");
+                for (paramType->paramName in params) {
+                    w.writeLine(
+                        "    // TODO document!
+                             shared ``paramType`` ``paramName``;");
+                }
+                w.writeLine("    ");
+                w.writeLine("    shared actual formal [``", ".join(params.collect(Entry<String,String>.key))``] children;");
             }
             w.writeLine("}");
         }

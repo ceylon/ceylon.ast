@@ -72,9 +72,9 @@ interface EnumeratedTypeGenerator
     
     shared formal String[] cases;
     
-    shared void expandNarrowingTransformer()
+    shared void expandNarrowingTransformer(Boolean actual = true)
             => expandFile("source/ceylon/ast/core/NarrowingTransformer.ceylon",
-        "    shared actual default Result transform",
+        "    shared `` actual then "actual " else "" ``default Result transform",
         "``type``(``type`` that) {
                  switch (that)
          ``"\n".join { for (caseType in cases) "        case (is ``caseType``) { return transform``caseType``(that); }" }``
@@ -393,7 +393,7 @@ class AliasGenerator(shared actual String type, shared actual String[] cases, St
     
     shared actual void run() {
         generateAlias();
-        expandNarrowingTransformer();
+        expandNarrowingTransformer(false);
         expandEditor();
         expandRedHatTransformer();
     }

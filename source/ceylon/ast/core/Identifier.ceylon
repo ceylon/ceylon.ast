@@ -14,7 +14,7 @@ shared alias TypeName => UIdentifier;
 shared alias MemberName => LIdentifier;
 shared alias PackageName => LIdentifier;
 
-shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifier extends Node() {
+shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifier extends ExpressionIsh() {
     
     "The name of the identifier."
     shared default String name;

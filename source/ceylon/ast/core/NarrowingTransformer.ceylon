@@ -21,6 +21,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Expression) { return transformExpression(that); }
         case (is TypeIsh) { return transformTypeIsh(that); }
+        case (is Identifier) { return transformIdentifier(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -43,6 +44,13 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is TypeMeta) { return transformTypeMeta(that); }
         case (is BaseMeta) { return transformBaseMeta(that); }
+        case (is MemberMeta) { return transformMemberMeta(that); }
+    }
+    shared default Result transformMetaQualifier(MetaQualifier that) {
+        switch (that)
+        case (is SimpleType) { return transformSimpleType(that); }
+        case (is GroupedType) { return transformGroupedType(that); }
+        case (is MemberName) { return transformLIdentifier(that); }
     }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
         switch (that)
@@ -52,7 +60,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformNode(Node that) {
         switch (that)
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
-        case (is Identifier) { return transformIdentifier(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
     }
     shared actual default Result transformPrimary(Primary that) {

@@ -10,6 +10,6 @@
    Simply speaking, if there’s a keyword (`` `class String` ``, `` `value system` ``),
    then it’s a [[Dec]], otherwise it’s a [[Meta]]."""
 shared abstract class Meta()
-        of TypeMeta | BaseMeta
+        of TypeMeta | BaseMeta | MemberMeta
         extends Primary() {
 }

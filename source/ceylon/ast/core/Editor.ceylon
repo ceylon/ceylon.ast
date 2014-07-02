@@ -78,10 +78,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is MainType ret = super.transformMainType(that));
         return ret;
     }
+    shared actual default MemberMeta transformMemberMeta(MemberMeta that)
+            => that.copy();
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.copy();
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
+        return ret;
+    }
+    shared actual default MetaQualifier transformMetaQualifier(MetaQualifier that) {
+        assert (is MetaQualifier ret = super.transformMetaQualifier(that));
         return ret;
     }
     shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {

@@ -104,6 +104,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "MemberNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
+    transformMemberMeta(MemberMeta that)
+            => "MemberMeta {
+                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
+                ``indent``}";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

@@ -33,6 +33,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformMainType(MainType that) => visitMainType(that);
+    transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
     transformMeta(Meta that) => visitMeta(that);
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
@@ -79,6 +80,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitMainType(MainType that) => super.transformMainType(that);
+    shared default void visitMemberMeta(MemberMeta that) => super.transformMemberMeta(that);
     shared default void visitMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => super.transformMemberNameWithTypeArguments(that);
     shared default void visitMeta(Meta that) => super.transformMeta(that);
     shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => super.transformNameWithTypeArguments(that);

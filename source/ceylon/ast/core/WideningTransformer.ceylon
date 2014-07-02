@@ -17,13 +17,14 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);
     shared actual default Result transformGroupedType(GroupedType that) => transformPrimaryType(that);
-    shared actual default Result transformIdentifier(Identifier that) => transformNode(that);
+    shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
+    shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);

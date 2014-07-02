@@ -33,6 +33,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformMainType(MainType that);
+    shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);

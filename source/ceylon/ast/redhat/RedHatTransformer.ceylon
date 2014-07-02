@@ -173,6 +173,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.valueType = transformMainType(that.item);
         return ret;
     }
+    
     shared actual JTerm transformExpression(Expression that) {
         assert (is JTerm ret = super.transformExpression(that));
         return ret;
@@ -240,6 +241,29 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JMemberLiteral transformMemberMeta(MemberMeta that) {
+        JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
+        value qualifier = transformMetaQualifier(that.qualifier);
+        switch (qualifier)
+        case (is JStaticType) { ret.type = qualifier; }
+        case (is JIdentifier) {
+            ret.objectExpression = JBaseMemberExpression(null);
+            ret.objectExpression.identifier = qualifier;
+            ret.objectExpression.typeArguments = JInferredTypeArguments(null);
+        }
+        ret.identifier = transformIdentifier(that.nameAndArgs.name);
+        if (exists arguments = that.nameAndArgs.typeArguments) {
+            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
+            for (Type type in arguments) {
+                typeArgList.addType(transformType(type));
+            }
+            typeArgList.endToken = tokens.token(">", larger_op);
+            ret.typeArgumentList = typeArgList;
+        }
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
     "The RedHat AST has no direct equivalent of [[MemberNameWithTypeArguments]];
      this method throws."
     shared actual Nothing transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
@@ -248,6 +272,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JMetaLiteral transformMeta(Meta that) {
         assert (is JMetaLiteral ret = super.transformMeta(that));
+        return ret;
+    }
+    
+    shared actual JStaticType|JIdentifier transformMetaQualifier(MetaQualifier that) {
+        assert (is JStaticType|JIdentifier ret = super.transformMetaQualifier(that));
         return ret;
     }
     

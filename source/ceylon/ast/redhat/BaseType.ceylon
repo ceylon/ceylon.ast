@@ -42,7 +42,7 @@ shared BaseType? compileBaseType(String code) {
     if (exists jTypeNameWithArguments = createParser(code).typeNameWithArguments()) {
         JBaseType baseType = JBaseType(null);
         baseType.identifier = jTypeNameWithArguments.identifier;
-        baseType.typeArgumentList = jTypeNameWithArguments.typeArgumentList of JTypeArgumentList?;
+        baseType.typeArgumentList = jTypeNameWithArguments.typeArgumentList;
         return baseTypeToCeylon(baseType);
     } else {
         return null;

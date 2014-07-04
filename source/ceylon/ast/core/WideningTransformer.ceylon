@@ -10,11 +10,13 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
+    shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDefaultedType(DefaultedType that) => transformTypeIsh(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
+    shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);
     shared actual default Result transformGroupedType(GroupedType that) => transformPrimaryType(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
@@ -43,6 +45,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformThis(This that) => transformSelfReference(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
+    shared actual default Result transformTypeDec(TypeDec that) => transformDec(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
     shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);

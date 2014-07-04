@@ -19,11 +19,13 @@ shared interface Transformer<out Result> {
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
+    shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
     shared formal Result transformIdentifier(Identifier that);
@@ -53,6 +55,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformThis(This that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
+    shared formal Result transformTypeDec(TypeDec that);
     shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeList(TypeList that);
     shared formal Result transformTypeMeta(TypeMeta that);

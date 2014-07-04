@@ -13,6 +13,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");
     }
+    shared actual default Result transformDec(Dec that) {
+        switch (that)
+        case (is TypeDec) { return transformTypeDec(that); }
+    }
     shared actual default Result transformExpression(Expression that) {
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
@@ -68,6 +72,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is BaseExpression) { return transformBaseExpression(that); }
         case (is QualifiedExpression) { return transformQualifiedExpression(that); }
         case (is Meta) { return transformMeta(that); }
+        case (is Dec) { return transformDec(that); }
     }
     shared actual default Result transformPrimaryType(PrimaryType that) {
         switch (that)
@@ -95,6 +100,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is MainType) { return transformMainType(that); }
         case (is EntryType) { return transformEntryType(that); }
+    }
+    shared actual default Result transformTypeDec(TypeDec that) {
+        switch (that)
+        case (is GivenDec) { return transformGivenDec(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

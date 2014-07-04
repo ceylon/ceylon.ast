@@ -41,6 +41,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is CompilationUnit ret = super.transformCompilationUnit(that));
         return ret;
     }
+    shared actual default Dec transformDec(Dec that) {
+        assert (is Dec ret = super.transformDec(that));
+        return ret;
+    }
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
     shared actual default EntryType transformEntryType(EntryType that)
@@ -50,6 +54,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
+            => that.copy();
+    shared actual default GivenDec transformGivenDec(GivenDec that)
             => that.copy();
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
             => that.copy();
@@ -136,6 +142,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformTypeList(that.typeList));
     shared actual default Type transformType(Type that) {
         assert (is Type ret = super.transformType(that));
+        return ret;
+    }
+    shared actual default TypeDec transformTypeDec(TypeDec that) {
+        assert (is TypeDec ret = super.transformTypeDec(that));
         return ret;
     }
     shared actual default TypeIsh transformTypeIsh(TypeIsh that) {

@@ -19,11 +19,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
+    transformDec(Dec that) => visitDec(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformEntryType(EntryType that) => visitEntryType(that);
     transformExpression(Expression that) => visitExpression(that);
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
+    transformGivenDec(GivenDec that) => visitGivenDec(that);
     transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
@@ -52,6 +54,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformThis(This that) => visitThis(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
+    transformTypeDec(TypeDec that) => visitTypeDec(that);
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
@@ -66,11 +69,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
+    shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
     shared default void visitExpressionIsh(ExpressionIsh that) => super.transformExpressionIsh(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
+    shared default void visitGivenDec(GivenDec that) => super.transformGivenDec(that);
     shared default void visitGroupedExpression(GroupedExpression that) => super.transformGroupedExpression(that);
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
@@ -99,6 +104,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitThis(This that) => super.transformThis(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);
+    shared default void visitTypeDec(TypeDec that) => super.transformTypeDec(that);
     shared default void visitTypeList(TypeList that) => super.transformTypeList(that);
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);

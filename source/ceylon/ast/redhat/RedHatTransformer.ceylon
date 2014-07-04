@@ -45,6 +45,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JType=Type,
         JTypeArgumentList=TypeArgumentList,
         JTypeLiteral=TypeLiteral,
+        JTypeParameterLiteral=TypeParameterLiteral,
         JUnionType=UnionType
     }
 }
@@ -75,6 +76,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         sum_op=\iSUM_OP,
         superType=\iSUPER,
         thisType=\iTHIS,
+        type_constraint=\iTYPE_CONSTRAINT,
         uidentifier=\iUIDENTIFIER,
         union_op=\iUNION_OP,
         verbatim_string_literal=\iVERBATIM_STRING
@@ -159,6 +161,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
     
+    shared actual JMetaLiteral transformDec(Dec that) {
+        assert (is JMetaLiteral ret = super.transformDec(that));
+        return ret;
+    }
+    
     shared actual JDefaultedType transformDefaultedType(DefaultedType that) {
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);
@@ -186,6 +193,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
+    
+    shared actual JTypeParameterLiteral transformGivenDec(GivenDec that) {
+        JTypeParameterLiteral ret = JTypeParameterLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token("given", type_constraint);
+        ret.type = transformBaseType(BaseType(TypeNameWithTypeArguments(that.typeParameter)));
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
     
     shared actual JExpression transformGroupedExpression(GroupedExpression that) {
         JExpression ret = JExpression(tokens.token("(", lparen));
@@ -417,6 +432,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTypeLiteral transformTypeDec(TypeDec that) {
+        assert (is JTypeLiteral ret = super.transformTypeDec(that));
+        return ret;
+    }
     shared actual JTypeLiteral transformTypeMeta(TypeMeta that) {
         JTypeLiteral ret = JTypeLiteral(tokens.token("`", backtick));
         ret.type = transformType(that.type);

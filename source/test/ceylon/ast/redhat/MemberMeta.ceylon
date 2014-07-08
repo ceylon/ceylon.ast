@@ -1,6 +1,3 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
     BaseType,
     LIdentifier,
@@ -13,16 +10,25 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     memberMetaToCeylon,
-    compile=compileMemberMeta
+    compileMemberMeta
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JMemberLiteral=MemberLiteral
+    }
 }
 
-test
-shared void memberMeta()
-        => doTest(compile, RedHatTransformer.transformMemberMeta, memberMetaToCeylon,
-    "`person.say`"->MemberMeta(LIdentifier("person"), MemberNameWithTypeArguments(LIdentifier("say"))),
-    "`system.milliseconds`"->MemberMeta(LIdentifier("system"), MemberNameWithTypeArguments(LIdentifier("milliseconds"))),
-    "`Iterable<String>.collect<Integer?>`"->MemberMeta {
-        qualifier = BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String")))]));
+shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
+    shared String->MemberMeta personSayMemberMeta = "`person.say`"->MemberMeta(LIdentifier("person"), MemberNameWithTypeArguments(LIdentifier("say")));
+    shared String->MemberMeta systemMillisecondsMemberMeta = "`system.milliseconds`"->MemberMeta(LIdentifier("system"), MemberNameWithTypeArguments(LIdentifier("milliseconds")));
+    shared String->MemberMeta iterableOfStringCollectOfIntegerOptionalMemberMeta
+            = "`Iterable<String>.collect<Integer?>`"->MemberMeta {
+        qualifier = baseType.iterableOfStringType.item;
         nameAndArgs = MemberNameWithTypeArguments(LIdentifier("collect"), [OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))))]);
-    }
-);
+    };
+    
+    shared actual MemberMeta? compile(String code) => compileMemberMeta(code);
+    shared actual JMemberLiteral fromCeylon(RedHatTransformer transformer)(MemberMeta node) => transformer.transformMemberMeta(node);
+    shared actual MemberMeta toCeylon(JMemberLiteral node) => memberMetaToCeylon(node);
+    codes = [personSayMemberMeta, systemMillisecondsMemberMeta, iterableOfStringCollectOfIntegerOptionalMemberMeta];
+}

@@ -1,34 +1,30 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
-    BaseType,
     CallableType,
-    DefaultedType,
-    OptionalType,
-    TupleType,
-    TypeList,
-    TypeNameWithTypeArguments,
-    UIdentifier,
-    VariadicType
+    PrimaryType,
+    TypeList
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     callableTypeToCeylon,
-    compile=compileCallableType
+    compileCallableType
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JFunctionType=FunctionType
+    }
 }
 
-test
-shared void callableType()
-        => doTest(compile, RedHatTransformer.transformCallableType, callableTypeToCeylon,
-    "Anything()"->CallableType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))), TypeList([])),
-    "[Float+]?(String+)"->CallableType(
-        OptionalType(TupleType(TypeList([], VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))), true)))),
-        TypeList([], VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), true))),
-    "Nothing(Integer,Float=,String*)"->CallableType(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"))), TypeList([
-                BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
-                DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))))
-            ],
-            VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))), false)
-        ))
-);
+shared object callableType satisfies ConcreteTest<CallableType,JFunctionType> {
+    
+    String->CallableType construct(String->PrimaryType ret, String->TypeList args)
+            => "``ret.key``(``args.key``)"->CallableType(ret.item, args.item);
+    
+    shared String->CallableType anythingFromEmptyCallableType = construct(baseType.anythingType, typeList.emptyTypeList);
+    shared String->CallableType floatStarTupleFromStringPlusCallableType = construct(tupleType.floatStarTupleType, typeList.stringPlusTypeList);
+    shared String->CallableType nothingFromIntegerFloatDefaultedStringStarCallableType = construct(baseType.nothingType, typeList.integerFloatDefaultedStringStarTypeList);
+    
+    shared actual CallableType? compile(String code) => compileCallableType(code);
+    shared actual JFunctionType fromCeylon(RedHatTransformer transformer)(CallableType node) => transformer.transformCallableType(node);
+    shared actual CallableType toCeylon(JFunctionType node) => callableTypeToCeylon(node);
+    codes = [anythingFromEmptyCallableType, floatStarTupleFromStringPlusCallableType, nothingFromIntegerFloatDefaultedStringStarCallableType];
+}

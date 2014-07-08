@@ -8,7 +8,8 @@ import ceylon.ast.redhat {
     RedHatTransformer
 }
 import ceylon.test {
-    assertEquals
+    assertEquals,
+    test
 }
 
 void doTest<CeylonAstType,RedHatType>(
@@ -35,4 +36,42 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
         assert (exists compiled = compile(code));
         assertEquals(compiled, node, "Compile '``code``' to '``node``'");
     }
+}
+
+// needed for variance – ConcreteTest’s type params
+// must be invariant, but we need them 'out' for
+// use in AbstractTest
+shared interface CodesProvider<out CeylonAstType>
+        given CeylonAstType satisfies Node {
+    shared formal [<String->CeylonAstType>+] codes;
+}
+
+shared interface ConcreteTest<CeylonAstType,RedHatType>
+        satisfies CodesProvider<CeylonAstType>
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    
+    shared formal CeylonAstType? compile(String code);
+    shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
+    shared formal CeylonAstType toCeylon(RedHatType node);
+    
+    test
+    shared void compilation() => testCompilation(compile, *codes);
+    test
+    shared void conversion() => testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
+}
+
+shared interface AbstractTest<CeylonAstType,RedHatType>
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    
+    shared formal CeylonAstType? compile(String code);
+    shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
+    shared formal CeylonAstType toCeylon(RedHatType node);
+    shared formal [CodesProvider<CeylonAstType>+] tests;
+    
+    test
+    shared void compilation() => testCompilation(compile, for (test in tests) for (code in test.codes) code);
+    test
+    shared void conversion() => testConversion(fromCeylon, toCeylon, for (test in tests) for (code in test.codes) code.item);
 }

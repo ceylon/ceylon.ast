@@ -1,6 +1,3 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
     BaseType,
     IntersectionType,
@@ -11,19 +8,20 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unionTypeToCeylon,
-    compile=compileUnionType
+    compileUnionType
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JUnionType=UnionType
+    }
 }
 
-test
-shared void unionType()
-        => doTest(compile, RedHatTransformer.transformUnionType, unionTypeToCeylon,
-    "String|Integer|Float"->UnionType([
-            BaseType(TypeNameWithTypeArguments(UIdentifier("String"))),
-            BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
-            BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))
-        ]),
-    // from https://github.com/lucaswerkmeister/ceylon-typesystem-turing-complete/blob/eca01e028b71a8272480d16663f7e603be7a2fd8/source/ceylon/typesystem/demo/notDivisibleByThree/automaton.ceylon#L62
-    " |\n".join {
+shared object unionType satisfies ConcreteTest<UnionType,JUnionType> {
+    shared String->UnionType stringOrIntegerOrFloatUnionType
+            = "``baseType.stringType.key``|``baseType.integerType.key``|``baseType.floatType.key``"->UnionType([baseType.stringType.item, baseType.integerType.item, baseType.floatType.item]);
+    "From the [Ceylon Type System Turing Machine](https://github.com/lucaswerkmeister/ceylon-typesystem-turing-complete/blob/eca01e028b71a8272480d16663f7e603be7a2fd8/source/ceylon/typesystem/demo/notDivisibleByThree/automaton.ceylon#L62)."
+    shared String->UnionType turingStuffUnionType
+            = " |\n".join {
         for (i in 0..2)
             for (j in 0..2)
                 "S&Q``i``&C&R``j``&B<Q`` (i + j) % 3 ``>"
@@ -41,5 +39,10 @@ shared void unionType()
                         ];
                     }
         ];
-    }
-);
+    };
+    
+    shared actual UnionType? compile(String code) => compileUnionType(code);
+    shared actual JUnionType fromCeylon(RedHatTransformer transformer)(UnionType node) => transformer.transformUnionType(node);
+    shared actual UnionType toCeylon(JUnionType node) => unionTypeToCeylon(node);
+    codes = [stringOrIntegerOrFloatUnionType, turingStuffUnionType];
+}

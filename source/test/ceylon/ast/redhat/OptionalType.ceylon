@@ -1,21 +1,28 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
-    BaseType,
     OptionalType,
-    TypeNameWithTypeArguments,
-    UIdentifier
+    PrimaryType
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     optionalTypeToCeylon,
-    compile=compileOptionalType
+    compileOptionalType
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JOptionalType=OptionalType
+    }
 }
 
-test
-shared void optionalType()
-        => doTest(compile, RedHatTransformer.transformOptionalType, optionalTypeToCeylon,
-    "String?"->OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))),
-    "Iterable<String>?"->OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), [BaseType(TypeNameWithTypeArguments(UIdentifier("String"), null))])))
-);
+shared object optionalType satisfies ConcreteTest<OptionalType,JOptionalType> {
+    
+    String->OptionalType construct(String->PrimaryType definite)
+            => "``definite.key``?"->OptionalType(definite.item);
+    
+    shared String->OptionalType stringOptionalType = construct(baseType.stringType);
+    shared String->OptionalType iterableOfStringOptionalType = construct(baseType.iterableOfStringType);
+    
+    shared actual OptionalType? compile(String code) => compileOptionalType(code);
+    shared actual JOptionalType fromCeylon(RedHatTransformer transformer)(OptionalType node) => transformer.transformOptionalType(node);
+    shared actual OptionalType toCeylon(JOptionalType node) => optionalTypeToCeylon(node);
+    codes = [stringOptionalType, iterableOfStringOptionalType];
+}

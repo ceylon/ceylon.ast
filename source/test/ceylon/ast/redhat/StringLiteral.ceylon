@@ -1,16 +1,27 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
     StringLiteral
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     stringLiteralToCeylon,
-    compile=compileStringLiteral
+    compileStringLiteral
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JStringLiteral=StringLiteral
+    }
 }
 
-test
-shared void stringLiteral()
-        => doTest(compile, RedHatTransformer.transformStringLiteral, stringLiteralToCeylon,
-    for (text in { "\{LATIN CAPITAL LETTER C}", "\\{LATIN CAPITAL LETTER C}" }) for (isVerbatim in { true, false }) (isVerbatim then "\"\"\"``text``\"\"\"" else "\"``text``\"")->StringLiteral(text, isVerbatim));
+shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral> {
+    
+    String->StringLiteral construct(String text)
+            => "\"``text``\""->StringLiteral(text);
+    
+    shared String->StringLiteral capitalCStringLiteral = construct("\{LATIN CAPITAL LETTER C}");
+    shared String->StringLiteral namedCapitalCStringLiteral = construct("\\{LATIN CAPITAL LETTER C}");
+    
+    shared actual StringLiteral? compile(String code) => compileStringLiteral(code);
+    shared actual JStringLiteral fromCeylon(RedHatTransformer transformer)(StringLiteral node) => transformer.transformStringLiteral(node);
+    shared actual StringLiteral toCeylon(JStringLiteral node) => stringLiteralToCeylon(node);
+    codes = [capitalCStringLiteral, namedCapitalCStringLiteral];
+}

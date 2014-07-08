@@ -1,27 +1,21 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
-    StringLiteral,
-    CharacterLiteral,
-    IntegerLiteral,
-    FloatLiteral
+    Literal
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     literalToCeylon,
-    compile=compileLiteral
+    compileLiteral
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JLiteral=Literal
+    }
 }
 
-test
-shared void literal()
-        => doTest(compile, RedHatTransformer.transformLiteral, literalToCeylon,
-    "\"Hello, World!\""->StringLiteral("Hello, World!"),
-    "\"\\{WHITE SMILING FACE}\""->StringLiteral("\\{WHITE SMILING FACE}"),
-    "\"\"\"ceylon.ast\"\"\""->StringLiteral("ceylon.ast", true),
-    "'a'"->CharacterLiteral("a"),
-    /*"#7EA_BABE"->IntegerLiteral("#7EA_BABE"),
-    "1.138k"->FloatLiteral("1.138k")*/ // TODO re-enable these tests when we can parse full-blown Ceylon numeric literals again
-    "1138"->IntegerLiteral("1138"),
-    "0.042k"->FloatLiteral("0.042k")
-);
+shared object literal satisfies AbstractTest<Literal,JLiteral> {
+    shared actual Literal? compile(String code) => compileLiteral(code);
+    shared actual JLiteral fromCeylon(RedHatTransformer transformer)(Literal node) => transformer.transformLiteral(node);
+    shared actual Literal toCeylon(JLiteral node) => literalToCeylon(node);
+    
+    tests = [integerLiteral, floatLiteral, stringLiteral, characterLiteral];
+}

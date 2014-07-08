@@ -1,16 +1,27 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
     FloatLiteral
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     floatLiteralToCeylon,
-    compile=compileFloatLiteral
+    compileFloatLiteral
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JFloatLiteral=FloatLiteral
+    }
 }
 
-test
-shared void floatLiteral()
-        => doTest(compile, RedHatTransformer.transformFloatLiteral, floatLiteralToCeylon,
-    for (text in { "0.042k", "10.1010" }) text->FloatLiteral(text));
+shared object floatLiteral satisfies ConcreteTest<FloatLiteral,JFloatLiteral> {
+    
+    String->FloatLiteral construct(String text)
+            => text->FloatLiteral(text);
+    
+    shared String->FloatLiteral oPointOFortyTwoKFloatLiteral = construct("0.042k");
+    shared String->FloatLiteral tenPointOneOhOneOhFloatLiteral = construct("10.1010");
+    
+    shared actual FloatLiteral? compile(String code) => compileFloatLiteral(code);
+    shared actual JFloatLiteral fromCeylon(RedHatTransformer transformer)(FloatLiteral node) => transformer.transformFloatLiteral(node);
+    shared actual FloatLiteral toCeylon(JFloatLiteral node) => floatLiteralToCeylon(node);
+    codes = [oPointOFortyTwoKFloatLiteral, tenPointOneOhOneOhFloatLiteral];
+}

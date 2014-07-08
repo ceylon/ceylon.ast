@@ -1,21 +1,27 @@
-import ceylon.test {
-    test
-}
 import ceylon.ast.core {
+    Identifier,
     LIdentifier,
     UIdentifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
     identifierToCeylon,
-    compile=compileIdentifier
+    compileIdentifier
+}
+import com.redhat.ceylon.compiler.typechecker.tree {
+    Tree {
+        JIdentifier=Identifier
+    }
 }
 
-test
-shared void identifier()
-        => doTest(compile, RedHatTransformer.transformIdentifier, identifierToCeylon,
-    "lid"->LIdentifier("lid"),
-    "Uid"->UIdentifier("Uid"),
-    "\\iLid"->LIdentifier("Lid"),
-    "\\Iuid"->UIdentifier("uid")
-);
+shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
+    shared String->Identifier lidLIdentifier = "lid"->LIdentifier("lid");
+    shared String->Identifier uidUIdentifier = "Uid"->UIdentifier("Uid");
+    shared String->Identifier uidLIdentifier = "\\iUid"->LIdentifier("Uid");
+    shared String->Identifier lidUIdentifier = "\\Ilid"->UIdentifier("lid");
+    
+    shared actual Identifier? compile(String code) => compileIdentifier(code);
+    shared actual JIdentifier fromCeylon(RedHatTransformer transformer)(Identifier node) => transformer.transformIdentifier(node);
+    shared actual Identifier toCeylon(JIdentifier node) => identifierToCeylon(node);
+    codes = [lidLIdentifier, uidUIdentifier, uidLIdentifier, lidUIdentifier];
+}

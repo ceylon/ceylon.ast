@@ -278,23 +278,28 @@ class ConcreteClassGenerator(
         File file = n.createFile();
         try (w = file.Appender("UTF-8")) {
             w.writeLine(
-                "import ceylon.test {
-                     test
-                 }
-                 import ceylon.ast.core {
+                "import ceylon.ast.core {
                      ``type``
                  }
                  import ceylon.ast.redhat {
                      RedHatTransformer,
                      ``ltype``ToCeylon,
-                     compile=compile``type``
+                     compile``type``
+                 }
+                 import com.redhat.ceylon.compiler.typechecker.tree {
+                     Tree {
+                         J``type``=``type``
+                     }
                  }
                  
-                 test
-                 shared void ``ltype``()
-                         => doTest(compile, RedHatTransformer.transform``type``, ``ltype``ToCeylon,
+                 shared object ``ltype`` satisfies ConcreteTest<``type``,J``type``> {
                      // TODO add sample(s)
-                 );");
+                     
+                     shared actual ``type``? compile(String code) => compile``type``(code);
+                     shared actual J``type`` fromCeylon(RedHatTransformer transformer)(``type`` node) => transformer.transform``type``(node);
+                     shared actual ``type`` toCeylon(J``type`` node) => ``ltype``ToCeylon(node);
+                     codes = [/* TODO add samples */];
+                 }");
         }
     }
     
@@ -404,6 +409,8 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
     
     value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
     
+    value ltype = initLCase(type);
+    
     void generateAbstractClass() {
         String filename = "source/ceylon/ast/core/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
@@ -447,13 +454,52 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         }
     }
     
+    void generateBackendTest() {
+        String filename = "source/test/ceylon/ast/redhat/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender("UTF-8")) {
+            w.writeLine(
+                "import ceylon.ast.core {
+                     ``type``
+                 }
+                 import ceylon.ast.redhat {
+                     RedHatTransformer,
+                     ``ltype``ToCeylon,
+                     compile``type``
+                 }
+                 import com.redhat.ceylon.compiler.typechecker.tree {
+                     Tree {
+                         J``type``=``type``
+                     }
+                 }
+                 
+                 shared object ``ltype`` satisfies AbstractTest<``type``,J``type``> {
+                     shared actual ``type``? compile(String code) => compile``type``(code);
+                     shared actual J``type`` fromCeylon(RedHatTransformer transformer)(``type`` node) => transformer.transform``type``(node);
+                     shared actual ``type`` toCeylon(J``type`` node) => ``ltype``ToCeylon(node);
+                     
+                     tests = [``", ".join { for (cas in cases) initLCase(cas) }``];
+                 }");
+        }
+    }
+    
     shared actual void run() {
         generateAbstractClass();
+        generateBackendTest();
         expandTransformer();
         expandNarrowingTransformer();
         expandEditor();
         expandWideningTransformer();
         expandVisitor();
         expandRedHatTransformer();
+    }
+}
+
+String initLCase(String s) {
+    if (exists first = s.first) {
+        return String { first.lowercased, *s.rest };
+    } else {
+        return "";
     }
 }

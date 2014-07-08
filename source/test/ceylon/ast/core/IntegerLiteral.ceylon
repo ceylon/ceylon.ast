@@ -1,7 +1,6 @@
 import ceylon.test {
     test,
-    assertEquals,
-    assertNotEquals
+    assertEquals
 }
 import ceylon.ast.core {
     IntLit=IntegerLiteral

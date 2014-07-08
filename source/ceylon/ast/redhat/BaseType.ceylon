@@ -8,8 +8,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
         JStaticType=StaticType,
-        JType=Type,
-        JTypeArgumentList=TypeArgumentList
+        JType=Type
     }
 }
 import ceylon.interop.java {

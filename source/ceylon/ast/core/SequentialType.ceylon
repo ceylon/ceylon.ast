@@ -28,7 +28,7 @@ shared class SequentialType(elementType)
     
     shared SequentialType copy(PrimaryType elementType = this.elementType) {
         value ret = SequentialType(elementType);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

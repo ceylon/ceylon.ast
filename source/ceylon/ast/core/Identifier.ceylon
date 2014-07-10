@@ -73,7 +73,7 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     shared actual LIdentifier copy(String name, Boolean enforcePrefix) {
         value ret = LIdentifier(name, enforcePrefix);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }
@@ -105,7 +105,7 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     
     shared actual UIdentifier copy(String name, Boolean enforcePrefix) {
         value ret = UIdentifier(name, enforcePrefix);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

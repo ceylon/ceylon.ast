@@ -28,7 +28,7 @@ shared class TypeMeta(type)
     
     shared TypeMeta copy(Type type = this.type) {
         value ret = TypeMeta(type);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

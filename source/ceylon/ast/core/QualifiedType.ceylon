@@ -30,7 +30,7 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     
     shared QualifiedType copy(SimpleType|GroupedType qualifyingtype = this.qualifyingType, TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = QualifiedType(qualifyingType, nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

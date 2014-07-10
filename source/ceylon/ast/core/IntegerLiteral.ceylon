@@ -41,7 +41,7 @@ shared class IntegerLiteral(text) extends Literal(text) {
     
     shared IntegerLiteral copy(String text = this.text) {
         value ret = IntegerLiteral(text);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

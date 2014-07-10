@@ -28,7 +28,7 @@ shared class VariadicType(elementType, isNonempty = false)
     
     shared VariadicType copy(MainType elementType = this.elementType, Boolean isNonempty = this.isNonempty) {
         value ret = VariadicType(elementType, isNonempty);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

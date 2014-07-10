@@ -31,7 +31,7 @@ shared class QualifiedExpression(receiverExpression, nameAndArgs)
     
     shared QualifiedExpression copy(Primary receiverExpression = this.receiverExpression, NameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = QualifiedExpression(receiverExpression, nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

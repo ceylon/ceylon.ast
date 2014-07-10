@@ -33,7 +33,7 @@ shared class EntryType(key, item)
     
     shared EntryType copy(MainType key = this.key, MainType item = this.item) {
         value ret = EntryType(key, item);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

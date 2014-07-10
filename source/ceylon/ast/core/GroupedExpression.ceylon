@@ -28,7 +28,7 @@ shared class GroupedExpression(innerExpression)
     
     shared GroupedExpression copy(Expression innerExpression = this.innerExpression) {
         value ret = GroupedExpression(innerExpression);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

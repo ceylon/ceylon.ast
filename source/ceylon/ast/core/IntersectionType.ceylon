@@ -31,7 +31,7 @@ shared class IntersectionType(children)
     
     shared IntersectionType copy([PrimaryType+] children = this.children) {
         value ret = IntersectionType(children);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

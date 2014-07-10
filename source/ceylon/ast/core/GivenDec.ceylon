@@ -28,7 +28,7 @@ shared class GivenDec(typeParameter)
     
     shared GivenDec copy(TypeName typeParameter = this.typeParameter) {
         value ret = GivenDec(typeParameter);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

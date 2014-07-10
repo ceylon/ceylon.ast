@@ -31,7 +31,7 @@ shared class IterableType(variadicType)
     
     shared IterableType copy(VariadicType? elementType = this.variadicType) {
         value ret = IterableType(elementType);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

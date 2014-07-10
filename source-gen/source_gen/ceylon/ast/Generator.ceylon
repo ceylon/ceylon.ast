@@ -191,7 +191,7 @@ class ConcreteClassGenerator(
                 "    
                      shared ``type`` copy(``", ".join(params.collect((String->String elem) => "``elem.key`` ``elem.item`` = this.``elem.item``"))``) {
                          value ret = ``type``(``", ".join(params.collect(Entry<String,String>.item))``);
-                         ret.extraInfo = extraInfo;
+                         copyExtraInfoTo(ret);
                          return ret;
                      }
                  }");

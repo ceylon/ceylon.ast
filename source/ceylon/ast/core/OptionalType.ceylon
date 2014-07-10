@@ -31,7 +31,7 @@ shared class OptionalType(definiteType)
     
     shared OptionalType copy(PrimaryType definiteType = this.definiteType) {
         value ret = OptionalType(definiteType);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

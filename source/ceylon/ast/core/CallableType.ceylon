@@ -32,7 +32,7 @@ shared class CallableType(returnType, argumentTypes)
     
     shared CallableType copy(PrimaryType returnType = this.returnType, TypeList argumentTypes = this.argumentTypes) {
         value ret = CallableType(returnType, argumentTypes);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

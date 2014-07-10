@@ -29,7 +29,7 @@ shared class DefaultedType(type)
     
     shared DefaultedType copy(Type type = this.type) {
         value ret = DefaultedType(type);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

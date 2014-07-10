@@ -37,7 +37,7 @@ shared class TypeList(elements, variadic = null)
     
     shared TypeList copy(<Type|DefaultedType>[] elements = this.elements, VariadicType? variadic = this.variadic) {
         value ret = TypeList(elements, variadic);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

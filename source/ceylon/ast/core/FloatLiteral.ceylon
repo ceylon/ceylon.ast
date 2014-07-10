@@ -40,7 +40,7 @@ shared class FloatLiteral(text) extends Literal(text) {
     
     shared FloatLiteral copy(String text = this.text) {
         value ret = FloatLiteral(text);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

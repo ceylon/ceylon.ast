@@ -33,7 +33,7 @@ shared class BaseExpression(nameAndArgs)
     
     shared BaseExpression copy(NameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = BaseExpression(nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

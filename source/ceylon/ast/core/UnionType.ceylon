@@ -30,7 +30,7 @@ shared class UnionType(children)
     
     shared UnionType copy([<IntersectionType|PrimaryType>+] children = this.children) {
         value ret = UnionType(children);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

@@ -25,7 +25,7 @@ shared class CharacterLiteral(text) extends Literal(text) {
     
     shared CharacterLiteral copy(String text = this.text) {
         value ret = CharacterLiteral(text);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

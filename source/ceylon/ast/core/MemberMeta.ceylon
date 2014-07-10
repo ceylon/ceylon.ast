@@ -35,7 +35,7 @@ shared class MemberMeta(qualifier, nameAndArgs)
     
     shared MemberMeta copy(MetaQualifier qualifier = this.qualifier, MemberNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = MemberMeta(qualifier, nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

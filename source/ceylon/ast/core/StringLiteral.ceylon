@@ -32,7 +32,7 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     
     shared StringLiteral copy(String text = this.text, Boolean isVerbatim = this.isVerbatim) {
         value ret = StringLiteral(text, isVerbatim);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

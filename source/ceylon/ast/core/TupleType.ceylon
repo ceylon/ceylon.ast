@@ -29,7 +29,7 @@ shared class TupleType(typeList)
     
     shared TupleType copy(TypeList typeList = this.typeList) {
         value ret = TupleType(typeList);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

@@ -22,7 +22,7 @@ shared class BaseType(nameAndArgs)
     
     shared BaseType copy(TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = BaseType(nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

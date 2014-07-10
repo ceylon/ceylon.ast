@@ -30,7 +30,7 @@ shared class BaseMeta(nameAndArgs)
     
     shared BaseMeta copy(MemberNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = BaseMeta(nameAndArgs);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

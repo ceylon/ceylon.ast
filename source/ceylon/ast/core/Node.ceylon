@@ -18,6 +18,11 @@ shared abstract class Node()
      [[equals]] and [[hash]] don’t use it."
     shared variable Anything extraInfo = null;
     
+    "Copies this node’s [[extraInfo]] to the [[other]] node."
+    shared void copyExtraInfoTo(Node other) {
+        other.extraInfo = extraInfo;
+    }
+    
     "Transform this node with the given [[transformer]] by calling the appropriate
      `transformX` method on the transformer.
      

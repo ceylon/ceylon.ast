@@ -22,7 +22,7 @@ shared class This() extends SelfReference() {
     hash = 1;
     shared actual This copy() {
         value ret = This();
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -41,7 +41,7 @@ shared class Super() extends SelfReference() {
     hash = 2;
     shared actual Super copy() {
         value ret = Super();
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -60,7 +60,7 @@ shared class Outer() extends SelfReference() {
     hash = 3;
     shared actual Outer copy() {
         value ret = Outer();
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -78,7 +78,7 @@ shared class Package() extends SelfReference() {
     hash = 4;
     shared actual Package copy() {
         value ret = Package();
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)

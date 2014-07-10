@@ -36,7 +36,7 @@ shared class GroupedType(type)
     
     shared GroupedType copy(Type type = this.type) {
         value ret = GroupedType(type);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

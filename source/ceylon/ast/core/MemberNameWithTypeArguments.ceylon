@@ -36,7 +36,7 @@ shared class MemberNameWithTypeArguments(name, typeArguments = null)
     
     shared MemberNameWithTypeArguments copy(MemberName name = this.name, TypeArguments? typeArguments = this.typeArguments) {
         value ret = MemberNameWithTypeArguments(name, typeArguments);
-        ret.extraInfo = extraInfo;
+        copyExtraInfoTo(ret);
         return ret;
     }
 }

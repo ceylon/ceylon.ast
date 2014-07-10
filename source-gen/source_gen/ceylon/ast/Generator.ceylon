@@ -295,9 +295,9 @@ class ConcreteClassGenerator(
                  shared object ``ltype`` satisfies ConcreteTest<``type``,J``type``> {
                      // TODO add sample(s)
                      
-                     shared actual ``type``? compile(String code) => compile``type``(code);
-                     shared actual J``type`` fromCeylon(RedHatTransformer transformer)(``type`` node) => transformer.transform``type``(node);
-                     shared actual ``type`` toCeylon(J``type`` node) => ``ltype``ToCeylon(node);
+                     compile = compile``type``;
+                     fromCeylon = RedHatTransformer.transform``type``;
+                     toCeylon = ``ltype``ToCeylon;
                      codes = [/* TODO add samples */];
                  }");
         }
@@ -475,9 +475,9 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                  }
                  
                  shared object ``ltype`` satisfies AbstractTest<``type``,J``type``> {
-                     shared actual ``type``? compile(String code) => compile``type``(code);
-                     shared actual J``type`` fromCeylon(RedHatTransformer transformer)(``type`` node) => transformer.transform``type``(node);
-                     shared actual ``type`` toCeylon(J``type`` node) => ``ltype``ToCeylon(node);
+                     compile = compile``type``;
+                     fromCeylon = RedHatTransformer.transform``type``;
+                     toCeylon = ``ltype``ToCeylon;
                      
                      tests = [``", ".join { for (cas in cases) initLCase(cas) }``];
                  }");

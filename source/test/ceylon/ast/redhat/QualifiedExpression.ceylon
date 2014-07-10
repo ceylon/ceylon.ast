@@ -26,8 +26,8 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
         processArgumentsQualifiedExpression.item,
         MemberNameWithTypeArguments(LIdentifier("first")));
     
-    shared actual QualifiedExpression? compile(String code) => compileQualifiedExpression(code);
-    shared actual JQualifiedMemberOrTypeExpression fromCeylon(RedHatTransformer transformer)(QualifiedExpression node) => transformer.transformQualifiedExpression(node);
-    shared actual QualifiedExpression toCeylon(JQualifiedMemberOrTypeExpression node) => qualifiedExpressionToCeylon(node);
+    compile = compileQualifiedExpression;
+    fromCeylon = RedHatTransformer.transformQualifiedExpression;
+    toCeylon = qualifiedExpressionToCeylon;
     codes = [joinWithCommasQualifiedExpression, processArgumentsFirstQualifiedExpression];
 }

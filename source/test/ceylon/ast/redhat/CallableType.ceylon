@@ -23,8 +23,8 @@ shared object callableType satisfies ConcreteTest<CallableType,JFunctionType> {
     shared String->CallableType floatStarTupleFromStringPlusCallableType = construct(tupleType.floatStarTupleType, typeList.stringPlusTypeList);
     shared String->CallableType nothingFromIntegerFloatDefaultedStringStarCallableType = construct(baseType.nothingType, typeList.integerFloatDefaultedStringStarTypeList);
     
-    shared actual CallableType? compile(String code) => compileCallableType(code);
-    shared actual JFunctionType fromCeylon(RedHatTransformer transformer)(CallableType node) => transformer.transformCallableType(node);
-    shared actual CallableType toCeylon(JFunctionType node) => callableTypeToCeylon(node);
+    compile = compileCallableType;
+    fromCeylon = RedHatTransformer.transformCallableType;
+    toCeylon = callableTypeToCeylon;
     codes = [anythingFromEmptyCallableType, floatStarTupleFromStringPlusCallableType, nothingFromIntegerFloatDefaultedStringStarCallableType];
 }

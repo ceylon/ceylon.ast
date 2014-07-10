@@ -21,8 +21,8 @@ shared object groupedType satisfies ConcreteTest<GroupedType,JGroupedType> {
     shared String->GroupedType stringGroupedType = construct(baseType.stringType);
     shared String->GroupedType iterableOfStringGroupedType = construct(baseType.iterableOfStringType);
     
-    shared actual GroupedType? compile(String code) => compileGroupedType(code);
-    shared actual JGroupedType fromCeylon(RedHatTransformer transformer)(GroupedType node) => transformer.transformGroupedType(node);
-    shared actual GroupedType toCeylon(JGroupedType node) => groupedTypeToCeylon(node);
+    compile = compileGroupedType;
+    fromCeylon = RedHatTransformer.transformGroupedType;
+    toCeylon = groupedTypeToCeylon;
     codes = [stringGroupedType, iterableOfStringGroupedType];
 }

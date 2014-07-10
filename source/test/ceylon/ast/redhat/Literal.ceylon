@@ -13,9 +13,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object literal satisfies AbstractTest<Literal,JLiteral> {
-    shared actual Literal? compile(String code) => compileLiteral(code);
-    shared actual JLiteral fromCeylon(RedHatTransformer transformer)(Literal node) => transformer.transformLiteral(node);
-    shared actual Literal toCeylon(JLiteral node) => literalToCeylon(node);
+    compile = compileLiteral;
+    fromCeylon = RedHatTransformer.transformLiteral;
+    toCeylon = literalToCeylon;
     
     tests = [integerLiteral, floatLiteral, stringLiteral, characterLiteral];
 }

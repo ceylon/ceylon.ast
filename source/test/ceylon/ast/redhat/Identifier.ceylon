@@ -20,8 +20,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->Identifier uidLIdentifier = "\\iUid"->LIdentifier("Uid");
     shared String->Identifier lidUIdentifier = "\\Ilid"->UIdentifier("lid");
     
-    shared actual Identifier? compile(String code) => compileIdentifier(code);
-    shared actual JIdentifier fromCeylon(RedHatTransformer transformer)(Identifier node) => transformer.transformIdentifier(node);
-    shared actual Identifier toCeylon(JIdentifier node) => identifierToCeylon(node);
+    compile = compileIdentifier;
+    fromCeylon = RedHatTransformer.transformIdentifier;
+    toCeylon = identifierToCeylon;
     codes = [lidLIdentifier, uidUIdentifier, uidLIdentifier, lidUIdentifier];
 }

@@ -27,8 +27,8 @@ shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
         nameAndArgs = MemberNameWithTypeArguments(LIdentifier("collect"), [OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))))]);
     };
     
-    shared actual MemberMeta? compile(String code) => compileMemberMeta(code);
-    shared actual JMemberLiteral fromCeylon(RedHatTransformer transformer)(MemberMeta node) => transformer.transformMemberMeta(node);
-    shared actual MemberMeta toCeylon(JMemberLiteral node) => memberMetaToCeylon(node);
+    compile = compileMemberMeta;
+    fromCeylon = RedHatTransformer.transformMemberMeta;
+    toCeylon = memberMetaToCeylon;
     codes = [personSayMemberMeta, systemMillisecondsMemberMeta, iterableOfStringCollectOfIntegerOptionalMemberMeta];
 }

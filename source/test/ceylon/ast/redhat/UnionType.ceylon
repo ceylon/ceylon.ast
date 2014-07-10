@@ -41,8 +41,8 @@ shared object unionType satisfies ConcreteTest<UnionType,JUnionType> {
         ];
     };
     
-    shared actual UnionType? compile(String code) => compileUnionType(code);
-    shared actual JUnionType fromCeylon(RedHatTransformer transformer)(UnionType node) => transformer.transformUnionType(node);
-    shared actual UnionType toCeylon(JUnionType node) => unionTypeToCeylon(node);
+    compile = compileUnionType;
+    fromCeylon = RedHatTransformer.transformUnionType;
+    toCeylon = unionTypeToCeylon;
     codes = [stringOrIntegerOrFloatUnionType, turingStuffUnionType];
 }

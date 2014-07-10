@@ -20,8 +20,8 @@ shared object characterLiteral satisfies ConcreteTest<CharacterLiteral,JCharLite
     shared String->CharacterLiteral capitalCCharacterLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->CharacterLiteral namedCapitalCCharacterLiteral = construct("\\{LATIN CAPITAL LETTER C}");
     
-    shared actual CharacterLiteral? compile(String code) => compileCharacterLiteral(code);
-    shared actual JCharLiteral fromCeylon(RedHatTransformer transformer)(CharacterLiteral node) => transformer.transformCharacterLiteral(node);
-    shared actual CharacterLiteral toCeylon(JCharLiteral node) => characterLiteralToCeylon(node);
+    compile = compileCharacterLiteral;
+    fromCeylon = RedHatTransformer.transformCharacterLiteral;
+    toCeylon = characterLiteralToCeylon;
     codes = [capitalCCharacterLiteral, namedCapitalCCharacterLiteral];
 }

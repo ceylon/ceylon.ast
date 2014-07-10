@@ -26,8 +26,8 @@ shared object qualifiedType satisfies ConcreteTest<QualifiedType,JQualifiedType>
     shared String->QualifiedType stringDotFooOfNothingDotIterableOfStringDotInnerQualifiedType
             = (stringDotFooOfNothingDotIterableOfStringQualifiedType.key + ".Inner")->QualifiedType(stringDotFooOfNothingDotIterableOfStringQualifiedType.item, TypeNameWithTypeArguments(UIdentifier("Inner")));
     
-    shared actual QualifiedType? compile(String code) => compileQualifiedType(code);
-    shared actual JQualifiedType fromCeylon(RedHatTransformer transformer)(QualifiedType node) => transformer.transformQualifiedType(node);
-    shared actual QualifiedType toCeylon(JQualifiedType node) => qualifiedTypeToCeylon(node);
+    compile = compileQualifiedType;
+    fromCeylon = RedHatTransformer.transformQualifiedType;
+    toCeylon = qualifiedTypeToCeylon;
     codes = [stringDotFooOfNothingQualifiedType, stringDotFooOfNothingDotIterableOfStringQualifiedType, stringDotFooOfNothingDotIterableOfStringDotInnerQualifiedType];
 }

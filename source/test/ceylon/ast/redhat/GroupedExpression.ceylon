@@ -20,8 +20,8 @@ shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JExpres
     
     shared String->GroupedExpression oneIntegerLiteralGroupedExpression = construct(integerLiteral.oneIntegerLiteral);
     
-    shared actual GroupedExpression? compile(String code) => compileGroupedExpression(code);
-    shared actual JExpression fromCeylon(RedHatTransformer transformer)(GroupedExpression node) => transformer.transformGroupedExpression(node);
-    shared actual GroupedExpression toCeylon(JExpression node) => groupedExpressionToCeylon(node);
+    compile = compileGroupedExpression;
+    fromCeylon = RedHatTransformer.transformGroupedExpression;
+    toCeylon = groupedExpressionToCeylon;
     codes = [oneIntegerLiteralGroupedExpression];
 }

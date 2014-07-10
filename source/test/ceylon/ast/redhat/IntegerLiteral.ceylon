@@ -25,8 +25,8 @@ shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiter
     // not tested directly, but used by other tests
     shared String->IntegerLiteral oneIntegerLiteral = construct("1");
     
-    shared actual IntegerLiteral? compile(String code) => compileIntegerLiteral(code);
-    shared actual JNaturalLiteral fromCeylon(RedHatTransformer transformer)(IntegerLiteral node) => transformer.transformIntegerLiteral(node);
-    shared actual IntegerLiteral toCeylon(JNaturalLiteral node) => integerLiteralToCeylon(node);
+    compile = compileIntegerLiteral;
+    fromCeylon = RedHatTransformer.transformIntegerLiteral;
+    toCeylon = integerLiteralToCeylon;
     codes = [oneOneThreeEightIntegerLiteral];
 }

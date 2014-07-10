@@ -21,8 +21,8 @@ shared object intersectionType satisfies ConcreteTest<IntersectionType,JIntersec
     shared String->IntersectionType persistentAndPrintableAndIdentifiableIntersectionType
             = construct(baseType.persistentType, baseType.printableType, baseType.identifiableType);
     
-    shared actual IntersectionType? compile(String code) => compileIntersectionType(code);
-    shared actual JIntersectionType fromCeylon(RedHatTransformer transformer)(IntersectionType node) => transformer.transformIntersectionType(node);
-    shared actual IntersectionType toCeylon(JIntersectionType node) => intersectionTypeToCeylon(node);
+    compile = compileIntersectionType;
+    fromCeylon = RedHatTransformer.transformIntersectionType;
+    toCeylon = intersectionTypeToCeylon;
     codes = [persistentAndPrintableAndIdentifiableIntersectionType];
 }

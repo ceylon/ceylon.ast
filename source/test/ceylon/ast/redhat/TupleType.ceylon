@@ -25,8 +25,8 @@ shared object tupleType satisfies ConcreteTest<TupleType,JTupleType> {
     // not tested directly, but used by other tests
     shared String->TupleType floatStarTupleType = construct(typeList.floatStarTypeList);
     
-    shared actual TupleType? compile(String code) => compileTupleType(code);
-    shared actual JTupleType fromCeylon(RedHatTransformer transformer)(TupleType node) => transformer.transformTupleType(node);
-    shared actual TupleType toCeylon(JTupleType node) => tupleTypeToCeylon(node);
+    compile = compileTupleType;
+    fromCeylon = RedHatTransformer.transformTupleType;
+    toCeylon = tupleTypeToCeylon;
     codes = [emptyTupleType, stringPlusTupleType, integerFloatDefaultedStringStarTupleType];
 }

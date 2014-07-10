@@ -21,8 +21,8 @@ shared object optionalType satisfies ConcreteTest<OptionalType,JOptionalType> {
     shared String->OptionalType stringOptionalType = construct(baseType.stringType);
     shared String->OptionalType iterableOfStringOptionalType = construct(baseType.iterableOfStringType);
     
-    shared actual OptionalType? compile(String code) => compileOptionalType(code);
-    shared actual JOptionalType fromCeylon(RedHatTransformer transformer)(OptionalType node) => transformer.transformOptionalType(node);
-    shared actual OptionalType toCeylon(JOptionalType node) => optionalTypeToCeylon(node);
+    compile = compileOptionalType;
+    fromCeylon = RedHatTransformer.transformOptionalType;
+    toCeylon = optionalTypeToCeylon;
     codes = [stringOptionalType, iterableOfStringOptionalType];
 }

@@ -22,8 +22,8 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression maxOfIntegerNothingExpression = "max<Integer,Nothing>"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("max"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))), BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing")))]));
     shared String->BaseExpression processExpression = "process"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("process")));
     
-    shared actual BaseExpression? compile(String code) => compileBaseExpression(code);
-    shared actual JBaseMemberOrTypeExpression fromCeylon(RedHatTransformer transformer)(BaseExpression node) => transformer.transformBaseExpression(node);
-    shared actual BaseExpression toCeylon(JBaseMemberOrTypeExpression node) => baseExpressionToCeylon(node);
+    compile = compileBaseExpression;
+    fromCeylon = RedHatTransformer.transformBaseExpression;
+    toCeylon = baseExpressionToCeylon;
     codes = [nullExpression, maxOfIntegerNothingExpression];
 }

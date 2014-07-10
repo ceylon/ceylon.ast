@@ -20,8 +20,8 @@ shared object entryType satisfies ConcreteTest<EntryType,JEntryType> {
     
     shared String->EntryType stringToIterableOfStringEntryType = construct(baseType.stringType, baseType.iterableOfStringType);
     
-    shared actual EntryType? compile(String code) => compileEntryType(code);
-    shared actual JEntryType fromCeylon(RedHatTransformer transformer)(EntryType node) => transformer.transformEntryType(node);
-    shared actual EntryType toCeylon(JEntryType node) => entryTypeToCeylon(node);
+    compile = compileEntryType;
+    fromCeylon = RedHatTransformer.transformEntryType;
+    toCeylon = entryTypeToCeylon;
     codes = [stringToIterableOfStringEntryType];
 }

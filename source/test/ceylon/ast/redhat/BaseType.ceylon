@@ -32,8 +32,8 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType printableType = construct("Printable");
     shared String->BaseType identifiableType = construct("Identifiable");
     
-    shared actual BaseType? compile(String code) => compileBaseType(code);
-    shared actual JBaseType fromCeylon(RedHatTransformer transformer)(BaseType node) => transformer.transformBaseType(node); // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed
-    shared actual BaseType toCeylon(JBaseType node) => baseTypeToCeylon(node);
+    compile = compileBaseType;
+    fromCeylon = RedHatTransformer.transformBaseType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed
+    toCeylon = baseTypeToCeylon;
     codes = [stringType, iterableOfStringType];
 }

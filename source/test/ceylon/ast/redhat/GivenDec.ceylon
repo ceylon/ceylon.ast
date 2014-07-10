@@ -17,8 +17,8 @@ shared object givenDec satisfies ConcreteTest<GivenDec,JTypeParameterLiteral> {
     shared String->GivenDec keyGivenDec = "`given Key`"->GivenDec(UIdentifier("Key"));
     shared String->GivenDec lowercaseKeyGivenDec = "`given \\Ikey`"->GivenDec(UIdentifier("key"));
     
-    shared actual GivenDec? compile(String code) => compileGivenDec(code);
-    shared actual JTypeParameterLiteral fromCeylon(RedHatTransformer transformer)(GivenDec node) => transformer.transformGivenDec(node);
-    shared actual GivenDec toCeylon(JTypeParameterLiteral node) => givenDecToCeylon(node);
+    compile = compileGivenDec;
+    fromCeylon = RedHatTransformer.transformGivenDec;
+    toCeylon = givenDecToCeylon;
     codes = [keyGivenDec, lowercaseKeyGivenDec];
 }

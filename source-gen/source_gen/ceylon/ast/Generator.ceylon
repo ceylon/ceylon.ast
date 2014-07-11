@@ -250,9 +250,6 @@ class ConcreteClassGenerator(
                          J``type``=``type``
                      }
                  }
-                 import ceylon.ast.redhat {
-                     createParser
-                 }
                  
                  \"Converts a RedHat AST [[``type``|J``type``]] to a `ceylon.ast` [[``type``]].\"
                  shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``) {

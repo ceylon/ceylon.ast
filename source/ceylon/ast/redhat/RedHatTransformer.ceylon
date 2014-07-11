@@ -24,9 +24,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
+        JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
         JOuter=Outer,
         JPackage=Package,
+        JPostfixDecrementOp=PostfixDecrementOp,
+        JPostfixIncrementOp=PostfixIncrementOp,
+        JPostfixOperatorExpression=PostfixOperatorExpression,
+        JPrefixOperatorExpression=PrefixOperatorExpression,
         JPrimary=Primary,
         JQualifiedMemberExpression=QualifiedMemberExpression,
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
@@ -46,6 +51,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeArgumentList=TypeArgumentList,
         JTypeLiteral=TypeLiteral,
         JTypeParameterLiteral=TypeParameterLiteral,
+        JUnaryOperatorExpression=UnaryOperatorExpression,
         JUnionType=UnionType
     }
 }
@@ -53,8 +59,10 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         backtick=\iBACKTICK,
         character_literal=\iCHAR_LITERAL,
+        decrement_op=\iDECREMENT_OP,
         entry_op=\iENTRY_OP,
         float_literal=\iFLOAT_LITERAL,
+        increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
         intersection_op=\iINTERSECTION_OP,
         larger_op=\iLARGER_OP,
@@ -295,6 +303,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JOperatorExpression transformOperation(Operation that) {
+        assert (is JOperatorExpression ret = super.transformOperation(that));
+        return ret;
+    }
+    
     shared actual JOptionalType transformOptionalType(OptionalType that) {
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
@@ -307,6 +320,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JPostfixDecrementOp transformPostfixDecrementOperation(PostfixDecrementOperation that) {
+        value term = transformPrimary(that.child);
+        JPostfixDecrementOp ret = JPostfixDecrementOp(tokens.token("--", decrement_op));
+        ret.term = term;
+        return ret;
+    }
+    
+    shared actual JPostfixIncrementOp transformPostfixIncrementOperation(PostfixIncrementOperation that) {
+        value term = transformPrimary(that.child);
+        JPostfixIncrementOp ret = JPostfixIncrementOp(tokens.token("++", increment_op));
+        ret.term = term;
+        return ret;
+    }
+    
+    shared actual JPostfixOperatorExpression transformPostfixOperation(PostfixOperation that) {
+        assert (is JPostfixOperatorExpression ret = super.transformPostfixOperation(that));
+        return ret;
+    }
     
     shared actual JPrimary transformPrimary(Primary that) {
         assert (is JPrimary ret = super.transformPrimary(that));
@@ -443,6 +475,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JUnaryOperatorExpression transformUnaryOperation(UnaryOperation that) {
+        assert (is JUnaryOperatorExpression ret = super.transformUnaryOperation(that));
+        return ret;
+    }
     shared actual JUnionType transformUnionType(UnionType that) {
         JUnionType ret = JUnionType(null);
         value firstType = that.children.first;

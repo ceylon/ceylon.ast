@@ -66,6 +66,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
     }
+    shared actual default Result transformOperation(Operation that) {
+        switch (that)
+        case (is UnaryOperation) { return transformUnaryOperation(that); }
+        //case (is BinaryOperation) { return transformBinaryOperation(that); }
+    }
+    shared actual default Result transformPostfixOperation(PostfixOperation that) {
+        switch (that)
+        case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
+        case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
+    }
     shared actual default Result transformPrimary(Primary that) {
         switch (that)
         case (is Atom) { return transformAtom(that); }
@@ -113,6 +123,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }
     }
+    shared actual default Result transformUnaryOperation(UnaryOperation that) {
+        switch (that)
+        case (is PostfixOperation) { return transformPostfixOperation(that); }
+    }
     shared actual default Result transformUnionableType(UnionableType that) {
         switch (that)
         case (is PrimaryType) { return transformPrimaryType(that); }
@@ -121,5 +135,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformValueExpression(ValueExpression that) {
         switch (that)
         case (is Primary) { return transformPrimary(that); }
+        case (is Operation) { return transformOperation(that); }
     }
 }

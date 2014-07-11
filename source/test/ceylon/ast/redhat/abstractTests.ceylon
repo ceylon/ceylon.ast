@@ -62,6 +62,7 @@ shared interface ConcreteTest<CeylonAstType,RedHatType>
 }
 
 shared interface AbstractTest<CeylonAstType,RedHatType>
+        satisfies CodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     
@@ -69,6 +70,8 @@ shared interface AbstractTest<CeylonAstType,RedHatType>
     shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
     shared formal CeylonAstType toCeylon(RedHatType node);
     shared formal [CodesProvider<CeylonAstType>+] tests;
+    
+    codes => [for (test in tests) for (code in test.codes) code];
     
     test
     shared void compilation() => testCompilation(compile, for (test in tests) for (code in test.codes) code);

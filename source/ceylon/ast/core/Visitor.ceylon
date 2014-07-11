@@ -40,9 +40,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMeta(Meta that) => visitMeta(that);
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
     transformNode(Node that) => visitNode(that);
+    transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
+    transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
+    transformPostfixIncrementOperation(PostfixIncrementOperation that) => visitPostfixIncrementOperation(that);
+    transformPostfixOperation(PostfixOperation that) => visitPostfixOperation(that);
     transformPrimary(Primary that) => visitPrimary(that);
     transformQualifiedExpression(QualifiedExpression that) => visitQualifiedExpression(that);
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
@@ -59,6 +63,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
+    transformUnaryOperation(UnaryOperation that) => visitUnaryOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     
@@ -90,9 +95,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitMeta(Meta that) => super.transformMeta(that);
     shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => super.transformNameWithTypeArguments(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
+    shared default void visitOperation(Operation that) => super.transformOperation(that);
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOuter(Outer that) => super.transformOuter(that);
     shared default void visitPackage(Package that) => super.transformPackage(that);
+    shared default void visitPostfixDecrementOperation(PostfixDecrementOperation that) => super.transformPostfixDecrementOperation(that);
+    shared default void visitPostfixIncrementOperation(PostfixIncrementOperation that) => super.transformPostfixIncrementOperation(that);
+    shared default void visitPostfixOperation(PostfixOperation that) => super.transformPostfixOperation(that);
     shared default void visitPrimary(Primary that) => super.transformPrimary(that);
     shared default void visitQualifiedExpression(QualifiedExpression that) => super.transformQualifiedExpression(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);
@@ -109,6 +118,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
+    shared default void visitUnaryOperation(UnaryOperation that) => super.transformUnaryOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);
 }

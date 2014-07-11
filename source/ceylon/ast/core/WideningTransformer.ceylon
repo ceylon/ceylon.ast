@@ -30,9 +30,13 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
+    shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);
+    shared actual default Result transformPostfixDecrementOperation(PostfixDecrementOperation that) => transformPostfixOperation(that);
+    shared actual default Result transformPostfixIncrementOperation(PostfixIncrementOperation that) => transformPostfixOperation(that);
+    shared actual default Result transformPostfixOperation(PostfixOperation that) => transformUnaryOperation(that);
     shared actual default Result transformPrimary(Primary that) => transformValueExpression(that);
     shared actual default Result transformPrimaryType(PrimaryType that) => transformUnionableType(that);
     shared actual default Result transformQualifiedExpression(QualifiedExpression that) => transformPrimary(that);
@@ -51,6 +55,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);
     shared actual default Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
+    shared actual default Result transformUnaryOperation(UnaryOperation that) => transformOperation(that);
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);

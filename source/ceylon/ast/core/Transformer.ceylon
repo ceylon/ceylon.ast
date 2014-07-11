@@ -40,9 +40,13 @@ shared interface Transformer<out Result> {
     shared formal Result transformMeta(Meta that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNode(Node that);
+    shared formal Result transformOperation(Operation that);
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
+    shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
+    shared formal Result transformPostfixOperation(PostfixOperation that);
     shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformQualifiedExpression(QualifiedExpression that);
@@ -61,6 +65,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeMeta(TypeMeta that);
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
+    shared formal Result transformUnaryOperation(UnaryOperation that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);
     shared formal Result transformValueExpression(ValueExpression that);

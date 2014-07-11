@@ -100,12 +100,24 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
     }
+    shared actual default Operation transformOperation(Operation that) {
+        assert (is Operation ret = super.transformOperation(that));
+        return ret;
+    }
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default Outer transformOuter(Outer that)
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
+    shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)
+            => that.copy();
+    shared actual default PostfixIncrementOperation transformPostfixIncrementOperation(PostfixIncrementOperation that)
+            => that.copy();
+    shared actual default PostfixOperation transformPostfixOperation(PostfixOperation that) {
+        assert (is PostfixOperation ret = super.transformPostfixOperation(that));
+        return ret;
+    }
     shared actual default Primary transformPrimary(Primary that) {
         assert (is Primary ret = super.transformPrimary(that));
         return ret;
@@ -175,6 +187,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
+    shared actual default UnaryOperation transformUnaryOperation(UnaryOperation that) {
+        assert (is UnaryOperation ret = super.transformUnaryOperation(that));
+        return ret;
+    }
     shared actual default UnionableType transformUnionableType(UnionableType that) {
         assert (is UnionableType ret = super.transformUnionableType(that));
         return ret;

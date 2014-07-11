@@ -12,9 +12,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.interop.java {
     CeylonIterable
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[UnionType|JUnionType]] to a `ceylon.ast` [[UnionType]]."
 shared UnionType unionTypeToCeylon(JUnionType unionType) {

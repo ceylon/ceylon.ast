@@ -6,9 +6,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExpression=Expression
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[Expression|JExpression]] to a `ceylon.ast` [[GroupedExpression]].
  

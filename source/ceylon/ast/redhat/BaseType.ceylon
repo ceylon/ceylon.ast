@@ -14,10 +14,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.interop.java {
     CeylonIterable
 }
-import ceylon.ast.redhat {
-    identifierToCeylon,
-    createParser
-}
 
 "Converts a RedHat AST [[BaseType|JBaseType]] to a `ceylon.ast` [[BaseType]]."
 shared BaseType baseTypeToCeylon(JBaseType baseType) {

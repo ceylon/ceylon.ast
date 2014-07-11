@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTerm=Term
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[Term|JTerm]] to a `ceylon.ast` [[ValueExpression]]."
 throws (`class AssertionError`, "If the [[term]] does not correspond to a [[ValueExpression]]")

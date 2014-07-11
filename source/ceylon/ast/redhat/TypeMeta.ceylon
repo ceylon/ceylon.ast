@@ -10,9 +10,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeParameterLiteral=TypeParameterLiteral
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[TypeLiteral|JTypeLiteral]] to a `ceylon.ast` [[TypeMeta]]."
 shared TypeMeta typeMetaToCeylon(JTypeLiteral typeMeta) {

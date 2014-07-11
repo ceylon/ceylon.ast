@@ -12,9 +12,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeArgumentList=TypeArgumentList
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 import ceylon.interop.java {
     CeylonIterable
 }

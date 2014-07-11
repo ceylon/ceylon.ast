@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JEntryType=EntryType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[EntryType|JEntryType]] to a `ceylon.ast` [[EntryType]]."
 shared EntryType entryTypeToCeylon(JEntryType entryType) {

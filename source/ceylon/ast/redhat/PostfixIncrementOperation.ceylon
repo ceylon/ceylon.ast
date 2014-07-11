@@ -8,9 +8,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPostfixOperatorExpression=PostfixOperatorExpression
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[PostfixIncrementOp|JPostfixIncrementOp]] to a `ceylon.ast` [[PostfixIncrementOperation]]."
 shared PostfixIncrementOperation postfixIncrementOperationToCeylon(JPostfixIncrementOp postfixIncrementOperation) {

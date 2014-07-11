@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIterableType=IterableType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[IterableType|JIterableType]] to a `ceylon.ast` [[IterableType]]."
 shared IterableType iterableTypeToCeylon(JIterableType iterableType) {

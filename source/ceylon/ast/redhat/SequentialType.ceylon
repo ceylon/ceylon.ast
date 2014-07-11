@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSequenceType=SequenceType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[SequenceType|JSequenceType]] to a `ceylon.ast` [[SequentialType]]."
 shared SequentialType sequentialTypeToCeylon(JSequenceType sequentialType) {

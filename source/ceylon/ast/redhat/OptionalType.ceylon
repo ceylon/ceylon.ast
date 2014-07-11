@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOptionalType=OptionalType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[OptionalType|JOptionalType]] to a `ceylon.ast` [[OptionalType]]."
 shared OptionalType optionalTypeToCeylon(JOptionalType optionalType) {

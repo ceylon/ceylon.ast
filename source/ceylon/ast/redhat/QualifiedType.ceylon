@@ -18,10 +18,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.interop.java {
     CeylonIterable
 }
-import ceylon.ast.redhat {
-    identifierToCeylon,
-    createParser
-}
 
 "Converts a RedHat AST [[QualifiedType|JQualifiedType]] to a `ceylon.ast` [[QualifiedType]]."
 shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {

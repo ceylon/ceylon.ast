@@ -16,9 +16,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JValueLiteral=ValueLiteral
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 import ceylon.interop.java {
     CeylonIterable
 }

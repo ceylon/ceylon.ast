@@ -11,9 +11,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSelfExpression=SelfExpression
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[Atom|JAtom]] to a `ceylon.ast` [[Atom]]."
 shared Atom atomToCeylon(JAtom atom) {

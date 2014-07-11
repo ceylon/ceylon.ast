@@ -8,9 +8,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStaticType=StaticType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[SequencedType|JSequencedType]] to a `ceylon.ast` [[VariadicType]]."
 shared VariadicType variadicTypeToCeylon(JSequencedType sequencedType) {

@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStaticType=StaticType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[DefaultedType|JDefaultedType]] to a `ceylon.ast` [[DefaultedType]]."
 shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType) {

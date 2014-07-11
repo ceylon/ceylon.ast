@@ -8,9 +8,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSimpleType=SimpleType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[SimpleType|JSimpleType]] to a `ceylon.ast` [[SimpleType]]."
 shared SimpleType simpleTypeToCeylon(JSimpleType simpleType) {

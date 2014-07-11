@@ -6,9 +6,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[GroupedType|JGroupedType]] to a `ceylon.ast` [[GroupedType]]."
 shared GroupedType groupedTypeToCeylon(JGroupedType groupedType) {

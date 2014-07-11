@@ -14,9 +14,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.interop.java {
     CeylonIterable
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[FunctionType|JFunctionType]] to a `ceylon.ast` [[CallableType]]."
 shared CallableType callableTypeToCeylon(JFunctionType callableType) {

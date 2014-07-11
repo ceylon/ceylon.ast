@@ -9,9 +9,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[Primary|JPrimary]] to a `ceylon.ast` [[Primary]]."
 shared Primary primaryToCeylon(JPrimary primary) {

@@ -7,9 +7,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnaryOperatorExpression=UnaryOperatorExpression
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[OperatorExpression|JOperatorExpression]] to a `ceylon.ast` [[Operation]]."
 shared Operation operationToCeylon(JOperatorExpression operatorExpression) {

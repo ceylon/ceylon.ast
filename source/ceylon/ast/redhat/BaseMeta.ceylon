@@ -16,9 +16,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.interop.java {
     CeylonIterable
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[BaseMeta]]."
 shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta) {

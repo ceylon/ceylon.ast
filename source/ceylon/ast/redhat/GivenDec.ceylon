@@ -8,9 +8,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeParameterLiteral=TypeParameterLiteral
     }
 }
-import ceylon.ast.redhat {
-    createParser
-}
 
 "Converts a RedHat AST [[TypeParameterLiteral|JTypeParameterLiteral]] to a `ceylon.ast` [[GivenDec]]."
 shared GivenDec givenDecToCeylon(JTypeParameterLiteral givenDec) {

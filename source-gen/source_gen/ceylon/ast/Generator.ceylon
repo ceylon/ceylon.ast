@@ -409,7 +409,15 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
     
     value docLines = documentation.trimTrailing('\n'.equals).split { '\n'.equals; groupSeparators = false; };
     
-    value ltype = initLCase(type);
+    assert (exists firstChar = type.first);
+    value aAn = firstChar in "aeiouAEIOU" then "an" else "a";
+    value ltype = String { firstChar.uppercased, *type.rest };
+    
+    variable value splitType = type;
+    for (char in 'A'..'Z') {
+        splitType = splitType.replace(String { char }, String { ' ', char });
+    }
+    splitType = splitType[1...];
     
     void generateAbstractClass() {
         String filename = "source/ceylon/ast/core/``type``.ceylon";
@@ -454,6 +462,41 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         }
     }
     
+    void generateBackend() {
+        String filename = "source/ceylon/ast/redhat/``type``.ceylon";
+        assert (is Nil n = parsePath(filename).resource);
+        File file = n.createFile();
+        try (w = file.Appender("UTF-8")) {
+            w.writeLine(
+                "import ceylon.ast.core {
+                     ``type``
+                 }
+                 import com.redhat.ceylon.compiler.typechecker.tree {
+                     Tree {
+                         ``",\n        ".join(sort({ for (klass in { type, *cases }) "J``klass``=``klass``" }))``
+                     }
+                 }
+                 
+                 \"Converts a RedHat AST [[``type``|J``type``]] to a `ceylon.ast` [[``type``]].\"
+                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``) {
+                     assert (is ``"|".join(cases.map("J".plus))`` ``ltype``);
+                     switch (``ltype``)
+                     ``"\n    ".join({ for (kase in cases) "case (is J``kase``) { return ``initLCase(kase)``ToCeylon(``ltype``); }" })``
+                 }
+                 
+                 \"Compiles the given [[code]] for ``aAn`` ``splitType``
+                  into ``aAn`` [[``type``]] using the Ceylon compiler
+                  (more specifically, the rule for ``aAn`` \```ltype``\`).\"
+                 shared ``type``? compile``type``(String code) {
+                     if (exists j``type`` = createParser(code).``ltype``()) {
+                         return ``ltype``ToCeylon(j``type``);
+                     } else {
+                         return null;
+                     }
+                 }");
+        }
+    }
+    
     void generateBackendTest() {
         String filename = "source/test/ceylon/ast/redhat/``type``.ceylon";
         assert (is Nil n = parsePath(filename).resource);
@@ -486,6 +529,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
     
     shared actual void run() {
         generateAbstractClass();
+        generateBackend();
         generateBackendTest();
         expandTransformer();
         expandNarrowingTransformer();

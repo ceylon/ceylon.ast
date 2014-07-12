@@ -18,11 +18,11 @@ shared object prefixIncrementOperation satisfies ConcreteTest<PrefixIncrementOpe
     String->PrefixIncrementOperation construct(String->Primary child)
             => "++``child.key``"->PrefixIncrementOperation(child.item);
     
-    shared String->PrefixIncrementOperation oneOneThreeEightIntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
+    shared String->PrefixIncrementOperation _1138IntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixIncrementOperation oneIntegerLiteralGroupedExpressionPrefixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePrefixIncrementOperation;
     fromCeylon = RedHatTransformer.transformPrefixIncrementOperation;
     toCeylon = prefixIncrementOperationToCeylon;
-    codes = [oneOneThreeEightIntegerLiteralPrefixIncrementOperation, oneIntegerLiteralGroupedExpressionPrefixIncrementOperation];
+    codes = [_1138IntegerLiteralPrefixIncrementOperation, oneIntegerLiteralGroupedExpressionPrefixIncrementOperation];
 }

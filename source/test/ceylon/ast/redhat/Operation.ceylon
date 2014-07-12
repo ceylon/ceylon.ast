@@ -17,5 +17,5 @@ shared object operation satisfies AbstractTest<Operation,JOperatorExpression> {
     fromCeylon = RedHatTransformer.transformOperation;
     toCeylon = operationToCeylon;
     
-    tests = [unaryOperation];
+    tests = [unaryOperation, binaryOperation];
 }

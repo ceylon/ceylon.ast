@@ -18,7 +18,7 @@ shared object prefixDecrementOperation satisfies ConcreteTest<PrefixDecrementOpe
     String->PrefixDecrementOperation construct(String->Primary child)
             => "--``child.key``"->PrefixDecrementOperation(child.item);
     
-    shared String->PrefixDecrementOperation _1138IntegerLiteralPrefixDecrementOperation = construct(integerLiteral._1130IntegerLiteral);
+    shared String->PrefixDecrementOperation _1138IntegerLiteralPrefixDecrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixDecrementOperation _1138IntegerLiteralGroupedExpressionPrefixDecrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePrefixDecrementOperation;

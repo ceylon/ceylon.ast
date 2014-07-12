@@ -19,7 +19,7 @@ shared object exponentiationOperation satisfies ConcreteTest<ExponentiationOpera
     String->ExponentiationOperation construct(String->Precedence1Expression left, String->Precedence2Expression right)
             => "``left.key``^``right.key``"->ExponentiationOperation(left.item, right.item);
     
-    shared String->ExponentiationOperation _1138Pow1Operation = construct(integerLiteral._1130IntegerLiteral, integerLiteral.oneIntegerLiteral);
+    shared String->ExponentiationOperation _1138Pow1Operation = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
     compile = compileExponentiationOperation;
     fromCeylon = RedHatTransformer.transformExponentiationOperation;

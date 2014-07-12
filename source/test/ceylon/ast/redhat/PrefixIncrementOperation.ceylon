@@ -18,7 +18,7 @@ shared object prefixIncrementOperation satisfies ConcreteTest<PrefixIncrementOpe
     String->PrefixIncrementOperation construct(String->Primary child)
             => "++``child.key``"->PrefixIncrementOperation(child.item);
     
-    shared String->PrefixIncrementOperation oneOneThreeEightIntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1130IntegerLiteral);
+    shared String->PrefixIncrementOperation oneOneThreeEightIntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixIncrementOperation oneIntegerLiteralGroupedExpressionPrefixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePrefixIncrementOperation;

@@ -18,7 +18,7 @@ shared object postfixDecrementOperation satisfies ConcreteTest<PostfixDecrementO
     String->PostfixDecrementOperation construct(String->Primary child)
             => "``child.key``--"->PostfixDecrementOperation(child.item);
     
-    shared String->PostfixDecrementOperation _1138IntegerLiteralPostfixDecrementOperation = construct(integerLiteral._1130IntegerLiteral);
+    shared String->PostfixDecrementOperation _1138IntegerLiteralPostfixDecrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PostfixDecrementOperation _1138IntegerLiteralGroupedExpressionPostfixDecrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePostfixDecrementOperation;

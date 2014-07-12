@@ -18,7 +18,7 @@ shared object postfixIncrementOperation satisfies ConcreteTest<PostfixIncrementO
     String->PostfixIncrementOperation construct(String->Primary child)
             => "``child.key``++"->PostfixIncrementOperation(child.item);
     
-    shared String->PostfixIncrementOperation _1138IntegerLiteralPostfixIncrementOperation = construct(integerLiteral._1130IntegerLiteral);
+    shared String->PostfixIncrementOperation _1138IntegerLiteralPostfixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PostfixIncrementOperation _1138IntegerLiteralGroupedExpressionPostfixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePostfixIncrementOperation;

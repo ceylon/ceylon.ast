@@ -17,7 +17,7 @@ shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiter
     String->IntegerLiteral construct(String text)
             => text->IntegerLiteral(text);
     
-    shared String->IntegerLiteral _1130IntegerLiteral = construct("1138");
+    shared String->IntegerLiteral _1138IntegerLiteral = construct("1138");
     /*
      TODO add #7EA_BABE, $101010
      */
@@ -28,5 +28,5 @@ shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiter
     compile = compileIntegerLiteral;
     fromCeylon = RedHatTransformer.transformIntegerLiteral;
     toCeylon = integerLiteralToCeylon;
-    codes = [_1130IntegerLiteral];
+    codes = [_1138IntegerLiteral];
 }

@@ -32,6 +32,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
+    transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformIterableType(IterableType that) => visitIterableType(that);
@@ -42,6 +43,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
     transformMeta(Meta that) => visitMeta(that);
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
+    transformNegationOperation(NegationOperation that) => visitNegationOperation(that);
     transformNode(Node that) => visitNode(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
@@ -69,6 +71,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
+    transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
     transformUnaryOperation(UnaryOperation that) => visitUnaryOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
@@ -93,6 +96,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitGroupedExpression(GroupedExpression that) => super.transformGroupedExpression(that);
     shared default void visitGroupedType(GroupedType that) => super.transformGroupedType(that);
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
+    shared default void visitIdentityOperation(IdentityOperation that) => super.transformIdentityOperation(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
@@ -103,6 +107,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => super.transformMemberNameWithTypeArguments(that);
     shared default void visitMeta(Meta that) => super.transformMeta(that);
     shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => super.transformNameWithTypeArguments(that);
+    shared default void visitNegationOperation(NegationOperation that) => super.transformNegationOperation(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
     shared default void visitOperation(Operation that) => super.transformOperation(that);
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
@@ -130,6 +135,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
+    shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);
     shared default void visitUnaryOperation(UnaryOperation that) => super.transformUnaryOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);

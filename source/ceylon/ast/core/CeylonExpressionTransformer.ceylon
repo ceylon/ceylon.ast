@@ -51,6 +51,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
+    transformIdentityOperation(IdentityOperation that) => "IdentityOperation(``transformWithIndent(that.child)``)";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     shared actual String transformIntersectionType(IntersectionType that) {
         StringBuilder code = StringBuilder();
@@ -115,6 +116,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
+    transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.child)``)";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

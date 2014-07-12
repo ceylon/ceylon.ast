@@ -7,7 +7,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
     }
-    
     shared actual default Result transformAtom(Atom that) {
         switch (that)
         case (is Literal) { return transformLiteral(that); }
@@ -96,6 +95,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence1Expression) { return transformPrecedence1Expression(that); }
         case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
     }
+    shared default Result transformPrecedence3Expression(Precedence3Expression that) {
+        switch (that)
+        case (is Precedence2Expression) { return transformPrecedence2Expression(that); }
+        case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
+    }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)
         case (is PrefixIncrementOperation) { return transformPrefixIncrementOperation(that); }
@@ -148,10 +152,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }
     }
+    shared actual default Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
+        switch (that)
+        case (is IdentityOperation) { return transformIdentityOperation(that); }
+        case (is NegationOperation) { return transformNegationOperation(that); }
+    }
     shared actual default Result transformUnaryOperation(UnaryOperation that) {
         switch (that)
         case (is PostfixOperation) { return transformPostfixOperation(that); }
         case (is PrefixOperation) { return transformPrefixOperation(that); }
+        case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
     }
     shared actual default Result transformUnionableType(UnionableType that) {
         switch (that)

@@ -14,6 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
         JEntryType=EntryType,
+        JPositiveOp=PositiveOp,
         JPowerOp=PowerOp,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
@@ -27,6 +28,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
+        JNegativeOp=NegativeOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
         JOuter=Outer,
@@ -65,6 +67,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         backtick=\iBACKTICK,
         character_literal=\iCHAR_LITERAL,
         decrement_op=\iDECREMENT_OP,
+        difference_op=\iDIFFERENCE_OP,
         entry_op=\iENTRY_OP,
         float_literal=\iFLOAT_LITERAL,
         increment_op=\iINCREMENT_OP,
@@ -264,6 +267,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
+        JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
+        ret.term = transformPrecedence2Expression(that.child);
+        return ret;
+    }
+    
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
@@ -335,6 +344,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType|JIdentifier transformMetaQualifier(MetaQualifier that) {
         assert (is JStaticType|JIdentifier ret = super.transformMetaQualifier(that));
+        return ret;
+    }
+    
+    shared actual JNegativeOp transformNegationOperation(NegationOperation that) {
+        JNegativeOp ret = JNegativeOp(tokens.token(that.operator, difference_op));
+        ret.term = transformPrecedence2Expression(that.child);
         return ret;
     }
     
@@ -524,6 +539,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeLiteral ret = JTypeLiteral(tokens.token("`", backtick));
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JNegativeOp|JPositiveOp transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
+        assert (is JNegativeOp|JPositiveOp ret = super.transformUnaryArithmeticOperation(that));
         return ret;
     }
     

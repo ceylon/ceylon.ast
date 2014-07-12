@@ -74,6 +74,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default Identifier transformIdentifier(Identifier that)
             => that.copy();
+    shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
+            => that.copy();
     shared actual default IterableType transformIterableType(IterableType that) {
         if (exists variadicType = that.variadicType) {
             return that.copy(transformVariadicType(variadicType));
@@ -111,6 +113,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
     }
+    shared actual default NegationOperation transformNegationOperation(NegationOperation that)
+            => that.copy();
     shared actual default Operation transformOperation(Operation that) {
         assert (is Operation ret = super.transformOperation(that));
         return ret;
@@ -135,6 +139,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence2Expression transformPrecedence2Expression(Precedence2Expression that) {
         assert (is Precedence2Expression ret = super.transformPrecedence2Expression(that));
+        return ret;
+    }
+    shared actual default Precedence3Expression transformPrecedence3Expression(Precedence3Expression that) {
+        assert (is Precedence3Expression ret = super.transformPrecedence3Expression(that));
         return ret;
     }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
@@ -214,6 +222,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
+    shared actual default UnaryArithmeticOperation transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
+        assert (is UnaryArithmeticOperation ret = super.transformUnaryArithmeticOperation(that));
+        return ret;
+    }
+    
     shared actual default UnaryOperation transformUnaryOperation(UnaryOperation that) {
         assert (is UnaryOperation ret = super.transformUnaryOperation(that));
         return ret;

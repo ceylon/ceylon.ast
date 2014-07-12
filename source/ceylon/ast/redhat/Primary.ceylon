@@ -3,11 +3,20 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JAliasLiteral=AliasLiteral,
+        JInterfaceLiteral=InterfaceLiteral,
         JAtom=Atom,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
+        JClassLiteral=ClassLiteral,
         JExpression=Expression,
+        JFunctionLiteral=FunctionLiteral,
+        JMetaLiteral=MetaLiteral,
+        JModuleLiteral=ModuleLiteral,
+        JPackageLiteral=PackageLiteral,
         JPrimary=Primary,
-        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
+        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
+        JTypeParameterLiteral=TypeParameterLiteral,
+        JValueLiteral=ValueLiteral
     }
 }
 
@@ -24,6 +33,14 @@ shared Primary primaryToCeylon(JPrimary primary) {
     }
     case (is JBaseMemberOrTypeExpression) { return baseExpressionToCeylon(primary); }
     case (is JQualifiedMemberOrTypeExpression) { return qualifiedExpressionToCeylon(primary); }
+    case (is JMetaLiteral) {
+        // the type test is a bit complicated because the dec types are subtypes of the meta types
+        if (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral primary) {
+            return decToCeylon(primary);
+        } else {
+            return metaToCeylon(primary);
+        }
+    }
     else {
         throw AssertionError("Unknown primary type, or not a primary");
     }

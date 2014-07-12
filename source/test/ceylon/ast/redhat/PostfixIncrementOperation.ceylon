@@ -18,11 +18,11 @@ shared object postfixIncrementOperation satisfies ConcreteTest<PostfixIncrementO
     String->PostfixIncrementOperation construct(String->Primary child)
             => "``child.key``++"->PostfixIncrementOperation(child.item);
     
-    shared String->PostfixIncrementOperation oneOneThreeEightIntegerLiteralPostfixIncrementOperation = construct(integerLiteral.oneOneThreeEightIntegerLiteral);
-    shared String->PostfixIncrementOperation oneIntegerLiteralGroupedExpressionPostfixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
+    shared String->PostfixIncrementOperation _1138IntegerLiteralPostfixIncrementOperation = construct(integerLiteral._1130IntegerLiteral);
+    shared String->PostfixIncrementOperation _1138IntegerLiteralGroupedExpressionPostfixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
     compile = compilePostfixIncrementOperation;
     fromCeylon = RedHatTransformer.transformPostfixIncrementOperation;
     toCeylon = postfixIncrementOperationToCeylon;
-    codes = [oneOneThreeEightIntegerLiteralPostfixIncrementOperation, oneIntegerLiteralGroupedExpressionPostfixIncrementOperation];
+    codes = [_1138IntegerLiteralPostfixIncrementOperation, _1138IntegerLiteralGroupedExpressionPostfixIncrementOperation];
 }

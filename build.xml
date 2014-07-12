@@ -119,7 +119,7 @@
         </ceylon-compile>
     </target>
     
-    <target name="compile-test" depends="compile"
+    <target name="compile-test" depends="compile-source"
         description="Compiles the Ceylon AST test modules">
         <ceylon-compile executable="${ceylon.executable}"
             out="${out.repo}"
@@ -164,7 +164,7 @@
         </ceylon-test>
     </target>
 
-    <target name="test" depends="compile-test"
+    <target name="test" depends="compile"
         description="Tests all of the Ceylon AST project">
         <ceylon-test>
             <moduleset refid="modules.test"/>

@@ -1,12 +1,10 @@
 "An exponentiation expression.
  
  Defined via [[Exponentiable.power]]. Right-associative."
-shared class ExponentiationOperation(Object leftChild_, Object rightChild_)
+shared class ExponentiationOperation(Precedence1Expression leftChild_, Precedence2Expression rightChild_)
         extends BinaryOperation() {
     
-    // TODO leftChild_ and rightChild_ are UGLY hacks to work around ceylon-compiler#1728
-    assert (is Precedence1Expression leftChild_);
-    assert (is Precedence2Expression rightChild_);
+    // TODO leftChild_ and rightChild_ are a workaround for ceylon-compiler#1728
     
     "The base expression."
     shared actual Precedence1Expression leftChild = leftChild_;

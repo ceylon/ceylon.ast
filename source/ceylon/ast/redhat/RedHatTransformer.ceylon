@@ -325,14 +325,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPostfixDecrementOp transformPostfixDecrementOperation(PostfixDecrementOperation that) {
         value term = transformPrimary(that.child);
-        JPostfixDecrementOp ret = JPostfixDecrementOp(tokens.token("--", decrement_op));
+        JPostfixDecrementOp ret = JPostfixDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = term;
         return ret;
     }
     
     shared actual JPostfixIncrementOp transformPostfixIncrementOperation(PostfixIncrementOperation that) {
         value term = transformPrimary(that.child);
-        JPostfixIncrementOp ret = JPostfixIncrementOp(tokens.token("++", increment_op));
+        JPostfixIncrementOp ret = JPostfixIncrementOp(tokens.token(that.operator, increment_op));
         ret.term = term;
         return ret;
     }
@@ -343,13 +343,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
-        JDecrementOp ret = JDecrementOp(tokens.token("--", decrement_op));
+        JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
         return ret;
     }
     
     shared actual JIncrementOp transformPrefixIncrementOperation(PrefixIncrementOperation that) {
-        JIncrementOp ret = JIncrementOp(tokens.token("++", increment_op));
+        JIncrementOp ret = JIncrementOp(tokens.token(that.operator, increment_op));
         ret.term = transformPrimary(that.child);
         return ret;
     }

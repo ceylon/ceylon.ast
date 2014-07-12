@@ -78,8 +78,7 @@ interface EnumeratedTypeGenerator
         "``type``(``type`` that) {
                  switch (that)
          ``"\n".join { for (caseType in cases) "        case (is ``caseType``) { return transform``caseType``(that); }" }``
-             }
-             ");
+             }");
     
     shared void expandEditor()
             => expandFile("source/ceylon/ast/core/Editor.ceylon",
@@ -87,8 +86,7 @@ interface EnumeratedTypeGenerator
         "``type`` transform``type``(``type`` that) {
                  assert (is ``type`` ret = super.transform``type``(that));
                  return ret;
-             }
-             ");
+             }");
     
     shared void expandRedHatTransformer()
             => expandFile("source/ceylon/ast/redhat/RedHatTransformer.ceylon",

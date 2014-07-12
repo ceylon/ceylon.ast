@@ -23,6 +23,11 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
+    shared actual default ArithmeticOperation transformArithmeticOperation(ArithmeticOperation that) {
+        assert (is ArithmeticOperation ret = super.transformArithmeticOperation(that));
+        return ret;
+    }
+    
     shared actual default Atom transformAtom(Atom that) {
         assert (is Atom ret = super.transformAtom(that));
         return ret;

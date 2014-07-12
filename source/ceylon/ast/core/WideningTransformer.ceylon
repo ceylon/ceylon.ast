@@ -3,6 +3,7 @@
  [[transformNode]], which ([[Node]] being without a superclass) is the only `formal` method left."
 see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);

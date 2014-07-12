@@ -2,7 +2,7 @@
  
  Defined via [[Exponentiable.power]]. Right-associative."
 shared class ExponentiationOperation(Precedence1Expression leftChild_, Precedence2Expression rightChild_)
-        extends BinaryOperation() {
+        extends ArithmeticOperation() {
     
     // TODO leftChild_ and rightChild_ are a workaround for ceylon-compiler#1728
     

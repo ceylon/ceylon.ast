@@ -3,6 +3,11 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformArithmeticOperation(ArithmeticOperation that) {
+        switch (that)
+        case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
+    }
+    
     shared actual default Result transformAtom(Atom that) {
         switch (that)
         case (is Literal) { return transformLiteral(that); }

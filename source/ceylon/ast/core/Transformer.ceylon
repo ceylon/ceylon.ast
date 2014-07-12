@@ -12,6 +12,7 @@
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
+    shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);

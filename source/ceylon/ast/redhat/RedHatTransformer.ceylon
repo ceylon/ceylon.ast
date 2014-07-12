@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JArithmeticOp=ArithmeticOp,
         JAtom=Atom,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
         JBaseMemberExpression=BaseMemberExpression,
@@ -97,6 +98,12 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
+    
+    shared actual JArithmeticOp transformArithmeticOperation(ArithmeticOperation that) {
+        assert (is JArithmeticOp ret = super.transformArithmeticOperation(that));
+        return ret;
+    }
+    
     shared actual JAtom transformAtom(Atom that) {
         assert (is JAtom ret = super.transformAtom(that));
         return ret;

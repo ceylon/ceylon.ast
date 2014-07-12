@@ -3,6 +3,8 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JExpression=Expression,
+        JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
         JTerm=Term
     }
@@ -11,7 +13,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Term|JTerm]] to a `ceylon.ast` [[Expression]]."
 shared Expression expressionToCeylon(JTerm term) {
     switch (term)
-    case (is JPrimary) { return valueExpressionToCeylon(term); }
+    case (is JPrimary) {
+        if (is JExpression term, !term.mainToken exists) {
+            // a JTerm wrapped in a JExpression
+            return expressionToCeylon(term.term);
+        }
+        return valueExpressionToCeylon(term);
+    }
+    case (is JOperatorExpression) { return operationToCeylon(term); }
     else {
         throw AssertionError("Other JTerm types not yet implemented");
     }

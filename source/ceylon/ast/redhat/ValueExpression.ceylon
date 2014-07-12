@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JExpression=Expression,
         JPrimary=Primary,
         JTerm=Term
     }
@@ -12,7 +13,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 throws (`class AssertionError`, "If the [[term]] does not correspond to a [[ValueExpression]]")
 shared ValueExpression valueExpressionToCeylon(JTerm term) {
     switch (term)
-    case (is JPrimary) { return primaryToCeylon(term); }
+    case (is JPrimary) {
+        if (is JExpression term, !term.mainToken exists) {
+            // a JTerm wrapped in a JExpression
+            return valueExpressionToCeylon(term.term);
+        }
+        return primaryToCeylon(term);
+    }
     else {
         throw AssertionError("Unknown value expression type, or not a value expression");
     }

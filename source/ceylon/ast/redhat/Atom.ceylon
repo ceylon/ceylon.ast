@@ -15,7 +15,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Atom|JAtom]] to a `ceylon.ast` [[Atom]]."
 shared Atom atomToCeylon(JAtom atom) {
     switch (atom)
-    case (is JExpression) { return groupedExpressionToCeylon(atom); }
+    case (is JExpression) {
+        if (atom.mainToken exists) {
+            return groupedExpressionToCeylon(atom);
+        } else {
+            // a JTerm wrapped in a JExpression
+            assert (is Atom ret = expressionToCeylon(atom.term));
+            return ret;
+        }
+    }
     case (is JLiteral) { return literalToCeylon(atom); }
     case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom); }
     else {

@@ -42,6 +42,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
                 `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
+    transformExponentiationOperation(ExponentiationOperation that)
+            => "ExponentiationOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";

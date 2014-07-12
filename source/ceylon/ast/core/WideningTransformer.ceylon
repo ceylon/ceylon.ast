@@ -7,12 +7,14 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
+    shared actual default Result transformBinaryOperation(BinaryOperation that) => transformOperation(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDefaultedType(DefaultedType that) => transformTypeIsh(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
+    shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);

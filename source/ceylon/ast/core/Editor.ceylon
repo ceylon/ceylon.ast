@@ -33,6 +33,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs));
+    shared actual default BinaryOperation transformBinaryOperation(BinaryOperation that) {
+        assert (is BinaryOperation ret = super.transformBinaryOperation(that));
+        return ret;
+    }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
@@ -49,6 +53,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
+    shared actual default ExponentiationOperation transformExponentiationOperation(ExponentiationOperation that)
+            => that.copy();
     shared actual default ExpressionIsh transformExpressionIsh(ExpressionIsh that) {
         assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
         return ret;
@@ -116,6 +122,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default PostfixOperation transformPostfixOperation(PostfixOperation that) {
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
+        return ret;
+    }
+    shared actual default Precedence1Expression transformPrecedence1Expression(Precedence1Expression that) {
+        assert (is Precedence1Expression ret = super.transformPrecedence1Expression(that));
+        return ret;
+    }
+    shared actual default Precedence2Expression transformPrecedence2Expression(Precedence2Expression that) {
+        assert (is Precedence2Expression ret = super.transformPrecedence2Expression(that));
         return ret;
     }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)

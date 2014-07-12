@@ -9,9 +9,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBaseMemberExpression=BaseMemberExpression,
         JBaseTypeExpression=BaseTypeExpression,
         JBaseType=BaseType,
+        JBinaryOperatorExpression=BinaryOperatorExpression,
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
         JEntryType=EntryType,
+        JPowerOp=PowerOp,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
@@ -76,6 +78,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
+        power_op=\iPOWER_OP,
         product_op=\iPRODUCT_OP,
         rbrace=\iRBRACE,
         rbracket=\iRBRACKET,
@@ -152,6 +155,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBinaryOperatorExpression transformBinaryOperation(BinaryOperation that) {
+        assert (is JBinaryOperatorExpression ret = super.transformBinaryOperation(that));
+        return ret;
+    }
+    
     shared actual JFunctionType transformCallableType(CallableType that) {
         JStaticType returnType = transformPrimaryType(that.returnType);
         JFunctionType ret = JFunctionType(tokens.token("(", lparen));
@@ -188,6 +196,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.keyType = transformMainType(that.key);
         ret.endToken = tokens.token("->", entry_op);
         ret.valueType = transformMainType(that.item);
+        return ret;
+    }
+    
+    shared actual JPowerOp transformExponentiationOperation(ExponentiationOperation that) {
+        value left = transformPrecedence1Expression(that.leftChild);
+        JPowerOp ret = JPowerOp(tokens.token(that.operator, power_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence2Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression transformPrecedence1Expression(Precedence1Expression that) {
+        assert (is JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression ret = super.transformPrecedence1Expression(that));
+        return ret;
+    }
+    
+    shared actual JPowerOp|JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression transformPrecedence2Expression(Precedence2Expression that) {
+        assert (is JPowerOp|JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression ret = super.transformPrecedence2Expression(that));
         return ret;
     }
     

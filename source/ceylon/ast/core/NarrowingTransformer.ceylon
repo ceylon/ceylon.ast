@@ -9,6 +9,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SelfReference) { return transformSelfReference(that); }
         case (is GroupedExpression) { return transformGroupedExpression(that); }
     }
+    shared actual default Result transformBinaryOperation(BinaryOperation that) {
+        switch (that)
+        case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
+    }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
         throw Error("Not yet implemented!");
@@ -69,12 +73,23 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformOperation(Operation that) {
         switch (that)
         case (is UnaryOperation) { return transformUnaryOperation(that); }
-        //case (is BinaryOperation) { return transformBinaryOperation(that); }
+        case (is BinaryOperation) { return transformBinaryOperation(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
+    }
+    shared default Result transformPrecedence1Expression(Precedence1Expression that) {
+        switch (that)
+        case (is Primary) { return transformPrimary(that); }
+        case (is PrefixOperation) { return transformPrefixOperation(that); }
+        case (is PostfixOperation) { return transformPostfixOperation(that); }
+    }
+    shared default Result transformPrecedence2Expression(Precedence2Expression that) {
+        switch (that)
+        case (is Precedence1Expression) { return transformPrecedence1Expression(that); }
+        case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
     }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)

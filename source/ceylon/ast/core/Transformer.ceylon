@@ -16,12 +16,14 @@ shared interface Transformer<out Result> {
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);
     shared formal Result transformBaseType(BaseType that);
+    shared formal Result transformBinaryOperation(BinaryOperation that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformEntryType(EntryType that);
+    shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformFloatLiteral(FloatLiteral that);

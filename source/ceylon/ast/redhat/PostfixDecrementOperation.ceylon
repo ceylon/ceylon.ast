@@ -1,18 +1,17 @@
 import ceylon.ast.core {
-    PostfixDecrementOperation,
-    Primary
+    PostfixDecrementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JPostfixDecrementOp=PostfixDecrementOp,
-        JPostfixOperatorExpression=PostfixOperatorExpression
+        JPrimary=Primary
     }
 }
 
 "Converts a RedHat AST [[PostfixDecrementOp|JPostfixDecrementOp]] to a `ceylon.ast` [[PostfixDecrementOperation]]."
 shared PostfixDecrementOperation postfixDecrementOperationToCeylon(JPostfixDecrementOp postfixDecrementOperation) {
-    assert (is Primary primary = expressionToCeylon(postfixDecrementOperation.term));
-    return PostfixDecrementOperation(primary);
+    assert (is JPrimary jPrimary = postfixDecrementOperation.term);
+    return PostfixDecrementOperation(primaryToCeylon(jPrimary));
 }
 
 "Compiles the given [[code]] for a Postfix Decrement Operation
@@ -20,7 +19,7 @@ shared PostfixDecrementOperation postfixDecrementOperationToCeylon(JPostfixDecre
  (more specifically, the rule for a `postfixIncrementDecrementExpression`)."
 shared PostfixDecrementOperation? compilePostfixDecrementOperation(String code) {
     if (is JPostfixDecrementOp jPostfixDecrementOp = createParser(code).postfixIncrementDecrementExpression(),
-        !jPostfixDecrementOp.term is JPostfixOperatorExpression) { // grammar allows chaining postfix operators
+        jPostfixDecrementOp.term is JPrimary) {
         return postfixDecrementOperationToCeylon(jPostfixDecrementOp);
     } else {
         return null;

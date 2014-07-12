@@ -5,7 +5,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JPostfixDecrementOp=PostfixDecrementOp,
         JPostfixIncrementOp=PostfixIncrementOp,
-        JPostfixOperatorExpression=PostfixOperatorExpression
+        JPostfixOperatorExpression=PostfixOperatorExpression,
+        JPrimary=Primary
     }
 }
 
@@ -22,7 +23,7 @@ shared PostfixOperation postfixOperationToCeylon(JPostfixOperatorExpression post
  (more specifically, the rule for a `postfixIncrementDecrementExpression`)."
 shared PostfixOperation? compilePostfixOperation(String code) {
     if (is JPostfixOperatorExpression jPostfixExpression = createParser(code).postfixIncrementDecrementExpression(),
-        !jPostfixExpression.term is JPostfixOperatorExpression) { // grammar allows chaining postfix operators
+        jPostfixExpression.term is JPrimary) {
         return postfixOperationToCeylon(jPostfixExpression);
     } else {
         return null;

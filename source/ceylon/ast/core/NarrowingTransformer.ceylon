@@ -76,6 +76,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
     }
+    shared actual default Result transformPrefixOperation(PrefixOperation that) {
+        switch (that)
+        case (is PrefixIncrementOperation) { return transformPrefixIncrementOperation(that); }
+        case (is PrefixDecrementOperation) { return transformPrefixDecrementOperation(that); }
+    }
     shared actual default Result transformPrimary(Primary that) {
         switch (that)
         case (is Atom) { return transformAtom(that); }
@@ -126,6 +131,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformUnaryOperation(UnaryOperation that) {
         switch (that)
         case (is PostfixOperation) { return transformPostfixOperation(that); }
+        case (is PrefixOperation) { return transformPrefixOperation(that); }
     }
     shared actual default Result transformUnionableType(UnionableType that) {
         switch (that)

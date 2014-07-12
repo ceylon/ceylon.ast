@@ -47,6 +47,9 @@ shared interface Transformer<out Result> {
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
     shared formal Result transformPostfixOperation(PostfixOperation that);
+    shared formal Result transformPrefixDecrementOperation(PrefixDecrementOperation that);
+    shared formal Result transformPrefixIncrementOperation(PrefixIncrementOperation that);
+    shared formal Result transformPrefixOperation(PrefixOperation that);
     shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformQualifiedExpression(QualifiedExpression that);

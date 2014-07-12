@@ -47,6 +47,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => visitPostfixIncrementOperation(that);
     transformPostfixOperation(PostfixOperation that) => visitPostfixOperation(that);
+    transformPrefixDecrementOperation(PrefixDecrementOperation that) => visitPrefixDecrementOperation(that);
+    transformPrefixIncrementOperation(PrefixIncrementOperation that) => visitPrefixIncrementOperation(that);
+    transformPrefixOperation(PrefixOperation that) => visitPrefixOperation(that);
     transformPrimary(Primary that) => visitPrimary(that);
     transformQualifiedExpression(QualifiedExpression that) => visitQualifiedExpression(that);
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
@@ -102,6 +105,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitPostfixDecrementOperation(PostfixDecrementOperation that) => super.transformPostfixDecrementOperation(that);
     shared default void visitPostfixIncrementOperation(PostfixIncrementOperation that) => super.transformPostfixIncrementOperation(that);
     shared default void visitPostfixOperation(PostfixOperation that) => super.transformPostfixOperation(that);
+    shared default void visitPrefixDecrementOperation(PrefixDecrementOperation that) => super.transformPrefixDecrementOperation(that);
+    shared default void visitPrefixIncrementOperation(PrefixIncrementOperation that) => super.transformPrefixIncrementOperation(that);
+    shared default void visitPrefixOperation(PrefixOperation that) => super.transformPrefixOperation(that);
     shared default void visitPrimary(Primary that) => super.transformPrimary(that);
     shared default void visitQualifiedExpression(QualifiedExpression that) => super.transformQualifiedExpression(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);

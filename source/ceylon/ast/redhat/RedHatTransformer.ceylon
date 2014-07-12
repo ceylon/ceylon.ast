@@ -31,6 +31,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPostfixDecrementOp=PostfixDecrementOp,
         JPostfixIncrementOp=PostfixIncrementOp,
         JPostfixOperatorExpression=PostfixOperatorExpression,
+        JDecrementOp=DecrementOp,
+        JIncrementOp=IncrementOp,
         JPrefixOperatorExpression=PrefixOperatorExpression,
         JPrimary=Primary,
         JQualifiedMemberExpression=QualifiedMemberExpression,
@@ -337,6 +339,23 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPostfixOperatorExpression transformPostfixOperation(PostfixOperation that) {
         assert (is JPostfixOperatorExpression ret = super.transformPostfixOperation(that));
+        return ret;
+    }
+    
+    shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
+        JDecrementOp ret = JDecrementOp(tokens.token("--", decrement_op));
+        ret.term = transformPrimary(that.child);
+        return ret;
+    }
+    
+    shared actual JIncrementOp transformPrefixIncrementOperation(PrefixIncrementOperation that) {
+        JIncrementOp ret = JIncrementOp(tokens.token("++", increment_op));
+        ret.term = transformPrimary(that.child);
+        return ret;
+    }
+    
+    shared actual JPrefixOperatorExpression transformPrefixOperation(PrefixOperation that) {
+        assert (is JPrefixOperatorExpression ret = super.transformPrefixOperation(that));
         return ret;
     }
     

@@ -118,6 +118,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
         return ret;
     }
+    shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
+            => that.copy();
+    shared actual default PrefixIncrementOperation transformPrefixIncrementOperation(PrefixIncrementOperation that)
+            => that.copy();
+    shared actual default PrefixOperation transformPrefixOperation(PrefixOperation that) {
+        assert (is PrefixOperation ret = super.transformPrefixOperation(that));
+        return ret;
+    }
     shared actual default Primary transformPrimary(Primary that) {
         assert (is Primary ret = super.transformPrimary(that));
         return ret;

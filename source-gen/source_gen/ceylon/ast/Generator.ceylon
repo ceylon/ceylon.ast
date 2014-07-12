@@ -408,7 +408,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
     
     assert (exists firstChar = type.first);
     value aAn = firstChar in "aeiouAEIOU" then "an" else "a";
-    value ltype = String { firstChar.uppercased, *type.rest };
+    value ltype = String { firstChar.lowercased, *type.rest };
     
     variable value splitType = type;
     for (char in 'A'..'Z') {

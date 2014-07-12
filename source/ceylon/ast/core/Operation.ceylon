@@ -15,5 +15,5 @@ shared abstract class Operation()
     "The text of the operator."
     shared formal String operator;
     
-    shared actual formal <Operation|Primary>[] children;
+    shared actual formal <ValueExpression>[] children;
 }

@@ -3,7 +3,7 @@ shared abstract class UnaryOperation()
         of PostfixOperation | PrefixOperation
         extends Operation() {
     
-    shared formal Operation|Primary child;
+    shared formal ValueExpression child;
     
-    shared actual default [Operation|Primary] children => [child];
+    shared actual default [ValueExpression] children => [child];
 }

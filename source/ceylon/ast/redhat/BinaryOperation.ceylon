@@ -3,16 +3,16 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JBinaryOperatorExpression=BinaryOperatorExpression,
-        JPowerOp=PowerOp
+        JArithmeticOp=ArithmeticOp,
+        JBinaryOperatorExpression=BinaryOperatorExpression
     }
 }
 
 "Converts a RedHat AST [[BinaryOperatorExpression|JBinaryOperatorExpression]] to a `ceylon.ast` [[BinaryOperation]]."
 shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation) {
-    assert (is JPowerOp binaryOperation);
+    assert (is JArithmeticOp binaryOperation);
     switch (binaryOperation)
-    case (is JPowerOp) { return exponentiationOperationToCeylon(binaryOperation); }
+    case (is JArithmeticOp) { return arithmeticOperationToCeylon(binaryOperation); }
 }
 
 "Compiles the given [[code]] for a Binary Operation

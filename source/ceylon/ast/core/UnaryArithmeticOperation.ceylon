@@ -6,4 +6,6 @@ shared abstract class UnaryArithmeticOperation()
     shared actual formal Precedence2Expression child;
     
     shared actual formal [Precedence2Expression] children;
+    
+    prefix = true;
 }

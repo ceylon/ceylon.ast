@@ -5,4 +5,6 @@ shared abstract class PostfixOperation()
     
     "The incremented or decremented primary."
     shared actual formal Primary child;
+    
+    prefix = false;
 }

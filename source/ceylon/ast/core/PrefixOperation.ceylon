@@ -2,4 +2,6 @@
 shared abstract class PrefixOperation()
         of PrefixIncrementOperation | PrefixDecrementOperation
         extends UnaryOperation() {
+    
+    prefix = true;
 }

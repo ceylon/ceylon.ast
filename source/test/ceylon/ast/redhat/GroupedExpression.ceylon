@@ -20,6 +20,9 @@ shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JExpres
     
     shared String->GroupedExpression oneIntegerLiteralGroupedExpression = construct(integerLiteral.oneIntegerLiteral);
     
+    // not tested directly, but used by other tests
+    shared String->GroupedExpression aIntersectBGroupedExpression = construct(intersectionOperation.aIntersectBExpression);
+    
     compile = compileGroupedExpression;
     fromCeylon = RedHatTransformer.transformGroupedExpression;
     toCeylon = groupedExpressionToCeylon;

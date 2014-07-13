@@ -73,6 +73,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         indent = origIndent;
         return code.string;
     }
+    transformIntersectionOperation(IntersectionOperation that)
+            => "IntersectionOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     shared actual String transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {

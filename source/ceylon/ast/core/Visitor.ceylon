@@ -34,6 +34,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
@@ -60,6 +61,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
+    transformSetOperation(SetOperation that) => visitSetOperation(that);
     transformSimpleType(SimpleType that) => visitSimpleType(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformSuper(Super that) => visitSuper(that);
@@ -98,6 +100,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
     shared default void visitIdentityOperation(IdentityOperation that) => super.transformIdentityOperation(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
+    shared default void visitIntersectionOperation(IntersectionOperation that) => super.transformIntersectionOperation(that);
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
@@ -124,6 +127,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);
+    shared default void visitSetOperation(SetOperation that) => super.transformSetOperation(that);
     shared default void visitSimpleType(SimpleType that) => super.transformSimpleType(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);

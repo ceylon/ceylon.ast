@@ -34,6 +34,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
@@ -61,6 +62,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);
+    shared formal Result transformSetOperation(SetOperation that);
     shared formal Result transformSimpleType(SimpleType that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSuper(Super that);

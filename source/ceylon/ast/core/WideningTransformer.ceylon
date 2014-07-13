@@ -25,6 +25,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
+    shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
@@ -51,6 +52,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformQualifiedType(QualifiedType that) => transformSimpleType(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
     shared actual default Result transformSequentialType(SequentialType that) => transformPrimaryType(that);
+    shared actual default Result transformSetOperation(SetOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSimpleType(SimpleType that) => transformPrimaryType(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);

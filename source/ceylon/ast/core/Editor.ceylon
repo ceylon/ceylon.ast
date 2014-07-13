@@ -76,6 +76,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy();
+    shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)
+            => that.copy();
     shared actual default IterableType transformIterableType(IterableType that) {
         if (exists variadicType = that.variadicType) {
             return that.copy(transformVariadicType(variadicType));
@@ -145,6 +147,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Precedence3Expression ret = super.transformPrecedence3Expression(that));
         return ret;
     }
+    shared actual default Precedence4Expression transformPrecedence4Expression(Precedence4Expression that) {
+        assert (is Precedence4Expression ret = super.transformPrecedence4Expression(that));
+        return ret;
+    }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
             => that.copy();
     shared actual default PrefixIncrementOperation transformPrefixIncrementOperation(PrefixIncrementOperation that)
@@ -175,6 +181,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default SequentialType transformSequentialType(SequentialType that)
             => that.copy(transformPrimaryType(that.elementType));
+    shared actual default SetOperation transformSetOperation(SetOperation that) {
+        assert (is SetOperation ret = super.transformSetOperation(that));
+        return ret;
+    }
     shared actual default SimpleType transformSimpleType(SimpleType that) {
         assert (is SimpleType ret = super.transformSimpleType(that));
         return ret;

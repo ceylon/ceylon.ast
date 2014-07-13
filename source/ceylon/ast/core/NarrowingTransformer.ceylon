@@ -16,6 +16,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformBinaryOperation(BinaryOperation that) {
         switch (that)
         case (is ArithmeticOperation) { return transformArithmeticOperation(that); }
+        case (is SetOperation) { return transformSetOperation(that); }
     }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
@@ -100,6 +101,14 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence2Expression) { return transformPrecedence2Expression(that); }
         case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
     }
+    shared default Result transformPrecedence4Expression(Precedence4Expression that) {
+        switch (that)
+        case (is Precedence3Expression) { return transformPrecedence3Expression(that); }
+        case (is IntersectionOperation) { return transformIntersectionOperation(that); }
+    }
+    /* help source-gen find a place for transformPrecedenceYExpression
+    shared default Result transformPrecedenceZExpression
+     */
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)
         case (is PrefixIncrementOperation) { return transformPrefixIncrementOperation(that); }
@@ -129,6 +138,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Super) { return transformSuper(that); }
         case (is Outer) { return transformOuter(that); }
         case (is Package) { return transformPackage(that); }
+    }
+    shared actual default Result transformSetOperation(SetOperation that) {
+        switch (that)
+        case (is IntersectionOperation) { return transformIntersectionOperation(that); }
     }
     shared actual default Result transformSimpleType(SimpleType that) {
         switch (that)

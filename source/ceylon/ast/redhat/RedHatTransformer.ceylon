@@ -11,9 +11,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBaseTypeExpression=BaseTypeExpression,
         JBaseType=BaseType,
         JBinaryOperatorExpression=BinaryOperatorExpression,
+        JBitwiseOp=BitwiseOp,
         JCharacterLiteral=CharLiteral,
         JDefaultedType=DefaultedType,
         JEntryType=EntryType,
+        JIntersectionOp=IntersectionOp,
         JPositiveOp=PositiveOp,
         JPowerOp=PowerOp,
         JExpression=Expression,
@@ -266,6 +268,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
+    shared actual JIntersectionOp transformIntersectionOperation(IntersectionOperation that) {
+        JTerm left = transformPrecedence4Expression(that.leftChild);
+        JIntersectionOp ret = JIntersectionOp(tokens.token(that.operator, intersection_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence3Expression(that.rightChild);
+        return ret;
+    }
+    
     shared actual JIntersectionType transformIntersectionType(IntersectionType that) {
         JIntersectionType ret = JIntersectionType(null);
         ret.addStaticType(transformPrimaryType(that.children.first));
@@ -390,6 +400,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence3Expression(Precedence3Expression that) {
+        assert (is JTerm ret = super.transformPrecedence3Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence4Expression(Precedence4Expression that) {
+        assert (is JTerm ret = super.transformPrecedence4Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
@@ -478,6 +498,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.elementType = transformPrimaryType(that.elementType);
         ret.endToken = tokens.token("[", lbracket); // unreachable, but we need to have it in the token stream
         ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
+    
+    shared actual JBitwiseOp transformSetOperation(SetOperation that) {
+        assert (is JBitwiseOp ret = super.transformSetOperation(that));
         return ret;
     }
     

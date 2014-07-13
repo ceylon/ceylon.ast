@@ -20,6 +20,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ArithmeticOperation) { return transformArithmeticOperation(that); }
         case (is SetOperation) { return transformSetOperation(that); }
+        case (is ScaleOperation) { return transformScaleOperation(that); }
     }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
@@ -121,6 +122,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ProductOperation) { return transformProductOperation(that); }
         case (is QuotientOperation) { return transformQuotientOperation(that); }
         case (is RemainderOperation) { return transformRemainderOperation(that); }
+    }
+    shared default Result transformPrecedence7Expression(Precedence7Expression that) {
+        switch (that)
+        case (is Precedence6Expression) { return transformPrecedence6Expression(that); }
+        case (is ScaleOperation) { return transformScaleOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression

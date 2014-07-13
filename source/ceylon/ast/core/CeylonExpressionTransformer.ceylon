@@ -159,6 +159,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
                 `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
+    transformScaleOperation(ScaleOperation that)
+            => "ScaleOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSuper(Super that) => "Super()";

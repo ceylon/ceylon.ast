@@ -63,6 +63,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformQualifiedType(QualifiedType that) => visitQualifiedType(that);
     transformQuotientOperation(QuotientOperation that) => visitQuotientOperation(that);
     transformRemainderOperation(RemainderOperation that) => visitRemainderOperation(that);
+    transformScaleOperation(ScaleOperation that) => visitScaleOperation(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
     transformSetOperation(SetOperation that) => visitSetOperation(that);
@@ -134,6 +135,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitQualifiedExpression(QualifiedExpression that) => super.transformQualifiedExpression(that);
     shared default void visitQualifiedType(QualifiedType that) => super.transformQualifiedType(that);
     shared default void visitRemainderOperation(RemainderOperation that) => super.transformRemainderOperation(that);
+    shared default void visitScaleOperation(ScaleOperation that) => super.transformScaleOperation(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);
     shared default void visitSetOperation(SetOperation that) => super.transformSetOperation(that);

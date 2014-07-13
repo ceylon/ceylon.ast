@@ -11,7 +11,7 @@
  (for example, `a == b == c` is never allowed); in this case,
  both children have the type of the precedence level below.)"
 shared abstract class BinaryOperation()
-        of ArithmeticOperation | SetOperation
+        of ArithmeticOperation | SetOperation | ScaleOperation
         extends Operation() {
     
     "The left child expression."

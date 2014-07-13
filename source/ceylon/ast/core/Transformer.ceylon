@@ -64,6 +64,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformQuotientOperation(QuotientOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
+    shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);
     shared formal Result transformSetOperation(SetOperation that);

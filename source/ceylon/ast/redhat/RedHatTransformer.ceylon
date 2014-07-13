@@ -50,6 +50,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQualifiedType=QualifiedType,
         JQualifiedTypeExpression=QualifiedTypeExpression,
         JRemainderOp=RemainderOp,
+        JScaleOp=ScaleOp,
         JSelfExpression=SelfExpression,
         JSequenceType=SequenceType,
         JSequencedType=SequencedType,
@@ -97,6 +98,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         rbracket=\iRBRACKET,
         remainder_op=\iREMAINDER_OP,
         rparen=\iRPAREN,
+        scale_op=\iSCALE_OP,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
         string_literal=\iSTRING_LITERAL,
@@ -436,6 +438,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence7Expression(Precedence7Expression that) {
+        assert (is JTerm ret = super.transformPrecedence7Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
@@ -525,6 +532,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JRemainderOp ret = JRemainderOp(tokens.token(that.operator, remainder_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence5Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JScaleOp transformScaleOperation(ScaleOperation that) {
+        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JScaleOp ret = JScaleOp(tokens.token(that.operator, scale_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
         return ret;
     }
     

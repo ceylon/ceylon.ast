@@ -58,6 +58,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
+    shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {
+        assert (is Precedence7Expression ret = super.transformPrecedence7Expression(that));
+        return ret;
+    }
     shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
             => that.copy();
     shared actual default EntryType transformEntryType(EntryType that)
@@ -190,6 +194,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
     }
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
+            => that.copy();
+    shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
             => that.copy();
     shared actual default SelfReference transformSelfReference(SelfReference that) {
         assert (is SelfReference ret = super.transformSelfReference(that));

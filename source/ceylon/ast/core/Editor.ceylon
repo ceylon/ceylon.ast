@@ -58,8 +58,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
+    shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
+            => that.copy();
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {
         assert (is Precedence7Expression ret = super.transformPrecedence7Expression(that));
+        return ret;
+    }
+    shared actual default Precedence8Expression transformPrecedence8Expression(Precedence8Expression that) {
+        assert (is Precedence8Expression ret = super.transformPrecedence8Expression(that));
         return ret;
     }
     shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
@@ -212,6 +218,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
+            => that.copy();
+    shared actual default SumOperation transformSumOperation(SumOperation that)
             => that.copy();
     shared actual default Super transformSuper(Super that)
             => that.copy();

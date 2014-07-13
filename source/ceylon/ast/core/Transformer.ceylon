@@ -24,6 +24,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
+    shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
@@ -70,6 +71,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSetOperation(SetOperation that);
     shared formal Result transformSimpleType(SimpleType that);
     shared formal Result transformStringLiteral(StringLiteral that);
+    shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);
     shared formal Result transformThis(This that);
     shared formal Result transformTupleType(TupleType that);

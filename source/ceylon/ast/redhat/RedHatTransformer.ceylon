@@ -15,6 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCharacterLiteral=CharLiteral,
         JComplementOp=ComplementOp,
         JDefaultedType=DefaultedType,
+        JDifferenceOp=DifferenceOp,
         JQuotientOp=QuotientOp,
         JEntryType=EntryType,
         JIntersectionOp=IntersectionOp,
@@ -57,6 +58,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSimpleType=SimpleType,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
+        JSumOp=SumOp,
         JSuper=Super,
         JTerm=Term,
         JThis=This,
@@ -218,6 +220,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("=", specify);
+        return ret;
+    }
+    
+    shared actual JDifferenceOp transformDifferenceOperation(DifferenceOperation that) {
+        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
         return ret;
     }
     
@@ -443,6 +453,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence8Expression(Precedence8Expression that) {
+        assert (is JTerm ret = super.transformPrecedence8Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
@@ -568,6 +583,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JBitwiseOp transformSetOperation(SetOperation that) {
         assert (is JBitwiseOp ret = super.transformSetOperation(that));
+        return ret;
+    }
+    
+    shared actual JSumOp transformSumOperation(SumOperation that) {
+        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JSumOp ret = JSumOp(tokens.token(that.operator, sum_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
         return ret;
     }
     

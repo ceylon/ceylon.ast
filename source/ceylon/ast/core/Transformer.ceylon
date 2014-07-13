@@ -25,6 +25,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
+    shared formal Result transformEntryOperation(EntryOperation that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
@@ -42,6 +43,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformMainType(MainType that);
+    shared formal Result transformMeasureOperation(MeasureOperation that);
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
@@ -70,6 +72,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSequentialType(SequentialType that);
     shared formal Result transformSetOperation(SetOperation that);
     shared formal Result transformSimpleType(SimpleType that);
+    shared formal Result transformSpanOperation(SpanOperation that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);

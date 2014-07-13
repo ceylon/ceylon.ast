@@ -25,6 +25,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDec(Dec that) => visitDec(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
+    transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
     transformEntryType(EntryType that) => visitEntryType(that);
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
@@ -42,6 +43,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformMainType(MainType that) => visitMainType(that);
+    transformMeasureOperation(MeasureOperation that) => visitMeasureOperation(that);
     transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
     transformMeta(Meta that) => visitMeta(that);
@@ -69,6 +71,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSequentialType(SequentialType that) => visitSequentialType(that);
     transformSetOperation(SetOperation that) => visitSetOperation(that);
     transformSimpleType(SimpleType that) => visitSimpleType(that);
+    transformSpanOperation(SpanOperation that) => visitSpanOperation(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformSumOperation(SumOperation that) => visitSumOperation(that);
     transformSuper(Super that) => visitSuper(that);
@@ -99,6 +102,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
+    shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
+    shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);
@@ -143,6 +148,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);
     shared default void visitSetOperation(SetOperation that) => super.transformSetOperation(that);
     shared default void visitSimpleType(SimpleType that) => super.transformSimpleType(that);
+    shared default void visitSpanOperation(SpanOperation that) => super.transformSpanOperation(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);

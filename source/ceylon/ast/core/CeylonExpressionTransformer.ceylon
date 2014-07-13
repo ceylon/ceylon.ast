@@ -47,6 +47,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
                 `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
+    transformEntryOperation(EntryOperation that)
+            => "EntryOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformEntryType(EntryType that)
             => "EntryType {
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
@@ -126,6 +131,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "MemberNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
+    transformMeasureOperation(MeasureOperation that)
+            => "MeasureOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformMemberMeta(MemberMeta that)
             => "MemberMeta {
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
@@ -170,6 +180,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
     transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
+    transformSpanOperation(SpanOperation that)
+            => "SpanOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSumOperation(SumOperation that)
             => "SumOperation {

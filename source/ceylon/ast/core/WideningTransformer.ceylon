@@ -49,8 +49,11 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformPrefixOperation(PrefixOperation that) => transformUnaryOperation(that);
     shared actual default Result transformPrimary(Primary that) => transformValueExpression(that);
     shared actual default Result transformPrimaryType(PrimaryType that) => transformUnionableType(that);
+    shared actual default Result transformProductOperation(ProductOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformQualifiedExpression(QualifiedExpression that) => transformPrimary(that);
     shared actual default Result transformQualifiedType(QualifiedType that) => transformSimpleType(that);
+    shared actual default Result transformQuotientOperation(QuotientOperation that) => transformArithmeticOperation(that);
+    shared actual default Result transformRemainderOperation(RemainderOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
     shared actual default Result transformSequentialType(SequentialType that) => transformPrimaryType(that);
     shared actual default Result transformSetOperation(SetOperation that) => transformBinaryOperation(that);

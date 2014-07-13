@@ -15,8 +15,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCharacterLiteral=CharLiteral,
         JComplementOp=ComplementOp,
         JDefaultedType=DefaultedType,
+        JQuotientOp=QuotientOp,
         JEntryType=EntryType,
         JIntersectionOp=IntersectionOp,
+        JProductOp=ProductOp,
         JPositiveOp=PositiveOp,
         JPowerOp=PowerOp,
         JExpression=Expression,
@@ -47,6 +49,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
         JQualifiedType=QualifiedType,
         JQualifiedTypeExpression=QualifiedTypeExpression,
+        JRemainderOp=RemainderOp,
         JSelfExpression=SelfExpression,
         JSequenceType=SequenceType,
         JSequencedType=SequencedType,
@@ -89,8 +92,10 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         packageType=\iPACKAGE,
         power_op=\iPOWER_OP,
         product_op=\iPRODUCT_OP,
+        quotient_op=\iQUOTIENT_OP,
         rbrace=\iRBRACE,
         rbracket=\iRBRACKET,
+        remainder_op=\iREMAINDER_OP,
         rparen=\iRPAREN,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
@@ -426,6 +431,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence6Expression(Precedence6Expression that) {
+        assert (is JTerm ret = super.transformPrecedence6Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
@@ -450,6 +460,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType transformPrimaryType(PrimaryType that) {
         assert (is JStaticType ret = super.transformPrimaryType(that));
+        return ret;
+    }
+    
+    shared actual JProductOp transformProductOperation(ProductOperation that) {
+        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JProductOp ret = JProductOp(tokens.token(that.operator, product_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
         return ret;
     }
     
@@ -491,6 +509,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         ret.typeArgumentList = typeArgumentList;
         ret.outerType = outerType;
+        return ret;
+    }
+    
+    shared actual JQuotientOp transformQuotientOperation(QuotientOperation that) {
+        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JQuotientOp ret = JQuotientOp(tokens.token(that.operator, quotient_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JRemainderOp transformRemainderOperation(RemainderOperation that) {
+        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JRemainderOp ret = JRemainderOp(tokens.token(that.operator, remainder_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
         return ret;
     }
     

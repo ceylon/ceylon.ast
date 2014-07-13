@@ -58,6 +58,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
+    shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
+            => that.copy();
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
     shared actual default ExponentiationOperation transformExponentiationOperation(ExponentiationOperation that)
@@ -113,6 +115,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is MetaQualifier ret = super.transformMetaQualifier(that));
         return ret;
     }
+    shared actual default ProductOperation transformProductOperation(ProductOperation that)
+            => that.copy();
     shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
@@ -157,6 +161,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Precedence5Expression ret = super.transformPrecedence5Expression(that));
         return ret;
     }
+    shared actual default Precedence6Expression transformPrecedence6Expression(Precedence6Expression that) {
+        assert (is Precedence6Expression ret = super.transformPrecedence6Expression(that));
+        return ret;
+    }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
             => that.copy();
     shared actual default PrefixIncrementOperation transformPrefixIncrementOperation(PrefixIncrementOperation that)
@@ -181,6 +189,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         case (is SimpleType) { return that.copy(transformSimpleType(qualifyingType)); }
         case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
     }
+    shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
+            => that.copy();
     shared actual default SelfReference transformSelfReference(SelfReference that) {
         assert (is SelfReference ret = super.transformSelfReference(that));
         return ret;

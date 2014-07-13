@@ -6,6 +6,9 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) {
         switch (that)
         case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
+        case (is ProductOperation) { return transformProductOperation(that); }
+        case (is QuotientOperation) { return transformQuotientOperation(that); }
+        case (is RemainderOperation) { return transformRemainderOperation(that); }
     }
     shared actual default Result transformAtom(Atom that) {
         switch (that)
@@ -111,6 +114,13 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence4Expression) { return transformPrecedence4Expression(that); }
         case (is UnionOperation) { return transformUnionOperation(that); }
         case (is ComplementOperation) { return transformComplementOperation(that); }
+    }
+    shared default Result transformPrecedence6Expression(Precedence6Expression that) {
+        switch (that)
+        case (is Precedence5Expression) { return transformPrecedence5Expression(that); }
+        case (is ProductOperation) { return transformProductOperation(that); }
+        case (is QuotientOperation) { return transformQuotientOperation(that); }
+        case (is RemainderOperation) { return transformRemainderOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression

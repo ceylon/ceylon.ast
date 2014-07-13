@@ -59,8 +59,11 @@ shared interface Transformer<out Result> {
     shared formal Result transformPrefixOperation(PrefixOperation that);
     shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
+    shared formal Result transformProductOperation(ProductOperation that);
     shared formal Result transformQualifiedExpression(QualifiedExpression that);
     shared formal Result transformQualifiedType(QualifiedType that);
+    shared formal Result transformQuotientOperation(QuotientOperation that);
+    shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);
     shared formal Result transformSetOperation(SetOperation that);

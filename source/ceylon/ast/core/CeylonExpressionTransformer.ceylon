@@ -134,6 +134,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.child)``)";
     transformPrefixDecrementOperation(PrefixDecrementOperation that) => "PrefixDecrementOperation(``transformWithIndent(that.child)``)";
     transformPrefixIncrementOperation(PrefixIncrementOperation that) => "PrefixIncrementOperation(``transformWithIndent(that.child)``)";
+    transformProductOperation(ProductOperation that)
+            => "ProductOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformQualifiedExpression(QualifiedExpression that)
             => "QualifiedExpression {
                 `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
@@ -143,6 +148,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "QualifiedType {
                 `` indent + indentLevel ``qualifyingType = ``transformWithIndent(that.qualifyingType)``;
                 `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                ``indent``}";
+    transformQuotientOperation(QuotientOperation that)
+            => "QuotientOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
+    transformRemainderOperation(RemainderOperation that)
+            => "RemainderOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
     transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";

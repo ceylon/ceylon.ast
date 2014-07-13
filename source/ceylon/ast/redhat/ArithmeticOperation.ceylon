@@ -4,15 +4,21 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JArithmeticOp=ArithmeticOp,
-        JPowerOp=PowerOp
+        JPowerOp=PowerOp,
+        JProductOp=ProductOp,
+        JQuotientOp=QuotientOp,
+        JRemainderOp=RemainderOp
     }
 }
 
 "Converts a RedHat AST [[ArithmeticOp|JArithmeticOp]] to a `ceylon.ast` [[ArithmeticOperation]]."
 shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticOperation) {
-    assert (is JPowerOp arithmeticOperation);
+    assert (is JPowerOp|JProductOp|JQuotientOp|JRemainderOp arithmeticOperation);
     switch (arithmeticOperation)
     case (is JPowerOp) { return exponentiationOperationToCeylon(arithmeticOperation); }
+    case (is JProductOp) { return productOperationToCeylon(arithmeticOperation); }
+    case (is JQuotientOp) { return quotientOperationToCeylon(arithmeticOperation); }
+    case (is JRemainderOp) { return remainderOperationToCeylon(arithmeticOperation); }
 }
 
 "Compiles the given [[code]] for an Arithmetic Operation

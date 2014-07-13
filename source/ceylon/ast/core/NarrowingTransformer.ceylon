@@ -15,7 +15,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformBinaryOperation(BinaryOperation that) {
         switch (that)
-        case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
+        case (is ArithmeticOperation) { return transformArithmeticOperation(that); }
     }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)

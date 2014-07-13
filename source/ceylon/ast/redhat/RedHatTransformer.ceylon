@@ -217,16 +217,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression transformPrecedence1Expression(Precedence1Expression that) {
-        assert (is JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression ret = super.transformPrecedence1Expression(that));
-        return ret;
-    }
-    
-    shared actual JPowerOp|JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression transformPrecedence2Expression(Precedence2Expression that) {
-        assert (is JPowerOp|JPrimary|JPostfixOperatorExpression|JPrefixOperatorExpression ret = super.transformPrecedence2Expression(that));
-        return ret;
-    }
-    
     shared actual JTerm transformExpression(Expression that) {
         assert (is JTerm ret = super.transformExpression(that));
         return ret;
@@ -387,6 +377,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPostfixOperatorExpression transformPostfixOperation(PostfixOperation that) {
         assert (is JPostfixOperatorExpression ret = super.transformPostfixOperation(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence1Expression(Precedence1Expression that) {
+        assert (is JTerm ret = super.transformPrecedence1Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence2Expression(Precedence2Expression that) {
+        assert (is JTerm ret = super.transformPrecedence2Expression(that));
         return ret;
     }
     

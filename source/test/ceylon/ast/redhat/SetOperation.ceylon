@@ -17,5 +17,5 @@ shared object setOperation satisfies AbstractTest<SetOperation,JBitwiseOp> {
     fromCeylon = RedHatTransformer.transformSetOperation;
     toCeylon = setOperationToCeylon;
     
-    tests = [intersectionOperation];
+    tests = [intersectionOperation, unionOperation, complementOperation];
 }

@@ -17,5 +17,5 @@ shared object arithmeticOperation satisfies AbstractTest<ArithmeticOperation,JAr
     fromCeylon = RedHatTransformer.transformArithmeticOperation;
     toCeylon = arithmeticOperationToCeylon;
     
-    tests = [exponentiationOperation, productOperation, quotientOperation, remainderOperation];
+    tests = [exponentiationOperation, productOperation, quotientOperation, remainderOperation, sumOperation, differenceOperation];
 }

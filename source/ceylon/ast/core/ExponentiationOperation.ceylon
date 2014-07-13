@@ -1,15 +1,20 @@
 "An exponentiation expression.
  
  Defined via [[Exponentiable.power]]. Right-associative."
-shared class ExponentiationOperation(Precedence1Expression leftChild_, Precedence2Expression rightChild_)
+shared class ExponentiationOperation(base, exponent)
         extends ArithmeticOperation() {
     
-    // TODO leftChild_ and rightChild_ are a workaround for ceylon-compiler#1728
+    "The base expression."
+    shared Precedence1Expression base;
+    "The exponent or power expression."
+    shared Precedence2Expression exponent;
     
     "The base expression."
-    shared actual Precedence1Expression leftChild = leftChild_;
+    see (`value base`)
+    shared actual Precedence1Expression leftChild = base;
     "The exponent or power expression."
-    shared actual Precedence2Expression rightChild = rightChild_;
+    see (`value exponent`)
+    shared actual Precedence2Expression rightChild = exponent;
     
     operator = "^";
     

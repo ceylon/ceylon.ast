@@ -31,6 +31,14 @@ interface Generator {
                 }
                 l.add(line);
             }
+            if (!done) {
+                process.writeErrorLine(
+                    "Warning! Couldn’t find a place to insert
+                     '
+                     ``head````customTail``
+                     '
+                     into ``filename``");
+            }
         }
         try (w = file.Overwriter("UTF-8")) {
             for (line in l) {

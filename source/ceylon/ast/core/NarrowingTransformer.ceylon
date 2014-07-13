@@ -106,6 +106,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence3Expression) { return transformPrecedence3Expression(that); }
         case (is IntersectionOperation) { return transformIntersectionOperation(that); }
     }
+    shared default Result transformPrecedence5Expression(Precedence5Expression that) {
+        switch (that)
+        case (is Precedence4Expression) { return transformPrecedence4Expression(that); }
+        case (is UnionOperation) { return transformUnionOperation(that); }
+        case (is ComplementOperation) { return transformComplementOperation(that); }
+    }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression
      */
@@ -142,6 +148,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformSetOperation(SetOperation that) {
         switch (that)
         case (is IntersectionOperation) { return transformIntersectionOperation(that); }
+        case (is UnionOperation) { return transformUnionOperation(that); }
+        case (is ComplementOperation) { return transformComplementOperation(that); }
     }
     shared actual default Result transformSimpleType(SimpleType that) {
         switch (that)

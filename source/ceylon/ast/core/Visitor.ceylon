@@ -21,6 +21,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
+    transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
     transformDec(Dec that) => visitDec(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformEntryType(EntryType that) => visitEntryType(that);
@@ -75,6 +76,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
     transformUnaryOperation(UnaryOperation that) => visitUnaryOperation(that);
+    transformUnionOperation(UnionOperation that) => visitUnionOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     
@@ -87,6 +89,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
+    shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
@@ -141,6 +144,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);
     shared default void visitUnaryOperation(UnaryOperation that) => super.transformUnaryOperation(that);
+    shared default void visitUnionOperation(UnionOperation that) => super.transformUnionOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);
 }

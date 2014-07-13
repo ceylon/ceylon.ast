@@ -50,6 +50,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is CompilationUnit ret = super.transformCompilationUnit(that));
         return ret;
     }
+    shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
+            => that.copy();
     shared actual default Dec transformDec(Dec that) {
         assert (is Dec ret = super.transformDec(that));
         return ret;
@@ -151,6 +153,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Precedence4Expression ret = super.transformPrecedence4Expression(that));
         return ret;
     }
+    shared actual default Precedence5Expression transformPrecedence5Expression(Precedence5Expression that) {
+        assert (is Precedence5Expression ret = super.transformPrecedence5Expression(that));
+        return ret;
+    }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
             => that.copy();
     shared actual default PrefixIncrementOperation transformPrefixIncrementOperation(PrefixIncrementOperation that)
@@ -241,6 +247,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is UnaryOperation ret = super.transformUnaryOperation(that));
         return ret;
     }
+    shared actual default UnionOperation transformUnionOperation(UnionOperation that)
+            => that.copy();
     shared actual default UnionableType transformUnionableType(UnionableType that) {
         assert (is UnionableType ret = super.transformUnionableType(that));
         return ret;

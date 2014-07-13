@@ -21,6 +21,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
+    shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformEntryType(EntryType that);
@@ -77,6 +78,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that);
     shared formal Result transformUnaryOperation(UnaryOperation that);
+    shared formal Result transformUnionOperation(UnionOperation that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);
     shared formal Result transformValueExpression(ValueExpression that);

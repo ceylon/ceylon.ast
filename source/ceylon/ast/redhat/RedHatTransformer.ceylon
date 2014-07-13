@@ -13,6 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,
         JBitwiseOp=BitwiseOp,
         JCharacterLiteral=CharLiteral,
+        JComplementOp=ComplementOp,
         JDefaultedType=DefaultedType,
         JEntryType=EntryType,
         JIntersectionOp=IntersectionOp,
@@ -61,6 +62,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeLiteral=TypeLiteral,
         JTypeParameterLiteral=TypeParameterLiteral,
         JUnaryOperatorExpression=UnaryOperatorExpression,
+        JUnionOp=UnionOp,
         JUnionType=UnionType
     }
 }
@@ -68,6 +70,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         backtick=\iBACKTICK,
         character_literal=\iCHAR_LITERAL,
+        complement_op=\iCOMPLEMENT_OP,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         entry_op=\iENTRY_OP,
@@ -190,6 +193,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JComplementOp transformComplementOperation(ComplementOperation that) {
+        JTerm left = transformPrecedence5Expression(that.leftChild);
+        JComplementOp ret = JComplementOp(tokens.token(that.operator, complement_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence4Expression(that.rightChild);
+        return ret;
+    }
     
     shared actual JMetaLiteral transformDec(Dec that) {
         assert (is JMetaLiteral ret = super.transformDec(that));
@@ -410,6 +421,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence5Expression(Precedence5Expression that) {
+        assert (is JTerm ret = super.transformPrecedence5Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.child);
@@ -576,6 +592,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         assert (is JUnaryOperatorExpression ret = super.transformUnaryOperation(that));
         return ret;
     }
+    shared actual JUnionOp transformUnionOperation(UnionOperation that) {
+        JTerm left = transformPrecedence5Expression(that.leftChild);
+        JUnionOp ret = JUnionOp(tokens.token(that.operator, union_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence4Expression(that.rightChild);
+        return ret;
+    }
+    
     shared actual JUnionType transformUnionType(UnionType that) {
         JUnionType ret = JUnionType(null);
         value firstType = that.children.first;

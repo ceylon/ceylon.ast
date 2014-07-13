@@ -36,6 +36,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
+    transformComplementOperation(ComplementOperation that)
+            => "ComplementOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformDefaultedType(DefaultedType that) => "DefaultedType(``transformWithIndent(that.type)``)";
     transformEntryType(EntryType that)
             => "EntryType {
@@ -238,6 +243,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         indent = origIndent;
         return code.string;
     }
+    transformUnionOperation(UnionOperation that)
+            => "UnionOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformVariadicType(VariadicType that)
             => that.isNonempty
             then "VariadicType {

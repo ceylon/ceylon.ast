@@ -3,16 +3,20 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JBitwiseOp=BitwiseOp,
+        JComplementOp=ComplementOp,
         JIntersectionOp=IntersectionOp,
-        JBitwiseOp=BitwiseOp
+        JUnionOp=UnionOp
     }
 }
 
 "Converts a RedHat AST [[BitwiseOp|JBitwiseOp]] to a `ceylon.ast` [[SetOperation]]."
 shared SetOperation setOperationToCeylon(JBitwiseOp setOperation) {
-    assert (is JIntersectionOp setOperation);
+    assert (is JIntersectionOp|JUnionOp|JComplementOp setOperation);
     switch (setOperation)
     case (is JIntersectionOp) { return intersectionOperationToCeylon(setOperation); }
+    case (is JUnionOp) { return unionOperationToCeylon(setOperation); }
+    case (is JComplementOp) { return complementOperationToCeylon(setOperation); }
 }
 
 "Compiles the given [[code]] for a Set Operation

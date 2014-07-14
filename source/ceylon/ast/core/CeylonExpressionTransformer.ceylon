@@ -35,6 +35,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``argumentTypes = ``transformWithIndent(that.argumentTypes)``;
                 ``indent``}";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
+    transformCompareOperation(CompareOperation that)
+            => "CompareOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
     transformComplementOperation(ComplementOperation that)
             => "ComplementOperation {

@@ -20,6 +20,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
+    transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
     transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
@@ -109,6 +110,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
+    shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
     shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);

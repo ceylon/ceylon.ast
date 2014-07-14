@@ -28,6 +28,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is EntryOperation) { return transformEntryOperation(that); }
         case (is InOperation) { return transformInOperation(that); }
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
+        case (is CompareOperation) { return transformCompareOperation(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
@@ -168,6 +169,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is OfOperation) { return transformOfOperation(that); }
         case (is InOperation) { return transformInOperation(that); }
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
+        case (is CompareOperation) { return transformCompareOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression

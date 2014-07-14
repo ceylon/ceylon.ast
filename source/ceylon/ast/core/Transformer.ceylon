@@ -20,6 +20,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBinaryOperation(BinaryOperation that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
+    shared formal Result transformCompareOperation(CompareOperation that);
     shared formal Result transformComparisonOperation(ComparisonOperation that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformComplementOperation(ComplementOperation that);

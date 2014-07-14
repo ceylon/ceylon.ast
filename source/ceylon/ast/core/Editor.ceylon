@@ -46,6 +46,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
+    shared actual default CompareOperation transformCompareOperation(CompareOperation that)
+            => that.copy();
     shared actual default ComparisonOperation transformComparisonOperation(ComparisonOperation that) {
         assert (is ComparisonOperation ret = super.transformComparisonOperation(that));
         return ret;

@@ -11,6 +11,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBinaryOperation(BinaryOperation that) => transformOperation(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
+    shared actual default Result transformCompareOperation(CompareOperation that) => transformBinaryOperation(that);
     shared actual default Result transformComparisonOperation(ComparisonOperation that) => transformBinaryOperation(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);

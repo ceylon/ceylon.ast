@@ -13,6 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,
         JBitwiseOp=BitwiseOp,
         JCharacterLiteral=CharLiteral,
+        JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
         JComplementOp=ComplementOp,
         JDecrementOp=DecrementOp,
@@ -91,6 +92,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         backtick=\iBACKTICK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
+        compare_op=\iCOMPARE_OP,
         complement_op=\iCOMPLEMENT_OP,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
@@ -225,6 +227,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JCompareOp transformCompareOperation(CompareOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JCompareOp ret = JCompareOp(tokens.token(that.operator, compare_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        return ret;
+    }
     
     shared actual JComparisonOp transformComparisonOperation(ComparisonOperation that) {
         assert (is JComparisonOp ret = super.transformComparisonOperation(that));

@@ -49,7 +49,7 @@ shared object \iouter satisfies ConcreteTest<Outer,JOuter> {
     toCeylon = outerToCeylon;
     codes = [outerOuter];
 }
-shared object \i_package satisfies ConcreteTest<Package,JPackage> { // TODO should be called \ipackage
+shared object \ipackage satisfies ConcreteTest<Package,JPackage> {
     shared String->Package packagePackage = "package"->Package();
     compile = compilePackage;
     fromCeylon = RedHatTransformer.transformPackage;
@@ -62,5 +62,5 @@ shared object selfReference satisfies AbstractTest<SelfReference,JSelfExpression
     fromCeylon = RedHatTransformer.transformSelfReference;
     toCeylon = selfReferenceToCeylon;
     
-    tests = [\ithis, \isuper, \iouter, \i_package];
+    tests = [\ithis, \isuper, \iouter, \ipackage];
 }

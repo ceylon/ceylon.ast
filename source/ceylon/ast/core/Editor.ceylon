@@ -64,12 +64,20 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy();
+    shared actual default IsOperation transformIsOperation(IsOperation that)
+            => that.copy();
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy();
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy();
+    shared actual default OfOperation transformOfOperation(OfOperation that)
+            => that.copy();
     shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
         assert (is Precedence10Expression ret = super.transformPrecedence10Expression(that));
+        return ret;
+    }
+    shared actual default Precedence11Expression transformPrecedence11Expression(Precedence11Expression that) {
+        assert (is Precedence11Expression ret = super.transformPrecedence11Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {
@@ -285,8 +293,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     
+    shared actual default UnaryIshOperation transformUnaryIshOperation(UnaryIshOperation that) {
+        assert (is UnaryIshOperation ret = super.transformUnaryIshOperation(that));
+        return ret;
+    }
     shared actual default UnaryOperation transformUnaryOperation(UnaryOperation that) {
         assert (is UnaryOperation ret = super.transformUnaryOperation(that));
+        return ret;
+    }
+    shared actual default UnaryTypeOperation transformUnaryTypeOperation(UnaryTypeOperation that) {
+        assert (is UnaryTypeOperation ret = super.transformUnaryTypeOperation(that));
         return ret;
     }
     shared actual default UnionOperation transformUnionOperation(UnionOperation that)

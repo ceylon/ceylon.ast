@@ -94,6 +94,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
                 `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
+    transformIsOperation(IsOperation that)
+            => "IsOperation {
+                `` indent + indentLevel ``child = ``transformWithIndent(that.child)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                ``indent``}";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     shared actual String transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
@@ -144,6 +149,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.child)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.child)``)";
+    transformOfOperation(OfOperation that)
+            => "OfOperation {
+                `` indent + indentLevel ``child = ``transformWithIndent(that.child)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                ``indent``}";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

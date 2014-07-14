@@ -31,6 +31,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
+    shared actual default Result transformIsOperation(IsOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
@@ -42,6 +43,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformNegationOperation(NegationOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
+    shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
@@ -78,7 +80,9 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
     shared actual default Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => transformUnaryOperation(that);
-    shared actual default Result transformUnaryOperation(UnaryOperation that) => transformOperation(that);
+    shared actual default Result transformUnaryIshOperation(UnaryIshOperation that) => transformOperation(that);
+    shared actual default Result transformUnaryOperation(UnaryOperation that) => transformUnaryIshOperation(that);
+    shared actual default Result transformUnaryTypeOperation(UnaryTypeOperation that) => transformUnaryIshOperation(that);
     shared actual default Result transformUnionOperation(UnionOperation that) => transformSetOperation(that);
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);

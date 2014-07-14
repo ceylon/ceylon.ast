@@ -40,6 +40,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
+    transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
@@ -52,6 +53,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNegationOperation(NegationOperation that) => visitNegationOperation(that);
     transformNode(Node that) => visitNode(that);
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
+    transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
@@ -86,7 +88,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
+    transformUnaryIshOperation(UnaryIshOperation that) => visitUnaryIshOperation(that);
     transformUnaryOperation(UnaryOperation that) => visitUnaryOperation(that);
+    transformUnaryTypeOperation(UnaryTypeOperation that) => visitUnaryTypeOperation(that);
     transformUnionOperation(UnionOperation that) => visitUnionOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
@@ -106,8 +110,10 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
+    shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
+    shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);
@@ -165,7 +171,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);
+    shared default void visitUnaryIshOperation(UnaryIshOperation that) => super.transformUnaryIshOperation(that);
     shared default void visitUnaryOperation(UnaryOperation that) => super.transformUnaryOperation(that);
+    shared default void visitUnaryTypeOperation(UnaryTypeOperation that) => super.transformUnaryTypeOperation(that);
     shared default void visitUnionOperation(UnionOperation that) => super.transformUnionOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);

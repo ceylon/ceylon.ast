@@ -9,11 +9,11 @@
  of the subtypes; for the same reason, subtypes are only suffixed `-Operation` rather than `-BinaryOperation`
  or `-UnaryOperation`.)"
 shared abstract class Operation()
-        of UnaryOperation | BinaryOperation
+        of UnaryIshOperation | BinaryOperation
         extends ValueExpression() {
     
     "The text of the operator."
     shared formal String operator;
     
-    shared actual formal <ValueExpression>[] children;
+    shared actual formal <ValueExpression|Type>[] children;
 }

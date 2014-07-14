@@ -30,12 +30,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIntegerLiteral=NaturalLiteral,
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
+        JIsOp=IsOp,
         JIterableType=IterableType,
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
+        JOfOp=OfOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
         JOuter=Outer,
@@ -70,6 +72,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
         JTypeLiteral=TypeLiteral,
+        JTypeOperatorExpression=TypeOperatorExpression,
         JTypeParameterLiteral=TypeParameterLiteral,
         JType=Type,
         JUnaryOperatorExpression=UnaryOperatorExpression,
@@ -80,6 +83,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         backtick=\iBACKTICK,
+        case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
         complement_op=\iCOMPLEMENT_OP,
         decrement_op=\iDECREMENT_OP,
@@ -90,6 +94,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
         intersection_op=\iINTERSECTION_OP,
+        is_op=\iIS_OP,
         larger_op=\iLARGER_OP,
         lbrace=\iLBRACE,
         lbracket=\iLBRACKET,
@@ -338,6 +343,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JIsOp transformIsOperation(IsOperation that) {
+        JTerm term = transformPrecedence10Expression(that.child);
+        JIsOp ret = JIsOp(tokens.token(that.operator, is_op));
+        ret.term = term;
+        ret.type = transformType(that.type);
+        return ret;
+    }
+    
     shared actual JIterableType transformIterableType(IterableType that) {
         JIterableType ret = JIterableType(tokens.token("{", lbrace));
         if (exists varType = that.variadicType) {
@@ -417,6 +430,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm term = transformPrecedence9Expression(that.child);
         JNonempty ret = JNonempty(tokens.token(that.operator, nonempty_op));
         ret.term = term;
+        return ret;
+    }
+    
+    shared actual JOfOp transformOfOperation(OfOperation that) {
+        JTerm term = transformPrecedence10Expression(that.child);
+        JOfOp ret = JOfOp(tokens.token(that.operator, case_types));
+        ret.term = term;
+        ret.type = transformType(that.type);
         return ret;
     }
     
@@ -504,6 +525,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence10Expression(Precedence10Expression that) {
         assert (is JTerm ret = super.transformPrecedence10Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence11Expression(Precedence11Expression that) {
+        assert (is JTerm ret = super.transformPrecedence11Expression(that));
         return ret;
     }
     
@@ -717,10 +743,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JUnaryOperatorExpression transformUnaryIshOperation(UnaryIshOperation that) {
+        assert (is JUnaryOperatorExpression ret = super.transformUnaryIshOperation(that));
+        return ret;
+    }
+    
     shared actual JUnaryOperatorExpression transformUnaryOperation(UnaryOperation that) {
         assert (is JUnaryOperatorExpression ret = super.transformUnaryOperation(that));
         return ret;
     }
+    shared actual JTypeOperatorExpression transformUnaryTypeOperation(UnaryTypeOperation that) {
+        assert (is JTypeOperatorExpression ret = super.transformUnaryTypeOperation(that));
+        return ret;
+    }
+    
     shared actual JUnionOp transformUnionOperation(UnionOperation that) {
         JTerm left = transformPrecedence5Expression(that.leftChild);
         JUnionOp ret = JUnionOp(tokens.token(that.operator, union_op));

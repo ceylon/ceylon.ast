@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Operation operationToCeylon(JOperatorExpression operatorExpression) {
     assert (is JUnaryOperatorExpression|JBinaryOperatorExpression operatorExpression);
     switch (operatorExpression)
-    case (is JUnaryOperatorExpression) { return unaryOperationToCeylon(operatorExpression); }
+    case (is JUnaryOperatorExpression) { return unaryIshOperationToCeylon(operatorExpression); }
     case (is JBinaryOperatorExpression) { return binaryOperationToCeylon(operatorExpression); }
 }
 

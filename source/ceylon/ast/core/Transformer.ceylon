@@ -40,6 +40,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);
+    shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLiteral(Literal that);
@@ -52,6 +53,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNegationOperation(NegationOperation that);
     shared formal Result transformNode(Node that);
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
+    shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOperation(Operation that);
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOuter(Outer that);
@@ -88,7 +90,9 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that);
+    shared formal Result transformUnaryIshOperation(UnaryIshOperation that);
     shared formal Result transformUnaryOperation(UnaryOperation that);
+    shared formal Result transformUnaryTypeOperation(UnaryTypeOperation that);
     shared formal Result transformUnionOperation(UnionOperation that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);

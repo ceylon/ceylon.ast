@@ -86,7 +86,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
-        case (is UnaryOperation) { return transformUnaryOperation(that); }
+        case (is UnaryIshOperation) { return transformUnaryIshOperation(that); }
         case (is BinaryOperation) { return transformBinaryOperation(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
@@ -151,6 +151,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence9Expression) { return transformPrecedence9Expression(that); }
         case (is ExistsOperation) { return transformExistsOperation(that); }
         case (is NonemptyOperation) { return transformNonemptyOperation(that); }
+    }
+    shared default Result transformPrecedence11Expression(Precedence11Expression that) {
+        switch (that)
+        case (is Precedence10Expression) { return transformPrecedence10Expression(that); }
+        case (is IsOperation) { return transformIsOperation(that); }
+        case (is OfOperation) { return transformOfOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression
@@ -218,6 +224,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is IdentityOperation) { return transformIdentityOperation(that); }
         case (is NegationOperation) { return transformNegationOperation(that); }
     }
+    shared actual default Result transformUnaryIshOperation(UnaryIshOperation that) {
+        switch (that)
+        case (is UnaryOperation) { return transformUnaryOperation(that); }
+        case (is UnaryTypeOperation) { return transformUnaryTypeOperation(that); }
+    }
     shared actual default Result transformUnaryOperation(UnaryOperation that) {
         switch (that)
         case (is PostfixOperation) { return transformPostfixOperation(that); }
@@ -225,6 +236,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
         case (is ExistsOperation) { return transformExistsOperation(that); }
         case (is NonemptyOperation) { return transformNonemptyOperation(that); }
+    }
+    shared actual default Result transformUnaryTypeOperation(UnaryTypeOperation that) {
+        switch (that)
+        case (is IsOperation) { return transformIsOperation(that); }
+        case (is OfOperation) { return transformOfOperation(that); }
     }
     shared actual default Result transformUnionableType(UnionableType that) {
         switch (that)

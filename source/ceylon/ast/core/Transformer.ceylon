@@ -20,6 +20,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBinaryOperation(BinaryOperation that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
+    shared formal Result transformComparisonOperation(ComparisonOperation that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformDec(Dec that);
@@ -44,6 +45,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
+    shared formal Result transformLargeAsOperation(LargeAsOperation that);
+    shared formal Result transformLargerOperation(LargerOperation that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformMainType(MainType that);
     shared formal Result transformMeasureOperation(MeasureOperation that);
@@ -77,6 +80,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformSequentialType(SequentialType that);
     shared formal Result transformSetOperation(SetOperation that);
     shared formal Result transformSimpleType(SimpleType that);
+    shared formal Result transformSmallAsOperation(SmallAsOperation that);
+    shared formal Result transformSmallerOperation(SmallerOperation that);
     shared formal Result transformSpanOperation(SpanOperation that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSumOperation(SumOperation that);

@@ -13,6 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,
         JBitwiseOp=BitwiseOp,
         JCharacterLiteral=CharLiteral,
+        JComparisonOp=ComparisonOp,
         JComplementOp=ComplementOp,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
@@ -33,6 +34,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIntersectionType=IntersectionType,
         JIsOp=IsOp,
         JIterableType=IterableType,
+        JLargeAsOp=LargeAsOp,
+        JLargerOp=LargerOp,
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
@@ -64,6 +67,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSequencedType=SequencedType,
         JSequenceType=SequenceType,
         JSimpleType=SimpleType,
+        JSmallAsOp=SmallAsOp,
+        JSmallerOp=SmallerOp,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
         JSumOp=SumOp,
@@ -97,6 +102,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         integer_literal=\iNATURAL_LITERAL,
         intersection_op=\iINTERSECTION_OP,
         is_op=\iIS_OP,
+        large_as_op=\iLARGE_AS_OP,
         larger_op=\iLARGER_OP,
         lbrace=\iLBRACE,
         lbracket=\iLBRACKET,
@@ -117,6 +123,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         rparen=\iRPAREN,
         scale_op=\iSCALE_OP,
         segment_op=\iSEGMENT_OP,
+        small_as_op=\iSMALL_AS_OP,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
         string_literal=\iSTRING_LITERAL,
@@ -218,6 +225,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JComparisonOp transformComparisonOperation(ComparisonOperation that) {
+        assert (is JComparisonOp ret = super.transformComparisonOperation(that));
+        return ret;
+    }
     
     shared actual JComplementOp transformComplementOperation(ComplementOperation that) {
         JTerm left = transformPrecedence5Expression(that.leftChild);
@@ -367,6 +379,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.elementType = transformVariadicType(varType);
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JLargeAsOp transformLargeAsOperation(LargeAsOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JLargeAsOp ret = JLargeAsOp(tokens.token(that.operator, large_as_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JLargerOp transformLargerOperation(LargerOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JLargerOp ret = JLargerOp(tokens.token(that.operator, larger_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
         return ret;
     }
     
@@ -645,6 +673,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSimpleType transformSimpleType(SimpleType that) {
         assert (is JSimpleType ret = super.transformSimpleType(that));
+        return ret;
+    }
+    
+    shared actual JSmallAsOp transformSmallAsOperation(SmallAsOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JSmallAsOp ret = JSmallAsOp(tokens.token(that.operator, small_as_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JSmallerOp transformSmallerOperation(SmallerOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JSmallerOp ret = JSmallerOp(tokens.token(that.operator, smaller_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
         return ret;
     }
     

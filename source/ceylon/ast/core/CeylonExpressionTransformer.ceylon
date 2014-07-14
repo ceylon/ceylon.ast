@@ -142,6 +142,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "MemberNameWithTypeArguments(``that.name.transform(this)``)";
         }
     }
+    transformLargeAsOperation(LargeAsOperation that)
+            => "LargeAsOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
+    transformLargerOperation(LargerOperation that)
+            => "LargerOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformMeasureOperation(MeasureOperation that)
             => "MeasureOperation {
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
@@ -197,6 +207,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
                 ``indent``}";
     transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
+    transformSmallAsOperation(SmallAsOperation that)
+            => "SmallAsOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
+    transformSmallerOperation(SmallerOperation that)
+            => "SmallerOperation {
+                `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
+                `` indent + indentLevel ``rightChild = ``transformWithIndent(that.rightChild)``;
+                ``indent``}";
     transformSpanOperation(SpanOperation that)
             => "SpanOperation {
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;

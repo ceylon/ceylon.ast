@@ -46,6 +46,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
+    shared actual default ComparisonOperation transformComparisonOperation(ComparisonOperation that) {
+        assert (is ComparisonOperation ret = super.transformComparisonOperation(that));
+        return ret;
+    }
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
         assert (is CompilationUnit ret = super.transformCompilationUnit(that));
         return ret;
@@ -67,6 +71,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default InOperation transformInOperation(InOperation that)
             => that.copy();
     shared actual default IsOperation transformIsOperation(IsOperation that)
+            => that.copy();
+    shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
+            => that.copy();
+    shared actual default LargerOperation transformLargerOperation(LargerOperation that)
             => that.copy();
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy();
@@ -243,6 +251,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is SimpleType ret = super.transformSimpleType(that));
         return ret;
     }
+    shared actual default SmallAsOperation transformSmallAsOperation(SmallAsOperation that)
+            => that.copy();
+    shared actual default SmallerOperation transformSmallerOperation(SmallerOperation that)
+            => that.copy();
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
             => that.copy();
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)

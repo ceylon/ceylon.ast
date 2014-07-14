@@ -11,6 +11,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBinaryOperation(BinaryOperation that) => transformOperation(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
+    shared actual default Result transformComparisonOperation(ComparisonOperation that) => transformBinaryOperation(that);
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
@@ -35,6 +36,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIsOperation(IsOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
+    shared actual default Result transformLargeAsOperation(LargeAsOperation that) => transformComparisonOperation(that);
+    shared actual default Result transformLargerOperation(LargerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
     shared actual default Result transformMeasureOperation(MeasureOperation that) => transformBinaryOperation(that);
@@ -67,6 +70,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSequentialType(SequentialType that) => transformPrimaryType(that);
     shared actual default Result transformSetOperation(SetOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSimpleType(SimpleType that) => transformPrimaryType(that);
+    shared actual default Result transformSmallAsOperation(SmallAsOperation that) => transformComparisonOperation(that);
+    shared actual default Result transformSmallerOperation(SmallerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformSpanOperation(SpanOperation that) => transformBinaryOperation(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);

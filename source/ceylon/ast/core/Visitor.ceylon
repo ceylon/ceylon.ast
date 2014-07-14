@@ -20,6 +20,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
+    transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
     transformDec(Dec that) => visitDec(that);
@@ -44,6 +45,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
+    transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
+    transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformMainType(MainType that) => visitMainType(that);
     transformMeasureOperation(MeasureOperation that) => visitMeasureOperation(that);
@@ -76,6 +79,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSequentialType(SequentialType that) => visitSequentialType(that);
     transformSetOperation(SetOperation that) => visitSetOperation(that);
     transformSimpleType(SimpleType that) => visitSimpleType(that);
+    transformSmallAsOperation(SmallAsOperation that) => visitSmallAsOperation(that);
+    transformSmallerOperation(SmallerOperation that) => visitSmallerOperation(that);
     transformSpanOperation(SpanOperation that) => visitSpanOperation(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformSumOperation(SumOperation that) => visitSumOperation(that);
@@ -104,6 +109,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
+    shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
@@ -113,6 +119,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
+    shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
+    shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
@@ -160,6 +168,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);
     shared default void visitSetOperation(SetOperation that) => super.transformSetOperation(that);
     shared default void visitSimpleType(SimpleType that) => super.transformSimpleType(that);
+    shared default void visitSmallAsOperation(SmallAsOperation that) => super.transformSmallAsOperation(that);
+    shared default void visitSmallerOperation(SmallerOperation that) => super.transformSmallerOperation(that);
     shared default void visitSpanOperation(SpanOperation that) => super.transformSpanOperation(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);

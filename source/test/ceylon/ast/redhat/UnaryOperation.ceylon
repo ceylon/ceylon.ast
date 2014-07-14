@@ -17,5 +17,5 @@ shared object unaryOperation satisfies AbstractTest<UnaryOperation,JUnaryOperato
     fromCeylon = RedHatTransformer.transformUnaryOperation;
     toCeylon = unaryOperationToCeylon;
     
-    tests = [postfixOperation, prefixOperation, unaryArithmeticOperation];
+    tests = [postfixOperation, prefixOperation, unaryArithmeticOperation, existsOperation, nonemptyOperation];
 }

@@ -19,6 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDifferenceOp=DifferenceOp,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
+        JExists=Exists,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
@@ -34,6 +35,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JNegativeOp=NegativeOp,
+        JNonempty=Nonempty,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
         JOuter=Outer,
@@ -83,6 +85,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         entry_op=\iENTRY_OP,
+        exists_op=\iEXISTS,
         float_literal=\iFLOAT_LITERAL,
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
@@ -93,6 +96,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         lidentifier=\iLIDENTIFIER,
         lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
+        nonempty_op=\iNONEMPTY,
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
@@ -252,6 +256,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JExists transformExistsOperation(ExistsOperation that) {
+        JTerm term = transformPrecedence9Expression(that.child);
+        JExists ret = JExists(tokens.token(that.operator, exists_op));
+        ret.term = term;
+        return ret;
+    }
+    
     shared actual JPowerOp transformExponentiationOperation(ExponentiationOperation that) {
         value left = transformPrecedence1Expression(that.leftChild);
         JPowerOp ret = JPowerOp(tokens.token(that.operator, power_op));
@@ -402,6 +413,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
+        JTerm term = transformPrecedence9Expression(that.child);
+        JNonempty ret = JNonempty(tokens.token(that.operator, nonempty_op));
+        ret.term = term;
+        return ret;
+    }
+    
     shared actual JOperatorExpression transformOperation(Operation that) {
         assert (is JOperatorExpression ret = super.transformOperation(that));
         return ret;
@@ -481,6 +499,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence9Expression(Precedence9Expression that) {
         assert (is JTerm ret = super.transformPrecedence9Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence10Expression(Precedence10Expression that) {
+        assert (is JTerm ret = super.transformPrecedence10Expression(that));
         return ret;
     }
     

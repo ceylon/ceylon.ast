@@ -146,6 +146,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is MeasureOperation) { return transformMeasureOperation(that); }
         case (is EntryOperation) { return transformEntryOperation(that); }
     }
+    shared default Result transformPrecedence10Expression(Precedence10Expression that) {
+        switch (that)
+        case (is Precedence9Expression) { return transformPrecedence9Expression(that); }
+        case (is ExistsOperation) { return transformExistsOperation(that); }
+        case (is NonemptyOperation) { return transformNonemptyOperation(that); }
+    }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression
      */
@@ -217,6 +223,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PostfixOperation) { return transformPostfixOperation(that); }
         case (is PrefixOperation) { return transformPrefixOperation(that); }
         case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
+        case (is ExistsOperation) { return transformExistsOperation(that); }
+        case (is NonemptyOperation) { return transformNonemptyOperation(that); }
     }
     shared actual default Result transformUnionableType(UnionableType that) {
         switch (that)

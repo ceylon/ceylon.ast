@@ -1,6 +1,6 @@
 "A unary operator expression."
 shared abstract class UnaryOperation()
-        of PostfixOperation | PrefixOperation | UnaryArithmeticOperation
+        of PostfixOperation | PrefixOperation | UnaryArithmeticOperation | ExistsOperation | NonemptyOperation
         extends Operation() {
     
     shared formal ValueExpression child;

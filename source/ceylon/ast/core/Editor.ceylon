@@ -62,8 +62,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
             => that.copy();
+    shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
+            => that.copy();
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy();
+    shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
+            => that.copy();
+    shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
+        assert (is Precedence10Expression ret = super.transformPrecedence10Expression(that));
+        return ret;
+    }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {
         assert (is Precedence7Expression ret = super.transformPrecedence7Expression(that));
         return ret;

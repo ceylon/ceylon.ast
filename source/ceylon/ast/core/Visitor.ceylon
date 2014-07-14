@@ -27,6 +27,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
     transformEntryType(EntryType that) => visitEntryType(that);
+    transformExistsOperation(ExistsOperation that) => visitExistsOperation(that);
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
@@ -50,6 +51,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
     transformNegationOperation(NegationOperation that) => visitNegationOperation(that);
     transformNode(Node that) => visitNode(that);
+    transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOuter(Outer that) => visitOuter(that);
@@ -103,7 +105,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
+    shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
+    shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);

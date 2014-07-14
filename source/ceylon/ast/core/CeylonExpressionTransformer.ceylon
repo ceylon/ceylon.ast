@@ -57,6 +57,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
                 `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
+    transformExistsOperation(ExistsOperation that) => "ExistsOperation(``transformWithIndent(that.child)``)";
     transformExponentiationOperation(ExponentiationOperation that)
             => "ExponentiationOperation {
                 `` indent + indentLevel ``leftChild = ``transformWithIndent(that.leftChild)``;
@@ -142,6 +143,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.child)``)";
+    transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.child)``)";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";

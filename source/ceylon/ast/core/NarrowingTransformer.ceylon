@@ -26,6 +26,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SpanOperation) { return transformSpanOperation(that); }
         case (is MeasureOperation) { return transformMeasureOperation(that); }
         case (is EntryOperation) { return transformEntryOperation(that); }
+        case (is InOperation) { return transformInOperation(that); }
     }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
@@ -157,6 +158,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence10Expression) { return transformPrecedence10Expression(that); }
         case (is IsOperation) { return transformIsOperation(that); }
         case (is OfOperation) { return transformOfOperation(that); }
+        case (is InOperation) { return transformInOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression

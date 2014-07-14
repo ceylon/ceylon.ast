@@ -25,6 +25,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
         JIdentifier=Identifier,
+        JInOp=InOp,
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
         JIntegerLiteral=NaturalLiteral,
@@ -91,6 +92,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         entry_op=\iENTRY_OP,
         exists_op=\iEXISTS,
         float_literal=\iFLOAT_LITERAL,
+        in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
         intersection_op=\iINTERSECTION_OP,
@@ -319,6 +321,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
         ret.term = transformPrecedence2Expression(that.child);
+        return ret;
+    }
+    
+    shared actual JInOp transformInOperation(InOperation that) {
+        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JInOp ret = JInOp(tokens.token(that.operator, in_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
         return ret;
     }
     

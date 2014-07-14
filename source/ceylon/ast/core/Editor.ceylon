@@ -64,6 +64,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy();
+    shared actual default InOperation transformInOperation(InOperation that)
+            => that.copy();
     shared actual default IsOperation transformIsOperation(IsOperation that)
             => that.copy();
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)

@@ -28,6 +28,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformGroupedType(GroupedType that) => transformPrimaryType(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
+    shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);

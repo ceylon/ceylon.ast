@@ -37,6 +37,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformGroupedType(GroupedType that) => visitGroupedType(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
+    transformInOperation(InOperation that) => visitInOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
@@ -110,6 +111,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
+    shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);

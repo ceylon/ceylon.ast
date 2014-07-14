@@ -2,7 +2,7 @@
  
  No associativity.
  
- This is the abstract superclass of expression like `a <= b` and `x > 3`;
+ This is the abstract superclass of expressions like `a <= b` and `x > 3`;
  not to be confused with [[CompareOperation]], the concrete class representing expressions like `first <=> second`!"
 shared abstract class ComparisonOperation()
         of LargerOperation | SmallerOperation | LargeAsOperation | SmallAsOperation

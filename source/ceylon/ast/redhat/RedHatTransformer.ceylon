@@ -46,6 +46,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
         JNotEqualOp=NotEqualOp,
+        JNotOp=NotOp,
         JOfOp=OfOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
@@ -119,6 +120,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         member_op=\iMEMBER_OP,
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
+        not_op=\iNOT_OP,
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
@@ -309,6 +311,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm term = transformPrecedence9Expression(that.operand);
         JExists ret = JExists(tokens.token(that.operator, exists_op));
         ret.term = term;
+        return ret;
+    }
+    
+    shared actual JNotOp transformNotOperation(NotOperation that) {
+        JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
+        ret.term = transformPrecedence13Expression(that.operand);
         return ret;
     }
     
@@ -619,6 +627,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence12Expression(Precedence12Expression that) {
         assert (is JTerm ret = super.transformPrecedence12Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence13Expression(Precedence13Expression that) {
+        assert (is JTerm ret = super.transformPrecedence13Expression(that));
         return ret;
     }
     

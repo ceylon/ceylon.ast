@@ -62,6 +62,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNode(Node that) => visitNode(that);
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
     transformNotEqualOperation(NotEqualOperation that) => visitNotEqualOperation(that);
+    transformNotOperation(NotOperation that) => visitNotOperation(that);
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
@@ -133,6 +134,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
+    shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);

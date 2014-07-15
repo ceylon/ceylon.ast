@@ -52,6 +52,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNegationOperation(NegationOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
     shared actual default Result transformNotEqualOperation(NotEqualOperation that) => transformEqualityOperation(that);
+    shared actual default Result transformNotOperation(NotOperation that) => transformUnaryOperation(that);
     shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);

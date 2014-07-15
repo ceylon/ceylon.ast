@@ -183,6 +183,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence11Expression) { return transformPrecedence11Expression(that); }
         case (is EqualityOperation) { return transformEqualityOperation(that); }
     }
+    shared default Result transformPrecedence13Expression(Precedence13Expression that) {
+        switch (that)
+        case (is Precedence12Expression) { return transformPrecedence12Expression(that); }
+        case (is NotOperation) { return transformNotOperation(that); }
+    }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)
         case (is PrefixIncrementOperation) { return transformPrefixIncrementOperation(that); }
@@ -258,6 +263,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
         case (is ExistsOperation) { return transformExistsOperation(that); }
         case (is NonemptyOperation) { return transformNonemptyOperation(that); }
+        case (is NotOperation) { return transformNotOperation(that); }
     }
     shared actual default Result transformUnaryTypeOperation(UnaryTypeOperation that) {
         switch (that)

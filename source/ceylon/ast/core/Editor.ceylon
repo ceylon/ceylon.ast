@@ -92,6 +92,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
             => that.copy();
+    shared actual default NotOperation transformNotOperation(NotOperation that)
+            => that.copy();
     shared actual default OfOperation transformOfOperation(OfOperation that)
             => that.copy();
     shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
@@ -104,6 +106,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence12Expression transformPrecedence12Expression(Precedence12Expression that) {
         assert (is Precedence12Expression ret = super.transformPrecedence12Expression(that));
+        return ret;
+    }
+    shared actual default Precedence13Expression transformPrecedence13Expression(Precedence13Expression that) {
+        assert (is Precedence13Expression ret = super.transformPrecedence13Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {

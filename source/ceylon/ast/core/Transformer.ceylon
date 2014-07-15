@@ -62,6 +62,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNode(Node that);
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
     shared formal Result transformNotEqualOperation(NotEqualOperation that);
+    shared formal Result transformNotOperation(NotOperation that);
     shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOperation(Operation that);
     shared formal Result transformOptionalType(OptionalType that);

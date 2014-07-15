@@ -6,6 +6,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExists=Exists,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
+        JNotOp=NotOp,
         JPositiveOp=PositiveOp,
         JPostfixOperatorExpression=PostfixOperatorExpression,
         JPrefixOperatorExpression=PrefixOperatorExpression,
@@ -16,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[UnaryOperatorExpression|JUnaryOperatorExpression]] to a `ceylon.ast` [[UnaryIshOperation]]."
 shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unaryIshOperation) {
-    assert (is JPostfixOperatorExpression|JPrefixOperatorExpression|JNegativeOp|JPositiveOp|JExists|JNonempty|JTypeOperatorExpression unaryIshOperation);
+    assert (is JPostfixOperatorExpression|JPrefixOperatorExpression|JNegativeOp|JPositiveOp|JExists|JNonempty|JTypeOperatorExpression|JNotOp unaryIshOperation);
     switch (unaryIshOperation)
     case (is JPostfixOperatorExpression) { return postfixOperationToCeylon(unaryIshOperation); }
     case (is JPrefixOperatorExpression) { return prefixOperationToCeylon(unaryIshOperation); }
@@ -25,6 +26,7 @@ shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unar
     case (is JExists) { return existsOperationToCeylon(unaryIshOperation); }
     case (is JNonempty) { return nonemptyOperationToCeylon(unaryIshOperation); }
     case (is JTypeOperatorExpression) { return unaryTypeOperationToCeylon(unaryIshOperation); }
+    case (is JNotOp) { return notOperationToCeylon(unaryIshOperation); }
 }
 
 "Compiles the given [[code]] for an Unary Ish Operation

@@ -183,9 +183,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence11Expression) { return transformPrecedence11Expression(that); }
         case (is EqualityOperation) { return transformEqualityOperation(that); }
     }
-    /* help source-gen find a place for transformPrecedenceYExpression
-    shared default Result transformPrecedenceZExpression
-     */
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)
         case (is PrefixIncrementOperation) { return transformPrefixIncrementOperation(that); }

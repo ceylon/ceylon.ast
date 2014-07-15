@@ -21,11 +21,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDifferenceOp=DifferenceOp,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
+        JEqualOp=EqualOp,
+        JEqualityOp=EqualityOp,
         JExists=Exists,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
+        JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
@@ -42,6 +45,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMetaLiteral=MetaLiteral,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
+        JNotEqualOp=NotEqualOp,
         JOfOp=OfOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
@@ -97,8 +101,10 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         entry_op=\iENTRY_OP,
+        equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
         float_literal=\iFLOAT_LITERAL,
+        identical_op=\iIDENTICAL_OP,
         in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
@@ -112,6 +118,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
         nonempty_op=\iNONEMPTY,
+        not_equal_op=\iNOT_EQUAL_OP,
         optionalType=\iOPTIONAL,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
@@ -285,6 +292,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JEqualOp transformEqualOperation(EqualOperation that) {
+        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JEqualOp ret = JEqualOp(tokens.token(that.operator, equal_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
+        return ret;
+    }
+    
+    shared actual JEqualityOp|JIdenticalOp transformEqualityOperation(EqualityOperation that) {
+        assert (is JEqualityOp|JIdenticalOp ret = super.transformEqualityOperation(that));
+        return ret;
+    }
+    
     shared actual JExists transformExistsOperation(ExistsOperation that) {
         JTerm term = transformPrecedence9Expression(that.child);
         JExists ret = JExists(tokens.token(that.operator, exists_op));
@@ -337,6 +357,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIdentifier transformIdentifier(Identifier that) {
         assert (is JIdentifier ret = super.transformIdentifier(that));
+        return ret;
+    }
+    
+    shared actual JIdenticalOp transformIdenticalOperation(IdenticalOperation that) {
+        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JIdenticalOp ret = JIdenticalOp(tokens.token(that.operator, identical_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
         return ret;
     }
     
@@ -481,6 +509,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JNotEqualOp transformNotEqualOperation(NotEqualOperation that) {
+        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JNotEqualOp ret = JNotEqualOp(tokens.token(that.operator, not_equal_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
+        return ret;
+    }
+    
     shared actual JOfOp transformOfOperation(OfOperation that) {
         JTerm term = transformPrecedence10Expression(that.child);
         JOfOp ret = JOfOp(tokens.token(that.operator, case_types));
@@ -578,6 +614,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence11Expression(Precedence11Expression that) {
         assert (is JTerm ret = super.transformPrecedence11Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence12Expression(Precedence12Expression that) {
+        assert (is JTerm ret = super.transformPrecedence12Expression(that));
         return ret;
     }
     

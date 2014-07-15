@@ -29,6 +29,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
     shared formal Result transformEntryType(EntryType that);
+    shared formal Result transformEqualOperation(EqualOperation that);
+    shared formal Result transformEqualityOperation(EqualityOperation that);
     shared formal Result transformExistsOperation(ExistsOperation that);
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
@@ -37,6 +39,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
+    shared formal Result transformIdenticalOperation(IdenticalOperation that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
     shared formal Result transformInOperation(InOperation that);
@@ -58,6 +61,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNegationOperation(NegationOperation that);
     shared formal Result transformNode(Node that);
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
+    shared formal Result transformNotEqualOperation(NotEqualOperation that);
     shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOperation(Operation that);
     shared formal Result transformOptionalType(OptionalType that);

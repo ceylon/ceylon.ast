@@ -68,7 +68,15 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
             => that.copy();
+    shared actual default EqualOperation transformEqualOperation(EqualOperation that)
+            => that.copy();
+    shared actual default EqualityOperation transformEqualityOperation(EqualityOperation that) {
+        assert (is EqualityOperation ret = super.transformEqualityOperation(that));
+        return ret;
+    }
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
+            => that.copy();
+    shared actual default IdenticalOperation transformIdenticalOperation(IdenticalOperation that)
             => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)
             => that.copy();
@@ -82,6 +90,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy();
+    shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
+            => that.copy();
     shared actual default OfOperation transformOfOperation(OfOperation that)
             => that.copy();
     shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
@@ -90,6 +100,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence11Expression transformPrecedence11Expression(Precedence11Expression that) {
         assert (is Precedence11Expression ret = super.transformPrecedence11Expression(that));
+        return ret;
+    }
+    shared actual default Precedence12Expression transformPrecedence12Expression(Precedence12Expression that) {
+        assert (is Precedence12Expression ret = super.transformPrecedence12Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {

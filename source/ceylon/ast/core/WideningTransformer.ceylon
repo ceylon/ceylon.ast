@@ -20,6 +20,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformEntryOperation(EntryOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
+    shared actual default Result transformEqualOperation(EqualOperation that) => transformEqualityOperation(that);
+    shared actual default Result transformEqualityOperation(EqualityOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExistsOperation(ExistsOperation that) => transformUnaryOperation(that);
     shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
@@ -28,6 +30,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);
     shared actual default Result transformGroupedType(GroupedType that) => transformPrimaryType(that);
+    shared actual default Result transformIdenticalOperation(IdenticalOperation that) => transformEqualityOperation(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
@@ -48,6 +51,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformNegationOperation(NegationOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
+    shared actual default Result transformNotEqualOperation(NotEqualOperation that) => transformEqualityOperation(that);
     shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);

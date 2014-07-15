@@ -29,6 +29,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is InOperation) { return transformInOperation(that); }
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
         case (is CompareOperation) { return transformCompareOperation(that); }
+        case (is EqualityOperation) { return transformEqualityOperation(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
@@ -44,6 +45,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformDec(Dec that) {
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
+    }
+    shared actual default Result transformEqualityOperation(EqualityOperation that) {
+        switch (that)
+        case (is EqualOperation) { return transformEqualOperation(that); }
+        case (is NotEqualOperation) { return transformNotEqualOperation(that); }
+        case (is IdenticalOperation) { return transformIdenticalOperation(that); }
     }
     shared actual default Result transformExpression(Expression that) {
         switch (that)
@@ -170,6 +177,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is InOperation) { return transformInOperation(that); }
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
         case (is CompareOperation) { return transformCompareOperation(that); }
+    }
+    shared default Result transformPrecedence12Expression(Precedence12Expression that) {
+        switch (that)
+        case (is Precedence11Expression) { return transformPrecedence11Expression(that); }
+        case (is EqualityOperation) { return transformEqualityOperation(that); }
     }
     /* help source-gen find a place for transformPrecedenceYExpression
     shared default Result transformPrecedenceZExpression

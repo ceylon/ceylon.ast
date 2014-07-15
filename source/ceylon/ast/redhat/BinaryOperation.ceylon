@@ -9,6 +9,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
         JEntryOp=EntryOp,
+        JEqualityOp=EqualityOp,
+        JIdenticalOp=IdenticalOp,
         JInOp=InOp,
         JRangeOp=RangeOp,
         JScaleOp=ScaleOp,
@@ -18,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[BinaryOperatorExpression|JBinaryOperatorExpression]] to a `ceylon.ast` [[BinaryOperation]]."
 shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation) {
-    assert (is JArithmeticOp|JBitwiseOp|JScaleOp|JRangeOp|JSegmentOp|JEntryOp|JInOp|JComparisonOp|JCompareOp binaryOperation);
+    assert (is JArithmeticOp|JBitwiseOp|JScaleOp|JRangeOp|JSegmentOp|JEntryOp|JInOp|JComparisonOp|JCompareOp|JEqualityOp|JIdenticalOp binaryOperation);
     switch (binaryOperation)
     case (is JArithmeticOp) { return arithmeticOperationToCeylon(binaryOperation); }
     case (is JBitwiseOp) { return setOperationToCeylon(binaryOperation); }
@@ -29,6 +31,7 @@ shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryO
     case (is JInOp) { return inOperationToCeylon(binaryOperation); }
     case (is JComparisonOp) { return comparisonOperationToCeylon(binaryOperation); }
     case (is JCompareOp) { return compareOperationToCeylon(binaryOperation); }
+    case (is JEqualityOp|JIdenticalOp) { return equalityOperationToCeylon(binaryOperation); }
 }
 
 "Compiles the given [[code]] for a Binary Operation

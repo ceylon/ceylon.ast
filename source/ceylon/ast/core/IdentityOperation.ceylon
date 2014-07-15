@@ -1,6 +1,8 @@
 "The expression `+i`.
  
- This expression is defined to return `i` for any `i` of [[Invertible]] type."
+ This expression is defined to return `i` for any `i` of [[Invertible]] type.
+ 
+ (Not to be confused with [[IdenticalOperation]], `i === i`.)"
 shared class IdentityOperation(child_)
         extends UnaryArithmeticOperation() {
     

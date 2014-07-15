@@ -12,10 +12,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[OfOp|JOfOp]] to a `ceylon.ast` [[OfOperation]]."
 shared OfOperation ofOperationToCeylon(JOfOp ofOperation) {
     "Check precedence"
-    assert (is Precedence10Expression child = expressionToCeylon(ofOperation.term));
+    assert (is Precedence10Expression operand = expressionToCeylon(ofOperation.term));
     "Must be a real type"
     assert (is JStaticType type = ofOperation.type);
-    return OfOperation(child, typeToCeylon(type));
+    return OfOperation(operand, typeToCeylon(type));
 }
 
 "Compiles the given [[code]] for an Of Operation

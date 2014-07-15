@@ -1,9 +1,9 @@
 "A prefix decrement expression (`--i`)."
-shared class PrefixDecrementOperation(child)
+shared class PrefixDecrementOperation(operand)
         extends PrefixOperation() {
     
     "The decremented primary."
-    shared actual Primary child;
+    shared actual Primary operand;
     
     operator = "--";
     
@@ -12,17 +12,17 @@ shared class PrefixDecrementOperation(child)
     
     shared actual Boolean equals(Object that) {
         if (is PrefixDecrementOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared PrefixDecrementOperation copy(Primary child = this.child) {
-        value ret = PrefixDecrementOperation(child);
+    shared PrefixDecrementOperation copy(Primary operand = this.operand) {
+        value ret = PrefixDecrementOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

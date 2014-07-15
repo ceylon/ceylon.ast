@@ -1,9 +1,9 @@
 "A postfix increment expression (`i++`)."
-shared class PostfixIncrementOperation(child)
+shared class PostfixIncrementOperation(operand)
         extends PostfixOperation() {
     
     "The incremented primary."
-    shared actual Primary child;
+    shared actual Primary operand;
     
     operator = "++";
     
@@ -12,17 +12,17 @@ shared class PostfixIncrementOperation(child)
     
     shared actual Boolean equals(Object that) {
         if (is PostfixIncrementOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared PostfixIncrementOperation copy(Primary child = this.child) {
-        value ret = PostfixIncrementOperation(child);
+    shared PostfixIncrementOperation copy(Primary operand = this.operand) {
+        value ret = PostfixIncrementOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

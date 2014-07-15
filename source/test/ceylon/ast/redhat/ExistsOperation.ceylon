@@ -15,8 +15,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object existsOperation satisfies ConcreteTest<ExistsOperation,JExists> {
     
-    String->ExistsOperation construct(String->Precedence9Expression child)
-            => "``child.key`` exists"->ExistsOperation(child.item);
+    String->ExistsOperation construct(String->Precedence9Expression operand)
+            => "``operand.key`` exists"->ExistsOperation(operand.item);
     
     shared String->ExistsOperation aExistsExpression = construct(baseExpression.aExpression);
     

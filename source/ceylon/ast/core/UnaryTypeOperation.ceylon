@@ -6,7 +6,7 @@ shared abstract class UnaryTypeOperation()
         of IsOperation | OfOperation
         extends UnaryIshOperation() {
     
-    shared actual formal Precedence10Expression child;
+    shared actual formal Precedence10Expression operand;
     
     shared actual formal Type type;
     

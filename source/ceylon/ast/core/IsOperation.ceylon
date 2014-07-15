@@ -1,19 +1,19 @@
 "A postfix is expression.
  
  No associativity."
-shared class IsOperation(child_, type_)
+shared class IsOperation(operand_, type_)
         extends UnaryTypeOperation() {
     
-    // TODO child_ and type_ are a workaround for ceylon-compiler#1728, remove!
-    Precedence10Expression child_;
+    // TODO operand_ and type_ are a workaround for ceylon-compiler#1728, remove!
+    Precedence10Expression operand_;
     Type type_;
     
     "The expression whose type is tested."
-    shared actual Precedence10Expression child = child_;
+    shared actual Precedence10Expression operand = operand_;
     "The type against which the expression’s type is tested."
     shared actual Type type = type_;
     
-    shared actual [Precedence10Expression, Type] children = [child, type];
+    shared actual [Precedence10Expression, Type] children = [operand, type];
     
     operator = "is";
     
@@ -22,17 +22,17 @@ shared class IsOperation(child_, type_)
     
     shared actual Boolean equals(Object that) {
         if (is IsOperation that) {
-            return child == that.child && type == that.type;
+            return operand == that.operand && type == that.type;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (child.hash + 31 * type.hash);
+            => 31 * (operand.hash + 31 * type.hash);
     
-    shared IsOperation copy(Precedence10Expression child = this.child, Type type = this.type) {
-        value ret = IsOperation(child, type);
+    shared IsOperation copy(Precedence10Expression operand = this.operand, Type type = this.type) {
+        value ret = IsOperation(operand, type);
         copyExtraInfoTo(ret);
         return ret;
     }

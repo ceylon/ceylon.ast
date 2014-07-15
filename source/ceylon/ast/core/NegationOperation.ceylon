@@ -1,16 +1,16 @@
 "A unary negation operation, that is, `-i`.
  
  This operator is defined in terms of [[Invertible.negated]]."
-shared class NegationOperation(child_)
+shared class NegationOperation(operand_)
         extends UnaryArithmeticOperation() {
     
     // TODO remove ceylon-compiler#1728 workaround
-    Precedence2Expression child_;
+    Precedence2Expression operand_;
     
     "The negated expression."
-    shared actual Precedence2Expression child = child_;
+    shared actual Precedence2Expression operand = operand_;
     
-    shared actual [Precedence2Expression] children = [child];
+    shared actual [Precedence2Expression] children = [operand];
     
     operator = "-";
     
@@ -19,17 +19,17 @@ shared class NegationOperation(child_)
     
     shared actual Boolean equals(Object that) {
         if (is NegationOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared NegationOperation copy(Precedence2Expression child = this.child) {
-        value ret = NegationOperation(child);
+    shared NegationOperation copy(Precedence2Expression operand = this.operand) {
+        value ret = NegationOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

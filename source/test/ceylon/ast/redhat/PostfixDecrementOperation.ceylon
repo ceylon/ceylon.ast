@@ -15,8 +15,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object postfixDecrementOperation satisfies ConcreteTest<PostfixDecrementOperation,JPostfixDecrementOp> {
     
-    String->PostfixDecrementOperation construct(String->Primary child)
-            => "``child.key``--"->PostfixDecrementOperation(child.item);
+    String->PostfixDecrementOperation construct(String->Primary operand)
+            => "``operand.key``--"->PostfixDecrementOperation(operand.item);
     
     shared String->PostfixDecrementOperation _1138IntegerLiteralPostfixDecrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PostfixDecrementOperation _1138IntegerLiteralGroupedExpressionPostfixDecrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);

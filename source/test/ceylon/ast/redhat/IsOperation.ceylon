@@ -16,8 +16,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object isOperation satisfies ConcreteTest<IsOperation,JIsOp> {
     
-    String->IsOperation construct(String->Precedence10Expression child, String->Type type)
-            => "``child.key`` is ``type.key``"->IsOperation(child.item, type.item);
+    String->IsOperation construct(String->Precedence10Expression operand, String->Type type)
+            => "``operand.key`` is ``type.key``"->IsOperation(operand.item, type.item);
     
     shared String->IsOperation aIsPersistentAndPrintableAndIdentifiableExpression = construct(baseExpression.aExpression, intersectionType.persistentAndPrintableAndIdentifiableIntersectionType);
     

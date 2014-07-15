@@ -16,8 +16,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object ofOperation satisfies ConcreteTest<OfOperation,JOfOp> {
     
-    String->OfOperation construct(String->Precedence10Expression child, String->Type type)
-            => "``child.key`` of ``type.key``"->OfOperation(child.item, type.item);
+    String->OfOperation construct(String->Precedence10Expression operand, String->Type type)
+            => "``operand.key`` of ``type.key``"->OfOperation(operand.item, type.item);
     
     shared String->OfOperation stringOfStringOptionalExpression = construct(stringLiteral.capitalCStringLiteral, optionalType.stringOptionalType);
     

@@ -1,19 +1,19 @@
 "A set complement expression.
  
  Defined via [[Set.complement]]. Left-associative."
-shared class ComplementOperation(leftChild_, rightChild_)
+shared class ComplementOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     
-    // TODO leftChild_, rightChild_ are a workaround for ceylon-compiler#1728; remove!
-    Precedence5Expression leftChild_;
-    Precedence4Expression rightChild_;
+    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728; remove!
+    Precedence5Expression leftOperand_;
+    Precedence4Expression rightOperand_;
     
     "The “this” set, from which elements for the result set are taken."
-    shared actual Precedence5Expression leftChild = leftChild_;
+    shared actual Precedence5Expression leftOperand = leftOperand_;
     "The “other” set, the elements of which are not present in the result set."
-    shared actual Precedence4Expression rightChild = rightChild_;
+    shared actual Precedence4Expression rightOperand = rightOperand_;
     
-    shared actual [Precedence5Expression, Precedence4Expression] children = [leftChild, rightChild];
+    shared actual [Precedence5Expression, Precedence4Expression] children = [leftOperand, rightOperand];
     
     operator = "~";
     
@@ -22,17 +22,17 @@ shared class ComplementOperation(leftChild_, rightChild_)
     
     shared actual Boolean equals(Object that) {
         if (is ComplementOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ComplementOperation copy(Precedence5Expression leftChild = this.leftChild, Precedence4Expression rightChild = this.rightChild) {
-        value ret = ComplementOperation(leftChild, rightChild);
+    shared ComplementOperation copy(Precedence5Expression leftOperand = this.leftOperand, Precedence4Expression rightOperand = this.rightOperand) {
+        value ret = ComplementOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

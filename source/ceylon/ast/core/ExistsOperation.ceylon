@@ -1,16 +1,16 @@
 "An exists postfix expression.
  
  No associativity."
-shared class ExistsOperation(child_)
+shared class ExistsOperation(operand_)
         extends UnaryOperation() {
     
-    // TODO child_ is a workaround for ceylon-compiler#1728, remove!
-    shared Precedence9Expression child_;
+    // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
+    shared Precedence9Expression operand_;
     
-    "The child expression whose existence is tested."
-    shared actual Precedence9Expression child = child_;
+    "The operand expression whose existence is tested."
+    shared actual Precedence9Expression operand = operand_;
     
-    shared actual [Precedence9Expression] children = [child];
+    shared actual [Precedence9Expression] children = [operand];
     
     operator = "exists";
     
@@ -21,17 +21,17 @@ shared class ExistsOperation(child_)
     
     shared actual Boolean equals(Object that) {
         if (is ExistsOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared ExistsOperation copy(Precedence9Expression child = this.child) {
-        value ret = ExistsOperation(child);
+    shared ExistsOperation copy(Precedence9Expression operand = this.operand) {
+        value ret = ExistsOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

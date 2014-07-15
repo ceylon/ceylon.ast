@@ -15,8 +15,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object identityOperation satisfies ConcreteTest<IdentityOperation,JPositiveOp> {
     
-    String->IdentityOperation construct(String->Precedence2Expression child)
-            => "+``child.key``"->IdentityOperation(child.item);
+    String->IdentityOperation construct(String->Precedence2Expression operand)
+            => "+``operand.key``"->IdentityOperation(operand.item);
     
     shared String->IdentityOperation plus1138Expression = construct(integerLiteral._1138IntegerLiteral);
     

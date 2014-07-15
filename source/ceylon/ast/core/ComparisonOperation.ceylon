@@ -8,8 +8,8 @@ shared abstract class ComparisonOperation()
         of LargerOperation | SmallerOperation | LargeAsOperation | SmallAsOperation
         extends BinaryOperation() {
     
-    shared actual formal Precedence10Expression leftChild;
-    shared actual formal Precedence10Expression rightChild;
+    shared actual formal Precedence10Expression leftOperand;
+    shared actual formal Precedence10Expression rightOperand;
     
     shared actual formal [Precedence10Expression, Precedence10Expression] children;
 }

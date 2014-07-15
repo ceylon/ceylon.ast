@@ -14,10 +14,10 @@ shared abstract class BinaryOperation()
         of ArithmeticOperation | SetOperation | ScaleOperation | SpanOperation | MeasureOperation | EntryOperation | InOperation | ComparisonOperation | CompareOperation | EqualityOperation
         extends Operation() {
     
-    "The left child expression."
-    shared formal ValueExpression leftChild;
-    "The right child expression."
-    shared formal ValueExpression rightChild;
+    "The left operand."
+    shared formal ValueExpression leftOperand;
+    "The right operand."
+    shared formal ValueExpression rightOperand;
     
     shared actual formal [ValueExpression, ValueExpression] children;
 }

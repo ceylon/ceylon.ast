@@ -11,12 +11,12 @@ shared class EntryOperation(key, item)
     
     "The [[key|Entry.key]] of the entry."
     see (`value key`)
-    shared actual Precedence8Expression leftChild = key;
+    shared actual Precedence8Expression leftOperand = key;
     "The [[item|Entry.item]] of the entry."
     see (`value item`)
-    shared actual Precedence8Expression rightChild = item;
+    shared actual Precedence8Expression rightOperand = item;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [leftChild, rightChild];
+    shared actual [Precedence8Expression, Precedence8Expression] children = [leftOperand, rightOperand];
     
     operator = "->";
     
@@ -25,17 +25,17 @@ shared class EntryOperation(key, item)
     
     shared actual Boolean equals(Object that) {
         if (is EntryOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared EntryOperation copy(Precedence8Expression leftChild = this.leftChild, Precedence8Expression rightChild = this.rightChild) {
-        value ret = EntryOperation(leftChild, rightChild);
+    shared EntryOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence8Expression rightOperand = this.rightOperand) {
+        value ret = EntryOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

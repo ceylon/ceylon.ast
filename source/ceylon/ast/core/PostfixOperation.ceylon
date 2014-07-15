@@ -4,7 +4,7 @@ shared abstract class PostfixOperation()
         extends UnaryOperation() {
     
     "The incremented or decremented primary."
-    shared actual formal Primary child;
+    shared actual formal Primary operand;
     
     prefix = false;
 }

@@ -3,7 +3,7 @@
  Defined via [[Scalable.scale]]. Right-associative.
  
  The scale operation is unique because the receiver of the method invocation by which it is defined
- is the [[right-hand side|rightChild]], not the [[left-hand side|leftChild]]. In other words,
+ is the [[right-hand side|rightOperand]], not the [[left-hand side|leftOperand]]. In other words,
  `lhs ** rhs` corresponds to
  
      rhs.scale(lhs)
@@ -23,12 +23,12 @@ shared class ScaleOperation(factor, scalable)
     
     "The factor by which the [[scalable]] is scaled"
     see (`value factor`)
-    shared actual Precedence6Expression leftChild = factor;
+    shared actual Precedence6Expression leftOperand = factor;
     "The [[Scalable]] being scaled"
     see (`value scalable`)
-    shared actual Precedence7Expression rightChild = scalable;
+    shared actual Precedence7Expression rightOperand = scalable;
     
-    shared actual [Precedence6Expression, Precedence7Expression] children = [leftChild, rightChild];
+    shared actual [Precedence6Expression, Precedence7Expression] children = [leftOperand, rightOperand];
     
     operator = "**";
     
@@ -37,17 +37,17 @@ shared class ScaleOperation(factor, scalable)
     
     shared actual Boolean equals(Object that) {
         if (is ScaleOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ScaleOperation copy(Precedence6Expression leftChild = this.leftChild, Precedence7Expression rightChild = this.rightChild) {
-        value ret = ScaleOperation(leftChild, rightChild);
+    shared ScaleOperation copy(Precedence6Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+        value ret = ScaleOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

@@ -12,10 +12,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[IsOp|JIsOp]] to a `ceylon.ast` [[IsOperation]]."
 shared IsOperation isOperationToCeylon(JIsOp isOperation) {
     "Check precedence"
-    assert (is Precedence10Expression child = expressionToCeylon(isOperation.term));
+    assert (is Precedence10Expression operand = expressionToCeylon(isOperation.term));
     "Must be a real type"
     assert (is JStaticType type = isOperation.type);
-    return IsOperation(child, typeToCeylon(type));
+    return IsOperation(operand, typeToCeylon(type));
 }
 
 "Compiles the given [[code]] for an Is Operation

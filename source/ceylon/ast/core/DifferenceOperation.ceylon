@@ -11,12 +11,12 @@ shared class DifferenceOperation(minuend, subtrahend)
     
     "The minuend (the `a` in `a - b`)."
     see (`value minuend`)
-    shared actual Precedence8Expression leftChild = minuend;
+    shared actual Precedence8Expression leftOperand = minuend;
     "The subtrahend (the `b` in `a -b`)."
     see (`value subtrahend`)
-    shared actual Precedence7Expression rightChild = subtrahend;
+    shared actual Precedence7Expression rightOperand = subtrahend;
     
-    shared actual [Precedence8Expression, Precedence7Expression] children = [leftChild, rightChild];
+    shared actual [Precedence8Expression, Precedence7Expression] children = [leftOperand, rightOperand];
     
     operator = "-";
     
@@ -25,17 +25,17 @@ shared class DifferenceOperation(minuend, subtrahend)
     
     shared actual Boolean equals(Object that) {
         if (is DifferenceOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared DifferenceOperation copy(Precedence8Expression leftChild = this.leftChild, Precedence7Expression rightChild = this.rightChild) {
-        value ret = DifferenceOperation(leftChild, rightChild);
+    shared DifferenceOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+        value ret = DifferenceOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

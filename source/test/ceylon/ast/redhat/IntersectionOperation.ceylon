@@ -38,8 +38,8 @@ shared object intersectionOperation satisfies ConcreteTest<IntersectionOperation
     shared void testAssociativity() {
         object ungroupEditor extends Editor() {
             shared actual IntersectionOperation transformIntersectionOperation(IntersectionOperation that) {
-                if (is GroupedExpression left = that.leftChild, is Precedence4Expression inner = left.innerExpression) {
-                    return IntersectionOperation(inner, that.rightChild);
+                if (is GroupedExpression left = that.leftOperand, is Precedence4Expression inner = left.innerExpression) {
+                    return IntersectionOperation(inner, that.rightOperand);
                 } else {
                     return that;
                 }

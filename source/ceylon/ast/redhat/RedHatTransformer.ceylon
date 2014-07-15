@@ -236,10 +236,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
     
     shared actual JCompareOp transformCompareOperation(CompareOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JCompareOp ret = JCompareOp(tokens.token(that.operator, compare_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
@@ -249,10 +249,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JComplementOp transformComplementOperation(ComplementOperation that) {
-        JTerm left = transformPrecedence5Expression(that.leftChild);
+        JTerm left = transformPrecedence5Expression(that.leftOperand);
         JComplementOp ret = JComplementOp(tokens.token(that.operator, complement_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence4Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence4Expression(that.rightOperand);
         return ret;
     }
     
@@ -269,18 +269,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JDifferenceOp transformDifferenceOperation(DifferenceOperation that) {
-        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JTerm left = transformPrecedence8Expression(that.leftOperand);
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JEntryOp transformEntryOperation(EntryOperation that) {
-        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JTerm left = transformPrecedence8Expression(that.leftOperand);
         JEntryOp ret = JEntryOp(tokens.token(that.operator, entry_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence8Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
         return ret;
     }
     
@@ -293,10 +293,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JEqualOp transformEqualOperation(EqualOperation that) {
-        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JTerm left = transformPrecedence11Expression(that.leftOperand);
         JEqualOp ret = JEqualOp(tokens.token(that.operator, equal_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence11Expression(that.rightOperand);
         return ret;
     }
     
@@ -306,17 +306,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JExists transformExistsOperation(ExistsOperation that) {
-        JTerm term = transformPrecedence9Expression(that.child);
+        JTerm term = transformPrecedence9Expression(that.operand);
         JExists ret = JExists(tokens.token(that.operator, exists_op));
         ret.term = term;
         return ret;
     }
     
     shared actual JPowerOp transformExponentiationOperation(ExponentiationOperation that) {
-        value left = transformPrecedence1Expression(that.leftChild);
+        value left = transformPrecedence1Expression(that.leftOperand);
         JPowerOp ret = JPowerOp(tokens.token(that.operator, power_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence2Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence2Expression(that.rightOperand);
         return ret;
     }
     
@@ -361,24 +361,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JIdenticalOp transformIdenticalOperation(IdenticalOperation that) {
-        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JTerm left = transformPrecedence11Expression(that.leftOperand);
         JIdenticalOp ret = JIdenticalOp(tokens.token(that.operator, identical_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence11Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
-        ret.term = transformPrecedence2Expression(that.child);
+        ret.term = transformPrecedence2Expression(that.operand);
         return ret;
     }
     
     shared actual JInOp transformInOperation(InOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JInOp ret = JInOp(tokens.token(that.operator, in_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
@@ -386,10 +386,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
     shared actual JIntersectionOp transformIntersectionOperation(IntersectionOperation that) {
-        JTerm left = transformPrecedence4Expression(that.leftChild);
+        JTerm left = transformPrecedence4Expression(that.leftOperand);
         JIntersectionOp ret = JIntersectionOp(tokens.token(that.operator, intersection_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence3Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence3Expression(that.rightOperand);
         return ret;
     }
     
@@ -404,7 +404,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JIsOp transformIsOperation(IsOperation that) {
-        JTerm term = transformPrecedence10Expression(that.child);
+        JTerm term = transformPrecedence10Expression(that.operand);
         JIsOp ret = JIsOp(tokens.token(that.operator, is_op));
         ret.term = term;
         ret.type = transformType(that.type);
@@ -421,18 +421,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JLargeAsOp transformLargeAsOperation(LargeAsOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JLargeAsOp ret = JLargeAsOp(tokens.token(that.operator, large_as_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JLargerOp transformLargerOperation(LargerOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JLargerOp ret = JLargerOp(tokens.token(that.operator, larger_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
@@ -450,10 +450,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JSegmentOp transformMeasureOperation(MeasureOperation that) {
-        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JTerm left = transformPrecedence8Expression(that.leftOperand);
         JSegmentOp ret = JSegmentOp(tokens.token(that.operator, segment_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence8Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
         return ret;
     }
     
@@ -498,27 +498,27 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JNegativeOp transformNegationOperation(NegationOperation that) {
         JNegativeOp ret = JNegativeOp(tokens.token(that.operator, difference_op));
-        ret.term = transformPrecedence2Expression(that.child);
+        ret.term = transformPrecedence2Expression(that.operand);
         return ret;
     }
     
     shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
-        JTerm term = transformPrecedence9Expression(that.child);
+        JTerm term = transformPrecedence9Expression(that.operand);
         JNonempty ret = JNonempty(tokens.token(that.operator, nonempty_op));
         ret.term = term;
         return ret;
     }
     
     shared actual JNotEqualOp transformNotEqualOperation(NotEqualOperation that) {
-        JTerm left = transformPrecedence11Expression(that.leftChild);
+        JTerm left = transformPrecedence11Expression(that.leftOperand);
         JNotEqualOp ret = JNotEqualOp(tokens.token(that.operator, not_equal_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence11Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence11Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JOfOp transformOfOperation(OfOperation that) {
-        JTerm term = transformPrecedence10Expression(that.child);
+        JTerm term = transformPrecedence10Expression(that.operand);
         JOfOp ret = JOfOp(tokens.token(that.operator, case_types));
         ret.term = term;
         ret.type = transformType(that.type);
@@ -544,14 +544,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JPackage(tokens.token("package", packageType));
     
     shared actual JPostfixDecrementOp transformPostfixDecrementOperation(PostfixDecrementOperation that) {
-        value term = transformPrimary(that.child);
+        value term = transformPrimary(that.operand);
         JPostfixDecrementOp ret = JPostfixDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = term;
         return ret;
     }
     
     shared actual JPostfixIncrementOp transformPostfixIncrementOperation(PostfixIncrementOperation that) {
-        value term = transformPrimary(that.child);
+        value term = transformPrimary(that.operand);
         JPostfixIncrementOp ret = JPostfixIncrementOp(tokens.token(that.operator, increment_op));
         ret.term = term;
         return ret;
@@ -624,13 +624,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
-        ret.term = transformPrimary(that.child);
+        ret.term = transformPrimary(that.operand);
         return ret;
     }
     
     shared actual JIncrementOp transformPrefixIncrementOperation(PrefixIncrementOperation that) {
         JIncrementOp ret = JIncrementOp(tokens.token(that.operator, increment_op));
-        ret.term = transformPrimary(that.child);
+        ret.term = transformPrimary(that.operand);
         return ret;
     }
     
@@ -650,10 +650,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JProductOp transformProductOperation(ProductOperation that) {
-        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JTerm left = transformPrecedence6Expression(that.leftOperand);
         JProductOp ret = JProductOp(tokens.token(that.operator, product_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence5Expression(that.rightOperand);
         return ret;
     }
     
@@ -699,26 +699,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JQuotientOp transformQuotientOperation(QuotientOperation that) {
-        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JTerm left = transformPrecedence6Expression(that.leftOperand);
         JQuotientOp ret = JQuotientOp(tokens.token(that.operator, quotient_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence5Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JRemainderOp transformRemainderOperation(RemainderOperation that) {
-        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JTerm left = transformPrecedence6Expression(that.leftOperand);
         JRemainderOp ret = JRemainderOp(tokens.token(that.operator, remainder_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence5Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence5Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JScaleOp transformScaleOperation(ScaleOperation that) {
-        JTerm left = transformPrecedence6Expression(that.leftChild);
+        JTerm left = transformPrecedence6Expression(that.leftOperand);
         JScaleOp ret = JScaleOp(tokens.token(that.operator, scale_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
         return ret;
     }
     
@@ -728,18 +728,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JSmallAsOp transformSmallAsOperation(SmallAsOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JSmallAsOp ret = JSmallAsOp(tokens.token(that.operator, small_as_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JSmallerOp transformSmallerOperation(SmallerOperation that) {
-        JTerm left = transformPrecedence10Expression(that.leftChild);
+        JTerm left = transformPrecedence10Expression(that.leftOperand);
         JSmallerOp ret = JSmallerOp(tokens.token(that.operator, smaller_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence10Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
         return ret;
     }
     
@@ -767,18 +767,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JRangeOp transformSpanOperation(SpanOperation that) {
-        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JTerm left = transformPrecedence8Expression(that.leftOperand);
         JRangeOp ret = JRangeOp(tokens.token(that.operator, range_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence8Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
         return ret;
     }
     
     shared actual JSumOp transformSumOperation(SumOperation that) {
-        JTerm left = transformPrecedence8Expression(that.leftChild);
+        JTerm left = transformPrecedence8Expression(that.leftOperand);
         JSumOp ret = JSumOp(tokens.token(that.operator, sum_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence7Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
         return ret;
     }
     
@@ -863,10 +863,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JUnionOp transformUnionOperation(UnionOperation that) {
-        JTerm left = transformPrecedence5Expression(that.leftChild);
+        JTerm left = transformPrecedence5Expression(that.leftOperand);
         JUnionOp ret = JUnionOp(tokens.token(that.operator, union_op));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence4Expression(that.rightChild);
+        ret.rightTerm = transformPrecedence4Expression(that.rightOperand);
         return ret;
     }
     

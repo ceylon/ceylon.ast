@@ -5,5 +5,5 @@ shared abstract class UnaryOperation()
     
     type = null;
     
-    shared actual default [ValueExpression] children => [child];
+    shared actual default [ValueExpression] children => [operand];
 }

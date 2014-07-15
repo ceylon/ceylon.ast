@@ -11,31 +11,31 @@ shared class ExponentiationOperation(base, exponent)
     
     "The base expression."
     see (`value base`)
-    shared actual Precedence1Expression leftChild = base;
+    shared actual Precedence1Expression leftOperand = base;
     "The exponent or power expression."
     see (`value exponent`)
-    shared actual Precedence2Expression rightChild = exponent;
+    shared actual Precedence2Expression rightOperand = exponent;
     
     operator = "^";
     
-    shared actual [Precedence1Expression, Precedence2Expression] children = [leftChild, rightChild];
+    shared actual [Precedence1Expression, Precedence2Expression] children = [leftOperand, rightOperand];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExponentiationOperation(this);
     
     shared actual Boolean equals(Object that) {
         if (is ExponentiationOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ExponentiationOperation copy(Precedence1Expression leftChild = this.leftChild, Precedence2Expression rightChild = this.rightChild) {
-        value ret = ExponentiationOperation(leftChild, rightChild);
+    shared ExponentiationOperation copy(Precedence1Expression leftOperand = this.leftOperand, Precedence2Expression rightOperand = this.rightOperand) {
+        value ret = ExponentiationOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

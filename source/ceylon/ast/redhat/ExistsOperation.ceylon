@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Exists|JExists]] to a `ceylon.ast` [[ExistsOperation]]."
 shared ExistsOperation existsOperationToCeylon(JExists existsOperation) {
     "Check precedence"
-    assert (is Precedence9Expression child = expressionToCeylon(existsOperation.term));
-    return ExistsOperation(child);
+    assert (is Precedence9Expression operand = expressionToCeylon(existsOperation.term));
+    return ExistsOperation(operand);
 }
 
 "Compiles the given [[code]] for an Exists Operation

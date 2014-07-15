@@ -11,12 +11,12 @@ shared class MeasureOperation(first, size)
     
     "The first element of the measured range."
     see (`value first`)
-    shared actual Precedence8Expression leftChild = first;
+    shared actual Precedence8Expression leftOperand = first;
     "The size of the measured range."
     see (`value size`)
-    shared actual Precedence8Expression rightChild = size;
+    shared actual Precedence8Expression rightOperand = size;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [leftChild, rightChild];
+    shared actual [Precedence8Expression, Precedence8Expression] children = [leftOperand, rightOperand];
     
     operator = ":";
     
@@ -25,17 +25,17 @@ shared class MeasureOperation(first, size)
     
     shared actual Boolean equals(Object that) {
         if (is MeasureOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared MeasureOperation copy(Precedence8Expression leftChild = this.leftChild, Precedence8Expression rightChild = this.rightChild) {
-        value ret = MeasureOperation(leftChild, rightChild);
+    shared MeasureOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence8Expression rightOperand = this.rightOperand) {
+        value ret = MeasureOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

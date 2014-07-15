@@ -1,19 +1,19 @@
 "A set union expression.
  
  Defined via [[Set.union]]. Left-associative."
-shared class UnionOperation(leftChild_, rightChild_)
+shared class UnionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     
-    // TODO leftChild_, rightChild_ are a workaround for ceylon-compiler#1728; remove!
-    Precedence5Expression leftChild_;
-    Precedence4Expression rightChild_;
+    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728; remove!
+    Precedence5Expression leftOperand_;
+    Precedence4Expression rightOperand_;
     
     "The left unioned set."
-    shared actual Precedence5Expression leftChild = leftChild_;
+    shared actual Precedence5Expression leftOperand = leftOperand_;
     "The right unioned set."
-    shared actual Precedence4Expression rightChild = rightChild_;
+    shared actual Precedence4Expression rightOperand = rightOperand_;
     
-    shared actual [Precedence5Expression, Precedence4Expression] children = [leftChild, rightChild];
+    shared actual [Precedence5Expression, Precedence4Expression] children = [leftOperand, rightOperand];
     
     operator = "|";
     
@@ -22,17 +22,17 @@ shared class UnionOperation(leftChild_, rightChild_)
     
     shared actual Boolean equals(Object that) {
         if (is UnionOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared UnionOperation copy(Precedence5Expression leftChild = this.leftChild, Precedence4Expression rightChild = this.rightChild) {
-        value ret = UnionOperation(leftChild, rightChild);
+    shared UnionOperation copy(Precedence5Expression leftOperand = this.leftOperand, Precedence4Expression rightOperand = this.rightOperand) {
+        value ret = UnionOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

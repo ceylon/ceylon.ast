@@ -1,9 +1,9 @@
 "A postfix decrement expression (`i--`)."
-shared class PostfixDecrementOperation(child)
+shared class PostfixDecrementOperation(operand)
         extends PostfixOperation() {
     
     "The decremented primary."
-    shared actual Primary child;
+    shared actual Primary operand;
     
     operator = "--";
     
@@ -12,17 +12,17 @@ shared class PostfixDecrementOperation(child)
     
     shared actual Boolean equals(Object that) {
         if (is PostfixDecrementOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared PostfixDecrementOperation copy(Primary child = this.child) {
-        value ret = PostfixDecrementOperation(child);
+    shared PostfixDecrementOperation copy(Primary operand = this.operand) {
+        value ret = PostfixDecrementOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

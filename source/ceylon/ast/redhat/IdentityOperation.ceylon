@@ -10,8 +10,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[PositiveOp|JPositiveOp]] to a `ceylon.ast` [[IdentityOperation]]."
 shared IdentityOperation identityOperationToCeylon(JPositiveOp identityOperation) {
-    assert (is Precedence2Expression child = expressionToCeylon(identityOperation.term));
-    return IdentityOperation(child);
+    assert (is Precedence2Expression operand = expressionToCeylon(identityOperation.term));
+    return IdentityOperation(operand);
 }
 
 "Compiles the given [[code]] for an Identity Operation

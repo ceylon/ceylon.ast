@@ -11,12 +11,12 @@ shared class SumOperation(leftSummand, rightSummand)
     
     "The left summand."
     see (`value leftSummand`)
-    shared actual Precedence8Expression leftChild = leftSummand;
+    shared actual Precedence8Expression leftOperand = leftSummand;
     "The right summand."
     see (`value rightSummand`)
-    shared actual Precedence7Expression rightChild = rightSummand;
+    shared actual Precedence7Expression rightOperand = rightSummand;
     
-    shared actual [Precedence8Expression, Precedence7Expression] children = [leftChild, rightChild];
+    shared actual [Precedence8Expression, Precedence7Expression] children = [leftOperand, rightOperand];
     
     operator = "+";
     
@@ -25,17 +25,17 @@ shared class SumOperation(leftSummand, rightSummand)
     
     shared actual Boolean equals(Object that) {
         if (is SumOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SumOperation copy(Precedence8Expression leftChild = this.leftChild, Precedence7Expression rightChild = this.rightChild) {
-        value ret = SumOperation(leftChild, rightChild);
+    shared SumOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+        value ret = SumOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

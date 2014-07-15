@@ -1,16 +1,16 @@
 "A nonempty postfix expression.
  
  No associativity."
-shared class NonemptyOperation(child_)
+shared class NonemptyOperation(operand_)
         extends UnaryOperation() {
     
-    // TODO child_ is a workaround for ceylon-compiler#1728, remove!
-    shared Precedence9Expression child_;
+    // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
+    shared Precedence9Expression operand_;
     
-    "The child expression whose nonemptiness is tested."
-    shared actual Precedence9Expression child = child_;
+    "The operand expression whose nonemptiness is tested."
+    shared actual Precedence9Expression operand = operand_;
     
-    shared actual [Precedence9Expression] children = [child];
+    shared actual [Precedence9Expression] children = [operand];
     
     operator = "nonempty";
     
@@ -21,17 +21,17 @@ shared class NonemptyOperation(child_)
     
     shared actual Boolean equals(Object that) {
         if (is NonemptyOperation that) {
-            return child == that.child;
+            return operand == that.operand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * child.hash;
+            => 31 * operand.hash;
     
-    shared NonemptyOperation copy(Precedence9Expression child = this.child) {
-        value ret = NonemptyOperation(child);
+    shared NonemptyOperation copy(Precedence9Expression operand = this.operand) {
+        value ret = NonemptyOperation(operand);
         copyExtraInfoTo(ret);
         return ret;
     }

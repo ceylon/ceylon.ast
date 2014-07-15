@@ -11,12 +11,12 @@ shared class RemainderOperation(dividend, divisor)
     
     "The dividend, or numerator."
     see (`value dividend`)
-    shared actual Precedence6Expression leftChild = dividend;
+    shared actual Precedence6Expression leftOperand = dividend;
     "The divisor, or denominator."
     see (`value divisor`)
-    shared actual Precedence5Expression rightChild = divisor;
+    shared actual Precedence5Expression rightOperand = divisor;
     
-    shared actual [Precedence6Expression, Precedence5Expression] children = [leftChild, rightChild];
+    shared actual [Precedence6Expression, Precedence5Expression] children = [leftOperand, rightOperand];
     
     operator = "%";
     
@@ -25,17 +25,17 @@ shared class RemainderOperation(dividend, divisor)
     
     shared actual Boolean equals(Object that) {
         if (is RemainderOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared RemainderOperation copy(Precedence6Expression leftChild = this.leftChild, Precedence5Expression rightChild = this.rightChild) {
-        value ret = RemainderOperation(leftChild, rightChild);
+    shared RemainderOperation copy(Precedence6Expression leftOperand = this.leftOperand, Precedence5Expression rightOperand = this.rightOperand) {
+        value ret = RemainderOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

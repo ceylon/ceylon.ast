@@ -11,12 +11,12 @@ shared class ProductOperation(leftFactor, rightFactor)
     
     "The left factor."
     see (`value leftFactor`)
-    shared actual Precedence6Expression leftChild = leftFactor;
+    shared actual Precedence6Expression leftOperand = leftFactor;
     "The right factor."
     see (`value rightFactor`)
-    shared actual Precedence5Expression rightChild = rightFactor;
+    shared actual Precedence5Expression rightOperand = rightFactor;
     
-    shared actual [Precedence6Expression, Precedence5Expression] children = [leftChild, rightChild];
+    shared actual [Precedence6Expression, Precedence5Expression] children = [leftOperand, rightOperand];
     
     operator = "*";
     
@@ -25,17 +25,17 @@ shared class ProductOperation(leftFactor, rightFactor)
     
     shared actual Boolean equals(Object that) {
         if (is ProductOperation that) {
-            return leftChild == that.leftChild && rightChild == that.rightChild;
+            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftChild.hash + 31 * rightChild.hash);
+            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ProductOperation copy(Precedence6Expression leftChild = this.leftChild, Precedence5Expression rightChild = this.rightChild) {
-        value ret = ProductOperation(leftChild, rightChild);
+    shared ProductOperation copy(Precedence6Expression leftOperand = this.leftOperand, Precedence5Expression rightOperand = this.rightOperand) {
+        value ret = ProductOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;
     }

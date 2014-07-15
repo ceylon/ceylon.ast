@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JAndOp=AndOp,
         JArithmeticOp=ArithmeticOp,
         JAtom=Atom,
         JBaseMemberExpression=BaseMemberExpression,
@@ -40,6 +41,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
+        JLogicalOp=LogicalOp,
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
@@ -50,6 +52,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOfOp=OfOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
+        JOrOp=OrOp,
         JOuter=Outer,
         JPackage=Package,
         JPositiveOp=PositiveOp,
@@ -94,6 +97,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
+        and_op=\iAND_OP,
         backtick=\iBACKTICK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
@@ -122,6 +126,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         not_equal_op=\iNOT_EQUAL_OP,
         not_op=\iNOT_OP,
         optionalType=\iOPTIONAL,
+        or_op=\iOR_OP,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
         power_op=\iPOWER_OP,
@@ -150,6 +155,14 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     
+    shared actual JAndOp transformAndOperation(AndOperation that) {
+        JTerm left = transformPrecedence14Expression(that.leftOperand);
+        JAndOp ret = JAndOp(tokens.token(that.operator, and_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence14Expression(that.rightOperand);
+        return ret;
+    }
+    
     shared actual JArithmeticOp transformArithmeticOperation(ArithmeticOperation that) {
         assert (is JArithmeticOp ret = super.transformArithmeticOperation(that));
         return ret;
@@ -177,6 +190,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         } else {
             ret.typeArguments = JInferredTypeArguments(null);
         }
+        return ret;
+    }
+    
+    shared actual JLogicalOp transformLogicalOperation(LogicalOperation that) {
+        assert (is JLogicalOp ret = super.transformLogicalOperation(that));
         return ret;
     }
     
@@ -317,6 +335,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JNotOp transformNotOperation(NotOperation that) {
         JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
         ret.term = transformPrecedence13Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JOrOp transformOrOperation(OrOperation that) {
+        JTerm left = transformPrecedence15Expression(that.leftOperand);
+        JOrOp ret = JOrOp(tokens.token(that.operator, or_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
         return ret;
     }
     
@@ -632,6 +658,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence13Expression(Precedence13Expression that) {
         assert (is JTerm ret = super.transformPrecedence13Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence14Expression(Precedence14Expression that) {
+        assert (is JTerm ret = super.transformPrecedence14Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence15Expression(Precedence15Expression that) {
+        assert (is JTerm ret = super.transformPrecedence15Expression(that));
         return ret;
     }
     

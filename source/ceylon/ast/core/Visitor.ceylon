@@ -12,6 +12,7 @@
  and if you need to perform some operation only for some node type that might appear
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
+    transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformArithmeticOperation(ArithmeticOperation that) => visitArithmeticOperation(that);
     transformAtom(Atom that) => visitAtom(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
@@ -52,6 +53,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
     transformLiteral(Literal that) => visitLiteral(that);
+    transformLogicalOperation(LogicalOperation that) => visitLogicalOperation(that);
     transformMainType(MainType that) => visitMainType(that);
     transformMeasureOperation(MeasureOperation that) => visitMeasureOperation(that);
     transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
@@ -66,6 +68,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
+    transformOrOperation(OrOperation that) => visitOrOperation(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
@@ -107,6 +110,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     
+    shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitArithmeticOperation(ArithmeticOperation that) => super.transformArithmeticOperation(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
@@ -131,11 +135,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
+    shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
+    shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);

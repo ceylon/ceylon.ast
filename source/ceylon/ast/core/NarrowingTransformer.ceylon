@@ -30,6 +30,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
         case (is CompareOperation) { return transformCompareOperation(that); }
         case (is EqualityOperation) { return transformEqualityOperation(that); }
+        case (is LogicalOperation) { return transformLogicalOperation(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
@@ -74,6 +75,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is StringLiteral) { return transformStringLiteral(that); }
         case (is CharacterLiteral) { return transformCharacterLiteral(that); }
     }
+    shared actual default Result transformLogicalOperation(LogicalOperation that) {
+        switch (that)
+        case (is AndOperation) { return transformAndOperation(that); }
+        case (is OrOperation) { return transformOrOperation(that); }
+    }
     shared actual default Result transformMainType(MainType that) {
         switch (that)
         case (is UnionableType) { return transformUnionableType(that); }
@@ -110,6 +116,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
+    }
+    shared default Result transformPrecedence14Expression(Precedence14Expression that) {
+        switch (that)
+        case (is Precedence13Expression) { return transformPrecedence13Expression(that); }
+        case (is AndOperation) { return transformAndOperation(that); }
+    }
+    shared default Result transformPrecedence15Expression(Precedence15Expression that) {
+        switch (that)
+        case (is Precedence14Expression) { return transformPrecedence14Expression(that); }
+        case (is OrOperation) { return transformOrOperation(that); }
     }
     shared default Result transformPrecedence1Expression(Precedence1Expression that) {
         switch (that)

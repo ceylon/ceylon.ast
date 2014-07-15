@@ -26,6 +26,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
     }
     
+    transformAndOperation(AndOperation that)
+            => "AndOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
@@ -191,6 +196,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 ``indent``}";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
+    transformOrOperation(OrOperation that)
+            => "OrOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";

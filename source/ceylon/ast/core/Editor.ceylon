@@ -23,6 +23,8 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
+    shared actual default AndOperation transformAndOperation(AndOperation that)
+            => that.copy();
     shared actual default ArithmeticOperation transformArithmeticOperation(ArithmeticOperation that) {
         assert (is ArithmeticOperation ret = super.transformArithmeticOperation(that));
         return ret;
@@ -86,6 +88,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
             => that.copy();
+    shared actual default LogicalOperation transformLogicalOperation(LogicalOperation that) {
+        assert (is LogicalOperation ret = super.transformLogicalOperation(that));
+        return ret;
+    }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy();
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
@@ -95,6 +101,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default NotOperation transformNotOperation(NotOperation that)
             => that.copy();
     shared actual default OfOperation transformOfOperation(OfOperation that)
+            => that.copy();
+    shared actual default OrOperation transformOrOperation(OrOperation that)
             => that.copy();
     shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
         assert (is Precedence10Expression ret = super.transformPrecedence10Expression(that));
@@ -110,6 +118,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence13Expression transformPrecedence13Expression(Precedence13Expression that) {
         assert (is Precedence13Expression ret = super.transformPrecedence13Expression(that));
+        return ret;
+    }
+    shared actual default Precedence14Expression transformPrecedence14Expression(Precedence14Expression that) {
+        assert (is Precedence14Expression ret = super.transformPrecedence14Expression(that));
+        return ret;
+    }
+    shared actual default Precedence15Expression transformPrecedence15Expression(Precedence15Expression that) {
+        assert (is Precedence15Expression ret = super.transformPrecedence15Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {

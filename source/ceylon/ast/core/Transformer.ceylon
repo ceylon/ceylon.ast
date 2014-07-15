@@ -12,6 +12,7 @@
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
+    shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseExpression(BaseExpression that);
@@ -52,6 +53,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
     shared formal Result transformLiteral(Literal that);
+    shared formal Result transformLogicalOperation(LogicalOperation that);
     shared formal Result transformMainType(MainType that);
     shared formal Result transformMeasureOperation(MeasureOperation that);
     shared formal Result transformMemberMeta(MemberMeta that);
@@ -66,6 +68,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOperation(Operation that);
     shared formal Result transformOptionalType(OptionalType that);
+    shared formal Result transformOrOperation(OrOperation that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);

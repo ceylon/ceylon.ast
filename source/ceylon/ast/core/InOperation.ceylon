@@ -1,6 +1,24 @@
 "A containment test expression.
  
- Defined via [[Category.contains]]."
+ Defined via [[Category.contains]].
+ 
+ Examples:
+ 
+     digit in (0..9 by 2)
+     user in authorizedUsers
+     input in { \"yes\", \"no\" }
+ 
+ The containment operation is special because the receiver of the method invocation by which it is defined
+ is the [[right-hand side|rightOperand]], not the [[left-hand side|leftOperand]]. In other words,
+ `lhs in rhs` corresponds to
+ 
+     rhs.contains(lhs)
+ 
+ while e. g. `lhs * rhs` corresponds to
+ 
+     lhs.times(rhs)
+ 
+ (the qualifier and argument swapped places)."
 shared class InOperation(element, category)
         extends BinaryOperation() {
     

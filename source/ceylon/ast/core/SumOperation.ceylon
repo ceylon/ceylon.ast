@@ -1,6 +1,11 @@
 "A sum expression.
  
- Defined via [[Summable.plus]]. Left-associative."
+ Defined via [[Summable.plus]]. Left-associative.
+ 
+ Examples:
+ 
+     i + 1
+     firstIndex + size"
 shared class SumOperation(leftSummand, rightSummand)
         extends ArithmeticOperation() {
     

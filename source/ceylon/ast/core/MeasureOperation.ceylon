@@ -1,6 +1,11 @@
 "A measured range expression.
  
- Defined via [[measure]]. No associativity."
+ Defined via [[measure]]. No associativity.
+ 
+ Examples:
+ 
+     0:size
+     today:14"
 shared class MeasureOperation(first, size)
         extends BinaryOperation() {
     

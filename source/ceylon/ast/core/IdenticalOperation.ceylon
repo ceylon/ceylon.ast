@@ -1,6 +1,11 @@
 "An identity test operation.
  
- Defined natively, on objects that satisfy [[Identifiable]]. No associativity."
+ Defined natively, on objects that satisfy [[Identifiable]]. No associativity.
+ 
+ Examples:
+ 
+     node === rootNode
+     this === zero"
 shared class IdenticalOperation(leftOperand_, rightOperand_)
         extends EqualityOperation() {
     

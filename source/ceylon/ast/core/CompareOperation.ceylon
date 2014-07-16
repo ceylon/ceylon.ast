@@ -2,7 +2,12 @@
  
  No associativity.
  
- This is the concrete class for expressions like `first <=> second`;
+ Examples:
+ 
+     first <=> last
+     n <=> 0
+ 
+ This is the concrete class for expressions like `first <=> last`;
  not to be confused with [[ComparisonOperation]], the abstract superclass of expressions like `a <= b` and `x > 3`!"
 shared class CompareOperation(leftOperand_, rightOperand_)
         extends BinaryOperation() {

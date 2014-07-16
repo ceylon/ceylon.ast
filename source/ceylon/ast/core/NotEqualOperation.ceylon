@@ -1,6 +1,11 @@
 "A not equals expression.
  
- Defined via [[Object.equals]]. No associativity."
+ Defined via [[Object.equals]]. No associativity.
+ 
+ Examples:
+ 
+     uid != 0
+     process.arguments.length != 7"
 shared class NotEqualOperation(leftOperand_, rightOperand_)
         extends EqualityOperation() {
     

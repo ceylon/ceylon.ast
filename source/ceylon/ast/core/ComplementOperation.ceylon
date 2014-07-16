@@ -1,6 +1,11 @@
 "A set complement expression.
  
- Defined via [[Set.complement]]. Left-associative."
+ Defined via [[Set.complement]]. Left-associative.
+ 
+ Examples:
+ 
+     receivers~blocked
+     primes ~ HashSet { 2 }"
 shared class ComplementOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

@@ -1,6 +1,11 @@
 "A logical not expression.
  
- Right-associative."
+ Right-associative.
+ 
+ Examples:
+ 
+     !n in primes
+     !predicate(element)"
 shared class NotOperation(operand_)
         extends UnaryOperation() {
     

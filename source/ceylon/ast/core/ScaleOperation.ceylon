@@ -2,7 +2,12 @@
  
  Defined via [[Scalable.scale]]. Right-associative.
  
- The scale operation is unique because the receiver of the method invocation by which it is defined
+ Examples:
+ 
+     2 ** vector
+     brakeFactor ** velocity
+ 
+ The scale operation is special because the receiver of the method invocation by which it is defined
  is the [[right-hand side|rightOperand]], not the [[left-hand side|leftOperand]]. In other words,
  `lhs ** rhs` corresponds to
  

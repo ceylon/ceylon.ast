@@ -1,6 +1,11 @@
 "An exponentiation expression.
  
- Defined via [[Exponentiable.power]]. Right-associative."
+ Defined via [[Exponentiable.power]]. Right-associative.
+ 
+ Examples:
+ 
+     sideLength^dimension
+     e^x"
 shared class ExponentiationOperation(base, exponent)
         extends ArithmeticOperation() {
     

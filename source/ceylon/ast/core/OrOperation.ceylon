@@ -1,6 +1,11 @@
 "A logical disjunction expression.
  
- Left-associative."
+ Left-associative.
+ 
+ Examples:
+ 
+     digit == 0 || digit == 1
+     element in errors || !element exists"
 shared class OrOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     

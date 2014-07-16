@@ -1,6 +1,11 @@
-"A postfix is expression.
+"A postfix assignability test expression.
  
- No associativity."
+ No associativity.
+ 
+ Examples:
+ 
+     element is String|Integer
+     user is ExecutiveUser"
 shared class IsOperation(operand_, type_)
         extends UnaryTypeOperation() {
     

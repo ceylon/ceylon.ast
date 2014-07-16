@@ -1,6 +1,12 @@
 "A spanned range expression.
  
- Defined via [[span]]. No associativity."
+ Defined via [[span]]. No associativity.
+ 
+ Examples:
+ 
+    0..9
+    monday..friday
+    first.successor..last.predecessor"
 shared class SpanOperation(first, last)
         extends BinaryOperation() {
     

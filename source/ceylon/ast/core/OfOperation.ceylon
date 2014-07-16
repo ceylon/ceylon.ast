@@ -1,9 +1,17 @@
-"An of expression.
+"A coverage expression.
  
- No associativity."
+ Narrows or widens the type of an expression to another type that *covers* the expression type.
+ 
+ Defined natively. No associativity.
+ 
+ Examples:
+ 
+     thing of Object?
+     component.parent of Container?"
 shared class OfOperation(operand_, type_)
         extends UnaryTypeOperation() {
     
+    // TODO operand_ and type_ are a workaround for ceylon-compiler#1728; remove!
     Precedence10Expression operand_;
     Type type_;
     

@@ -1,6 +1,11 @@
 "A set union expression.
  
- Defined via [[Set.union]]. Left-associative."
+ Defined via [[Set.union]]. Left-associative.
+ 
+ Examples:
+ 
+     ints|floats
+     x1&y1|x2&y2"
 shared class UnionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

@@ -1,6 +1,11 @@
 "A set intersection expression.
  
- Defined via [[Set.intersection]]. Left-associative."
+ Defined via [[Set.intersection]]. Left-associative.
+ 
+ Examples:
+ 
+     persistents&printables&identifiables
+     x1&y1"
 shared class IntersectionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

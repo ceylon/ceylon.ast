@@ -1,4 +1,4 @@
-"A unary negation operation, that is, `-i`.
+"An arithmetic unary negation operation, that is, `-i`.
  
  This operator is defined in terms of [[Invertible.negated]]."
 shared class NegationOperation(operand_)

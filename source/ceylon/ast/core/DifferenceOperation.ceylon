@@ -1,6 +1,11 @@
 "A difference expression.
  
- Defined via [[Invertible.minus]]. Left-associative."
+ Defined via [[Invertible.minus]]. Left-associative.
+ 
+ Examples:
+ 
+     size - 1
+     lastIndex - firstIndex"
 shared class DifferenceOperation(minuend, subtrahend)
         extends ArithmeticOperation() {
     

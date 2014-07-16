@@ -1,6 +1,11 @@
-"An exists postfix expression.
+"A postfix existence test expression.
  
- No associativity."
+ No associativity.
+ 
+ Examples:
+ 
+     element exists
+     parseInteger(text) exists"
 shared class ExistsOperation(operand_)
         extends UnaryOperation() {
     

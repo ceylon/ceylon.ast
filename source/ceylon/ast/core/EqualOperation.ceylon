@@ -1,6 +1,12 @@
 "An equals expression.
  
- Defined via [[Object.equals]]. No associativity."
+ Defined via [[Object.equals]]. No associativity.
+ 
+ Examples:
+ 
+     length == 1
+     first == last
+     parseInteger(input) == 0"
 shared class EqualOperation(leftOperand_, rightOperand_)
         extends EqualityOperation() {
     

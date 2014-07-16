@@ -1,6 +1,11 @@
 "An entry expression.
  
- Defined via [[Entry]]. No associativity."
+ Defined via [[Entry]]. No associativity.
+ 
+ Examples:
+ 
+     \"1\"->1
+     name->Person(name)"
 shared class EntryOperation(key, item)
         extends BinaryOperation() {
     

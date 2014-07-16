@@ -186,7 +186,7 @@ class ConcreteClassGenerator(
         try (w = file.Appender("UTF-8")) {
             w.writeLine(
                 "import ceylon.ast.core {
-                     ``type``
+                     ``",\n    ".join(sort { type, *params.collect(Entry<String,String>.key) })``
                  }
                  import ceylon.ast.redhat {
                      RedHatTransformer,
@@ -200,12 +200,16 @@ class ConcreteClassGenerator(
                  }
                  
                  shared object ``ltype`` satisfies ConcreteTest<``type``,J``type``> {
-                     // TODO add sample(s)
+                     
+                     String->``type`` construct(``", ".join { for (param in params) "String->``param.key`` ``param.item``" }``)
+                             => \"\`\```"\`\`TODO\`\`".join { for (param in params) "``param.item``.key" }``->``type``(``", ".join { for (param in params) "``param.item``.item" }``);
+                     
+                     shared String->``type`` todo = construct(``", ".join { for (param in params) "``initLCase(param.key)``.todo" }``);
                      
                      compile = compile``type``;
                      fromCeylon = RedHatTransformer.transform``type``;
                      toCeylon = ``ltype``ToCeylon;
-                     codes = [/* TODO add samples */];
+                     codes = [todo];
                  }");
         }
     }

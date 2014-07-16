@@ -32,8 +32,8 @@ ConcreteClassGenerator makeConcreteClassGenerator(String[] arguments) {
 }
 
 AliasGenerator makeAliasGenerator(String[] arguments) {
-    assert (exists type = arguments[0], exists cases = arguments[1]);
-    return AliasGenerator(type, cases.split('|'.equals).sequence(), readDoc());
+    assert (exists type = arguments[0], nonempty cases = arguments[1...]);
+    return AliasGenerator(type, cases, readDoc());
 }
 
 AbstractClassGenerator makeAbstractClassGenerator(String[] arguments) {

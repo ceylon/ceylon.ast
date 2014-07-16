@@ -117,16 +117,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
     }
-    shared default Result transformPrecedence14Expression(Precedence14Expression that) {
-        switch (that)
-        case (is Precedence13Expression) { return transformPrecedence13Expression(that); }
-        case (is AndOperation) { return transformAndOperation(that); }
-    }
-    shared default Result transformPrecedence15Expression(Precedence15Expression that) {
-        switch (that)
-        case (is Precedence14Expression) { return transformPrecedence14Expression(that); }
-        case (is OrOperation) { return transformOrOperation(that); }
-    }
     shared default Result transformPrecedence1Expression(Precedence1Expression that) {
         switch (that)
         case (is Primary) { return transformPrimary(that); }
@@ -203,6 +193,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Precedence12Expression) { return transformPrecedence12Expression(that); }
         case (is NotOperation) { return transformNotOperation(that); }
+    }
+    shared default Result transformPrecedence14Expression(Precedence14Expression that) {
+        switch (that)
+        case (is Precedence13Expression) { return transformPrecedence13Expression(that); }
+        case (is AndOperation) { return transformAndOperation(that); }
+    }
+    shared default Result transformPrecedence15Expression(Precedence15Expression that) {
+        switch (that)
+        case (is Precedence14Expression) { return transformPrecedence14Expression(that); }
+        case (is OrOperation) { return transformOrOperation(that); }
     }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)

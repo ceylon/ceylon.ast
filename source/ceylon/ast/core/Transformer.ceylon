@@ -14,6 +14,8 @@
 shared interface Transformer<out Result> {
     shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
+    shared formal Result transformAssignOperation(AssignOperation that);
+    shared formal Result transformAssignmentOperation(AssignmentOperation that);
     shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);

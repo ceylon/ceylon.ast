@@ -5,6 +5,8 @@ see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
+    shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);

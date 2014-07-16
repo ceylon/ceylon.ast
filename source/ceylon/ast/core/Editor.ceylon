@@ -30,6 +30,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     
+    shared actual default AssignOperation transformAssignOperation(AssignOperation that)
+            => that.copy();
+    shared actual default AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {
+        assert (is AssignmentOperation ret = super.transformAssignmentOperation(that));
+        return ret;
+    }
     shared actual default Atom transformAtom(Atom that) {
         assert (is Atom ret = super.transformAtom(that));
         return ret;
@@ -132,6 +138,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence16Expression transformPrecedence16Expression(Precedence16Expression that) {
         assert (is Precedence16Expression ret = super.transformPrecedence16Expression(that));
+        return ret;
+    }
+    shared actual default Precedence17Expression transformPrecedence17Expression(Precedence17Expression that) {
+        assert (is Precedence17Expression ret = super.transformPrecedence17Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {

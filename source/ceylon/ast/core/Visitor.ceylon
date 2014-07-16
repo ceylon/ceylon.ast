@@ -14,6 +14,8 @@
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
     transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformArithmeticOperation(ArithmeticOperation that) => visitArithmeticOperation(that);
+    transformAssignOperation(AssignOperation that) => visitAssignOperation(that);
+    transformAssignmentOperation(AssignmentOperation that) => visitAssignmentOperation(that);
     transformAtom(Atom that) => visitAtom(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
@@ -114,6 +116,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitArithmeticOperation(ArithmeticOperation that) => super.transformArithmeticOperation(that);
+    shared default void visitAssignOperation(AssignOperation that) => super.transformAssignOperation(that);
+    shared default void visitAssignmentOperation(AssignmentOperation that) => super.transformAssignmentOperation(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);

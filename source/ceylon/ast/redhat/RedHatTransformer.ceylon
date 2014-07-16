@@ -6,6 +6,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAndOp=AndOp,
         JArithmeticOp=ArithmeticOp,
+        JAssignmentOp=AssignmentOp,
+        JAssignOp=AssignOp,
         JAtom=Atom,
         JBaseMemberExpression=BaseMemberExpression,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
@@ -169,6 +171,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JArithmeticOp transformArithmeticOperation(ArithmeticOperation that) {
         assert (is JArithmeticOp ret = super.transformArithmeticOperation(that));
+        return ret;
+    }
+    
+    shared actual JAssignOp transformAssignOperation(AssignOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JAssignOp ret = JAssignOp(tokens.token(that.operator, specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JAssignmentOp transformAssignmentOperation(AssignmentOperation that) {
+        assert (is JAssignmentOp ret = super.transformAssignmentOperation(that));
         return ret;
     }
     
@@ -685,6 +700,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence16Expression(Precedence16Expression that) {
         assert (is JTerm ret = super.transformPrecedence16Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence17Expression(Precedence17Expression that) {
+        assert (is JTerm ret = super.transformPrecedence17Expression(that));
         return ret;
     }
     

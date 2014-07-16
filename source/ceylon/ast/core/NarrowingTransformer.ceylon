@@ -12,6 +12,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SumOperation) { return transformSumOperation(that); }
         case (is DifferenceOperation) { return transformDifferenceOperation(that); }
     }
+    shared actual default Result transformAssignmentOperation(AssignmentOperation that) {
+        switch (that)
+        case (is AssignOperation) { return transformAssignOperation(that); }
+    }
     shared actual default Result transformAtom(Atom that) {
         switch (that)
         case (is Literal) { return transformLiteral(that); }
@@ -33,6 +37,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is LogicalOperation) { return transformLogicalOperation(that); }
         case (is ThenOperation) { return transformThenOperation(that); }
         case (is ElseOperation) { return transformElseOperation(that); }
+        case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
@@ -118,6 +123,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
+    }
+    shared default Result transformPrecedence17Expression(Precedence17Expression that) {
+        switch (that)
+        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
+        case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
     shared default Result transformPrecedence1Expression(Precedence1Expression that) {
         switch (that)

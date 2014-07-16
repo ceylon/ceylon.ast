@@ -22,6 +22,9 @@ shared object notOperation satisfies ConcreteTest<NotOperation,JNotOp> {
     shared String->NotOperation notAIsPersistentAndPrintableAndIdentifiableExpression = construct(isOperation.aIsPersistentAndPrintableAndIdentifiableExpression);
     shared String->NotOperation notCInAIntersectBExpression = construct(inOperation.cInAIntersectBExpression);
     
+    // not tested directly, but used by other tests
+    shared String->NotOperation notNameEmptyExpression = construct(qualifiedExpression.nameEmptyExpression);
+    
     compile = compileNotOperation;
     fromCeylon = RedHatTransformer.transformNotOperation;
     toCeylon = notOperationToCeylon;

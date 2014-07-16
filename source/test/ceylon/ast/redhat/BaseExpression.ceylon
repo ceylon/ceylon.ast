@@ -27,6 +27,8 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression bExpression = "b"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("b")));
     shared String->BaseExpression cExpression = "c"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("c")));
     shared String->BaseExpression trueExpression = "true"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("true")));
+    shared String->BaseExpression parsedIntExpression = "parsedInt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("parsedInt")));
+    shared String->BaseExpression nameExpression = "name"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("name")));
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

@@ -57,6 +57,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformElseOperation(ElseOperation that)
+            => "ElseOperation {
+                `` indent + indentLevel ``optionalValue = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``defaultValue = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformEntryOperation(EntryOperation that)
             => "EntryOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -260,6 +265,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformSuper(Super that) => "Super()";
+    transformThenOperation(ThenOperation that)
+            => "ThenOperation {
+                `` indent + indentLevel ``condition = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``result = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformThis(This that) => "This()";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     shared actual String transformTypeList(TypeList that) {

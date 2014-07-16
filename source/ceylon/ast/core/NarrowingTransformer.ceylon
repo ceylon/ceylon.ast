@@ -31,6 +31,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is CompareOperation) { return transformCompareOperation(that); }
         case (is EqualityOperation) { return transformEqualityOperation(that); }
         case (is LogicalOperation) { return transformLogicalOperation(that); }
+        case (is ThenOperation) { return transformThenOperation(that); }
+        case (is ElseOperation) { return transformElseOperation(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
@@ -203,6 +205,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Precedence14Expression) { return transformPrecedence14Expression(that); }
         case (is OrOperation) { return transformOrOperation(that); }
+    }
+    shared default Result transformPrecedence16Expression(Precedence16Expression that) {
+        switch (that)
+        case (is Precedence15Expression) { return transformPrecedence15Expression(that); }
+        case (is ThenOperation) { return transformThenOperation(that); }
+        case (is ElseOperation) { return transformElseOperation(that); }
     }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)

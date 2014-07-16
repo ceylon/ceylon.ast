@@ -28,6 +28,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDec(Dec that) => visitDec(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
+    transformElseOperation(ElseOperation that) => visitElseOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
     transformEntryType(EntryType that) => visitEntryType(that);
     transformEqualOperation(EqualOperation that) => visitEqualOperation(that);
@@ -94,6 +95,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformSumOperation(SumOperation that) => visitSumOperation(that);
     transformSuper(Super that) => visitSuper(that);
+    transformThenOperation(ThenOperation that) => visitThenOperation(that);
     transformThis(This that) => visitThis(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
@@ -126,6 +128,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
+    shared default void visitElseOperation(ElseOperation that) => super.transformElseOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
     shared default void visitEqualOperation(EqualOperation that) => super.transformEqualOperation(that);
     shared default void visitEqualityOperation(EqualityOperation that) => super.transformEqualityOperation(that);
@@ -192,6 +195,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);
+    shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);
     shared default void visitThis(This that) => super.transformThis(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);

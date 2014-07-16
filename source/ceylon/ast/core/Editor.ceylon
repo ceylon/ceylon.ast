@@ -68,6 +68,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy();
+    shared actual default ElseOperation transformElseOperation(ElseOperation that)
+            => that.copy();
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
             => that.copy();
     shared actual default EqualOperation transformEqualOperation(EqualOperation that)
@@ -126,6 +128,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default Precedence15Expression transformPrecedence15Expression(Precedence15Expression that) {
         assert (is Precedence15Expression ret = super.transformPrecedence15Expression(that));
+        return ret;
+    }
+    shared actual default Precedence16Expression transformPrecedence16Expression(Precedence16Expression that) {
+        assert (is Precedence16Expression ret = super.transformPrecedence16Expression(that));
         return ret;
     }
     shared actual default Precedence7Expression transformPrecedence7Expression(Precedence7Expression that) {
@@ -300,6 +306,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default SumOperation transformSumOperation(SumOperation that)
             => that.copy();
     shared actual default Super transformSuper(Super that)
+            => that.copy();
+    shared actual default ThenOperation transformThenOperation(ThenOperation that)
             => that.copy();
     shared actual default This transformThis(This that)
             => that.copy();

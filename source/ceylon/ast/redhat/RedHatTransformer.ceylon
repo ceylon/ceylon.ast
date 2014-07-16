@@ -19,6 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JComplementOp=ComplementOp,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
+        JDefaultOp=DefaultOp,
         JDifferenceOp=DifferenceOp,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
@@ -83,6 +84,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSumOp=SumOp,
         JSuper=Super,
         JTerm=Term,
+        JThenOp=ThenOp,
         JThis=This,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
@@ -105,6 +107,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         complement_op=\iCOMPLEMENT_OP,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
+        else_clause=\iELSE_CLAUSE,
         entry_op=\iENTRY_OP,
         equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
@@ -145,6 +148,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         string_literal=\iSTRING_LITERAL,
         sum_op=\iSUM_OP,
         superType=\iSUPER,
+        then_clause=\iTHEN_CLAUSE,
         thisType=\iTHIS,
         type_constraint=\iTYPE_CONSTRAINT,
         uidentifier=\iUIDENTIFIER,
@@ -288,6 +292,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JDefaultOp transformElseOperation(ElseOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JDefaultOp ret = JDefaultOp(tokens.token(that.operator, else_clause));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
         return ret;
     }
     
@@ -671,6 +683,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformPrecedence16Expression(Precedence16Expression that) {
+        assert (is JTerm ret = super.transformPrecedence16Expression(that));
+        return ret;
+    }
+    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.operand);
@@ -833,6 +850,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSuper transformSuper(Super that)
             => JSuper(tokens.token("super", superType));
+    
+    shared actual JThenOp transformThenOperation(ThenOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JThenOp ret = JThenOp(tokens.token(that.operator, then_clause));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
+        return ret;
+    }
     
     shared actual JThis transformThis(This that)
             => JThis(tokens.token("this", thisType));

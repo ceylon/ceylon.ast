@@ -193,11 +193,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JLogicalOp transformLogicalOperation(LogicalOperation that) {
-        assert (is JLogicalOp ret = super.transformLogicalOperation(that));
-        return ret;
-    }
-    
     shared actual JMemberLiteral transformBaseMeta(BaseMeta that) {
         JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
@@ -475,6 +470,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
+        return ret;
+    }
+    
+    shared actual JLogicalOp transformLogicalOperation(LogicalOperation that) {
+        assert (is JLogicalOp ret = super.transformLogicalOperation(that));
         return ret;
     }
     

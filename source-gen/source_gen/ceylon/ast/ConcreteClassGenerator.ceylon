@@ -202,7 +202,7 @@ class ConcreteClassGenerator(
                  shared object ``ltype`` satisfies ConcreteTest<``type``,J``type``> {
                      
                      String->``type`` construct(``", ".join { for (param in params) "String->``param.key`` ``param.item``" }``)
-                             => \"\`\```"\`\`TODO\`\`".join { for (param in params) "``param.item``.key" }``->``type``(``", ".join { for (param in params) "``param.item``.item" }``);
+                             => \"\`\```"\`\`TODO\`\`".join { for (param in params) "``param.item``.key" }``\`\`\"->``type``(``", ".join { for (param in params) "``param.item``.item" }``);
                      
                      shared String->``type`` todo = construct(``", ".join { for (param in params) "``initLCase(param.key)``.todo" }``);
                      

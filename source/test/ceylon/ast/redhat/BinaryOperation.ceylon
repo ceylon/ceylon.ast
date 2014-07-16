@@ -17,5 +17,5 @@ shared object binaryOperation satisfies AbstractTest<BinaryOperation,JBinaryOper
     fromCeylon = RedHatTransformer.transformBinaryOperation;
     toCeylon = binaryOperationToCeylon;
     
-    tests = [arithmeticOperation, setOperation, scaleOperation, spanOperation, measureOperation, entryOperation, inOperation, comparisonOperation, compareOperation, equalityOperation, logicalOperation, thenOperation, elseOperation];
+    tests = [arithmeticOperation, setOperation, scaleOperation, spanOperation, measureOperation, entryOperation, inOperation, comparisonOperation, compareOperation, equalityOperation, logicalOperation, thenOperation, elseOperation, assignOperation];
 }

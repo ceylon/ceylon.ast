@@ -21,6 +21,9 @@ shared object elseOperation satisfies ConcreteTest<ElseOperation,JDefaultOp> {
     
     shared String->ElseOperation parsedIntElse0LiteralExpression = construct(baseExpression.parsedIntExpression, integerLiteral._0IntegerLiteral);
     
+    // not tested directly, but used by other tests
+    shared String->ElseOperation nameElseWorldStringLiteralExpression = construct(baseExpression.nameExpression, stringLiteral.worldStringLiteral);
+    
     compile = compileElseOperation;
     fromCeylon = RedHatTransformer.transformElseOperation;
     toCeylon = elseOperationToCeylon;

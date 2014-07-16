@@ -22,6 +22,7 @@ shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JExpres
     
     // not tested directly, but used by other tests
     shared String->GroupedExpression aIntersectBGroupedExpression = construct(intersectionOperation.aIntersectBExpression);
+    shared String->GroupedExpression nameElseWorldStringLiteralGroupedExpression = construct(elseOperation.nameElseWorldStringLiteralExpression);
     
     compile = compileGroupedExpression;
     fromCeylon = RedHatTransformer.transformGroupedExpression;

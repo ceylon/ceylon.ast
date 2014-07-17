@@ -17,5 +17,5 @@ shared object assignmentOperation satisfies AbstractTest<AssignmentOperation,JAs
     fromCeylon = RedHatTransformer.transformAssignmentOperation;
     toCeylon = assignmentOperationToCeylon;
     
-    tests = [assignOperation, arithmeticAssignmentOperation];
+    tests = [assignOperation, arithmeticAssignmentOperation, setAssignmentOperation];
 }

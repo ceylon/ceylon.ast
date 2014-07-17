@@ -28,6 +28,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
     transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
+    transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
     transformDec(Dec that) => visitDec(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
@@ -51,6 +52,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
     transformInOperation(InOperation that) => visitInOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => visitIntersectAssignmentOperation(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformIsOperation(IsOperation that) => visitIsOperation(that);
@@ -94,6 +96,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformScaleOperation(ScaleOperation that) => visitScaleOperation(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
+    transformSetAssignmentOperation(SetAssignmentOperation that) => visitSetAssignmentOperation(that);
     transformSetOperation(SetOperation that) => visitSetOperation(that);
     transformSimpleType(SimpleType that) => visitSimpleType(that);
     transformSmallAsOperation(SmallAsOperation that) => visitSmallAsOperation(that);
@@ -116,6 +119,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnaryIshOperation(UnaryIshOperation that) => visitUnaryIshOperation(that);
     transformUnaryOperation(UnaryOperation that) => visitUnaryOperation(that);
     transformUnaryTypeOperation(UnaryTypeOperation that) => visitUnaryTypeOperation(that);
+    transformUnionAssignmentOperation(UnionAssignmentOperation that) => visitUnionAssignmentOperation(that);
     transformUnionOperation(UnionOperation that) => visitUnionOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
@@ -136,6 +140,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
     shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
+    shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
@@ -148,6 +153,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
+    shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
@@ -202,6 +208,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitScaleOperation(ScaleOperation that) => super.transformScaleOperation(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);
+    shared default void visitSetAssignmentOperation(SetAssignmentOperation that) => super.transformSetAssignmentOperation(that);
     shared default void visitSetOperation(SetOperation that) => super.transformSetOperation(that);
     shared default void visitSimpleType(SimpleType that) => super.transformSimpleType(that);
     shared default void visitSmallAsOperation(SmallAsOperation that) => super.transformSmallAsOperation(that);
@@ -224,6 +231,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitUnaryIshOperation(UnaryIshOperation that) => super.transformUnaryIshOperation(that);
     shared default void visitUnaryOperation(UnaryOperation that) => super.transformUnaryOperation(that);
     shared default void visitUnaryTypeOperation(UnaryTypeOperation that) => super.transformUnaryTypeOperation(that);
+    shared default void visitUnionAssignmentOperation(UnionAssignmentOperation that) => super.transformUnionAssignmentOperation(that);
     shared default void visitUnionOperation(UnionOperation that) => super.transformUnionOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);

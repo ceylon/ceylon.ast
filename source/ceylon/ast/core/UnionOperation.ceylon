@@ -6,6 +6,7 @@
  
      ints|floats
      x1&y1|x2&y2"
+see (`class UnionAssignmentOperation`)
 shared class UnionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

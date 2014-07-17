@@ -70,6 +70,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is CompilationUnit ret = super.transformCompilationUnit(that));
         return ret;
     }
+    shared actual default ComplementAssignmentOperation transformComplementAssignmentOperation(ComplementAssignmentOperation that)
+            => that.copy();
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => that.copy();
     shared actual default Dec transformDec(Dec that) {
@@ -97,6 +99,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default IdenticalOperation transformIdenticalOperation(IdenticalOperation that)
             => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)
+            => that.copy();
+    shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => that.copy();
     shared actual default IsOperation transformIsOperation(IsOperation that)
             => that.copy();
@@ -309,6 +313,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default SequentialType transformSequentialType(SequentialType that)
             => that.copy(transformPrimaryType(that.elementType));
+    shared actual default SetAssignmentOperation transformSetAssignmentOperation(SetAssignmentOperation that) {
+        assert (is SetAssignmentOperation ret = super.transformSetAssignmentOperation(that));
+        return ret;
+    }
     shared actual default SetOperation transformSetOperation(SetOperation that) {
         assert (is SetOperation ret = super.transformSetOperation(that));
         return ret;
@@ -389,6 +397,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is UnaryTypeOperation ret = super.transformUnaryTypeOperation(that));
         return ret;
     }
+    shared actual default UnionAssignmentOperation transformUnionAssignmentOperation(UnionAssignmentOperation that)
+            => that.copy();
     shared actual default UnionOperation transformUnionOperation(UnionOperation that)
             => that.copy();
     shared actual default UnionableType transformUnionableType(UnionableType that) {

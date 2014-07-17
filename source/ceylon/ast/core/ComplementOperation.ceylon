@@ -6,6 +6,7 @@
  
      receivers~blocked
      primes ~ HashSet { 2 }"
+see (`class ComplementAssignmentOperation`)
 shared class ComplementOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

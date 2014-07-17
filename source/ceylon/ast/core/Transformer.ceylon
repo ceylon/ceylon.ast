@@ -28,6 +28,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCompareOperation(CompareOperation that);
     shared formal Result transformComparisonOperation(ComparisonOperation that);
     shared formal Result transformCompilationUnit(CompilationUnit that);
+    shared formal Result transformComplementAssignmentOperation(ComplementAssignmentOperation that);
     shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
@@ -51,6 +52,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdentityOperation(IdentityOperation that);
     shared formal Result transformInOperation(InOperation that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that);
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformIsOperation(IsOperation that);
@@ -95,6 +97,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);
+    shared formal Result transformSetAssignmentOperation(SetAssignmentOperation that);
     shared formal Result transformSetOperation(SetOperation that);
     shared formal Result transformSimpleType(SimpleType that);
     shared formal Result transformSmallAsOperation(SmallAsOperation that);
@@ -118,6 +121,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformUnaryIshOperation(UnaryIshOperation that);
     shared formal Result transformUnaryOperation(UnaryOperation that);
     shared formal Result transformUnaryTypeOperation(UnaryTypeOperation that);
+    shared formal Result transformUnionAssignmentOperation(UnionAssignmentOperation that);
     shared formal Result transformUnionOperation(UnionOperation that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);

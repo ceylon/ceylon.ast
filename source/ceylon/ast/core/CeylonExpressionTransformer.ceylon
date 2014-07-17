@@ -56,6 +56,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
+    transformComplementAssignmentOperation(ComplementAssignmentOperation that)
+            => "ComplementAssignmentOperation {
+                `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
+                `` indent + indentLevel ``other = ``transformWithIndent(that.other)``;
+                ``indent``}";
     transformComplementOperation(ComplementOperation that)
             => "ComplementOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -134,6 +139,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         indent = origIndent;
         return code.string;
     }
+    transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
+            => "IntersectAssignmentOperation {
+                `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
+                `` indent + indentLevel ``other = ``transformWithIndent(that.other)``;
+                ``indent``}";
     transformIntersectionOperation(IntersectionOperation that)
             => "IntersectionOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -396,6 +406,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         indent = origIndent;
         return code.string;
     }
+    transformUnionAssignmentOperation(UnionAssignmentOperation that)
+            => "UnionAssignmentOperation {
+                `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
+                `` indent + indentLevel ``other = ``transformWithIndent(that.other)``;
+                ``indent``}";
     transformUnionOperation(UnionOperation that)
             => "UnionOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

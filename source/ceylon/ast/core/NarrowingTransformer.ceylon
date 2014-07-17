@@ -24,6 +24,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is AssignOperation) { return transformAssignOperation(that); }
         case (is ArithmeticAssignmentOperation) { return transformArithmeticAssignmentOperation(that); }
+        case (is SetAssignmentOperation) { return transformSetAssignmentOperation(that); }
     }
     shared actual default Result transformAtom(Atom that) {
         switch (that)
@@ -260,6 +261,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Super) { return transformSuper(that); }
         case (is Outer) { return transformOuter(that); }
         case (is Package) { return transformPackage(that); }
+    }
+    shared actual default Result transformSetAssignmentOperation(SetAssignmentOperation that) {
+        switch (that)
+        case (is IntersectAssignmentOperation) { return transformIntersectAssignmentOperation(that); }
+        case (is UnionAssignmentOperation) { return transformUnionAssignmentOperation(that); }
+        case (is ComplementAssignmentOperation) { return transformComplementAssignmentOperation(that); }
     }
     shared actual default Result transformSetOperation(SetOperation that) {
         switch (that)

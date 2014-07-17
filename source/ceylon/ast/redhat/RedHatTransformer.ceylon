@@ -16,10 +16,12 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBaseType=BaseType,
         JBaseTypeExpression=BaseTypeExpression,
         JBinaryOperatorExpression=BinaryOperatorExpression,
+        JBitwiseAssignmentOp=BitwiseAssignmentOp,
         JBitwiseOp=BitwiseOp,
         JCharacterLiteral=CharLiteral,
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
+        JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
@@ -41,6 +43,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
         JIntegerLiteral=NaturalLiteral,
+        JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
         JIsOp=IsOp,
@@ -101,6 +104,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeParameterLiteral=TypeParameterLiteral,
         JType=Type,
         JUnaryOperatorExpression=UnaryOperatorExpression,
+        JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType
     }
@@ -114,6 +118,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         character_literal=\iCHAR_LITERAL,
         compare_op=\iCOMPARE_OP,
         complement_op=\iCOMPLEMENT_OP,
+        complement_specify=\iCOMPLEMENT_SPECIFY,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         divide_specify=\iDIVIDE_SPECIFY,
@@ -127,6 +132,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
         intersection_op=\iINTERSECTION_OP,
+        intersect_specify=\iINTERSECT_SPECIFY,
         is_op=\iIS_OP,
         large_as_op=\iLARGE_AS_OP,
         larger_op=\iLARGER_OP,
@@ -166,6 +172,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         type_constraint=\iTYPE_CONSTRAINT,
         uidentifier=\iUIDENTIFIER,
         union_op=\iUNION_OP,
+        union_specify=\iUNION_SPECIFY,
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
@@ -303,6 +310,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JComparisonOp transformComparisonOperation(ComparisonOperation that) {
         assert (is JComparisonOp ret = super.transformComparisonOperation(that));
+        return ret;
+    }
+    
+    shared actual JComplementAssignOp transformComplementAssignmentOperation(ComplementAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JComplementAssignOp ret = JComplementAssignOp(tokens.token(that.operator, complement_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
     }
     
@@ -472,6 +487,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
+    
+    shared actual JIntersectAssignOp transformIntersectAssignmentOperation(IntersectAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JIntersectAssignOp ret = JIntersectAssignOp(tokens.token(that.operator, intersect_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
     
     shared actual JIntersectionOp transformIntersectionOperation(IntersectionOperation that) {
         JTerm left = transformPrecedence4Expression(that.leftOperand);
@@ -856,6 +879,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBitwiseAssignmentOp transformSetAssignmentOperation(SetAssignmentOperation that) {
+        assert (is JBitwiseAssignmentOp ret = super.transformSetAssignmentOperation(that));
+        return ret;
+    }
+    
     shared actual JSimpleType transformSimpleType(SimpleType that) {
         assert (is JSimpleType ret = super.transformSimpleType(that));
         return ret;
@@ -1009,6 +1037,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     shared actual JTypeOperatorExpression transformUnaryTypeOperation(UnaryTypeOperation that) {
         assert (is JTypeOperatorExpression ret = super.transformUnaryTypeOperation(that));
+        return ret;
+    }
+    
+    shared actual JUnionAssignOp transformUnionAssignmentOperation(UnionAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JUnionAssignOp ret = JUnionAssignOp(tokens.token(that.operator, union_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
     }
     

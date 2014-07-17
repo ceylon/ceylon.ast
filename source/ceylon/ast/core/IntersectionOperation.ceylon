@@ -6,6 +6,7 @@
  
      persistents&printables&identifiables
      x1&y1"
+see (`class IntersectAssignmentOperation`)
 shared class IntersectionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     

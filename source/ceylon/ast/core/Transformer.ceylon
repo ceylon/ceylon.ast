@@ -12,7 +12,9 @@
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
+    shared formal Result transformAddAssignmentOperation(AddAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
+    shared formal Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAssignOperation(AssignOperation that);
     shared formal Result transformAssignmentOperation(AssignmentOperation that);
@@ -30,6 +32,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDec(Dec that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
+    shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
     shared formal Result transformEntryType(EntryType that);
@@ -62,6 +65,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
+    shared formal Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNegationOperation(NegationOperation that);
     shared formal Result transformNode(Node that);
@@ -86,6 +90,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformQualifiedExpression(QualifiedExpression that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformQuotientOperation(QuotientOperation that);
+    shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
@@ -96,6 +101,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSmallerOperation(SmallerOperation that);
     shared formal Result transformSpanOperation(SpanOperation that);
     shared formal Result transformStringLiteral(StringLiteral that);
+    shared formal Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that);
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);
     shared formal Result transformThenOperation(ThenOperation that);

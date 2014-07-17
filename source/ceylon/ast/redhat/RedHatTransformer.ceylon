@@ -4,7 +4,9 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JAddAssignOp=AddAssignOp,
         JAndOp=AndOp,
+        JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
         JAssignmentOp=AssignmentOp,
         JAssignOp=AssignOp,
@@ -23,6 +25,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDifferenceOp=DifferenceOp,
+        JDivideAssignOp=DivideAssignOp,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
         JEqualOp=EqualOp,
@@ -48,6 +51,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
+        JMultiplyAssignOp=MultiplyAssignOp,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
         JNotEqualOp=NotEqualOp,
@@ -72,6 +76,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQualifiedType=QualifiedType,
         JQuotientOp=QuotientOp,
         JRangeOp=RangeOp,
+        JRemainderAssignOp=RemainderAssignOp,
         JRemainderOp=RemainderOp,
         JScaleOp=ScaleOp,
         JSegmentOp=SegmentOp,
@@ -83,6 +88,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSmallerOp=SmallerOp,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
+        JSubtractAssignOp=SubtractAssignOp,
         JSumOp=SumOp,
         JSuper=Super,
         JTerm=Term,
@@ -101,6 +107,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
+        add_specify=\iADD_SPECIFY,
         and_op=\iAND_OP,
         backtick=\iBACKTICK,
         case_types=\iCASE_TYPES,
@@ -109,6 +116,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         complement_op=\iCOMPLEMENT_OP,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
+        divide_specify=\iDIVIDE_SPECIFY,
         else_clause=\iELSE_CLAUSE,
         entry_op=\iENTRY_OP,
         equal_op=\iEQUAL_OP,
@@ -127,6 +135,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         lidentifier=\iLIDENTIFIER,
         lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
+        multiply_specify=\iMULTIPLY_SPECIFY,
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
         not_op=\iNOT_OP,
@@ -140,6 +149,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         range_op=\iRANGE_OP,
         rbrace=\iRBRACE,
         rbracket=\iRBRACKET,
+        remainder_specify=\iREMAINDER_SPECIFY,
         remainder_op=\iREMAINDER_OP,
         rparen=\iRPAREN,
         scale_op=\iSCALE_OP,
@@ -148,6 +158,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
         string_literal=\iSTRING_LITERAL,
+        subtract_specify=\iSUBTRACT_SPECIFY,
         sum_op=\iSUM_OP,
         superType=\iSUPER,
         then_clause=\iTHEN_CLAUSE,
@@ -161,11 +172,24 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     
+    shared actual JAddAssignOp transformAddAssignmentOperation(AddAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JAddAssignOp ret = JAddAssignOp(tokens.token(that.operator, add_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
     shared actual JAndOp transformAndOperation(AndOperation that) {
         JTerm left = transformPrecedence14Expression(that.leftOperand);
         JAndOp ret = JAndOp(tokens.token(that.operator, and_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence14Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JArithmeticAssignmentOp transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
+        assert (is JArithmeticAssignmentOp ret = super.transformArithmeticAssignmentOperation(that));
         return ret;
     }
     
@@ -307,6 +331,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JDivideAssignOp transformDivideAssignmentOperation(DivideAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JDivideAssignOp ret = JDivideAssignOp(tokens.token(that.operator, divide_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
     }
     
@@ -557,6 +589,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JMultiplyAssignOp transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JMultiplyAssignOp ret = JMultiplyAssignOp(tokens.token(that.operator, multiply_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
     shared actual JNegativeOp transformNegationOperation(NegationOperation that) {
         JNegativeOp ret = JNegativeOp(tokens.token(that.operator, difference_op));
         ret.term = transformPrecedence2Expression(that.operand);
@@ -792,6 +832,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JRemainderAssignOp transformRemainderAssignmentOperation(RemainderAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JRemainderAssignOp ret = JRemainderAssignOp(tokens.token(that.operator, remainder_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
     shared actual JRemainderOp transformRemainderOperation(RemainderOperation that) {
         JTerm left = transformPrecedence6Expression(that.leftOperand);
         JRemainderOp ret = JRemainderOp(tokens.token(that.operator, remainder_op));
@@ -857,6 +905,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JRangeOp ret = JRangeOp(tokens.token(that.operator, range_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JSubtractAssignOp transformSubtractAssignmentOperation(SubtractAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JSubtractAssignOp ret = JSubtractAssignOp(tokens.token(that.operator, subtract_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
     }
     

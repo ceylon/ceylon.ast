@@ -26,6 +26,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
     }
     
+    transformAddAssignmentOperation(AddAssignmentOperation that)
+            => "AddAssignmentOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformAndOperation(AndOperation that)
             => "AndOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -59,6 +64,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformDefaultedType(DefaultedType that) => "DefaultedType(``transformWithIndent(that.type)``)";
     transformDifferenceOperation(DifferenceOperation that)
             => "DifferenceOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
+    transformDivideAssignmentOperation(DivideAssignmentOperation that)
+            => "DivideAssignmentOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
@@ -192,6 +202,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
+    transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
+            => "MultiplyAssignmentOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.operand)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)
@@ -237,6 +252,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
+            => "RemainderAssignmentOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformRemainderOperation(RemainderOperation that)
             => "RemainderOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -264,6 +284,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
+    transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
+            => "SubtractAssignmentOperation {
+                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
     transformSumOperation(SumOperation that)
             => "SumOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

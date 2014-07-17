@@ -3,6 +3,14 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
+        switch (that)
+        case (is AddAssignmentOperation) { return transformAddAssignmentOperation(that); }
+        case (is SubtractAssignmentOperation) { return transformSubtractAssignmentOperation(that); }
+        case (is MultiplyAssignmentOperation) { return transformMultiplyAssignmentOperation(that); }
+        case (is DivideAssignmentOperation) { return transformDivideAssignmentOperation(that); }
+        case (is RemainderAssignmentOperation) { return transformRemainderAssignmentOperation(that); }
+    }
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) {
         switch (that)
         case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
@@ -15,6 +23,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) {
         switch (that)
         case (is AssignOperation) { return transformAssignOperation(that); }
+        case (is ArithmeticAssignmentOperation) { return transformArithmeticAssignmentOperation(that); }
     }
     shared actual default Result transformAtom(Atom that) {
         switch (that)

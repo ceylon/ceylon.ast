@@ -1,6 +1,7 @@
 "A remainder expression.
  
  Defined via [[Integral.remainder]]. Left-associative."
+see (`class RemainderAssignmentOperation`)
 shared class RemainderOperation(dividend, divisor)
         extends ArithmeticOperation() {
     

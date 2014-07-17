@@ -6,6 +6,7 @@
  
      size - 1
      lastIndex - firstIndex"
+see (`class SubtractAssignmentOperation`)
 shared class DifferenceOperation(minuend, subtrahend)
         extends ArithmeticOperation() {
     

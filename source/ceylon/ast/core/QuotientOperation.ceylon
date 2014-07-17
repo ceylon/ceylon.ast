@@ -1,6 +1,7 @@
 "A quotient or division expression.
  
  Defined via [[Numeric.divided]]. Left-associative."
+see (`class DivideAssignmentOperation`)
 shared class QuotientOperation(dividend, divisor)
         extends ArithmeticOperation() {
     

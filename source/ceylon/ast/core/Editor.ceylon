@@ -23,8 +23,14 @@
  you might want to override some methods to `return this` instead of a deep copy
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
+    shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
+            => that.copy();
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => that.copy();
+    shared actual default ArithmeticAssignmentOperation transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
+        assert (is ArithmeticAssignmentOperation ret = super.transformArithmeticAssignmentOperation(that));
+        return ret;
+    }
     shared actual default ArithmeticOperation transformArithmeticOperation(ArithmeticOperation that) {
         assert (is ArithmeticOperation ret = super.transformArithmeticOperation(that));
         return ret;
@@ -74,6 +80,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy();
+    shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
+            => that.copy();
     shared actual default ElseOperation transformElseOperation(ElseOperation that)
             => that.copy();
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
@@ -101,6 +109,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
+            => that.copy();
+    shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => that.copy();
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy();
@@ -287,6 +297,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         case (is SimpleType) { return that.copy(transformSimpleType(qualifyingType)); }
         case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
     }
+    shared actual default RemainderAssignmentOperation transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
+            => that.copy();
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
             => that.copy();
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
@@ -312,6 +324,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
             => that.copy();
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
+            => that.copy();
+    shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
             => that.copy();
     shared actual default SumOperation transformSumOperation(SumOperation that)
             => that.copy();

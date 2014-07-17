@@ -6,6 +6,7 @@
  
      i + 1
      firstIndex + size"
+see (`class AddAssignmentOperation`)
 shared class SumOperation(leftSummand, rightSummand)
         extends ArithmeticOperation() {
     

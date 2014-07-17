@@ -3,7 +3,9 @@
  [[transformNode]], which ([[Node]] being without a superclass) is the only `formal` method left."
 see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformAddAssignmentOperation(AddAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
+    shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
@@ -21,6 +23,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDefaultedType(DefaultedType that) => transformTypeIsh(that);
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
+    shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformElseOperation(ElseOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryOperation(EntryOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
@@ -53,6 +56,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
+    shared actual default Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformNegationOperation(NegationOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
@@ -76,6 +80,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformQualifiedExpression(QualifiedExpression that) => transformPrimary(that);
     shared actual default Result transformQualifiedType(QualifiedType that) => transformSimpleType(that);
     shared actual default Result transformQuotientOperation(QuotientOperation that) => transformArithmeticOperation(that);
+    shared actual default Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformRemainderOperation(RemainderOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformScaleOperation(ScaleOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
@@ -86,6 +91,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSmallerOperation(SmallerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformSpanOperation(SpanOperation that) => transformBinaryOperation(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
+    shared actual default Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformThenOperation(ThenOperation that) => transformBinaryOperation(that);

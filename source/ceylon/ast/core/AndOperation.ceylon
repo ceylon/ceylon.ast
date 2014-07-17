@@ -6,6 +6,7 @@
  
      i%2 == 0 && j%2 == 1
      attr1 == that.attr1 && attr2 == that.attr2 && attr3 == that.attr3"
+see (`class AndAssignmentOperation`)
 shared class AndOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     

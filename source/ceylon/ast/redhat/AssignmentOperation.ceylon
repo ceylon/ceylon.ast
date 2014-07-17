@@ -6,17 +6,19 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JAssignOp=AssignOp,
         JAssignmentOp=AssignmentOp,
-        JBitwiseAssignmentOp=BitwiseAssignmentOp
+        JBitwiseAssignmentOp=BitwiseAssignmentOp,
+        JLogicalAssignmentOp=LogicalAssignmentOp
     }
 }
 
 "Converts a RedHat AST [[AssignmentOp|JAssignmentOp]] to a `ceylon.ast` [[AssignmentOperation]]."
 shared AssignmentOperation assignmentOperationToCeylon(JAssignmentOp assignmentOperation) {
-    assert (is JAssignOp|JArithmeticAssignmentOp|JBitwiseAssignmentOp assignmentOperation);
+    assert (is JAssignOp|JArithmeticAssignmentOp|JBitwiseAssignmentOp|JLogicalAssignmentOp assignmentOperation);
     switch (assignmentOperation)
     case (is JAssignOp) { return assignOperationToCeylon(assignmentOperation); }
     case (is JArithmeticAssignmentOp) { return arithmeticAssignmentOperationToCeylon(assignmentOperation); }
     case (is JBitwiseAssignmentOp) { return setAssignmentOperationToCeylon(assignmentOperation); }
+    case (is JLogicalAssignmentOp) { return logicalAssignmentOperationToCeylon(assignmentOperation); }
 }
 
 "Compiles the given [[code]] for an Assignment Operation

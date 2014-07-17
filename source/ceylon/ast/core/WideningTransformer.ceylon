@@ -4,6 +4,7 @@
 see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAddAssignmentOperation(AddAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
+    shared actual default Result transformAndAssignmentOperation(AndAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
@@ -52,6 +53,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLargeAsOperation(LargeAsOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLargerOperation(LargerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
+    shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformLogicalOperation(LogicalOperation that) => transformBinaryOperation(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
     shared actual default Result transformMeasureOperation(MeasureOperation that) => transformBinaryOperation(that);
@@ -67,6 +69,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
+    shared actual default Result transformOrAssignmentOperation(OrAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformOrOperation(OrOperation that) => transformLogicalOperation(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);

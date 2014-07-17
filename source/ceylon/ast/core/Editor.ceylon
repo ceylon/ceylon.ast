@@ -25,6 +25,8 @@
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy();
+    shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
+            => that.copy();
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => that.copy();
     shared actual default ArithmeticAssignmentOperation transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
@@ -108,6 +110,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
             => that.copy();
+    shared actual default LogicalAssignmentOperation transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
+        assert (is LogicalAssignmentOperation ret = super.transformLogicalAssignmentOperation(that));
+        return ret;
+    }
     shared actual default LogicalOperation transformLogicalOperation(LogicalOperation that) {
         assert (is LogicalOperation ret = super.transformLogicalOperation(that));
         return ret;
@@ -123,6 +129,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default NotOperation transformNotOperation(NotOperation that)
             => that.copy();
     shared actual default OfOperation transformOfOperation(OfOperation that)
+            => that.copy();
+    shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
             => that.copy();
     shared actual default OrOperation transformOrOperation(OrOperation that)
             => that.copy();

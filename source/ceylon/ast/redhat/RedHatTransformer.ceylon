@@ -5,6 +5,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAddAssignOp=AddAssignOp,
+        JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
@@ -50,6 +51,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
+        JLogicalAssignmentOp=LogicalAssignmentOp,
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
@@ -62,6 +64,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOfOp=OfOp,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
+        JOrAssignOp=OrAssignOp,
         JOrOp=OrOp,
         JOuter=Outer,
         JPackage=Package,
@@ -113,6 +116,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
         and_op=\iAND_OP,
+        and_specify=\iAND_SPECIFY,
         backtick=\iBACKTICK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
@@ -147,6 +151,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         not_op=\iNOT_OP,
         optionalType=\iOPTIONAL,
         or_op=\iOR_OP,
+        or_specify=\iOR_SPECIFY,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
         power_op=\iPOWER_OP,
@@ -182,6 +187,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JAddAssignOp transformAddAssignmentOperation(AddAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JAddAssignOp ret = JAddAssignOp(tokens.token(that.operator, add_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JAndAssignOp transformAndAssignmentOperation(AndAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JAndAssignOp ret = JAndAssignOp(tokens.token(that.operator, and_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
@@ -547,6 +560,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JLogicalAssignmentOp transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
+        assert (is JLogicalAssignmentOp ret = super.transformLogicalAssignmentOperation(that));
+        return ret;
+    }
+    
     shared actual JLogicalOp transformLogicalOperation(LogicalOperation that) {
         assert (is JLogicalOp ret = super.transformLogicalOperation(that));
         return ret;
@@ -650,6 +668,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
         ret.endToken = tokens.token("?", optionalType);
+        return ret;
+    }
+    
+    shared actual JOrAssignOp transformOrAssignmentOperation(OrAssignmentOperation that) {
+        JTerm left = transformPrecedence16Expression(that.leftOperand);
+        JOrAssignOp ret = JOrAssignOp(tokens.token(that.operator, or_specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
         return ret;
     }
     

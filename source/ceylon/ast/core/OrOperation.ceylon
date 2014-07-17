@@ -6,6 +6,7 @@
  
      digit == 0 || digit == 1
      element in errors || !element exists"
+see (`class OrAssignmentOperation`)
 shared class OrOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     

@@ -25,6 +25,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is AssignOperation) { return transformAssignOperation(that); }
         case (is ArithmeticAssignmentOperation) { return transformArithmeticAssignmentOperation(that); }
         case (is SetAssignmentOperation) { return transformSetAssignmentOperation(that); }
+        case (is LogicalAssignmentOperation) { return transformLogicalAssignmentOperation(that); }
     }
     shared actual default Result transformAtom(Atom that) {
         switch (that)
@@ -91,6 +92,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is FloatLiteral) { return transformFloatLiteral(that); }
         case (is StringLiteral) { return transformStringLiteral(that); }
         case (is CharacterLiteral) { return transformCharacterLiteral(that); }
+    }
+    shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
+        switch (that)
+        case (is AndAssignmentOperation) { return transformAndAssignmentOperation(that); }
+        case (is OrAssignmentOperation) { return transformOrAssignmentOperation(that); }
     }
     shared actual default Result transformLogicalOperation(LogicalOperation that) {
         switch (that)

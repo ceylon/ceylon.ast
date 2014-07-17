@@ -407,14 +407,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JOrOp transformOrOperation(OrOperation that) {
-        JTerm left = transformPrecedence15Expression(that.leftOperand);
-        JOrOp ret = JOrOp(tokens.token(that.operator, or_op));
-        ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
-        return ret;
-    }
-    
     shared actual JPowerOp transformExponentiationOperation(ExponentiationOperation that) {
         value left = transformPrecedence1Expression(that.leftOperand);
         JPowerOp ret = JPowerOp(tokens.token(that.operator, power_op));
@@ -658,6 +650,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
         ret.endToken = tokens.token("?", optionalType);
+        return ret;
+    }
+    
+    shared actual JOrOp transformOrOperation(OrOperation that) {
+        JTerm left = transformPrecedence15Expression(that.leftOperand);
+        JOrOp ret = JOrOp(tokens.token(that.operator, or_op));
+        ret.leftTerm = left;
+        ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
         return ret;
     }
     

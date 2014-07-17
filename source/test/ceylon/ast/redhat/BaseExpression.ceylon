@@ -31,6 +31,12 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression parsedIntExpression = "parsedInt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("parsedInt")));
     shared String->BaseExpression nameExpression = "name"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("name")));
     shared String->BaseExpression textExpression = "text"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("text")));
+    shared String->BaseExpression stepExpression = "step"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("step")));
+    shared String->BaseExpression balanceExpression = "balance"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("balance")));
+    shared String->BaseExpression interestRateExpression = "interestRate"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("interestRate")));
+    shared String->BaseExpression incrementExpression = "increment"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("increment")));
+    shared String->BaseExpression countdownExpression = "countdown"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("countdown")));
+    shared String->BaseExpression \iΔtExpression = "\\iΔt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt")));
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

@@ -51,6 +51,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
+        JListedArgument=ListedArgument,
         JLogicalAssignmentOp=LogicalAssignmentOp,
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
@@ -87,11 +88,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JScaleOp=ScaleOp,
         JSegmentOp=SegmentOp,
         JSelfExpression=SelfExpression,
+        JSequencedArgument=SequencedArgument,
         JSequencedType=SequencedType,
         JSequenceType=SequenceType,
         JSimpleType=SimpleType,
         JSmallAsOp=SmallAsOp,
         JSmallerOp=SmallerOp,
+        JSpreadArgument=SpreadArgument,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
         JSubtractAssignOp=SubtractAssignOp,
@@ -120,6 +123,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         backtick=\iBACKTICK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
+        comma=\iCOMMA,
         compare_op=\iCOMPARE_OP,
         complement_op=\iCOMPLEMENT_OP,
         complement_specify=\iCOMPLEMENT_SPECIFY,
@@ -205,6 +209,41 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JAndOp ret = JAndOp(tokens.token(that.operator, and_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence14Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JSequencedArgument transformArgumentList(ArgumentList that) {
+        JSequencedArgument ret = JSequencedArgument(null);
+        if (nonempty arguments = that.listedArguments) {
+            JListedArgument transformListedArgument(Expression that) {
+                JListedArgument ret = JListedArgument(null);
+                JExpression expr = JExpression(null);
+                expr.term = transformExpression(that);
+                ret.expression = expr;
+                return ret;
+            }
+            ret.positionalArguments.add(transformListedArgument(arguments.first));
+            for (argument in arguments.rest) {
+                ret.endToken = tokens.token(",", comma);
+                ret.positionalArguments.add(transformListedArgument(argument));
+            }
+            if (exists sequenceArgument = that.sequenceArgument) {
+                switch (sequenceArgument)
+                case (is SpreadArgument) {
+                    ret.endToken = tokens.token(",", comma);
+                    ret.positionalArguments.add(transformSpreadArgument(sequenceArgument));
+                }
+                // TODO case (is Comprehension)
+            }
+        } else {
+            if (exists sequenceArgument = that.sequenceArgument) {
+                switch (sequenceArgument)
+                case (is SpreadArgument) {
+                    ret.positionalArguments.add(transformSpreadArgument(sequenceArgument));
+                }
+                // TODO case (is Comprehension)
+            }
+        }
         return ret;
     }
     
@@ -959,6 +998,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JRangeOp ret = JRangeOp(tokens.token(that.operator, range_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JSpreadArgument transformSpreadArgument(SpreadArgument that) {
+        JSpreadArgument ret = JSpreadArgument(tokens.token("*", product_op));
+        value expression = JExpression(null);
+        expression.term = transformExpression(that.argument);
+        ret.expression = expression;
         return ret;
     }
     

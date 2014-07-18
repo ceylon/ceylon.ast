@@ -41,6 +41,62 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    shared actual String transformArgumentList(ArgumentList that) {
+        if (nonempty listedArguments = that.listedArguments) {
+            StringBuilder code = StringBuilder();
+            code.append("ArgumentList {");
+            value origIndent = indent;
+            indent += indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append("listedArguments = [");
+            code.appendNewline();
+            indent += indentLevel;
+            code.append(indent);
+            code.append(listedArguments.first.transform(this));
+            for (listedArgument in listedArguments.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(listedArgument.transform(this));
+            }
+            code.appendNewline();
+            code.append(origIndent + indentLevel);
+            code.append("];");
+            code.appendNewline();
+            if (exists sequenceArgument = that.sequenceArgument) {
+                indent = origIndent + indentLevel;
+                code.append(indent);
+                code.append("sequenceArgument = ");
+                code.append(sequenceArgument.transform(this));
+                code.append(";");
+                code.appendNewline();
+            }
+            indent = origIndent;
+            code.append(indent);
+            code.append("}");
+            return code.string;
+        } else {
+            if (exists sequenceArgument = that.sequenceArgument) {
+                StringBuilder code = StringBuilder();
+                code.append("ArgumentList {");
+                value origIndent = indent;
+                indent = origIndent + indentLevel;
+                code.appendNewline();
+                code.append(indent);
+                code.append("sequenceArgument = ");
+                code.append(sequenceArgument.transform(this));
+                code.append(";");
+                code.appendNewline();
+                indent = origIndent;
+                code.append(indent);
+                code.append("}");
+                return code.string;
+            } else {
+                return "ArgumentList()";
+            }
+        }
+    }
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
@@ -303,6 +359,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformSpreadArgument(SpreadArgument that) => "SpreadArgument(``transformWithIndent(that.argument)``)";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
             => "SubtractAssignmentOperation {

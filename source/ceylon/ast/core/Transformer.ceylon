@@ -15,6 +15,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAddAssignmentOperation(AddAssignmentOperation that);
     shared formal Result transformAndAssignmentOperation(AndAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
+    shared formal Result transformArgumentList(ArgumentList that);
     shared formal Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAssignOperation(AssignOperation that);
@@ -106,6 +107,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSmallAsOperation(SmallAsOperation that);
     shared formal Result transformSmallerOperation(SmallerOperation that);
     shared formal Result transformSpanOperation(SpanOperation that);
+    shared formal Result transformSpreadArgument(SpreadArgument that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that);
     shared formal Result transformSumOperation(SumOperation that);

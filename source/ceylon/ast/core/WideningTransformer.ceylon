@@ -6,6 +6,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAddAssignmentOperation(AddAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformAndAssignmentOperation(AndAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
+    shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
@@ -96,6 +97,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSmallAsOperation(SmallAsOperation that) => transformComparisonOperation(that);
     shared actual default Result transformSmallerOperation(SmallerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformSpanOperation(SpanOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformSpreadArgument(SpreadArgument that) => transformExpressionIsh(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);

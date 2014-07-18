@@ -29,6 +29,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => that.copy();
+    shared actual default ArgumentList transformArgumentList(ArgumentList that)
+            => that.copy();
     shared actual default ArithmeticAssignmentOperation transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
         assert (is ArithmeticAssignmentOperation ret = super.transformArithmeticAssignmentOperation(that));
         return ret;
@@ -338,6 +340,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default SmallerOperation transformSmallerOperation(SmallerOperation that)
             => that.copy();
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
+            => that.copy();
+    shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
             => that.copy();
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();

@@ -59,7 +59,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformCompilationUnit(CompilationUnit that) {
         // TODO switch on case types, call appropriate transformSubclass(that)
-        throw Error("Not yet implemented!");
+        throw AssertionError("Not yet implemented!");
     }
     shared actual default Result transformDec(Dec that) {
         switch (that)

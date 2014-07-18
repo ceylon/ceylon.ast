@@ -6,7 +6,7 @@ shared class MemberNameWithTypeArguments(name, typeArguments = null)
     shared actual MemberName name;
     shared actual TypeArguments? typeArguments;
     
-    shared actual Tuple<MemberName|Type,MemberName,Type[]> children = [name, *(typeArguments else [])];
+    shared actual [MemberName, Type*] children = [name, *(typeArguments else [])];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMemberNameWithTypeArguments(this);

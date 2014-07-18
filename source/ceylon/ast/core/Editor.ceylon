@@ -108,6 +108,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default IsOperation transformIsOperation(IsOperation that)
             => that.copy();
+    shared actual default Iterable transformIterable(Iterable that)
+            => that.copy();
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
             => that.copy();
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
@@ -354,6 +356,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default ThenOperation transformThenOperation(ThenOperation that)
             => that.copy();
     shared actual default This transformThis(This that)
+            => that.copy();
+    shared actual default Tuple transformTuple(Tuple that)
             => that.copy();
     shared actual default TupleType transformTupleType(TupleType that)
             => that.copy(transformTypeList(that.typeList));

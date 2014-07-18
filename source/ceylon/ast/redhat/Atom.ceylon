@@ -8,7 +8,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JOuter=Outer,
         JPackage=Package,
-        JSelfExpression=SelfExpression
+        JSelfExpression=SelfExpression,
+        JSequenceEnumeration=SequenceEnumeration,
+        JTuple=Tuple
     }
 }
 
@@ -26,6 +28,8 @@ shared Atom atomToCeylon(JAtom atom) {
     }
     case (is JLiteral) { return literalToCeylon(atom); }
     case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom); }
+    case (is JSequenceEnumeration) { return iterableToCeylon(atom); }
+    case (is JTuple) { return tupleToCeylon(atom); }
     else {
         throw AssertionError("Unknown atom type");
     }

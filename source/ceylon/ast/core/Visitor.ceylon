@@ -58,6 +58,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformIsOperation(IsOperation that) => visitIsOperation(that);
+    transformIterable(Iterable that) => visitIterable(that);
     transformIterableType(IterableType that) => visitIterableType(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
@@ -113,6 +114,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSuper(Super that) => visitSuper(that);
     transformThenOperation(ThenOperation that) => visitThenOperation(that);
     transformThis(This that) => visitThis(that);
+    transformTuple(Tuple that) => visitTuple(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
     transformTypeDec(TypeDec that) => visitTypeDec(that);
@@ -162,6 +164,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
+    shared default void visitIterable(Iterable that) => super.transformIterable(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);
@@ -230,6 +233,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSuper(Super that) => super.transformSuper(that);
     shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);
     shared default void visitThis(This that) => super.transformThis(that);
+    shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);
     shared default void visitTypeDec(TypeDec that) => super.transformTypeDec(that);

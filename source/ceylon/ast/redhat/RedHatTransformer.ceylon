@@ -90,6 +90,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSelfExpression=SelfExpression,
         JSequencedArgument=SequencedArgument,
         JSequencedType=SequencedType,
+        JSequenceEnumeration=SequenceEnumeration,
         JSequenceType=SequenceType,
         JSimpleType=SimpleType,
         JSmallAsOp=SmallAsOp,
@@ -103,6 +104,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTerm=Term,
         JThenOp=ThenOp,
         JThis=This,
+        JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
         JTypeLiteral=TypeLiteral,
@@ -563,6 +565,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JIsOp ret = JIsOp(tokens.token(that.operator, is_op));
         ret.term = term;
         ret.type = transformType(that.type);
+        return ret;
+    }
+    
+    shared actual JSequenceEnumeration transformIterable(Iterable that) {
+        JSequenceEnumeration ret = JSequenceEnumeration(tokens.token("{", lbrace));
+        ret.sequencedArgument = transformArgumentList(that.arguments);
+        ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
     
@@ -1038,6 +1047,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JThis transformThis(This that)
             => JThis(tokens.token("this", thisType));
+    
+    shared actual JTuple transformTuple(Tuple that) {
+        JTuple ret = JTuple(tokens.token("[", lbracket));
+        ret.sequencedArgument = transformArgumentList(that.arguments);
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
     
     shared actual JTupleType transformTupleType(TupleType that) {
         JTupleType ret = JTupleType(tokens.token("[", lbracket));

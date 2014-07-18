@@ -32,6 +32,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Literal) { return transformLiteral(that); }
         case (is SelfReference) { return transformSelfReference(that); }
         case (is GroupedExpression) { return transformGroupedExpression(that); }
+        case (is Iterable) { return transformIterable(that); }
+        case (is Tuple) { return transformTuple(that); }
     }
     shared actual default Result transformBinaryOperation(BinaryOperation that) {
         switch (that)

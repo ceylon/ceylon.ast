@@ -58,6 +58,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformIsOperation(IsOperation that);
+    shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
@@ -114,6 +115,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSuper(Super that);
     shared formal Result transformThenOperation(ThenOperation that);
     shared formal Result transformThis(This that);
+    shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeDec(TypeDec that);

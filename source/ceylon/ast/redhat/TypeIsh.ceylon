@@ -35,7 +35,7 @@ shared TypeIsh? compileTypeIsh(String code) {
         assert (is JStaticType|JDefaultedType jDefaultedType);
         switch (jDefaultedType)
         case (is JStaticType) { return typeToCeylon(jDefaultedType); }
-        case (is JDefaultedType) { throw Error("Not implemented yet!"); } // TODO implement
+        case (is JDefaultedType) { return defaultedTypeToCeylon(jDefaultedType); }
     } else {
         return null;
     }

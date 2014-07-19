@@ -7,8 +7,14 @@
 shared class AnonymousArgument(expression)
         extends NamedArgument() {
     
-    "The argument expression."
+    "The argument expression.
+     
+     To avoid syntactical ambiguity between anonymous arguments
+     and [[specified arguments|SpecifiedArgument]], the expression
+     may not be an [[AssignOperation]]."
     shared Expression expression;
+    "Illegal syntax"
+    assert (!expression is AssignOperation);
     
     shared actual [Expression] children = [expression];
     

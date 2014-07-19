@@ -41,6 +41,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression incrementExpression = construct("increment");
     shared String->BaseExpression countdownExpression = construct("countdown");
     shared String->BaseExpression \iΔtExpression = "\\iΔt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt")));
+    shared String->BaseExpression printExpression = construct("print");
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

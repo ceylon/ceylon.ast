@@ -22,6 +22,9 @@ shared object positionalArguments satisfies ConcreteTest<PositionalArguments,JPo
     shared String->PositionalArguments abcPositionalArguments = construct(argumentList.abcArgumentList);
     shared String->PositionalArguments spreadTextPositionalArguments = construct(argumentList.spreadTextArgumentList);
     
+    // not tested directly, but used by other tests
+    shared String->PositionalArguments helloWorldPositionalArguments = construct(argumentList.helloWorldArgumentList);
+    
     compile = compilePositionalArguments;
     fromCeylon = RedHatTransformer.transformPositionalArguments;
     toCeylon = positionalArgumentsToCeylon;

@@ -18,8 +18,8 @@ shared Arguments argumentsToCeylon(JArgumentList arguments) {
     case (is JNamedArgumentList) { return namedArgumentsToCeylon(arguments); }
 }
 
-"Compiles the given [[code]] for an Arguments
- into an [[Arguments]] using the Ceylon compiler
+"Compiles the given [[code]] for Arguments
+ into [[Arguments]] using the Ceylon compiler
  (more specifically, the rule for `namedArguments` and `positionalArguments`)."
 shared Arguments? compileArguments(String code) {
     if (exists jPositionalArguments = createParser(code).positionalArguments(),

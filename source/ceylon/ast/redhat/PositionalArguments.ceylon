@@ -30,9 +30,9 @@ shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList p
     return PositionalArguments(argumentListToCeylon(sequencedArgument));
 }
 
-"Compiles the given [[code]] for a Positional Arguments
- into a [[PositionalArguments]] using the Ceylon compiler
- (more specifically, the rule for a `positionalArguments`)."
+"Compiles the given [[code]] for Positional Arguments
+ into [[PositionalArguments]] using the Ceylon compiler
+ (more specifically, the rule for `positionalArguments`)."
 shared PositionalArguments? compilePositionalArguments(String code) {
     if (exists jPositionalArguments = createParser(code).positionalArguments()) {
         return positionalArgumentsToCeylon(jPositionalArguments);

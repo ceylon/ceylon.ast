@@ -22,9 +22,9 @@ shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments) 
     return NamedArguments(CeylonIterable(namedArguments.namedArguments).collect(namedArgumentToCeylon), iterableArguments);
 }
 
-"Compiles the given [[code]] for a Named Arguments
- into a [[NamedArguments]] using the Ceylon compiler
- (more specifically, the rule for a `namedArguments`)."
+"Compiles the given [[code]] for Named Arguments
+ into [[NamedArguments]] using the Ceylon compiler
+ (more specifically, the rule for `namedArguments`)."
 shared NamedArguments? compileNamedArguments(String code) {
     if (exists jNamedArguments = createParser(code).namedArguments()) {
         return namedArgumentsToCeylon(jNamedArguments);

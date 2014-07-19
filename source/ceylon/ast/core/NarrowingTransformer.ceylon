@@ -91,6 +91,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SpreadArgument) { return transformSpreadArgument(that); }
         case (is Arguments) { return transformArguments(that); }
         case (is NamedArgument) { return transformNamedArgument(that); }
+        case (is Specifier) { return transformSpecifier(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)

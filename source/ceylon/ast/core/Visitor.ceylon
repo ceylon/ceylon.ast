@@ -113,6 +113,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSmallAsOperation(SmallAsOperation that) => visitSmallAsOperation(that);
     transformSmallerOperation(SmallerOperation that) => visitSmallerOperation(that);
     transformSpanOperation(SpanOperation that) => visitSpanOperation(that);
+    transformSpecifier(Specifier that) => visitSpecifier(that);
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => visitSubtractAssignmentOperation(that);
@@ -238,6 +239,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSmallAsOperation(SmallAsOperation that) => super.transformSmallAsOperation(that);
     shared default void visitSmallerOperation(SmallerOperation that) => super.transformSmallerOperation(that);
     shared default void visitSpanOperation(SpanOperation that) => super.transformSpanOperation(that);
+    shared default void visitSpecifier(Specifier that) => super.transformSpecifier(that);
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitSubtractAssignmentOperation(SubtractAssignmentOperation that) => super.transformSubtractAssignmentOperation(that);

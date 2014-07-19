@@ -359,6 +359,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
             => that.copy();
+    shared actual default Specifier transformSpecifier(Specifier that)
+            => that.copy();
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
             => that.copy();
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)

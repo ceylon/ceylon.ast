@@ -490,6 +490,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifierExpression transformSpecifier(Specifier that) {
+        JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
+        ret.expression = wrapTerm(transformExpression(that.expression));
+        return ret;
+    }
+    
     shared actual JTerm transformExpression(Expression that) {
         assert (is JTerm ret = super.transformExpression(that));
         return ret;

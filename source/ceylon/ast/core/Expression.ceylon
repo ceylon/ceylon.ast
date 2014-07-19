@@ -3,7 +3,7 @@
 shared abstract class ExpressionIsh()
         of Expression | TypeIsh | Identifier | ArgumentList | SpreadArgument | Arguments | NamedArgument | Specifier
         extends Node() {
-    shared actual formal <ExpressionIsh|Identifier|Type>[] children;
+    shared actual formal <ExpressionIsh|Specification|Identifier>[] children;
 }
 
 "Abstract superclass of all expression nodes."

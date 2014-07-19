@@ -363,6 +363,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Specification ret = super.transformSpecification(that));
         return ret;
     }
+    shared actual default SpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that)
+            => that.copy();
     shared actual default Specifier transformSpecifier(Specifier that)
             => that.copy();
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)

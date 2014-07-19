@@ -140,6 +140,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformNamedArgument(NamedArgument that) {
         switch (that)
         case (is AnonymousArgument) { return transformAnonymousArgument(that); }
+        case (is SpecifiedArgument) { return transformSpecifiedArgument(that); }
     }
     shared actual default Result transformNode(Node that) {
         switch (that)

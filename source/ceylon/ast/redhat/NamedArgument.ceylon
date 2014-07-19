@@ -18,7 +18,7 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument) {
             return anonymousArgumentToCeylon(namedArgument);
         } else {
             // specified argument
-            throw AssertionError("Specified named arguments not yet supported!");
+            return specifiedArgumentToCeylon(namedArgument);
         }
     }
 }

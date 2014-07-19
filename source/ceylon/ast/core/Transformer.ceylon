@@ -115,6 +115,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSmallerOperation(SmallerOperation that);
     shared formal Result transformSpanOperation(SpanOperation that);
     shared formal Result transformSpecification(Specification that);
+    shared formal Result transformSpecifiedArgument(SpecifiedArgument that);
     shared formal Result transformSpecifier(Specifier that);
     shared formal Result transformSpreadArgument(SpreadArgument that);
     shared formal Result transformStatement(Statement that);

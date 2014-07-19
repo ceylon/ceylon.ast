@@ -492,6 +492,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that) {
+        JSpecifiedArgument ret = JSpecifiedArgument(null);
+        assert (is ValueSpecification specification = that.specification);
+        switch (specification)
+        case (is ValueSpecification) {
+            ret.identifier = transformIdentifier(specification.name);
+            ret.specifierExpression = transformSpecifier(specification.specifier);
+        }
+        return ret;
+    }
+    
     shared actual JSpecifierExpression transformSpecifier(Specifier that) {
         JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
         ret.expression = wrapTerm(transformExpression(that.expression));

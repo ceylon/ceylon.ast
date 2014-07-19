@@ -7,6 +7,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAndAssignmentOperation(AndAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
     shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
+    shared actual default Result transformArguments(Arguments that) => transformExpressionIsh(that);
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
@@ -75,6 +76,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOrOperation(OrOperation that) => transformLogicalOperation(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);
+    shared actual default Result transformPositionalArguments(PositionalArguments that) => transformArguments(that);
     shared actual default Result transformPostfixDecrementOperation(PostfixDecrementOperation that) => transformPostfixOperation(that);
     shared actual default Result transformPostfixIncrementOperation(PostfixIncrementOperation that) => transformPostfixOperation(that);
     shared actual default Result transformPostfixOperation(PostfixOperation that) => transformUnaryOperation(that);

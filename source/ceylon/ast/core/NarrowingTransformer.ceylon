@@ -3,6 +3,10 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformArguments(Arguments that) {
+        switch (that)
+        case (is PositionalArguments) { return transformPositionalArguments(that); }
+    }
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
         switch (that)
         case (is AddAssignmentOperation) { return transformAddAssignmentOperation(that); }
@@ -84,6 +88,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Identifier) { return transformIdentifier(that); }
         case (is ArgumentList) { return transformArgumentList(that); }
         case (is SpreadArgument) { return transformSpreadArgument(that); }
+        case (is Arguments) { return transformArguments(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)

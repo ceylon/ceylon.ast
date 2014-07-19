@@ -16,6 +16,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAndAssignmentOperation(AndAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformArgumentList(ArgumentList that);
+    shared formal Result transformArguments(Arguments that);
     shared formal Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAssignOperation(AssignOperation that);
@@ -85,6 +86,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOrOperation(OrOperation that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
     shared formal Result transformPostfixOperation(PostfixOperation that);

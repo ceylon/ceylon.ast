@@ -16,6 +16,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);
     transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
+    transformArguments(Arguments that) => visitArguments(that);
     transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => visitArithmeticAssignmentOperation(that);
     transformArithmeticOperation(ArithmeticOperation that) => visitArithmeticOperation(that);
     transformAssignOperation(AssignOperation that) => visitAssignOperation(that);
@@ -85,6 +86,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOrOperation(OrOperation that) => visitOrOperation(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
+    transformPositionalArguments(PositionalArguments that) => visitPositionalArguments(that);
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => visitPostfixIncrementOperation(that);
     transformPostfixOperation(PostfixOperation that) => visitPostfixOperation(that);
@@ -135,6 +137,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
+    shared default void visitArguments(Arguments that) => super.transformArguments(that);
     shared default void visitArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => super.transformArithmeticAssignmentOperation(that);
     shared default void visitArithmeticOperation(ArithmeticOperation that) => super.transformArithmeticOperation(that);
     shared default void visitAssignOperation(AssignOperation that) => super.transformAssignOperation(that);
@@ -177,6 +180,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
+    shared default void visitPositionalArguments(PositionalArguments that) => super.transformPositionalArguments(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);

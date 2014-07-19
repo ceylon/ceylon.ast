@@ -7,6 +7,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAddAssignOp=AddAssignOp,
         JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
+        JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
         JAssignmentOp=AssignmentOp,
@@ -69,6 +70,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOrOp=OrOp,
         JOuter=Outer,
         JPackage=Package,
+        JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
         JPostfixIncrementOp=PostfixIncrementOp,
@@ -187,6 +189,9 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
+import ceylon.interop.java {
+    CeylonIterable
+}
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     
@@ -246,6 +251,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
                 // TODO case (is Comprehension)
             }
         }
+        return ret;
+    }
+    
+    shared actual JArgumentList transformArguments(Arguments that) {
+        assert (is JArgumentList ret = super.transformArguments(that));
         return ret;
     }
     
@@ -740,6 +750,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JPositionalArgumentList transformPositionalArguments(PositionalArguments that) {
+        JPositionalArgumentList ret = JPositionalArgumentList(tokens.token("(", lparen));
+        /*
+         Copy the arguments from the SequencedArgument to the ArgumentList.
+         Don’t use addAll – addPositionalArgument connect()s the nodes.
+         See ceylon-spec@e71c962e.
+         */
+        for (argument in CeylonIterable(transformArgumentList(that.argumentList).positionalArguments)) {
+            ret.addPositionalArgument(argument);
+        }
+        ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
     
     shared actual JPostfixDecrementOp transformPostfixDecrementOperation(PostfixDecrementOperation that) {
         value term = transformPrimary(that.operand);

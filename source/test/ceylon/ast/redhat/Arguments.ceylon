@@ -17,5 +17,5 @@ shared object arguments satisfies AbstractTest<Arguments,JArgumentList> {
     fromCeylon = RedHatTransformer.transformArguments;
     toCeylon = argumentsToCeylon;
     
-    tests = [positionalArguments];
+    tests = [positionalArguments, namedArguments];
 }

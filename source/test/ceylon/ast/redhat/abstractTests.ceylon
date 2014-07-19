@@ -26,7 +26,11 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     for (node in nodes) {
-        assertEquals(toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node)), node, "Double parse of ``node``");
+        assertEquals {
+            actual = toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node));
+            expected = node;
+            message = "Double parse of ``node``";
+        };
     }
 }
 
@@ -34,7 +38,11 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
         given CeylonAstType satisfies Node {
     for (code->node in codes) {
         assert (exists compiled = compile(code));
-        assertEquals(compiled, node, "Compile '``code``' to '``node``'");
+        assertEquals {
+            actual = compiled;
+            expected = node;
+            message = "Compile '``code``' to '``node``'";
+        };
     }
 }
 

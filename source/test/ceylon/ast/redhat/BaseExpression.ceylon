@@ -18,24 +18,28 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOrTypeExpression> {
-    shared String->BaseExpression nullExpression = "null"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("null"), null));
+    
+    String->BaseExpression construct(String name)
+            => name->BaseExpression(MemberNameWithTypeArguments(LIdentifier(name)));
+    
+    shared String->BaseExpression nullExpression = construct("null");
     shared String->BaseExpression maxOfIntegerNothingExpression = "max<Integer,Nothing>"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("max"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))), BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing")))]));
-    shared String->BaseExpression processExpression = "process"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("process")));
+    shared String->BaseExpression processExpression = construct("process");
     
     // not tested directly, but used by other tests
-    shared String->BaseExpression aExpression = "a"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("a")));
-    shared String->BaseExpression bExpression = "b"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("b")));
-    shared String->BaseExpression cExpression = "c"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("c")));
-    shared String->BaseExpression iExpression = "i"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
-    shared String->BaseExpression trueExpression = "true"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("true")));
-    shared String->BaseExpression parsedIntExpression = "parsedInt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("parsedInt")));
-    shared String->BaseExpression nameExpression = "name"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("name")));
-    shared String->BaseExpression textExpression = "text"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("text")));
-    shared String->BaseExpression stepExpression = "step"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("step")));
-    shared String->BaseExpression balanceExpression = "balance"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("balance")));
-    shared String->BaseExpression interestRateExpression = "interestRate"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("interestRate")));
-    shared String->BaseExpression incrementExpression = "increment"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("increment")));
-    shared String->BaseExpression countdownExpression = "countdown"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("countdown")));
+    shared String->BaseExpression aExpression = construct("a");
+    shared String->BaseExpression bExpression = construct("b");
+    shared String->BaseExpression cExpression = construct("c");
+    shared String->BaseExpression iExpression = construct("i");
+    shared String->BaseExpression trueExpression = construct("true");
+    shared String->BaseExpression parsedIntExpression = construct("parsedInt");
+    shared String->BaseExpression nameExpression = construct("name");
+    shared String->BaseExpression textExpression = construct("text");
+    shared String->BaseExpression stepExpression = construct("step");
+    shared String->BaseExpression balanceExpression = construct("balance");
+    shared String->BaseExpression interestRateExpression = construct("interestRate");
+    shared String->BaseExpression incrementExpression = construct("increment");
+    shared String->BaseExpression countdownExpression = construct("countdown");
     shared String->BaseExpression \iΔtExpression = "\\iΔt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt")));
     
     compile = compileBaseExpression;

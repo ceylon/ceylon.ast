@@ -84,6 +84,9 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 indent = origIndent + indentLevel;
                 code.appendNewline();
                 code.append(indent);
+                code.append("listedArguments = [];");
+                code.appendNewline();
+                code.append(indent);
                 code.append("sequenceArgument = ");
                 code.append(sequenceArgument.transform(this));
                 code.append(";");

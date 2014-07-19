@@ -22,6 +22,9 @@ shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     shared String->Specifier nameElseWorldStringLiteralGroupedSpecifier = construct(groupedExpression.nameElseWorldStringLiteralGroupedExpression);
     shared String->Specifier keyGivenDecSpecifier = construct(givenDec.keyGivenDec);
     
+    // not tested directly, but used by other tests
+    shared String->Specifier _0Specifier = construct(integerLiteral._0IntegerLiteral);
+    
     compile = compileSpecifier;
     fromCeylon = RedHatTransformer.transformSpecifier;
     toCeylon = specifierToCeylon;

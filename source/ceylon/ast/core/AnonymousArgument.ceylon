@@ -11,7 +11,9 @@ shared class AnonymousArgument(expression)
      
      To avoid syntactical ambiguity between anonymous arguments
      and [[specified arguments|SpecifiedArgument]], the expression
-     may not be an [[AssignOperation]]."
+     may not be an [[AssignOperation]].
+     (You can work around this restriction and resolve the ambiguity
+     by wrapping the expression in a [[GroupedExpression]].)"
     shared Expression expression;
     "Illegal syntax"
     assert (!expression is AssignOperation);

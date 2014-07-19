@@ -15,6 +15,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAddAssignmentOperation(AddAssignmentOperation that) => visitAddAssignmentOperation(that);
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);
     transformAndOperation(AndOperation that) => visitAndOperation(that);
+    transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
     transformArguments(Arguments that) => visitArguments(that);
     transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => visitArithmeticAssignmentOperation(that);
@@ -75,6 +76,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMeta(Meta that) => visitMeta(that);
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => visitMultiplyAssignmentOperation(that);
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
+    transformNamedArgument(NamedArgument that) => visitNamedArgument(that);
+    transformNamedArguments(NamedArguments that) => visitNamedArguments(that);
     transformNegationOperation(NegationOperation that) => visitNegationOperation(that);
     transformNode(Node that) => visitNode(that);
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
@@ -137,6 +140,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAddAssignmentOperation(AddAssignmentOperation that) => super.transformAddAssignmentOperation(that);
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
+    shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
     shared default void visitArguments(Arguments that) => super.transformArguments(that);
     shared default void visitArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => super.transformArithmeticAssignmentOperation(that);
@@ -176,6 +180,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => super.transformMultiplyAssignmentOperation(that);
+    shared default void visitNamedArgument(NamedArgument that) => super.transformNamedArgument(that);
+    shared default void visitNamedArguments(NamedArguments that) => super.transformNamedArguments(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);

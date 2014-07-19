@@ -100,6 +100,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             }
         }
     }
+    transformAnonymousArgument(AnonymousArgument that) => "AnonymousArgument(``transformWithIndent(that.expression)``)";
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
@@ -287,6 +288,65 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    shared actual String transformNamedArguments(NamedArguments that) {
+        if (nonempty namedArguments = that.namedArguments) {
+            StringBuilder code = StringBuilder();
+            code.append("NamedArguments {");
+            value origIndent = indent;
+            indent += indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append("namedArguments = [");
+            code.appendNewline();
+            indent += indentLevel;
+            code.append(indent);
+            code.append(namedArguments.first.transform(this));
+            for (namedArgument in namedArguments.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(namedArgument.transform(this));
+            }
+            code.appendNewline();
+            code.append(origIndent + indentLevel);
+            code.append("];");
+            code.appendNewline();
+            if (that.iterableArgument.children nonempty) {
+                indent = origIndent + indentLevel;
+                code.append(indent);
+                code.append("iterableArgument = ");
+                code.append(that.iterableArgument.transform(this));
+                code.append(";");
+                code.appendNewline();
+            }
+            indent = origIndent;
+            code.append(indent);
+            code.append("}");
+            return code.string;
+        } else {
+            if (that.iterableArgument.children nonempty) {
+                StringBuilder code = StringBuilder();
+                code.append("ArgumentList {");
+                value origIndent = indent;
+                indent = origIndent + indentLevel;
+                code.appendNewline();
+                code.append(indent);
+                code.append("namedArguments = [];");
+                code.appendNewline();
+                code.append(indent);
+                code.append("iterableArgument = ");
+                code.append(that.iterableArgument.transform(this));
+                code.append(";");
+                code.appendNewline();
+                indent = origIndent;
+                code.append(indent);
+                code.append("}");
+                return code.string;
+            } else {
+                return "ArgumentList()";
+            }
+        }
+    }
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.operand)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)

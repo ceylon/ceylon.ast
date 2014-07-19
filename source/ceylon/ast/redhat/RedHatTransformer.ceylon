@@ -60,6 +60,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JMultiplyAssignOp=MultiplyAssignOp,
+        JNamedArgument=NamedArgument,
+        JNamedArgumentList=NamedArgumentList,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
         JNotEqualOp=NotEqualOp,
@@ -98,6 +100,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSimpleType=SimpleType,
         JSmallAsOp=SmallAsOp,
         JSmallerOp=SmallerOp,
+        JSpecifiedArgument=SpecifiedArgument,
+        JSpecifierExpression=SpecifierExpression,
         JSpreadArgument=SpreadArgument,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
@@ -220,14 +224,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifiedArgument transformAnonymousArgument(AnonymousArgument that) {
+        JSpecifiedArgument ret = JSpecifiedArgument(null);
+        value specifierExpression = JSpecifierExpression(null);
+        specifierExpression.expression = wrapTerm(transformExpression(that.expression));
+        ret.specifierExpression = specifierExpression;
+        return ret;
+    }
+    
     shared actual JSequencedArgument transformArgumentList(ArgumentList that) {
         JSequencedArgument ret = JSequencedArgument(null);
         if (nonempty arguments = that.listedArguments) {
             JListedArgument transformListedArgument(Expression that) {
                 JListedArgument ret = JListedArgument(null);
-                JExpression expr = JExpression(null);
-                expr.term = transformExpression(that);
-                ret.expression = expr;
+                ret.expression = wrapTerm(transformExpression(that));
                 return ret;
             }
             ret.positionalArguments.add(transformListedArgument(arguments.first));
@@ -577,7 +587,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value arguments = that.arguments;
         switch (arguments)
         case (is PositionalArguments) { ret.positionalArgumentList = transformPositionalArguments(arguments); }
-        // TODO case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(arguments); }
+        case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(arguments); }
         return ret;
     }
     
@@ -696,6 +706,23 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JMultiplyAssignOp ret = JMultiplyAssignOp(tokens.token(that.operator, multiply_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JNamedArgument transformNamedArgument(NamedArgument that) {
+        assert (is JNamedArgument ret = super.transformNamedArgument(that));
+        return ret;
+    }
+    
+    shared actual JNamedArgumentList transformNamedArguments(NamedArguments that) {
+        JNamedArgumentList ret = JNamedArgumentList(tokens.token("{", lbrace));
+        for (namedArgument in that.namedArguments) {
+            ret.addNamedArgument(transformNamedArgument(namedArgument));
+        }
+        if (that.iterableArgument.children nonempty) {
+            ret.sequencedArgument = transformArgumentList(that.iterableArgument);
+        }
+        ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
     
@@ -1210,5 +1237,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         }
         ret.atLeastOne = that.isNonempty;
         return ret;
+    }
+    
+    JExpression wrapTerm(JTerm term) {
+        value expression = JExpression(null);
+        expression.term = term;
+        return expression;
     }
 }

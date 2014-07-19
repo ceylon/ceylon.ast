@@ -6,6 +6,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformArguments(Arguments that) {
         switch (that)
         case (is PositionalArguments) { return transformPositionalArguments(that); }
+        case (is NamedArguments) { return transformNamedArguments(that); }
     }
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) {
         switch (that)
@@ -89,6 +90,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ArgumentList) { return transformArgumentList(that); }
         case (is SpreadArgument) { return transformSpreadArgument(that); }
         case (is Arguments) { return transformArguments(that); }
+        case (is NamedArgument) { return transformNamedArgument(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -133,6 +135,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is MemberNameWithTypeArguments) { return transformMemberNameWithTypeArguments(that); }
         case (is TypeNameWithTypeArguments) { return transformTypeNameWithTypeArguments(that); }
+    }
+    shared actual default Result transformNamedArgument(NamedArgument that) {
+        switch (that)
+        case (is AnonymousArgument) { return transformAnonymousArgument(that); }
     }
     shared actual default Result transformNode(Node that) {
         switch (that)

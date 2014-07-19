@@ -12,6 +12,6 @@
      (for (i in 1..10) i^2)
      { factor = 2.1; *actors }"
 shared abstract class Arguments()
-        of PositionalArguments
+        of PositionalArguments | NamedArguments
         extends ExpressionIsh() {
 }

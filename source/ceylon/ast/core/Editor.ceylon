@@ -110,6 +110,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => that.copy();
+    shared actual default Invocation transformInvocation(Invocation that)
+            => that.copy();
     shared actual default IsOperation transformIsOperation(IsOperation that)
             => that.copy();
     shared actual default Iterable transformIterable(Iterable that)

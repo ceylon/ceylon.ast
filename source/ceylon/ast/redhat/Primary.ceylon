@@ -10,6 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JClassLiteral=ClassLiteral,
         JExpression=Expression,
         JFunctionLiteral=FunctionLiteral,
+        JInvocationExpression=InvocationExpression,
         JMetaLiteral=MetaLiteral,
         JModuleLiteral=ModuleLiteral,
         JPackageLiteral=PackageLiteral,
@@ -33,6 +34,7 @@ shared Primary primaryToCeylon(JPrimary primary) {
     }
     case (is JBaseMemberOrTypeExpression) { return baseExpressionToCeylon(primary); }
     case (is JQualifiedMemberOrTypeExpression) { return qualifiedExpressionToCeylon(primary); }
+    case (is JInvocationExpression) { return invocationToCeylon(primary); }
     case (is JMetaLiteral) {
         // the type test is a bit complicated because the dec types are subtypes of the meta types
         if (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral primary) {

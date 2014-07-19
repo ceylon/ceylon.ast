@@ -48,6 +48,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
+        JInvocationExpression=InvocationExpression,
         JIsOp=IsOp,
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
@@ -567,6 +568,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             tokens.token("&", intersection_op);
             ret.addStaticType(transformPrimaryType(elementType));
         }
+        return ret;
+    }
+    
+    shared actual JInvocationExpression transformInvocation(Invocation that) {
+        JInvocationExpression ret = JInvocationExpression(null);
+        ret.primary = transformPrimary(that.invoked);
+        value arguments = that.arguments;
+        switch (arguments)
+        case (is PositionalArguments) { ret.positionalArgumentList = transformPositionalArguments(arguments); }
+        // TODO case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(arguments); }
         return ret;
     }
     

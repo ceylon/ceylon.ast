@@ -257,6 +257,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Atom) { return transformAtom(that); }
         case (is BaseExpression) { return transformBaseExpression(that); }
         case (is QualifiedExpression) { return transformQualifiedExpression(that); }
+        case (is Invocation) { return transformInvocation(that); }
         case (is Meta) { return transformMeta(that); }
         case (is Dec) { return transformDec(that); }
     }

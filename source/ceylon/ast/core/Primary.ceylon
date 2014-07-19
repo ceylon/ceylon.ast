@@ -2,6 +2,6 @@
  
  Primaries can be combined using [[operations|Operation]]."
 shared abstract class Primary()
-        of Atom | BaseExpression | QualifiedExpression | Meta | Dec
+        of Atom | BaseExpression | QualifiedExpression | Invocation | Meta | Dec
         extends ValueExpression() {
 }

@@ -21,9 +21,10 @@ shared object namedArguments satisfies ConcreteTest<NamedArguments,JNamedArgumen
     
     shared String->NamedArguments emptyNamedArguments = construct([], argumentList.emptyArgumentList);
     shared String->NamedArguments abcabcNamedArguments = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);
+    shared String->NamedArguments sizeSpecify0NamedArguments = construct([specifiedArgument.sizeSpecify0Argument], argumentList.emptyArgumentList);
     
     compile = compileNamedArguments;
     fromCeylon = RedHatTransformer.transformNamedArguments;
     toCeylon = namedArgumentsToCeylon;
-    codes = [emptyNamedArguments, abcabcNamedArguments];
+    codes = [emptyNamedArguments, abcabcNamedArguments, sizeSpecify0NamedArguments];
 }

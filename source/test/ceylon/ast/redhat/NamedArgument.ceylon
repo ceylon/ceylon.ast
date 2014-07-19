@@ -17,5 +17,5 @@ shared object namedArgument satisfies AbstractTest<NamedArgument,JNamedArgument>
     fromCeylon = RedHatTransformer.transformNamedArgument;
     toCeylon = namedArgumentToCeylon;
     
-    tests = [anonymousArgument];
+    tests = [anonymousArgument, specifiedArgument];
 }

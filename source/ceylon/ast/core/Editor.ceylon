@@ -359,10 +359,18 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
             => that.copy();
+    shared actual default Specification transformSpecification(Specification that) {
+        assert (is Specification ret = super.transformSpecification(that));
+        return ret;
+    }
     shared actual default Specifier transformSpecifier(Specifier that)
             => that.copy();
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
             => that.copy();
+    shared actual default Statement transformStatement(Statement that) {
+        assert (is Statement ret = super.transformStatement(that));
+        return ret;
+    }
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
     shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
@@ -445,6 +453,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;
     }
+    shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
+            => that.copy();
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
 }

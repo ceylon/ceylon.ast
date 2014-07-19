@@ -144,6 +144,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformNode(Node that) {
         switch (that)
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
+        case (is Statement) { return transformStatement(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
     }
     shared actual default Result transformOperation(Operation that) {
@@ -301,6 +302,14 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is BaseType) { return transformBaseType(that); }
         case (is QualifiedType) { return transformQualifiedType(that); }
+    }
+    shared actual default Result transformSpecification(Specification that) {
+        switch (that)
+        case (is ValueSpecification) { return transformValueSpecification(that); }
+    }
+    shared actual default Result transformStatement(Statement that) {
+        switch (that)
+        case (is Specification) { return transformSpecification(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

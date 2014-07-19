@@ -102,7 +102,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSmallerOp=SmallerOp,
         JSpecifiedArgument=SpecifiedArgument,
         JSpecifierExpression=SpecifierExpression,
+        JSpecifierStatement=SpecifierStatement,
         JSpreadArgument=SpreadArgument,
+        JStatement=Statement,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
         JSubtractAssignOp=SubtractAssignOp,
@@ -493,6 +495,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JSpecifierExpression transformSpecifier(Specifier that) {
         JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
         ret.expression = wrapTerm(transformExpression(that.expression));
+        return ret;
+    }
+    
+    shared actual JStatement transformStatement(Statement that) {
+        assert (is JStatement ret = super.transformStatement(that));
         return ret;
     }
     
@@ -1078,6 +1085,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifierStatement transformSpecification(Specification that) {
+        assert (is JSpecifierStatement ret = super.transformSpecification(that));
+        return ret;
+    }
+    
     shared actual JSpreadArgument transformSpreadArgument(SpreadArgument that) {
         JSpreadArgument ret = JSpreadArgument(tokens.token("*", product_op));
         value expression = JExpression(null);
@@ -1242,6 +1254,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.endToken = tokens.token("*", product_op);
         }
         ret.atLeastOne = that.isNonempty;
+        return ret;
+    }
+    
+    shared actual JSpecifierStatement transformValueSpecification(ValueSpecification that) {
+        JTerm baseMemberExpression = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        JSpecifierStatement ret = JSpecifierStatement(null);
+        ret.baseMemberExpression = baseMemberExpression;
+        ret.specifierExpression = transformSpecifier(that.specifier);
         return ret;
     }
     

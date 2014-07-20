@@ -1,7 +1,6 @@
 import ceylon.ast.core {
     TypeArguments,
     BaseType,
-    TypeName,
     TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -17,7 +16,6 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[BaseType|JBaseType]] to a `ceylon.ast` [[BaseType]]."
 shared BaseType baseTypeToCeylon(JBaseType baseType) {
-    assert (is TypeName name = identifierToCeylon(baseType.identifier));
     TypeArguments? arguments;
     if (exists jArgs = baseType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
@@ -27,7 +25,7 @@ shared BaseType baseTypeToCeylon(JBaseType baseType) {
     } else {
         arguments = null;
     }
-    return BaseType(TypeNameWithTypeArguments(name, arguments));
+    return BaseType(TypeNameWithTypeArguments(uIdentifierToCeylon(baseType.identifier), arguments));
 }
 
 "Compiles the given [[code]] for a Base Type

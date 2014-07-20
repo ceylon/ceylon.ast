@@ -33,6 +33,26 @@ shared Identifier identifierToCeylon(JIdentifier identifier) {
     }
 }
 
+"Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[LIdentifier]]."
+throws (`class AssertionError`, "If the token type is not `LIDENTIFIER`.")
+shared LIdentifier lIdentifierToCeylon(JIdentifier identifier) {
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
+    assert (is CommonToken token = identifier.mainToken);
+    "Must be LIDENTIFIER token"
+    assert (token.type == lidentifier);
+    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+}
+
+"Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[UIdentifier]]."
+throws (`class AssertionError`, "If the token type is not `UIDENTIFIER`.")
+shared UIdentifier uIdentifierToCeylon(JIdentifier identifier) {
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
+    assert (is CommonToken token = identifier.mainToken);
+    "Must be UIDENTIFIER token"
+    assert (token.type == uidentifier);
+    return UIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+}
+
 "Compiles the given [[code]] for an Identifier
  into an [[Identifier]] using the Ceylon compiler
  (more specifically, the rule for an Import Name)."
@@ -49,8 +69,7 @@ shared Identifier? compileIdentifier(String code) {
  (more specifically, the rule for a Member Name)."
 shared LIdentifier? compileLIdentifier(String code) {
     if (exists jidentifier = createParser(code).memberName()) {
-        assert (is LIdentifier identifier = identifierToCeylon(jidentifier));
-        return identifier;
+        return lIdentifierToCeylon(jidentifier);
     } else {
         return null;
     }
@@ -61,8 +80,7 @@ shared LIdentifier? compileLIdentifier(String code) {
  (more specifically, the rule for a Type Name)."
 shared UIdentifier? compileUIdentifier(String code) {
     if (exists jidentifier = createParser(code).typeName()) {
-        assert (is UIdentifier identifier = identifierToCeylon(jidentifier));
-        return identifier;
+        return uIdentifierToCeylon(jidentifier);
     } else {
         return null;
     }

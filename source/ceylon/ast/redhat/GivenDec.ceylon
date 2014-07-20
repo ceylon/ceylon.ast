@@ -1,6 +1,5 @@
 import ceylon.ast.core {
-    GivenDec,
-    TypeName
+    GivenDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,9 +10,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[TypeParameterLiteral|JTypeParameterLiteral]] to a `ceylon.ast` [[GivenDec]]."
 shared GivenDec givenDecToCeylon(JTypeParameterLiteral givenDec) {
-    assert (is JBaseType type = givenDec.type,
-        is TypeName name = identifierToCeylon(type.identifier));
-    return GivenDec(name);
+    assert (is JBaseType type = givenDec.type);
+    return GivenDec(uIdentifierToCeylon(type.identifier));
 }
 
 "Compiles the given [[code]] for a Given Dec

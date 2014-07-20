@@ -1,7 +1,6 @@
 import ceylon.ast.core {
     LIdentifier,
     MemberMeta,
-    MemberName,
     MemberNameWithTypeArguments,
     MetaQualifier,
     TypeArguments
@@ -38,7 +37,6 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta) {
         assert (is LIdentifier name = qual.name);
         qualifier = name;
     }
-    assert (is MemberName name = identifierToCeylon(memberMeta.identifier));
     TypeArguments? arguments;
     if (exists jArgs = memberMeta.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
@@ -48,7 +46,7 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta) {
     } else {
         arguments = null;
     }
-    return MemberMeta(qualifier, MemberNameWithTypeArguments(name, arguments));
+    return MemberMeta(qualifier, MemberNameWithTypeArguments(lIdentifierToCeylon(memberMeta.identifier), arguments));
 }
 
 "Compiles the given [[code]] for a Member Meta

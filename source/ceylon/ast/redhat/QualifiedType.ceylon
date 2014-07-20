@@ -3,7 +3,6 @@ import ceylon.ast.core {
     QualifiedType,
     SimpleType,
     TypeArguments,
-    TypeName,
     TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -21,7 +20,6 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[QualifiedType|JQualifiedType]] to a `ceylon.ast` [[QualifiedType]]."
 shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
-    assert (is TypeName name = identifierToCeylon(qualifiedType.identifier));
     TypeArguments? arguments;
     if (exists jArgs = qualifiedType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
@@ -37,7 +35,7 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     case (is JBaseType) { qualifyingType = baseTypeToCeylon(jQualifyingType); }
     case (is JGroupedType) { qualifyingType = groupedTypeToCeylon(jQualifyingType); }
     case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType); }
-    return QualifiedType(qualifyingType, TypeNameWithTypeArguments(name, arguments));
+    return QualifiedType(qualifyingType, TypeNameWithTypeArguments(uIdentifierToCeylon(qualifiedType.identifier), arguments));
 }
 
 "Compiles the given [[code]] for a Qualified Type

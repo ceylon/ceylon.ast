@@ -1,5 +1,4 @@
 import ceylon.ast.core {
-    MemberName,
     SpecifiedArgument,
     ValueSpecification
 }
@@ -11,8 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[SpecifiedArgument|JSpecifiedArgument]] to a `ceylon.ast` [[SpecifiedArgument]]."
 shared SpecifiedArgument specifiedArgumentToCeylon(JSpecifiedArgument specifiedArgument) {
-    assert (is MemberName name = identifierToCeylon(specifiedArgument.identifier));
-    return SpecifiedArgument(ValueSpecification(name, specifierToCeylon(specifiedArgument.specifierExpression)));
+    return SpecifiedArgument(ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier), specifierToCeylon(specifiedArgument.specifierExpression)));
 }
 
 "Compiles the given [[code]] for a Specified Argument

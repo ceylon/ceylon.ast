@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath> {
     
-    shared String->FullPackageName lidUidFullPackageName
+    shared String->FullPackageName ceylonAstCorePackageName
             = "ceylon.ast.core"->FullPackageName([
             LIdentifier("ceylon"),
             LIdentifier("ast"),
@@ -25,5 +25,5 @@ shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath
     compile = compileFullPackageName;
     fromCeylon = RedHatTransformer.transformFullPackageName;
     toCeylon = fullPackageNameToCeylon;
-    codes = [lidUidFullPackageName];
+    codes = [ceylonAstCorePackageName];
 }

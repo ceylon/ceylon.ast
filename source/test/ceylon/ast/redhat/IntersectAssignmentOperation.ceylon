@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     IntersectAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object intersectAssignmentOperation satisfies ConcreteTest<IntersectAssignmentOperation,JIntersectAssignOp> {
     
-    String->IntersectAssignmentOperation construct(String->Precedence16Expression left, String->Precedence17Expression right)
+    String->IntersectAssignmentOperation construct(String->Precedence16Expression left, String->Precedence18Expression right)
             => "``left.key``&=``right.key``"->IntersectAssignmentOperation(left.item, right.item);
     
     shared String->IntersectAssignmentOperation aIntersectAssignBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

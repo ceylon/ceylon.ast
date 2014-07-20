@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     Precedence16Expression,
-    Precedence17Expression,
+    Precedence18Expression,
     SubtractAssignmentOperation
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object subtractAssignmentOperation satisfies ConcreteTest<SubtractAssignmentOperation,JSubtractAssignOp> {
     
-    String->SubtractAssignmentOperation construct(String->Precedence16Expression left, String->Precedence17Expression right)
+    String->SubtractAssignmentOperation construct(String->Precedence16Expression left, String->Precedence18Expression right)
             => "``left.key``-=``right.key``"->SubtractAssignmentOperation(left.item, right.item);
     
     shared String->SubtractAssignmentOperation countdownSubtractAssignΔtExpression = construct(baseExpression.countdownExpression, baseExpression.\iΔtExpression);

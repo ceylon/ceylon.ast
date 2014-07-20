@@ -3,7 +3,7 @@ import ceylon.ast.core {
     Declaration,
     GroupedExpression,
     LIdentifier,
-    Precedence17Expression,
+    Precedence18Expression,
     Return,
     Specifier,
     Statement,
@@ -41,8 +41,8 @@ shared class RewriteReturnsEditor(LIdentifier returnValueName) extends Editor() 
      or returns [[null]] if the return statement has no [[result|Return.result]]."
     ValueSpecification? rewriteReturn(Return ret) {
         if (exists result = ret.result) {
-            Precedence17Expression expression;
-            if (is Precedence17Expression result) {
+            Precedence18Expression expression;
+            if (is Precedence18Expression result) {
                 expression = result;
             } else {
                 expression = GroupedExpression(result);

@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     MultiplyAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object multiplyAssignmentOperation satisfies ConcreteTest<MultiplyAssignmentOperation,JMultiplyAssignOp> {
     
-    String->MultiplyAssignmentOperation construct(String->Precedence16Expression leftOperand, String->Precedence17Expression rightOperand)
+    String->MultiplyAssignmentOperation construct(String->Precedence16Expression leftOperand, String->Precedence18Expression rightOperand)
             => "``leftOperand.key``*=``rightOperand.key``"->MultiplyAssignmentOperation(leftOperand.item, rightOperand.item);
     
     shared String->MultiplyAssignmentOperation balanceAssignOnePlusInterestRateExpression = construct(baseExpression.balanceExpression, sumOperation.onePlusInterestRateExpression);

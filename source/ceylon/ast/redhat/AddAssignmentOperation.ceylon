@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AddAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared AddAssignmentOperation addAssignmentOperationToCeylon(JAddAssignOp addAssignmentOperation) {
     "Check precedence"
     assert (is Precedence16Expression left = expressionToCeylon(addAssignmentOperation.leftTerm),
-        is Precedence17Expression right = expressionToCeylon(addAssignmentOperation.rightTerm));
+        is Precedence18Expression right = expressionToCeylon(addAssignmentOperation.rightTerm));
     return AddAssignmentOperation(left, right);
 }
 

@@ -372,7 +372,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
     }
-    shared default Result transformPrecedence17Expression(Precedence17Expression that) {
+    shared default Result transformPrecedence18Expression(Precedence18Expression that) {
         switch (that)
         case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
         case (is AssignmentOperation) { return transformAssignmentOperation(that); }

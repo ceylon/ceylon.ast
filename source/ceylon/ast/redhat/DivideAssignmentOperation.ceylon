@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     DivideAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared DivideAssignmentOperation divideAssignmentOperationToCeylon(JDivideAssignOp divideAssignmentOperation) {
     "Check precedence"
     assert (is Precedence16Expression left = expressionToCeylon(divideAssignmentOperation.leftTerm),
-        is Precedence17Expression right = expressionToCeylon(divideAssignmentOperation.rightTerm));
+        is Precedence18Expression right = expressionToCeylon(divideAssignmentOperation.rightTerm));
     return DivideAssignmentOperation(left, right);
 }
 

@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AndAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object andAssignmentOperation satisfies ConcreteTest<AndAssignmentOperation,JAndAssignOp> {
     
-    String->AndAssignmentOperation construct(String->Precedence16Expression leftOperand, String->Precedence17Expression rightOperand)
+    String->AndAssignmentOperation construct(String->Precedence16Expression leftOperand, String->Precedence18Expression rightOperand)
             => "``leftOperand.key``&&=``rightOperand.key``"->AndAssignmentOperation(leftOperand.item, rightOperand.item);
     
     shared String->AndAssignmentOperation bAndAssignAExistsExpression = construct(baseExpression.bExpression, existsOperation.aExistsExpression);

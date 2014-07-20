@@ -394,7 +394,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JAddAssignOp ret = JAddAssignOp(tokens.token(that.operator, add_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -428,7 +428,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JAndAssignOp ret = JAndAssignOp(tokens.token(that.operator, and_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -626,7 +626,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JAssignOp ret = JAssignOp(tokens.token(that.operator, specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -971,7 +971,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JComplementAssignOp ret = JComplementAssignOp(tokens.token(that.operator, complement_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -1089,7 +1089,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JDivideAssignOp ret = JDivideAssignOp(tokens.token(that.operator, divide_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -1677,7 +1677,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JIntersectAssignOp ret = JIntersectAssignOp(tokens.token(that.operator, intersect_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -2007,7 +2007,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JMultiplyAssignOp ret = JMultiplyAssignOp(tokens.token(that.operator, multiply_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -2129,7 +2129,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JOrAssignOp ret = JOrAssignOp(tokens.token(that.operator, or_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -2326,8 +2326,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JTerm transformPrecedence17Expression(Precedence17Expression that) {
-        assert (is JTerm ret = super.transformPrecedence17Expression(that));
+    shared actual JTerm transformPrecedence18Expression(Precedence18Expression that) {
+        assert (is JTerm ret = super.transformPrecedence18Expression(that));
         return ret;
     }
     
@@ -2421,7 +2421,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JRemainderAssignOp ret = JRemainderAssignOp(tokens.token(that.operator, remainder_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -2678,7 +2678,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JSubtractAssignOp ret = JSubtractAssignOp(tokens.token(that.operator, subtract_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     
@@ -2959,7 +2959,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JUnionAssignOp ret = JUnionAssignOp(tokens.token(that.operator, union_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        ret.rightTerm = transformPrecedence18Expression(that.rightOperand);
         return ret;
     }
     

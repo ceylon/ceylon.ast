@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ComplementAssignmentOperation,
     Precedence16Expression,
-    Precedence17Expression
+    Precedence18Expression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared ComplementAssignmentOperation complementAssignmentOperationToCeylon(JComplementAssignOp complementAssignmentOperation) {
     "Check precedence"
     assert (is Precedence16Expression left = expressionToCeylon(complementAssignmentOperation.leftTerm),
-        is Precedence17Expression right = expressionToCeylon(complementAssignmentOperation.rightTerm));
+        is Precedence18Expression right = expressionToCeylon(complementAssignmentOperation.rightTerm));
     return ComplementAssignmentOperation(left, right);
 }
 

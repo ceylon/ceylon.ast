@@ -10,7 +10,7 @@ shared abstract class AssignmentOperation()
     
     "The target expression."
     shared actual formal Precedence16Expression leftOperand;
-    shared actual formal Precedence17Expression rightOperand;
+    shared actual formal Precedence18Expression rightOperand;
     
-    shared actual formal [Precedence16Expression, Precedence17Expression] children;
+    shared actual formal [Precedence16Expression, Precedence18Expression] children;
 }

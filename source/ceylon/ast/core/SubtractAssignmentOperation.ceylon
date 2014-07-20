@@ -12,16 +12,16 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     "The target expression and minuend."
     shared Precedence16Expression target;
     "The subtrahend."
-    shared Precedence17Expression subtrahend;
+    shared Precedence18Expression subtrahend;
     
     "The target expression and minuend."
     see (`value target`)
     shared actual Precedence16Expression leftOperand = target;
     "The subtrahend."
     see (`value subtrahend`)
-    shared actual Precedence17Expression rightOperand = subtrahend;
+    shared actual Precedence18Expression rightOperand = subtrahend;
     
-    shared actual [Precedence16Expression, Precedence17Expression] children = [leftOperand, rightOperand];
+    shared actual [Precedence16Expression, Precedence18Expression] children = [leftOperand, rightOperand];
     
     operator = "-=";
     
@@ -39,7 +39,7 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SubtractAssignmentOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence17Expression rightOperand = this.rightOperand) {
+    shared SubtractAssignmentOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence18Expression rightOperand = this.rightOperand) {
         value ret = SubtractAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

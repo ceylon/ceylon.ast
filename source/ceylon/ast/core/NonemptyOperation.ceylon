@@ -5,7 +5,7 @@ shared class NonemptyOperation(operand_)
         extends UnaryOperation() {
     
     // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    shared Precedence9Expression operand_;
+    Precedence9Expression operand_;
     
     "The operand expression whose nonemptiness is tested."
     shared actual Precedence9Expression operand = operand_;

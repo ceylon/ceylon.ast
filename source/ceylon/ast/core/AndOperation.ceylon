@@ -10,8 +10,9 @@ see (`class AndAssignmentOperation`)
 shared class AndOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     
-    shared Precedence14Expression leftOperand_;
-    shared Precedence13Expression rightOperand_;
+    // TODO remove ceylon-compiler#1728 workaround
+    Precedence14Expression leftOperand_;
+    Precedence13Expression rightOperand_;
     
     shared actual Precedence14Expression leftOperand = leftOperand_;
     shared actual Precedence13Expression rightOperand = rightOperand_;

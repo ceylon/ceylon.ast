@@ -72,6 +72,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformDec(Dec that) {
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
+        case (is PackageDec) { return transformPackageDec(that); }
+        case (is ModuleDec) { return transformModuleDec(that); }
     }
     shared actual default Result transformEqualityOperation(EqualityOperation that) {
         switch (that)

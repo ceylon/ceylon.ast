@@ -61,6 +61,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
+        JModuleLiteral=ModuleLiteral,
         JMultiplyAssignOp=MultiplyAssignOp,
         JNamedArgument=NamedArgument,
         JNamedArgumentList=NamedArgumentList,
@@ -75,6 +76,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOrOp=OrOp,
         JOuter=Outer,
         JPackage=Package,
+        JPackageLiteral=PackageLiteral,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -162,6 +164,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         lidentifier=\iLIDENTIFIER,
         lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
+        moduleType=\iMODULE,
         multiply_specify=\iMULTIPLY_SPECIFY,
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
@@ -745,6 +748,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JModuleLiteral transformModuleDec(ModuleDec that) {
+        JModuleLiteral ret = JModuleLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token("module", moduleType);
+        ret.importPath = transformFullPackageName(that.moduleName);
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
     shared actual JMultiplyAssignOp transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JMultiplyAssignOp ret = JMultiplyAssignOp(tokens.token(that.operator, multiply_specify));
@@ -832,6 +843,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JPackageLiteral transformPackageDec(PackageDec that) {
+        JPackageLiteral ret = JPackageLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token("package", packageType);
+        ret.importPath = transformFullPackageName(that.packageName);
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
     
     "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
      with token type `PIDENTIFIER` (“package identifier”)."

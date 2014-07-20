@@ -19,11 +19,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Dec decToCeylon(JMetaLiteral dec) {
     assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral dec);
     switch (dec)
-    case (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral) {
+    case (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JValueLiteral|JFunctionLiteral) {
         "Not yet implemented!" // TODO implement
         assert (false);
     }
     case (is JTypeParameterLiteral) { return givenDecToCeylon(dec); }
+    case (is JPackageLiteral) { return packageDecToCeylon(dec); }
+    case (is JModuleLiteral) { return moduleDecToCeylon(dec); }
 }
 
 "Compiles the given [[code]] for a Dec

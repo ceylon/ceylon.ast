@@ -315,6 +315,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
+    transformModuleDec(ModuleDec that) => "ModuleDec(``transformWithIndent(that.moduleName)``)";
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => "MultiplyAssignmentOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -405,6 +406,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
+    transformPackageDec(PackageDec that) => "PackageDec(``transformWithIndent(that.packageName)``)";
     transformPositionalArguments(PositionalArguments that) => "PositionalArguments(``transformWithIndent(that.argumentList)``)";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";

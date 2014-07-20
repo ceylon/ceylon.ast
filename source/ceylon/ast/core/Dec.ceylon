@@ -4,7 +4,7 @@
    
    * a class, interface, alias, or type parameter ([[TypeDec]])
    * a function or value ([[MemberDec]])
-   * a package or module ([[PackageDec]], [[MemberDec]]).
+   * a package or module ([[PackageDec]], [[ModuleDec]]).
    
    Not to be confused with [[Meta]], which represents a *typed* reference.
    Simply speaking, if there’s a keyword (`` `class String` ``, `` `value system` ``),
@@ -12,6 +12,6 @@
    
    Reference expressions are often used in annotations, e. g. [[see]]."""
 shared abstract class Dec()
-        of TypeDec
+        of TypeDec | PackageDec | ModuleDec
         extends Primary() {
 }

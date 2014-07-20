@@ -76,6 +76,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
+    shared formal Result transformModuleDec(ModuleDec that);
     shared formal Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNamedArgument(NamedArgument that);
@@ -92,6 +93,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOrOperation(OrOperation that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPackageDec(PackageDec that);
     shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);

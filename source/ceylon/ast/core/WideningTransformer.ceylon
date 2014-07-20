@@ -67,6 +67,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
+    shared actual default Result transformModuleDec(ModuleDec that) => transformDec(that);
     shared actual default Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformNamedArgument(NamedArgument that) => transformExpressionIsh(that);
@@ -82,6 +83,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOrOperation(OrOperation that) => transformLogicalOperation(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);
+    shared actual default Result transformPackageDec(PackageDec that) => transformDec(that);
     shared actual default Result transformPositionalArguments(PositionalArguments that) => transformArguments(that);
     shared actual default Result transformPostfixDecrementOperation(PostfixDecrementOperation that) => transformPostfixOperation(that);
     shared actual default Result transformPostfixIncrementOperation(PostfixIncrementOperation that) => transformPostfixOperation(that);

@@ -136,6 +136,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy();
+    shared actual default ModuleDec transformModuleDec(ModuleDec that)
+            => that.copy();
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => that.copy();
     shared actual default NamedArgument transformNamedArgument(NamedArgument that) {
@@ -155,6 +157,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
             => that.copy();
     shared actual default OrOperation transformOrOperation(OrOperation that)
+            => that.copy();
+    shared actual default PackageDec transformPackageDec(PackageDec that)
             => that.copy();
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
             => that.copy();

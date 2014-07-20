@@ -256,7 +256,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``child = ``transformWithIndent(that.operand)``;
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 ``indent``}";
-    transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.arguments)``)";
+    transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     shared actual String transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
@@ -484,7 +484,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``result = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformThis(This that) => "This()";
-    transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.arguments)``)";
+    transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     shared actual String transformTypeList(TypeList that) {
         if (nonempty elements = that.elements) {

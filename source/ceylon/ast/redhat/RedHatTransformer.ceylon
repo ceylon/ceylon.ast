@@ -648,7 +648,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSequenceEnumeration transformIterable(Iterable that) {
         JSequenceEnumeration ret = JSequenceEnumeration(tokens.token("{", lbrace));
-        ret.sequencedArgument = transformArgumentList(that.arguments);
+        ret.sequencedArgument = transformArgumentList(that.argumentList);
         ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
@@ -1188,7 +1188,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTuple transformTuple(Tuple that) {
         JTuple ret = JTuple(tokens.token("[", lbracket));
-        ret.sequencedArgument = transformArgumentList(that.arguments);
+        ret.sequencedArgument = transformArgumentList(that.argumentList);
         ret.endToken = tokens.token("]", rbracket);
         return ret;
     }

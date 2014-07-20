@@ -4,30 +4,30 @@
  
      {}
      { second, first, *rest.rest }"
-shared class Iterable(arguments)
+shared class Iterable(argumentList)
         extends Atom() {
     
     "The iterable arguments."
-    shared ArgumentList arguments;
+    shared ArgumentList argumentList;
     
-    shared actual [ArgumentList] children = [arguments];
+    shared actual [ArgumentList] children = [argumentList];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIterable(this);
     
     shared actual Boolean equals(Object that) {
         if (is Iterable that) {
-            return arguments == that.arguments;
+            return argumentList == that.argumentList;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * arguments.hash;
+            => 31 * argumentList.hash;
     
-    shared Iterable copy(ArgumentList arguments = this.arguments) {
-        value ret = Iterable(arguments);
+    shared Iterable copy(ArgumentList argumentList = this.argumentList) {
+        value ret = Iterable(argumentList);
         copyExtraInfoTo(ret);
         return ret;
     }

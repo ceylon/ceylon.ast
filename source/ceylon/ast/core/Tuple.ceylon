@@ -5,30 +5,30 @@
      []     
      [x, y]
      [father, mother, *children]"
-shared class Tuple(arguments)
+shared class Tuple(argumentList)
         extends Atom() {
     
     "The tuple arguments."
-    shared ArgumentList arguments;
+    shared ArgumentList argumentList;
     
-    shared actual [ArgumentList] children = [arguments];
+    shared actual [ArgumentList] children = [argumentList];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTuple(this);
     
     shared actual Boolean equals(Object that) {
         if (is Tuple that) {
-            return arguments == that.arguments;
+            return argumentList == that.argumentList;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * arguments.hash;
+            => 31 * argumentList.hash;
     
-    shared Tuple copy(ArgumentList arguments = this.arguments) {
-        value ret = Tuple(arguments);
+    shared Tuple copy(ArgumentList argumentList = this.argumentList) {
+        value ret = Tuple(argumentList);
         copyExtraInfoTo(ret);
         return ret;
     }

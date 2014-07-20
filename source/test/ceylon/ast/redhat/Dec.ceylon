@@ -17,5 +17,5 @@ shared object dec satisfies AbstractTest<Dec,JMetaLiteral> {
     fromCeylon = RedHatTransformer.transformDec;
     toCeylon = decToCeylon;
     
-    tests = [givenDec];
+    tests = [givenDec, packageDec, moduleDec];
 }

@@ -7,6 +7,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAddAssignOp=AddAssignOp,
         JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
+        JAnnotation=Annotation,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
@@ -133,6 +134,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
+        aidentifier=\iAIDENTIFIER,
         and_op=\iAND_OP,
         and_specify=\iAND_SPECIFY,
         backtick=\iBACKTICK,
@@ -217,6 +219,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
+     with token type `AIDENTIFIER` (“annotation identifier”)."
+    shared JIdentifier transformAIdentifier(LIdentifier that) {
+        value ret = transformIdentifier(that);
+        ret.mainToken.type = aidentifier;
+        return ret;
+    }
+    
     shared actual JAndAssignOp transformAndAssignmentOperation(AndAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JAndAssignOp ret = JAndAssignOp(tokens.token(that.operator, and_specify));
@@ -230,6 +240,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JAndOp ret = JAndOp(tokens.token(that.operator, and_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence14Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JAnnotation transformAnnotation(Annotation that) {
+        JAnnotation ret = JAnnotation(null);
+        JBaseMemberExpression bme = JBaseMemberExpression(null);
+        bme.identifier = transformAIdentifier(that.name);
+        bme.typeArguments = JInferredTypeArguments(null);
+        ret.primary = bme;
+        value args = that.arguments;
+        switch (args)
+        case (is PositionalArguments) { ret.positionalArgumentList = transformPositionalArguments(args); }
+        case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(args); }
+        case (null) { ret.positionalArgumentList = JPositionalArgumentList(null); }
         return ret;
     }
     

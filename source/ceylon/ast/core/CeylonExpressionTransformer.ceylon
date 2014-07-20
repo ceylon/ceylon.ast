@@ -100,6 +100,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             }
         }
     }
+    transformAnnotation(Annotation that)
+            => "Annotation {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                ``indent``}";
     transformAnonymousArgument(AnonymousArgument that) => "AnonymousArgument(``transformWithIndent(that.expression)``)";
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {

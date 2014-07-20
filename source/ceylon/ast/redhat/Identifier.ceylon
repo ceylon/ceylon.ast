@@ -12,7 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         uidentifier=\iUIDENTIFIER,
         lidentifier=\iLIDENTIFIER,
-        pidentifier=\iPIDENTIFIER
+        pidentifier=\iPIDENTIFIER,
+        aidentifier=\iAIDENTIFIER
     }
 }
 import org.antlr.runtime {
@@ -63,6 +64,18 @@ shared LIdentifier pIdentifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     "Must be PIDENTIFIER token"
     assert (token.type == pidentifier);
+    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+}
+
+"Converts a RedHat AST [[Identifier|JIdentifier]] with token type `AIDENTIFIER` to a `ceylon.ast` [[LIdentifier]].
+ 
+ There’s no syntactical difference between annotation and lowercase identifiers, but they have different token types."
+throws (`class AssertionError`, "If the token type is not `AIDENTIFIER`.")
+shared LIdentifier aIdentifierToCeylon(JIdentifier identifier) {
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
+    assert (is CommonToken token = identifier.mainToken);
+    "Must be AIDENTIFIER token"
+    assert (token.type == aidentifier);
     return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
 }
 

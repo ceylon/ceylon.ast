@@ -29,6 +29,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => that.copy(transformPrecedence14Expression(that.leftOperand), transformPrecedence13Expression(that.rightOperand));
+    shared actual default Annotation transformAnnotation(Annotation that) {
+        value name = transformLIdentifier(that.name);
+        Arguments? arguments;
+        if (exists args = that.arguments) {
+            arguments = transformArguments(args);
+        } else {
+            arguments = null;
+        }
+        return that.copy(name, arguments);
+    }
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {

@@ -151,6 +151,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
         case (is Statement) { return transformStatement(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
+        case (is Annotation) { return transformAnnotation(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

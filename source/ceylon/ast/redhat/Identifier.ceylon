@@ -11,7 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         uidentifier=\iUIDENTIFIER,
-        lidentifier=\iLIDENTIFIER
+        lidentifier=\iLIDENTIFIER,
+        pidentifier=\iPIDENTIFIER
     }
 }
 import org.antlr.runtime {
@@ -53,6 +54,18 @@ shared UIdentifier uIdentifierToCeylon(JIdentifier identifier) {
     return UIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
 }
 
+"Converts a RedHat AST [[Identifier|JIdentifier]] with token type `PIDENTIFIER` to a `ceylon.ast` [[LIdentifier]].
+ 
+ There’s no syntactical difference between package and lowercase identifiers, but they have different token types."
+throws (`class AssertionError`, "If the token type is not `PIDENTIFIER`.")
+shared LIdentifier pIdentifierToCeylon(JIdentifier identifier) {
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
+    assert (is CommonToken token = identifier.mainToken);
+    "Must be PIDENTIFIER token"
+    assert (token.type == pidentifier);
+    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+}
+
 "Compiles the given [[code]] for an Identifier
  into an [[Identifier]] using the Ceylon compiler
  (more specifically, the rule for an Import Name)."
@@ -81,6 +94,17 @@ shared LIdentifier? compileLIdentifier(String code) {
 shared UIdentifier? compileUIdentifier(String code) {
     if (exists jidentifier = createParser(code).typeName()) {
         return uIdentifierToCeylon(jidentifier);
+    } else {
+        return null;
+    }
+}
+
+"Compiles the given [[code]] for a Package Identifier
+ into an [[LIdentifier]] using the Ceylon compiler
+ (more specifically, the rule for a `packageName`)."
+shared LIdentifier? compilePIdentifier(String code) {
+    if (exists jidentifier = createParser(code).packageName()) {
+        return pIdentifierToCeylon(jidentifier);
     } else {
         return null;
     }

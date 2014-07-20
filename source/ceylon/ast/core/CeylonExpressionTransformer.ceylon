@@ -170,6 +170,37 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
+    shared actual String transformFullPackageName(FullPackageName that) {
+        if (that.components.size == 1) {
+            StringBuilder code = StringBuilder();
+            code.append("FullPackageName([");
+            value origIndent = indent;
+            indent = indent + indentLevel + indentLevel;
+            code.append(that.components.first.transform(this));
+            code.append("])");
+            indent = origIndent;
+            return code.string;
+        } else {
+            StringBuilder code = StringBuilder();
+            code.append("FullPackageName([");
+            value origIndent = indent;
+            indent = indent + indentLevel + indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append(that.components.first.transform(this));
+            for (component in that.components.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(component.transform(this));
+            }
+            code.appendNewline();
+            code.append(origIndent + indentLevel);
+            code.append("])");
+            indent = origIndent;
+            return code.string;
+        }
+    }
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";

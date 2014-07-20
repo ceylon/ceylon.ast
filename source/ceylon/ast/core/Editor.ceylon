@@ -108,6 +108,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy();
+    shared actual default FullPackageName transformFullPackageName(FullPackageName that)
+            => that.copy();
     shared actual default IdenticalOperation transformIdenticalOperation(IdenticalOperation that)
             => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)

@@ -42,6 +42,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
+        JImportPath=ImportPath,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
@@ -170,6 +171,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         or_specify=\iOR_SPECIFY,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
+        pidentifier=\iPIDENTIFIER,
         power_op=\iPOWER_OP,
         product_op=\iPRODUCT_OP,
         quotient_op=\iQUOTIENT_OP,
@@ -535,6 +537,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
+    shared actual JImportPath transformFullPackageName(FullPackageName that) {
+        JImportPath ret = JImportPath(null);
+        ret.addIdentifier(transformPIdentifier(that.components.first));
+        for (component in that.components.rest) {
+            ret.endToken = tokens.token(".", member_op);
+            ret.addIdentifier(transformPIdentifier(component));
+        }
+        return ret;
+    }
+    
     shared actual JTypeParameterLiteral transformGivenDec(GivenDec that) {
         JTypeParameterLiteral ret = JTypeParameterLiteral(tokens.token("`", backtick));
         ret.endToken = tokens.token("given", type_constraint);
@@ -820,6 +832,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
+     with token type `PIDENTIFIER` (“package identifier”)."
+    shared JIdentifier transformPIdentifier(LIdentifier that) {
+        value ret = transformIdentifier(that);
+        ret.mainToken.type = pidentifier;
+        return ret;
+    }
     
     shared actual JPositionalArgumentList transformPositionalArguments(PositionalArguments that) {
         JPositionalArgumentList ret = JPositionalArgumentList(tokens.token("(", lparen));

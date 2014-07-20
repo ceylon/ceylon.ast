@@ -88,6 +88,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Expression) { return transformExpression(that); }
         case (is TypeIsh) { return transformTypeIsh(that); }
         case (is Identifier) { return transformIdentifier(that); }
+        case (is FullPackageName) { return transformFullPackageName(that); }
         case (is ArgumentList) { return transformArgumentList(that); }
         case (is SpreadArgument) { return transformSpreadArgument(that); }
         case (is Arguments) { return transformArguments(that); }

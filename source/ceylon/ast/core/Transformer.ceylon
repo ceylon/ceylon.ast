@@ -49,6 +49,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);

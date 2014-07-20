@@ -233,7 +233,7 @@ class ConcreteClassGenerator(
         expandFile("source/ceylon/ast/core/Editor.ceylon",
             "    shared actual default ",
             "``type`` transform``type``(``type`` that)
-                         => that.copy();");
+                         => that.copy(``", ".join { for (type->name in params) "transform``type``(that.``name``)" }``);");
     }
     
     void expandCeylonExpressionTransformer() {

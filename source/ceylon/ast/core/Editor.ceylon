@@ -24,15 +24,24 @@
  (in this example, override [[transformBody]])."
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence14Expression(that.leftOperand), transformPrecedence13Expression(that.rightOperand));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
-            => that.copy();
-    shared actual default ArgumentList transformArgumentList(ArgumentList that)
-            => that.copy();
+            => that.copy(transformExpression(that.expression));
+    shared actual default ArgumentList transformArgumentList(ArgumentList that) {
+        value listedArguments = [for (listedArgument in that.listedArguments) transformExpression(listedArgument)];
+        SpreadArgument? sequenceArgument;
+        if (exists seq = that.sequenceArgument) {
+            switch (seq)
+            case (is SpreadArgument) { sequenceArgument = transformSpreadArgument(seq); }
+        } else {
+            sequenceArgument = null;
+        }
+        return that.copy(listedArguments, sequenceArgument);
+    }
     shared actual default Arguments transformArguments(Arguments that) {
         assert (is Arguments ret = super.transformArguments(that));
         return ret;
@@ -47,7 +56,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     
     shared actual default AssignOperation transformAssignOperation(AssignOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {
         assert (is AssignmentOperation ret = super.transformAssignmentOperation(that));
         return ret;
@@ -57,9 +66,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
-            => that.copy();
+            => that.copy(transformNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseMeta transformBaseMeta(BaseMeta that)
-            => that.copy();
+            => that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs));
     shared actual default BinaryOperation transformBinaryOperation(BinaryOperation that) {
@@ -71,7 +80,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default ComparisonOperation transformComparisonOperation(ComparisonOperation that) {
         assert (is ComparisonOperation ret = super.transformComparisonOperation(that));
         return ret;
@@ -81,9 +90,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default ComplementAssignmentOperation transformComplementAssignmentOperation(ComplementAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
     shared actual default Dec transformDec(Dec that) {
         assert (is Dec ret = super.transformDec(that));
         return ret;
@@ -91,41 +100,45 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
-            => that.copy();
+            => that.copy(transformNamedArguments(that.content));
     shared actual default ElseOperation transformElseOperation(ElseOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence15Expression(that.rightOperand));
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
     shared actual default EqualOperation transformEqualOperation(EqualOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence11Expression(that.leftOperand), transformPrecedence11Expression(that.rightOperand));
     shared actual default EqualityOperation transformEqualityOperation(EqualityOperation that) {
         assert (is EqualityOperation ret = super.transformEqualityOperation(that));
         return ret;
     }
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence9Expression(that.operand));
+    shared actual default Expression transformExpression(Expression that) {
+        assert (is Expression ret = super.transformExpression(that));
+        return ret;
+    }
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
-            => that.copy();
+            => that.copy([for (component in that.components) transformLIdentifier(component)]);
     shared actual default IdenticalOperation transformIdenticalOperation(IdenticalOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence11Expression(that.leftOperand), transformPrecedence11Expression(that.rightOperand));
     shared actual default InOperation transformInOperation(InOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default Invocation transformInvocation(Invocation that)
-            => that.copy();
+            => that.copy(transformPrimary(that.invoked), transformArguments(that.arguments));
     shared actual default IsOperation transformIsOperation(IsOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
     shared actual default Iterable transformIterable(Iterable that)
-            => that.copy();
+            => that.copy(transformArgumentList(that.argumentList));
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default LogicalAssignmentOperation transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
         assert (is LogicalAssignmentOperation ret = super.transformLogicalAssignmentOperation(that));
         return ret;
@@ -135,33 +148,33 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
-            => that.copy();
+            => that.copy(transformFullPackageName(that.moduleName));
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default NamedArgument transformNamedArgument(NamedArgument that) {
         assert (is NamedArgument ret = super.transformNamedArgument(that));
         return ret;
     }
     shared actual default NamedArguments transformNamedArguments(NamedArguments that)
-            => that.copy();
+            => that.copy([for (namedArgument in that.namedArguments) transformNamedArgument(namedArgument)], transformArgumentList(that.iterableArgument));
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence9Expression(that.operand));
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence11Expression(that.leftOperand), transformPrecedence11Expression(that.rightOperand));
     shared actual default NotOperation transformNotOperation(NotOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence13Expression(that.operand));
     shared actual default OfOperation transformOfOperation(OfOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
     shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default OrOperation transformOrOperation(OrOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence15Expression(that.leftOperand), transformPrecedence14Expression(that.rightOperand));
     shared actual default PackageDec transformPackageDec(PackageDec that)
-            => that.copy();
+            => that.copy(transformFullPackageName(that.packageName));
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
-            => that.copy();
+            => that.copy(transformArgumentList(that.argumentList));
     shared actual default Precedence10Expression transformPrecedence10Expression(Precedence10Expression that) {
         assert (is Precedence10Expression ret = super.transformPrecedence10Expression(that));
         return ret;
@@ -207,11 +220,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
     shared actual default ExponentiationOperation transformExponentiationOperation(ExponentiationOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence1Expression(that.leftOperand), transformPrecedence2Expression(that.rightOperand));
     shared actual default ExpressionIsh transformExpressionIsh(ExpressionIsh that) {
         assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
         return ret;
@@ -219,17 +232,19 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default GivenDec transformGivenDec(GivenDec that)
-            => that.copy();
+            => that.copy(transformUIdentifier(that.typeParameter));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
-            => that.copy();
+            => that.copy(transformExpression(that.innerExpression));
     shared actual default GroupedType transformGroupedType(GroupedType that)
             => that.copy(transformType(that.type));
-    shared actual default Identifier transformIdentifier(Identifier that)
-            => that.copy();
+    shared actual default Identifier transformIdentifier(Identifier that) {
+        assert (is Identifier ret = super.transformIdentifier(that));
+        return ret;
+    }
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence2Expression(that.operand));
     shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence4Expression(that.leftOperand), transformPrecedence3Expression(that.rightOperand));
     shared actual default IterableType transformIterableType(IterableType that) {
         if (exists variadicType = that.variadicType) {
             return that.copy(transformVariadicType(variadicType));
@@ -240,7 +255,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
     shared actual default IntersectionType transformIntersectionType(IntersectionType that)
-            => that.copy();
+            => that.copy([for (child in that.children) transformPrimaryType(child)]);
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
     shared actual default Literal transformLiteral(Literal that) {
@@ -252,9 +267,17 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
-            => that.copy();
-    shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
-            => that.copy();
+            => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
+    shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
+        value name = transformLIdentifier(that.name);
+        TypeArguments? typeArguments;
+        if (exists args = that.typeArguments) {
+            typeArguments = [for (arg in args) transformType(arg)];
+        } else {
+            typeArguments = null;
+        }
+        return that.copy(name, typeArguments);
+    }
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
         return ret;
@@ -264,13 +287,13 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default ProductOperation transformProductOperation(ProductOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
     shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
     }
     shared actual default NegationOperation transformNegationOperation(NegationOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence2Expression(that.operand));
     shared actual default Operation transformOperation(Operation that) {
         assert (is Operation ret = super.transformOperation(that));
         return ret;
@@ -282,9 +305,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default Package transformPackage(Package that)
             => that.copy();
     shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)
-            => that.copy();
+            => that.copy(transformPrimary(that.operand));
     shared actual default PostfixIncrementOperation transformPostfixIncrementOperation(PostfixIncrementOperation that)
-            => that.copy();
+            => that.copy(transformPrimary(that.operand));
     shared actual default PostfixOperation transformPostfixOperation(PostfixOperation that) {
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
         return ret;
@@ -314,9 +337,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default PrefixDecrementOperation transformPrefixDecrementOperation(PrefixDecrementOperation that)
-            => that.copy();
+            => that.copy(transformPrimary(that.operand));
     shared actual default PrefixIncrementOperation transformPrefixIncrementOperation(PrefixIncrementOperation that)
-            => that.copy();
+            => that.copy(transformPrimary(that.operand));
     shared actual default PrefixOperation transformPrefixOperation(PrefixOperation that) {
         assert (is PrefixOperation ret = super.transformPrefixOperation(that));
         return ret;
@@ -330,7 +353,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default QualifiedExpression transformQualifiedExpression(QualifiedExpression that)
-            => that.copy();
+            => that.copy(transformPrimary(that.receiverExpression), transformNameWithTypeArguments(that.nameAndArgs));
     shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
         value qualifyingType = that.qualifyingType;
         switch (qualifyingType)
@@ -338,11 +361,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
     }
     shared actual default RemainderAssignmentOperation transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default SelfReference transformSelfReference(SelfReference that) {
         assert (is SelfReference ret = super.transformSelfReference(that));
         return ret;
@@ -362,21 +385,21 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default SmallAsOperation transformSmallAsOperation(SmallAsOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default SmallerOperation transformSmallerOperation(SmallerOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
     shared actual default Specification transformSpecification(Specification that) {
         assert (is Specification ret = super.transformSpecification(that));
         return ret;
     }
     shared actual default SpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that)
-            => that.copy();
+            => that.copy(transformSpecification(that.specification));
     shared actual default Specifier transformSpecifier(Specifier that)
-            => that.copy();
+            => that.copy(transformExpression(that.expression));
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
-            => that.copy();
+            => that.copy(transformPrecedence5Expression(that.argument));
     shared actual default Statement transformStatement(Statement that) {
         assert (is Statement ret = super.transformStatement(that));
         return ret;
@@ -384,17 +407,17 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
     shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default SumOperation transformSumOperation(SumOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default Super transformSuper(Super that)
             => that.copy();
     shared actual default ThenOperation transformThenOperation(ThenOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence15Expression(that.rightOperand));
     shared actual default This transformThis(This that)
             => that.copy();
     shared actual default Tuple transformTuple(Tuple that)
-            => that.copy();
+            => that.copy(transformArgumentList(that.argumentList));
     shared actual default TupleType transformTupleType(TupleType that)
             => that.copy(transformTypeList(that.typeList));
     shared actual default Type transformType(Type that) {
@@ -422,7 +445,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
     }
     shared actual default TypeMeta transformTypeMeta(TypeMeta that)
-            => that.copy();
+            => that.copy(transformType(that.type));
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
         if (exists args = that.typeArguments) {
             return that.copy(transformUIdentifier(that.name), args.collect(transformType));
@@ -450,21 +473,27 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default UnionAssignmentOperation transformUnionAssignmentOperation(UnionAssignmentOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default UnionOperation transformUnionOperation(UnionOperation that)
-            => that.copy();
+            => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
     shared actual default UnionableType transformUnionableType(UnionableType that) {
         assert (is UnionableType ret = super.transformUnionableType(that));
         return ret;
     }
-    shared actual default UnionType transformUnionType(UnionType that)
-            => that.copy();
+    shared actual default UnionType transformUnionType(UnionType that) {
+        IntersectionType|PrimaryType transformIntersectionTypeOrPrimaryType(IntersectionType|PrimaryType that) {
+            switch (that)
+            case (is IntersectionType) { return transformIntersectionType(that); }
+            case (is PrimaryType) { return transformPrimaryType(that); }
+        }
+        return that.copy([for (child in that.children) transformIntersectionTypeOrPrimaryType(child)]);
+    }
     shared actual default ValueExpression transformValueExpression(ValueExpression that) {
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;
     }
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
-            => that.copy();
+            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
 }

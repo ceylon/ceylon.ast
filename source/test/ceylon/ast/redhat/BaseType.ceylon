@@ -54,7 +54,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType objectType = construct("Object");
     
     compile = compileBaseType;
-    fromCeylon = RedHatTransformer.transformBaseType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed
+    fromCeylon = RedHatTransformer.transformBaseType;
     toCeylon = baseTypeToCeylon;
     codes = [stringType, iterableOfStringType, listOfOutObjectType];
 }

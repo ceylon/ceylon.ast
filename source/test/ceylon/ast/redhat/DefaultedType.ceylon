@@ -21,7 +21,7 @@ shared object defaultedType satisfies ConcreteTest<DefaultedType,JDefaultedType>
     shared String->DefaultedType floatDefaultedType = (baseType.floatType.key + "=")->DefaultedType(baseType.floatType.item);
     
     compile = compileDefaultedType;
-    fromCeylon = RedHatTransformer.transformDefaultedType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed
+    fromCeylon = RedHatTransformer.transformDefaultedType;
     toCeylon = defaultedTypeToCeylon;
     codes = [stringDefaultedType, iterableOfStringDefaultedType];
 }

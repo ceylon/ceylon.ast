@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAtom=Atom,
+        JDynamic=Dynamic,
         JExpression=Expression,
         JLiteral=Literal,
         JOuter=Outer,
@@ -30,6 +31,7 @@ shared Atom atomToCeylon(JAtom atom) {
     case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom); }
     case (is JSequenceEnumeration) { return iterableToCeylon(atom); }
     case (is JTuple) { return tupleToCeylon(atom); }
+    case (is JDynamic) { return dynamicValueToCeylon(atom); }
     else {
         throw AssertionError("Unknown atom type");
     }

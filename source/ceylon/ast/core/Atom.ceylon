@@ -5,6 +5,6 @@
  in `1.add`, however, the child expressions are not wrapped.
  Therefore, a [[Tuple]] is an atom, while a [[MemberExpression]] isn’t."
 shared abstract class Atom()
-        of Literal | SelfReference | GroupedExpression | Iterable | Tuple
+        of Literal | SelfReference | GroupedExpression | Iterable | Tuple | DynamicValue
         extends Primary() {
 }

@@ -30,6 +30,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultOp=DefaultOp,
         JDifferenceOp=DifferenceOp,
         JDivideAssignOp=DivideAssignOp,
+        JDynamic=Dynamic,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
         JEqualOp=EqualOp,
@@ -193,6 +194,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         uidentifier=\iUIDENTIFIER,
         union_op=\iUNION_OP,
         union_specify=\iUNION_SPECIFY,
+        value_modifier=\iVALUE_MODIFIER,
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
@@ -431,6 +433,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDivideAssignOp ret = JDivideAssignOp(tokens.token(that.operator, divide_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JDynamic transformDynamicValue(DynamicValue that) {
+        JDynamic ret = JDynamic(tokens.token("value", value_modifier));
+        ret.namedArgumentList = transformNamedArguments(that.content);
         return ret;
     }
     

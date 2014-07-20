@@ -38,6 +38,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
+    shared formal Result transformDynamicValue(DynamicValue that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
     shared formal Result transformEntryType(EntryType that);

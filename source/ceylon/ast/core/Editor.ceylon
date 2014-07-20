@@ -94,6 +94,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
             => that.copy();
+    shared actual default DynamicValue transformDynamicValue(DynamicValue that)
+            => that.copy();
     shared actual default ElseOperation transformElseOperation(ElseOperation that)
             => that.copy();
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)

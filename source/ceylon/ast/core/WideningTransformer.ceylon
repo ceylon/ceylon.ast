@@ -29,6 +29,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDefaultedType(DefaultedType that) => transformTypeIsh(that);
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
+    shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
     shared actual default Result transformElseOperation(ElseOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryOperation(EntryOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);

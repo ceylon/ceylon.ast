@@ -39,6 +39,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is GroupedExpression) { return transformGroupedExpression(that); }
         case (is Iterable) { return transformIterable(that); }
         case (is Tuple) { return transformTuple(that); }
+        case (is DynamicValue) { return transformDynamicValue(that); }
     }
     shared actual default Result transformBinaryOperation(BinaryOperation that) {
         switch (that)

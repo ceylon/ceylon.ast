@@ -15,10 +15,18 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
+    
+    String->LIdentifier constructL(String name)
+            => name->LIdentifier(name);
+    
     shared String->LIdentifier lidLIdentifier = "lid"->LIdentifier("lid");
     shared String->UIdentifier uidUIdentifier = "Uid"->UIdentifier("Uid");
     shared String->LIdentifier uidLIdentifier = "\\iUid"->LIdentifier("Uid");
     shared String->UIdentifier lidUIdentifier = "\\Ilid"->UIdentifier("lid");
+    
+    // not tested directly, but used by other tests
+    shared String->LIdentifier sharedLIdentifier = constructL("shared");
+    shared String->LIdentifier byLIdentifier = constructL("by");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

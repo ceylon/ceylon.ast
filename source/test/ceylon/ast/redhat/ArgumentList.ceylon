@@ -34,6 +34,7 @@ shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgumen
     
     // not tested directly, but used by other tests
     shared String->ArgumentList helloWorldArgumentList = construct([sumOperation.helloPlusNameElseWorldPlusBangExpression]);
+    shared String->ArgumentList lucasArgumentList = construct([stringLiteral.lucasStringLiteral]);
     
     compile = compileArgumentList;
     fromCeylon = RedHatTransformer.transformArgumentList;

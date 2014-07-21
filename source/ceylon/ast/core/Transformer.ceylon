@@ -96,6 +96,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
     shared formal Result transformPackageDec(PackageDec that);
+    shared formal Result transformParameter(Parameter that);
+    shared formal Result transformParameterReference(ParameterReference that);
     shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
@@ -111,6 +113,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformQuotientOperation(QuotientOperation that);
     shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
+    shared formal Result transformRequiredParameter(RequiredParameter that);
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);

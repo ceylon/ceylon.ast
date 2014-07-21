@@ -49,6 +49,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInOp=InOp,
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
+        JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
         JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
@@ -80,6 +81,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOuter=Outer,
         JPackage=Package,
         JPackageLiteral=PackageLiteral,
+        JParameter=Parameter,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -911,6 +913,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JParameter transformParameter(Parameter that) {
+        assert (is JParameter ret = super.transformParameter(that));
+        return ret;
+    }
+    
+    shared actual JInitializerParameter transformParameterReference(ParameterReference that) {
+        JInitializerParameter ret = JInitializerParameter(null);
+        ret.identifier = transformLIdentifier(that.name);
+        return ret;
+    }
+    
     "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
      with token type `PIDENTIFIER` (“package identifier”)."
     shared JIdentifier transformPIdentifier(LIdentifier that) {
@@ -1134,6 +1147,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JRemainderOp ret = JRemainderOp(tokens.token(that.operator, remainder_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence5Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JParameter transformRequiredParameter(RequiredParameter that) {
+        assert (is JParameter ret = super.transformRequiredParameter(that));
         return ret;
     }
     

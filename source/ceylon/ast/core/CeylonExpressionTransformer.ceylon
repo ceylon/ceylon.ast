@@ -468,6 +468,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
     transformPackageDec(PackageDec that) => "PackageDec(``transformWithIndent(that.packageName)``)";
+    transformParameterReference(ParameterReference that) => "ParameterReference(``transformWithIndent(that.name)``)";
     transformPositionalArguments(PositionalArguments that) => "PositionalArguments(``transformWithIndent(that.argumentList)``)";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";

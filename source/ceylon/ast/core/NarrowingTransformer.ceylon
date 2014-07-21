@@ -153,11 +153,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is CompilationUnit) { return transformCompilationUnit(that); }
         case (is Annotation) { return transformAnnotation(that); }
         case (is Annotations) { return transformAnnotations(that); }
+        case (is Parameter) { return transformParameter(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
         case (is UnaryIshOperation) { return transformUnaryIshOperation(that); }
         case (is BinaryOperation) { return transformBinaryOperation(that); }
+    }
+    shared actual default Result transformParameter(Parameter that) {
+        switch (that)
+        case (is RequiredParameter) { return transformRequiredParameter(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)
@@ -285,6 +290,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is IterableType) { return transformIterableType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
         case (is CallableType) { return transformCallableType(that); }
+    }
+    shared actual default Result transformRequiredParameter(RequiredParameter that) {
+        switch (that)
+        case (is ParameterReference) { return transformParameterReference(that); }
     }
     shared actual default Result transformSelfReference(SelfReference that) {
         switch (that)

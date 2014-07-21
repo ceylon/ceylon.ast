@@ -272,6 +272,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default PackageDec transformPackageDec(PackageDec that)
             => that.copy(transformFullPackageName(that.packageName));
+    shared actual default Parameter transformParameter(Parameter that) {
+        assert (is Parameter ret = super.transformParameter(that));
+        return ret;
+    }
+    shared actual default ParameterReference transformParameterReference(ParameterReference that)
+            => that.copy(transformLIdentifier(that.name));
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)
@@ -382,6 +388,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
             => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
+    shared actual default RequiredParameter transformRequiredParameter(RequiredParameter that) {
+        assert (is RequiredParameter ret = super.transformRequiredParameter(that));
+        return ret;
+    }
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
             => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default SelfReference transformSelfReference(SelfReference that) {

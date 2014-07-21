@@ -17,5 +17,5 @@ shared object parameter satisfies AbstractTest<Parameter,JParameter> {
     fromCeylon = RedHatTransformer.transformParameter;
     toCeylon = parameterToCeylon;
     
-    tests = [requiredParameter];
+    tests = [requiredParameter, defaultedParameter];
 }

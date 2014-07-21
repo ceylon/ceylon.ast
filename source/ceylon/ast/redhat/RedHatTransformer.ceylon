@@ -479,6 +479,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JParameter transformDefaultedParameter(DefaultedParameter that) {
+        assert (is JParameter ret = super.transformDefaultedParameter(that));
+        return ret;
+    }
+    
+    shared actual JInitializerParameter transformDefaultedParameterReference(DefaultedParameterReference that) {
+        JInitializerParameter ret = JInitializerParameter(null);
+        ret.identifier = transformLIdentifier(that.parameter.name);
+        ret.specifierExpression = transformSpecifier(that.specifier);
+        return ret;
+    }
+    
     shared actual JDefaultedType transformDefaultedType(DefaultedType that) {
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);

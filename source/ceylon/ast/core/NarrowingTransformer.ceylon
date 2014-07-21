@@ -75,6 +75,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PackageDec) { return transformPackageDec(that); }
         case (is ModuleDec) { return transformModuleDec(that); }
     }
+    shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
+        switch (that)
+        case (is DefaultedParameterReference) { return transformDefaultedParameterReference(that); }
+    }
     shared actual default Result transformEqualityOperation(EqualityOperation that) {
         switch (that)
         case (is EqualOperation) { return transformEqualOperation(that); }
@@ -163,6 +167,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformParameter(Parameter that) {
         switch (that)
         case (is RequiredParameter) { return transformRequiredParameter(that); }
+        case (is DefaultedParameter) { return transformDefaultedParameter(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)

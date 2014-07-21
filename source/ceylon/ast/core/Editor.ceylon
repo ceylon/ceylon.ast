@@ -115,6 +115,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Dec ret = super.transformDec(that));
         return ret;
     }
+    shared actual default DefaultedParameter transformDefaultedParameter(DefaultedParameter that) {
+        assert (is DefaultedParameter ret = super.transformDefaultedParameter(that));
+        return ret;
+    }
+    shared actual default DefaultedParameterReference transformDefaultedParameterReference(DefaultedParameterReference that)
+            => that.copy(transformParameterReference(that.parameter), transformSpecifier(that.specifier));
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)

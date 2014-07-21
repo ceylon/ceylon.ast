@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Parameter
+    DefaultedParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -9,24 +9,20 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     }
 }
 
-"Converts a RedHat AST [[Parameter|JParameter]] to a `ceylon.ast` [[Parameter]]."
-shared Parameter parameterToCeylon(JParameter parameter) {
-    assert (is JParameterDeclaration|JInitializerParameter parameter);
-    switch (parameter)
+"Converts a RedHat AST [[Parameter|JParameter]] to a `ceylon.ast` [[DefaultedParameter]]."
+shared DefaultedParameter defaultedParameterToCeylon(JParameter defaultedParameter) {
+    assert (is JParameterDeclaration|JInitializerParameter defaultedParameter);
+    switch (defaultedParameter)
     case (is JParameterDeclaration) { throw AssertionError("Parameter declarations not implemented yet!"); } // TODO implement parameter declarations
     case (is JInitializerParameter) {
-        if (parameter.specifierExpression exists) {
-            return defaultedParameterReferenceToCeylon(parameter);
-        } else {
-            return parameterReferenceToCeylon(parameter);
-        }
+        return defaultedParameterReferenceToCeylon(defaultedParameter);
     }
 }
 
-"Compiles the given [[code]] for a Parameter
- into a [[Parameter]] using the Ceylon compiler
+"Compiles the given [[code]] for a Defaulted Parameter
+ into a [[DefaultedParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared Parameter? compileParameter(String code) {
+shared DefaultedParameter? compileDefaultedParameter(String code) {
     if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
         /*
          For parameter references, the parser looks ahead of the lidentifier token
@@ -34,7 +30,7 @@ shared Parameter? compileParameter(String code) {
          it needs that comma (or a rparen or something like that) to determine
          that this is in fact a parameter reference and not something else.
          */
-        return parameterToCeylon(jParameterDeclarationOrRef);
+        return defaultedParameterToCeylon(jParameterDeclarationOrRef);
     } else {
         return null;
     }

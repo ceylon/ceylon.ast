@@ -39,6 +39,15 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(name, arguments);
     }
+    shared actual default Annotations transformAnnotations(Annotations that) {
+        StringLiteral? anonymousAnnotation;
+        if (exists anon = that.anonymousAnnotation) {
+            anonymousAnnotation = transformStringLiteral(anon);
+        } else {
+            anonymousAnnotation = null;
+        }
+        return that.copy(anonymousAnnotation, that.annotations.collect(transformAnnotation));
+    }
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {

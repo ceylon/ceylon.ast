@@ -105,6 +105,62 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
                 ``indent``}";
+    shared actual String transformAnnotations(Annotations that) {
+        void appendAnnotations(String origIndent, [Annotation+] annotations, StringBuilder code) {
+            code.appendNewline();
+            code.append(indent);
+            code.append("annotations = [");
+            indent += indentLevel;
+            code.appendNewline();
+            code.append(indent);
+            code.append(annotations.first.transform(this));
+            for (annotation in annotations.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(annotation.transform(this));
+            }
+            code.appendNewline();
+            code.append(origIndent);
+            code.append(indentLevel);
+            code.append("];");
+            indent = origIndent;
+        }
+        if (exists anonymousAnnotation = that.anonymousAnnotation) {
+            if (nonempty annotations = that.annotations) {
+                StringBuilder code = StringBuilder();
+                code.append("Annotations {");
+                value origIndent = indent;
+                indent = origIndent + indentLevel;
+                code.appendNewline();
+                code.append(indent);
+                code.append("anonymousAnnotation = ");
+                code.append(anonymousAnnotation.transform(this));
+                code.append(";");
+                appendAnnotations(origIndent, annotations, code);
+                code.appendNewline();
+                code.append(indent);
+                code.append("}");
+                return code.string;
+            } else {
+                return "Annotations(``transformWithIndent(anonymousAnnotation)``)";
+            }
+        } else {
+            if (nonempty annotations = that.annotations) {
+                StringBuilder code = StringBuilder();
+                code.append("Annotations {");
+                value origIndent = indent;
+                indent = origIndent + indentLevel;
+                appendAnnotations(origIndent, annotations, code);
+                code.appendNewline();
+                code.append(indent);
+                code.append("}");
+                return code.string;
+            } else {
+                return "Annotations()";
+            }
+        }
+    }
     transformAnonymousArgument(AnonymousArgument that) => "AnonymousArgument(``transformWithIndent(that.expression)``)";
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {

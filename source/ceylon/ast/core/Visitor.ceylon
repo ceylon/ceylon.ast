@@ -16,6 +16,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);
     transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformAnnotation(Annotation that) => visitAnnotation(that);
+    transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
     transformArguments(Arguments that) => visitArguments(that);
@@ -151,6 +152,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
+    shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
     shared default void visitArguments(Arguments that) => super.transformArguments(that);

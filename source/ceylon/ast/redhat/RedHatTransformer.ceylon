@@ -8,6 +8,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
         JAnnotation=Annotation,
+        JAnnotationList=AnnotationList,
+        JAnonymousAnnotation=AnonymousAnnotation,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
@@ -129,12 +131,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType
-    }
+    },
+    JVisitorAdaptor=VisitorAdaptor
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
         aidentifier=\iAIDENTIFIER,
+        astring_literal=\iASTRING_LITERAL,
+        averbatim_string=\iAVERBATIM_STRING,
         and_op=\iAND_OP,
         and_specify=\iAND_SPECIFY,
         backtick=\iBACKTICK,
@@ -254,6 +259,36 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is PositionalArguments) { ret.positionalArgumentList = transformPositionalArguments(args); }
         case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(args); }
         case (null) { ret.positionalArgumentList = JPositionalArgumentList(null); }
+        return ret;
+    }
+    
+    shared actual JAnnotationList transformAnnotations(Annotations that) {
+        JAnnotationList ret = JAnnotationList(null);
+        if (exists anonymousAnnotation = that.anonymousAnnotation) {
+            JAnonymousAnnotation aa = JAnonymousAnnotation(null);
+            value stringLiteral = transformStringLiteral(anonymousAnnotation);
+            if (stringLiteral.mainToken.type == verbatim_string_literal) {
+                stringLiteral.mainToken.type = averbatim_string;
+            } else {
+                stringLiteral.mainToken.type = astring_literal;
+            }
+            aa.stringLiteral = stringLiteral;
+            ret.anonymousAnnotation = aa;
+        }
+        for (annotation in that.annotations) {
+            value anno = transformAnnotation(annotation);
+            object aliteralVisitor extends JVisitorAdaptor() {
+                shared actual void visitStringLiteral(JStringLiteral that) {
+                    if (that.mainToken.type == verbatim_string_literal) {
+                        that.mainToken.type = averbatim_string;
+                    } else {
+                        that.mainToken.type = astring_literal;
+                    }
+                }
+            }
+            anno.visit(aliteralVisitor);
+            ret.addAnnotation(anno);
+        }
         return ret;
     }
     

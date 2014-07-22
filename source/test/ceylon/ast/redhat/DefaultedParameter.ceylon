@@ -17,5 +17,5 @@ shared object defaultedParameter satisfies AbstractTest<DefaultedParameter,JPara
     fromCeylon = RedHatTransformer.transformDefaultedParameter;
     toCeylon = defaultedParameterToCeylon;
     
-    tests = [defaultedParameterReference];
+    tests = [defaultedValueParameter, defaultedParameterReference];
 }

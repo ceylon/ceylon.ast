@@ -17,5 +17,5 @@ shared object requiredParameter satisfies AbstractTest<RequiredParameter,JParame
     fromCeylon = RedHatTransformer.transformRequiredParameter;
     toCeylon = requiredParameterToCeylon;
     
-    tests = [parameterReference];
+    tests = [valueParameter, parameterReference];
 }

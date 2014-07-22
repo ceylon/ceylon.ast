@@ -29,25 +29,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => that.copy(transformPrecedence14Expression(that.leftOperand), transformPrecedence13Expression(that.rightOperand));
-    shared actual default Annotation transformAnnotation(Annotation that) {
-        value name = transformLIdentifier(that.name);
-        Arguments? arguments;
-        if (exists args = that.arguments) {
-            arguments = transformArguments(args);
-        } else {
-            arguments = null;
-        }
-        return that.copy(name, arguments);
-    }
-    shared actual default Annotations transformAnnotations(Annotations that) {
-        StringLiteral? anonymousAnnotation;
-        if (exists anon = that.anonymousAnnotation) {
-            anonymousAnnotation = transformStringLiteral(anon);
-        } else {
-            anonymousAnnotation = null;
-        }
-        return that.copy(anonymousAnnotation, that.annotations.collect(transformAnnotation));
-    }
+    shared actual default Annotation transformAnnotation(Annotation that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.arguments, transformArguments));
+    shared actual default Annotations transformAnnotations(Annotations that)
+            => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {
@@ -220,16 +205,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
             => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
-    shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
-        value name = transformLIdentifier(that.name);
-        TypeArguments? typeArguments;
-        if (exists args = that.typeArguments) {
-            typeArguments = [for (arg in args) transformType(arg)];
-        } else {
-            typeArguments = null;
-        }
-        return that.copy(name, typeArguments);
-    }
+    shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformType)));
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
         return ret;
@@ -472,21 +449,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             case (is Type) { return transformType(that); }
             case (is DefaultedType) { return transformDefaultedType(that); }
         }
-        if (exists var = that.variadic) {
-            return that.copy(that.elements.collect(transformTypeOrDefaultedType), transformVariadicType(var));
-        } else {
-            return that.copy(that.elements.collect(transformTypeOrDefaultedType));
-        }
+        return that.copy(that.elements.collect(transformTypeOrDefaultedType), nullsafeInvoke(that.variadic, transformVariadicType));
     }
     shared actual default TypeMeta transformTypeMeta(TypeMeta that)
             => that.copy(transformType(that.type));
-    shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
-        if (exists args = that.typeArguments) {
-            return that.copy(transformUIdentifier(that.name), args.collect(transformType));
-        } else {
-            return that.copy(transformUIdentifier(that.name), null);
-        }
-    }
+    shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformType)));
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
     shared actual default UnaryArithmeticOperation transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {

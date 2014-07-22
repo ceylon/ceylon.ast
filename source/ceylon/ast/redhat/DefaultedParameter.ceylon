@@ -3,9 +3,11 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JInitializerParameter=InitializerParameter,
         JParameter=Parameter,
-        JParameterDeclaration=ParameterDeclaration
+        JParameterDeclaration=ParameterDeclaration,
+        JValueParameterDeclaration=ValueParameterDeclaration
     }
 }
 
@@ -13,7 +15,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared DefaultedParameter defaultedParameterToCeylon(JParameter defaultedParameter) {
     assert (is JParameterDeclaration|JInitializerParameter defaultedParameter);
     switch (defaultedParameter)
-    case (is JParameterDeclaration) { throw AssertionError("Parameter declarations not implemented yet!"); } // TODO implement parameter declarations
+    case (is JParameterDeclaration) {
+        assert (is JValueParameterDeclaration|JFunctionalParameterDeclaration defaultedParameter);
+        switch (defaultedParameter)
+        case (is JValueParameterDeclaration) { return defaultedValueParameterToCeylon(defaultedParameter); }
+        case (is JFunctionalParameterDeclaration) {
+            throw AssertionError("Functional parameter declarations not implemented yet");
+        }
+    }
     case (is JInitializerParameter) {
         return defaultedParameterReferenceToCeylon(defaultedParameter);
     }

@@ -77,6 +77,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
         switch (that)
+        case (is DefaultedValueParameter) { return transformDefaultedValueParameter(that); }
         case (is DefaultedParameterReference) { return transformDefaultedParameterReference(that); }
     }
     shared actual default Result transformEqualityOperation(EqualityOperation that) {

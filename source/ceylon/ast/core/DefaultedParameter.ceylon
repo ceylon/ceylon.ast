@@ -5,7 +5,7 @@
      length = text.size
      Comparison comparing(Element x, Element y) => x.hash <=> y.hash"
 shared abstract class DefaultedParameter()
-        of DefaultedParameterReference
+        of DefaultedValueParameter | DefaultedParameterReference
         extends Parameter() {
     
     "The parameter."

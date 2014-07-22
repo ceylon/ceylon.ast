@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JAttributeDeclaration=AttributeDeclaration,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JInitializerParameter=InitializerParameter,
         JParameter=Parameter,
@@ -24,7 +25,12 @@ shared Parameter parameterToCeylon(JParameter parameter) {
         } else {
             switch (parameter)
             case (is JValueParameterDeclaration) {
-                return valueParameterToCeylon(parameter);
+                assert (is JAttributeDeclaration dec = parameter.typedDeclaration);
+                if (dec.specifierOrInitializerExpression exists) {
+                    return defaultedValueParameterToCeylon(parameter);
+                } else {
+                    return valueParameterToCeylon(parameter);
+                }
             }
             case (is JFunctionalParameterDeclaration) {
                 // TODO implement functional parameters

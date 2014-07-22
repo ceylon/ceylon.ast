@@ -40,6 +40,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedParameter(DefaultedParameter that);
     shared formal Result transformDefaultedParameterReference(DefaultedParameterReference that);
     shared formal Result transformDefaultedType(DefaultedType that);
+    shared formal Result transformDefaultedValueParameter(DefaultedValueParameter that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
     shared formal Result transformDynamicValue(DynamicValue that);

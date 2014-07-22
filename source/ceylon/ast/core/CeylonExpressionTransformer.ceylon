@@ -198,6 +198,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
     transformDefaultedType(DefaultedType that) => "DefaultedType(``transformWithIndent(that.type)``)";
+    transformDefaultedValueParameter(DefaultedValueParameter that)
+            => "DefaultedValueParameter {
+                `` indent + indentLevel ``parameter = ``transformWithIndent(that.parameter)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                ``indent``}";
     transformDifferenceOperation(DifferenceOperation that)
             => "DifferenceOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

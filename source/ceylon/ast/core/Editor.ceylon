@@ -108,6 +108,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformParameterReference(that.parameter), transformSpecifier(that.specifier));
     shared actual default DefaultedType transformDefaultedType(DefaultedType that)
             => that.copy(transformType(that.type));
+    shared actual default DefaultedValueParameter transformDefaultedValueParameter(DefaultedValueParameter that)
+            => that.copy(transformValueParameter(that.parameter), transformSpecifier(that.specifier));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)

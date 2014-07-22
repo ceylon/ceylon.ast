@@ -502,6 +502,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JValueParameterDeclaration transformDefaultedValueParameter(DefaultedValueParameter that) {
+        JValueParameterDeclaration ret = JValueParameterDeclaration(null);
+        assert (is JAttributeDeclaration dec = transformValueParameter(that.parameter).typedDeclaration);
+        dec.specifierOrInitializerExpression = transformSpecifier(that.specifier);
+        ret.typedDeclaration = dec;
+        return ret;
+    }
+    
     shared actual JDifferenceOp transformDifferenceOperation(DifferenceOperation that) {
         JTerm left = transformPrecedence8Expression(that.leftOperand);
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));

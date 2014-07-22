@@ -53,10 +53,7 @@ shared Parameter parameterToCeylon(JParameter parameter) {
 shared Parameter? compileParameter(String code) {
     if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
         /*
-         For parameter references, the parser looks ahead of the lidentifier token
-         (probably for some disambiguation that’s needed somewhere), and
-         it needs that comma (or a rparen or something like that) to determine
-         that this is in fact a parameter reference and not something else.
+         The parser does some lookahead and seems to need that comma to parse a parameterRef
          */
         return parameterToCeylon(jParameterDeclarationOrRef);
     } else {

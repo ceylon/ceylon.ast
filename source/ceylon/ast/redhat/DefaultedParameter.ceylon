@@ -32,13 +32,7 @@ shared DefaultedParameter defaultedParameterToCeylon(JParameter defaultedParamet
  into a [[DefaultedParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
 shared DefaultedParameter? compileDefaultedParameter(String code) {
-    if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
-        /*
-         For parameter references, the parser looks ahead of the lidentifier token
-         (probably for some disambiguation that’s needed somewhere), and
-         it needs that comma (or a rparen or something like that) to determine
-         that this is in fact a parameter reference and not something else.
-         */
+    if (exists jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef()) {
         return defaultedParameterToCeylon(jParameterDeclarationOrRef);
     } else {
         return null;

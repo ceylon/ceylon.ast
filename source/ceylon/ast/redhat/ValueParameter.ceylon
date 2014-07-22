@@ -31,13 +31,7 @@ shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valuePar
  into a [[ValueParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
 shared ValueParameter? compileValueParameter(String code) {
-    if (is JValueParameterDeclaration jParameter = createParser(code + ",").parameterDeclarationOrRef(),
-        /*
-         For parameter references, the parser looks ahead of the lidentifier token
-         (probably for some disambiguation that’s needed somewhere), and
-         it needs that comma (or a rparen or something like that) to determine
-         that this is in fact a parameter reference and not something else.
-         */
+    if (is JValueParameterDeclaration jParameter = createParser(code).parameterDeclarationOrRef(),
         jParameter.typedDeclaration.type is JStaticType|JDynamicModifier) {
         return valueParameterToCeylon(jParameter);
     } else {

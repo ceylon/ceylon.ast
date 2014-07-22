@@ -20,8 +20,8 @@ shared Parameter parameterToCeylon(JParameter parameter) {
     case (is JParameterDeclaration) {
         assert (is JValueParameterDeclaration|JFunctionalParameterDeclaration parameter);
         if (parameter.typedDeclaration.type is JSequencedType) {
-            // TODO implement variadic parameters
-            throw AssertionError("Variadic parameters not yet implemented");
+            assert (is JValueParameterDeclaration parameter);
+            return variadicParameterToCeylon(parameter);
         } else {
             switch (parameter)
             case (is JValueParameterDeclaration) {

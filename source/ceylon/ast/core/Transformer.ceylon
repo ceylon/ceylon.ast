@@ -157,5 +157,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueExpression(ValueExpression that);
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSpecification(ValueSpecification that);
+    shared formal Result transformVariadicParameter(VariadicParameter that);
     shared formal Result transformVariadicType(VariadicType that);
 }

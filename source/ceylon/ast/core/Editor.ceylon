@@ -500,6 +500,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformAnnotations(that.annotations), nullsafeInvoke(that.type, transformType), transformLIdentifier(that.name));
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
             => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
+    shared actual default VariadicParameter transformVariadicParameter(VariadicParameter that)
+            => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
 }

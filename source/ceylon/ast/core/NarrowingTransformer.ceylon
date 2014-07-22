@@ -169,6 +169,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is RequiredParameter) { return transformRequiredParameter(that); }
         case (is DefaultedParameter) { return transformDefaultedParameter(that); }
+        case (is VariadicParameter) { return transformVariadicParameter(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)

@@ -1438,6 +1438,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JValueParameterDeclaration transformVariadicParameter(VariadicParameter that) {
+        JValueParameterDeclaration ret = JValueParameterDeclaration(null);
+        JAttributeDeclaration dec = JAttributeDeclaration(null);
+        dec.annotationList = transformAnnotations(that.annotations);
+        dec.type = transformVariadicType(that.type);
+        dec.identifier = transformLIdentifier(that.name);
+        ret.typedDeclaration = dec;
+        return ret;
+    }
+    
     JExpression wrapTerm(JTerm term) {
         value expression = JExpression(null);
         expression.term = term;

@@ -7,6 +7,6 @@
      Integer length = text.size
      Element+ elements"
 shared abstract class Parameter()
-        of RequiredParameter | DefaultedParameter
+        of RequiredParameter | DefaultedParameter | VariadicParameter
         extends Node() {
 }

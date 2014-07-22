@@ -673,6 +673,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
+    transformVariadicParameter(VariadicParameter that)
+            => "VariadicParameter {
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                ``indent``}";
     transformVariadicType(VariadicType that)
             => that.isNonempty
             then "VariadicType {

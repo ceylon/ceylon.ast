@@ -494,6 +494,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;
     }
+    shared actual default ValueParameter transformValueParameter(ValueParameter that)
+            => that.copy(transformAnnotations(that.annotations), nullsafeInvoke(that.type, transformType), transformLIdentifier(that.name));
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
             => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
     shared actual default VariadicType transformVariadicType(VariadicType that)

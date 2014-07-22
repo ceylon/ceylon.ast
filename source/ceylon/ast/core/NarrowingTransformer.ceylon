@@ -298,6 +298,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformRequiredParameter(RequiredParameter that) {
         switch (that)
+        case (is ValueParameter) { return transformValueParameter(that); }
         case (is ParameterReference) { return transformParameterReference(that); }
     }
     shared actual default Result transformSelfReference(SelfReference that) {

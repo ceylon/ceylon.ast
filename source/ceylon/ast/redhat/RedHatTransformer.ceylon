@@ -15,6 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JArithmeticOp=ArithmeticOp,
         JAssignmentOp=AssignmentOp,
         JAssignOp=AssignOp,
+        JAttributeDeclaration=AttributeDeclaration,
         JAtom=Atom,
         JBaseMemberExpression=BaseMemberExpression,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
@@ -34,6 +35,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDifferenceOp=DifferenceOp,
         JDivideAssignOp=DivideAssignOp,
         JDynamic=Dynamic,
+        JDynamicModifier=DynamicModifier,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
         JEqualOp=EqualOp,
@@ -132,7 +134,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnaryOperatorExpression=UnaryOperatorExpression,
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
-        JUnionType=UnionType
+        JUnionType=UnionType,
+        JValueParameterDeclaration=ValueParameterDeclaration
     },
     JVisitorAdaptor=VisitorAdaptor
 }
@@ -154,6 +157,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         divide_specify=\iDIVIDE_SPECIFY,
+        dynamicType=\iDYNAMIC,
         else_clause=\iELSE_CLAUSE,
         entry_op=\iENTRY_OP,
         equal_op=\iEQUAL_OP,
@@ -1389,6 +1393,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformValueExpression(ValueExpression that) {
         assert (is JTerm ret = super.transformValueExpression(that));
+        return ret;
+    }
+    
+    shared actual JValueParameterDeclaration transformValueParameter(ValueParameter that) {
+        JValueParameterDeclaration ret = JValueParameterDeclaration(null);
+        JAttributeDeclaration dec = JAttributeDeclaration(null);
+        dec.annotationList = transformAnnotations(that.annotations);
+        if (exists type = that.type) {
+            dec.type = transformType(type);
+        } else {
+            dec.type = JDynamicModifier(tokens.token("dynamic", dynamicType));
+        }
+        dec.identifier = transformLIdentifier(that.name);
+        ret.typedDeclaration = dec;
         return ret;
     }
     

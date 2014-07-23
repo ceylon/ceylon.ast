@@ -263,6 +263,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ParameterReference transformParameterReference(ParameterReference that)
             => that.copy(transformLIdentifier(that.name));
+    shared actual default Parameters transformParameters(Parameters that)
+            => that.copy(that.parameters.collect(transformParameter));
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)

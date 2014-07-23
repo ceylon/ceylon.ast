@@ -101,6 +101,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformPackageDec(PackageDec that);
     shared formal Result transformParameter(Parameter that);
     shared formal Result transformParameterReference(ParameterReference that);
+    shared formal Result transformParameters(Parameters that);
     shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);

@@ -101,6 +101,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformPackageDec(PackageDec that) => visitPackageDec(that);
     transformParameter(Parameter that) => visitParameter(that);
     transformParameterReference(ParameterReference that) => visitParameterReference(that);
+    transformParameters(Parameters that) => visitParameters(that);
     transformPositionalArguments(PositionalArguments that) => visitPositionalArguments(that);
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => visitPostfixIncrementOperation(that);
@@ -218,6 +219,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
     shared default void visitParameter(Parameter that) => super.transformParameter(that);
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
+    shared default void visitParameters(Parameters that) => super.transformParameters(that);
     shared default void visitPositionalArguments(PositionalArguments that) => super.transformPositionalArguments(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);

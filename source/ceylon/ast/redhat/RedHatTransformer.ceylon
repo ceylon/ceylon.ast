@@ -84,6 +84,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackage=Package,
         JPackageLiteral=PackageLiteral,
         JParameter=Parameter,
+        JParameterList=ParameterList,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -939,6 +940,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JParameter transformParameter(Parameter that) {
         assert (is JParameter ret = super.transformParameter(that));
+        return ret;
+    }
+    
+    shared actual JParameterList transformParameters(Parameters that) {
+        JParameterList ret = JParameterList(tokens.token("(", lparen));
+        if (nonempty parameters = that.parameters) {
+            ret.parameters.add(transformParameter(parameters.first));
+        }
+        for (parameter in that.parameters.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.parameters.add(transformParameter(parameter));
+        }
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

@@ -54,35 +54,67 @@ shared interface CodesProvider<out CeylonAstType>
     shared formal [<String->CeylonAstType>+] codes;
 }
 
-shared interface ConcreteTest<CeylonAstType,RedHatType>
+shared interface NodesProvider<out CeylonAstType>
+        given CeylonAstType satisfies Node {
+    shared formal [CeylonAstType+] nodes;
+}
+
+shared interface CompilationTest<out CeylonAstType>
         satisfies CodesProvider<CeylonAstType>
-        given CeylonAstType satisfies Node
-        given RedHatType satisfies JNode {
+        given CeylonAstType satisfies Node {
     
     shared formal CeylonAstType? compile(String code);
-    shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
-    shared formal CeylonAstType toCeylon(RedHatType node);
     
     test
     shared void compilation() => testCompilation(compile, *codes);
-    test
-    shared void conversion() => testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
 }
 
-shared interface AbstractTest<CeylonAstType,RedHatType>
-        satisfies CodesProvider<CeylonAstType>
+shared interface ConversionTest<CeylonAstType,RedHatType>
+        satisfies NodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     
-    shared formal CeylonAstType? compile(String code);
     shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
     shared formal CeylonAstType toCeylon(RedHatType node);
+    
+    test
+    shared void conversion() => testConversion(fromCeylon, toCeylon, *nodes);
+}
+
+shared interface ConcreteTest<CeylonAstType,RedHatType>
+        satisfies CompilationTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    
+    shared actual [CeylonAstType+] nodes => codes*.item;
+}
+
+shared interface AbstractTest<CeylonAstType,RedHatType>
+        satisfies CompilationTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    
     shared formal [CodesProvider<CeylonAstType>+] tests;
     
-    codes => [for (test in tests) for (code in test.codes) code];
+    shared actual [<String->CeylonAstType>+] codes => [for (test in tests) for (code in test.codes) code];
+    shared actual [CeylonAstType+] nodes => codes*.item;
+}
+
+shared interface AbstractCompilationTest<out CeylonAstType>
+        satisfies CompilationTest<CeylonAstType>
+        given CeylonAstType satisfies Node {
     
-    test
-    shared void compilation() => testCompilation(compile, for (test in tests) for (code in test.codes) code);
-    test
-    shared void conversion() => testConversion(fromCeylon, toCeylon, for (test in tests) for (code in test.codes) code.item);
+    shared formal [CodesProvider<CeylonAstType>+] tests;
+    
+    shared actual [<String->CeylonAstType>+] codes => [for (test in tests) for (code in test.codes) code];
+}
+
+shared interface AbstractConversionTest<CeylonAstType,RedHatType>
+        satisfies ConversionTest<CeylonAstType,RedHatType>
+        given CeylonAstType satisfies Node
+        given RedHatType satisfies JNode {
+    
+    shared formal [NodesProvider<CeylonAstType>+] tests;
+    
+    shared actual [CeylonAstType+] nodes => [for (test in tests) for (node in test.nodes) node];
 }

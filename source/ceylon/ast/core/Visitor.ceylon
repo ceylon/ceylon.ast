@@ -29,8 +29,10 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
     transformBaseType(BaseType that) => visitBaseType(that);
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
+    transformBound(Bound that) => visitBound(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
+    transformClosedBound(ClosedBound that) => visitClosedBound(that);
     transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
     transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
@@ -92,6 +94,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNotEqualOperation(NotEqualOperation that) => visitNotEqualOperation(that);
     transformNotOperation(NotOperation that) => visitNotOperation(that);
     transformOfOperation(OfOperation that) => visitOfOperation(that);
+    transformOpenBound(OpenBound that) => visitOpenBound(that);
     transformOperation(Operation that) => visitOperation(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOrAssignmentOperation(OrAssignmentOperation that) => visitOrAssignmentOperation(that);
@@ -156,6 +159,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
+    transformWithinOperation(WithinOperation that) => visitWithinOperation(that);
     
     shared default void visitAddAssignmentOperation(AddAssignmentOperation that) => super.transformAddAssignmentOperation(that);
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
@@ -174,8 +178,10 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
+    shared default void visitBound(Bound that) => super.transformBound(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
+    shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);
     shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
     shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
@@ -214,6 +220,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
+    shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
@@ -301,4 +308,5 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
+    shared default void visitWithinOperation(WithinOperation that) => super.transformWithinOperation(that);
 }

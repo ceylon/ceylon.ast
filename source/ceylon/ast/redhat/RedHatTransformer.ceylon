@@ -24,7 +24,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,
         JBitwiseAssignmentOp=BitwiseAssignmentOp,
         JBitwiseOp=BitwiseOp,
+        JBound=Bound,
         JCharacterLiteral=CharLiteral,
+        JClosedBound=ClosedBound,
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
         JComplementAssignOp=ComplementAssignOp,
@@ -76,6 +78,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNotEqualOp=NotEqualOp,
         JNotOp=NotOp,
         JOfOp=OfOp,
+        JOpenBound=OpenBound,
         JOperatorExpression=OperatorExpression,
         JOptionalType=OptionalType,
         JOrAssignOp=OrAssignOp,
@@ -136,7 +139,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType,
-        JValueParameterDeclaration=ValueParameterDeclaration
+        JValueParameterDeclaration=ValueParameterDeclaration,
+        JWithinOp=WithinOp
     },
     JVisitorAdaptor=VisitorAdaptor
 }
@@ -431,6 +435,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBound transformBound(Bound that) {
+        assert (is JBound ret = super.transformBound(that));
+        return ret;
+    }
+    
     shared actual JFunctionType transformCallableType(CallableType that) {
         JStaticType returnType = transformPrimaryType(that.returnType);
         JFunctionType ret = JFunctionType(tokens.token("(", lparen));
@@ -449,6 +458,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JClosedBound transformClosedBound(ClosedBound that) {
+        /*
+         TODO two things:
+         
+         1. For a lower bound, we should transform the endpoint before creating the comparison token
+         2. The compiler grammar doesn’t add the token to the bound; why not? seems odd
+         */
+        JClosedBound ret = JClosedBound(null);
+        tokens.token("<=", small_as_op);
+        ret.term = transformPrecedence10Expression(that.endpoint);
+        return ret;
+    }
     
     shared actual JCompareOp transformCompareOperation(CompareOperation that) {
         JTerm left = transformPrecedence10Expression(that.leftOperand);
@@ -893,6 +915,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JOfOp ret = JOfOp(tokens.token(that.operator, case_types));
         ret.term = term;
         ret.type = transformType(that.type);
+        return ret;
+    }
+    
+    shared actual JOpenBound transformOpenBound(OpenBound that) {
+        /*
+         TODO two things:
+         
+         1. For a lower bound, we should transform the endpoint before creating the comparison token
+         2. The compiler grammar doesn’t add the token to the bound; why not? seems odd
+         */
+        JOpenBound ret = JOpenBound(null);
+        tokens.token("<", smaller_op);
+        ret.term = transformPrecedence10Expression(that.endpoint);
         return ret;
     }
     
@@ -1466,5 +1501,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value expression = JExpression(null);
         expression.term = term;
         return expression;
+    }
+    
+    shared actual JWithinOp transformWithinOperation(WithinOperation that) {
+        JWithinOp ret = JWithinOp(null);
+        // TODO inform bounds if they’re upper or lower via extraInfo?
+        ret.lowerBound = transformBound(that.lowerBound);
+        ret.term = transformPrecedence10Expression(that.operand);
+        ret.upperBound = transformBound(that.upperBound);
+        return ret;
     }
 }

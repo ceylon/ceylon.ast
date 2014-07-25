@@ -58,6 +58,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ElseOperation) { return transformElseOperation(that); }
         case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
+    shared actual default Result transformBound(Bound that) {
+        switch (that)
+        case (is OpenBound) { return transformOpenBound(that); }
+        case (is ClosedBound) { return transformClosedBound(that); }
+    }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
         case (is LargerOperation) { return transformLargerOperation(that); }
@@ -102,6 +107,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is NamedArgument) { return transformNamedArgument(that); }
         case (is Specifier) { return transformSpecifier(that); }
         case (is Parameters) { return transformParameters(that); }
+        case (is Bound) { return transformBound(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -165,6 +171,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is UnaryIshOperation) { return transformUnaryIshOperation(that); }
         case (is BinaryOperation) { return transformBinaryOperation(that); }
+        case (is WithinOperation) { return transformWithinOperation(that); }
     }
     shared actual default Result transformParameter(Parameter that) {
         switch (that)
@@ -248,6 +255,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is InOperation) { return transformInOperation(that); }
         case (is ComparisonOperation) { return transformComparisonOperation(that); }
         case (is CompareOperation) { return transformCompareOperation(that); }
+        case (is WithinOperation) { return transformWithinOperation(that); }
     }
     shared default Result transformPrecedence12Expression(Precedence12Expression that) {
         switch (that)

@@ -78,10 +78,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is BinaryOperation ret = super.transformBinaryOperation(that));
         return ret;
     }
+    shared actual default Bound transformBound(Bound that) {
+        assert (is Bound ret = super.transformBound(that));
+        return ret;
+    }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
+    shared actual default ClosedBound transformClosedBound(ClosedBound that)
+            => that.copy(transformPrecedence10Expression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default ComparisonOperation transformComparisonOperation(ComparisonOperation that) {
@@ -241,6 +247,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence13Expression(that.operand));
     shared actual default OfOperation transformOfOperation(OfOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
+    shared actual default OpenBound transformOpenBound(OpenBound that)
+            => that.copy(transformPrecedence10Expression(that.endpoint));
     shared actual default Operation transformOperation(Operation that) {
         assert (is Operation ret = super.transformOperation(that));
         return ret;
@@ -506,4 +514,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
+    shared actual default WithinOperation transformWithinOperation(WithinOperation that)
+            => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
 }

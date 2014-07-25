@@ -53,7 +53,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                 for (paramType->paramName in params) {
                     w.writeLine(
                         "    // TODO document!
-                             shared ``paramType`` ``paramName``;");
+                             shared formal ``paramType`` ``paramName``;");
                 }
                 w.writeLine("    ");
                 w.writeLine("    shared actual formal [``", ".join(params.collect(Entry<String,String>.key))``] children;");

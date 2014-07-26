@@ -1,7 +1,25 @@
-"Abstract superclass of all AST nodes.
- 
- Note that nodes are not [[Identifiable]]: as they are immutable,
- the identity of a particular instance is meaningless."
+import ceylon.collection {
+    HashMap
+}
+"""Abstract superclass of all AST nodes.
+   
+   Note that nodes are not [[Identifiable]]: as they are immutable,
+   the identity of a particular instance is meaningless.
+   
+   ### Additional information
+   
+   You can attach additional information to individual AST nodes
+   using the [[put]] and [[get]] methods. Usage example:
+   ~~~
+   // toplevel
+   Key<Token[]> tokensKey = Key<Token[]>("my.module::tokens");
+   
+   // in the parser
+   node.set(tokensKey, tokens);
+   
+   // somewhere else
+   assert (exists tokens = node.get(tokensKey));
+   ~~~"""
 shared abstract class Node()
         of ExpressionIsh | Statement | CompilationUnit | Annotation | Annotations | Parameter // TODO other case types
         extends Object() {
@@ -9,18 +27,62 @@ shared abstract class Node()
     "The child nodes of this node."
     shared formal Node[] children;
     
-    "Additional information that’s attached to this node.
+    /*
+     TODO
+     [Performance tests][gist] seem to indicate that
+     the a HashMap with string keys performs worse
+     than a HashMap with keys that wrap a string (here: Key).
+     This is probably because the string is often wrapped
+     and unwrapped between java.lang.String and
+     ceylon.language.String.
      
-     This allows users of the AST to add additional information to some nodes;
-     for example, a parser might add tokens, a compiler typing information, etc.
+     This requires more investigation. If the String (un)wrapping
+     really is the cause of the worsened performance, the
+     compiler probably needs to learn to optimize that,
+     as a HashMap keyed by strings is probably not uncommon.
      
-     The extra information is *not* considered part of the node;
-     [[equals]] and [[hash]] don’t use it."
-    shared variable Anything extraInfo = null;
+     [gist]: https://gist.github.com/lucaswerkmeister/b95470259328dea550ad
+     */
+    HashMap<String,Object> extraInfo = HashMap<String,Object>();
     
-    "Copies this node’s [[extraInfo]] to the [[other]] node."
+    "Returns the additional information attached to this node
+     using the given [[key]], if any."
+    see (`function put`)
+    shared Type? get<Type>(Key<Type> key)
+            given Type satisfies Object {
+        if (exists ret = extraInfo[key.id]) {
+            assert (is Type ret);
+            return ret;
+        } else {
+            return null;
+        }
+    }
+    
+    "Attaches the given [[additional information|item]]
+     to this node using the given [[key]]. If other information
+     was attached with the same key previously, it is returned."
+    see (`function get`, `function remove`)
+    shared Type? put<Type>(Key<Type> key, Type item)
+            given Type satisfies Object {
+        assert (is Type? ret = extraInfo.put(key.id, item));
+        return ret;
+    }
+    
+    "Removes the additional information attached to
+     this node using the given [[key]] from this node,
+     returning it."
+    see (`function put`)
+    shared Type? remove<Type>(Key<Type> key)
+            given Type satisfies Object {
+        assert (is Type? ret = extraInfo.remove(key.id));
+        return ret;
+    }
+    
+    "Copies this node’s additional information to the [[other]] node."
+    see (`function put`, `function get`)
     shared void copyExtraInfoTo(Node other) {
-        other.extraInfo = extraInfo;
+        other.extraInfo.clear();
+        other.extraInfo.putAll(extraInfo);
     }
     
     "Transform this node with the given [[transformer]] by calling the appropriate

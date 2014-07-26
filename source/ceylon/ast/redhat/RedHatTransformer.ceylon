@@ -141,6 +141,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionOp=UnionOp,
         JUnionType=UnionType,
         JValueParameterDeclaration=ValueParameterDeclaration,
+        JVoidModifier=VoidModifier,
         JWithinOp=WithinOp
     },
     JVisitorAdaptor=VisitorAdaptor
@@ -220,7 +221,8 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         union_op=\iUNION_OP,
         union_specify=\iUNION_SPECIFY,
         value_modifier=\iVALUE_MODIFIER,
-        verbatim_string_literal=\iVERBATIM_STRING
+        verbatim_string_literal=\iVERBATIM_STRING,
+        void_modifier=\iVOID_MODIFIER
     }
 }
 import ceylon.interop.java {
@@ -883,8 +885,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JDynamicModifier transformModifier(Modifier that) {
-        assert (is JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
+    shared actual JVoidModifier|JDynamicModifier transformModifier(Modifier that) {
+        assert (is JVoidModifier|JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
         return ret;
     }
     
@@ -1536,6 +1538,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value expression = JExpression(null);
         expression.term = term;
         return expression;
+    }
+    
+    shared actual JVoidModifier transformVoidModifier(VoidModifier that) {
+        JVoidModifier ret = JVoidModifier(tokens.token(that.text, void_modifier));
+        return ret;
     }
     
     shared actual JWithinOp transformWithinOperation(WithinOperation that) {

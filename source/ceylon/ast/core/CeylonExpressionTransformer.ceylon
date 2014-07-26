@@ -713,6 +713,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   `` indent + indentLevel ``isNonempty = true;
                   ``indent``}"
             else "VariadicType(``transformWithIndent(that.elementType)``)";
+    transformVoidModifier(VoidModifier that) => "VoidModifier()";
     transformWithinOperation(WithinOperation that)
             => "WithinOperation {
                 `` indent + indentLevel ``operand = ``transformWithIndent(that.operand)``;

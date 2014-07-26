@@ -532,6 +532,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
+    shared actual default VoidModifier transformVoidModifier(VoidModifier that)
+            => that.copy();
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
 }

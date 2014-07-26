@@ -224,8 +224,13 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 import ceylon.interop.java {
     CeylonIterable
 }
+import org.antlr.runtime {
+    CommonToken
+}
 
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
+    
+    value isLowerBoundKey = ScopedKey<Boolean>(`class RedHatTransformer`, "isLowerBound");
     
     shared actual JAddAssignOp transformAddAssignmentOperation(AddAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);
@@ -460,15 +465,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
     
     shared actual JClosedBound transformClosedBound(ClosedBound that) {
-        /*
-         TODO two things:
-         
-         1. For a lower bound, we should transform the endpoint before creating the comparison token
-         2. The compiler grammar doesn’t add the token to the bound; why not? seems odd
-         */
-        JClosedBound ret = JClosedBound(null);
-        tokens.token("<=", small_as_op);
-        ret.term = transformPrecedence10Expression(that.endpoint);
+        JTerm endpoint;
+        CommonToken token;
+        if (exists isLowerBound = that.get(isLowerBoundKey), isLowerBound) {
+            // lower bound: endpoint, then token
+            endpoint = transformPrecedence10Expression(that.endpoint);
+            token = tokens.token("<=", small_as_op);
+        } else {
+            // upper bound: token, then endpoint
+            token = tokens.token("<=", small_as_op);
+            endpoint = transformPrecedence10Expression(that.endpoint);
+        }
+        JClosedBound ret = JClosedBound(null); // TODO JClosedBound(token)? the compiler grammar doesn’t do it, but I don’t see why not
+        ret.term = endpoint;
         return ret;
     }
     
@@ -929,15 +938,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JOpenBound transformOpenBound(OpenBound that) {
-        /*
-         TODO two things:
-         
-         1. For a lower bound, we should transform the endpoint before creating the comparison token
-         2. The compiler grammar doesn’t add the token to the bound; why not? seems odd
-         */
-        JOpenBound ret = JOpenBound(null);
-        tokens.token("<", smaller_op);
-        ret.term = transformPrecedence10Expression(that.endpoint);
+        JTerm endpoint;
+        CommonToken token;
+        if (exists isLowerBound = that.get(isLowerBoundKey), isLowerBound) {
+            // lower bound: endpoint, then token
+            endpoint = transformPrecedence10Expression(that.endpoint);
+            token = tokens.token("<=", small_as_op);
+        } else {
+            // upper bound: token, then endpoint
+            token = tokens.token("<=", small_as_op);
+            endpoint = transformPrecedence10Expression(that.endpoint);
+        }
+        JOpenBound ret = JOpenBound(null); // TODO JOpenBound(token)? the compiler grammar doesn’t do it, but I don’t see why not
+        ret.term = endpoint;
         return ret;
     }
     
@@ -1514,10 +1527,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JWithinOp transformWithinOperation(WithinOperation that) {
         JWithinOp ret = JWithinOp(null);
-        // TODO inform bounds if they’re upper or lower via extraInfo?
+        that.lowerBound.put(isLowerBoundKey, true);
         ret.lowerBound = transformBound(that.lowerBound);
+        that.lowerBound.remove(isLowerBoundKey);
         ret.term = transformPrecedence10Expression(that.operand);
+        that.upperBound.put(isLowerBoundKey, false);
         ret.upperBound = transformBound(that.upperBound);
+        that.upperBound.remove(isLowerBoundKey);
         return ret;
     }
 }

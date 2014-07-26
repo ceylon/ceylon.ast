@@ -45,6 +45,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDefaultedValueParameter(DefaultedValueParameter that) => visitDefaultedValueParameter(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
+    transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
     transformElseOperation(ElseOperation that) => visitElseOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
@@ -83,6 +84,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
     transformMeta(Meta that) => visitMeta(that);
+    transformModifier(Modifier that) => visitModifier(that);
     transformModuleDec(ModuleDec that) => visitModuleDec(that);
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => visitMultiplyAssignmentOperation(that);
     transformNameWithTypeArguments(NameWithTypeArguments that) => visitNameWithTypeArguments(that);
@@ -194,6 +196,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDefaultedValueParameter(DefaultedValueParameter that) => super.transformDefaultedValueParameter(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
+    shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
     shared default void visitElseOperation(ElseOperation that) => super.transformElseOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
@@ -212,6 +215,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);
     shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
+    shared default void visitModifier(Modifier that) => super.transformModifier(that);
     shared default void visitModuleDec(ModuleDec that) => super.transformModuleDec(that);
     shared default void visitMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => super.transformMultiplyAssignmentOperation(that);
     shared default void visitNamedArgument(NamedArgument that) => super.transformNamedArgument(that);

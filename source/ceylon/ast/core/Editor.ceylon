@@ -120,6 +120,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
+    shared actual default DynamicModifier transformDynamicModifier(DynamicModifier that)
+            => that.copy();
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
             => that.copy(transformNamedArguments(that.content));
     shared actual default ElseOperation transformElseOperation(ElseOperation that)
@@ -221,6 +223,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default MetaQualifier transformMetaQualifier(MetaQualifier that) {
         assert (is MetaQualifier ret = super.transformMetaQualifier(that));
+        return ret;
+    }
+    shared actual default Modifier transformModifier(Modifier that) {
+        assert (is Modifier ret = super.transformModifier(that));
         return ret;
     }
     shared actual default ModuleDec transformModuleDec(ModuleDec that)

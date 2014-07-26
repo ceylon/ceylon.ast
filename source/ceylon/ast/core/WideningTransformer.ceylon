@@ -36,6 +36,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDefaultedValueParameter(DefaultedValueParameter that) => transformDefaultedParameter(that);
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
+    shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
     shared actual default Result transformElseOperation(ElseOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryOperation(EntryOperation that) => transformBinaryOperation(that);
@@ -74,6 +75,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
+    shared actual default Result transformModifier(Modifier that) => transformExpressionIsh(that);
     shared actual default Result transformModuleDec(ModuleDec that) => transformDec(that);
     shared actual default Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);

@@ -549,6 +549,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JDynamicModifier transformDynamicModifier(DynamicModifier that) {
+        JDynamicModifier ret = JDynamicModifier(tokens.token("dynamic", dynamicType));
+        return ret;
+    }
+    
     shared actual JDynamic transformDynamicValue(DynamicValue that) {
         JDynamic ret = JDynamic(tokens.token("value", value_modifier));
         ret.namedArgumentList = transformNamedArguments(that.content);
@@ -853,6 +858,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType|JIdentifier transformMetaQualifier(MetaQualifier that) {
         assert (is JStaticType|JIdentifier ret = super.transformMetaQualifier(that));
+        return ret;
+    }
+    
+    shared actual JDynamicModifier transformModifier(Modifier that) {
+        assert (is JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
         return ret;
     }
     

@@ -108,6 +108,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Specifier) { return transformSpecifier(that); }
         case (is Parameters) { return transformParameters(that); }
         case (is Bound) { return transformBound(that); }
+        case (is Modifier) { return transformModifier(that); }
     }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
@@ -147,6 +148,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SimpleType) { return transformSimpleType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
         case (is MemberName) { return transformLIdentifier(that); }
+    }
+    shared actual default Result transformModifier(Modifier that) {
+        switch (that)
+        case (is DynamicModifier) { return transformDynamicModifier(that); }
     }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
         switch (that)

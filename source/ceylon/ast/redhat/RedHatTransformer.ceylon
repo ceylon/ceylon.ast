@@ -63,6 +63,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
+        JLazySpecifierExpression=LazySpecifierExpression,
         JListedArgument=ListedArgument,
         JLogicalAssignmentOp=LogicalAssignmentOp,
         JLogicalOp=LogicalOp,
@@ -159,6 +160,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         compare_op=\iCOMPARE_OP,
         complement_op=\iCOMPLEMENT_OP,
         complement_specify=\iCOMPLEMENT_SPECIFY,
+        compute=\iCOMPUTE,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         divide_specify=\iDIVIDE_SPECIFY,
@@ -313,6 +315,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value specifierExpression = JSpecifierExpression(null);
         specifierExpression.expression = wrapTerm(transformExpression(that.expression));
         ret.specifierExpression = specifierExpression;
+        return ret;
+    }
+    
+    shared actual JSpecifierExpression transformAnySpecifier(AnySpecifier that) {
+        assert (is JSpecifierExpression ret = super.transformAnySpecifier(that));
         return ret;
     }
     
@@ -797,6 +804,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JLargerOp ret = JLargerOp(tokens.token(that.operator, larger_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence10Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JLazySpecifierExpression transformLazySpecifier(LazySpecifier that) {
+        JLazySpecifierExpression ret = JLazySpecifierExpression(tokens.token("=>", compute));
+        ret.expression = wrapTerm(transformExpression(that.expression));
         return ret;
     }
     

@@ -1,19 +1,19 @@
-"An expression specifier, that is, an expression prefixed by a specification operator ‘`=`’.
+"A lazy expression specifier, that is, an expression prefixed by a computation operator ‘`=>`’.
  
  Examples:
  
-     = 1
-     = nothing"
-shared class Specifier(expression)
+     => text.uppercased
+     => nothing"
+shared class LazySpecifier(expression)
         extends AnySpecifier() {
     
     shared actual Expression expression;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformSpecifier(this);
+            => transformer.transformLazySpecifier(this);
     
     shared actual Boolean equals(Object that) {
-        if (is Specifier that) {
+        if (is LazySpecifier that) {
             return expression == that.expression;
         } else {
             return false;
@@ -23,8 +23,8 @@ shared class Specifier(expression)
     shared actual Integer hash
             => 31 * expression.hash;
     
-    shared Specifier copy(Expression expression = this.expression) {
-        value ret = Specifier(expression);
+    shared LazySpecifier copy(Expression expression = this.expression) {
+        value ret = LazySpecifier(expression);
         copyExtraInfoTo(ret);
         return ret;
     }

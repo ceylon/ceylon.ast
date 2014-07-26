@@ -35,6 +35,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
+    shared actual default AnySpecifier transformAnySpecifier(AnySpecifier that) {
+        assert (is AnySpecifier ret = super.transformAnySpecifier(that));
+        return ret;
+    }
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {
         value listedArguments = [for (listedArgument in that.listedArguments) transformExpression(listedArgument)];
         SpreadArgument? sequenceArgument;
@@ -195,6 +199,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
+    shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
+            => that.copy(transformExpression(that.expression));
     shared actual default Literal transformLiteral(Literal that) {
         assert (is Literal ret = super.transformLiteral(that));
         return ret;

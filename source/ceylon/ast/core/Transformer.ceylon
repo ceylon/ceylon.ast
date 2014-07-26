@@ -18,6 +18,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnnotation(Annotation that);
     shared formal Result transformAnnotations(Annotations that);
     shared formal Result transformAnonymousArgument(AnonymousArgument that);
+    shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformArgumentList(ArgumentList that);
     shared formal Result transformArguments(Arguments that);
     shared formal Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that);
@@ -76,6 +77,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
+    shared formal Result transformLazySpecifier(LazySpecifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that);
     shared formal Result transformLogicalOperation(LogicalOperation that);

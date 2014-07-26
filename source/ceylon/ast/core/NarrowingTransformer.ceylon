@@ -3,6 +3,11 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformAnySpecifier(AnySpecifier that) {
+        switch (that)
+        case (is Specifier) { return transformSpecifier(that); }
+        case (is LazySpecifier) { return transformLazySpecifier(that); }
+    }
     shared actual default Result transformArguments(Arguments that) {
         switch (that)
         case (is PositionalArguments) { return transformPositionalArguments(that); }
@@ -105,7 +110,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SpreadArgument) { return transformSpreadArgument(that); }
         case (is Arguments) { return transformArguments(that); }
         case (is NamedArgument) { return transformNamedArgument(that); }
-        case (is Specifier) { return transformSpecifier(that); }
+        case (is AnySpecifier) { return transformAnySpecifier(that); }
         case (is Parameters) { return transformParameters(that); }
         case (is Bound) { return transformBound(that); }
         case (is Modifier) { return transformModifier(that); }

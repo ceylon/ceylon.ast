@@ -378,6 +378,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformLazySpecifier(LazySpecifier that) => "LazySpecifier(``transformWithIndent(that.expression)``)";
     transformMeasureOperation(MeasureOperation that)
             => "MeasureOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

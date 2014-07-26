@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     Annotations,
+    DynamicModifier,
     Type,
     ValueParameter
 }
@@ -15,10 +16,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valueParameter) {
     "Must not be variadic"
     assert (is JStaticType|JDynamicModifier jType = valueParameter.typedDeclaration.type);
-    Type? type;
+    Type|DynamicModifier type;
     switch (jType)
     case (is JStaticType) { type = typeToCeylon(jType); }
-    case (is JDynamicModifier) { type = null; }
+    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     return ValueParameter(
         valueParameter.typedDeclaration.annotationList exists
                 then annotationsToCeylon(valueParameter.typedDeclaration.annotationList)

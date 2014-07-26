@@ -1467,11 +1467,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JValueParameterDeclaration ret = JValueParameterDeclaration(null);
         JAttributeDeclaration dec = JAttributeDeclaration(null);
         dec.annotationList = transformAnnotations(that.annotations);
-        if (exists type = that.type) {
-            dec.type = transformType(type);
-        } else {
-            dec.type = JDynamicModifier(tokens.token("dynamic", dynamicType));
-        }
+        value type = that.type;
+        switch (type)
+        case (is Type) { dec.type = transformType(type); }
+        case (is DynamicModifier) { dec.type = transformDynamicModifier(type); }
         dec.identifier = transformLIdentifier(that.name);
         ret.typedDeclaration = dec;
         return ret;

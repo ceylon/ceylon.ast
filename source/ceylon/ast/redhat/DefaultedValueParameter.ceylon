@@ -2,6 +2,7 @@ import ceylon.ast.core {
     DefaultedValueParameter,
     Type,
     Annotations,
+    DynamicModifier,
     ValueParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -21,10 +22,10 @@ shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDe
         is JSpecifierExpression specifier = dec.specifierOrInitializerExpression);
     "Must not be variadic"
     assert (is JStaticType|JDynamicModifier jType = dec.type);
-    Type? type;
+    Type|DynamicModifier type;
     switch (jType)
     case (is JStaticType) { type = typeToCeylon(jType); }
-    case (is JDynamicModifier) { type = null; }
+    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     return DefaultedValueParameter {
         parameter = ValueParameter(
             dec.annotationList exists

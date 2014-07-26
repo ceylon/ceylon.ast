@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     Annotations,
+    DynamicModifier,
     LIdentifier,
     Type,
     ValueParameter
@@ -17,10 +18,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object valueParameter satisfies ConcreteTest<ValueParameter,JValueParameterDeclaration> {
     
-    String->ValueParameter construct(String->Annotations annotations, <String->Type>? type, String->LIdentifier name)
-            => "``annotations.key`` `` type?.key else "dynamic" `` ``name.key``"->ValueParameter(annotations.item, type?.item, name.item);
+    String->ValueParameter construct(String->Annotations annotations, String->Type|DynamicModifier type, String->LIdentifier name)
+            => "``annotations.key`` ``type.key`` ``name.key``"->ValueParameter(annotations.item, type.item, name.item);
     
-    shared String->ValueParameter dynamicByValueParameter = construct(annotations.emptyAnnotations, null, identifier.byLIdentifier);
+    shared String->ValueParameter dynamicByValueParameter = construct(annotations.emptyAnnotations, dynamicModifier.dynamicModifier, identifier.byLIdentifier);
     shared String->ValueParameter annotatedStringLidValueParameter = construct(annotations.helloSharedByLucasAnnotations, baseType.stringType, identifier.lidLIdentifier);
     
     compile = compileValueParameter;

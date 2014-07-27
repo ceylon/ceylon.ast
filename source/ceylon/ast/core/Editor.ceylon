@@ -118,6 +118,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Dec ret = super.transformDec(that));
         return ret;
     }
+    shared actual default DefaultedCallableParameter transformDefaultedCallableParameter(DefaultedCallableParameter that)
+            => that.copy(transformCallableParameter(that.parameter), transformLazySpecifier(that.specifier));
     shared actual default DefaultedParameter transformDefaultedParameter(DefaultedParameter that) {
         assert (is DefaultedParameter ret = super.transformDefaultedParameter(that));
         return ret;

@@ -19,9 +19,7 @@ shared DefaultedParameter defaultedParameterToCeylon(JParameter defaultedParamet
         assert (is JValueParameterDeclaration|JFunctionalParameterDeclaration defaultedParameter);
         switch (defaultedParameter)
         case (is JValueParameterDeclaration) { return defaultedValueParameterToCeylon(defaultedParameter); }
-        case (is JFunctionalParameterDeclaration) {
-            throw AssertionError("Functional parameter declarations not implemented yet");
-        }
+        case (is JFunctionalParameterDeclaration) { return defaultedCallableParameterToCeylon(defaultedParameter); }
     }
     case (is JInitializerParameter) {
         return defaultedParameterReferenceToCeylon(defaultedParameter);

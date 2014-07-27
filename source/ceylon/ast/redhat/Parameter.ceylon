@@ -36,8 +36,7 @@ shared Parameter parameterToCeylon(JParameter parameter) {
             case (is JFunctionalParameterDeclaration) {
                 assert (is JMethodDeclaration dec = parameter.typedDeclaration);
                 if (dec.specifierExpression exists) {
-                    // TODO implement defaulted callable parameters
-                    throw AssertionError("Defaulted callable parameters not yet implemented");
+                    return defaultedCallableParameterToCeylon(parameter);
                 } else {
                     return callableParameterToCeylon(parameter);
                 }

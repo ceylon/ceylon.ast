@@ -542,6 +542,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JFunctionalParameterDeclaration transformDefaultedCallableParameter(DefaultedCallableParameter that) {
+        JFunctionalParameterDeclaration ret = JFunctionalParameterDeclaration(null);
+        assert (is JMethodDeclaration dec = transformCallableParameter(that.parameter).typedDeclaration);
+        dec.specifierExpression = transformLazySpecifier(that.specifier);
+        ret.typedDeclaration = dec;
+        return ret;
+    }
+    
     shared actual JParameter transformDefaultedParameter(DefaultedParameter that) {
         assert (is JParameter ret = super.transformDefaultedParameter(that));
         return ret;

@@ -5,6 +5,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JInitializerParameter=InitializerParameter,
+        JMethodDeclaration=MethodDeclaration,
         JParameter=Parameter,
         JParameterDeclaration=ParameterDeclaration,
         JValueParameterDeclaration=ValueParameterDeclaration
@@ -22,8 +23,13 @@ shared RequiredParameter requiredParameterToCeylon(JParameter requiredParameter)
             return valueParameterToCeylon(requiredParameter);
         }
         case (is JFunctionalParameterDeclaration) {
-            // TODO implement functional parameters
-            throw AssertionError("Functional parameters not yet implemented");
+            assert (is JMethodDeclaration dec = requiredParameter.typedDeclaration);
+            if (dec.specifierExpression exists) {
+                // TODO implement defaulted callable parameters
+                throw AssertionError("Defaulted callable parameters not yet implemented");
+            } else {
+                return callableParameterToCeylon(requiredParameter);
+            }
         }
     }
     case (is JInitializerParameter) {

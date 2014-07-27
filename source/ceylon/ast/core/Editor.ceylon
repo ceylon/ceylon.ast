@@ -86,6 +86,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Bound ret = super.transformBound(that));
         return ret;
     }
+    shared actual default CallableParameter transformCallableParameter(CallableParameter that) {
+        Type|VoidModifier transformTypeOrVoidModifier(Type|VoidModifier that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is VoidModifier) { return transformVoidModifier(that); }
+        }
+        return that.copy(transformAnnotations(that.annotations), transformTypeOrVoidModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters));
+    }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)

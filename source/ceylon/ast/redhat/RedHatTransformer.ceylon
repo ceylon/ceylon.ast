@@ -45,6 +45,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExists=Exists,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
+        JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
@@ -70,6 +71,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
+        JMethodDeclaration=MethodDeclaration,
         JModuleLiteral=ModuleLiteral,
         JMultiplyAssignOp=MultiplyAssignOp,
         JNamedArgument=NamedArgument,
@@ -451,6 +453,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JBound transformBound(Bound that) {
         assert (is JBound ret = super.transformBound(that));
+        return ret;
+    }
+    
+    shared actual JFunctionalParameterDeclaration transformCallableParameter(CallableParameter that) {
+        JFunctionalParameterDeclaration ret = JFunctionalParameterDeclaration(null);
+        JMethodDeclaration dec = JMethodDeclaration(null);
+        dec.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { dec.type = transformType(type); }
+        case (is VoidModifier) { dec.type = transformVoidModifier(type); }
+        dec.identifier = transformLIdentifier(that.name);
+        for (parameters in that.parameterLists) {
+            dec.addParameterList(transformParameters(parameters));
+        }
+        ret.typedDeclaration = dec;
         return ret;
     }
     

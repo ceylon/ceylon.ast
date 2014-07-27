@@ -5,6 +5,6 @@
      String name
      comparing"
 shared abstract class RequiredParameter()
-        of ValueParameter | ParameterReference
+        of ValueParameter | CallableParameter | ParameterReference
         extends Parameter() {
 }

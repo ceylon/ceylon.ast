@@ -31,6 +31,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformBinaryOperation(BinaryOperation that);
     shared formal Result transformBound(Bound that);
+    shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformClosedBound(ClosedBound that);

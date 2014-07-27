@@ -103,6 +103,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
+    transformCallableParameter(CallableParameter that)
+            => "CallableParameter {
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
+                ``indent``}";
     transformCallableType(CallableType that)
             => "CallableType {
                 `` indent + indentLevel ``returnType = ``transformWithIndent(that.returnType)``;

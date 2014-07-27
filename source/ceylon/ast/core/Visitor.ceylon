@@ -31,6 +31,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBaseType(BaseType that) => visitBaseType(that);
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
     transformBound(Bound that) => visitBound(that);
+    transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformClosedBound(ClosedBound that) => visitClosedBound(that);
@@ -185,6 +186,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
     shared default void visitBound(Bound that) => super.transformBound(that);
+    shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);

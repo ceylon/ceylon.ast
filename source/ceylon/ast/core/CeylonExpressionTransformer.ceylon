@@ -14,15 +14,45 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     
     variable String indent = "";
     
-    String transformWithIndent(Node? that) {
-        if (exists that) {
+    String transformWithIndent(Node|Node[]|Null that) {
+        switch (that)
+        case (is Node) {
             value origIndent = indent;
             indent += indentLevel;
             value ret = that.transform(this);
             indent = origIndent;
             return ret;
-        } else {
+        }
+        case (is []) {
+            return "[]";
+        }
+        case (null) {
             return "null";
+        }
+        else { // case (is [Node+]) { – but Node and [Node+] are not disjoint, because Sequence is a sealed interface, not a class
+            assert (is [Node+] that);
+            value origIndent = indent;
+            indent += indentLevel + indentLevel;
+            StringBuilder code = StringBuilder();
+            code.append("[");
+            if (that.size > 1) {
+                code.appendNewline();
+                code.append(indent);
+            }
+            code.append(that.first.transform(this));
+            for (node in that.rest) {
+                code.append(",");
+                code.appendNewline();
+                code.append(indent);
+                code.append(node.transform(this));
+            }
+            if (that.size > 1) {
+                code.appendNewline();
+                code.append(origIndent + indentLevel);
+            }
+            code.append("]");
+            indent = origIndent;
+            return code.string;
         }
     }
     
@@ -41,126 +71,29 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
-    shared actual String transformArgumentList(ArgumentList that) {
-        if (nonempty listedArguments = that.listedArguments) {
-            StringBuilder code = StringBuilder();
-            code.append("ArgumentList {");
-            value origIndent = indent;
-            indent += indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append("listedArguments = [");
-            code.appendNewline();
-            indent += indentLevel;
-            code.append(indent);
-            code.append(listedArguments.first.transform(this));
-            for (listedArgument in listedArguments.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(listedArgument.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent + indentLevel);
-            code.append("];");
-            code.appendNewline();
-            if (exists sequenceArgument = that.sequenceArgument) {
-                indent = origIndent + indentLevel;
-                code.append(indent);
-                code.append("sequenceArgument = ");
-                code.append(sequenceArgument.transform(this));
-                code.append(";");
-                code.appendNewline();
-            }
-            indent = origIndent;
-            code.append(indent);
-            code.append("}");
-            return code.string;
-        } else {
-            if (exists sequenceArgument = that.sequenceArgument) {
-                StringBuilder code = StringBuilder();
-                code.append("ArgumentList {");
-                value origIndent = indent;
-                indent = origIndent + indentLevel;
-                code.appendNewline();
-                code.append(indent);
-                code.append("listedArguments = [];");
-                code.appendNewline();
-                code.append(indent);
-                code.append("sequenceArgument = ");
-                code.append(sequenceArgument.transform(this));
-                code.append(";");
-                code.appendNewline();
-                indent = origIndent;
-                code.append(indent);
-                code.append("}");
-                return code.string;
-            } else {
-                return "ArgumentList()";
-            }
-        }
-    }
+    transformArgumentList(ArgumentList that)
+            => "ArgumentList {
+                `` indent + indentLevel ``listedArguments = ``transformWithIndent(that.listedArguments)``;
+                `` indent + indentLevel ``sequenceArgument = ``transformWithIndent(that.sequenceArgument)``;
+                ``indent``}";
     transformAnnotation(Annotation that)
             => "Annotation {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
                 ``indent``}";
-    shared actual String transformAnnotations(Annotations that) {
-        void appendAnnotations(String origIndent, [Annotation+] annotations, StringBuilder code) {
-            code.appendNewline();
-            code.append(indent);
-            code.append("annotations = [");
-            indent += indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append(annotations.first.transform(this));
-            for (annotation in annotations.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(annotation.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent);
-            code.append(indentLevel);
-            code.append("];");
-            indent = origIndent;
-        }
-        if (exists anonymousAnnotation = that.anonymousAnnotation) {
-            if (nonempty annotations = that.annotations) {
-                StringBuilder code = StringBuilder();
-                code.append("Annotations {");
-                value origIndent = indent;
-                indent = origIndent + indentLevel;
-                code.appendNewline();
-                code.append(indent);
-                code.append("anonymousAnnotation = ");
-                code.append(anonymousAnnotation.transform(this));
-                code.append(";");
-                appendAnnotations(origIndent, annotations, code);
-                code.appendNewline();
-                code.append(indent);
-                code.append("}");
-                return code.string;
-            } else {
-                return "Annotations(``transformWithIndent(anonymousAnnotation)``)";
-            }
-        } else {
-            if (nonempty annotations = that.annotations) {
-                StringBuilder code = StringBuilder();
-                code.append("Annotations {");
-                value origIndent = indent;
-                indent = origIndent + indentLevel;
-                appendAnnotations(origIndent, annotations, code);
-                code.appendNewline();
-                code.append(indent);
-                code.append("}");
-                return code.string;
-            } else {
-                return "Annotations()";
-            }
-        }
-    }
+    transformAnnotations(Annotations that)
+            => that.anonymousAnnotation exists
+            then (that.annotations nonempty
+                then "Annotations {
+                      `` indent + indentLevel ``anonymousAnnotation = ``transformWithIndent(that.anonymousAnnotation)``;
+                      `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                      ``indent``}"
+                else "Annotations(``transformWithIndent(that.anonymousAnnotation)``)")
+            else (that.annotations nonempty
+                then "Annotations {
+                      `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                      ``indent``}"
+                else "Annotations()");
     transformAnonymousArgument(AnonymousArgument that) => "AnonymousArgument(``transformWithIndent(that.expression)``)";
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {
@@ -243,37 +176,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
-    shared actual String transformFullPackageName(FullPackageName that) {
-        if (that.components.size == 1) {
-            StringBuilder code = StringBuilder();
-            code.append("FullPackageName([");
-            value origIndent = indent;
-            indent = indent + indentLevel + indentLevel;
-            code.append(that.components.first.transform(this));
-            code.append("])");
-            indent = origIndent;
-            return code.string;
-        } else {
-            StringBuilder code = StringBuilder();
-            code.append("FullPackageName([");
-            value origIndent = indent;
-            indent = indent + indentLevel + indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append(that.components.first.transform(this));
-            for (component in that.components.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(component.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent + indentLevel);
-            code.append("])");
-            indent = origIndent;
-            return code.string;
-        }
-    }
+    transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
@@ -289,26 +192,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
-    shared actual String transformIntersectionType(IntersectionType that) {
-        StringBuilder code = StringBuilder();
-        code.append("IntersectionType([");
-        value origIndent = indent;
-        indent = indent + indentLevel + indentLevel;
-        code.appendNewline();
-        code.append(indent);
-        code.append(that.children.first.transform(this));
-        for (elementType in that.children.rest) {
-            code.append(",");
-            code.appendNewline();
-            code.append(indent);
-            code.append(elementType.transform(this));
-        }
-        code.appendNewline();
-        code.append(origIndent + indentLevel);
-        code.append("])");
-        indent = origIndent;
-        return code.string;
-    }
+    transformIntersectionType(IntersectionType that) => "IntersectionType(``transformWithIndent(that.children)``)";
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => "IntersectAssignmentOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
@@ -332,42 +216,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
-    shared actual String transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) {
-        if (exists typeArguments = that.typeArguments) {
-            StringBuilder code = StringBuilder();
-            code.append("MemberNameWithTypeArguments {");
-            value origIndent = indent;
-            indent += indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append("name = ");
-            code.append(that.name.transform(this));
-            code.append(";");
-            code.appendNewline();
-            code.append(indent);
-            code.append("typeArguments = [");
-            code.appendNewline();
-            indent += indentLevel;
-            code.append(indent);
-            code.append(typeArguments.first.transform(this));
-            for (argument in typeArguments.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(argument.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent + indentLevel);
-            code.append("];");
-            code.appendNewline();
-            indent = origIndent;
-            code.append(indent);
-            code.append("}");
-            return code.string;
-        } else {
-            return "MemberNameWithTypeArguments(``that.name.transform(this)``)";
-        }
-    }
+    transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
+            => that.typeArguments exists
+            then "MemberNameWithTypeArguments {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``typeArguments = ``transformWithIndent(that.typeArguments)``;
+                  ``indent``}"
+            else "MemberNameWithTypeArguments(``transformWithIndent(that.name)``)";
     transformLargeAsOperation(LargeAsOperation that)
             => "LargeAsOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -395,65 +250,15 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
-    shared actual String transformNamedArguments(NamedArguments that) {
-        if (nonempty namedArguments = that.namedArguments) {
-            StringBuilder code = StringBuilder();
-            code.append("NamedArguments {");
-            value origIndent = indent;
-            indent += indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append("namedArguments = [");
-            code.appendNewline();
-            indent += indentLevel;
-            code.append(indent);
-            code.append(namedArguments.first.transform(this));
-            for (namedArgument in namedArguments.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(namedArgument.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent + indentLevel);
-            code.append("];");
-            code.appendNewline();
-            if (that.iterableArgument.children nonempty) {
-                indent = origIndent + indentLevel;
-                code.append(indent);
-                code.append("iterableArgument = ");
-                code.append(that.iterableArgument.transform(this));
-                code.append(";");
-                code.appendNewline();
-            }
-            indent = origIndent;
-            code.append(indent);
-            code.append("}");
-            return code.string;
-        } else {
-            if (that.iterableArgument.children nonempty) {
-                StringBuilder code = StringBuilder();
-                code.append("ArgumentList {");
-                value origIndent = indent;
-                indent = origIndent + indentLevel;
-                code.appendNewline();
-                code.append(indent);
-                code.append("namedArguments = [];");
-                code.appendNewline();
-                code.append(indent);
-                code.append("iterableArgument = ");
-                code.append(that.iterableArgument.transform(this));
-                code.append(";");
-                code.appendNewline();
-                indent = origIndent;
-                code.append(indent);
-                code.append("}");
-                return code.string;
-            } else {
-                return "ArgumentList()";
-            }
-        }
-    }
+    transformNamedArguments(NamedArguments that)
+            => that.iterableArgument.children nonempty
+            then "NamedArguments {
+                  `` indent + indentLevel ``namedArguments = ``transformWithIndent(that.namedArguments)``;
+                  `` indent + indentLevel ``iterableArgument = ``transformWithIndent(that.iterableArgument)``;
+                  ``indent``}"
+            else (that.namedArguments nonempty
+                then "NamedArguments(``transformWithIndent(that.namedArguments)``)"
+                else "NamedArguments()");
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.operand)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)
@@ -483,29 +288,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformPackage(Package that) => "Package()";
     transformPackageDec(PackageDec that) => "PackageDec(``transformWithIndent(that.packageName)``)";
     transformParameterReference(ParameterReference that) => "ParameterReference(``transformWithIndent(that.name)``)";
-    shared actual String transformParameters(Parameters that) {
-        if (nonempty parameters = that.parameters) {
-            StringBuilder code = StringBuilder();
-            code.append("Parameters {[");
-            value origIndent = indent;
-            indent += indentLevel + indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append(parameters.first.transform(this));
-            for (parameter in parameters.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(parameter.transform(this));
-            }
-            code.appendNewline();
-            indent = origIndent;
-            code.append("]}");
-            return code.string;
-        } else {
-            return "Parameters()";
-        }
-    }
+    transformParameters(Parameters that)
+            => that.parameters nonempty
+            then "Parameters(``transformWithIndent(that.parameters)``)"
+            else "Parameters()";
     transformPositionalArguments(PositionalArguments that) => "PositionalArguments(``transformWithIndent(that.argumentList)``)";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";
@@ -585,100 +371,24 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformThis(This that) => "This()";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
-    shared actual String transformTypeList(TypeList that) {
-        if (nonempty elements = that.elements) {
-            StringBuilder code = StringBuilder();
-            code.append("TypeList([");
-            value origIndent = indent;
-            indent = indent + indentLevel + indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append(elements.first.transform(this));
-            for (element in elements.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(element.transform(this));
-            }
-            code.appendNewline();
-            indent = origIndent + indentLevel;
-            code.append(indent);
-            code.append("]");
-            if (exists var = that.variadic) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(var.transform(this));
-            }
-            code.append(")");
-            indent = origIndent;
-            return code.string;
-        } else {
-            if (exists var = that.variadic) {
-                return "TypeList([], ``transformWithIndent(var)``)";
-            } else {
-                return "TypeList([])";
-            }
-        }
-    }
-    shared actual String transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
-        if (exists arguments = that.typeArguments) {
-            StringBuilder code = StringBuilder();
-            code.append("TypeNameWithTypeArguments {");
-            value origIndent = indent;
-            indent += indentLevel;
-            code.appendNewline();
-            code.append(indent);
-            code.append("name = ");
-            code.append(that.name.transform(this));
-            code.append(";");
-            code.appendNewline();
-            code.append(indent);
-            code.append("arguments = [");
-            code.appendNewline();
-            indent += indentLevel;
-            code.append(indent);
-            code.append(arguments.first.transform(this));
-            for (argument in arguments.rest) {
-                code.append(",");
-                code.appendNewline();
-                code.append(indent);
-                code.append(argument.transform(this));
-            }
-            code.appendNewline();
-            code.append(origIndent + indentLevel);
-            code.append("];");
-            code.appendNewline();
-            indent = origIndent;
-            code.append(indent);
-            code.append("}");
-            return code.string;
-        } else {
-            return "TypeNameWithTypeArguments(``that.name.transform(this)``)";
-        }
-    }
+    transformTypeList(TypeList that)
+            => that.variadic exists
+            then "TypeList {
+                  `` indent + indentLevel ``elements = ``transformWithIndent(that.elements)``;
+                  `` indent + indentLevel ``variadic = ``transformWithIndent(that.variadic)``;
+                  ``indent``}"
+            else "TypeList(``transformWithIndent(that.elements)``)";
+    transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
+            => that.typeArguments exists
+            then "TypeList {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``typeArguments = ``transformWithIndent(that.typeArguments)``;
+                  }"
+            else "TypeList(``transformWithIndent(that.name)``)";
     transformTypeMeta(TypeMeta that) => "TypeMeta(``transformWithIndent(that.type)``)";
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
-    shared actual String transformUnionType(UnionType that) {
-        StringBuilder code = StringBuilder();
-        code.append("UnionType([");
-        value origIndent = indent;
-        indent = indent + indentLevel + indentLevel;
-        code.appendNewline();
-        code.append(indent);
-        code.append(that.children.first.transform(this));
-        for (elementType in that.children.rest) {
-            code.append(",");
-            code.appendNewline();
-            code.append(indent);
-            code.append(elementType.transform(this));
-        }
-        code.appendNewline();
-        code.append(origIndent + indentLevel);
-        code.append("])");
-        indent = origIndent;
-        return code.string;
-    }
+    transformUnionType(UnionType that)
+            => "UnionType(``transformWithIndent(that.children)``)";
     transformUnionAssignmentOperation(UnionAssignmentOperation that)
             => "UnionAssignmentOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;

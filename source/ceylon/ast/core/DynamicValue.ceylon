@@ -4,11 +4,14 @@
    
        value { error = 404; message = "not found"; }
        value {}"""
-shared class DynamicValue(content)
+shared class DynamicValue(content, modifier = ValueModifier())
         extends Atom() {
     
     "The content of the dynamic value."
     shared NamedArguments content;
+    "The ‘`value`’ modifier keyword
+     that precedes the [[content]]."
+    shared ValueModifier modifier;
     
     shared actual [NamedArguments] children = [content];
     

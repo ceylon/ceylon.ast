@@ -155,6 +155,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);
+    shared actual default Result transformValueModifier(ValueModifier that) => transformModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);
     shared actual default Result transformValueSpecification(ValueSpecification that) => transformSpecification(that);
     shared actual default Result transformVariadicParameter(VariadicParameter that) => transformParameter(that);

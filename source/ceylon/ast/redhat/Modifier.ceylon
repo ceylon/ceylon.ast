@@ -4,6 +4,9 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JDynamicModifier=DynamicModifier,
+        JFunctionModifier=FunctionModifier,
+        JLocalModifier=LocalModifier,
+        JValueModifier=ValueModifier,
         JVoidModifier=VoidModifier
     }
 }
@@ -16,9 +19,18 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 "Converts a RedHat AST [[VoidModifier|JVoidModifier]] or [[DynamicModifier|JDynamicModifier]]
  to a `ceylon.ast` [[Modifier]]."
-shared Modifier modifierToCeylon(JVoidModifier|JDynamicModifier modifier) {
+shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier modifier) {
     switch (modifier)
     case (is JVoidModifier) { return voidModifierToCeylon(modifier); }
+    case (is JLocalModifier) {
+        assert (is JValueModifier|JFunctionModifier modifier);
+        switch (modifier)
+        case (is JValueModifier) { return valueModifierToCeylon(modifier); }
+        case (is JFunctionModifier) {
+            // TODO implement function modifiers
+            throw AssertionError("Function modifiers not yet implemented");
+        }
+    }
     case (is JDynamicModifier) { return dynamicModifierToCeylon(modifier); }
 }
 

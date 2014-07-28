@@ -66,6 +66,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLargerOp=LargerOp,
         JLazySpecifierExpression=LazySpecifierExpression,
         JListedArgument=ListedArgument,
+        JLocalModifier=LocalModifier,
         JLogicalAssignmentOp=LogicalAssignmentOp,
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
@@ -142,6 +143,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType,
+        JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
         JVoidModifier=VoidModifier,
         JWithinOp=WithinOp
@@ -911,8 +913,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JVoidModifier|JDynamicModifier transformModifier(Modifier that) {
-        assert (is JVoidModifier|JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
+    shared actual JVoidModifier|JLocalModifier|JDynamicModifier transformModifier(Modifier that) {
+        assert (is JVoidModifier|JLocalModifier|JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
         return ret;
     }
     
@@ -1547,6 +1549,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JSpecifierStatement ret = JSpecifierStatement(null);
         ret.baseMemberExpression = baseMemberExpression;
         ret.specifierExpression = transformSpecifier(that.specifier);
+        return ret;
+    }
+    
+    shared actual JValueModifier transformValueModifier(ValueModifier that) {
+        JValueModifier ret = JValueModifier(tokens.token(that.text, value_modifier));
         return ret;
     }
     

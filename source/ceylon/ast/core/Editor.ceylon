@@ -528,6 +528,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;
     }
+    shared actual default ValueModifier transformValueModifier(ValueModifier that)
+            => that.copy();
     shared actual default ValueParameter transformValueParameter(ValueParameter that) {
         Type|DynamicModifier transformTypeOrDynamicModifier(Type|DynamicModifier that) {
             switch (that)

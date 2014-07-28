@@ -158,6 +158,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformModifier(Modifier that) {
         switch (that)
         case (is VoidModifier) { return transformVoidModifier(that); }
+        case (is ValueModifier) { return transformValueModifier(that); }
         case (is DynamicModifier) { return transformDynamicModifier(that); }
     }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {

@@ -3,13 +3,22 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JDeclaration=Declaration,
         JSpecifierStatement=SpecifierStatement,
         JStatement=Statement
     }
 }
 
-"Converts a RedHat AST [[Statement|JStatement]] to a `ceylon.ast` [[Statement]]."
+"Converts a RedHat AST [[Statement|JStatement]] to a `ceylon.ast` [[Statement]].
+ 
+ Warning: This function can *not* be used to convert a RedHat AST [[Declaration|JDeclaration]]
+ to a `ceylon.ast` [[Declaration|ceylon.ast.core::Declaration]] (in the RedHat AST,
+ `Declaration` is a subclass of `Statement`).
+ If you’re unsure if your RedHat AST `Statement` is a `Statement` or a `Declaration`,
+ use [[declarationOrStatementToCeylon]]."
 shared Statement statementToCeylon(JStatement statement) {
+    "This function cannot be used for declarations!"
+    assert (!is JDeclaration statement);
     assert (is JSpecifierStatement statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement); }

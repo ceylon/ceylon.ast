@@ -31,6 +31,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JComparisonOp=ComparisonOp,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
+        JDeclaration=Declaration,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
@@ -541,6 +542,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JMetaLiteral transformDec(Dec that) {
         assert (is JMetaLiteral ret = super.transformDec(that));
+        return ret;
+    }
+    
+    shared actual JDeclaration transformDeclaration(Declaration that) {
+        assert (is JDeclaration ret = super.transformDeclaration(that));
         return ret;
     }
     

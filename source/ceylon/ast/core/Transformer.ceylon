@@ -41,6 +41,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformComplementAssignmentOperation(ComplementAssignmentOperation that);
     shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformDec(Dec that);
+    shared formal Result transformDeclaration(Declaration that);
     shared formal Result transformDefaultedCallableParameter(DefaultedCallableParameter that);
     shared formal Result transformDefaultedParameter(DefaultedParameter that);
     shared formal Result transformDefaultedParameterReference(DefaultedParameterReference that);

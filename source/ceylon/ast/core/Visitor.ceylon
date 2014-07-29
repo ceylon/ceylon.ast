@@ -41,6 +41,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
     transformDec(Dec that) => visitDec(that);
+    transformDeclaration(Declaration that) => visitDeclaration(that);
     transformDefaultedCallableParameter(DefaultedCallableParameter that) => visitDefaultedCallableParameter(that);
     transformDefaultedParameter(DefaultedParameter that) => visitDefaultedParameter(that);
     transformDefaultedParameterReference(DefaultedParameterReference that) => visitDefaultedParameterReference(that);
@@ -198,6 +199,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
+    shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);
     shared default void visitDefaultedCallableParameter(DefaultedCallableParameter that) => super.transformDefaultedCallableParameter(that);
     shared default void visitDefaultedParameter(DefaultedParameter that) => super.transformDefaultedParameter(that);
     shared default void visitDefaultedParameterReference(DefaultedParameterReference that) => super.transformDefaultedParameterReference(that);

@@ -85,6 +85,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PackageDec) { return transformPackageDec(that); }
         case (is ModuleDec) { return transformModuleDec(that); }
     }
+    shared actual default Result transformDeclaration(Declaration that) {
+        // TODO switch on case types, call appropriate transformSubclass(that)
+        throw AssertionError("Not yet implemented!");
+    }
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
         switch (that)
         case (is DefaultedValueParameter) { return transformDefaultedValueParameter(that); }
@@ -175,6 +179,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
         case (is Statement) { return transformStatement(that); }
+        case (is Declaration) { return transformDeclaration(that); }
         case (is CompilationUnit) { return transformCompilationUnit(that); }
         case (is Annotation) { return transformAnnotation(that); }
         case (is Annotations) { return transformAnnotations(that); }

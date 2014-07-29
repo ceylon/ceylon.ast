@@ -30,10 +30,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
     transformBaseType(BaseType that) => visitBaseType(that);
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
+    transformBlock(Block that) => visitBlock(that);
+    transformBody(Body that) => visitBody(that);
     transformBound(Bound that) => visitBound(that);
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
+    transformClassBody(ClassBody that) => visitClassBody(that);
     transformClosedBound(ClosedBound that) => visitClosedBound(that);
     transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
     transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
@@ -70,6 +73,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
     transformInOperation(InOperation that) => visitInOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => visitIntersectAssignmentOperation(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
@@ -188,10 +192,13 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
+    shared default void visitBlock(Block that) => super.transformBlock(that);
+    shared default void visitBody(Body that) => super.transformBody(that);
     shared default void visitBound(Bound that) => super.transformBound(that);
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
+    shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
     shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);
     shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
     shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);
@@ -217,6 +224,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
+    shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitInvocation(Invocation that) => super.transformInvocation(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);

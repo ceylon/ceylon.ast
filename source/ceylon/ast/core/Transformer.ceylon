@@ -30,10 +30,13 @@ shared interface Transformer<out Result> {
     shared formal Result transformBaseMeta(BaseMeta that);
     shared formal Result transformBaseType(BaseType that);
     shared formal Result transformBinaryOperation(BinaryOperation that);
+    shared formal Result transformBlock(Block that);
+    shared formal Result transformBody(Body that);
     shared formal Result transformBound(Bound that);
     shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
+    shared formal Result transformClassBody(ClassBody that);
     shared formal Result transformClosedBound(ClosedBound that);
     shared formal Result transformCompareOperation(CompareOperation that);
     shared formal Result transformComparisonOperation(ComparisonOperation that);
@@ -70,6 +73,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdentityOperation(IdentityOperation that);
     shared formal Result transformInOperation(InOperation that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformInterfaceBody(InterfaceBody that);
     shared formal Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that);
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);

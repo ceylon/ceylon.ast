@@ -82,6 +82,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is BinaryOperation ret = super.transformBinaryOperation(that));
         return ret;
     }
+    shared actual default Block transformBlock(Block that)
+            => that.copy(that.content.collect(transformStatementOrDeclaration));
+    shared actual default Body transformBody(Body that) {
+        assert (is Body ret = super.transformBody(that));
+        return ret;
+    }
     shared actual default Bound transformBound(Bound that) {
         assert (is Bound ret = super.transformBound(that));
         return ret;
@@ -98,6 +104,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
+    shared actual default ClassBody transformClassBody(ClassBody that)
+            => that.copy(that.content.collect(transformStatementOrDeclaration));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
             => that.copy(transformPrecedence10Expression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
@@ -188,6 +196,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
+    shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
+            => that.copy(that.content.collect(transformDeclaration));
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)
@@ -552,4 +562,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
+    Statement|Declaration transformStatementOrDeclaration(Statement|Declaration that) {
+        switch (that)
+        case (is Statement) { return transformStatement(that); }
+        case (is Declaration) { return transformDeclaration(that); }
+    }
 }

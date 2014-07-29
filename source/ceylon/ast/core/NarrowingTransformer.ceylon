@@ -63,6 +63,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ElseOperation) { return transformElseOperation(that); }
         case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
+    shared actual default Result transformBody(Body that) {
+        switch (that)
+        case (is Block) { return transformBlock(that); }
+        case (is ClassBody) { return transformClassBody(that); }
+        case (is InterfaceBody) { return transformInterfaceBody(that); }
+    }
     shared actual default Result transformBound(Bound that) {
         switch (that)
         case (is OpenBound) { return transformOpenBound(that); }
@@ -184,6 +190,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Annotation) { return transformAnnotation(that); }
         case (is Annotations) { return transformAnnotations(that); }
         case (is Parameter) { return transformParameter(that); }
+        case (is Body) { return transformBody(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

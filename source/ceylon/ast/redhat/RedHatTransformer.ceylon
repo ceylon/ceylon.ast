@@ -24,8 +24,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,
         JBitwiseAssignmentOp=BitwiseAssignmentOp,
         JBitwiseOp=BitwiseOp,
+        JBlock=Block,
+        JBody=Body,
         JBound=Bound,
         JCharacterLiteral=CharLiteral,
+        JClassBody=ClassBody,
         JClosedBound=ClosedBound,
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
@@ -57,6 +60,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInferredTypeArguments=InferredTypeArguments,
         JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
+        JInterfaceBody=InterfaceBody,
         JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
@@ -454,6 +458,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBlock transformBlock(Block that) {
+        JBlock ret = JBlock(tokens.token("{", lbrace));
+        for (element in that.content) {
+            assert (is JStatement jStatement = element.transform(this));
+            ret.addStatement(jStatement);
+        }
+        ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JBody transformBody(Body that) {
+        assert (is JBody ret = super.transformBody(that));
+        return ret;
+    }
+    
     shared actual JBound transformBound(Bound that) {
         assert (is JBound ret = super.transformBound(that));
         return ret;
@@ -493,6 +512,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
+    
+    shared actual JClassBody transformClassBody(ClassBody that) {
+        JClassBody ret = JClassBody(tokens.token("{", lbrace));
+        for (element in that.content) {
+            assert (is JStatement jStatement = element.transform(this));
+            ret.addStatement(jStatement);
+        }
+        ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
     
     shared actual JClosedBound transformClosedBound(ClosedBound that) {
         JTerm endpoint;
@@ -766,6 +795,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
+    
+    shared actual JInterfaceBody transformInterfaceBody(InterfaceBody that) {
+        JInterfaceBody ret = JInterfaceBody(tokens.token("{", lbrace));
+        for (declaration in that.content) {
+            ret.addStatement(transformDeclaration(declaration));
+        }
+        ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
     
     shared actual JIntersectAssignOp transformIntersectAssignmentOperation(IntersectAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);

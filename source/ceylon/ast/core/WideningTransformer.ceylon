@@ -21,10 +21,13 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
     shared actual default Result transformBinaryOperation(BinaryOperation that) => transformOperation(that);
+    shared actual default Result transformBlock(Block that) => transformBody(that);
+    shared actual default Result transformBody(Body that) => transformNode(that);
     shared actual default Result transformBound(Bound that) => transformExpressionIsh(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
+    shared actual default Result transformClassBody(ClassBody that) => transformBody(that);
     shared actual default Result transformClosedBound(ClosedBound that) => transformBound(that);
     shared actual default Result transformCompareOperation(CompareOperation that) => transformBinaryOperation(that);
     shared actual default Result transformComparisonOperation(ComparisonOperation that) => transformBinaryOperation(that);
@@ -61,6 +64,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
+    shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
     shared actual default Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);

@@ -105,6 +105,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
+    transformBlock(Block that) => "Block(``transformWithIndent(that.content)``)";
     transformCallableParameter(CallableParameter that)
             => "CallableParameter {
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
@@ -118,6 +119,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``argumentTypes = ``transformWithIndent(that.argumentTypes)``;
                 ``indent``}";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
+    transformClassBody(ClassBody that) => "ClassBody(``transformWithIndent(that.content)``)";
     transformClosedBound(ClosedBound that) => "ClosedBound(``transformWithIndent(that.endpoint)``)";
     transformCompareOperation(CompareOperation that)
             => "CompareOperation {
@@ -206,6 +208,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
+    transformInterfaceBody(InterfaceBody that) => "InterfaceBody(``transformWithIndent(that.content)``)";
     transformIntersectionType(IntersectionType that) => "IntersectionType(``transformWithIndent(that.children)``)";
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => "IntersectAssignmentOperation {

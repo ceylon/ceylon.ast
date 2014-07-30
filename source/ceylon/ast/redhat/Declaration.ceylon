@@ -3,14 +3,28 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JDeclaration=Declaration
+        JDeclaration=Declaration,
+        JMissingDeclaration=MissingDeclaration,
+        JTypedDeclaration=TypedDeclaration,
+        JTypeDeclaration=TypeDeclaration,
+        JTypeParameterDeclaration=TypeParameterDeclaration
     }
 }
 
 "Converts a RedHat AST [[Declaration|JDeclaration]] to a `ceylon.ast` [[Declaration]]."
 shared Declaration declarationToCeylon(JDeclaration declaration) {
-    // TODO switch on case types, call appropriate subtypeToCeylon(declaration) function
-    throw AssertionError("Not yet implemented!");
+    assert (is JMissingDeclaration|JTypeDeclaration|JTypedDeclaration|JTypeParameterDeclaration declaration);
+    switch (declaration)
+    case (is JMissingDeclaration) {
+        throw AssertionError("Can’t convert a missing declaration");
+    }
+    case (is JTypeDeclaration) {
+        throw AssertionError("Not yet implemented"); // TODO implement type declarations
+    }
+    case (is JTypedDeclaration) { return typedDeclarationToCeylon(declaration); }
+    case (is JTypeParameterDeclaration) {
+        throw AssertionError("Can’t convert a type parameter declaration to a declaration");
+    }
 }
 
 "Compiles the given [[code]] for a Declaration

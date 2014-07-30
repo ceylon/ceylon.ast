@@ -18,6 +18,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnnotation(Annotation that) => visitAnnotation(that);
     transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
+    transformAnyAttribute(AnyAttribute that) => visitAnyAttribute(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
     transformArguments(Arguments that) => visitArguments(that);
@@ -26,6 +27,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAssignOperation(AssignOperation that) => visitAssignOperation(that);
     transformAssignmentOperation(AssignmentOperation that) => visitAssignmentOperation(that);
     transformAtom(Atom that) => visitAtom(that);
+    transformAttributeDeclaration(AttributeDeclaration that) => visitAttributeDeclaration(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
     transformBaseType(BaseType that) => visitBaseType(that);
@@ -158,6 +160,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
+    transformTypedDeclaration(TypedDeclaration that) => visitTypedDeclaration(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
     transformUnaryIshOperation(UnaryIshOperation that) => visitUnaryIshOperation(that);
@@ -180,6 +183,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
     shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
+    shared default void visitAnyAttribute(AnyAttribute that) => super.transformAnyAttribute(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
     shared default void visitArguments(Arguments that) => super.transformArguments(that);
@@ -188,6 +192,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAssignOperation(AssignOperation that) => super.transformAssignOperation(that);
     shared default void visitAssignmentOperation(AssignmentOperation that) => super.transformAssignmentOperation(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
+    shared default void visitAttributeDeclaration(AttributeDeclaration that) => super.transformAttributeDeclaration(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
@@ -320,6 +325,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeList(TypeList that) => super.transformTypeList(that);
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);
+    shared default void visitTypedDeclaration(TypedDeclaration that) => super.transformTypedDeclaration(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);
     shared default void visitUnaryIshOperation(UnaryIshOperation that) => super.transformUnaryIshOperation(that);

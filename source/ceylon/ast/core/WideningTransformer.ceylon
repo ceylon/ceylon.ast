@@ -9,6 +9,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
     shared actual default Result transformAnnotations(Annotations that) => transformNode(that);
     shared actual default Result transformAnonymousArgument(AnonymousArgument that) => transformNamedArgument(that);
+    shared actual default Result transformAnyAttribute(AnyAttribute that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
     shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
     shared actual default Result transformArguments(Arguments that) => transformExpressionIsh(that);
@@ -17,6 +18,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
+    shared actual default Result transformAttributeDeclaration(AttributeDeclaration that) => transformAnyAttribute(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
@@ -150,6 +152,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
     shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);
     shared actual default Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => transformNameWithTypeArguments(that);
+    shared actual default Result transformTypedDeclaration(TypedDeclaration that) => transformDeclaration(that);
     shared actual default Result transformUIdentifier(UIdentifier that) => transformIdentifier(that);
     shared actual default Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => transformUnaryOperation(that);
     shared actual default Result transformUnaryIshOperation(UnaryIshOperation that) => transformOperation(that);

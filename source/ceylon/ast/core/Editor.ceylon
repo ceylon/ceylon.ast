@@ -35,6 +35,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
+    shared actual default AnyAttribute transformAnyAttribute(AnyAttribute that) {
+        assert (is AnyAttribute ret = super.transformAnyAttribute(that));
+        return ret;
+    }
     shared actual default AnySpecifier transformAnySpecifier(AnySpecifier that) {
         assert (is AnySpecifier ret = super.transformAnySpecifier(that));
         return ret;
@@ -71,6 +75,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default Atom transformAtom(Atom that) {
         assert (is Atom ret = super.transformAtom(that));
         return ret;
+    }
+    shared actual default AttributeDeclaration transformAttributeDeclaration(AttributeDeclaration that) {
+        Type|DynamicModifier transformTypeOrDynamicModifier(Type|DynamicModifier that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is DynamicModifier) { return transformDynamicModifier(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
     }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy(transformNameWithTypeArguments(that.nameAndArgs));
@@ -503,6 +515,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformType)));
+    shared actual default TypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
+        assert (is TypedDeclaration ret = super.transformTypedDeclaration(that));
+        return ret;
+    }
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
     shared actual default UnaryArithmeticOperation transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {

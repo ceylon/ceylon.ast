@@ -10,13 +10,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAnnotation=Annotation,
         JAnnotationList=AnnotationList,
         JAnonymousAnnotation=AnonymousAnnotation,
+        JAnyAttribute=AnyAttribute,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
         JAssignmentOp=AssignmentOp,
         JAssignOp=AssignOp,
-        JAttributeDeclaration=AttributeDeclaration,
         JAtom=Atom,
+        JAttributeDeclaration=AttributeDeclaration,
         JBaseMemberExpression=BaseMemberExpression,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
         JBaseType=BaseType,
@@ -140,6 +141,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
+        JTypedDeclaration=TypedDeclaration,
         JTypeLiteral=TypeLiteral,
         JTypeOperatorExpression=TypeOperatorExpression,
         JTypeParameterLiteral=TypeParameterLiteral,
@@ -216,6 +218,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         rparen=\iRPAREN,
         scale_op=\iSCALE_OP,
         segment_op=\iSEGMENT_OP,
+        semicolon=\iSEMICOLON,
         small_as_op=\iSMALL_AS_OP,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
@@ -329,6 +332,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JAnyAttribute transformAnyAttribute(AnyAttribute that) {
+        assert (is JAnyAttribute ret = super.transformAnyAttribute(that));
+        return ret;
+    }
+    
     shared actual JSpecifierExpression transformAnySpecifier(AnySpecifier that) {
         assert (is JSpecifierExpression ret = super.transformAnySpecifier(that));
         return ret;
@@ -397,6 +405,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JAtom transformAtom(Atom that) {
         assert (is JAtom ret = super.transformAtom(that));
+        return ret;
+    }
+    
+    shared actual JAttributeDeclaration transformAttributeDeclaration(AttributeDeclaration that) {
+        JAttributeDeclaration ret = JAttributeDeclaration(null);
+        ret.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     
@@ -1469,6 +1489,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType transformType(Type that) {
         assert (is JStaticType ret = super.transformType(that));
+        return ret;
+    }
+    
+    shared actual JTypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
+        assert (is JTypedDeclaration ret = super.transformTypedDeclaration(that));
         return ret;
     }
     

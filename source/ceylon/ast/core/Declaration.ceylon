@@ -18,7 +18,7 @@
        shared actual String string => "``outer.string`` by ``step``";
        shared class Person(shared String name) { string => name; }"""
 shared abstract class Declaration()
-// TODO case types!!!
+        of TypedDeclaration
         extends Node() {
     
     "The name of the declared program element."

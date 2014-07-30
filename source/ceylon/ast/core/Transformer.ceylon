@@ -18,6 +18,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnnotation(Annotation that);
     shared formal Result transformAnnotations(Annotations that);
     shared formal Result transformAnonymousArgument(AnonymousArgument that);
+    shared formal Result transformAnyAttribute(AnyAttribute that);
     shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformArgumentList(ArgumentList that);
     shared formal Result transformArguments(Arguments that);
@@ -26,6 +27,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAssignOperation(AssignOperation that);
     shared formal Result transformAssignmentOperation(AssignmentOperation that);
     shared formal Result transformAtom(Atom that);
+    shared formal Result transformAttributeDeclaration(AttributeDeclaration that);
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);
     shared formal Result transformBaseType(BaseType that);
@@ -160,6 +162,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeList(TypeList that);
     shared formal Result transformTypeMeta(TypeMeta that);
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
+    shared formal Result transformTypedDeclaration(TypedDeclaration that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that);
     shared formal Result transformUnaryIshOperation(UnaryIshOperation that);

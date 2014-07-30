@@ -17,10 +17,5 @@ shared object declaration satisfies AbstractTest<Declaration,JDeclaration> {
     fromCeylon = RedHatTransformer.transformDeclaration;
     toCeylon = declarationToCeylon;
     
-    tests => [nothing]; // TODO add tests!
-    /*
-     TODO also: make eager again (‘=’ → ‘=>’). Needs to be lazy right now
-     because otherwise it will throw when the class is loaded, and ceylon.test
-     can’t catch that
-     */
+    tests = [typedDeclaration];
 }

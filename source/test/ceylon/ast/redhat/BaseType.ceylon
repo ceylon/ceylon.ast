@@ -3,7 +3,8 @@ import ceylon.ast.core {
     UIdentifier,
     Type,
     TypeArgument,
-    TypeNameWithTypeArguments
+    TypeNameWithTypeArguments,
+    OutModifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -23,6 +24,15 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     
     shared String->BaseType stringType = construct("String");
     shared String->BaseType iterableOfStringType = construct("Iterable", [stringType]);
+    shared String->BaseType listOfOutObjectType = "List<out Object>"->BaseType(TypeNameWithTypeArguments {
+            name = UIdentifier("List");
+            typeArguments = [
+                TypeArgument {
+                    type = BaseType(TypeNameWithTypeArguments(UIdentifier("Object")));
+                    variance = OutModifier();
+                }
+            ];
+        });
     
     // not tested directly, but used by other tests
     shared String->BaseType anythingType = construct("Anything");
@@ -36,5 +46,5 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     compile = compileBaseType;
     fromCeylon = RedHatTransformer.transformBaseType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed
     toCeylon = baseTypeToCeylon;
-    codes = [stringType, iterableOfStringType];
+    codes = [stringType, iterableOfStringType, listOfOutObjectType];
 }

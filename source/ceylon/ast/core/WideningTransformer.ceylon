@@ -65,6 +65,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdenticalOperation(IdenticalOperation that) => transformEqualityOperation(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
+    shared actual default Result transformInModifier(InModifier that) => transformVariance(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
@@ -103,6 +104,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
     shared actual default Result transformOrAssignmentOperation(OrAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformOrOperation(OrOperation that) => transformLogicalOperation(that);
+    shared actual default Result transformOutModifier(OutModifier that) => transformVariance(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);
     shared actual default Result transformPackageDec(PackageDec that) => transformDec(that);
@@ -169,6 +171,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformValueSpecification(ValueSpecification that) => transformSpecification(that);
     shared actual default Result transformVariadicParameter(VariadicParameter that) => transformParameter(that);
     shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);
+    shared actual default Result transformVariance(Variance that) => transformModifier(that);
     shared actual default Result transformVoidModifier(VoidModifier that) => transformModifier(that);
     shared actual default Result transformWithinOperation(WithinOperation that) => transformOperation(that);
 }

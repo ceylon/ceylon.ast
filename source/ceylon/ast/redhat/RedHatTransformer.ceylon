@@ -145,6 +145,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeLiteral=TypeLiteral,
         JTypeOperatorExpression=TypeOperatorExpression,
         JTypeParameterLiteral=TypeParameterLiteral,
+        JTypeVariance=TypeVariance,
         JType=Type,
         JUnaryOperatorExpression=UnaryOperatorExpression,
         JUnionAssignOp=UnionAssignOp,
@@ -204,6 +205,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         optionalType=\iOPTIONAL,
         or_op=\iOR_OP,
         or_specify=\iOR_SPECIFY,
+        outType=\iOUT,
         outerType=\iOUTER,
         packageType=\iPACKAGE,
         pidentifier=\iPIDENTIFIER,
@@ -819,6 +821,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTypeVariance transformInModifier(InModifier that) {
+        JTypeVariance ret = JTypeVariance(tokens.token(that.text, in_op));
+        return ret;
+    }
+    
     shared actual JInOp transformInOperation(InOperation that) {
         JTerm left = transformPrecedence10Expression(that.leftOperand);
         JInOp ret = JInOp(tokens.token(that.operator, in_op));
@@ -991,8 +998,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JVoidModifier|JLocalModifier|JDynamicModifier transformModifier(Modifier that) {
-        assert (is JVoidModifier|JLocalModifier|JDynamicModifier ret = super.transformModifier(that)); // TODO more case types!
+    shared actual JVoidModifier|JLocalModifier|JDynamicModifier|JTypeVariance transformModifier(Modifier that) {
+        assert (is JVoidModifier|JLocalModifier|JDynamicModifier|JTypeVariance ret = super.transformModifier(that)); // TODO more case types!
         return ret;
     }
     
@@ -1100,6 +1107,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JOrOp ret = JOrOp(tokens.token(that.operator, or_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence15Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JTypeVariance transformOutModifier(OutModifier that) {
+        JTypeVariance ret = JTypeVariance(tokens.token(that.text, outType));
         return ret;
     }
     
@@ -1647,6 +1659,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         dec.type = transformVariadicType(that.type);
         dec.identifier = transformLIdentifier(that.name);
         ret.typedDeclaration = dec;
+        return ret;
+    }
+    
+    shared actual JTypeVariance transformVariance(Variance that) {
+        assert (is JTypeVariance ret = super.transformVariance(that));
         return ret;
     }
     

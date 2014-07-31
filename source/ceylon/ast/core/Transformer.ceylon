@@ -74,6 +74,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdenticalOperation(IdenticalOperation that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
+    shared formal Result transformInModifier(InModifier that);
     shared formal Result transformInOperation(InOperation that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
@@ -113,6 +114,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOrAssignmentOperation(OrAssignmentOperation that);
     shared formal Result transformOrOperation(OrOperation that);
+    shared formal Result transformOutModifier(OutModifier that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
     shared formal Result transformPackageDec(PackageDec that);
@@ -179,6 +181,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueSpecification(ValueSpecification that);
     shared formal Result transformVariadicParameter(VariadicParameter that);
     shared formal Result transformVariadicType(VariadicType that);
+    shared formal Result transformVariance(Variance that);
     shared formal Result transformVoidModifier(VoidModifier that);
     shared formal Result transformWithinOperation(WithinOperation that);
 }

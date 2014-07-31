@@ -74,6 +74,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdenticalOperation(IdenticalOperation that) => visitIdenticalOperation(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
+    transformInModifier(InModifier that) => visitInModifier(that);
     transformInOperation(InOperation that) => visitInOperation(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
@@ -113,6 +114,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOrAssignmentOperation(OrAssignmentOperation that) => visitOrAssignmentOperation(that);
     transformOrOperation(OrOperation that) => visitOrOperation(that);
+    transformOutModifier(OutModifier that) => visitOutModifier(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
     transformPackageDec(PackageDec that) => visitPackageDec(that);
@@ -175,6 +177,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
+    transformVariance(Variance that) => visitVariance(that);
     transformVoidModifier(VoidModifier that) => visitVoidModifier(that);
     transformWithinOperation(WithinOperation that) => visitWithinOperation(that);
     
@@ -230,6 +233,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
+    shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
@@ -254,6 +258,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
+    shared default void visitOutModifier(OutModifier that) => super.transformOutModifier(that);
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
     shared default void visitParameter(Parameter that) => super.transformParameter(that);
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
@@ -341,6 +346,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
+    shared default void visitVariance(Variance that) => super.transformVariance(that);
     shared default void visitVoidModifier(VoidModifier that) => super.transformVoidModifier(that);
     shared default void visitWithinOperation(WithinOperation that) => super.transformWithinOperation(that);
 }

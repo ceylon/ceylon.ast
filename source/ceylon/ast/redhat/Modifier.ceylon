@@ -6,6 +6,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDynamicModifier=DynamicModifier,
         JFunctionModifier=FunctionModifier,
         JLocalModifier=LocalModifier,
+        JTypeVariance=TypeVariance,
         JValueModifier=ValueModifier,
         JVoidModifier=VoidModifier
     }
@@ -19,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 "Converts a RedHat AST [[VoidModifier|JVoidModifier]] or [[DynamicModifier|JDynamicModifier]]
  to a `ceylon.ast` [[Modifier]]."
-shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier modifier) {
+shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier|JTypeVariance modifier) {
     switch (modifier)
     case (is JVoidModifier) { return voidModifierToCeylon(modifier); }
     case (is JLocalModifier) {
@@ -32,6 +33,7 @@ shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier m
         }
     }
     case (is JDynamicModifier) { return dynamicModifierToCeylon(modifier); }
+    case (is JTypeVariance) { return varianceToCeylon(modifier); }
 }
 
 "Compiles the given [[code]] for a Modifier
@@ -43,6 +45,8 @@ shared Modifier? compileModifier(String code) {
         return compileVoidModifier(code);
     } else if (type == dynamicModifier) {
         return compileDynamicModifier(code);
+    } else if (exists variance = compileVariance(code)) {
+        return variance;
     } else {
         return null;
     }

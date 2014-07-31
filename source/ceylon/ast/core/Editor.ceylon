@@ -213,6 +213,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
+    shared actual default InModifier transformInModifier(InModifier that)
+            => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
@@ -316,6 +318,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default OrOperation transformOrOperation(OrOperation that)
             => that.copy(transformPrecedence15Expression(that.leftOperand), transformPrecedence14Expression(that.rightOperand));
+    shared actual default OutModifier transformOutModifier(OutModifier that)
+            => that.copy();
     shared actual default Outer transformOuter(Outer that)
             => that.copy();
     shared actual default Package transformPackage(Package that)
@@ -583,6 +587,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
+    shared actual default Variance transformVariance(Variance that) {
+        assert (is Variance ret = super.transformVariance(that));
+        return ret;
+    }
     shared actual default VoidModifier transformVoidModifier(VoidModifier that)
             => that.copy();
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)

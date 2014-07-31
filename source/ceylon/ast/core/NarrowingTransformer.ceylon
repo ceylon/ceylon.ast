@@ -175,6 +175,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is VoidModifier) { return transformVoidModifier(that); }
         case (is ValueModifier) { return transformValueModifier(that); }
         case (is DynamicModifier) { return transformDynamicModifier(that); }
+        case (is Variance) { return transformVariance(that); }
     }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
         switch (that)
@@ -429,5 +430,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Primary) { return transformPrimary(that); }
         case (is Operation) { return transformOperation(that); }
+    }
+    shared actual default Result transformVariance(Variance that) {
+        switch (that)
+        case (is InModifier) { return transformInModifier(that); }
+        case (is OutModifier) { return transformOutModifier(that); }
     }
 }

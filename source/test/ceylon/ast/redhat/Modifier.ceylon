@@ -10,14 +10,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JDynamicModifier=DynamicModifier,
         JLocalModifier=LocalModifier,
+        JTypeVariance=TypeVariance,
         JVoidModifier=VoidModifier
     }
 }
 
-shared object modifier satisfies AbstractTest<Modifier,JVoidModifier|JLocalModifier|JDynamicModifier> {
+shared object modifier satisfies AbstractTest<Modifier,JVoidModifier|JLocalModifier|JDynamicModifier|JTypeVariance> {
     compile = compileModifier;
     fromCeylon = RedHatTransformer.transformModifier;
     toCeylon = modifierToCeylon;
     
-    tests = [voidModifier, dynamicModifier];
+    tests = [voidModifier, dynamicModifier, variance];
 }

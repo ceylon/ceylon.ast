@@ -20,5 +20,5 @@ shared object modifier satisfies AbstractTest<Modifier,JVoidModifier|JLocalModif
     fromCeylon = RedHatTransformer.transformModifier;
     toCeylon = modifierToCeylon;
     
-    tests = [voidModifier, dynamicModifier, variance];
+    tests = [voidModifier, valueModifier, dynamicModifier, variance];
 }

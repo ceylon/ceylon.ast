@@ -22,10 +22,10 @@ shared object attributeDeclaration satisfies ConcreteTest<AttributeDeclaration,J
             => "``annotations.key`` ``type.key`` ``name.key``;"->AttributeDeclaration(name.item, type.item, annotations.item);
     
     shared String->AttributeDeclaration lidAttributeDeclaration = construct(identifier.lidLIdentifier, dynamicModifier.dynamicModifier, annotations.emptyAnnotations);
-    shared String->AttributeDeclaration annotatedByDeclaration = construct(identifier.byLIdentifier, unionType.stringOrIntegerOrFloatUnionType, annotations.helloSharedByLucasAnnotations);
+    shared String->AttributeDeclaration annotatedByAttributeDeclaration = construct(identifier.byLIdentifier, unionType.stringOrIntegerOrFloatUnionType, annotations.helloSharedByLucasAnnotations);
     
     compile = compileAttributeDeclaration;
     fromCeylon = RedHatTransformer.transformAttributeDeclaration;
     toCeylon = attributeDeclarationToCeylon;
-    codes = [lidAttributeDeclaration, annotatedByDeclaration];
+    codes = [lidAttributeDeclaration, annotatedByAttributeDeclaration];
 }

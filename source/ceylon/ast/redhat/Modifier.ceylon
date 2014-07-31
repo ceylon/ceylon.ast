@@ -14,6 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         dynamicModifier=\iDYNAMIC,
+        value_modifier=\iVALUE_MODIFIER,
         void_modifier=\iVOID_MODIFIER
     }
 }
@@ -43,6 +44,8 @@ shared Modifier? compileModifier(String code) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == void_modifier) {
         return compileVoidModifier(code);
+    } else if (type == value_modifier) {
+        return compileValueModifier(code);
     } else if (type == dynamicModifier) {
         return compileDynamicModifier(code);
     } else if (exists variance = compileVariance(code)) {

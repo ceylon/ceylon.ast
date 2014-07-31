@@ -17,5 +17,5 @@ shared object anyAttribute satisfies AbstractTest<AnyAttribute,JAnyAttribute> {
     fromCeylon = RedHatTransformer.transformAnyAttribute;
     toCeylon = anyAttributeToCeylon;
     
-    tests = [attributeDeclaration];
+    tests = [attributeDeclaration, attributeDefinition];
 }

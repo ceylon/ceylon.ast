@@ -28,6 +28,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAssignmentOperation(AssignmentOperation that);
     shared formal Result transformAtom(Atom that);
     shared formal Result transformAttributeDeclaration(AttributeDeclaration that);
+    shared formal Result transformAttributeDefinition(AttributeDefinition that);
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);
     shared formal Result transformBaseType(BaseType that);

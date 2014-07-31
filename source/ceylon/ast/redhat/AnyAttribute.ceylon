@@ -12,7 +12,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared AnyAttribute anyAttributeToCeylon(JAnyAttribute anyAttribute) {
     assert (is JAttributeDeclaration anyAttribute);
     switch (anyAttribute)
-    case (is JAttributeDeclaration) { return attributeDeclarationToCeylon(anyAttribute); }
+    case (is JAttributeDeclaration) {
+        if (anyAttribute.specifierOrInitializerExpression exists) {
+            return attributeDefinitionToCeylon(anyAttribute);
+        } else {
+            return attributeDeclarationToCeylon(anyAttribute);
+        }
+    }
 }
 
 "Compiles the given [[code]] for an Any Attribute

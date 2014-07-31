@@ -84,6 +84,15 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
     }
+    shared actual default AttributeDefinition transformAttributeDefinition(AttributeDefinition that) {
+        Type|ValueModifier|DynamicModifier transformTypeOrValueModifierOrDynamicModifier(Type|ValueModifier|DynamicModifier that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is ValueModifier) { return transformValueModifier(that); }
+            case (is DynamicModifier) { return transformDynamicModifier(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
+    }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy(transformNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseMeta transformBaseMeta(BaseMeta that)

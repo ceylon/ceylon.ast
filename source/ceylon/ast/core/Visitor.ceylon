@@ -28,6 +28,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAssignmentOperation(AssignmentOperation that) => visitAssignmentOperation(that);
     transformAtom(Atom that) => visitAtom(that);
     transformAttributeDeclaration(AttributeDeclaration that) => visitAttributeDeclaration(that);
+    transformAttributeDefinition(AttributeDefinition that) => visitAttributeDefinition(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
     transformBaseType(BaseType that) => visitBaseType(that);
@@ -193,6 +194,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAssignmentOperation(AssignmentOperation that) => super.transformAssignmentOperation(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
     shared default void visitAttributeDeclaration(AttributeDeclaration that) => super.transformAttributeDeclaration(that);
+    shared default void visitAttributeDefinition(AttributeDefinition that) => super.transformAttributeDefinition(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);

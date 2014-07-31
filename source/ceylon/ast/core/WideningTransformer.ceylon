@@ -19,6 +19,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
     shared actual default Result transformAttributeDeclaration(AttributeDeclaration that) => transformAnyAttribute(that);
+    shared actual default Result transformAttributeDefinition(AttributeDefinition that) => transformAnyAttribute(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);

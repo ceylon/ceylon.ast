@@ -420,6 +420,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JAttributeDeclaration transformAttributeDefinition(AttributeDefinition that) {
+        JAttributeDeclaration ret = JAttributeDeclaration(null);
+        ret.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is ValueModifier) { ret.type = transformValueModifier(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.specifierOrInitializerExpression = transformAnySpecifier(that.definition);
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JBaseMemberOrTypeExpression transformBaseExpression(BaseExpression that) {
         JBaseMemberOrTypeExpression ret;
         value name = that.nameAndArgs.name;

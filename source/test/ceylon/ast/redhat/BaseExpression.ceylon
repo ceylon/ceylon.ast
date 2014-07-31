@@ -3,6 +3,7 @@ import ceylon.ast.core {
     BaseType,
     LIdentifier,
     MemberNameWithTypeArguments,
+    TypeArgument,
     TypeNameWithTypeArguments,
     UIdentifier
 }
@@ -23,7 +24,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
             => name->BaseExpression(MemberNameWithTypeArguments(LIdentifier(name)));
     
     shared String->BaseExpression nullExpression = construct("null");
-    shared String->BaseExpression maxOfIntegerNothingExpression = "max<Integer,Nothing>"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("max"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))), BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing")))]));
+    shared String->BaseExpression maxOfIntegerNothingExpression = "max<Integer,Nothing>"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("max"), [TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))), TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"))))]));
     shared String->BaseExpression processExpression = construct("process");
     
     // not tested directly, but used by other tests

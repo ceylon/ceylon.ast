@@ -2,8 +2,10 @@ import ceylon.ast.core {
     GroupedType,
     QualifiedType,
     SimpleType,
+    TypeArgument,
     TypeArguments,
-    TypeNameWithTypeArguments
+    TypeNameWithTypeArguments,
+    Variance
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +26,14 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     if (exists jArgs = qualifiedType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
                 assert (is JStaticType jType);
-                return typeToCeylon(jType);
+                value type = typeToCeylon(jType);
+                Variance? variance;
+                if (exists jTypeVariance = jType.typeVariance) {
+                    variance = varianceToCeylon(jTypeVariance);
+                } else {
+                    variance = null;
+                }
+                return TypeArgument(type, variance);
             });
     } else {
         arguments = null;

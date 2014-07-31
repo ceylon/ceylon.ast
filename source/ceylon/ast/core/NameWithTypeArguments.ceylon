@@ -8,7 +8,7 @@ shared abstract class NameWithTypeArguments()
     "The type arguments, if any."
     shared formal TypeArguments? typeArguments;
     
-    shared actual formal [Identifier, Type*] children;
+    shared actual formal [Identifier, TypeArgument*] children;
 }
 
 "Convenience function to create either a [[MemberNameWithTypeArguments]]

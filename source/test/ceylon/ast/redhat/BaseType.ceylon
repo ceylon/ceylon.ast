@@ -2,6 +2,7 @@ import ceylon.ast.core {
     BaseType,
     UIdentifier,
     Type,
+    TypeArgument,
     TypeNameWithTypeArguments
 }
 import ceylon.ast.redhat {
@@ -18,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     
     String->BaseType construct(String name, [<String->Type>+]? args = null)
-            => name + (args exists then "<``",".join((args else []).collect(Entry<String,Type>.key))``>" else "") -> BaseType(TypeNameWithTypeArguments(UIdentifier(name), args?.collect(Entry<String,Type>.item)));
+            => name + (args exists then "<``",".join((args else []).collect(Entry<String,Type>.key))``>" else "") -> BaseType(TypeNameWithTypeArguments(UIdentifier(name), args?.collect((String->Type entry) => TypeArgument(entry.item))));
     
     shared String->BaseType stringType = construct("String");
     shared String->BaseType iterableOfStringType = construct("Iterable", [stringType]);

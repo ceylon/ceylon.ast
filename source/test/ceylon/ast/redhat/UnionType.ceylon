@@ -1,6 +1,7 @@
 import ceylon.ast.core {
     BaseType,
     IntersectionType,
+    TypeArgument,
     TypeNameWithTypeArguments,
     UIdentifier,
     UnionType
@@ -35,7 +36,7 @@ shared object unionType satisfies ConcreteTest<UnionType,JUnionType> {
                             BaseType(TypeNameWithTypeArguments(UIdentifier("Q``i``"))),
                             BaseType(TypeNameWithTypeArguments(UIdentifier("C"))),
                             BaseType(TypeNameWithTypeArguments(UIdentifier("R``j``"))),
-                            BaseType(TypeNameWithTypeArguments(UIdentifier("B"), [BaseType(TypeNameWithTypeArguments(UIdentifier("Q`` (i + j) % 3 ``")))]))
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("B"), [TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Q`` (i + j) % 3 ``"))))]))
                         ];
                     }
         ];

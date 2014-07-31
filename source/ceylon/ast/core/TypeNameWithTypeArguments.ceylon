@@ -6,7 +6,7 @@ shared class TypeNameWithTypeArguments(name, typeArguments = null)
     shared actual TypeName name;
     shared actual TypeArguments? typeArguments;
     
-    shared actual [TypeName, Type*] children = [name, *(typeArguments else [])];
+    shared actual [TypeName, TypeArgument*] children = [name, *(typeArguments else [])];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeNameWithTypeArguments(this);

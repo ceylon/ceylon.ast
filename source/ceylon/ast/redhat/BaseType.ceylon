@@ -1,7 +1,9 @@
 import ceylon.ast.core {
     TypeArguments,
     BaseType,
-    TypeNameWithTypeArguments
+    TypeArgument,
+    TypeNameWithTypeArguments,
+    Variance
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +22,14 @@ shared BaseType baseTypeToCeylon(JBaseType baseType) {
     if (exists jArgs = baseType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
                 assert (is JStaticType jType);
-                return typeToCeylon(jType);
+                value type = typeToCeylon(jType);
+                Variance? variance;
+                if (exists jTypeVariance = jType.typeVariance) {
+                    variance = varianceToCeylon(jTypeVariance);
+                } else {
+                    variance = null;
+                }
+                return TypeArgument(type, variance);
             });
     } else {
         arguments = null;

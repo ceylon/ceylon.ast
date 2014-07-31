@@ -3,7 +3,9 @@ import ceylon.ast.core {
     MemberMeta,
     MemberNameWithTypeArguments,
     MetaQualifier,
-    TypeArguments
+    TypeArgument,
+    TypeArguments,
+    Variance
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -41,7 +43,14 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta) {
     if (exists jArgs = memberMeta.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
         arguments = jArguments.collect((JType jType) {
                 assert (is JStaticType jType);
-                return typeToCeylon(jType);
+                value type = typeToCeylon(jType);
+                Variance? variance;
+                if (exists jTypeVariance = jType.typeVariance) {
+                    variance = varianceToCeylon(jTypeVariance);
+                } else {
+                    variance = null;
+                }
+                return TypeArgument(type, variance);
             });
     } else {
         arguments = null;

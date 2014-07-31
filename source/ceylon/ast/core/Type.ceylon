@@ -1,4 +1,4 @@
-shared alias TypeArguments => [Type+];
+shared alias TypeArguments => [TypeArgument+];
 
 "All node types in the type sub-hierarchy:
  [[Type]] and some auxiliary node types that aren’t proper Types.

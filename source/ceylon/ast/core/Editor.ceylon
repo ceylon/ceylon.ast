@@ -269,7 +269,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
             => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
-            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformType)));
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformTypeArgument)));
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
         return ret;
@@ -529,7 +529,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default TypeMeta transformTypeMeta(TypeMeta that)
             => that.copy(transformType(that.type));
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
-            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformType)));
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, (TypeArguments typeArgs) => typeArgs.collect(transformTypeArgument)));
     shared actual default TypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
         assert (is TypedDeclaration ret = super.transformTypedDeclaration(that));
         return ret;

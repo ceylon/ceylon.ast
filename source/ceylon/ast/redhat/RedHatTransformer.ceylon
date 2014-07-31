@@ -445,8 +445,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformIdentifier(name);
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             ret.typeArguments = typeArgList;
@@ -461,8 +465,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             ret.typeArgumentList = typeArgList;
@@ -477,8 +485,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             typeArgumentList = typeArgList;
@@ -972,8 +984,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             ret.typeArgumentList = typeArgList;
@@ -1324,8 +1340,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformIdentifier(name);
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             ret.typeArguments = typeArgList;
@@ -1339,8 +1359,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeArgumentList? typeArgumentList;
         if (exists arguments = that.nameAndArgs.typeArguments) {
             value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (Type type in arguments) {
-                typeArgList.addType(transformType(type));
+            for (TypeArgument argument in arguments) {
+                value jType = transformType(argument.type);
+                if (exists variance = argument.variance) {
+                    jType.typeVariance = transformVariance(variance);
+                }
+                typeArgList.addType(jType);
             }
             typeArgList.endToken = tokens.token(">", larger_op);
             typeArgumentList = typeArgList;

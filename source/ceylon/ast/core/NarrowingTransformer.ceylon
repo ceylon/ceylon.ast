@@ -392,6 +392,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is VariadicType) { return transformVariadicType(that); }
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }
+        case (is TypeArgument) { return transformTypeArgument(that); }
     }
     shared actual default Result transformTypedDeclaration(TypedDeclaration that) {
         switch (that)

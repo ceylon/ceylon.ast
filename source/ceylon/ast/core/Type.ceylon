@@ -6,9 +6,9 @@ shared alias TypeArguments => [Type+];
  (For example, while `String*` is part of the valid type `{String*}`,
  it’s not a valid type by itself.)"
 shared abstract class TypeIsh()
-        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList
+        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | TypeArgument
         extends ExpressionIsh() {
-    shared actual formal <TypeIsh|Identifier>[] children;
+    shared actual formal <TypeIsh|Identifier|Variance>[] children;
 }
 
 "Representation of a type."

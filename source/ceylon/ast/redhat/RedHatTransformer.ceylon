@@ -1523,6 +1523,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[TypeArgument]];
+     this method throws."
+    shared actual Nothing transformTypeArgument(TypeArgument that) {
+        throw Exception("TypeArgument has no RedHat AST equivalent!");
+    }
+    
     shared actual JType transformTypeIsh(TypeIsh that) {
         assert (is JType ret = super.transformTypeIsh(that));
         return ret;

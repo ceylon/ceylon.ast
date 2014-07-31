@@ -508,6 +508,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Type ret = super.transformType(that));
         return ret;
     }
+    shared actual default TypeArgument transformTypeArgument(TypeArgument that)
+            => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
     shared actual default TypeDec transformTypeDec(TypeDec that) {
         assert (is TypeDec ret = super.transformTypeDec(that));
         return ret;

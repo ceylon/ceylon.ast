@@ -160,6 +160,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
+    shared formal Result transformTypeArgument(TypeArgument that);
     shared formal Result transformTypeDec(TypeDec that);
     shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeList(TypeList that);

@@ -150,6 +150,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTuple(Tuple that) => transformAtom(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
+    shared actual default Result transformTypeArgument(TypeArgument that) => transformTypeIsh(that);
     shared actual default Result transformTypeDec(TypeDec that) => transformDec(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);

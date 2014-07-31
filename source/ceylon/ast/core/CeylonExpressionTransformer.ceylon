@@ -403,6 +403,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformThis(This that) => "This()";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
+    transformTypeArgument(TypeArgument that)
+            => "TypeArgument {
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``variance = ``transformWithIndent(that.variance)``;
+                ``indent``}";
     transformTypeList(TypeList that)
             => that.variadic exists
             then "TypeList {

@@ -47,6 +47,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JEntryType=EntryType,
         JEqualOp=EqualOp,
         JEqualityOp=EqualityOp,
+        JExecutableStatement=ExecutableStatement,
         JExists=Exists,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
@@ -738,8 +739,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JStatement transformStatement(Statement that) {
-        assert (is JStatement ret = super.transformStatement(that));
+    shared actual JExecutableStatement transformStatement(Statement that) {
+        assert (is JExecutableStatement ret = super.transformStatement(that));
         return ret;
     }
     

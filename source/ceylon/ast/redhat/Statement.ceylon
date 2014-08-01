@@ -3,22 +3,18 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JDeclaration=Declaration,
-        JSpecifierStatement=SpecifierStatement,
-        JStatement=Statement
+        JExecutableStatement=ExecutableStatement,
+        JSpecifierStatement=SpecifierStatement
     }
 }
 
-"Converts a RedHat AST [[Statement|JStatement]] to a `ceylon.ast` [[Statement]].
+"Converts a RedHat AST [[ExecutableStatement|JExecutableStatement]] to a `ceylon.ast` [[Statement]].
  
- Warning: This function can *not* be used to convert a RedHat AST [[Declaration|JDeclaration]]
- to a `ceylon.ast` [[Declaration|ceylon.ast.core::Declaration]] (in the RedHat AST,
- `Declaration` is a subclass of `Statement`).
- If you’re unsure if your RedHat AST `Statement` is a `Statement` or a `Declaration`,
- use [[declarationOrStatementToCeylon]]."
-shared Statement statementToCeylon(JStatement statement) {
-    "This function cannot be used for declarations!"
-    assert (!is JDeclaration statement);
+ (RedHat AST’s [[Statement|com.redhat.ceylon.compiler.typechecker.tree::Tree.Statement]]
+ is the supertype of [[Declaration|com.redhat.ceylon.compiler.typechecker.tree::Tree.Declaration]]
+ and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
+ and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
+shared Statement statementToCeylon(JExecutableStatement statement) {
     assert (is JSpecifierStatement statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement); }
@@ -29,6 +25,7 @@ shared Statement statementToCeylon(JStatement statement) {
  (more specifically, the rule for a `statement`)."
 shared Statement? compileStatement(String code) {
     if (exists jStatement = createParser(code).statement()) {
+        assert (is JExecutableStatement jStatement);
         return statementToCeylon(jStatement);
     } else {
         return null;

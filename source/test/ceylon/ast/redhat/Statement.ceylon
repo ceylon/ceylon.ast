@@ -8,11 +8,11 @@ import ceylon.ast.redhat {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JStatement=Statement
+        JExecutableStatement=ExecutableStatement
     }
 }
 
-shared object statement satisfies AbstractTest<Statement,JStatement> {
+shared object statement satisfies AbstractTest<Statement,JExecutableStatement> {
     compile = compileStatement;
     fromCeylon = RedHatTransformer.transformStatement;
     toCeylon = statementToCeylon;

@@ -9,7 +9,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
     shared actual default Result transformAnnotations(Annotations that) => transformNode(that);
     shared actual default Result transformAnonymousArgument(AnonymousArgument that) => transformNamedArgument(that);
-    shared actual default Result transformAnyAttribute(AnyAttribute that) => transformTypedDeclaration(that);
+    shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
     shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
     shared actual default Result transformArguments(Arguments that) => transformExpressionIsh(that);
@@ -18,8 +18,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
-    shared actual default Result transformAttributeDeclaration(AttributeDeclaration that) => transformAnyAttribute(that);
-    shared actual default Result transformAttributeDefinition(AttributeDefinition that) => transformAnyAttribute(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
     shared actual default Result transformBaseType(BaseType that) => transformSimpleType(that);
@@ -166,6 +164,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformUnionOperation(UnionOperation that) => transformSetOperation(that);
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);
+    shared actual default Result transformValueDeclaration(ValueDeclaration that) => transformAnyValue(that);
+    shared actual default Result transformValueDefinition(ValueDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);
     shared actual default Result transformValueModifier(ValueModifier that) => transformModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);

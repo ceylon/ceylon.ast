@@ -334,13 +334,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JAnyAttribute transformAnyAttribute(AnyAttribute that) {
-        assert (is JAnyAttribute ret = super.transformAnyAttribute(that));
+    shared actual JSpecifierExpression transformAnySpecifier(AnySpecifier that) {
+        assert (is JSpecifierExpression ret = super.transformAnySpecifier(that));
         return ret;
     }
     
-    shared actual JSpecifierExpression transformAnySpecifier(AnySpecifier that) {
-        assert (is JSpecifierExpression ret = super.transformAnySpecifier(that));
+    shared actual JAnyAttribute transformAnyValue(AnyValue that) {
+        assert (is JAnyAttribute ret = super.transformAnyValue(that));
         return ret;
     }
     
@@ -407,32 +407,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JAtom transformAtom(Atom that) {
         assert (is JAtom ret = super.transformAtom(that));
-        return ret;
-    }
-    
-    shared actual JAttributeDeclaration transformAttributeDeclaration(AttributeDeclaration that) {
-        JAttributeDeclaration ret = JAttributeDeclaration(null);
-        ret.annotationList = transformAnnotations(that.annotations);
-        value type = that.type;
-        switch (type)
-        case (is Type) { ret.type = transformType(type); }
-        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
-        ret.identifier = transformLIdentifier(that.name);
-        ret.endToken = tokens.token(";", semicolon);
-        return ret;
-    }
-    
-    shared actual JAttributeDeclaration transformAttributeDefinition(AttributeDefinition that) {
-        JAttributeDeclaration ret = JAttributeDeclaration(null);
-        ret.annotationList = transformAnnotations(that.annotations);
-        value type = that.type;
-        switch (type)
-        case (is Type) { ret.type = transformType(type); }
-        case (is ValueModifier) { ret.type = transformValueModifier(type); }
-        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
-        ret.identifier = transformLIdentifier(that.name);
-        ret.specifierOrInitializerExpression = transformAnySpecifier(that.definition);
-        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     
@@ -1636,6 +1610,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }
         }
+        return ret;
+    }
+    
+    shared actual JAttributeDeclaration transformValueDeclaration(ValueDeclaration that) {
+        JAttributeDeclaration ret = JAttributeDeclaration(null);
+        ret.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JAttributeDeclaration transformValueDefinition(ValueDefinition that) {
+        JAttributeDeclaration ret = JAttributeDeclaration(null);
+        ret.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is ValueModifier) { ret.type = transformValueModifier(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.specifierOrInitializerExpression = transformAnySpecifier(that.definition);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

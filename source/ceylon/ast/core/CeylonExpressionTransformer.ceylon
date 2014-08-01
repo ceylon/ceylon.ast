@@ -102,19 +102,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
                 `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
                 ``indent``}";
-    transformAttributeDeclaration(AttributeDeclaration that)
-            => "AttributeDeclaration {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
-                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                ``indent``}";
-    transformAttributeDefinition(AttributeDefinition that)
-            => "AttributeDefinition {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
-                `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
-                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                ``indent``}";
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
@@ -435,6 +422,19 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "UnionOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                ``indent``}";
+    transformValueDeclaration(ValueDeclaration that)
+            => "ValueDeclaration {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
+    transformValueDefinition(ValueDefinition that)
+            => "ValueDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
     transformValueModifier(ValueModifier that) => "ValueModifier()";
     transformValueParameter(ValueParameter that)

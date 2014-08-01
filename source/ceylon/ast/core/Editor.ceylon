@@ -35,8 +35,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
-    shared actual default AnyAttribute transformAnyAttribute(AnyAttribute that) {
-        assert (is AnyAttribute ret = super.transformAnyAttribute(that));
+    shared actual default AnyValue transformAnyValue(AnyValue that) {
+        assert (is AnyValue ret = super.transformAnyValue(that));
         return ret;
     }
     shared actual default AnySpecifier transformAnySpecifier(AnySpecifier that) {
@@ -76,7 +76,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Atom ret = super.transformAtom(that));
         return ret;
     }
-    shared actual default AttributeDeclaration transformAttributeDeclaration(AttributeDeclaration that) {
+    shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|DynamicModifier transformTypeOrDynamicModifier(Type|DynamicModifier that) {
             switch (that)
             case (is Type) { return transformType(that); }
@@ -84,7 +84,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
     }
-    shared actual default AttributeDefinition transformAttributeDefinition(AttributeDefinition that) {
+    shared actual default ValueDefinition transformValueDefinition(ValueDefinition that) {
         Type|ValueModifier|DynamicModifier transformTypeOrValueModifierOrDynamicModifier(Type|ValueModifier|DynamicModifier that) {
             switch (that)
             case (is Type) { return transformType(that); }

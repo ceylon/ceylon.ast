@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    AttributeDefinition,
+    ValueDefinition,
     Type,
     ValueModifier,
     DynamicModifier
@@ -14,32 +14,32 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     }
 }
 
-"Converts a RedHat AST [[AttributeDeclaration|JAttributeDeclaration]] to a `ceylon.ast` [[AttributeDefinition]]."
-shared AttributeDefinition attributeDefinitionToCeylon(JAttributeDeclaration attributeDefinition) {
+"Converts a RedHat AST [[AttributeDeclaration|JAttributeDeclaration]] to a `ceylon.ast` [[ValueDefinition]]."
+shared ValueDefinition valueDefinitionToCeylon(JAttributeDeclaration valueDefinition) {
     "Must be defined"
     // The other case type of SpecifierOrInitializerExpression, InitializerExpression, is obsolete
-    assert (is JSpecifierExpression definition = attributeDefinition.specifierOrInitializerExpression);
-    assert (is JStaticType|JValueModifier|JDynamicModifier jType = attributeDefinition.type);
+    assert (is JSpecifierExpression definition = valueDefinition.specifierOrInitializerExpression);
+    assert (is JStaticType|JValueModifier|JDynamicModifier jType = valueDefinition.type);
     Type|ValueModifier|DynamicModifier type;
     switch (jType)
     case (is JStaticType) { type = typeToCeylon(jType); }
     case (is JValueModifier) { type = valueModifierToCeylon(jType); }
     case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
-    return AttributeDefinition {
-        annotations = annotationsToCeylon(attributeDefinition.annotationList);
+    return ValueDefinition {
+        annotations = annotationsToCeylon(valueDefinition.annotationList);
         type = type;
-        name = lIdentifierToCeylon(attributeDefinition.identifier);
+        name = lIdentifierToCeylon(valueDefinition.identifier);
         definition = anySpecifierToCeylon(definition);
     };
 }
 
-"Compiles the given [[code]] for an Attribute Definition
- into an [[AttributeDefinition]] using the Ceylon compiler
+"Compiles the given [[code]] for a Value Definition
+ into an [[ValueDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AttributeDefinition? compileAttributeDefinition(String code) {
+shared ValueDefinition? compileValueDefinition(String code) {
     if (is JAttributeDeclaration jDeclaration = createParser(code).declaration(),
         jDeclaration.specifierOrInitializerExpression exists) {
-        return attributeDefinitionToCeylon(jDeclaration);
+        return valueDefinitionToCeylon(jDeclaration);
     } else {
         return null;
     }

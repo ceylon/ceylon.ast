@@ -8,7 +8,7 @@
      shared String name;
      shared actual void visit(Node that) { print(that); that.visitChildren(this); }"
 shared abstract class TypedDeclaration()
-        of AnyAttribute
+        of AnyValue
         extends Declaration() {
     
     "The type of the declaration, or a

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclaration) {
     assert (is JAnyAttribute typedDeclaration);
     switch (typedDeclaration)
-    case (is JAnyAttribute) { return anyAttributeToCeylon(typedDeclaration); }
+    case (is JAnyAttribute) { return anyValueToCeylon(typedDeclaration); }
 }
 
 "Compiles the given [[code]] for a Typed Declaration

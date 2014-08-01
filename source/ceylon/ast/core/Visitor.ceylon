@@ -18,8 +18,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnnotation(Annotation that) => visitAnnotation(that);
     transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
-    transformAnyAttribute(AnyAttribute that) => visitAnyAttribute(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
+    transformAnyValue(AnyValue that) => visitAnyValue(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
     transformArguments(Arguments that) => visitArguments(that);
     transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => visitArithmeticAssignmentOperation(that);
@@ -27,8 +27,6 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAssignOperation(AssignOperation that) => visitAssignOperation(that);
     transformAssignmentOperation(AssignmentOperation that) => visitAssignmentOperation(that);
     transformAtom(Atom that) => visitAtom(that);
-    transformAttributeDeclaration(AttributeDeclaration that) => visitAttributeDeclaration(that);
-    transformAttributeDefinition(AttributeDefinition that) => visitAttributeDefinition(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
     transformBaseType(BaseType that) => visitBaseType(that);
@@ -174,6 +172,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnionOperation(UnionOperation that) => visitUnionOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
+    transformValueDeclaration(ValueDeclaration that) => visitValueDeclaration(that);
+    transformValueDefinition(ValueDefinition that) => visitValueDefinition(that);
     transformValueModifier(ValueModifier that) => visitValueModifier(that);
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
@@ -188,8 +188,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
     shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
-    shared default void visitAnyAttribute(AnyAttribute that) => super.transformAnyAttribute(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
+    shared default void visitAnyValue(AnyValue that) => super.transformAnyValue(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
     shared default void visitArguments(Arguments that) => super.transformArguments(that);
     shared default void visitArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => super.transformArithmeticAssignmentOperation(that);
@@ -197,8 +197,6 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAssignOperation(AssignOperation that) => super.transformAssignOperation(that);
     shared default void visitAssignmentOperation(AssignmentOperation that) => super.transformAssignmentOperation(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
-    shared default void visitAttributeDeclaration(AttributeDeclaration that) => super.transformAttributeDeclaration(that);
-    shared default void visitAttributeDefinition(AttributeDefinition that) => super.transformAttributeDefinition(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
     shared default void visitBaseType(BaseType that) => super.transformBaseType(that);
@@ -344,6 +342,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitUnionOperation(UnionOperation that) => super.transformUnionOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnionableType(UnionableType that) => super.transformUnionableType(that);
+    shared default void visitValueDeclaration(ValueDeclaration that) => super.transformValueDeclaration(that);
+    shared default void visitValueDefinition(ValueDefinition that) => super.transformValueDefinition(that);
     shared default void visitValueModifier(ValueModifier that) => super.transformValueModifier(that);
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);

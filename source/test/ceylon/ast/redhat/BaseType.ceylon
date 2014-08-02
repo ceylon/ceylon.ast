@@ -4,7 +4,8 @@ import ceylon.ast.core {
     Type,
     TypeArgument,
     TypeNameWithTypeArguments,
-    OutModifier
+    OutModifier,
+    TypeArguments
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -19,19 +20,24 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     
-    String->BaseType construct(String name, [<String->Type>+]? args = null)
-            => name + (args exists then "<``",".join((args else []).collect(Entry<String,Type>.key))``>" else "") -> BaseType(TypeNameWithTypeArguments(UIdentifier(name), args?.collect((String->Type entry) => TypeArgument(entry.item))));
+    String->BaseType construct(String name, [<String->Type>+]? args = null) {
+        if (exists args) {
+            return "``name``<``",".join(args.collect(Entry<String,Type>.key))``>"->BaseType(TypeNameWithTypeArguments(UIdentifier(name), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))));
+        } else {
+            return name->BaseType(TypeNameWithTypeArguments(UIdentifier(name)));
+        }
+    }
     
     shared String->BaseType stringType = construct("String");
     shared String->BaseType iterableOfStringType = construct("Iterable", [stringType]);
     shared String->BaseType listOfOutObjectType = "List<out Object>"->BaseType(TypeNameWithTypeArguments {
             name = UIdentifier("List");
-            typeArguments = [
-                TypeArgument {
-                    type = BaseType(TypeNameWithTypeArguments(UIdentifier("Object")));
-                    variance = OutModifier();
-                }
-            ];
+            typeArguments = TypeArguments([
+                    TypeArgument {
+                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("Object")));
+                        variance = OutModifier();
+                    }
+                ]);
         });
     
     // not tested directly, but used by other tests

@@ -5,6 +5,7 @@ import ceylon.ast.core {
     MemberNameWithTypeArguments,
     OptionalType,
     TypeArgument,
+    TypeArguments,
     TypeNameWithTypeArguments,
     UIdentifier
 }
@@ -25,7 +26,7 @@ shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
     shared String->MemberMeta iterableOfStringCollectOfIntegerOptionalMemberMeta
             = "`Iterable<String>.collect<Integer?>`"->MemberMeta {
         qualifier = baseType.iterableOfStringType.item;
-        nameAndArgs = MemberNameWithTypeArguments(LIdentifier("collect"), [TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))]);
+        nameAndArgs = MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))]));
     };
     
     compile = compileMemberMeta;

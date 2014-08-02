@@ -1,9 +1,6 @@
 import ceylon.ast.core {
     BaseExpression,
-    nameWithTypeArguments,
-    TypeArgument,
-    TypeArguments,
-    Variance
+    nameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,39 +8,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBaseMemberExpression=BaseMemberExpression,
         JBaseTypeExpression=BaseTypeExpression,
         JTypeArgumentList=TypeArgumentList,
-        JInferredTypeArguments=InferredTypeArguments,
-        JType=Type,
-        JStaticType=StaticType
+        JInferredTypeArguments=InferredTypeArguments
     }
-}
-import ceylon.interop.java {
-    CeylonIterable
 }
 
 "Converts a RedHat AST [[BaseMemberOrTypeExpression|JBaseMemberOrTypeExpression]]
  to a `ceylon.ast` [[BaseExpression]]."
 shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMemberOrTypeExpression) {
     assert (is JTypeArgumentList|JInferredTypeArguments jTypeArguments = baseMemberOrTypeExpression.typeArguments);
-    TypeArguments? typeArguments;
-    switch (jTypeArguments)
-    case (is JTypeArgumentList) {
-        assert (nonempty args = CeylonIterable(jTypeArguments.types).collect((JType jType) {
-                    assert (is JStaticType jType);
-                    value type = typeToCeylon(jType);
-                    Variance? variance;
-                    if (exists jTypeVariance = jType.typeVariance) {
-                        variance = varianceToCeylon(jTypeVariance);
-                    } else {
-                        variance = null;
-                    }
-                    return TypeArgument(type, variance);
-                }));
-        typeArguments = args;
-    }
-    case (is JInferredTypeArguments) {
-        typeArguments = null;
-    }
-    return BaseExpression(nameWithTypeArguments(identifierToCeylon(baseMemberOrTypeExpression.identifier), typeArguments));
+    return BaseExpression(nameWithTypeArguments(identifierToCeylon(baseMemberOrTypeExpression.identifier), anyTypeArgumentsToCeylon(baseMemberOrTypeExpression.typeArguments)));
 }
 
 "Compiles the given [[code]] for a Base Expression

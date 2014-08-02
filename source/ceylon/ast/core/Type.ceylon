@@ -1,12 +1,10 @@
-shared alias TypeArguments => [TypeArgument+];
-
 "All node types in the type sub-hierarchy:
  [[Type]] and some auxiliary node types that aren’t proper Types.
  
  (For example, while `String*` is part of the valid type `{String*}`,
  it’s not a valid type by itself.)"
 shared abstract class TypeIsh()
-        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | TypeArgument
+        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | TypeArgument | TypeArguments
         extends ExpressionIsh() {
     shared actual formal <TypeIsh|Identifier|Variance>[] children;
 }

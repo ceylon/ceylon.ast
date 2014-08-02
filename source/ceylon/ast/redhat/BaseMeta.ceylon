@@ -2,21 +2,14 @@ import ceylon.ast.core {
     BaseMeta,
     MemberName,
     MemberNameWithTypeArguments,
-    TypeArgument,
-    TypeArguments,
-    Variance
+    TypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionLiteral=FunctionLiteral,
         JMemberLiteral=MemberLiteral,
-        JStaticType=StaticType,
-        JType=Type,
         JValueLiteral=ValueLiteral
     }
-}
-import ceylon.interop.java {
-    CeylonIterable
 }
 
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[BaseMeta]]."
@@ -27,23 +20,13 @@ shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta) {
     "Must not be a reference expression"
     assert (!baseMeta is JFunctionLiteral|JValueLiteral); // reference expressions are subtypes of meta expressions. ew
     assert (is MemberName name = identifierToCeylon(baseMeta.identifier));
-    TypeArguments? arguments;
-    if (exists jArgs = baseMeta.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
-        arguments = jArguments.collect((JType jType) {
-                assert (is JStaticType jType);
-                value type = typeToCeylon(jType);
-                Variance? variance;
-                if (exists jTypeVariance = jType.typeVariance) {
-                    variance = varianceToCeylon(jTypeVariance);
-                } else {
-                    variance = null;
-                }
-                return TypeArgument(type, variance);
-            });
+    TypeArguments? typeArguments;
+    if (exists jTypeArguments = baseMeta.typeArgumentList) {
+        typeArguments = typeArgumentsToCeylon(jTypeArguments);
     } else {
-        arguments = null;
+        typeArguments = null;
     }
-    return BaseMeta(MemberNameWithTypeArguments(name, arguments));
+    return BaseMeta(MemberNameWithTypeArguments(name, typeArguments));
 }
 
 "Compiles the given [[code]] for a Base Meta

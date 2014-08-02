@@ -2,41 +2,24 @@ import ceylon.ast.core {
     GroupedType,
     QualifiedType,
     SimpleType,
-    TypeArgument,
     TypeArguments,
-    TypeNameWithTypeArguments,
-    Variance
+    TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
         JGroupedType=GroupedType,
-        JQualifiedType=QualifiedType,
-        JStaticType=StaticType,
-        JType=Type
+        JQualifiedType=QualifiedType
     }
-}
-import ceylon.interop.java {
-    CeylonIterable
 }
 
 "Converts a RedHat AST [[QualifiedType|JQualifiedType]] to a `ceylon.ast` [[QualifiedType]]."
 shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
-    TypeArguments? arguments;
-    if (exists jArgs = qualifiedType.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
-        arguments = jArguments.collect((JType jType) {
-                assert (is JStaticType jType);
-                value type = typeToCeylon(jType);
-                Variance? variance;
-                if (exists jTypeVariance = jType.typeVariance) {
-                    variance = varianceToCeylon(jTypeVariance);
-                } else {
-                    variance = null;
-                }
-                return TypeArgument(type, variance);
-            });
+    TypeArguments? typeArguments;
+    if (exists jTypeArguments = qualifiedType.typeArgumentList) {
+        typeArguments = typeArgumentsToCeylon(jTypeArguments);
     } else {
-        arguments = null;
+        typeArguments = null;
     }
     SimpleType|GroupedType qualifyingType;
     assert (is JBaseType|JQualifiedType|JGroupedType jQualifyingType = qualifiedType.outerType);
@@ -44,7 +27,7 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType) {
     case (is JBaseType) { qualifyingType = baseTypeToCeylon(jQualifyingType); }
     case (is JGroupedType) { qualifyingType = groupedTypeToCeylon(jQualifyingType); }
     case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType); }
-    return QualifiedType(qualifyingType, TypeNameWithTypeArguments(uIdentifierToCeylon(qualifiedType.identifier), arguments));
+    return QualifiedType(qualifyingType, TypeNameWithTypeArguments(uIdentifierToCeylon(qualifiedType.identifier), typeArguments));
 }
 
 "Compiles the given [[code]] for a Qualified Type

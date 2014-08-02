@@ -1,11 +1,8 @@
 import ceylon.ast.core {
     BaseExpression,
-    BaseType,
     LIdentifier,
     MemberNameWithTypeArguments,
-    TypeArgument,
-    TypeNameWithTypeArguments,
-    UIdentifier
+    TypeArguments
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -20,11 +17,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOrTypeExpression> {
     
-    String->BaseExpression construct(String name)
-            => name->BaseExpression(MemberNameWithTypeArguments(LIdentifier(name)));
+    String->BaseExpression construct(String name, <String->TypeArguments>? typeArguments = null)
+            => (name + (typeArguments?.key else ""))->BaseExpression(MemberNameWithTypeArguments(LIdentifier(name), typeArguments?.item));
     
     shared String->BaseExpression nullExpression = construct("null");
-    shared String->BaseExpression maxOfIntegerNothingExpression = "max<Integer,Nothing>"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("max"), [TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))), TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"))))]));
+    shared String->BaseExpression maxOfIntegerNothingExpression = construct("max", typeArguments.integerNothingTypeArguments);
     shared String->BaseExpression processExpression = construct("process");
     
     // not tested directly, but used by other tests

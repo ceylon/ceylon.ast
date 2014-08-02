@@ -158,6 +158,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
     transformTypeArgument(TypeArgument that) => visitTypeArgument(that);
+    transformTypeArguments(TypeArguments that) => visitTypeArguments(that);
     transformTypeDec(TypeDec that) => visitTypeDec(that);
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
@@ -330,6 +331,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);
+    shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeDec(TypeDec that) => super.transformTypeDec(that);
     shared default void visitTypeList(TypeList that) => super.transformTypeList(that);
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);

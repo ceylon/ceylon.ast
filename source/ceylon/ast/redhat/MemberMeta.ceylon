@@ -3,9 +3,7 @@ import ceylon.ast.core {
     MemberMeta,
     MemberNameWithTypeArguments,
     MetaQualifier,
-    TypeArgument,
-    TypeArguments,
-    Variance
+    TypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,12 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFunctionLiteral=FunctionLiteral,
         JMemberLiteral=MemberLiteral,
         JStaticType=StaticType,
-        JType=Type,
         JValueLiteral=ValueLiteral
     }
-}
-import ceylon.interop.java {
-    CeylonIterable
 }
 
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[MemberMeta]]."
@@ -39,23 +33,13 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta) {
         assert (is LIdentifier name = qual.name);
         qualifier = name;
     }
-    TypeArguments? arguments;
-    if (exists jArgs = memberMeta.typeArgumentList, nonempty jArguments = CeylonIterable(jArgs.types).sequence()) {
-        arguments = jArguments.collect((JType jType) {
-                assert (is JStaticType jType);
-                value type = typeToCeylon(jType);
-                Variance? variance;
-                if (exists jTypeVariance = jType.typeVariance) {
-                    variance = varianceToCeylon(jTypeVariance);
-                } else {
-                    variance = null;
-                }
-                return TypeArgument(type, variance);
-            });
+    TypeArguments? typeArguments;
+    if (exists jTypeArguments = memberMeta.typeArgumentList) {
+        typeArguments = typeArgumentsToCeylon(jTypeArguments);
     } else {
-        arguments = null;
+        typeArguments = null;
     }
-    return MemberMeta(qualifier, MemberNameWithTypeArguments(lIdentifierToCeylon(memberMeta.identifier), arguments));
+    return MemberMeta(qualifier, MemberNameWithTypeArguments(lIdentifierToCeylon(memberMeta.identifier), typeArguments));
 }
 
 "Compiles the given [[code]] for a Member Meta

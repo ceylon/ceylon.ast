@@ -1,47 +1,17 @@
 import ceylon.ast.core {
     nameWithTypeArguments,
-    QualifiedExpression,
-    TypeArgument,
-    TypeArguments,
-    Variance
+    QualifiedExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JInferredTypeArguments=InferredTypeArguments,
-        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
-        JStaticType=StaticType,
-        JType=Type,
-        JTypeArgumentList=TypeArgumentList
+        JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
     }
-}
-import ceylon.interop.java {
-    CeylonIterable
 }
 
 "Converts a RedHat AST [[QualifiedMemberOrTypeExpression|JQualifiedMemberOrTypeExpression]]
  to a `ceylon.ast` [[QualifiedExpression]]."
 shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExpression qualifiedMemberOrTypeExpression) {
-    assert (is JTypeArgumentList|JInferredTypeArguments jTypeArguments = qualifiedMemberOrTypeExpression.typeArguments);
-    TypeArguments? typeArguments;
-    switch (jTypeArguments)
-    case (is JTypeArgumentList) {
-        assert (nonempty args = CeylonIterable(jTypeArguments.types).collect((JType jType) {
-                    assert (is JStaticType jType);
-                    value type = typeToCeylon(jType);
-                    Variance? variance;
-                    if (exists jTypeVariance = jType.typeVariance) {
-                        variance = varianceToCeylon(jTypeVariance);
-                    } else {
-                        variance = null;
-                    }
-                    return TypeArgument(type, variance);
-                }));
-        typeArguments = args;
-    }
-    case (is JInferredTypeArguments) {
-        typeArguments = null;
-    }
-    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), nameWithTypeArguments(identifierToCeylon(qualifiedMemberOrTypeExpression.identifier), typeArguments));
+    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), nameWithTypeArguments(identifierToCeylon(qualifiedMemberOrTypeExpression.identifier), anyTypeArgumentsToCeylon(qualifiedMemberOrTypeExpression.typeArguments)));
 }
 
 "Compiles the given [[code]] for a Qualified Expression

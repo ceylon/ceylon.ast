@@ -143,6 +143,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
+        JTypeArguments=TypeArguments,
         JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypedDeclaration=TypedDeclaration,
         JTypeLiteral=TypeLiteral,
@@ -420,17 +421,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is LIdentifier) { ret = JBaseMemberExpression(null); }
         case (is UIdentifier) { ret = JBaseTypeExpression(null); }
         ret.identifier = transformIdentifier(name);
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            ret.typeArguments = typeArgList;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArguments = transformTypeArguments(typeArguments);
         } else {
             ret.typeArguments = JInferredTypeArguments(null);
         }
@@ -440,17 +432,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JMemberLiteral transformBaseMeta(BaseMeta that) {
         JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            ret.typeArgumentList = typeArgList;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArgumentList = transformTypeArguments(typeArguments);
         }
         ret.endToken = tokens.token("`", backtick);
         return ret;
@@ -459,22 +442,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JBaseType transformBaseType(BaseType that) {
         JBaseType ret = JBaseType(null);
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
-        JTypeArgumentList? typeArgumentList;
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            typeArgumentList = typeArgList;
-        } else {
-            typeArgumentList = null;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArgumentList = transformTypeArguments(typeArguments);
         }
-        ret.typeArgumentList = typeArgumentList;
         return ret;
     }
     
@@ -959,17 +929,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.objectExpression.typeArguments = JInferredTypeArguments(null);
         }
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            ret.typeArgumentList = typeArgList;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArgumentList = transformTypeArguments(typeArguments);
         }
         ret.endToken = tokens.token("`", backtick);
         return ret;
@@ -1315,17 +1276,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is UIdentifier) { ret = JQualifiedTypeExpression(null); }
         ret.primary = transformPrimary(that.receiverExpression);
         ret.identifier = transformIdentifier(name);
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            ret.typeArguments = typeArgList;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArguments = transformTypeArguments(typeArguments);
         } else {
             ret.typeArguments = JInferredTypeArguments(null);
         }
@@ -1333,25 +1285,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JQualifiedType transformQualifiedType(QualifiedType that) {
-        JTypeArgumentList? typeArgumentList;
-        if (exists arguments = that.nameAndArgs.typeArguments) {
-            value typeArgList = JTypeArgumentList(tokens.token("<", smaller_op));
-            for (TypeArgument argument in arguments) {
-                value jType = transformType(argument.type);
-                if (exists variance = argument.variance) {
-                    jType.typeVariance = transformVariance(variance);
-                }
-                typeArgList.addType(jType);
-            }
-            typeArgList.endToken = tokens.token(">", larger_op);
-            typeArgumentList = typeArgList;
-        } else {
-            typeArgumentList = null;
-        }
         value outerType = transformType(that.qualifyingType);
         JQualifiedType ret = JQualifiedType(tokens.token(".", member_op));
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
-        ret.typeArgumentList = typeArgumentList;
+        if (exists typeArguments = that.nameAndArgs.typeArguments) {
+            ret.typeArgumentList = transformTypeArguments(typeArguments);
+        }
         ret.outerType = outerType;
         return ret;
     }
@@ -1524,10 +1463,29 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    "The RedHat AST has no direct equivalent of [[TypeArgument]];
-     this method throws."
-    shared actual Nothing transformTypeArgument(TypeArgument that) {
-        throw Exception("TypeArgument has no RedHat AST equivalent!");
+    shared actual JStaticType transformTypeArgument(TypeArgument that) {
+        JTypeVariance? jVariance;
+        if (exists variance = that.variance) {
+            jVariance = transformVariance(variance);
+        } else {
+            jVariance = null;
+        }
+        value jType = transformType(that.type);
+        if (exists jVariance) {
+            jType.typeVariance = jVariance;
+        }
+        return jType;
+    }
+    
+    shared actual JTypeArgumentList transformTypeArguments(TypeArguments that) {
+        JTypeArgumentList ret = JTypeArgumentList(tokens.token("<", smaller_op));
+        ret.addType(transformTypeArgument(that.typeArguments.first));
+        for (typeArgument in that.typeArguments.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addType(transformTypeArgument(typeArgument));
+        }
+        ret.endToken = tokens.token(">", larger_op);
+        return ret;
     }
     
     shared actual JType transformTypeIsh(TypeIsh that) {

@@ -17,5 +17,5 @@ shared object anyValue satisfies AbstractTest<AnyValue,JAnyAttribute> {
     fromCeylon = RedHatTransformer.transformAnyValue;
     toCeylon = anyValueToCeylon;
     
-    tests = [valueDeclaration, valueDefinition];
+    tests = [valueDeclaration, valueDefinition, valueGetterDefinition];
 }

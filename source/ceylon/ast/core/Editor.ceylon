@@ -76,6 +76,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Atom ret = super.transformAtom(that));
         return ret;
     }
+    shared actual default TypeParameter transformTypeParameter(TypeParameter that)
+            => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.variance, transformVariance), nullsafeInvoke(that.defaultArgument, transformType));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|DynamicModifier transformTypeOrDynamicModifier(Type|DynamicModifier that) {
             switch (that)

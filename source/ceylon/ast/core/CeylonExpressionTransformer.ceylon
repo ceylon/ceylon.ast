@@ -410,6 +410,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   }"
             else "TypeList(``transformWithIndent(that.name)``)";
     transformTypeMeta(TypeMeta that) => "TypeMeta(``transformWithIndent(that.type)``)";
+    transformTypeParameter(TypeParameter that)
+            => "TypeParameter {
+                `` indent + indentLevel ``parameterName = ``transformWithIndent(that.parameterName)``;
+                `` indent + indentLevel ``variance = ``transformWithIndent(that.variance)``;
+                `` indent + indentLevel ``defaultArgument = ``transformWithIndent(that.defaultArgument)``;
+                ``indent``}";
     transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformUnionType(UnionType that)
             => "UnionType(``transformWithIndent(that.children)``)";

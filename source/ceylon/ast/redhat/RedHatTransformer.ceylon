@@ -39,6 +39,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
+        JDefaultTypeArgument=DefaultTypeArgument,
         JDifferenceOp=DifferenceOp,
         JDivideAssignOp=DivideAssignOp,
         JDynamic=Dynamic,
@@ -142,6 +143,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
+        JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypedDeclaration=TypedDeclaration,
         JTypeLiteral=TypeLiteral,
         JTypeOperatorExpression=TypeOperatorExpression,
@@ -1543,6 +1545,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
      this method throws."
     shared actual Nothing transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) {
         throw Exception("TypeNameWithTypeArguments has no RedHat AST equivalent!");
+    }
+    
+    shared actual JTypeParameterDeclaration transformTypeParameter(TypeParameter that) {
+        JTypeParameterDeclaration ret = JTypeParameterDeclaration(null);
+        if (exists variance = that.variance) {
+            ret.typeVariance = transformVariance(variance);
+        }
+        ret.identifier = transformUIdentifier(that.parameterName);
+        if (exists defaultArgument = that.defaultArgument) {
+            JDefaultTypeArgument arg = JDefaultTypeArgument(tokens.token("=", specify));
+            arg.type = transformType(defaultArgument);
+            ret.typeSpecifier = arg;
+        }
+        return ret;
     }
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)

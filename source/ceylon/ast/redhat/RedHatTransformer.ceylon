@@ -1607,6 +1607,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value type = that.type;
         switch (type)
         case (is Type) { ret.type = transformType(type); }
+        case (is VariadicType) { ret.type = transformVariadicType(type); }
         case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
         ret.identifier = transformLIdentifier(that.name);
         ret.endToken = tokens.token(";", semicolon);

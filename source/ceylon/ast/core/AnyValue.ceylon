@@ -12,5 +12,5 @@ shared abstract class AnyValue()
         of ValueDeclaration | ValueDefinition | ValueGetterDefinition
         extends TypedDeclaration() {
     
-    shared actual formal [Annotations, Type|Modifier, LIdentifier, AnySpecifier|Block=] children;
+    shared actual formal [Annotations, Type|VariadicType|Modifier, LIdentifier, AnySpecifier|Block=] children;
 }

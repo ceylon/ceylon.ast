@@ -1,13 +1,15 @@
 import ceylon.ast.core {
     ValueDeclaration,
     DynamicModifier,
-    Type
+    Type,
+    VariadicType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAttributeDeclaration=AttributeDeclaration,
         JDynamicModifier=DynamicModifier,
-        JStaticType=StaticType
+        JStaticType=StaticType,
+        JSequencedType=SequencedType
     }
 }
 
@@ -15,10 +17,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared ValueDeclaration valueDeclarationToCeylon(JAttributeDeclaration valueDeclaration) {
     "Must not have a specification"
     assert (!valueDeclaration.specifierOrInitializerExpression exists);
-    assert (is JStaticType|JDynamicModifier jType = valueDeclaration.type);
-    Type|DynamicModifier type;
+    assert (is JStaticType|JSequencedType|JDynamicModifier jType = valueDeclaration.type);
+    Type|VariadicType|DynamicModifier type;
     switch (jType)
     case (is JStaticType) { type = typeToCeylon(jType); }
+    case (is JSequencedType) { type = variadicTypeToCeylon(jType); }
     case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     return ValueDeclaration(lIdentifierToCeylon(valueDeclaration.identifier), type, annotationsToCeylon(valueDeclaration.annotationList));
 }

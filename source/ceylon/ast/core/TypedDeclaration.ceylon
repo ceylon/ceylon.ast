@@ -13,9 +13,9 @@ shared abstract class TypedDeclaration()
     
     "The type of the declaration, or a
      modifier indicating type inference."
-    shared formal Type|Modifier type;
+    shared formal Type|VariadicType|Modifier type;
     "The definition of the declaration, if present."
     shared formal AnySpecifier|Block? definition;
     
-    shared actual formal [Annotations, Type|Modifier, LIdentifier, AnySpecifier|Block=] children;
+    shared actual formal [Annotations, Type|VariadicType|Modifier, LIdentifier, AnySpecifier|Block=] children;
 }

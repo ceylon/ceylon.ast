@@ -18,14 +18,19 @@ shared class ValueDeclaration(name, type, annotations = Annotations())
     
     "The name of the declared value."
     shared actual MemberName name;
-    "The type of the declared value."
-    shared actual Type|DynamicModifier type;
+    "The type of the declared value.
+     
+     This can be:
+     - a proper [[Type]],
+     - a [[variadic type|VariadicType]] for the declaration of a variadic [[parameter|ParameterReference]], or
+     - a [[’`dynamic`’ modifier|DynamicModifier]] to indicate the absence of a type."
+    shared actual Type|VariadicType|DynamicModifier type;
     "The annotations of the declared value."
     shared actual Annotations annotations;
     "A value declaration has no definition."
     shared actual Null definition = null;
     
-    shared actual [Annotations, Type|DynamicModifier, LIdentifier] children = [annotations, type, name];
+    shared actual [Annotations, Type|VariadicType|DynamicModifier, LIdentifier] children = [annotations, type, name];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueDeclaration(this);
@@ -41,7 +46,7 @@ shared class ValueDeclaration(name, type, annotations = Annotations())
     shared actual Integer hash
             => 31 * (name.hash + 31 * (type.hash + 31 * annotations.hash));
     
-    shared ValueDeclaration copy(MemberName name = this.name, Type|DynamicModifier type = this.type, Annotations annotations = this.annotations) {
+    shared ValueDeclaration copy(MemberName name = this.name, Type|VariadicType|DynamicModifier type = this.type, Annotations annotations = this.annotations) {
         value ret = ValueDeclaration(name, type, annotations);
         copyExtraInfoTo(ret);
         return ret;

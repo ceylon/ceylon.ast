@@ -198,6 +198,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Parameter) { return transformParameter(that); }
         case (is Body) { return transformBody(that); }
         case (is TypeParameter) { return transformTypeParameter(that); }
+        case (is TypeParameters) { return transformTypeParameters(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

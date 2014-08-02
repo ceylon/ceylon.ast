@@ -80,6 +80,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.typeArguments.collect(transformTypeArgument));
     shared actual default TypeParameter transformTypeParameter(TypeParameter that)
             => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.variance, transformVariance), nullsafeInvoke(that.defaultArgument, transformType));
+    shared actual default TypeParameters transformTypeParameters(TypeParameters that)
+            => that.copy(that.typeParameters.collect(transformTypeParameter));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|DynamicModifier transformTypeOrDynamicModifier(Type|DynamicModifier that) {
             switch (that)

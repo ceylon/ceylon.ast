@@ -9,7 +9,7 @@
      shared formal Comparison compare(Other that);
      shared default Boolean empty => iterator().next() is Finished;"
 shared abstract class AnyValue()
-        of ValueDeclaration | ValueDefinition
+        of ValueDeclaration | ValueDefinition | ValueGetterDefinition
         extends TypedDeclaration() {
     
     shared actual formal [Annotations, Type|Modifier, LIdentifier, AnySpecifier|Block=] children;

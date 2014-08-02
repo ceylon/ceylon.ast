@@ -12,6 +12,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ValueDeclaration) { return transformValueDeclaration(that); }
         case (is ValueDefinition) { return transformValueDefinition(that); }
+        case (is ValueGetterDefinition) { return transformValueGetterDefinition(that); }
     }
     shared actual default Result transformArguments(Arguments that) {
         switch (that)

@@ -170,6 +170,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformValueDeclaration(ValueDeclaration that) => transformAnyValue(that);
     shared actual default Result transformValueDefinition(ValueDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);
+    shared actual default Result transformValueGetterDefinition(ValueGetterDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueModifier(ValueModifier that) => transformModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);
     shared actual default Result transformValueSpecification(ValueSpecification that) => transformSpecification(that);

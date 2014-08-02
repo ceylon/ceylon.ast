@@ -91,12 +91,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
     }
     shared actual default ValueDefinition transformValueDefinition(ValueDefinition that) {
-        Type|ValueModifier|DynamicModifier transformTypeOrValueModifierOrDynamicModifier(Type|ValueModifier|DynamicModifier that) {
-            switch (that)
-            case (is Type) { return transformType(that); }
-            case (is ValueModifier) { return transformValueModifier(that); }
-            case (is DynamicModifier) { return transformDynamicModifier(that); }
-        }
         return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
     }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
@@ -579,6 +573,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;
     }
+    shared actual default ValueGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformBlock(that.definition), transformAnnotations(that.annotations));
     shared actual default ValueModifier transformValueModifier(ValueModifier that)
             => that.copy();
     shared actual default ValueParameter transformValueParameter(ValueParameter that) {
@@ -607,5 +603,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         switch (that)
         case (is Statement) { return transformStatement(that); }
         case (is Declaration) { return transformDeclaration(that); }
+    }
+    Type|ValueModifier|DynamicModifier transformTypeOrValueModifierOrDynamicModifier(Type|ValueModifier|DynamicModifier that) {
+        switch (that)
+        case (is Type) { return transformType(that); }
+        case (is ValueModifier) { return transformValueModifier(that); }
+        case (is DynamicModifier) { return transformDynamicModifier(that); }
     }
 }

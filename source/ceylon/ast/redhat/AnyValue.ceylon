@@ -4,13 +4,14 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAnyAttribute=AnyAttribute,
-        JAttributeDeclaration=AttributeDeclaration
+        JAttributeDeclaration=AttributeDeclaration,
+        JAttributeGetterDefinition=AttributeGetterDefinition
     }
 }
 
 "Converts a RedHat AST [[AnyAttribute|JAnyAttribute]] to a `ceylon.ast` [[AnyValue]]."
 shared AnyValue anyValueToCeylon(JAnyAttribute anyValue) {
-    assert (is JAttributeDeclaration anyValue);
+    assert (is JAttributeDeclaration|JAttributeGetterDefinition anyValue);
     switch (anyValue)
     case (is JAttributeDeclaration) {
         if (anyValue.specifierOrInitializerExpression exists) {
@@ -18,6 +19,9 @@ shared AnyValue anyValueToCeylon(JAnyAttribute anyValue) {
         } else {
             return valueDeclarationToCeylon(anyValue);
         }
+    }
+    case (is JAttributeGetterDefinition) {
+        return valueGetterDefinitionToCeylon(anyValue);
     }
 }
 

@@ -18,6 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAssignOp=AssignOp,
         JAtom=Atom,
         JAttributeDeclaration=AttributeDeclaration,
+        JAttributeGetterDefinition=AttributeGetterDefinition,
         JBaseMemberExpression=BaseMemberExpression,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
         JBaseType=BaseType,
@@ -1623,6 +1624,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.identifier = transformLIdentifier(that.name);
         ret.specifierOrInitializerExpression = transformAnySpecifier(that.definition);
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JAttributeGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that) {
+        JAttributeGetterDefinition ret = JAttributeGetterDefinition(null);
+        ret.annotationList = transformAnnotations(that.annotations);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is ValueModifier) { ret.type = transformValueModifier(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.block = transformBlock(that.definition);
         return ret;
     }
     

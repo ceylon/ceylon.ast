@@ -444,6 +444,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
+    transformValueGetterDefinition(ValueGetterDefinition that)
+            => "ValueGetterDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformValueModifier(ValueModifier that) => "ValueModifier()";
     transformValueParameter(ValueParameter that)
             => "ValueParameter {

@@ -180,6 +180,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueDeclaration(ValueDeclaration that);
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);
+    shared formal Result transformValueGetterDefinition(ValueGetterDefinition that);
     shared formal Result transformValueModifier(ValueModifier that);
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSpecification(ValueSpecification that);

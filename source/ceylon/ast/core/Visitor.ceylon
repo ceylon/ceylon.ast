@@ -18,6 +18,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnnotation(Annotation that) => visitAnnotation(that);
     transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
+    transformAnyFunction(AnyFunction that) => visitAnyFunction(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
     transformAnyValue(AnyValue that) => visitAnyValue(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
@@ -67,6 +68,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
+    transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
     transformFunctionModifier(FunctionModifier that) => visitFunctionModifier(that);
     transformGivenDec(GivenDec that) => visitGivenDec(that);
     transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
@@ -197,6 +199,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
     shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
+    shared default void visitAnyFunction(AnyFunction that) => super.transformAnyFunction(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
     shared default void visitAnyValue(AnyValue that) => super.transformAnyValue(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
@@ -241,6 +244,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitEqualityOperation(EqualityOperation that) => super.transformEqualityOperation(that);
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
+    shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);

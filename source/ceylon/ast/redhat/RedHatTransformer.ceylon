@@ -11,6 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAnnotationList=AnnotationList,
         JAnonymousAnnotation=AnonymousAnnotation,
         JAnyAttribute=AnyAttribute,
+        JAnyMethod=AnyMethod,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
@@ -149,6 +150,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeArgumentList=TypeArgumentList,
         JTypeArguments=TypeArguments,
         JTypeConstraint=TypeConstraint,
+        JTypeConstriantList=TypeConstraintList,
         JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypeParameterList=TypeParameterList,
         JTypedDeclaration=TypedDeclaration,
@@ -343,6 +345,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value specifierExpression = JSpecifierExpression(null);
         specifierExpression.expression = wrapTerm(transformExpression(that.expression));
         ret.specifierExpression = specifierExpression;
+        return ret;
+    }
+    
+    shared actual JAnyMethod transformAnyFunction(AnyFunction that) {
+        assert (is JAnyMethod ret = super.transformAnyFunction(that));
         return ret;
     }
     
@@ -764,6 +771,43 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         for (component in that.components.rest) {
             ret.endToken = tokens.token(".", member_op);
             ret.addIdentifier(transformPIdentifier(component));
+        }
+        return ret;
+    }
+    
+    shared actual JMethodDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JStaticType|JVoidModifier|JDynamicModifier jType;
+        JMethodDeclaration ret;
+        value type = that.type;
+        switch (type)
+        case (is Type) {
+            jType = transformType(type);
+            ret = JMethodDeclaration(null);
+        }
+        case (is VoidModifier) {
+            jType = transformVoidModifier(type);
+            ret = JMethodDeclaration(jType.mainToken);
+        }
+        case (is DynamicModifier) {
+            jType = transformDynamicModifier(type);
+            ret = JMethodDeclaration(jType.mainToken);
+        }
+        ret.annotationList = annotationList;
+        ret.type = jType;
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        for (parameters in that.parameterLists) {
+            ret.addParameterList(transformParameters(parameters));
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
         }
         return ret;
     }

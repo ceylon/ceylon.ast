@@ -35,6 +35,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
+    shared actual default AnyFunction transformAnyFunction(AnyFunction that) {
+        assert (is AnyFunction ret = super.transformAnyFunction(that));
+        return ret;
+    }
     shared actual default AnyValue transformAnyValue(AnyValue that) {
         assert (is AnyValue ret = super.transformAnyValue(that));
         return ret;
@@ -190,6 +194,15 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
+    shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
+        Type|DynamicModifier|VoidModifier transformTypeOrDynamicModifierOrVoidModifier(Type|DynamicModifier|VoidModifier that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is DynamicModifier) { return transformDynamicModifier(that); }
+            case (is VoidModifier) { return transformVoidModifier(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifierOrVoidModifier(that.type), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
+    }
     shared actual default FunctionModifier transformFunctionModifier(FunctionModifier that)
             => that.copy();
     shared actual default GivenDec transformGivenDec(GivenDec that)

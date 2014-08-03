@@ -18,6 +18,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnnotation(Annotation that);
     shared formal Result transformAnnotations(Annotations that);
     shared formal Result transformAnonymousArgument(AnonymousArgument that);
+    shared formal Result transformAnyFunction(AnyFunction that);
     shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformAnyValue(AnyValue that);
     shared formal Result transformArgumentList(ArgumentList that);
@@ -67,6 +68,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformFullPackageName(FullPackageName that);
+    shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionModifier(FunctionModifier that);
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);

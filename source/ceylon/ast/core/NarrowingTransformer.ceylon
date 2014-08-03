@@ -3,6 +3,10 @@
  of the appropriate case type of [[Identifier]]. All “bottom” types’ methods are left `formal`."
 see (`class Editor`)
 shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> {
+    shared actual default Result transformAnyFunction(AnyFunction that) {
+        switch (that)
+        case (is FunctionDeclaration) { return transformFunctionDeclaration(that); }
+    }
     shared actual default Result transformAnySpecifier(AnySpecifier that) {
         switch (that)
         case (is Specifier) { return transformSpecifier(that); }
@@ -405,6 +409,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformTypedDeclaration(TypedDeclaration that) {
         switch (that)
         case (is AnyValue) { return transformAnyValue(that); }
+        case (is AnyFunction) { return transformAnyFunction(that); }
     }
     shared actual default Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
         switch (that)

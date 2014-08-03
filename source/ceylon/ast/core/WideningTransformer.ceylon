@@ -9,6 +9,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
     shared actual default Result transformAnnotations(Annotations that) => transformNode(that);
     shared actual default Result transformAnonymousArgument(AnonymousArgument that) => transformNamedArgument(that);
+    shared actual default Result transformAnyFunction(AnyFunction that) => transformTypedDeclaration(that);
     shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
     shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
@@ -58,6 +59,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
+    shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
     shared actual default Result transformFunctionModifier(FunctionModifier that) => transformModifier(that);
     shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);

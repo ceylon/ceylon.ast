@@ -76,24 +76,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Atom ret = super.transformAtom(that));
         return ret;
     }
-    shared actual default TypeArguments transformTypeArguments(TypeArguments that)
-            => that.copy(that.typeArguments.collect(transformTypeArgument));
-    shared actual default TypeParameter transformTypeParameter(TypeParameter that)
-            => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.variance, transformVariance), nullsafeInvoke(that.defaultArgument, transformType));
-    shared actual default TypeParameters transformTypeParameters(TypeParameters that)
-            => that.copy(that.typeParameters.collect(transformTypeParameter));
-    shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
-        Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
-            switch (that)
-            case (is Type) { return transformType(that); }
-            case (is VariadicType) { return transformVariadicType(that); }
-            case (is DynamicModifier) { return transformDynamicModifier(that); }
-        }
-        return that.copy(transformLIdentifier(that.name), transformTypeOrVariadicTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
-    }
-    shared actual default ValueDefinition transformValueDefinition(ValueDefinition that) {
-        return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
-    }
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy(transformNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseMeta transformBaseMeta(BaseMeta that)
@@ -511,6 +493,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default TypeArgument transformTypeArgument(TypeArgument that)
             => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
+    shared actual default TypeArguments transformTypeArguments(TypeArguments that)
+            => that.copy(that.typeArguments.collect(transformTypeArgument));
     shared actual default TypeDec transformTypeDec(TypeDec that) {
         assert (is TypeDec ret = super.transformTypeDec(that));
         return ret;
@@ -531,6 +515,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type));
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, transformTypeArguments));
+    shared actual default TypeParameter transformTypeParameter(TypeParameter that)
+            => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.variance, transformVariance), nullsafeInvoke(that.defaultArgument, transformType));
+    shared actual default TypeParameters transformTypeParameters(TypeParameters that)
+            => that.copy(that.typeParameters.collect(transformTypeParameter));
     shared actual default TypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
         assert (is TypedDeclaration ret = super.transformTypedDeclaration(that));
         return ret;
@@ -569,6 +557,18 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default UnionableType transformUnionableType(UnionableType that) {
         assert (is UnionableType ret = super.transformUnionableType(that));
         return ret;
+    }
+    shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
+        Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
+            switch (that)
+            case (is Type) { return transformType(that); }
+            case (is VariadicType) { return transformVariadicType(that); }
+            case (is DynamicModifier) { return transformDynamicModifier(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformTypeOrVariadicTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
+    }
+    shared actual default ValueDefinition transformValueDefinition(ValueDefinition that) {
+        return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
     }
     shared actual default ValueExpression transformValueExpression(ValueExpression that) {
         assert (is ValueExpression ret = super.transformValueExpression(that));

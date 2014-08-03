@@ -126,6 +126,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformRemainderOperation(RemainderOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformRequiredParameter(RequiredParameter that) => transformParameter(that);
+    shared actual default Result transformSatisfiedTypes(SatisfiedTypes that) => transformNode(that);
     shared actual default Result transformScaleOperation(ScaleOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
     shared actual default Result transformSequentialType(SequentialType that) => transformPrimaryType(that);

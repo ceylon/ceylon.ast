@@ -119,6 +119,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JRangeOp=RangeOp,
         JRemainderAssignOp=RemainderAssignOp,
         JRemainderOp=RemainderOp,
+        JSatisfiedTypes=SatisfiedTypes,
         JScaleOp=ScaleOp,
         JSegmentOp=SegmentOp,
         JSelfExpression=SelfExpression,
@@ -225,6 +226,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         remainder_specify=\iREMAINDER_SPECIFY,
         remainder_op=\iREMAINDER_OP,
         rparen=\iRPAREN,
+        satisfiesType=\iSATISFIES,
         scale_op=\iSCALE_OP,
         segment_op=\iSEGMENT_OP,
         semicolon=\iSEMICOLON,
@@ -1345,6 +1347,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JParameter transformRequiredParameter(RequiredParameter that) {
         assert (is JParameter ret = super.transformRequiredParameter(that));
+        return ret;
+    }
+    
+    shared actual JSatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that) {
+        JSatisfiedTypes ret = JSatisfiedTypes(tokens.token("satisfies", satisfiesType));
+        ret.addType(transformPrimaryType(that.satisfiedTypes.first));
+        for (satisfiedType in that.satisfiedTypes.rest) {
+            ret.endToken = tokens.token("&", intersection_op);
+            ret.addType(transformPrimaryType(satisfiedType));
+            ret.endToken = null;
+        }
         return ret;
     }
     

@@ -135,6 +135,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformRemainderAssignmentOperation(RemainderAssignmentOperation that) => visitRemainderAssignmentOperation(that);
     transformRemainderOperation(RemainderOperation that) => visitRemainderOperation(that);
     transformRequiredParameter(RequiredParameter that) => visitRequiredParameter(that);
+    transformSatisfiedTypes(SatisfiedTypes that) => visitSatisfiedTypes(that);
     transformScaleOperation(ScaleOperation that) => visitScaleOperation(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
     transformSequentialType(SequentialType that) => visitSequentialType(that);
@@ -311,6 +312,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitRemainderAssignmentOperation(RemainderAssignmentOperation that) => super.transformRemainderAssignmentOperation(that);
     shared default void visitRemainderOperation(RemainderOperation that) => super.transformRemainderOperation(that);
     shared default void visitRequiredParameter(RequiredParameter that) => super.transformRequiredParameter(that);
+    shared default void visitSatisfiedTypes(SatisfiedTypes that) => super.transformSatisfiedTypes(that);
     shared default void visitScaleOperation(ScaleOperation that) => super.transformScaleOperation(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
     shared default void visitSequentialType(SequentialType that) => super.transformSequentialType(that);

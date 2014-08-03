@@ -136,6 +136,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformRequiredParameter(RequiredParameter that);
+    shared formal Result transformSatisfiedTypes(SatisfiedTypes that);
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
     shared formal Result transformSequentialType(SequentialType that);

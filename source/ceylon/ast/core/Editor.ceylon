@@ -439,6 +439,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is RequiredParameter ret = super.transformRequiredParameter(that));
         return ret;
     }
+    shared actual default SatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that)
+            => that.copy(that.satisfiedTypes.collect(transformPrimaryType));
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
             => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default SelfReference transformSelfReference(SelfReference that) {

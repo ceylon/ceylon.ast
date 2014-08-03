@@ -505,6 +505,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
     shared actual default TypeArguments transformTypeArguments(TypeArguments that)
             => that.copy(that.typeArguments.collect(transformTypeArgument));
+    shared actual default TypeConstraint transformTypeConstraint(TypeConstraint that)
+            => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes));
     shared actual default TypeDec transformTypeDec(TypeDec that) {
         assert (is TypeDec ret = super.transformTypeDec(that));
         return ret;

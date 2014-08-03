@@ -147,6 +147,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
         JTypeArguments=TypeArguments,
+        JTypeConstraint=TypeConstraint,
         JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypeParameterList=TypeParameterList,
         JTypedDeclaration=TypedDeclaration,
@@ -1522,6 +1523,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addType(transformTypeArgument(typeArgument));
         }
         ret.endToken = tokens.token(">", larger_op);
+        return ret;
+    }
+    
+    shared actual JTypeConstraint transformTypeConstraint(TypeConstraint that) {
+        JTypeConstraint ret = JTypeConstraint(tokens.token("given", type_constraint));
+        ret.identifier = transformUIdentifier(that.parameterName);
+        if (exists caseTypes = that.caseTypes) {
+            ret.caseTypes = transformCaseTypes(caseTypes);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
         return ret;
     }
     

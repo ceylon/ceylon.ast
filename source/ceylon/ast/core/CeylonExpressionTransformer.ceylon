@@ -398,6 +398,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``variance = ``transformWithIndent(that.variance)``;
                 ``indent``}";
     transformTypeArguments(TypeArguments that) => "TypeArguments(``transformWithIndent(that.typeArguments)``)";
+    transformTypeConstraint(TypeConstraint that)
+            => "TypeConstraint {
+                `` indent + indentLevel ``parameterName = ``transformWithIndent(that.parameterName)``;
+                `` indent + indentLevel ``caseTypes = ``transformWithIndent(that.caseTypes)``;
+                `` indent + indentLevel ``satisfiedTypes = ``transformWithIndent(that.satisfiedTypes)``;
+                ``indent``}";
     transformTypeList(TypeList that)
             => that.variadic exists
             then "TypeList {

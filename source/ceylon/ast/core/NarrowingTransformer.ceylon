@@ -202,6 +202,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeParameters) { return transformTypeParameters(that); }
         case (is CaseTypes) { return transformCaseTypes(that); }
         case (is SatisfiedTypes) { return transformSatisfiedTypes(that); }
+        case (is TypeConstraint) { return transformTypeConstraint(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

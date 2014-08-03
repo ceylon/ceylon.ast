@@ -152,6 +152,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
     shared actual default Result transformTypeArgument(TypeArgument that) => transformTypeIsh(that);
     shared actual default Result transformTypeArguments(TypeArguments that) => transformTypeIsh(that);
+    shared actual default Result transformTypeConstraint(TypeConstraint that) => transformNode(that);
     shared actual default Result transformTypeDec(TypeDec that) => transformDec(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);

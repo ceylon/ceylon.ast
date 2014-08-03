@@ -175,6 +175,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is VoidModifier) { return transformVoidModifier(that); }
         case (is ValueModifier) { return transformValueModifier(that); }
+        case (is FunctionModifier) { return transformFunctionModifier(that); }
         case (is DynamicModifier) { return transformDynamicModifier(that); }
         case (is Variance) { return transformVariance(that); }
     }

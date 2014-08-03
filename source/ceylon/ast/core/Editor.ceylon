@@ -190,6 +190,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
+    shared actual default FunctionModifier transformFunctionModifier(FunctionModifier that)
+            => that.copy();
     shared actual default GivenDec transformGivenDec(GivenDec that)
             => that.copy(transformUIdentifier(that.typeParameter));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)

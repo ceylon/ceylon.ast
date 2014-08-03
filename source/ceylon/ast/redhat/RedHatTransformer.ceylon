@@ -54,6 +54,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExists=Exists,
         JExpression=Expression,
         JFloatLiteral=FloatLiteral,
+        JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JFunctionType=FunctionType,
         JGroupedType=GroupedType,
@@ -192,6 +193,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
         float_literal=\iFLOAT_LITERAL,
+        function_modifier=\iFUNCTION_MODIFIER,
         identical_op=\iIDENTICAL_OP,
         in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
@@ -763,6 +765,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.endToken = tokens.token(".", member_op);
             ret.addIdentifier(transformPIdentifier(component));
         }
+        return ret;
+    }
+    
+    shared actual JFunctionModifier transformFunctionModifier(FunctionModifier that) {
+        JFunctionModifier ret = JFunctionModifier(tokens.token("function", function_modifier));
         return ret;
     }
     

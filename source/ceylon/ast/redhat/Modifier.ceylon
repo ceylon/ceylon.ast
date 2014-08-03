@@ -14,6 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         dynamicModifier=\iDYNAMIC,
+        function_modifier=\iFUNCTION_MODIFIER,
         value_modifier=\iVALUE_MODIFIER,
         void_modifier=\iVOID_MODIFIER
     }
@@ -28,10 +29,7 @@ shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier|J
         assert (is JValueModifier|JFunctionModifier modifier);
         switch (modifier)
         case (is JValueModifier) { return valueModifierToCeylon(modifier); }
-        case (is JFunctionModifier) {
-            // TODO implement function modifiers
-            throw AssertionError("Function modifiers not yet implemented");
-        }
+        case (is JFunctionModifier) { return functionModifierToCeylon(modifier); }
     }
     case (is JDynamicModifier) { return dynamicModifierToCeylon(modifier); }
     case (is JTypeVariance) { return varianceToCeylon(modifier); }
@@ -46,6 +44,8 @@ shared Modifier? compileModifier(String code) {
         return compileVoidModifier(code);
     } else if (type == value_modifier) {
         return compileValueModifier(code);
+    } else if (type == function_modifier) {
+        return compileFunctionModifier(code);
     } else if (type == dynamicModifier) {
         return compileDynamicModifier(code);
     } else if (exists variance = compileVariance(code)) {

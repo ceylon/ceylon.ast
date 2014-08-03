@@ -27,6 +27,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBound(Bound that) => transformExpressionIsh(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
+    shared actual default Result transformCaseTypes(CaseTypes that) => transformNode(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformClassBody(ClassBody that) => transformBody(that);
     shared actual default Result transformClosedBound(ClosedBound that) => transformBound(that);

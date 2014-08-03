@@ -29,6 +29,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBlock=Block,
         JBody=Body,
         JBound=Bound,
+        JCaseTypes=CaseTypes,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
         JClosedBound=ClosedBound,
@@ -504,6 +505,27 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addArgumentType(transformVariadicType(var));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JCaseTypes transformCaseTypes(CaseTypes that) {
+        JCaseTypes ret = JCaseTypes(tokens.token("of", case_types));
+        void addCaseType(PrimaryType|MemberName caseType) {
+            switch (caseType)
+            case (is PrimaryType) { ret.addType(transformPrimaryType(caseType)); }
+            case (is MemberName) {
+                JBaseMemberExpression bme = JBaseMemberExpression(null);
+                bme.identifier = transformLIdentifier(caseType);
+                bme.typeArguments = JInferredTypeArguments(null);
+                ret.addBaseMemberExpression(bme);
+            }
+        }
+        addCaseType(that.caseTypes.first);
+        for (caseType in that.caseTypes.rest) {
+            ret.endToken = tokens.token("|", union_op);
+            addCaseType(caseType);
+            ret.endToken = null;
+        }
         return ret;
     }
     

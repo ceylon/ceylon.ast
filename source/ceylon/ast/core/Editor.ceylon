@@ -106,6 +106,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
+    shared actual default CaseTypes transformCaseTypes(CaseTypes that) {
+        PrimaryType|LIdentifier transformPrimaryTypeOrLIdentifier(PrimaryType|LIdentifier that) {
+            switch (that)
+            case (is PrimaryType) { return transformPrimaryType(that); }
+            case (is LIdentifier) { return transformLIdentifier(that); }
+        }
+        return that.copy(that.caseTypes.collect(transformPrimaryTypeOrLIdentifier));
+    }
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default ClassBody transformClassBody(ClassBody that)

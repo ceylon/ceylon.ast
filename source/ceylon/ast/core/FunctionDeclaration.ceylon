@@ -33,7 +33,7 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters, typ
     "A function declaration has no definition."
     shared actual Null definition = null;
     
-    shared actual [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint*] children
+    shared actual [Annotations, Type|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint*] children
             = [annotations, type, name, *concatenate(emptyOrSingleton(typeParameters), typeConstraints)];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

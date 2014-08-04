@@ -27,6 +27,7 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     // not tested directly, but used by other tests
     shared String->LIdentifier sharedLIdentifier = constructL("shared");
     shared String->LIdentifier byLIdentifier = constructL("by");
+    shared String->LIdentifier noopLIdentifier = constructL("noop");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

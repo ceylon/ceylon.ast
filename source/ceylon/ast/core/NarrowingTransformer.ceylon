@@ -6,6 +6,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformAnyFunction(AnyFunction that) {
         switch (that)
         case (is FunctionDeclaration) { return transformFunctionDeclaration(that); }
+        case (is FunctionDefinition) { return transformFunctionDefinition(that); }
     }
     shared actual default Result transformAnySpecifier(AnySpecifier that) {
         switch (that)

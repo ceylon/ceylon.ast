@@ -14,7 +14,7 @@ shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction) {
     assert (is JMethodDefinition|JMethodDeclaration anyFunction);
     switch (anyFunction)
     case (is JMethodDefinition) {
-        throw AssertionError("Function definitions not supported yet"); // TODO implement function definitions
+        return functionDefinitionToCeylon(anyFunction);
     }
     case (is JMethodDeclaration) {
         if (anyFunction.specifierExpression exists) {

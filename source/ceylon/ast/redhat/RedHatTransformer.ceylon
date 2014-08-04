@@ -85,6 +85,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JMethodDeclaration=MethodDeclaration,
+        JMethodDefinition=MethodDefinition,
         JModuleLiteral=ModuleLiteral,
         JMultiplyAssignOp=MultiplyAssignOp,
         JNamedArgument=NamedArgument,
@@ -809,6 +810,48 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             }
             ret.typeConstraintList = typeConstraintList;
         }
+        return ret;
+    }
+    
+    shared actual JMethodDefinition transformFunctionDefinition(FunctionDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JStaticType|JVoidModifier|JFunctionModifier|JDynamicModifier jType;
+        JMethodDefinition ret;
+        value type = that.type;
+        switch (type)
+        case (is Type) {
+            jType = transformType(type);
+            ret = JMethodDefinition(null);
+        }
+        case (is VoidModifier) {
+            jType = transformVoidModifier(type);
+            ret = JMethodDefinition(jType.mainToken);
+        }
+        case (is FunctionModifier) {
+            jType = transformFunctionModifier(type);
+            ret = JMethodDefinition(jType.mainToken);
+        }
+        case (is DynamicModifier) {
+            jType = transformDynamicModifier(type);
+            ret = JMethodDefinition(null);
+        }
+        ret.annotationList = annotationList;
+        ret.type = jType;
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        for (parameters in that.parameterLists) {
+            ret.addParameterList(transformParameters(parameters));
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.block = transformBlock(that.definition);
         return ret;
     }
     

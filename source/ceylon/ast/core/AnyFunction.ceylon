@@ -10,7 +10,7 @@
        shared void run() {
            print("Hello, `` process.arguments.first else "World" ``!");"""
 shared abstract class AnyFunction()
-        of FunctionDeclaration
+        of FunctionDeclaration | FunctionDefinition
         extends TypedDeclaration() {
     
     shared actual formal Type|FunctionModifier|DynamicModifier|VoidModifier type;

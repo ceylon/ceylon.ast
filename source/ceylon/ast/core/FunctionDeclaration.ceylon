@@ -14,7 +14,7 @@
  a [[‘`function`’ modifier|FunctionModifier]] indicating type inference cannot be used.
  (The ’`dynamic`’ modifier counts as a “type” here, indicating
  not the inference, but rather the *absense* of typing information.)"
-shared class FunctionDeclaration(name, type, parameterLists, typeParameters, typeConstraints, annotations)
+shared class FunctionDeclaration(name, type, parameterLists, typeParameters = null, typeConstraints = [], annotations = Annotations())
         extends AnyFunction() {
     
     "The name of the declared function."

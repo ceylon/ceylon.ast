@@ -1757,13 +1757,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JAttributeDeclaration transformValueDefinition(ValueDefinition that) {
-        JAttributeDeclaration ret = JAttributeDeclaration(null);
-        ret.annotationList = transformAnnotations(that.annotations);
+        value annotations = transformAnnotations(that.annotations);
+        JAttributeDeclaration ret;
+        JType|JValueModifier|JDynamicModifier jType;
         value type = that.type;
         switch (type)
-        case (is Type) { ret.type = transformType(type); }
-        case (is ValueModifier) { ret.type = transformValueModifier(type); }
-        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        case (is Type) {
+            jType = transformType(type);
+            ret = JAttributeDeclaration(null);
+        }
+        case (is ValueModifier) {
+            jType = transformValueModifier(type);
+            ret = JAttributeDeclaration(jType.mainToken);
+        }
+        case (is DynamicModifier) {
+            jType = transformDynamicModifier(type);
+            ret = JAttributeDeclaration(null);
+        }
+        ret.annotationList = annotations;
+        ret.type = jType;
         ret.identifier = transformLIdentifier(that.name);
         ret.specifierOrInitializerExpression = transformAnySpecifier(that.definition);
         ret.endToken = tokens.token(";", semicolon);
@@ -1771,13 +1783,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JAttributeGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that) {
-        JAttributeGetterDefinition ret = JAttributeGetterDefinition(null);
-        ret.annotationList = transformAnnotations(that.annotations);
+        value annotations = transformAnnotations(that.annotations);
+        JAttributeGetterDefinition ret;
+        JType|JValueModifier|JDynamicModifier jType;
         value type = that.type;
         switch (type)
-        case (is Type) { ret.type = transformType(type); }
-        case (is ValueModifier) { ret.type = transformValueModifier(type); }
-        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        case (is Type) {
+            jType = transformType(type);
+            ret = JAttributeGetterDefinition(null);
+        }
+        case (is ValueModifier) {
+            jType = transformValueModifier(type);
+            ret = JAttributeGetterDefinition(jType.mainToken);
+        }
+        case (is DynamicModifier) {
+            jType = transformDynamicModifier(type);
+            ret = JAttributeGetterDefinition(null);
+        }
+        ret.annotationList = annotations;
+        ret.type = jType;
         ret.identifier = transformLIdentifier(that.name);
         ret.block = transformBlock(that.definition);
         return ret;

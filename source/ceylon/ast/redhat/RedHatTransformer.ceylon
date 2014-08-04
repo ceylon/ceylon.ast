@@ -791,7 +791,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         }
         case (is DynamicModifier) {
             jType = transformDynamicModifier(type);
-            ret = JMethodDeclaration(jType.mainToken);
+            ret = JMethodDeclaration(null);
         }
         ret.annotationList = annotationList;
         ret.type = jType;

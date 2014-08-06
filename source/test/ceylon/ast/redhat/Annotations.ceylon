@@ -22,6 +22,9 @@ shared object annotations satisfies ConcreteTest<Annotations,JAnnotationList> {
     shared String->Annotations emptyAnnotations = construct();
     shared String->Annotations helloSharedByLucasAnnotations = construct(stringLiteral.helloStringLiteral, [annotation.sharedAnnotation, annotation.byLucasAnnotation]);
     
+    // not tested directly, but used by other tests
+    shared String->Annotations sharedAnnotations = construct(null, [annotation.sharedAnnotation]);
+    
     compile = compileAnnotations;
     fromCeylon = RedHatTransformer.transformAnnotations;
     toCeylon = annotationsToCeylon;

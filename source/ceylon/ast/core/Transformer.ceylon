@@ -102,6 +102,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMeta(Meta that);
     shared formal Result transformModifier(Modifier that);
     shared formal Result transformModuleDec(ModuleDec that);
+    shared formal Result transformModuleImport(ModuleImport that);
     shared formal Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that);
     shared formal Result transformNameWithTypeArguments(NameWithTypeArguments that);
     shared formal Result transformNamedArgument(NamedArgument that);

@@ -300,6 +300,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
             => that.copy(transformFullPackageName(that.moduleName));
+    shared actual default ModuleImport transformModuleImport(ModuleImport that) {
+        FullPackageName|StringLiteral transformFullPackageNameOrStringLiteral(FullPackageName|StringLiteral that) {
+            switch (that)
+            case (is FullPackageName) { return transformFullPackageName(that); }
+            case (is StringLiteral) { return transformStringLiteral(that); }
+        }
+        return that.copy(transformFullPackageNameOrStringLiteral(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations));
+    }
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {

@@ -61,6 +61,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
+        JImportModule=ImportModule,
         JImportPath=ImportPath,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
@@ -119,6 +120,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
         JQualifiedTypeExpression=QualifiedTypeExpression,
         JQualifiedType=QualifiedType,
+        JQuotedLiteral=QuotedLiteral,
         JQuotientOp=QuotientOp,
         JRangeOp=RangeOp,
         JRemainderAssignOp=RemainderAssignOp,
@@ -199,6 +201,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         float_literal=\iFLOAT_LITERAL,
         function_modifier=\iFUNCTION_MODIFIER,
         identical_op=\iIDENTICAL_OP,
+        importType=\iIMPORT,
         in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
@@ -1084,6 +1087,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.endToken = tokens.token("module", moduleType);
         ret.importPath = transformFullPackageName(that.moduleName);
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JImportModule transformModuleImport(ModuleImport that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JImportModule ret = JImportModule(tokens.token("import", importType));
+        ret.annotationList = annotationList;
+        value name = that.name;
+        switch (name)
+        case (is FullPackageName) { ret.importPath = transformFullPackageName(name); }
+        case (is StringLiteral) { ret.quotedLiteral = JQuotedLiteral(transformStringLiteral(name).mainToken); }
+        ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

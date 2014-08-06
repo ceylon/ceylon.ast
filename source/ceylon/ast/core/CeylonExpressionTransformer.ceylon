@@ -283,6 +283,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
     transformModuleDec(ModuleDec that) => "ModuleDec(``transformWithIndent(that.moduleName)``)";
+    transformModuleImport(ModuleImport that)
+            => "ModuleImport {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => "MultiplyAssignmentOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

@@ -121,6 +121,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
     transformPackageDec(PackageDec that) => visitPackageDec(that);
+    transformPackageDescriptor(PackageDescriptor that) => visitPackageDescriptor(that);
     transformParameter(Parameter that) => visitParameter(that);
     transformParameterReference(ParameterReference that) => visitParameterReference(that);
     transformParameters(Parameters that) => visitParameters(that);
@@ -276,6 +277,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
     shared default void visitOutModifier(OutModifier that) => super.transformOutModifier(that);
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
+    shared default void visitPackageDescriptor(PackageDescriptor that) => super.transformPackageDescriptor(that);
     shared default void visitParameter(Parameter that) => super.transformParameter(that);
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
     shared default void visitParameters(Parameters that) => super.transformParameters(that);

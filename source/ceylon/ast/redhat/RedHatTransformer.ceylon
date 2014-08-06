@@ -102,6 +102,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JOrOp=OrOp,
         JOuter=Outer,
         JPackage=Package,
+        JPackageDescriptor=PackageDescriptor,
         JPackageLiteral=PackageLiteral,
         JParameter=Parameter,
         JParameterList=ParameterList,
@@ -1201,6 +1202,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.endToken = tokens.token("package", packageType);
         ret.importPath = transformFullPackageName(that.packageName);
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JPackageDescriptor transformPackageDescriptor(PackageDescriptor that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JPackageDescriptor ret = JPackageDescriptor(tokens.token("package", packageType));
+        ret.annotationList = annotationList;
+        ret.importPath = transformFullPackageName(that.name);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

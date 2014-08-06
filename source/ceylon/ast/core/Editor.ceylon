@@ -342,6 +342,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default PackageDec transformPackageDec(PackageDec that)
             => that.copy(transformFullPackageName(that.packageName));
+    shared actual default PackageDescriptor transformPackageDescriptor(PackageDescriptor that)
+            => that.copy(transformFullPackageName(that.name), transformAnnotations(that.annotations));
     shared actual default Parameter transformParameter(Parameter that) {
         assert (is Parameter ret = super.transformParameter(that));
         return ret;

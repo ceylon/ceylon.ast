@@ -326,6 +326,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
     transformPackageDec(PackageDec that) => "PackageDec(``transformWithIndent(that.packageName)``)";
+    transformPackageDescriptor(PackageDescriptor that)
+            => "PackageDescriptor {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformParameterReference(ParameterReference that) => "ParameterReference(``transformWithIndent(that.name)``)";
     transformParameters(Parameters that)
             => that.parameters nonempty

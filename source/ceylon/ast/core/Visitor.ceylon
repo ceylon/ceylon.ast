@@ -101,6 +101,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
     transformMeta(Meta that) => visitMeta(that);
     transformModifier(Modifier that) => visitModifier(that);
+    transformModuleBody(ModuleBody that) => visitModuleBody(that);
     transformModuleDec(ModuleDec that) => visitModuleDec(that);
     transformModuleImport(ModuleImport that) => visitModuleImport(that);
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => visitMultiplyAssignmentOperation(that);
@@ -265,6 +266,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitModifier(Modifier that) => super.transformModifier(that);
+    shared default void visitModuleBody(ModuleBody that) => super.transformModuleBody(that);
     shared default void visitModuleDec(ModuleDec that) => super.transformModuleDec(that);
     shared default void visitModuleImport(ModuleImport that) => super.transformModuleImport(that);
     shared default void visitMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => super.transformMultiplyAssignmentOperation(that);

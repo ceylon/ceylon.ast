@@ -211,6 +211,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeConstraint) { return transformTypeConstraint(that); }
         case (is PackageDescriptor) { return transformPackageDescriptor(that); }
         case (is ModuleImport) { return transformModuleImport(that); }
+        case (is ModuleBody) { return transformModuleBody(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

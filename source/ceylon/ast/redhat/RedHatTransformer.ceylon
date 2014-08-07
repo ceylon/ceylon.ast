@@ -62,6 +62,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
         JImportModule=ImportModule,
+        JImportModuleList=ImportModuleList,
         JImportPath=ImportPath,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
@@ -1087,6 +1088,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.endToken = tokens.token("module", moduleType);
         ret.importPath = transformFullPackageName(that.moduleName);
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JImportModuleList transformModuleBody(ModuleBody that) {
+        JImportModuleList ret = JImportModuleList(tokens.token("{", lbrace));
+        for (moduleImport in that.moduleImports) {
+            ret.addImportModule(transformModuleImport(moduleImport));
+        }
         return ret;
     }
     

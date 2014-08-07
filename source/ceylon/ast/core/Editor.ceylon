@@ -298,6 +298,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Modifier ret = super.transformModifier(that));
         return ret;
     }
+    shared actual default ModuleBody transformModuleBody(ModuleBody that)
+            => that.copy(that.moduleImports.collect(transformModuleImport));
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
             => that.copy(transformFullPackageName(that.moduleName));
     shared actual default ModuleImport transformModuleImport(ModuleImport that) {

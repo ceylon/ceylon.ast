@@ -4,6 +4,7 @@
 see (`class Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAddAssignmentOperation(AddAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
+    shared actual default Result transformAlias(Alias that) => transformNode(that);
     shared actual default Result transformAndAssignmentOperation(AndAssignmentOperation that) => transformLogicalAssignmentOperation(that);
     shared actual default Result transformAndOperation(AndOperation that) => transformLogicalOperation(that);
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
@@ -62,6 +63,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
     shared actual default Result transformFunctionDefinition(FunctionDefinition that) => transformAnyFunction(that);
     shared actual default Result transformFunctionModifier(FunctionModifier that) => transformModifier(that);
+    shared actual default Result transformFunctionValueAlias(FunctionValueAlias that) => transformAlias(that);
     shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);
     shared actual default Result transformGroupedType(GroupedType that) => transformPrimaryType(that);
@@ -158,6 +160,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTuple(Tuple that) => transformAtom(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
+    shared actual default Result transformTypeAlias(TypeAlias that) => transformAlias(that);
     shared actual default Result transformTypeArgument(TypeArgument that) => transformTypeIsh(that);
     shared actual default Result transformTypeArguments(TypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformTypeConstraint(TypeConstraint that) => transformNode(that);

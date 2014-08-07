@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JAlias=Alias,
         JAddAssignOp=AddAssignOp,
         JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
@@ -284,6 +285,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared JIdentifier transformAIdentifier(LIdentifier that) {
         value ret = transformIdentifier(that);
         ret.mainToken.type = aidentifier;
+        return ret;
+    }
+    
+    shared actual JAlias transformAlias(Alias that) {
+        assert (is JAlias ret = super.transformAlias(that));
         return ret;
     }
     
@@ -863,6 +869,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JFunctionModifier transformFunctionModifier(FunctionModifier that) {
         JFunctionModifier ret = JFunctionModifier(tokens.token("function", function_modifier));
+        return ret;
+    }
+    
+    shared actual JAlias transformFunctionValueAlias(FunctionValueAlias that) {
+        value identifier = transformLIdentifier(that.name);
+        JAlias ret = JAlias(tokens.token("=", specify));
+        ret.identifier = identifier;
         return ret;
     }
     
@@ -1639,6 +1652,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
         assert (is JTypedDeclaration ret = super.transformTypedDeclaration(that));
+        return ret;
+    }
+    
+    shared actual JAlias transformTypeAlias(TypeAlias that) {
+        value identifier = transformUIdentifier(that.name);
+        JAlias ret = JAlias(tokens.token("=", specify));
+        ret.identifier = identifier;
         return ret;
     }
     

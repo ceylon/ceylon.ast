@@ -25,6 +25,10 @@
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
+    shared actual default Alias transformAlias(Alias that) {
+        assert (is Alias ret = super.transformAlias(that));
+        return ret;
+    }
     shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
@@ -215,6 +219,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default FunctionModifier transformFunctionModifier(FunctionModifier that)
             => that.copy();
+    shared actual default FunctionValueAlias transformFunctionValueAlias(FunctionValueAlias that)
+            => that.copy(transformLIdentifier(that.name));
     shared actual default GivenDec transformGivenDec(GivenDec that)
             => that.copy(transformUIdentifier(that.typeParameter));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
@@ -540,6 +546,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Type ret = super.transformType(that));
         return ret;
     }
+    shared actual default TypeAlias transformTypeAlias(TypeAlias that)
+            => that.copy(transformUIdentifier(that.name));
     shared actual default TypeArgument transformTypeArgument(TypeArgument that)
             => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
     shared actual default TypeArguments transformTypeArguments(TypeArguments that)

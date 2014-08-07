@@ -13,6 +13,7 @@
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
     transformAddAssignmentOperation(AddAssignmentOperation that) => visitAddAssignmentOperation(that);
+    transformAlias(Alias that) => visitAlias(that);
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);
     transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformAnnotation(Annotation that) => visitAnnotation(that);
@@ -71,6 +72,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
     transformFunctionDefinition(FunctionDefinition that) => visitFunctionDefinition(that);
     transformFunctionModifier(FunctionModifier that) => visitFunctionModifier(that);
+    transformFunctionValueAlias(FunctionValueAlias that) => visitFunctionValueAlias(that);
     transformGivenDec(GivenDec that) => visitGivenDec(that);
     transformGroupedExpression(GroupedExpression that) => visitGroupedExpression(that);
     transformGroupedType(GroupedType that) => visitGroupedType(that);
@@ -167,6 +169,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTuple(Tuple that) => visitTuple(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
+    transformTypeAlias(TypeAlias that) => visitTypeAlias(that);
     transformTypeArgument(TypeArgument that) => visitTypeArgument(that);
     transformTypeArguments(TypeArguments that) => visitTypeArguments(that);
     transformTypeConstraint(TypeConstraint that) => visitTypeConstraint(that);
@@ -199,6 +202,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformWithinOperation(WithinOperation that) => visitWithinOperation(that);
     
     shared default void visitAddAssignmentOperation(AddAssignmentOperation that) => super.transformAddAssignmentOperation(that);
+    shared default void visitAlias(Alias that) => super.transformAlias(that);
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
@@ -252,6 +256,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);
     shared default void visitFunctionDefinition(FunctionDefinition that) => super.transformFunctionDefinition(that);
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
+    shared default void visitFunctionValueAlias(FunctionValueAlias that) => super.transformFunctionValueAlias(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
@@ -353,6 +358,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);
+    shared default void visitTypeAlias(TypeAlias that) => super.transformTypeAlias(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeConstraint(TypeConstraint that) => super.transformTypeConstraint(that);

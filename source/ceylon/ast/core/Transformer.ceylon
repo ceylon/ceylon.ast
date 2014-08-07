@@ -13,6 +13,7 @@
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
     shared formal Result transformAddAssignmentOperation(AddAssignmentOperation that);
+    shared formal Result transformAlias(Alias that);
     shared formal Result transformAndAssignmentOperation(AndAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformAnnotation(Annotation that);
@@ -71,6 +72,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionDefinition(FunctionDefinition that);
     shared formal Result transformFunctionModifier(FunctionModifier that);
+    shared formal Result transformFunctionValueAlias(FunctionValueAlias that);
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
@@ -168,6 +170,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
+    shared formal Result transformTypeAlias(TypeAlias that);
     shared formal Result transformTypeArgument(TypeArgument that);
     shared formal Result transformTypeArguments(TypeArguments that);
     shared formal Result transformTypeConstraint(TypeConstraint that);

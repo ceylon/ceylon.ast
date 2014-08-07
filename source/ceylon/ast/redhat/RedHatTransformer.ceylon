@@ -1096,6 +1096,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         for (moduleImport in that.moduleImports) {
             ret.addImportModule(transformModuleImport(moduleImport));
         }
+        ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
     

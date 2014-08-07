@@ -230,10 +230,21 @@ class ConcreteClassGenerator(
     }
     
     void expandEditor() {
+        String editing(String type, String name) {
+            if (type.endsWith("[]")) {
+                return "that.``name``.collect(transform``type[...type.size - 3]``)";
+            } else if (type.startsWith("[") && type.endsWith("+]")) {
+                return "that.``name``.collect(transform``type[1..type.size - 3]``)";
+            } else if (type.endsWith("?")) {
+                return "nullsafeInvoke(that.``name``, transform``type[... type.size-2]``)";
+            } else {
+                return "transform``type``(that.``name``)";
+            }
+        }
         expandFile("source/ceylon/ast/core/Editor.ceylon",
             "    shared actual default ",
             "``type`` transform``type``(``type`` that)
-                         => that.copy(``", ".join { for (type->name in params) "transform``type``(that.``name``)" }``);");
+                         => that.copy(``", ".join { for (type->name in params) editing(type, name) }``);");
     }
     
     void expandCeylonExpressionTransformer() {

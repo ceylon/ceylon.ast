@@ -88,6 +88,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMetaLiteral=MetaLiteral,
         JMethodDeclaration=MethodDeclaration,
         JMethodDefinition=MethodDefinition,
+        JModuleDescriptor=ModuleDescriptor,
         JModuleLiteral=ModuleLiteral,
         JMultiplyAssignOp=MultiplyAssignOp,
         JNamedArgument=NamedArgument,
@@ -1097,6 +1098,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addImportModule(transformModuleImport(moduleImport));
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JModuleDescriptor transformModuleDescriptor(ModuleDescriptor that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JModuleDescriptor ret = JModuleDescriptor(tokens.token("module", moduleType));
+        ret.annotationList = annotationList;
+        ret.importPath = transformFullPackageName(that.name);
+        ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
+        ret.importModuleList = transformModuleBody(that.body);
         return ret;
     }
     

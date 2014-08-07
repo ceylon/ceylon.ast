@@ -302,6 +302,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.moduleImports.collect(transformModuleImport));
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
             => that.copy(transformFullPackageName(that.moduleName));
+    shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
+            => that.copy(transformFullPackageName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations));
     shared actual default ModuleImport transformModuleImport(ModuleImport that) {
         FullPackageName|StringLiteral transformFullPackageNameOrStringLiteral(FullPackageName|StringLiteral that) {
             switch (that)

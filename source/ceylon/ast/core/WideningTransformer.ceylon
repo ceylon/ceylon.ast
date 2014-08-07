@@ -94,6 +94,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformModifier(Modifier that) => transformExpressionIsh(that);
     shared actual default Result transformModuleBody(ModuleBody that) => transformNode(that);
     shared actual default Result transformModuleDec(ModuleDec that) => transformDec(that);
+    shared actual default Result transformModuleDescriptor(ModuleDescriptor that) => transformNode(that);
     shared actual default Result transformModuleImport(ModuleImport that) => transformNode(that);
     shared actual default Result transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) => transformTypeIsh(that);

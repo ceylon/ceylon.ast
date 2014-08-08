@@ -219,6 +219,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ModuleBody) { return transformModuleBody(that); }
         case (is ModuleDescriptor) { return transformModuleDescriptor(that); }
         case (is Alias) { return transformAlias(that); }
+        case (is ImportWildcard) { return transformImportWildcard(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

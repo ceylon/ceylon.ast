@@ -65,6 +65,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JImportModule=ImportModule,
         JImportModuleList=ImportModuleList,
         JImportPath=ImportPath,
+        JImportWildcard=ImportWildcard,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
@@ -197,6 +198,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         difference_op=\iDIFFERENCE_OP,
         divide_specify=\iDIVIDE_SPECIFY,
         dynamicType=\iDYNAMIC,
+        ellipsis=\iELLIPSIS,
         else_clause=\iELSE_CLAUSE,
         entry_op=\iENTRY_OP,
         equal_op=\iEQUAL_OP,
@@ -917,6 +919,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
         ret.term = transformPrecedence2Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JImportWildcard transformImportWildcard(ImportWildcard that) {
+        JImportWildcard ret = JImportWildcard(tokens.token("...", ellipsis));
         return ret;
     }
     

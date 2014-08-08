@@ -223,6 +223,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIdentityOperation(IdentityOperation that) => "IdentityOperation(``transformWithIndent(that.operand)``)";
+    transformImportWildcard(ImportWildcard that) => "ImportWildcard()";
     transformInModifier(InModifier that) => "InModifier()";
     transformInOperation(InOperation that)
             => "InOperation {

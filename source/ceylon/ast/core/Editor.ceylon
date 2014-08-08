@@ -235,6 +235,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
+    shared actual default ImportWildcard transformImportWildcard(ImportWildcard that)
+            => that.copy();
     shared actual default InModifier transformInModifier(InModifier that)
             => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)

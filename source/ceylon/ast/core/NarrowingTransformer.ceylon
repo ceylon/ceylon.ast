@@ -147,6 +147,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is LIdentifier) { return transformLIdentifier(that); }
         case (is UIdentifier) { return transformUIdentifier(that); }
     }
+    shared actual default Result transformImportElement(ImportElement that) {
+        switch (that)
+        case (is ImportTypeElement) { return transformImportTypeElement(that); }
+        case (is ImportFunctionValueElement) { return transformImportFunctionValueElement(that); }
+    }
     shared actual default Result transformLiteral(Literal that) {
         switch (that)
         case (is IntegerLiteral) { return transformIntegerLiteral(that); }
@@ -220,6 +225,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ModuleDescriptor) { return transformModuleDescriptor(that); }
         case (is Alias) { return transformAlias(that); }
         case (is ImportWildcard) { return transformImportWildcard(that); }
+        case (is ImportElement) { return transformImportElement(that); }
+        case (is ImportElements) { return transformImportElements(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

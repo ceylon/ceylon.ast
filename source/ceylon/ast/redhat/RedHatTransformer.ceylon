@@ -62,6 +62,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
+        JImportMember=ImportMember,
+        JImportMemberOrType=ImportMemberOrType,
+        JImportMemberOrTypeList=ImportMemberOrTypeList,
         JImportModule=ImportModule,
         JImportModuleList=ImportModuleList,
         JImportPath=ImportPath,
@@ -919,6 +922,57 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
         ret.term = transformPrecedence2Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JImportMemberOrType transformImportElement(ImportElement that) {
+        assert (is JImportMemberOrType ret = super.transformImportElement(that));
+        return ret;
+    }
+    
+    shared actual JImportMemberOrTypeList transformImportElements(ImportElements that) {
+        JImportMemberOrTypeList ret = JImportMemberOrTypeList(tokens.token("{", lbrace));
+        if (nonempty elements = that.elements) {
+            ret.addImportMemberOrType(transformImportElement(elements.first));
+            for (element in elements.rest) {
+                ret.endToken = tokens.token(",", comma);
+                ret.addImportMemberOrType(transformImportElement(element));
+            }
+            if (exists wildcard = that.wildcard) {
+                ret.endToken = tokens.token(",", comma);
+                ret.importWildcard = transformImportWildcard(wildcard);
+            }
+        } else {
+            if (exists wildcard = that.wildcard) {
+                ret.importWildcard = transformImportWildcard(wildcard);
+            }
+        }
+        ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JImportMemberOrType transformImportFunctionValueElement(ImportFunctionValueElement that) {
+        JImportMember ret = JImportMember(null);
+        if (exists importAlias = that.importAlias) {
+            ret.\ialias = transformFunctionValueAlias(importAlias);
+        }
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists nestedImports = that.nestedImports) {
+            ret.importMemberOrTypeList = transformImportElements(nestedImports);
+        }
+        return ret;
+    }
+    
+    shared actual JImportMemberOrType transformImportTypeElement(ImportTypeElement that) {
+        // We generate an ImportMember, not an ImportType, because that’s what the parser does
+        JImportMember ret = JImportMember(null);
+        if (exists importAlias = that.importAlias) {
+            ret.\ialias = transformTypeAlias(importAlias);
+        }
+        ret.identifier = transformIdentifier(that.name);
+        if (exists nestedImports = that.nestedImports) {
+            ret.importMemberOrTypeList = transformImportElements(nestedImports);
+        }
         return ret;
     }
     

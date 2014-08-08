@@ -235,6 +235,16 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
+    shared actual default ImportElement transformImportElement(ImportElement that) {
+        assert (is ImportElement ret = super.transformImportElement(that));
+        return ret;
+    }
+    shared actual default ImportElements transformImportElements(ImportElements that)
+            => that.copy(that.elements.collect(transformImportElement), nullsafeInvoke(that.wildcard, transformImportWildcard));
+    shared actual default ImportFunctionValueElement transformImportFunctionValueElement(ImportFunctionValueElement that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.importAlias, transformFunctionValueAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
+    shared actual default ImportTypeElement transformImportTypeElement(ImportTypeElement that)
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.importAlias, transformTypeAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
     shared actual default ImportWildcard transformImportWildcard(ImportWildcard that)
             => that.copy();
     shared actual default InModifier transformInModifier(InModifier that)

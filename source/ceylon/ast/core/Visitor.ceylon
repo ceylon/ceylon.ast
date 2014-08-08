@@ -79,6 +79,10 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdenticalOperation(IdenticalOperation that) => visitIdenticalOperation(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
+    transformImportElement(ImportElement that) => visitImportElement(that);
+    transformImportElements(ImportElements that) => visitImportElements(that);
+    transformImportFunctionValueElement(ImportFunctionValueElement that) => visitImportFunctionValueElement(that);
+    transformImportTypeElement(ImportTypeElement that) => visitImportTypeElement(that);
     transformImportWildcard(ImportWildcard that) => visitImportWildcard(that);
     transformInModifier(InModifier that) => visitInModifier(that);
     transformInOperation(InOperation that) => visitInOperation(that);
@@ -259,6 +263,10 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
     shared default void visitFunctionValueAlias(FunctionValueAlias that) => super.transformFunctionValueAlias(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
+    shared default void visitImportElements(ImportElements that) => super.transformImportElements(that);
+    shared default void visitImportElement(ImportElement that) => super.transformImportElement(that);
+    shared default void visitImportFunctionValueElement(ImportFunctionValueElement that) => super.transformImportFunctionValueElement(that);
+    shared default void visitImportTypeElement(ImportTypeElement that) => super.transformImportTypeElement(that);
     shared default void visitImportWildcard(ImportWildcard that) => super.transformImportWildcard(that);
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);

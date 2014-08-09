@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     FullPackageName,
-    LIdentifier
+    PackageName
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,12 +15,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath> {
     
-    shared String->FullPackageName ceylonAstCorePackageName
-            = "ceylon.ast.core"->FullPackageName([
-            LIdentifier("ceylon"),
-            LIdentifier("ast"),
-            LIdentifier("core")
-        ]);
+    String->FullPackageName construct(<String->PackageName>+ components)
+            => ".".join(components*.key)->FullPackageName(components*.item);
+    
+    shared String->FullPackageName ceylonAstCorePackageName = construct(identifier.ceylonLIdentifier, identifier.astLIdentifier, identifier.coreLIdentifier);
+    
+    // not tested directly, but used by other tests
+    shared String->FullPackageName javaLangPackageName = construct(identifier.javaLIdentifier, identifier.langLIdentifier);
+    shared String->FullPackageName ceylonCollectionPackageName = construct(identifier.ceylonLIdentifier, identifier.collectionLIdentifier);
     
     compile = compileFullPackageName;
     fromCeylon = RedHatTransformer.transformFullPackageName;

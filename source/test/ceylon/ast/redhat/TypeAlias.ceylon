@@ -20,6 +20,9 @@ shared object typeAlias satisfies ConcreteTest<TypeAlias,JAlias> {
     
     shared String->TypeAlias uidTypeAlias = construct(identifier.uidUIdentifier);
     
+    // not tested directly, but used by other tests
+    shared String->TypeAlias jstringTypeAlias = construct(identifier.jstringUIdentifier);
+    
     compile = compileTypeAlias;
     fromCeylon = RedHatTransformer.transformTypeAlias;
     toCeylon = typeAliasToCeylon;

@@ -28,6 +28,11 @@ shared object importElements satisfies ConcreteTest<ImportElements,JImportMember
             importFunctionValueElement.uidAsLidImportElement
         ]);
     
+    // not tested directly, but used by other tests
+    shared String->ImportElements outAsSysoutImportElements => construct([importFunctionValueElement.outAsSysoutImportElement]);
+    shared String->ImportElements systemImportElements => construct([importTypeElement.systemImportElement]);
+    shared String->ImportElements collectionImportElements => construct([importTypeElement.arrayListElement, importTypeElement.mutableListElement]);
+    
     compile = compileImportElements;
     fromCeylon = RedHatTransformer.transformImportElements;
     toCeylon = importElementsToCeylon;

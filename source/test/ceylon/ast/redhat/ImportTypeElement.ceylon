@@ -27,6 +27,12 @@ shared object importTypeElement satisfies ConcreteTest<ImportTypeElement,JImport
         nestedImports = importElements.wildcardImportElements;
     };
     
+    // not tested directly, but used by other tests
+    shared String->ImportTypeElement stringAsJStringImportElement = construct(identifier.stringUIdentifier, typeAlias.jstringTypeAlias);
+    shared String->ImportTypeElement systemImportElement = construct { identifier.systemUIdentifier; nestedImports = importElements.outAsSysoutImportElements; };
+    shared String->ImportTypeElement arrayListElement = construct(identifier.arrayListUIdentifier);
+    shared String->ImportTypeElement mutableListElement = construct(identifier.mutableListUIdentifier);
+    
     compile = compileImportTypeElement;
     fromCeylon = RedHatTransformer.transformImportTypeElement;
     toCeylon = importTypeElementToCeylon;

@@ -20,9 +20,11 @@ shared object \iimport satisfies ConcreteTest<Import,JImport> {
             => "import ``packageName.key````elements.key``"->Import(packageName.item, elements.item);
     
     shared String->Import ceylonAstWildcardImport = construct(fullPackageName.ceylonAstCorePackageName, importElements.wildcardImportElements);
+    shared String->Import javaLangImport = construct(fullPackageName.javaLangPackageName, importElements.systemImportElements);
+    shared String->Import ceylonCollectionImport = construct(fullPackageName.ceylonCollectionPackageName, importElements.collectionImportElements);
     
     compile = compileImport;
     fromCeylon = RedHatTransformer.transformImport;
     toCeylon = importToCeylon;
-    codes = [ceylonAstWildcardImport];
+    codes = [ceylonAstWildcardImport, javaLangImport, ceylonCollectionImport];
 }

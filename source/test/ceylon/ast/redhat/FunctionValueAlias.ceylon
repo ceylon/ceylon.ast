@@ -20,6 +20,9 @@ shared object functionValueAlias satisfies ConcreteTest<FunctionValueAlias,JAlia
     
     shared String->FunctionValueAlias lidFunctionValueAlias = construct(identifier.lidLIdentifier);
     
+    // not tested directly, but used by other tests
+    shared String->FunctionValueAlias sysoutFunctionValueAlias = construct(identifier.sysoutLIdentifier);
+    
     compile = compileFunctionValueAlias;
     fromCeylon = RedHatTransformer.transformFunctionValueAlias;
     toCeylon = functionValueAliasToCeylon;

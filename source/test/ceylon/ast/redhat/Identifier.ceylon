@@ -18,6 +18,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     
     String->LIdentifier constructL(String name)
             => name->LIdentifier(name);
+    String->UIdentifier constructU(String name)
+            => name->UIdentifier(name);
     
     shared String->LIdentifier lidLIdentifier = "lid"->LIdentifier("lid");
     shared String->UIdentifier uidUIdentifier = "Uid"->UIdentifier("Uid");
@@ -28,6 +30,19 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier sharedLIdentifier = constructL("shared");
     shared String->LIdentifier byLIdentifier = constructL("by");
     shared String->LIdentifier noopLIdentifier = constructL("noop");
+    shared String->LIdentifier ceylonLIdentifier = constructL("ceylon");
+    shared String->LIdentifier astLIdentifier = constructL("ast");
+    shared String->LIdentifier coreLIdentifier = constructL("core");
+    shared String->LIdentifier javaLIdentifier = constructL("java");
+    shared String->LIdentifier langLIdentifier = constructL("lang");
+    shared String->LIdentifier collectionLIdentifier = constructL("collection");
+    shared String->UIdentifier stringUIdentifier = constructU("String");
+    shared String->UIdentifier jstringUIdentifier = constructU("JString");
+    shared String->LIdentifier outLIdentifier = "\\iout"->LIdentifier("out");
+    shared String->LIdentifier sysoutLIdentifier = constructL("sysout");
+    shared String->UIdentifier systemUIdentifier = constructU("System");
+    shared String->UIdentifier arrayListUIdentifier = constructU("ArrayList");
+    shared String->UIdentifier mutableListUIdentifier = constructU("MutableList");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

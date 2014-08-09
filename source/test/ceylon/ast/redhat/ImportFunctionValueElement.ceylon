@@ -23,6 +23,9 @@ shared object importFunctionValueElement satisfies ConcreteTest<ImportFunctionVa
     shared String->ImportFunctionValueElement noopImportElement = construct(identifier.noopLIdentifier);
     shared String->ImportFunctionValueElement uidAsLidImportElement = construct(identifier.uidLIdentifier, functionValueAlias.lidFunctionValueAlias);
     
+    // not tested directly, but used by other tests
+    shared String->ImportFunctionValueElement outAsSysoutImportElement = construct(identifier.outLIdentifier, functionValueAlias.sysoutFunctionValueAlias);
+    
     compile = compileImportFunctionValueElement;
     fromCeylon = RedHatTransformer.transformImportFunctionValueElement;
     toCeylon = importFunctionValueElementToCeylon;

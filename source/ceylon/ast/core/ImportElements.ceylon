@@ -4,6 +4,12 @@
  
  Import elements may not be empty.
  
+ (`ceylon.ast` `ImportElements` are slightly different from the
+ specification’s `ImportElements`; in the specification,
+ the surrounding braces are always part of the “parent” node
+ (`Import`, `ImportTypeElement`), while in `ceylon.ast`, they
+ are part of the `ImportElements`.)
+ 
  Examples:
  
      MutableList, ArrayList

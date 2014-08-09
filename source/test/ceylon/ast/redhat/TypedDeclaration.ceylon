@@ -17,5 +17,5 @@ shared object typedDeclaration satisfies AbstractTest<TypedDeclaration,JTypedDec
     fromCeylon = RedHatTransformer.transformTypedDeclaration;
     toCeylon = typedDeclarationToCeylon;
     
-    tests = [anyValue];
+    tests = [anyValue, anyFunction];
 }

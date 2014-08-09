@@ -19,6 +19,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnnotation(Annotation that) => visitAnnotation(that);
     transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
+    transformAnyCompilationUnit(AnyCompilationUnit that) => visitAnyCompilationUnit(that);
     transformAnyFunction(AnyFunction that) => visitAnyFunction(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
     transformAnyValue(AnyValue that) => visitAnyValue(that);
@@ -110,6 +111,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMeta(Meta that) => visitMeta(that);
     transformModifier(Modifier that) => visitModifier(that);
     transformModuleBody(ModuleBody that) => visitModuleBody(that);
+    transformModuleCompilationUnit(ModuleCompilationUnit that) => visitModuleCompilationUnit(that);
     transformModuleDec(ModuleDec that) => visitModuleDec(that);
     transformModuleDescriptor(ModuleDescriptor that) => visitModuleDescriptor(that);
     transformModuleImport(ModuleImport that) => visitModuleImport(that);
@@ -131,6 +133,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformOutModifier(OutModifier that) => visitOutModifier(that);
     transformOuter(Outer that) => visitOuter(that);
     transformPackage(Package that) => visitPackage(that);
+    transformPackageCompilationUnit(PackageCompilationUnit that) => visitPackageCompilationUnit(that);
     transformPackageDec(PackageDec that) => visitPackageDec(that);
     transformPackageDescriptor(PackageDescriptor that) => visitPackageDescriptor(that);
     transformParameter(Parameter that) => visitParameter(that);
@@ -214,6 +217,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
     shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
+    shared default void visitAnyCompilationUnit(AnyCompilationUnit that) => super.transformAnyCompilationUnit(that);
     shared default void visitAnyFunction(AnyFunction that) => super.transformAnyFunction(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
     shared default void visitAnyValue(AnyValue that) => super.transformAnyValue(that);
@@ -285,6 +289,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitModifier(Modifier that) => super.transformModifier(that);
     shared default void visitModuleBody(ModuleBody that) => super.transformModuleBody(that);
+    shared default void visitModuleCompilationUnit(ModuleCompilationUnit that) => super.transformModuleCompilationUnit(that);
     shared default void visitModuleDec(ModuleDec that) => super.transformModuleDec(that);
     shared default void visitModuleDescriptor(ModuleDescriptor that) => super.transformModuleDescriptor(that);
     shared default void visitModuleImport(ModuleImport that) => super.transformModuleImport(that);
@@ -299,6 +304,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);
     shared default void visitOutModifier(OutModifier that) => super.transformOutModifier(that);
+    shared default void visitPackageCompilationUnit(PackageCompilationUnit that) => super.transformPackageCompilationUnit(that);
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
     shared default void visitPackageDescriptor(PackageDescriptor that) => super.transformPackageDescriptor(that);
     shared default void visitParameter(Parameter that) => super.transformParameter(that);

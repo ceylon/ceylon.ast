@@ -10,6 +10,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
     shared actual default Result transformAnnotations(Annotations that) => transformNode(that);
     shared actual default Result transformAnonymousArgument(AnonymousArgument that) => transformNamedArgument(that);
+    shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) => transformNode(that);
     shared actual default Result transformAnyFunction(AnyFunction that) => transformTypedDeclaration(that);
     shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
@@ -35,7 +36,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformClosedBound(ClosedBound that) => transformBound(that);
     shared actual default Result transformCompareOperation(CompareOperation that) => transformBinaryOperation(that);
     shared actual default Result transformComparisonOperation(ComparisonOperation that) => transformBinaryOperation(that);
-    shared actual default Result transformCompilationUnit(CompilationUnit that) => transformNode(that);
+    shared actual default Result transformCompilationUnit(CompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
@@ -101,6 +102,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
     shared actual default Result transformModifier(Modifier that) => transformExpressionIsh(that);
     shared actual default Result transformModuleBody(ModuleBody that) => transformNode(that);
+    shared actual default Result transformModuleCompilationUnit(ModuleCompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformModuleDec(ModuleDec that) => transformDec(that);
     shared actual default Result transformModuleDescriptor(ModuleDescriptor that) => transformNode(that);
     shared actual default Result transformModuleImport(ModuleImport that) => transformNode(that);
@@ -121,6 +123,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOutModifier(OutModifier that) => transformVariance(that);
     shared actual default Result transformOuter(Outer that) => transformSelfReference(that);
     shared actual default Result transformPackage(Package that) => transformSelfReference(that);
+    shared actual default Result transformPackageCompilationUnit(PackageCompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformPackageDec(PackageDec that) => transformDec(that);
     shared actual default Result transformPackageDescriptor(PackageDescriptor that) => transformNode(that);
     shared actual default Result transformParameter(Parameter that) => transformNode(that);

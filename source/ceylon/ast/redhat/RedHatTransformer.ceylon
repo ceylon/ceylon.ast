@@ -37,6 +37,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JClosedBound=ClosedBound,
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
+        JCompilationUnit=CompilationUnit,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
         JDeclaration=Declaration,
@@ -63,6 +64,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
         JImport=Import,
+        JImportList=ImportList,
         JImportMember=ImportMember,
         JImportMemberOrType=ImportMemberOrType,
         JImportMemberOrTypeList=ImportMemberOrTypeList,
@@ -205,6 +207,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         ellipsis=\iELLIPSIS,
         else_clause=\iELSE_CLAUSE,
         entry_op=\iENTRY_OP,
+        eof=\iEOF,
         equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
         float_literal=\iFLOAT_LITERAL,
@@ -364,6 +367,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value specifierExpression = JSpecifierExpression(null);
         specifierExpression.expression = wrapTerm(transformExpression(that.expression));
         ret.specifierExpression = specifierExpression;
+        return ret;
+    }
+    
+    shared actual JCompilationUnit transformAnyCompilationUnit(AnyCompilationUnit that) {
+        assert (is JCompilationUnit ret = super.transformAnyCompilationUnit(that));
         return ret;
     }
     
@@ -600,6 +608,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JComparisonOp transformComparisonOperation(ComparisonOperation that) {
         assert (is JComparisonOp ret = super.transformComparisonOperation(that));
+        return ret;
+    }
+    
+    shared actual JCompilationUnit transformCompilationUnit(CompilationUnit that) {
+        JCompilationUnit ret = JCompilationUnit(null);
+        JImportList imports = JImportList(null);
+        for (\iimport in that.imports) {
+            imports.addImport(transformImport(\iimport));
+        }
+        ret.importList = imports;
+        for (declaration in that.declarations) {
+            ret.addDeclaration(transformDeclaration(declaration));
+        }
+        tokens.token("", eof);
         return ret;
     }
     
@@ -1183,6 +1205,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that) {
+        JCompilationUnit ret = JCompilationUnit(null);
+        JImportList imports = JImportList(null);
+        for (\iimport in that.imports) {
+            imports.addImport(transformImport(\iimport));
+        }
+        ret.importList = imports;
+        ret.addModuleDescriptor(transformModuleDescriptor(that.moduleDescriptor));
+        tokens.token("", eof);
+        return ret;
+    }
+    
     shared actual JModuleDescriptor transformModuleDescriptor(ModuleDescriptor that) {
         value annotationList = transformAnnotations(that.annotations);
         JModuleDescriptor ret = JModuleDescriptor(tokens.token("module", moduleType));
@@ -1315,6 +1349,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
+    
+    shared actual JCompilationUnit transformPackageCompilationUnit(PackageCompilationUnit that) {
+        JCompilationUnit ret = JCompilationUnit(null);
+        JImportList imports = JImportList(null);
+        for (\iimport in that.imports) {
+            imports.addImport(transformImport(\iimport));
+        }
+        ret.importList = imports;
+        ret.addPackageDescriptor(transformPackageDescriptor(that.packageDescriptor));
+        tokens.token("", eof);
+        return ret;
+    }
     
     shared actual JPackageLiteral transformPackageDec(PackageDec that) {
         JPackageLiteral ret = JPackageLiteral(tokens.token("`", backtick));

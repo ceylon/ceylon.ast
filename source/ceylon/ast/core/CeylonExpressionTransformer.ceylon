@@ -127,7 +127,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
-    transformCompilationUnit(CompilationUnit that) => "CompilationUnit()";
+    transformCompilationUnit(CompilationUnit that)
+            => "CompilationUnit {
+                `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                `` indent + indentLevel ``declarations = ``transformWithIndent(that.declarations)``;
+                ``indent``}";
     transformComplementAssignmentOperation(ComplementAssignmentOperation that)
             => "ComplementAssignmentOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
@@ -307,6 +311,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
     transformModuleBody(ModuleBody that) => "ModuleBody(``transformWithIndent(that.moduleImports)``)";
+    transformModuleCompilationUnit(ModuleCompilationUnit that)
+            => "ModuleCompilationUnit {
+                `` indent + indentLevel ``moduleDescriptor = ``transformWithIndent(that.moduleDescriptor)``;
+                `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                ``indent``}";
     transformModuleDec(ModuleDec that) => "ModuleDec(``transformWithIndent(that.moduleName)``)";
     transformModuleDescriptor(ModuleDescriptor that)
             => "ModuleDescriptor {
@@ -363,6 +372,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformOutModifier(OutModifier that) => "OutModifier()";
     transformOuter(Outer that) => "Outer()";
     transformPackage(Package that) => "Package()";
+    transformPackageCompilationUnit(PackageCompilationUnit that)
+            => "PackageCompilationUnit {
+                `` indent + indentLevel ``packageDescriptor = ``transformWithIndent(that.packageDescriptor)``;
+                `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                ``indent``}";
     transformPackageDec(PackageDec that) => "PackageDec(``transformWithIndent(that.packageName)``)";
     transformPackageDescriptor(PackageDescriptor that)
             => "PackageDescriptor {

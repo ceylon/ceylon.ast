@@ -8,6 +8,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeAlias) { return transformTypeAlias(that); }
         case (is FunctionValueAlias) { return transformFunctionValueAlias(that); }
     }
+    shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) {
+        switch (that)
+        case (is CompilationUnit) { return transformCompilationUnit(that); }
+        case (is ModuleCompilationUnit) { return transformModuleCompilationUnit(that); }
+        case (is PackageCompilationUnit) { return transformPackageCompilationUnit(that); }
+    }
     shared actual default Result transformAnyFunction(AnyFunction that) {
         switch (that)
         case (is FunctionDeclaration) { return transformFunctionDeclaration(that); }
@@ -96,10 +102,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is SmallerOperation) { return transformSmallerOperation(that); }
         case (is LargeAsOperation) { return transformLargeAsOperation(that); }
         case (is SmallAsOperation) { return transformSmallAsOperation(that); }
-    }
-    shared actual default Result transformCompilationUnit(CompilationUnit that) {
-        // TODO switch on case types, call appropriate transformSubclass(that)
-        throw AssertionError("Not yet implemented!");
     }
     shared actual default Result transformDec(Dec that) {
         switch (that)
@@ -209,7 +211,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ExpressionIsh) { return transformExpressionIsh(that); }
         case (is Statement) { return transformStatement(that); }
         case (is Declaration) { return transformDeclaration(that); }
-        case (is CompilationUnit) { return transformCompilationUnit(that); }
         case (is Annotation) { return transformAnnotation(that); }
         case (is Annotations) { return transformAnnotations(that); }
         case (is Parameter) { return transformParameter(that); }
@@ -228,6 +229,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ImportElement) { return transformImportElement(that); }
         case (is ImportElements) { return transformImportElements(that); }
         case (is Import) { return transformImport(that); }
+        case (is AnyCompilationUnit) { return transformAnyCompilationUnit(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

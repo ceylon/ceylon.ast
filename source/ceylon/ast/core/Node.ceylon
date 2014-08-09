@@ -21,7 +21,7 @@ import ceylon.collection {
    assert (exists tokens = node.get(tokensKey));
    ~~~"""
 shared abstract class Node()
-        of ExpressionIsh | Statement | Declaration | CompilationUnit | Annotation | Annotations | Parameter | Body | TypeParameter | TypeParameters | CaseTypes | SatisfiedTypes | TypeConstraint | PackageDescriptor | ModuleImport | ModuleBody | ModuleDescriptor | Alias | ImportWildcard | ImportElement | ImportElements | Import
+        of ExpressionIsh | Statement | Declaration | Annotation | Annotations | Parameter | Body | TypeParameter | TypeParameters | CaseTypes | SatisfiedTypes | TypeConstraint | PackageDescriptor | ModuleImport | ModuleBody | ModuleDescriptor | Alias | ImportWildcard | ImportElement | ImportElements | Import | AnyCompilationUnit
         extends Object() {
     
     "The child nodes of this node."

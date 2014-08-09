@@ -39,6 +39,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
+    shared actual default AnyCompilationUnit transformAnyCompilationUnit(AnyCompilationUnit that) {
+        assert (is AnyCompilationUnit ret = super.transformAnyCompilationUnit(that));
+        return ret;
+    }
     shared actual default AnyFunction transformAnyFunction(AnyFunction that) {
         assert (is AnyFunction ret = super.transformAnyFunction(that));
         return ret;
@@ -134,10 +138,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ComparisonOperation ret = super.transformComparisonOperation(that));
         return ret;
     }
-    shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that) {
-        assert (is CompilationUnit ret = super.transformCompilationUnit(that));
-        return ret;
-    }
+    shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that)
+            => that.copy(that.declarations.collect(transformDeclaration), that.imports.collect(transformImport));
     shared actual default ComplementAssignmentOperation transformComplementAssignmentOperation(ComplementAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
@@ -320,6 +322,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ModuleBody transformModuleBody(ModuleBody that)
             => that.copy(that.moduleImports.collect(transformModuleImport));
+    shared actual default ModuleCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that)
+            => that.copy(transformModuleDescriptor(that.moduleDescriptor), that.imports.collect(transformImport));
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
             => that.copy(transformFullPackageName(that.moduleName));
     shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
@@ -372,6 +376,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default Package transformPackage(Package that)
             => that.copy();
+    shared actual default PackageCompilationUnit transformPackageCompilationUnit(PackageCompilationUnit that)
+            => that.copy(transformPackageDescriptor(that.packageDescriptor), that.imports.collect(transformImport));
     shared actual default PackageDec transformPackageDec(PackageDec that)
             => that.copy(transformFullPackageName(that.packageName));
     shared actual default PackageDescriptor transformPackageDescriptor(PackageDescriptor that)

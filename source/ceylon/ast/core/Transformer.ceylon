@@ -19,6 +19,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnnotation(Annotation that);
     shared formal Result transformAnnotations(Annotations that);
     shared formal Result transformAnonymousArgument(AnonymousArgument that);
+    shared formal Result transformAnyCompilationUnit(AnyCompilationUnit that);
     shared formal Result transformAnyFunction(AnyFunction that);
     shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformAnyValue(AnyValue that);
@@ -110,6 +111,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMeta(Meta that);
     shared formal Result transformModifier(Modifier that);
     shared formal Result transformModuleBody(ModuleBody that);
+    shared formal Result transformModuleCompilationUnit(ModuleCompilationUnit that);
     shared formal Result transformModuleDec(ModuleDec that);
     shared formal Result transformModuleDescriptor(ModuleDescriptor that);
     shared formal Result transformModuleImport(ModuleImport that);
@@ -131,6 +133,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOutModifier(OutModifier that);
     shared formal Result transformOuter(Outer that);
     shared formal Result transformPackage(Package that);
+    shared formal Result transformPackageCompilationUnit(PackageCompilationUnit that);
     shared formal Result transformPackageDec(PackageDec that);
     shared formal Result transformPackageDescriptor(PackageDescriptor that);
     shared formal Result transformParameter(Parameter that);

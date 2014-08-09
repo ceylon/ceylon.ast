@@ -4,15 +4,17 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAnyAttribute=AnyAttribute,
+        JAnyMethod=AnyMethod,
         JTypedDeclaration=TypedDeclaration
     }
 }
 
 "Converts a RedHat AST [[TypedDeclaration|JTypedDeclaration]] to a `ceylon.ast` [[TypedDeclaration]]."
 shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclaration) {
-    assert (is JAnyAttribute typedDeclaration);
+    assert (is JAnyAttribute|JAnyMethod typedDeclaration);
     switch (typedDeclaration)
     case (is JAnyAttribute) { return anyValueToCeylon(typedDeclaration); }
+    case (is JAnyMethod) { return anyFunctionToCeylon(typedDeclaration); }
 }
 
 "Compiles the given [[code]] for a Typed Declaration

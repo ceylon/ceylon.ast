@@ -79,6 +79,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdenticalOperation(IdenticalOperation that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
+    shared formal Result transformImport(Import that);
     shared formal Result transformImportElement(ImportElement that);
     shared formal Result transformImportElements(ImportElements that);
     shared formal Result transformImportFunctionValueElement(ImportFunctionValueElement that);

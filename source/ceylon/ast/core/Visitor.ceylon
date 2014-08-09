@@ -79,6 +79,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdenticalOperation(IdenticalOperation that) => visitIdenticalOperation(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
+    transformImport(Import that) => visitImport(that);
     transformImportElement(ImportElement that) => visitImportElement(that);
     transformImportElements(ImportElements that) => visitImportElements(that);
     transformImportFunctionValueElement(ImportFunctionValueElement that) => visitImportFunctionValueElement(that);
@@ -263,6 +264,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
     shared default void visitFunctionValueAlias(FunctionValueAlias that) => super.transformFunctionValueAlias(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
+    shared default void visitImport(Import that) => super.transformImport(that);
     shared default void visitImportElements(ImportElements that) => super.transformImportElements(that);
     shared default void visitImportElement(ImportElement that) => super.transformImportElement(that);
     shared default void visitImportFunctionValueElement(ImportFunctionValueElement that) => super.transformImportFunctionValueElement(that);

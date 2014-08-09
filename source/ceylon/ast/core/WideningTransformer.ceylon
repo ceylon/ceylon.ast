@@ -70,6 +70,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdenticalOperation(IdenticalOperation that) => transformEqualityOperation(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
+    shared actual default Result transformImport(Import that) => transformNode(that);
     shared actual default Result transformImportElement(ImportElement that) => transformNode(that);
     shared actual default Result transformImportElements(ImportElements that) => transformNode(that);
     shared actual default Result transformImportFunctionValueElement(ImportFunctionValueElement that) => transformImportElement(that);

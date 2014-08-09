@@ -227,6 +227,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ImportWildcard) { return transformImportWildcard(that); }
         case (is ImportElement) { return transformImportElement(that); }
         case (is ImportElements) { return transformImportElements(that); }
+        case (is Import) { return transformImport(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

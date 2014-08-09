@@ -62,6 +62,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
+        JImport=Import,
         JImportMember=ImportMember,
         JImportMemberOrType=ImportMemberOrType,
         JImportMemberOrTypeList=ImportMemberOrTypeList,
@@ -922,6 +923,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
         ret.term = transformPrecedence2Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JImport transformImport(Import that) {
+        JImport ret = JImport(tokens.token("import", importType));
+        ret.importPath = transformFullPackageName(that.packageName);
+        ret.importMemberOrTypeList = transformImportElements(that.elements);
         return ret;
     }
     

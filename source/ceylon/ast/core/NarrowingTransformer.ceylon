@@ -62,6 +62,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformAtom(Atom that) {
         switch (that)
         case (is Literal) { return transformLiteral(that); }
+        case (is StringTemplate) { return transformStringTemplate(that); }
         case (is SelfReference) { return transformSelfReference(that); }
         case (is GroupedExpression) { return transformGroupedExpression(that); }
         case (is Iterable) { return transformIterable(that); }

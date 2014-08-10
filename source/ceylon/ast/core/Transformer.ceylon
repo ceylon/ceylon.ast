@@ -175,6 +175,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSpreadArgument(SpreadArgument that);
     shared formal Result transformStatement(Statement that);
     shared formal Result transformStringLiteral(StringLiteral that);
+    shared formal Result transformStringTemplate(StringTemplate that);
     shared formal Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that);
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);

@@ -11,6 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackage=Package,
         JSelfExpression=SelfExpression,
         JSequenceEnumeration=SequenceEnumeration,
+        JStringTemplate=StringTemplate,
         JTuple=Tuple
     }
 }
@@ -28,6 +29,7 @@ shared Atom atomToCeylon(JAtom atom) {
         }
     }
     case (is JLiteral) { return literalToCeylon(atom); }
+    case (is JStringTemplate) { return stringTemplateToCeylon(atom); }
     case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom); }
     case (is JSequenceEnumeration) { return iterableToCeylon(atom); }
     case (is JTuple) { return tupleToCeylon(atom); }

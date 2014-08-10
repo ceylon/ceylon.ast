@@ -154,6 +154,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStatement=Statement,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
+        JStringTemplate=StringTemplate,
         JSubtractAssignOp=SubtractAssignOp,
         JSumOp=SumOp,
         JSuper=Super,
@@ -255,7 +256,10 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         small_as_op=\iSMALL_AS_OP,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
+        string_end=\iSTRING_END,
         string_literal=\iSTRING_LITERAL,
+        string_mid=\iSTRING_MID,
+        string_start=\iSTRING_START,
         subtract_specify=\iSUBTRACT_SPECIFY,
         sum_op=\iSUM_OP,
         superType=\iSUPER,
@@ -1735,6 +1739,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value expression = JExpression(null);
         expression.term = transformExpression(that.argument);
         ret.expression = expression;
+        return ret;
+    }
+    
+    shared actual JStringTemplate transformStringTemplate(StringTemplate that) {
+        JStringTemplate ret = JStringTemplate(null);
+        value litIt = that.literals.iterator();
+        value exprIt = that.expressions.iterator();
+        assert (is StringLiteral litFirst = litIt.next());
+        ret.addStringLiteral(JStringLiteral(tokens.token("\"" + litFirst.text + "\`\`", string_start)));
+        variable value litNext = litIt.next();
+        variable value exprNext = exprIt.next();
+        while (!litNext is Finished) {
+            assert (is StringLiteral litCur = litNext);
+            assert (is ValueExpression exprCur = exprNext);
+            litNext = litIt.next();
+            exprNext = exprIt.next();
+            ret.addExpression(wrapTerm(transformValueExpression(exprCur)));
+            if (litNext is Finished) {
+                // last part, litCur needs to be come a string_end
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + litCur.text + "\"", string_end)));
+                break; // not strictly necessary, but we know that the loop condition will be false iff we entered this block, so why not
+            } else {
+                // mid part, litCur needs to become a string_mid
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + litCur.text + "\`\`", string_mid)));
+            }
+        }
         return ret;
     }
     

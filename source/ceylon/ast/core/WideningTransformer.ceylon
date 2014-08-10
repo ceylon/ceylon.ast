@@ -165,6 +165,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSpreadArgument(SpreadArgument that) => transformExpressionIsh(that);
     shared actual default Result transformStatement(Statement that) => transformNode(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
+    shared actual default Result transformStringTemplate(StringTemplate that) => transformAtom(that);
     shared actual default Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);

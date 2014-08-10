@@ -174,6 +174,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
     transformStatement(Statement that) => visitStatement(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
+    transformStringTemplate(StringTemplate that) => visitStringTemplate(that);
     transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => visitSubtractAssignmentOperation(that);
     transformSumOperation(SumOperation that) => visitSumOperation(that);
     transformSuper(Super that) => visitSuper(that);
@@ -376,6 +377,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);
     shared default void visitStatement(Statement that) => super.transformStatement(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
+    shared default void visitStringTemplate(StringTemplate that) => super.transformStringTemplate(that);
     shared default void visitSubtractAssignmentOperation(SubtractAssignmentOperation that) => super.transformSubtractAssignmentOperation(that);
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);

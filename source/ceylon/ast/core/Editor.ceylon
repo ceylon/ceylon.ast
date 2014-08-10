@@ -564,6 +564,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
+    shared actual default StringTemplate transformStringTemplate(StringTemplate that)
+            => that.copy(that.literals.collect(transformStringLiteral), that.expressions.collect(transformValueExpression));
     shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default SumOperation transformSumOperation(SumOperation that)

@@ -17,5 +17,5 @@ shared object atom satisfies AbstractTest<Atom,JAtom> {
     fromCeylon = RedHatTransformer.transformAtom;
     toCeylon = atomToCeylon;
     
-    tests = [literal, selfReference, groupedExpression, iterable, tuple, dynamicValue];
+    tests = [literal, stringTemplate, selfReference, groupedExpression, iterable, tuple, dynamicValue];
 }

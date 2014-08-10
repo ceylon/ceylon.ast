@@ -22,6 +22,9 @@ shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> 
     shared String->AssignOperation iAssign1Expression = construct(baseExpression.iExpression, integerLiteral.oneIntegerLiteral);
     shared String->AssignOperation textAssignExpression = construct(baseExpression.textExpression, sumOperation.helloPlusNameElseWorldPlusBangExpression);
     
+    // not tested directly, but used by other tests
+    shared String->AssignOperation nameEmptyAssignTrueExpression = construct(qualifiedExpression.nameEmptyExpression, baseExpression.trueExpression);
+    
     compile = compileAssignOperation;
     fromCeylon = RedHatTransformer.transformAssignOperation;
     toCeylon = assignOperationToCeylon;

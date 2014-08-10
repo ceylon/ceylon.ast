@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
+        JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
         JTerm=Term
     }
@@ -19,6 +20,9 @@ shared ValueExpression valueExpressionToCeylon(JTerm term) {
             return valueExpressionToCeylon(term.term);
         }
         return primaryToCeylon(term);
+    }
+    case (is JOperatorExpression) {
+        return operationToCeylon(term);
     }
     else {
         throw AssertionError("Unknown value expression type, or not a value expression");

@@ -162,7 +162,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
-        JTypeArguments=TypeArguments,
         JTypeConstraint=TypeConstraint,
         JTypeConstriantList=TypeConstraintList,
         JTypeParameterDeclaration=TypeParameterDeclaration,

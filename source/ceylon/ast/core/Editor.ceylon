@@ -84,6 +84,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is AssignmentOperation ret = super.transformAssignmentOperation(that));
         return ret;
     }
+    shared actual default AssignmentStatement transformAssignmentStatement(AssignmentStatement that)
+            => that.copy(transformAssignmentOperation(that.expression));
     shared actual default Atom transformAtom(Atom that) {
         assert (is Atom ret = super.transformAtom(that));
         return ret;
@@ -196,6 +198,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
         return ret;
     }
+    shared actual default ExpressionStatement transformExpressionStatement(ExpressionStatement that) {
+        assert (is ExpressionStatement ret = super.transformExpressionStatement(that));
+        return ret;
+    }
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
@@ -267,6 +273,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy([for (child in that.children) transformPrimaryType(child)]);
     shared actual default Invocation transformInvocation(Invocation that)
             => that.copy(transformPrimary(that.invoked), transformArguments(that.arguments));
+    shared actual default InvocationStatement transformInvocationStatement(InvocationStatement that)
+            => that.copy(transformInvocation(that.expression));
     shared actual default IterableType transformIterableType(IterableType that) {
         if (exists variadicType = that.variadicType) {
             return that.copy(transformVariadicType(variadicType));
@@ -475,6 +483,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default PrefixOperation transformPrefixOperation(PrefixOperation that) {
         assert (is PrefixOperation ret = super.transformPrefixOperation(that));
         return ret;
+    }
+    shared actual default PrefixPostfixStatement transformPrefixPostfixStatement(PrefixPostfixStatement that) {
+        PrefixOperation|PostfixOperation transformPrefixOperationOrPostfixOperation(PrefixOperation|PostfixOperation that) {
+            switch (that)
+            case (is PrefixOperation) { return transformPrefixOperation(that); }
+            case (is PostfixOperation) { return transformPostfixOperation(that); }
+        }
+        return that.copy(transformPrefixOperationOrPostfixOperation(that.expression));
     }
     shared actual default Primary transformPrimary(Primary that) {
         assert (is Primary ret = super.transformPrimary(that));

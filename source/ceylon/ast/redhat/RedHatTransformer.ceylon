@@ -56,6 +56,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExecutableStatement=ExecutableStatement,
         JExists=Exists,
         JExpression=Expression,
+        JExpressionStatement=ExpressionStatement,
         JFloatLiteral=FloatLiteral,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
@@ -450,6 +451,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JExpressionStatement transformAssignmentStatement(AssignmentStatement that) {
+        JExpressionStatement ret = JExpressionStatement(null);
+        ret.expression = wrapTerm(transformAssignmentOperation(that.expression));
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JAtom transformAtom(Atom that) {
         assert (is JAtom ret = super.transformAtom(that));
         return ret;
@@ -802,6 +810,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JExpressionStatement transformExpressionStatement(ExpressionStatement that) {
+        assert (is JExpressionStatement ret = super.transformExpressionStatement(that));
+        return ret;
+    }
+    
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
@@ -1068,6 +1081,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         switch (arguments)
         case (is PositionalArguments) { ret.positionalArgumentList = transformPositionalArguments(arguments); }
         case (is NamedArguments) { ret.namedArgumentList = transformNamedArguments(arguments); }
+        return ret;
+    }
+    
+    shared actual JExpressionStatement transformInvocationStatement(InvocationStatement that) {
+        JExpressionStatement ret = JExpressionStatement(null);
+        ret.expression = wrapTerm(transformInvocation(that.expression));
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     
@@ -1542,6 +1562,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JPrefixOperatorExpression transformPrefixOperation(PrefixOperation that) {
         assert (is JPrefixOperatorExpression ret = super.transformPrefixOperation(that));
+        return ret;
+    }
+    
+    shared actual JExpressionStatement transformPrefixPostfixStatement(PrefixPostfixStatement that) {
+        JExpressionStatement ret = JExpressionStatement(null);
+        value expression = that.expression;
+        switch (expression)
+        case (is PrefixOperation) { ret.expression = wrapTerm(transformPrefixOperation(expression)); }
+        case (is PostfixOperation) { ret.expression = wrapTerm(transformPostfixOperation(expression)); }
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

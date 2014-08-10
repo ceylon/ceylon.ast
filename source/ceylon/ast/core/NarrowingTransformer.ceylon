@@ -144,6 +144,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Bound) { return transformBound(that); }
         case (is Modifier) { return transformModifier(that); }
     }
+    shared actual default Result transformExpressionStatement(ExpressionStatement that) {
+        switch (that)
+        case (is AssignmentStatement) { return transformAssignmentStatement(that); }
+        case (is PrefixPostfixStatement) { return transformPrefixPostfixStatement(that); }
+        case (is InvocationStatement) { return transformInvocationStatement(that); }
+    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }
@@ -408,6 +414,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformStatement(Statement that) {
         switch (that)
         case (is Specification) { return transformSpecification(that); }
+        case (is ExpressionStatement) { return transformExpressionStatement(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

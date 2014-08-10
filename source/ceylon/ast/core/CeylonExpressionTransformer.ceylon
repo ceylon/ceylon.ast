@@ -102,6 +102,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;
                 `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
                 ``indent``}";
+    transformAssignmentStatement(AssignmentStatement that) => "AssignmentStatement(``transformWithIndent(that.expression)``)";
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
@@ -274,6 +275,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``invoked = ``transformWithIndent(that.invoked)``;
                 `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
                 ``indent``}";
+    transformInvocationStatement(InvocationStatement that) => "InvocationStatement(``transformWithIndent(that.expression)``)";
     transformIsOperation(IsOperation that)
             => "IsOperation {
                 `` indent + indentLevel ``child = ``transformWithIndent(that.operand)``;
@@ -393,6 +395,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";
     transformPrefixDecrementOperation(PrefixDecrementOperation that) => "PrefixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPrefixIncrementOperation(PrefixIncrementOperation that) => "PrefixIncrementOperation(``transformWithIndent(that.operand)``)";
+    transformPrefixPostfixStatement(PrefixPostfixStatement that) => "PrefixPostfixStatement(``transformWithIndent(that.expression)``)";
     transformProductOperation(ProductOperation that)
             => "ProductOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

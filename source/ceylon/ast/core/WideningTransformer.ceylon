@@ -20,6 +20,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformAssignmentStatement(AssignmentStatement that) => transformExpressionStatement(that);
     shared actual default Result transformAtom(Atom that) => transformPrimary(that);
     shared actual default Result transformBaseExpression(BaseExpression that) => transformPrimary(that);
     shared actual default Result transformBaseMeta(BaseMeta that) => transformMeta(that);
@@ -59,6 +60,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
+    shared actual default Result transformExpressionStatement(ExpressionStatement that) => transformStatement(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
@@ -85,6 +87,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
     shared actual default Result transformInvocation(Invocation that) => transformPrimary(that);
+    shared actual default Result transformInvocationStatement(InvocationStatement that) => transformExpressionStatement(that);
     shared actual default Result transformIsOperation(IsOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformIterable(Iterable that) => transformAtom(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
@@ -136,6 +139,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformPrefixDecrementOperation(PrefixDecrementOperation that) => transformPrefixOperation(that);
     shared actual default Result transformPrefixIncrementOperation(PrefixIncrementOperation that) => transformPrefixOperation(that);
     shared actual default Result transformPrefixOperation(PrefixOperation that) => transformUnaryOperation(that);
+    shared actual default Result transformPrefixPostfixStatement(PrefixPostfixStatement that) => transformExpressionStatement(that);
     shared actual default Result transformPrimary(Primary that) => transformValueExpression(that);
     shared actual default Result transformPrimaryType(PrimaryType that) => transformUnionableType(that);
     shared actual default Result transformProductOperation(ProductOperation that) => transformArithmeticOperation(that);

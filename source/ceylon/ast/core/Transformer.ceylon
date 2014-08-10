@@ -29,6 +29,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
     shared formal Result transformAssignOperation(AssignOperation that);
     shared formal Result transformAssignmentOperation(AssignmentOperation that);
+    shared formal Result transformAssignmentStatement(AssignmentStatement that);
     shared formal Result transformAtom(Atom that);
     shared formal Result transformBaseExpression(BaseExpression that);
     shared formal Result transformBaseMeta(BaseMeta that);
@@ -68,6 +69,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
+    shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
@@ -94,6 +96,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformInvocation(Invocation that);
+    shared formal Result transformInvocationStatement(InvocationStatement that);
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
@@ -146,6 +149,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformPrefixDecrementOperation(PrefixDecrementOperation that);
     shared formal Result transformPrefixIncrementOperation(PrefixIncrementOperation that);
     shared formal Result transformPrefixOperation(PrefixOperation that);
+    shared formal Result transformPrefixPostfixStatement(PrefixPostfixStatement that);
     shared formal Result transformPrimary(Primary that);
     shared formal Result transformPrimaryType(PrimaryType that);
     shared formal Result transformProductOperation(ProductOperation that);

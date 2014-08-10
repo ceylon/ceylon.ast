@@ -29,6 +29,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformArithmeticOperation(ArithmeticOperation that) => visitArithmeticOperation(that);
     transformAssignOperation(AssignOperation that) => visitAssignOperation(that);
     transformAssignmentOperation(AssignmentOperation that) => visitAssignmentOperation(that);
+    transformAssignmentStatement(AssignmentStatement that) => visitAssignmentStatement(that);
     transformAtom(Atom that) => visitAtom(that);
     transformBaseExpression(BaseExpression that) => visitBaseExpression(that);
     transformBaseMeta(BaseMeta that) => visitBaseMeta(that);
@@ -68,6 +69,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
+    transformExpressionStatement(ExpressionStatement that) => visitExpressionStatement(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
     transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
@@ -94,6 +96,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformInvocation(Invocation that) => visitInvocation(that);
+    transformInvocationStatement(InvocationStatement that) => visitInvocationStatement(that);
     transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterable(Iterable that) => visitIterable(that);
     transformIterableType(IterableType that) => visitIterableType(that);
@@ -146,6 +149,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformPrefixDecrementOperation(PrefixDecrementOperation that) => visitPrefixDecrementOperation(that);
     transformPrefixIncrementOperation(PrefixIncrementOperation that) => visitPrefixIncrementOperation(that);
     transformPrefixOperation(PrefixOperation that) => visitPrefixOperation(that);
+    transformPrefixPostfixStatement(PrefixPostfixStatement that) => visitPrefixPostfixStatement(that);
     transformPrimary(Primary that) => visitPrimary(that);
     transformProductOperation(ProductOperation that) => visitProductOperation(that);
     transformQualifiedExpression(QualifiedExpression that) => visitQualifiedExpression(that);
@@ -227,6 +231,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitArithmeticOperation(ArithmeticOperation that) => super.transformArithmeticOperation(that);
     shared default void visitAssignOperation(AssignOperation that) => super.transformAssignOperation(that);
     shared default void visitAssignmentOperation(AssignmentOperation that) => super.transformAssignmentOperation(that);
+    shared default void visitAssignmentStatement(AssignmentStatement that) => super.transformAssignmentStatement(that);
     shared default void visitAtom(Atom that) => super.transformAtom(that);
     shared default void visitBaseExpression(BaseExpression that) => super.transformBaseExpression(that);
     shared default void visitBaseMeta(BaseMeta that) => super.transformBaseMeta(that);
@@ -262,6 +267,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitEqualOperation(EqualOperation that) => super.transformEqualOperation(that);
     shared default void visitEqualityOperation(EqualityOperation that) => super.transformEqualityOperation(that);
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
+    shared default void visitExpressionStatement(ExpressionStatement that) => super.transformExpressionStatement(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);
     shared default void visitFunctionDefinition(FunctionDefinition that) => super.transformFunctionDefinition(that);
@@ -279,6 +285,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitInvocation(Invocation that) => super.transformInvocation(that);
+    shared default void visitInvocationStatement(InvocationStatement that) => super.transformInvocationStatement(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitIterable(Iterable that) => super.transformIterable(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
@@ -311,6 +318,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
     shared default void visitParameters(Parameters that) => super.transformParameters(that);
     shared default void visitPositionalArguments(PositionalArguments that) => super.transformPositionalArguments(that);
+    shared default void visitPrefixPostfixStatement(PrefixPostfixStatement that) => super.transformPrefixPostfixStatement(that);
     shared default void visitQuotientOperation(QuotientOperation that) => super.transformQuotientOperation(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);

@@ -179,6 +179,10 @@
         </ceylon-compile>
     </target>
     
+    <target name="csg"
+        description="A shortcut for compile-source-gen"
+        depends="compile-source-gen"/>
+    
     <target name="test-core" depends="compile-test-core"
         description="Tests the Ceylon AST core">
         <ceylon-test>

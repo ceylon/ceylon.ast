@@ -35,9 +35,14 @@
         <module name="ceylon.ast.redhat"/> 
     </moduleset>
     
+    <moduleset id="modules.source.samples">
+        <module name="ceylon.ast.samples"/> 
+    </moduleset>
+    
     <moduleset id="modules.source">
         <moduleset refid="modules.source.core"/>
         <moduleset refid="modules.source.redhat"/>
+        <moduleset refid="modules.source.samples"/>
     </moduleset>
     
     <moduleset id="modules.test.core">
@@ -48,9 +53,14 @@
         <module name="test.ceylon.ast.redhat"/> 
     </moduleset>
     
+    <moduleset id="modules.test.samples">
+        <module name="test.ceylon.ast.samples"/> 
+    </moduleset>
+    
     <moduleset id="modules.test">
         <moduleset refid="modules.test.core"/>
         <moduleset refid="modules.test.redhat"/>
+        <moduleset refid="modules.test.samples"/>
     </moduleset>
     
     <moduleset id="modules.all">
@@ -87,9 +97,19 @@
         </ceylon-compile>
     </target>
 
+    <target name="compile-samples" depends="compile-core"
+            description="Compiles the Ceylon AST samples module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.source.samples"/>
+        </ceylon-compile>
+    </target>
+
     <target name="compile-source"
             description="Compiles the Ceylon AST modules">
-         <!-- not depends="compile-core,compile-redhat" because it's faster to compile in one go -->
+         <!-- not depends="compile-core,compile-redhat,compile-samples" because it's faster to compile in one go -->
         <ceylon-compile executable="${ceylon.executable}"
             src="source-gen"
             verbose="${ceylon.verbosity}"
@@ -116,6 +136,16 @@
             encoding="UTF-8"
             pack200="true">
             <moduleset refid="modules.test.redhat"/>
+        </ceylon-compile>
+    </target>
+    
+    <target name="compile-test-samples" depends="compile-samples"
+            description="Compiles the Ceylon AST samples test module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.test.samples"/>
         </ceylon-compile>
     </target>
     
@@ -161,6 +191,13 @@
         description="Tests the Ceylon AST RedHat backend">
         <ceylon-test>
             <moduleset refid="modules.test.redhat"/>
+        </ceylon-test>
+    </target>
+
+    <target name="test-samples" depends="compile-test-samples"
+        description="Tests the Ceylon AST samples">
+        <ceylon-test>
+            <moduleset refid="modules.test.samples"/>
         </ceylon-test>
     </target>
 

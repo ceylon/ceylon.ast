@@ -111,7 +111,6 @@
             description="Compiles the Ceylon AST modules">
          <!-- not depends="compile-core,compile-redhat,compile-samples" because it's faster to compile in one go -->
         <ceylon-compile executable="${ceylon.executable}"
-            src="source-gen"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
             pack200="true"> 

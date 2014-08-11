@@ -5,10 +5,14 @@
  * a function, value, or class in the current scope, or
  * a function, value, or class in the current block.
  
+ (To create a `BaseExpression`, consider using the [[baseExpression]]
+ utility function in order to make your code more readable.)
+ 
  Examples:
  
      null
      max<Integer,Nothing>"
+see (`function baseExpression`)
 shared class BaseExpression(nameAndArgs)
         extends Primary() {
     
@@ -36,4 +40,37 @@ shared class BaseExpression(nameAndArgs)
         copyExtraInfoTo(ret);
         return ret;
     }
+}
+
+"""A utility function to create a [[BaseExpression]] directly from a string,
+   without having to use [[NameWithTypeArguments]] (a rather verbose name).
+   
+   (The type arguments will all be invariant; if you want to use use-site variance,
+   you have to construct the [[TypeArgument]] objects yourself.)
+   
+   Usage examples:
+   
+       baseExpression("null") // null
+       baseExpression("String") // String; not to be confused with baseType("String")!
+       baseExpression("emptyOrSingleton", "Integer") // emptyOrSingleton<Integer>"""
+shared BaseExpression baseExpression(String name, String|Type* typeArguments) {
+    Type toType(String|Type typeArgument) {
+        switch (typeArgument)
+        case (is String) { return baseType(typeArgument); }
+        case (is Type) { return typeArgument; }
+    }
+    TypeArguments? args;
+    if (typeArguments nonempty) { // non-narrowing check because the narrowing would be useless; collect() loses nonemptiness info, so we have to assert below anyways
+        assert (nonempty ta = typeArguments.map(toType).collect(TypeArgument));
+        args = TypeArguments(ta);
+    } else {
+        args = null;
+    }
+    NameWithTypeArguments na;
+    if (name.first?.lowercase else false) {
+        na = MemberNameWithTypeArguments(LIdentifier(name), args);
+    } else {
+        na = TypeNameWithTypeArguments(UIdentifier(name), args);
+    }
+    return BaseExpression(na);
 }

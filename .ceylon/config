@@ -1,6 +1,7 @@
 
 [compiler]
 source=./source
+source=./source-gen
 
 [defaults]
 encoding=UTF-8

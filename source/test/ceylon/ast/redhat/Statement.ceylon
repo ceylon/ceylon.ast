@@ -17,5 +17,5 @@ shared object statement satisfies AbstractTest<Statement,JExecutableStatement> {
     fromCeylon = RedHatTransformer.transformStatement;
     toCeylon = statementToCeylon;
     
-    tests = [specification];
+    tests = [specification, expressionStatement];
 }

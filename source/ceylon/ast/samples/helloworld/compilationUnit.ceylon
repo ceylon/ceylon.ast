@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    baseExpression,
     CompilationUnit,
     FunctionDefinition,
     LIdentifier,
@@ -7,8 +8,6 @@ import ceylon.ast.core {
     Block,
     InvocationStatement,
     Invocation,
-    BaseExpression,
-    MemberNameWithTypeArguments,
     PositionalArguments,
     ArgumentList,
     StringLiteral
@@ -21,7 +20,7 @@ shared CompilationUnit helloWorldCompilationUnit = CompilationUnit([
             parameterLists = [Parameters()];
             definition = Block([
                     InvocationStatement(Invocation {
-                            invoked = BaseExpression(MemberNameWithTypeArguments(LIdentifier("print")));
+                            invoked = baseExpression("print");
                             arguments = PositionalArguments(ArgumentList([StringLiteral("Hello, World!")]));
                         })
                 ]);

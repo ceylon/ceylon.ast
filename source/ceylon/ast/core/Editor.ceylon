@@ -106,6 +106,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Body ret = super.transformBody(that));
         return ret;
     }
+    shared actual default BooleanCondition transformBooleanCondition(BooleanCondition that)
+            => that.copy(transformExpression(that.condition));
     shared actual default Bound transformBound(Bound that) {
         assert (is Bound ret = super.transformBound(that));
         return ret;
@@ -148,6 +150,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
+    shared actual default Condition transformCondition(Condition that) {
+        assert (is Condition ret = super.transformCondition(that));
+        return ret;
+    }
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
     shared actual default Dec transformDec(Dec that) {

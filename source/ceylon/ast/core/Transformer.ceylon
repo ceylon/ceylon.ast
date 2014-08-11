@@ -37,6 +37,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBinaryOperation(BinaryOperation that);
     shared formal Result transformBlock(Block that);
     shared formal Result transformBody(Body that);
+    shared formal Result transformBooleanCondition(BooleanCondition that);
     shared formal Result transformBound(Bound that);
     shared formal Result transformBreak(Break that);
     shared formal Result transformCallableParameter(CallableParameter that);
@@ -50,6 +51,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformComplementAssignmentOperation(ComplementAssignmentOperation that);
     shared formal Result transformComplementOperation(ComplementOperation that);
+    shared formal Result transformCondition(Condition that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDeclaration(Declaration that);

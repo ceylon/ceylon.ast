@@ -107,6 +107,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformBlock(Block that) => "Block(``transformWithIndent(that.content)``)";
+    transformBooleanCondition(BooleanCondition that) => "BooleanCondition(``transformWithIndent(that.condition)``)";
     transformBreak(Break that) => "Break()";
     transformCallableParameter(CallableParameter that)
             => "CallableParameter {

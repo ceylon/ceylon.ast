@@ -30,6 +30,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBitwiseOp=BitwiseOp,
         JBlock=Block,
         JBody=Body,
+        JBooleanCondition=BooleanCondition,
         JBound=Bound,
         JBreak=Break,
         JCaseTypes=CaseTypes,
@@ -41,6 +42,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCompilationUnit=CompilationUnit,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
+        JCondition=Condition,
         JContinue=Continue,
         JDeclaration=Declaration,
         JDecrementOp=DecrementOp,
@@ -531,6 +533,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBooleanCondition transformBooleanCondition(BooleanCondition that) {
+        JBooleanCondition ret = JBooleanCondition(null);
+        ret.expression = wrapTerm(transformExpression(that.condition));
+        return ret;
+    }
+    
     shared actual JBound transformBound(Bound that) {
         assert (is JBound ret = super.transformBound(that));
         return ret;
@@ -665,6 +673,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JComplementOp ret = JComplementOp(tokens.token(that.operator, complement_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence4Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JCondition transformCondition(Condition that) {
+        assert (is JCondition ret = super.transformCondition(that));
         return ret;
     }
     

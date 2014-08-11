@@ -37,6 +37,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBinaryOperation(BinaryOperation that) => visitBinaryOperation(that);
     transformBlock(Block that) => visitBlock(that);
     transformBody(Body that) => visitBody(that);
+    transformBooleanCondition(BooleanCondition that) => visitBooleanCondition(that);
     transformBound(Bound that) => visitBound(that);
     transformBreak(Break that) => visitBreak(that);
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
@@ -50,6 +51,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
+    transformCondition(Condition that) => visitCondition(that);
     transformContinue(Continue that) => visitContinue(that);
     transformDec(Dec that) => visitDec(that);
     transformDeclaration(Declaration that) => visitDeclaration(that);
@@ -245,6 +247,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBinaryOperation(BinaryOperation that) => super.transformBinaryOperation(that);
     shared default void visitBlock(Block that) => super.transformBlock(that);
     shared default void visitBody(Body that) => super.transformBody(that);
+    shared default void visitBooleanCondition(BooleanCondition that) => super.transformBooleanCondition(that);
     shared default void visitBound(Bound that) => super.transformBound(that);
     shared default void visitBreak(Break that) => super.transformBreak(that);
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
@@ -258,6 +261,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
+    shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);

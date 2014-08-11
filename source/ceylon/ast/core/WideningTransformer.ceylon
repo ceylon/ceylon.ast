@@ -28,6 +28,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBinaryOperation(BinaryOperation that) => transformOperation(that);
     shared actual default Result transformBlock(Block that) => transformBody(that);
     shared actual default Result transformBody(Body that) => transformNode(that);
+    shared actual default Result transformBooleanCondition(BooleanCondition that) => transformCondition(that);
     shared actual default Result transformBound(Bound that) => transformExpressionIsh(that);
     shared actual default Result transformBreak(Break that) => transformDirective(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
@@ -41,6 +42,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
+    shared actual default Result transformCondition(Condition that) => transformNode(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDeclaration(Declaration that) => transformNode(that);

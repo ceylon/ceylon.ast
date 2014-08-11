@@ -104,6 +104,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is LargeAsOperation) { return transformLargeAsOperation(that); }
         case (is SmallAsOperation) { return transformSmallAsOperation(that); }
     }
+    shared actual default Result transformCondition(Condition that) {
+        switch (that)
+        case (is BooleanCondition) { return transformBooleanCondition(that); }
+    }
     shared actual default Result transformDec(Dec that) {
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
@@ -244,6 +248,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ImportElements) { return transformImportElements(that); }
         case (is Import) { return transformImport(that); }
         case (is AnyCompilationUnit) { return transformAnyCompilationUnit(that); }
+        case (is Condition) { return transformCondition(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

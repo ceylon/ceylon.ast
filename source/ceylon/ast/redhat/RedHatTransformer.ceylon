@@ -94,6 +94,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
         JMemberLiteral=MemberLiteral,
+        JMemberOp=MemberOp,
         JMetaLiteral=MetaLiteral,
         JMethodDeclaration=MethodDeclaration,
         JMethodDefinition=MethodDefinition,
@@ -1604,6 +1605,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is LIdentifier) { ret = JQualifiedMemberExpression(null); }
         case (is UIdentifier) { ret = JQualifiedTypeExpression(null); }
         ret.primary = transformPrimary(that.receiverExpression);
+        ret.memberOperator = JMemberOp(tokens.token(".", member_op));
         ret.identifier = transformIdentifier(name);
         if (exists typeArguments = that.nameAndArgs.typeArguments) {
             ret.typeArguments = transformTypeArguments(typeArguments);

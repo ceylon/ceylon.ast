@@ -31,6 +31,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBlock=Block,
         JBody=Body,
         JBound=Bound,
+        JBreak=Break,
         JCaseTypes=CaseTypes,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
@@ -40,12 +41,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCompilationUnit=CompilationUnit,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
+        JContinue=Continue,
         JDeclaration=Declaration,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDefaultTypeArgument=DefaultTypeArgument,
         JDifferenceOp=DifferenceOp,
+        JDirective=Directive,
         JDivideAssignOp=DivideAssignOp,
         JDynamic=Dynamic,
         JDynamicModifier=DynamicModifier,
@@ -137,6 +140,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JRangeOp=RangeOp,
         JRemainderAssignOp=RemainderAssignOp,
         JRemainderOp=RemainderOp,
+        JReturn=Return,
         JSatisfiedTypes=SatisfiedTypes,
         JScaleOp=ScaleOp,
         JSegmentOp=SegmentOp,
@@ -162,6 +166,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTerm=Term,
         JThenOp=ThenOp,
         JThis=This,
+        JThrow=Throw,
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
@@ -195,6 +200,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         and_op=\iAND_OP,
         and_specify=\iAND_SPECIFY,
         backtick=\iBACKTICK,
+        breakType=\iBREAK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
         comma=\iCOMMA,
@@ -202,6 +208,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         complement_op=\iCOMPLEMENT_OP,
         complement_specify=\iCOMPLEMENT_SPECIFY,
         compute=\iCOMPUTE,
+        continueType=\iCONTINUE,
         decrement_op=\iDECREMENT_OP,
         difference_op=\iDIFFERENCE_OP,
         divide_specify=\iDIVIDE_SPECIFY,
@@ -249,6 +256,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         rbracket=\iRBRACKET,
         remainder_specify=\iREMAINDER_SPECIFY,
         remainder_op=\iREMAINDER_OP,
+        returnType=\iRETURN,
         rparen=\iRPAREN,
         satisfiesType=\iSATISFIES,
         scale_op=\iSCALE_OP,
@@ -266,6 +274,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         superType=\iSUPER,
         then_clause=\iTHEN_CLAUSE,
         thisType=\iTHIS,
+        throwType=\iTHROW,
         type_constraint=\iTYPE_CONSTRAINT,
         uidentifier=\iUIDENTIFIER,
         union_op=\iUNION_OP,
@@ -527,6 +536,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JBreak transformBreak(Break that) {
+        JBreak ret = JBreak(tokens.token(that.text, breakType));
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JFunctionalParameterDeclaration transformCallableParameter(CallableParameter that) {
         JFunctionalParameterDeclaration ret = JFunctionalParameterDeclaration(null);
         JMethodDeclaration dec = JMethodDeclaration(null);
@@ -653,6 +668,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JContinue transformContinue(Continue that) {
+        JContinue ret = JContinue(tokens.token(that.text, continueType));
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JMetaLiteral transformDec(Dec that) {
         assert (is JMetaLiteral ret = super.transformDec(that));
         return ret;
@@ -703,6 +724,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence7Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JDirective transformDirective(Directive that) {
+        assert (is JDirective ret = super.transformDirective(that));
         return ret;
     }
     
@@ -1633,6 +1659,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JReturn transformReturn(Return that) {
+        JReturn ret = JReturn(tokens.token(that.text, returnType));
+        if (exists result = that.result) {
+            ret.expression = wrapTerm(transformExpression(result));
+        }
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JSatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that) {
         JSatisfiedTypes ret = JSatisfiedTypes(tokens.token("satisfies", satisfiesType));
         ret.addType(transformPrimaryType(that.satisfiedTypes.first));
@@ -1799,6 +1834,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JThis transformThis(This that)
             => JThis(tokens.token("this", thisType));
+    
+    shared actual JThrow transformThrow(Throw that) {
+        JThrow ret = JThrow(tokens.token(that.text, throwType));
+        if (exists result = that.result) {
+            ret.expression = wrapTerm(transformExpression(result));
+        }
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
     
     shared actual JTuple transformTuple(Tuple that) {
         JTuple ret = JTuple(tokens.token("[", lbracket));

@@ -38,6 +38,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBlock(Block that) => visitBlock(that);
     transformBody(Body that) => visitBody(that);
     transformBound(Bound that) => visitBound(that);
+    transformBreak(Break that) => visitBreak(that);
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
@@ -49,6 +50,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
+    transformContinue(Continue that) => visitContinue(that);
     transformDec(Dec that) => visitDec(that);
     transformDeclaration(Declaration that) => visitDeclaration(that);
     transformDefaultedCallableParameter(DefaultedCallableParameter that) => visitDefaultedCallableParameter(that);
@@ -57,6 +59,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformDefaultedValueParameter(DefaultedValueParameter that) => visitDefaultedValueParameter(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
+    transformDirective(Directive that) => visitDirective(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
     transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
@@ -158,6 +161,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformRemainderAssignmentOperation(RemainderAssignmentOperation that) => visitRemainderAssignmentOperation(that);
     transformRemainderOperation(RemainderOperation that) => visitRemainderOperation(that);
     transformRequiredParameter(RequiredParameter that) => visitRequiredParameter(that);
+    transformReturn(Return that) => visitReturn(that);
     transformSatisfiedTypes(SatisfiedTypes that) => visitSatisfiedTypes(that);
     transformScaleOperation(ScaleOperation that) => visitScaleOperation(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
@@ -180,6 +184,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSuper(Super that) => visitSuper(that);
     transformThenOperation(ThenOperation that) => visitThenOperation(that);
     transformThis(This that) => visitThis(that);
+    transformThrow(Throw that) => visitThrow(that);
     transformTuple(Tuple that) => visitTuple(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
@@ -241,6 +246,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBlock(Block that) => super.transformBlock(that);
     shared default void visitBody(Body that) => super.transformBody(that);
     shared default void visitBound(Bound that) => super.transformBound(that);
+    shared default void visitBreak(Break that) => super.transformBreak(that);
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
@@ -252,6 +258,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
+    shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);
     shared default void visitDefaultedCallableParameter(DefaultedCallableParameter that) => super.transformDefaultedCallableParameter(that);
@@ -260,6 +267,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDefaultedValueParameter(DefaultedValueParameter that) => super.transformDefaultedValueParameter(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
+    shared default void visitDirective(Directive that) => super.transformDirective(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
     shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
@@ -361,6 +369,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitRemainderAssignmentOperation(RemainderAssignmentOperation that) => super.transformRemainderAssignmentOperation(that);
     shared default void visitRemainderOperation(RemainderOperation that) => super.transformRemainderOperation(that);
     shared default void visitRequiredParameter(RequiredParameter that) => super.transformRequiredParameter(that);
+    shared default void visitReturn(Return that) => super.transformReturn(that);
     shared default void visitSatisfiedTypes(SatisfiedTypes that) => super.transformSatisfiedTypes(that);
     shared default void visitScaleOperation(ScaleOperation that) => super.transformScaleOperation(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
@@ -383,6 +392,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSuper(Super that) => super.transformSuper(that);
     shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);
     shared default void visitThis(This that) => super.transformThis(that);
+    shared default void visitThrow(Throw that) => super.transformThrow(that);
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitType(Type that) => super.transformType(that);

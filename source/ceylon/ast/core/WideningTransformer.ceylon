@@ -29,6 +29,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBlock(Block that) => transformBody(that);
     shared actual default Result transformBody(Body that) => transformNode(that);
     shared actual default Result transformBound(Bound that) => transformExpressionIsh(that);
+    shared actual default Result transformBreak(Break that) => transformDirective(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCaseTypes(CaseTypes that) => transformNode(that);
@@ -40,6 +41,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
+    shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDeclaration(Declaration that) => transformNode(that);
     shared actual default Result transformDefaultedCallableParameter(DefaultedCallableParameter that) => transformDefaultedParameter(that);
@@ -48,6 +50,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDefaultedType(DefaultedType that) => transformTypeIsh(that);
     shared actual default Result transformDefaultedValueParameter(DefaultedValueParameter that) => transformDefaultedParameter(that);
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
+    shared actual default Result transformDirective(Directive that) => transformStatement(that);
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
@@ -149,6 +152,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformRemainderOperation(RemainderOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformRequiredParameter(RequiredParameter that) => transformParameter(that);
+    shared actual default Result transformReturn(Return that) => transformDirective(that);
     shared actual default Result transformSatisfiedTypes(SatisfiedTypes that) => transformNode(that);
     shared actual default Result transformScaleOperation(ScaleOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
@@ -171,6 +175,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformThenOperation(ThenOperation that) => transformBinaryOperation(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
+    shared actual default Result transformThrow(Throw that) => transformDirective(that);
     shared actual default Result transformTuple(Tuple that) => transformAtom(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);

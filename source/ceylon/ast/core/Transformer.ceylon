@@ -38,6 +38,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBlock(Block that);
     shared formal Result transformBody(Body that);
     shared formal Result transformBound(Bound that);
+    shared formal Result transformBreak(Break that);
     shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCaseTypes(CaseTypes that);
@@ -49,6 +50,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCompilationUnit(CompilationUnit that);
     shared formal Result transformComplementAssignmentOperation(ComplementAssignmentOperation that);
     shared formal Result transformComplementOperation(ComplementOperation that);
+    shared formal Result transformContinue(Continue that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDeclaration(Declaration that);
     shared formal Result transformDefaultedCallableParameter(DefaultedCallableParameter that);
@@ -57,6 +59,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDefaultedValueParameter(DefaultedValueParameter that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
+    shared formal Result transformDirective(Directive that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
     shared formal Result transformDynamicModifier(DynamicModifier that);
     shared formal Result transformDynamicValue(DynamicValue that);
@@ -159,6 +162,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformRequiredParameter(RequiredParameter that);
+    shared formal Result transformReturn(Return that);
     shared formal Result transformSatisfiedTypes(SatisfiedTypes that);
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
@@ -181,6 +185,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSuper(Super that);
     shared formal Result transformThenOperation(ThenOperation that);
     shared formal Result transformThis(This that);
+    shared formal Result transformThrow(Throw that);
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);

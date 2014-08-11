@@ -110,6 +110,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Bound ret = super.transformBound(that));
         return ret;
     }
+    shared actual default Break transformBreak(Break that)
+            => that.copy();
     shared actual default CallableParameter transformCallableParameter(CallableParameter that) {
         Type|VoidModifier transformTypeOrVoidModifier(Type|VoidModifier that) {
             switch (that)
@@ -146,6 +148,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
+    shared actual default Continue transformContinue(Continue that)
+            => that.copy();
     shared actual default Dec transformDec(Dec that) {
         assert (is Dec ret = super.transformDec(that));
         return ret;
@@ -168,6 +172,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformValueParameter(that.parameter), transformSpecifier(that.specifier));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
+    shared actual default Directive transformDirective(Directive that) {
+        assert (is Directive ret = super.transformDirective(that));
+        return ret;
+    }
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default DynamicModifier transformDynamicModifier(DynamicModifier that)
@@ -520,6 +528,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is RequiredParameter ret = super.transformRequiredParameter(that));
         return ret;
     }
+    shared actual default Return transformReturn(Return that)
+            => that.copy(nullsafeInvoke(that.result, transformExpression));
     shared actual default SatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that)
             => that.copy(that.satisfiedTypes.collect(transformPrimaryType));
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
@@ -576,6 +586,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence15Expression(that.rightOperand));
     shared actual default This transformThis(This that)
             => that.copy();
+    shared actual default Throw transformThrow(Throw that)
+            => that.copy(nullsafeInvoke(that.result, transformExpression));
     shared actual default Tuple transformTuple(Tuple that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default TupleType transformTupleType(TupleType that)

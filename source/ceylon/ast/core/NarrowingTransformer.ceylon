@@ -120,6 +120,13 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is DefaultedCallableParameter) { return transformDefaultedCallableParameter(that); }
         case (is DefaultedParameterReference) { return transformDefaultedParameterReference(that); }
     }
+    shared actual default Result transformDirective(Directive that) {
+        switch (that)
+        case (is Return) { return transformReturn(that); }
+        case (is Throw) { return transformThrow(that); }
+        case (is Break) { return transformBreak(that); }
+        case (is Continue) { return transformContinue(that); }
+    }
     shared actual default Result transformEqualityOperation(EqualityOperation that) {
         switch (that)
         case (is EqualOperation) { return transformEqualOperation(that); }
@@ -416,6 +423,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Specification) { return transformSpecification(that); }
         case (is ExpressionStatement) { return transformExpressionStatement(that); }
+        case (is Directive) { return transformDirective(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

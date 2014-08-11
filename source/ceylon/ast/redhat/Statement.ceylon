@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JDirective=Directive,
         JExecutableStatement=ExecutableStatement,
         JExpressionStatement=ExpressionStatement,
         JSpecifierStatement=SpecifierStatement
@@ -16,10 +17,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
 shared Statement statementToCeylon(JExecutableStatement statement) {
-    assert (is JSpecifierStatement|JExpressionStatement statement);
+    assert (is JSpecifierStatement|JExpressionStatement|JDirective statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement); }
     case (is JExpressionStatement) { return expressionStatementToCeylon(statement); }
+    case (is JDirective) { return directiveToCeylon(statement); }
 }
 
 "Compiles the given [[code]] for a Statement

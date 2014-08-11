@@ -5,6 +5,6 @@
        value name = person.name else "<unnamed>";
        print("Hello, World!");"""
 shared abstract class Statement()
-        of Specification | ExpressionStatement
+        of Specification | ExpressionStatement | Directive
         extends Node() {
 }

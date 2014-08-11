@@ -107,6 +107,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that) => "BaseType(``transformWithIndent(that.nameAndArgs)``)";
     transformBlock(Block that) => "Block(``transformWithIndent(that.content)``)";
+    transformBreak(Break that) => "Break()";
     transformCallableParameter(CallableParameter that)
             => "CallableParameter {
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
@@ -143,6 +144,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformContinue(Continue that) => "Continue()";
     transformDefaultedCallableParameter(DefaultedCallableParameter that)
             => "DefaultedCallableParameter {
                 `` indent + indentLevel ``parameter = ``transformWithIndent(that.parameter)``;
@@ -426,6 +428,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformReturn(Return that) => "Return(``transformWithIndent(that.result)``)";
     transformSatisfiedTypes(SatisfiedTypes that) => "SatisfiedTypes(``transformWithIndent(that.satisfiedTypes)``)";
     transformScaleOperation(ScaleOperation that)
             => "ScaleOperation {
@@ -474,6 +477,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``result = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformThis(This that) => "This()";
+    transformThrow(Throw that) => "Throw(``transformWithIndent(that.result)``)";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     transformTypeAlias(TypeAlias that) => "TypeAlias(``transformWithIndent(that.name)``)";

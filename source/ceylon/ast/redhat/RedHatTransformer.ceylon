@@ -769,39 +769,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JNotOp transformNotOperation(NotOperation that) {
-        JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
-        ret.term = transformPrecedence13Expression(that.operand);
-        return ret;
-    }
-    
     shared actual JPowerOp transformExponentiationOperation(ExponentiationOperation that) {
         value left = transformPrecedence1Expression(that.leftOperand);
         JPowerOp ret = JPowerOp(tokens.token(that.operator, power_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence2Expression(that.rightOperand);
-        return ret;
-    }
-    
-    shared actual JSpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that) {
-        JSpecifiedArgument ret = JSpecifiedArgument(null);
-        assert (is ValueSpecification specification = that.specification);
-        switch (specification)
-        case (is ValueSpecification) {
-            ret.identifier = transformIdentifier(specification.name);
-            ret.specifierExpression = transformSpecifier(specification.specifier);
-        }
-        return ret;
-    }
-    
-    shared actual JSpecifierExpression transformSpecifier(Specifier that) {
-        JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
-        ret.expression = wrapTerm(transformExpression(that.expression));
-        return ret;
-    }
-    
-    shared actual JExecutableStatement transformStatement(Statement that) {
-        assert (is JExecutableStatement ret = super.transformStatement(that));
         return ret;
     }
     
@@ -1310,6 +1282,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JNotOp transformNotOperation(NotOperation that) {
+        JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
+        ret.term = transformPrecedence13Expression(that.operand);
+        return ret;
+    }
+    
     shared actual JOfOp transformOfOperation(OfOperation that) {
         JTerm term = transformPrecedence10Expression(that.operand);
         JOfOp ret = JOfOp(tokens.token(that.operator, case_types));
@@ -1736,11 +1714,33 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that) {
+        JSpecifiedArgument ret = JSpecifiedArgument(null);
+        assert (is ValueSpecification specification = that.specification);
+        switch (specification)
+        case (is ValueSpecification) {
+            ret.identifier = transformIdentifier(specification.name);
+            ret.specifierExpression = transformSpecifier(specification.specifier);
+        }
+        return ret;
+    }
+    
+    shared actual JSpecifierExpression transformSpecifier(Specifier that) {
+        JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
+        ret.expression = wrapTerm(transformExpression(that.expression));
+        return ret;
+    }
+    
     shared actual JSpreadArgument transformSpreadArgument(SpreadArgument that) {
         JSpreadArgument ret = JSpreadArgument(tokens.token("*", product_op));
         value expression = JExpression(null);
         expression.term = transformExpression(that.argument);
         ret.expression = expression;
+        return ret;
+    }
+    
+    shared actual JExecutableStatement transformStatement(Statement that) {
+        assert (is JExecutableStatement ret = super.transformStatement(that));
         return ret;
     }
     
@@ -2025,6 +2025,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTerm transformValueExpression(ValueExpression that) {
+        assert (is JTerm ret = super.transformValueExpression(that));
+        return ret;
+    }
+    
     shared actual JAttributeGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that) {
         value annotations = transformAnnotations(that.annotations);
         JAttributeGetterDefinition ret;
@@ -2050,11 +2055,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JTerm transformValueExpression(ValueExpression that) {
-        assert (is JTerm ret = super.transformValueExpression(that));
-        return ret;
-    }
-    
     shared actual JValueParameterDeclaration transformValueParameter(ValueParameter that) {
         JValueParameterDeclaration ret = JValueParameterDeclaration(null);
         JAttributeDeclaration dec = JAttributeDeclaration(null);
@@ -2065,18 +2065,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is DynamicModifier) { dec.type = transformDynamicModifier(type); }
         dec.identifier = transformLIdentifier(that.name);
         ret.typedDeclaration = dec;
-        return ret;
-    }
-    
-    shared actual JSequencedType transformVariadicType(VariadicType that) {
-        JSequencedType ret = JSequencedType(null);
-        ret.type = transformType(that.elementType);
-        if (that.isNonempty) {
-            ret.endToken = tokens.token("+", sum_op);
-        } else {
-            ret.endToken = tokens.token("*", product_op);
-        }
-        ret.atLeastOne = that.isNonempty;
         return ret;
     }
     
@@ -2103,15 +2091,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JTypeVariance transformVariance(Variance that) {
-        assert (is JTypeVariance ret = super.transformVariance(that));
+    shared actual JSequencedType transformVariadicType(VariadicType that) {
+        JSequencedType ret = JSequencedType(null);
+        ret.type = transformType(that.elementType);
+        if (that.isNonempty) {
+            ret.endToken = tokens.token("+", sum_op);
+        } else {
+            ret.endToken = tokens.token("*", product_op);
+        }
+        ret.atLeastOne = that.isNonempty;
         return ret;
     }
     
-    JExpression wrapTerm(JTerm term) {
-        value expression = JExpression(null);
-        expression.term = term;
-        return expression;
+    shared actual JTypeVariance transformVariance(Variance that) {
+        assert (is JTypeVariance ret = super.transformVariance(that));
+        return ret;
     }
     
     shared actual JVoidModifier transformVoidModifier(VoidModifier that) {
@@ -2129,5 +2123,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.upperBound = transformBound(that.upperBound);
         that.upperBound.remove(isLowerBoundKey);
         return ret;
+    }
+    
+    JExpression wrapTerm(JTerm term) {
+        value expression = JExpression(null);
+        expression.term = term;
+        return expression;
     }
 }

@@ -43,6 +43,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
     shared actual default Result transformCondition(Condition that) => transformNode(that);
+    shared actual default Result transformConditionList(ConditionList that) => transformNode(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDeclaration(Declaration that) => transformNode(that);

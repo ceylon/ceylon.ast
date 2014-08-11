@@ -52,6 +52,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformComplementAssignmentOperation(ComplementAssignmentOperation that);
     shared formal Result transformComplementOperation(ComplementOperation that);
     shared formal Result transformCondition(Condition that);
+    shared formal Result transformConditionList(ConditionList that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDeclaration(Declaration that);

@@ -249,6 +249,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Import) { return transformImport(that); }
         case (is AnyCompilationUnit) { return transformAnyCompilationUnit(that); }
         case (is Condition) { return transformCondition(that); }
+        case (is ConditionList) { return transformConditionList(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

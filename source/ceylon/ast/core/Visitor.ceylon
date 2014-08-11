@@ -52,6 +52,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
     transformCondition(Condition that) => visitCondition(that);
+    transformConditionList(ConditionList that) => visitConditionList(that);
     transformContinue(Continue that) => visitContinue(that);
     transformDec(Dec that) => visitDec(that);
     transformDeclaration(Declaration that) => visitDeclaration(that);
@@ -262,6 +263,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
     shared default void visitCondition(Condition that) => super.transformCondition(that);
+    shared default void visitConditionList(ConditionList that) => super.transformConditionList(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);

@@ -43,6 +43,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
         JCondition=Condition,
+        JConditionList=ConditionList,
         JContinue=Continue,
         JDeclaration=Declaration,
         JDecrementOp=DecrementOp,
@@ -678,6 +679,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JCondition transformCondition(Condition that) {
         assert (is JCondition ret = super.transformCondition(that));
+        return ret;
+    }
+    
+    shared actual JConditionList transformConditionList(ConditionList that) {
+        JConditionList ret = JConditionList(tokens.token("(", lparen));
+        ret.addCondition(transformCondition(that.conditions.first));
+        for (condition in that.conditions.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addCondition(transformCondition(condition));
+        }
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

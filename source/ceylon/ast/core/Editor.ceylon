@@ -154,6 +154,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Condition ret = super.transformCondition(that));
         return ret;
     }
+    shared actual default ConditionList transformConditionList(ConditionList that)
+            => that.copy(that.conditions.collect(transformCondition));
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
     shared actual default Dec transformDec(Dec that) {

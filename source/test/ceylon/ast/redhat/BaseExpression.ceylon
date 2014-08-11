@@ -2,7 +2,9 @@ import ceylon.ast.core {
     BaseExpression,
     LIdentifier,
     MemberNameWithTypeArguments,
-    TypeArguments
+    TypeArguments,
+    TypeNameWithTypeArguments,
+    UIdentifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -40,6 +42,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression countdownExpression = construct("countdown");
     shared String->BaseExpression \iΔtExpression = "\\iΔt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt")));
     shared String->BaseExpression printExpression = construct("print");
+    shared String->BaseExpression assertionErrorExpression = "AssertionError"->BaseExpression(TypeNameWithTypeArguments(UIdentifier("AssertionError")));
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

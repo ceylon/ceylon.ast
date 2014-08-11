@@ -21,6 +21,9 @@ shared object invocation satisfies ConcreteTest<Invocation,JInvocationExpression
     
     shared String->Invocation printHelloWorldInvocation = construct(baseExpression.printExpression, positionalArguments.helloWorldPositionalArguments);
     
+    // not tested directly, but used by other tests
+    shared String->Invocation assertionErrorInvocation = construct(baseExpression.assertionErrorExpression, positionalArguments.emptyPositionalArguments);
+    
     compile = compileInvocation;
     fromCeylon = RedHatTransformer.transformInvocation;
     toCeylon = invocationToCeylon;

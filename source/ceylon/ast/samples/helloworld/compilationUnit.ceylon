@@ -1,19 +1,19 @@
 import ceylon.ast.core {
     baseExpression,
-    CompilationUnit,
-    FunctionDefinition,
-    LIdentifier,
-    VoidModifier,
-    Parameters,
-    Block,
-    InvocationStatement,
-    Invocation,
-    PositionalArguments,
-    ArgumentList,
-    StringLiteral,
-    stringTemplate,
     qualifiedExpression,
-    ElseOperation
+    stringTemplate,
+    ArgumentList,
+    Block,
+    CompilationUnit,
+    ElseOperation,
+    FunctionDefinition,
+    Invocation,
+    InvocationStatement,
+    LIdentifier,
+    Parameters,
+    PositionalArguments,
+    StringLiteral,
+    VoidModifier
 }
 
 shared CompilationUnit helloWorldCompilationUnit = CompilationUnit([

@@ -18,6 +18,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformArguments(Arguments that) => transformExpressionIsh(that);
     shared actual default Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformAssertion(Assertion that) => transformStatement(that);
     shared actual default Result transformAssignOperation(AssignOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) => transformBinaryOperation(that);
     shared actual default Result transformAssignmentStatement(AssignmentStatement that) => transformExpressionStatement(that);

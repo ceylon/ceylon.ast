@@ -429,6 +429,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Specification) { return transformSpecification(that); }
         case (is ExpressionStatement) { return transformExpressionStatement(that); }
+        case (is Assertion) { return transformAssertion(that); }
         case (is Directive) { return transformDirective(that); }
     }
     shared actual default Result transformType(Type that) {

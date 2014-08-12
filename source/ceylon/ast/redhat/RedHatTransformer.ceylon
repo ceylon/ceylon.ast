@@ -16,6 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
         JArithmeticOp=ArithmeticOp,
+        JAssertion=Assertion,
         JAssignmentOp=AssignmentOp,
         JAssignOp=AssignOp,
         JAtom=Atom,
@@ -202,6 +203,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         averbatim_string=\iAVERBATIM_STRING,
         and_op=\iAND_OP,
         and_specify=\iAND_SPECIFY,
+        assertType=\iASSERT,
         backtick=\iBACKTICK,
         breakType=\iBREAK,
         case_types=\iCASE_TYPES,
@@ -452,6 +454,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JArithmeticOp transformArithmeticOperation(ArithmeticOperation that) {
         assert (is JArithmeticOp ret = super.transformArithmeticOperation(that));
+        return ret;
+    }
+    
+    shared actual JAssertion transformAssertion(Assertion that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JAssertion ret = JAssertion(tokens.token("assert", assertType));
+        ret.annotationList = annotationList;
+        ret.conditionList = transformConditionList(that.conditions);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JAssertion=Assertion,
         JDirective=Directive,
         JExecutableStatement=ExecutableStatement,
         JExpressionStatement=ExpressionStatement,
@@ -17,20 +18,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
 shared Statement statementToCeylon(JExecutableStatement statement) {
-    assert (is JSpecifierStatement|JExpressionStatement|JDirective statement);
+    assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement); }
     case (is JExpressionStatement) { return expressionStatementToCeylon(statement); }
+    case (is JAssertion) { return assertionToCeylon(statement); }
     case (is JDirective) { return directiveToCeylon(statement); }
 }
 
 "Compiles the given [[code]] for a Statement
  into a [[Statement]] using the Ceylon compiler
- (more specifically, the rule for a `statement`)."
+ (more specifically, the rule for a `declarationOrStatement`)."
 shared Statement? compileStatement(String code) {
-    if (exists jStatement = createParser(code).statement()) {
-        assert (is JExecutableStatement jStatement);
-        return statementToCeylon(jStatement);
+    if (is JExecutableStatement jDeclarationOrStatement = createParser(code).declarationOrStatement()) {
+        // declaration() doesn’t include assertions
+        return statementToCeylon(jDeclarationOrStatement);
     } else {
         return null;
     }

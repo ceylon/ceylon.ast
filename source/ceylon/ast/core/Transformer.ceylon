@@ -27,6 +27,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformArguments(Arguments that);
     shared formal Result transformArithmeticAssignmentOperation(ArithmeticAssignmentOperation that);
     shared formal Result transformArithmeticOperation(ArithmeticOperation that);
+    shared formal Result transformAssertion(Assertion that);
     shared formal Result transformAssignOperation(AssignOperation that);
     shared formal Result transformAssignmentOperation(AssignmentOperation that);
     shared formal Result transformAssignmentStatement(AssignmentStatement that);

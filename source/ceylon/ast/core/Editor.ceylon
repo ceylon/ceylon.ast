@@ -78,6 +78,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ArithmeticOperation ret = super.transformArithmeticOperation(that));
         return ret;
     }
+    shared actual default Assertion transformAssertion(Assertion that)
+            => that.copy(transformConditionList(that.conditions), transformAnnotations(that.annotations));
     shared actual default AssignOperation transformAssignOperation(AssignOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {

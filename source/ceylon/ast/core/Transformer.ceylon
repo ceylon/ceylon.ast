@@ -55,6 +55,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCondition(Condition that);
     shared formal Result transformConditionList(ConditionList that);
     shared formal Result transformContinue(Continue that);
+    shared formal Result transformControlStructure(ControlStructure that);
     shared formal Result transformDec(Dec that);
     shared formal Result transformDeclaration(Declaration that);
     shared formal Result transformDefaultedCallableParameter(DefaultedCallableParameter that);
@@ -67,6 +68,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
     shared formal Result transformDynamicModifier(DynamicModifier that);
     shared formal Result transformDynamicValue(DynamicValue that);
+    shared formal Result transformElseClause(ElseClause that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
     shared formal Result transformEntryType(EntryType that);
@@ -89,6 +91,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdenticalOperation(IdenticalOperation that);
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
+    shared formal Result transformIfClause(IfClause that);
+    shared formal Result transformIfElse(IfElse that);
     shared formal Result transformImport(Import that);
     shared formal Result transformImportElement(ImportElement that);
     shared formal Result transformImportElements(ImportElements that);

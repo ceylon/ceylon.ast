@@ -55,6 +55,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCondition(Condition that) => visitCondition(that);
     transformConditionList(ConditionList that) => visitConditionList(that);
     transformContinue(Continue that) => visitContinue(that);
+    transformControlStructure(ControlStructure that) => visitControlStructure(that);
     transformDec(Dec that) => visitDec(that);
     transformDeclaration(Declaration that) => visitDeclaration(that);
     transformDefaultedCallableParameter(DefaultedCallableParameter that) => visitDefaultedCallableParameter(that);
@@ -67,6 +68,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
     transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
+    transformElseClause(ElseClause that) => visitElseClause(that);
     transformElseOperation(ElseOperation that) => visitElseOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
     transformEntryType(EntryType that) => visitEntryType(that);
@@ -89,6 +91,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdenticalOperation(IdenticalOperation that) => visitIdenticalOperation(that);
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
+    transformIfClause(IfClause that) => visitIfClause(that);
+    transformIfElse(IfElse that) => visitIfElse(that);
     transformImport(Import that) => visitImport(that);
     transformImportElement(ImportElement that) => visitImportElement(that);
     transformImportElements(ImportElements that) => visitImportElements(that);
@@ -267,6 +271,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitConditionList(ConditionList that) => super.transformConditionList(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
+    shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
     shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);
     shared default void visitDefaultedCallableParameter(DefaultedCallableParameter that) => super.transformDefaultedCallableParameter(that);
@@ -279,6 +284,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
     shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
+    shared default void visitElseClause(ElseClause that) => super.transformElseClause(that);
     shared default void visitElseOperation(ElseOperation that) => super.transformElseOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
     shared default void visitEqualOperation(EqualOperation that) => super.transformEqualOperation(that);
@@ -291,6 +297,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
     shared default void visitFunctionValueAlias(FunctionValueAlias that) => super.transformFunctionValueAlias(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);
+    shared default void visitIfClause(IfClause that) => super.transformIfClause(that);
+    shared default void visitIfElse(IfElse that) => super.transformIfElse(that);
     shared default void visitImport(Import that) => super.transformImport(that);
     shared default void visitImportElements(ImportElements that) => super.transformImportElements(that);
     shared default void visitImportElement(ImportElement that) => super.transformImportElement(that);

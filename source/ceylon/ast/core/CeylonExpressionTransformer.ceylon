@@ -180,6 +180,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformDynamicModifier(DynamicModifier that) => "DynamicModifier()";
     transformDynamicValue(DynamicValue that) => "DynamicValue(``transformWithIndent(that.content)``)";
+    transformElseClause(ElseClause that) => "ElseClause(``transformWithIndent(that.child)``)";
     transformElseOperation(ElseOperation that)
             => "ElseOperation {
                 `` indent + indentLevel ``optionalValue = ``transformWithIndent(that.leftOperand)``;
@@ -237,6 +238,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIdentityOperation(IdentityOperation that) => "IdentityOperation(``transformWithIndent(that.operand)``)";
+    transformIfClause(IfClause that)
+            => "IfClause {
+                `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
+                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                ``indent``}";
+    transformIfElse(IfElse that)
+            => "IfElse {
+                `` indent + indentLevel ``ifClause = ``transformWithIndent(that.ifClause)``;
+                `` indent + indentLevel ``elseClause = ``transformWithIndent(that.elseClause)``;
+                ``indent``}";
     transformImport(Import that)
             => "Import {
                 `` indent + indentLevel ``packageName = ``transformWithIndent(that.packageName)``;

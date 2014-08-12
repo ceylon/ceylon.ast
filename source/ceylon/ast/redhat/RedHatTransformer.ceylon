@@ -46,6 +46,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCondition=Condition,
         JConditionList=ConditionList,
         JContinue=Continue,
+        JControlStatement=ControlStatement,
         JDeclaration=Declaration,
         JDecrementOp=DecrementOp,
         JDefaultedType=DefaultedType,
@@ -56,6 +57,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDivideAssignOp=DivideAssignOp,
         JDynamic=Dynamic,
         JDynamicModifier=DynamicModifier,
+        JElseClause=ElseClause,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
         JEqualOp=EqualOp,
@@ -71,6 +73,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JGroupedType=GroupedType,
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
+        JIfClause=IfClause,
+        JIfStatement=IfStatement,
         JImport=Import,
         JImportList=ImportList,
         JImportMember=ImportMember,
@@ -227,6 +231,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         float_literal=\iFLOAT_LITERAL,
         function_modifier=\iFUNCTION_MODIFIER,
         identical_op=\iIDENTICAL_OP,
+        if_clause=\iIF_CLAUSE,
         importType=\iIMPORT,
         in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
@@ -710,6 +715,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JControlStatement transformControlStructure(ControlStructure that) {
+        assert (is JControlStatement ret = super.transformControlStructure(that));
+        return ret;
+    }
+    
     shared actual JMetaLiteral transformDec(Dec that) {
         assert (is JMetaLiteral ret = super.transformDec(that));
         return ret;
@@ -784,6 +794,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JDynamic transformDynamicValue(DynamicValue that) {
         JDynamic ret = JDynamic(tokens.token("value", value_modifier));
         ret.namedArgumentList = transformNamedArguments(that.content);
+        return ret;
+    }
+    
+    shared actual JElseClause transformElseClause(ElseClause that) {
+        JElseClause ret = JElseClause(tokens.token("else", else_clause));
+        value child = that.child;
+        switch (child)
+        case (is Block) { ret.block = transformBlock(child); }
+        case (is IfElse) {
+            // The RedHat AST doesn’t know ‘else if’;
+            // the parser emulates it using a one-statement block (without tokens),
+            // and we emulate the parser.
+            value block = JBlock(null);
+            block.addStatement(transformIfElse(child));
+            ret.block = block;
+        }
         return ret;
     }
     
@@ -996,6 +1022,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JPositiveOp transformIdentityOperation(IdentityOperation that) {
         JPositiveOp ret = JPositiveOp(tokens.token(that.operator, sum_op));
         ret.term = transformPrecedence2Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JIfClause transformIfClause(IfClause that) {
+        JIfClause ret = JIfClause(tokens.token("if", if_clause));
+        ret.conditionList = transformConditionList(that.conditions);
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
+    shared actual JIfStatement transformIfElse(IfElse that) {
+        JIfStatement ret = JIfStatement(null);
+        ret.ifClause = transformIfClause(that.ifClause);
+        if (exists elseClause = that.elseClause) {
+            ret.elseClause = transformElseClause(elseClause);
+        }
         return ret;
     }
     

@@ -108,6 +108,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is BooleanCondition) { return transformBooleanCondition(that); }
     }
+    shared actual default Result transformControlStructure(ControlStructure that) {
+        switch (that)
+        case (is IfElse) { return transformIfElse(that); }
+    }
     shared actual default Result transformDec(Dec that) {
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
@@ -250,6 +254,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is AnyCompilationUnit) { return transformAnyCompilationUnit(that); }
         case (is Condition) { return transformCondition(that); }
         case (is ConditionList) { return transformConditionList(that); }
+        case (is IfClause) { return transformIfClause(that); }
+        case (is ElseClause) { return transformElseClause(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
@@ -431,6 +437,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ExpressionStatement) { return transformExpressionStatement(that); }
         case (is Assertion) { return transformAssertion(that); }
         case (is Directive) { return transformDirective(that); }
+        case (is ControlStructure) { return transformControlStructure(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

@@ -160,6 +160,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.conditions.collect(transformCondition));
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
+    shared actual default ControlStructure transformControlStructure(ControlStructure that) {
+        assert (is ControlStructure ret = super.transformControlStructure(that));
+        return ret;
+    }
     shared actual default Dec transformDec(Dec that) {
         assert (is Dec ret = super.transformDec(that));
         return ret;
@@ -192,6 +196,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
             => that.copy(transformNamedArguments(that.content));
+    shared actual default ElseClause transformElseClause(ElseClause that) {
+        Block|IfElse transformBlockOrIfElse(Block|IfElse that) {
+            switch (that)
+            case (is Block) { return transformBlock(that); }
+            case (is IfElse) { return transformIfElse(that); }
+        }
+        return that.copy(transformBlockOrIfElse(that.child));
+    }
     shared actual default ElseOperation transformElseOperation(ElseOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence15Expression(that.rightOperand));
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
@@ -261,6 +273,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
+    shared actual default IfClause transformIfClause(IfClause that)
+            => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
+    shared actual default IfElse transformIfElse(IfElse that)
+            => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default Import transformImport(Import that)
             => that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements));
     shared actual default ImportElement transformImportElement(ImportElement that) {

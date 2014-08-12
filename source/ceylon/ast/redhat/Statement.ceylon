@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAssertion=Assertion,
+        JControlStatement=ControlStatement,
         JDirective=Directive,
         JExecutableStatement=ExecutableStatement,
         JExpressionStatement=ExpressionStatement,
@@ -18,12 +19,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
 shared Statement statementToCeylon(JExecutableStatement statement) {
-    assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective statement);
+    assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement); }
     case (is JExpressionStatement) { return expressionStatementToCeylon(statement); }
     case (is JAssertion) { return assertionToCeylon(statement); }
     case (is JDirective) { return directiveToCeylon(statement); }
+    case (is JControlStatement) { return controlStructureToCeylon(statement); }
 }
 
 "Compiles the given [[code]] for a Statement

@@ -46,6 +46,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCondition(Condition that) => transformNode(that);
     shared actual default Result transformConditionList(ConditionList that) => transformNode(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
+    shared actual default Result transformControlStructure(ControlStructure that) => transformStatement(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
     shared actual default Result transformDeclaration(Declaration that) => transformNode(that);
     shared actual default Result transformDefaultedCallableParameter(DefaultedCallableParameter that) => transformDefaultedParameter(that);
@@ -58,6 +59,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
+    shared actual default Result transformElseClause(ElseClause that) => transformNode(that);
     shared actual default Result transformElseOperation(ElseOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryOperation(EntryOperation that) => transformBinaryOperation(that);
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
@@ -80,6 +82,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdenticalOperation(IdenticalOperation that) => transformEqualityOperation(that);
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
+    shared actual default Result transformIfClause(IfClause that) => transformNode(that);
+    shared actual default Result transformIfElse(IfElse that) => transformControlStructure(that);
     shared actual default Result transformImport(Import that) => transformNode(that);
     shared actual default Result transformImportElement(ImportElement that) => transformNode(that);
     shared actual default Result transformImportElements(ImportElements that) => transformNode(that);

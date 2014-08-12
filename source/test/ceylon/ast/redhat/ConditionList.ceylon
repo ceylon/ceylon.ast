@@ -21,6 +21,9 @@ shared object conditionList satisfies ConcreteTest<ConditionList,JConditionList>
     // not very useful, but at the time of writing no other types of conditions have been implemented yet:
     shared String->ConditionList trueCommaAAndBConditionList = construct(booleanCondition.trueCondition, booleanCondition.aAndBCondition);
     
+    // not tested directly, but used by other tests
+    shared String->ConditionList trueConditionList = construct(booleanCondition.trueCondition);
+    
     compile = compileConditionList;
     fromCeylon = RedHatTransformer.transformConditionList;
     toCeylon = conditionListToCeylon;

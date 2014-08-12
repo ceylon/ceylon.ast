@@ -10,6 +10,10 @@ This repository will contain several modules to work with a Ceylon Abstract Synt
 
 `ceylon.ast.core` allows you to construct a Ceylon AST in your program, which you can then feed into other tools (some tools require the transformed RedHat AST), like the compiler to compile it or the [`ceylon.formatter`](https://github.com/lucaswerkmeister/ceylon.formatter) to write it as code (code generation).
 
+Any and all feedback is welcome – especially before the first release is out, because that’s when we can make changes without breaking everything!
+If you’re unhappy with a particular aspect of `ceylon.ast`’s design (perhaps a class or attribute should have a better name, or a class should be split up into several parts?),
+please say so now (contact me or create an issue) before it’s fixed in stone.
+
 This is the Google Summer of Code 2014 project of Lucas Werkmeister (@lucaswerkmeister); see [the mailing list thread](https://groups.google.com/forum/#!topic/ceylon-dev/_Uo5P2AgxmA)
 or the [project](https://www.google-melange.com/gsoc/project/details/google/gsoc2014/lucaswerkmeister/5741031244955648).
 Contributions are of course welcome!

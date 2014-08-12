@@ -592,6 +592,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   ``indent``}"
             else "VariadicType(``transformWithIndent(that.elementType)``)";
     transformVoidModifier(VoidModifier that) => "VoidModifier()";
+    transformWhile(While that)
+            => "While {
+                `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
+                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                ``indent``}";
     transformWithinOperation(WithinOperation that)
             => "WithinOperation {
                 `` indent + indentLevel ``operand = ``transformWithIndent(that.operand)``;

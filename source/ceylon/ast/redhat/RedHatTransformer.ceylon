@@ -195,6 +195,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
         JVoidModifier=VoidModifier,
+        JWhileClause=WhileClause,
+        JWhileStatement=WhileStatement,
         JWithinOp=WithinOp
     },
     JVisitorAdaptor=VisitorAdaptor
@@ -291,7 +293,8 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         union_specify=\iUNION_SPECIFY,
         value_modifier=\iVALUE_MODIFIER,
         verbatim_string_literal=\iVERBATIM_STRING,
-        void_modifier=\iVOID_MODIFIER
+        void_modifier=\iVOID_MODIFIER,
+        while_clause=\iWHILE_CLAUSE
     }
 }
 import ceylon.interop.java {
@@ -2232,6 +2235,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JVoidModifier transformVoidModifier(VoidModifier that) {
         JVoidModifier ret = JVoidModifier(tokens.token(that.text, void_modifier));
+        return ret;
+    }
+    
+    shared actual JWhileStatement transformWhile(While that) {
+        JWhileStatement ret = JWhileStatement(null);
+        JWhileClause whileClause = JWhileClause(tokens.token("while", while_clause));
+        whileClause.conditionList = transformConditionList(that.conditions);
+        whileClause.block = transformBlock(that.block);
+        ret.whileClause = whileClause;
         return ret;
     }
     

@@ -8,6 +8,6 @@
      if (exists elem = queue.take) { process(elem); }
      for (i in 1:12) { print(month(i)); }"
 shared abstract class ControlStructure()
-        of IfElse
+        of IfElse | While
         extends Statement() {
 }

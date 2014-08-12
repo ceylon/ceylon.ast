@@ -111,6 +111,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformControlStructure(ControlStructure that) {
         switch (that)
         case (is IfElse) { return transformIfElse(that); }
+        case (is While) { return transformWhile(that); }
     }
     shared actual default Result transformDec(Dec that) {
         switch (that)

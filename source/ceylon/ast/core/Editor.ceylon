@@ -733,6 +733,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default VoidModifier transformVoidModifier(VoidModifier that)
             => that.copy();
+    shared actual default While transformWhile(While that)
+            => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
     Statement|Declaration transformStatementOrDeclaration(Statement|Declaration that) {

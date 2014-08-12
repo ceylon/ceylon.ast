@@ -229,5 +229,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformVariadicType(VariadicType that);
     shared formal Result transformVariance(Variance that);
     shared formal Result transformVoidModifier(VoidModifier that);
+    shared formal Result transformWhile(While that);
     shared formal Result transformWithinOperation(WithinOperation that);
 }

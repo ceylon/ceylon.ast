@@ -5,6 +5,7 @@ This repository will contain several modules to work with a Ceylon Abstract Synt
 
 * `ceylon.ast.core` – the Ceylon classes that represent a Ceylon AST. Pure Ceylon (backend-independent).
 * `ceylon.ast.redhat` – transforms a `ceylon.ast.core` AST from + to a RedHat compiler ([ceylon-spec](https://github.com/ceylon/ceylon-spec]) AST, and also contains functions to compile a `ceylon.ast.core` AST from a code string (using the RedHat compiler).
+* `ceylon.ast.samples` – sample ASTs, to see how `ceylon.ast` is used and to test your tools that work with a `ceylon.ast` AST.
 * a test module for each of these (`test.ceylon...`).
 
 `ceylon.ast.core` allows you to construct a Ceylon AST in your program, which you can then feed into other tools (some tools require the transformed RedHat AST), like the compiler to compile it or the [`ceylon.formatter`](https://github.com/lucaswerkmeister/ceylon.formatter) to write it as code (code generation).

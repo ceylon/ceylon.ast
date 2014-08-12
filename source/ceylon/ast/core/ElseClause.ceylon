@@ -15,7 +15,7 @@ shared class ElseClause(child)
     "The block or if/else conditional that is entered
      if the conditions of the parent if/else’s `if`
      weren’t satisfied."
-    shared Block|IfElse child;
+    shared Block|IfElse child; // TODO is there a better name for this than “child”?
     
     shared actual [Block|IfElse] children = [child];
     

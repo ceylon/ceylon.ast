@@ -47,6 +47,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformClassBody(ClassBody that);
     shared formal Result transformClassInstantiation(ClassInstantiation that);
+    shared formal Result transformClassSpecifier(ClassSpecifier that);
     shared formal Result transformClosedBound(ClosedBound that);
     shared formal Result transformCompareOperation(CompareOperation that);
     shared formal Result transformComparisonOperation(ComparisonOperation that);
@@ -80,6 +81,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformExpressionStatement(ExpressionStatement that);
+    shared formal Result transformExtendedType(ExtendedType that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);

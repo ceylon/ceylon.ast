@@ -37,6 +37,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCaseTypes=CaseTypes,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
+        JClassSpecifier=ClassSpecifier,
         JClosedBound=ClosedBound,
         JCompareOp=CompareOp,
         JComparisonOp=ComparisonOp,
@@ -66,6 +67,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExists=Exists,
         JExpression=Expression,
         JExpressionStatement=ExpressionStatement,
+        JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
@@ -234,6 +236,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         eof=\iEOF,
         equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
+        extendsType=\iEXTENDS,
         float_literal=\iFLOAT_LITERAL,
         function_modifier=\iFUNCTION_MODIFIER,
         identical_op=\iIDENTICAL_OP,
@@ -646,6 +649,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         throw AssertionError("ClassInstantiation has no RedHat AST equivalent!");
     }
     
+    shared actual JClassSpecifier transformClassSpecifier(ClassSpecifier that) {
+        JClassSpecifier ret = JClassSpecifier(tokens.token("=>", compute));
+        value tuple = helpTransformClassInstantiation(that.instantiation);
+        ret.type = tuple[0];
+        ret.invocationExpression = tuple[1];
+        return ret;
+    }
+    
     shared actual JClosedBound transformClosedBound(ClosedBound that) {
         JTerm endpoint;
         CommonToken token;
@@ -890,6 +901,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JExpressionStatement transformExpressionStatement(ExpressionStatement that) {
         assert (is JExpressionStatement ret = super.transformExpressionStatement(that));
+        return ret;
+    }
+    
+    shared actual JExtendedType transformExtendedType(ExtendedType that) {
+        JExtendedType ret = JExtendedType(tokens.token("extends", extendsType));
+        value tuple = helpTransformClassInstantiation(that.instantiation);
+        ret.type = tuple[0];
+        ret.invocationExpression = tuple[1];
         return ret;
     }
     

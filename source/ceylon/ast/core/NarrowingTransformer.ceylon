@@ -258,6 +258,8 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is IfClause) { return transformIfClause(that); }
         case (is ElseClause) { return transformElseClause(that); }
         case (is ClassInstantiation) { return transformClassInstantiation(that); }
+        case (is ExtendedType) { return transformExtendedType(that); }
+        case (is ClassSpecifier) { return transformClassSpecifier(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

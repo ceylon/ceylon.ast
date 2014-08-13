@@ -135,6 +135,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                 ``indent``}";
+    transformClassSpecifier(ClassSpecifier that) => "ClassSpecifier(``transformWithIndent(that.instantiation)``)";
     transformClosedBound(ClosedBound that) => "ClosedBound(``transformWithIndent(that.endpoint)``)";
     transformCompareOperation(CompareOperation that)
             => "CompareOperation {
@@ -213,6 +214,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
     transformFunctionDeclaration(FunctionDeclaration that)

@@ -38,6 +38,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformClassBody(ClassBody that) => transformBody(that);
     shared actual default Result transformClassInstantiation(ClassInstantiation that) => transformNode(that);
+    shared actual default Result transformClassSpecifier(ClassSpecifier that) => transformNode(that);
     shared actual default Result transformClosedBound(ClosedBound that) => transformBound(that);
     shared actual default Result transformCompareOperation(CompareOperation that) => transformBinaryOperation(that);
     shared actual default Result transformComparisonOperation(ComparisonOperation that) => transformBinaryOperation(that);
@@ -71,6 +72,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
     shared actual default Result transformExpressionStatement(ExpressionStatement that) => transformStatement(that);
+    shared actual default Result transformExtendedType(ExtendedType that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);

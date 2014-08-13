@@ -140,6 +140,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.content.collect(transformStatementOrDeclaration));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
             => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformSuper));
+    shared actual default ClassSpecifier transformClassSpecifier(ClassSpecifier that)
+            => that.copy(transformClassInstantiation(that.instantiation));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
             => that.copy(transformPrecedence10Expression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
@@ -234,6 +236,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is ExpressionStatement ret = super.transformExpressionStatement(that));
         return ret;
     }
+    shared actual default ExtendedType transformExtendedType(ExtendedType that)
+            => that.copy(transformClassInstantiation(that.instantiation));
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)

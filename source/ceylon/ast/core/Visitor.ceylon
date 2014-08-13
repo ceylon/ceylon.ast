@@ -46,6 +46,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformClassBody(ClassBody that) => visitClassBody(that);
+    transformClassInstantiation(ClassInstantiation that) => visitClassInstantiation(that);
     transformClosedBound(ClosedBound that) => visitClosedBound(that);
     transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
     transformComparisonOperation(ComparisonOperation that) => visitComparisonOperation(that);
@@ -263,6 +264,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
+    shared default void visitClassInstantiation(ClassInstantiation that) => super.transformClassInstantiation(that);
     shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);
     shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
     shared default void visitComparisonOperation(ComparisonOperation that) => super.transformComparisonOperation(that);

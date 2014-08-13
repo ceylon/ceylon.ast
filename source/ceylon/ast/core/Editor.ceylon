@@ -138,6 +138,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ClassBody transformClassBody(ClassBody that)
             => that.copy(that.content.collect(transformStatementOrDeclaration));
+    shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
+            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformSuper));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
             => that.copy(transformPrecedence10Expression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)

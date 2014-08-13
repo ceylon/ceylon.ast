@@ -171,6 +171,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSubtractAssignOp=SubtractAssignOp,
         JSumOp=SumOp,
         JSuper=Super,
+        JSuperType=SuperType,
         JTerm=Term,
         JThenOp=ThenOp,
         JThis=This,
@@ -198,6 +199,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JWhileClause=WhileClause,
         JWhileStatement=WhileStatement,
         JWithinOp=WithinOp
+    },
+    CustomTree {
+        JExtendedTypeExpression=ExtendedTypeExpression
     },
     JVisitorAdaptor=VisitorAdaptor
 }
@@ -634,6 +638,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         }
         ret.endToken = tokens.token("}", rbrace);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[ClassInstantiation]];
+     this method throws."
+    shared actual Nothing transformClassInstantiation(ClassInstantiation that) {
+        throw AssertionError("ClassInstantiation has no RedHat AST equivalent!");
     }
     
     shared actual JClosedBound transformClosedBound(ClosedBound that) {
@@ -2257,6 +2267,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.upperBound = transformBound(that.upperBound);
         that.upperBound.remove(isLowerBoundKey);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[ClassInstantiation]];
+     it’s partially inlined into `ExtendedType` and `ClassSpecifier`.
+     This is a helper function for those conversions."
+    [JSimpleType, JInvocationExpression] helpTransformClassInstantiation(ClassInstantiation that) {
+        JSimpleType type;
+        if (that.qualifier exists) {
+            JQualifiedType qt = JQualifiedType(null);
+            JSuperType st = JSuperType(tokens.token("super", superType));
+            tokens.token(".", member_op);
+            qt.outerType = st;
+            type = qt;
+        } else {
+            type = JBaseType(null);
+        }
+        type.identifier = transformUIdentifier(that.name.name);
+        if (exists typeArgs = that.name.typeArguments) {
+            type.typeArgumentList = transformTypeArguments(typeArgs);
+        }
+        JInvocationExpression ie = JInvocationExpression(null);
+        JExtendedTypeExpression ete = JExtendedTypeExpression(null);
+        ete.setExtendedType(type); // there’s no getter, so Ceylon doesn’t see it as a variable attribute
+        ie.primary = ete;
+        ie.positionalArgumentList = transformPositionalArguments(that.arguments);
+        return [type, ie];
     }
     
     JExpression wrapTerm(JTerm term) {

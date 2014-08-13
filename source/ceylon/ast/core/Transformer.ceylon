@@ -46,6 +46,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCaseTypes(CaseTypes that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
     shared formal Result transformClassBody(ClassBody that);
+    shared formal Result transformClassInstantiation(ClassInstantiation that);
     shared formal Result transformClosedBound(ClosedBound that);
     shared formal Result transformCompareOperation(CompareOperation that);
     shared formal Result transformComparisonOperation(ComparisonOperation that);

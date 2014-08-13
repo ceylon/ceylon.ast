@@ -8,6 +8,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeAlias) { return transformTypeAlias(that); }
         case (is FunctionValueAlias) { return transformFunctionValueAlias(that); }
     }
+    shared actual default Result transformAnyClass(AnyClass that) {
+        switch (that)
+        case (is ClassDefinition) { return transformClassDefinition(that); }
+    }
     shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) {
         switch (that)
         case (is CompilationUnit) { return transformCompilationUnit(that); }
@@ -97,6 +101,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is OpenBound) { return transformOpenBound(that); }
         case (is ClosedBound) { return transformClosedBound(that); }
     }
+    shared actual default Result transformClassOrInterface(ClassOrInterface that) {
+        switch (that)
+        case (is AnyClass) { return transformAnyClass(that); }
+    }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
         case (is LargerOperation) { return transformLargerOperation(that); }
@@ -121,6 +129,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformDeclaration(Declaration that) {
         switch (that)
+        case (is TypeDeclaration) { return transformTypeDeclaration(that); }
         case (is TypedDeclaration) { return transformTypedDeclaration(that); }
     }
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
@@ -451,6 +460,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformTypeDec(TypeDec that) {
         switch (that)
         case (is GivenDec) { return transformGivenDec(that); }
+    }
+    shared actual default Result transformTypeDeclaration(TypeDeclaration that) {
+        switch (that)
+        case (is ClassOrInterface) { return transformClassOrInterface(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

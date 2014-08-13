@@ -18,9 +18,7 @@ shared Declaration declarationToCeylon(JDeclaration declaration) {
     case (is JMissingDeclaration) {
         throw AssertionError("Can’t convert a missing declaration");
     }
-    case (is JTypeDeclaration) {
-        throw AssertionError("Not yet implemented"); // TODO implement type declarations
-    }
+    case (is JTypeDeclaration) { return typeDeclarationToCeylon(declaration); }
     case (is JTypedDeclaration) { return typedDeclarationToCeylon(declaration); }
     case (is JTypeParameterDeclaration) {
         throw AssertionError("Can’t convert a type parameter declaration to a declaration");

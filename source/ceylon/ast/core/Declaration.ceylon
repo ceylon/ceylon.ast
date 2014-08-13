@@ -1,6 +1,6 @@
 """A declaration.
    
-   Most declarations either [[define|ClassOrInterface]] or [[have|TypedDeclaration]] a type.
+   Most declarations either [[define|TypeDeclaration]] or [[have|TypedDeclaration]] a type.
    
    The general order of the children of a declaration is as follows:
    
@@ -18,7 +18,7 @@
        shared actual String string => "``outer.string`` by ``step``";
        shared class Person(shared String name) { string => name; }"""
 shared abstract class Declaration()
-        of TypedDeclaration
+        of TypeDeclaration | TypedDeclaration
         extends Node() {
     
     "The name of the declared program element."

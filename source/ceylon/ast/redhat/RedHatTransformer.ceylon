@@ -12,6 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAnnotationList=AnnotationList,
         JAnonymousAnnotation=AnonymousAnnotation,
         JAnyAttribute=AnyAttribute,
+        JAnyClass=AnyClass,
         JAnyMethod=AnyMethod,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
@@ -37,6 +38,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCaseTypes=CaseTypes,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
+        JClassDefinition=ClassDefinition,
+        JClassOrInterface=ClassOrInterface,
         JClassSpecifier=ClassSpecifier,
         JClosedBound=ClosedBound,
         JCompareOp=CompareOp,
@@ -191,6 +194,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeParameterLiteral=TypeParameterLiteral,
         JTypeVariance=TypeVariance,
         JType=Type,
+        JTypeDeclaration=TypeDeclaration,
         JUnaryOperatorExpression=UnaryOperatorExpression,
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
@@ -220,6 +224,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         breakType=\iBREAK,
         case_types=\iCASE_TYPES,
         character_literal=\iCHAR_LITERAL,
+        class_definition=\iCLASS_DEFINITION,
         comma=\iCOMMA,
         compare_op=\iCOMPARE_OP,
         complement_op=\iCOMPLEMENT_OP,
@@ -401,6 +406,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value specifierExpression = JSpecifierExpression(null);
         specifierExpression.expression = wrapTerm(transformExpression(that.expression));
         ret.specifierExpression = specifierExpression;
+        return ret;
+    }
+    
+    shared actual JAnyClass transformAnyClass(AnyClass that) {
+        assert (is JAnyClass ret = super.transformAnyClass(that));
         return ret;
     }
     
@@ -643,10 +653,44 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JClassDefinition transformClassDefinition(ClassDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JClassDefinition ret = JClassDefinition(tokens.token("class", class_definition));
+        ret.annotationList = annotationList;
+        ret.identifier = transformUIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        ret.parameterList = transformParameters(that.parameters);
+        if (exists caseTypes = that.caseTypes) {
+            ret.caseTypes = transformCaseTypes(caseTypes);
+        }
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.classBody = transformClassBody(that.body);
+        return ret;
+    }
+    
     "The RedHat AST has no direct equivalent of [[ClassInstantiation]];
      this method throws."
     shared actual Nothing transformClassInstantiation(ClassInstantiation that) {
         throw AssertionError("ClassInstantiation has no RedHat AST equivalent!");
+    }
+    
+    shared actual JClassOrInterface transformClassOrInterface(ClassOrInterface that) {
+        assert (is JClassOrInterface ret = super.transformClassOrInterface(that));
+        return ret;
     }
     
     shared actual JClassSpecifier transformClassSpecifier(ClassSpecifier that) {
@@ -2026,6 +2070,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         if (exists satisfiedTypes = that.satisfiedTypes) {
             ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
         }
+        return ret;
+    }
+    
+    shared actual JTypeDeclaration transformTypeDeclaration(TypeDeclaration that) {
+        assert (is JTypeDeclaration ret = super.transformTypeDeclaration(that));
         return ret;
     }
     

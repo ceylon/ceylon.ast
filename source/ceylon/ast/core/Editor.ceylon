@@ -39,6 +39,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(nullsafeInvoke(that.anonymousAnnotation, transformStringLiteral), that.annotations.collect(transformAnnotation));
     shared actual default AnonymousArgument transformAnonymousArgument(AnonymousArgument that)
             => that.copy(transformExpression(that.expression));
+    shared actual default AnyClass transformAnyClass(AnyClass that) {
+        assert (is AnyClass ret = super.transformAnyClass(that));
+        return ret;
+    }
     shared actual default AnyCompilationUnit transformAnyCompilationUnit(AnyCompilationUnit that) {
         assert (is AnyCompilationUnit ret = super.transformAnyCompilationUnit(that));
         return ret;
@@ -138,8 +142,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ClassBody transformClassBody(ClassBody that)
             => that.copy(that.content.collect(transformStatementOrDeclaration));
+    shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
             => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformSuper));
+    shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {
+        assert (is ClassOrInterface ret = super.transformClassOrInterface(that));
+        return ret;
+    }
     shared actual default ClassSpecifier transformClassSpecifier(ClassSpecifier that)
             => that.copy(transformClassInstantiation(that.instantiation));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
@@ -638,6 +648,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes));
     shared actual default TypeDec transformTypeDec(TypeDec that) {
         assert (is TypeDec ret = super.transformTypeDec(that));
+        return ret;
+    }
+    shared actual default TypeDeclaration transformTypeDeclaration(TypeDeclaration that) {
+        assert (is TypeDeclaration ret = super.transformTypeDeclaration(that));
         return ret;
     }
     shared actual default TypeIsh transformTypeIsh(TypeIsh that) {

@@ -19,6 +19,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnnotation(Annotation that) => visitAnnotation(that);
     transformAnnotations(Annotations that) => visitAnnotations(that);
     transformAnonymousArgument(AnonymousArgument that) => visitAnonymousArgument(that);
+    transformAnyClass(AnyClass that) => visitAnyClass(that);
     transformAnyCompilationUnit(AnyCompilationUnit that) => visitAnyCompilationUnit(that);
     transformAnyFunction(AnyFunction that) => visitAnyFunction(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
@@ -46,7 +47,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformClassBody(ClassBody that) => visitClassBody(that);
+    transformClassDefinition(ClassDefinition that) => visitClassDefinition(that);
     transformClassInstantiation(ClassInstantiation that) => visitClassInstantiation(that);
+    transformClassOrInterface(ClassOrInterface that) => visitClassOrInterface(that);
     transformClassSpecifier(ClassSpecifier that) => visitClassSpecifier(that);
     transformClosedBound(ClosedBound that) => visitClosedBound(that);
     transformCompareOperation(CompareOperation that) => visitCompareOperation(that);
@@ -204,6 +207,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeArguments(TypeArguments that) => visitTypeArguments(that);
     transformTypeConstraint(TypeConstraint that) => visitTypeConstraint(that);
     transformTypeDec(TypeDec that) => visitTypeDec(that);
+    transformTypeDeclaration(TypeDeclaration that) => visitTypeDeclaration(that);
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
@@ -239,6 +243,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);
     shared default void visitAnnotations(Annotations that) => super.transformAnnotations(that);
     shared default void visitAnonymousArgument(AnonymousArgument that) => super.transformAnonymousArgument(that);
+    shared default void visitAnyClass(AnyClass that) => super.transformAnyClass(that);
     shared default void visitAnyCompilationUnit(AnyCompilationUnit that) => super.transformAnyCompilationUnit(that);
     shared default void visitAnyFunction(AnyFunction that) => super.transformAnyFunction(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
@@ -266,7 +271,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
+    shared default void visitClassDefinition(ClassDefinition that) => super.transformClassDefinition(that);
     shared default void visitClassInstantiation(ClassInstantiation that) => super.transformClassInstantiation(that);
+    shared default void visitClassOrInterface(ClassOrInterface that) => super.transformClassOrInterface(that);
     shared default void visitClassSpecifier(ClassSpecifier that) => super.transformClassSpecifier(that);
     shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);
     shared default void visitCompareOperation(CompareOperation that) => super.transformCompareOperation(that);
@@ -424,6 +431,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeConstraint(TypeConstraint that) => super.transformTypeConstraint(that);
     shared default void visitTypeDec(TypeDec that) => super.transformTypeDec(that);
+    shared default void visitTypeDeclaration(TypeDeclaration that) => super.transformTypeDeclaration(that);
     shared default void visitTypeList(TypeList that) => super.transformTypeList(that);
     shared default void visitTypeMeta(TypeMeta that) => super.transformTypeMeta(that);
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);

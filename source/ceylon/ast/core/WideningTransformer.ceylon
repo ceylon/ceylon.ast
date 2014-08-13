@@ -10,6 +10,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnnotation(Annotation that) => transformNode(that);
     shared actual default Result transformAnnotations(Annotations that) => transformNode(that);
     shared actual default Result transformAnonymousArgument(AnonymousArgument that) => transformNamedArgument(that);
+    shared actual default Result transformAnyClass(AnyClass that) => transformClassOrInterface(that);
     shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) => transformNode(that);
     shared actual default Result transformAnyFunction(AnyFunction that) => transformTypedDeclaration(that);
     shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
@@ -37,7 +38,9 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCaseTypes(CaseTypes that) => transformNode(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformClassBody(ClassBody that) => transformBody(that);
+    shared actual default Result transformClassDefinition(ClassDefinition that) => transformAnyClass(that);
     shared actual default Result transformClassInstantiation(ClassInstantiation that) => transformNode(that);
+    shared actual default Result transformClassOrInterface(ClassOrInterface that) => transformTypeDeclaration(that);
     shared actual default Result transformClassSpecifier(ClassSpecifier that) => transformNode(that);
     shared actual default Result transformClosedBound(ClosedBound that) => transformBound(that);
     shared actual default Result transformCompareOperation(CompareOperation that) => transformBinaryOperation(that);
@@ -195,6 +198,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeArguments(TypeArguments that) => transformTypeIsh(that);
     shared actual default Result transformTypeConstraint(TypeConstraint that) => transformNode(that);
     shared actual default Result transformTypeDec(TypeDec that) => transformDec(that);
+    shared actual default Result transformTypeDeclaration(TypeDeclaration that) => transformDeclaration(that);
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
     shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);

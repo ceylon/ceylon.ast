@@ -43,6 +43,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->UIdentifier systemUIdentifier = constructU("System");
     shared String->UIdentifier arrayListUIdentifier = constructU("ArrayList");
     shared String->UIdentifier mutableListUIdentifier = constructU("MutableList");
+    shared String->LIdentifier nullLIdentifier = constructL("null");
+    shared String->UIdentifier nullUIdentifier = constructU("Null");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

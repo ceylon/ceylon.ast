@@ -30,6 +30,9 @@ shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
         arguments = positionalArguments.keyItemPositionArguments;
     };
     
+    // not tested directly, but used by other tests
+    shared String->ExtendedType extendsAnything = construct("Anything"->baseType("Anything").nameAndArgs, positionalArguments.emptyPositionalArguments);
+    
     compile = compileExtendedType;
     fromCeylon = RedHatTransformer.transformExtendedType;
     toCeylon = extendedTypeToCeylon;

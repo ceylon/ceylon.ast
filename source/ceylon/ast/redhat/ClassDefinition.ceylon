@@ -1,11 +1,11 @@
 import ceylon.ast.core {
-    ClassDefinition,
-    TypeParameters,
+    Annotations,
     CaseTypes,
+    ClassDefinition,
     ExtendedType,
     SatisfiedTypes,
     TypeConstraint,
-    Annotations
+    TypeParameters
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {

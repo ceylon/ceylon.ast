@@ -73,6 +73,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
+        JFunctionArgument=FunctionArgument,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JFunctionType=FunctionType,
@@ -1076,6 +1077,23 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.typeConstraintList = typeConstraintList;
         }
         ret.block = transformBlock(that.definition);
+        return ret;
+    }
+    
+    shared actual JFunctionArgument transformFunctionExpression(FunctionExpression that) {
+        JFunctionArgument ret = JFunctionArgument(null);
+        value type = that.type;
+        switch (type)
+        case (null) { ret.type = JFunctionModifier(null); } // the parser creates a fake function modifier
+        case (is FunctionModifier) { ret.type = transformFunctionModifier(type); }
+        case (is VoidModifier) { ret.type = transformVoidModifier(type); }
+        for (parameters in that.parameterLists) {
+            ret.addParameterList(transformParameters(parameters));
+        }
+        value definition = that.definition;
+        switch (definition)
+        case (is LazySpecifier) { ret.expression = transformLazySpecifier(definition).expression; }
+        case (is Block) { ret.block = transformBlock(definition); }
         return ret;
     }
     

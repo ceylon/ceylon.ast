@@ -81,6 +81,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
     shared actual default Result transformFunctionDefinition(FunctionDefinition that) => transformAnyFunction(that);
+    shared actual default Result transformFunctionExpression(FunctionExpression that) => transformExpression(that);
     shared actual default Result transformFunctionModifier(FunctionModifier that) => transformModifier(that);
     shared actual default Result transformFunctionValueAlias(FunctionValueAlias that) => transformAlias(that);
     shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);

@@ -90,6 +90,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionDefinition(FunctionDefinition that);
+    shared formal Result transformFunctionExpression(FunctionExpression that);
     shared formal Result transformFunctionModifier(FunctionModifier that);
     shared formal Result transformFunctionValueAlias(FunctionValueAlias that);
     shared formal Result transformGivenDec(GivenDec that);

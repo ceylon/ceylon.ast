@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
+        JFunctionArgument=FunctionArgument,
         JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
         JTerm=Term
@@ -21,6 +22,7 @@ shared Expression expressionToCeylon(JTerm term) {
         return valueExpressionToCeylon(term);
     }
     case (is JOperatorExpression) { return operationToCeylon(term); }
+    case (is JFunctionArgument) { return functionExpressionToCeylon(term); }
     else {
         throw AssertionError("Other JTerm types not yet implemented");
     }
@@ -28,10 +30,10 @@ shared Expression expressionToCeylon(JTerm term) {
 
 "Compiles the given [[code]] for an Expression
  into an [[Expression]] using the Ceylon compiler
- (more specifically, the rule for an `expression`)."
+ (more specifically, the rule for a `functionOrExpression`)."
 shared Expression? compileExpression(String code) {
-    if (exists jExpression = createParser(code).expression()) {
-        return expressionToCeylon(jExpression);
+    if (exists jFunctionOrExpression = createParser(code).functionOrExpression()) {
+        return expressionToCeylon(jFunctionOrExpression);
     } else {
         return null;
     }

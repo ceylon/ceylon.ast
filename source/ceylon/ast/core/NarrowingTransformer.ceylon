@@ -155,6 +155,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformExpression(Expression that) {
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
+        case (is FunctionExpression) { return transformFunctionExpression(that); }
     }
     shared actual default Result transformExpressionIsh(ExpressionIsh that) {
         switch (that)
@@ -170,6 +171,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Parameters) { return transformParameters(that); }
         case (is Bound) { return transformBound(that); }
         case (is Modifier) { return transformModifier(that); }
+        case (is Body) { return transformBody(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)
@@ -247,7 +249,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Annotation) { return transformAnnotation(that); }
         case (is Annotations) { return transformAnnotations(that); }
         case (is Parameter) { return transformParameter(that); }
-        case (is Body) { return transformBody(that); }
         case (is TypeParameter) { return transformTypeParameter(that); }
         case (is TypeParameters) { return transformTypeParameters(that); }
         case (is CaseTypes) { return transformCaseTypes(that); }

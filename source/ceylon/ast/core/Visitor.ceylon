@@ -90,6 +90,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
     transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
     transformFunctionDefinition(FunctionDefinition that) => visitFunctionDefinition(that);
+    transformFunctionExpression(FunctionExpression that) => visitFunctionExpression(that);
     transformFunctionModifier(FunctionModifier that) => visitFunctionModifier(that);
     transformFunctionValueAlias(FunctionValueAlias that) => visitFunctionValueAlias(that);
     transformGivenDec(GivenDec that) => visitGivenDec(that);
@@ -310,6 +311,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);
     shared default void visitFunctionDefinition(FunctionDefinition that) => super.transformFunctionDefinition(that);
+    shared default void visitFunctionExpression(FunctionExpression that) => super.transformFunctionExpression(that);
     shared default void visitFunctionModifier(FunctionModifier that) => super.transformFunctionModifier(that);
     shared default void visitFunctionValueAlias(FunctionValueAlias that) => super.transformFunctionValueAlias(that);
     shared default void visitIdenticalOperation(IdenticalOperation that) => super.transformIdenticalOperation(that);

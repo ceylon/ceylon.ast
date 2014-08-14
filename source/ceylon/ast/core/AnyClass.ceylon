@@ -11,7 +11,7 @@
    
        shared class VariadicString(Character* characters) => String(characters);"""
 shared abstract class AnyClass()
-        of ClassDefinition
+        of ClassDefinition | ClassAlias
         extends ClassOrInterface() {
     
     "The parameters of the class."

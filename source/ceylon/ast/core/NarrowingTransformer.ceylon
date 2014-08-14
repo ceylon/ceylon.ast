@@ -11,6 +11,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformAnyClass(AnyClass that) {
         switch (that)
         case (is ClassDefinition) { return transformClassDefinition(that); }
+        case (is ClassAlias) { return transformClassAlias(that); }
     }
     shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) {
         switch (that)

@@ -38,6 +38,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCaseTypes=CaseTypes,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
+        JClassDeclaration=ClassDeclaration,
         JClassDefinition=ClassDefinition,
         JClassOrInterface=ClassOrInterface,
         JClassSpecifier=ClassSpecifier,
@@ -650,6 +651,36 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addStatement(jStatement);
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JClassDeclaration transformClassAlias(ClassAlias that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JClassDeclaration ret = JClassDeclaration(tokens.token("class", class_definition));
+        ret.annotationList = annotationList;
+        ret.identifier = transformUIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        ret.parameterList = transformParameters(that.parameters);
+        if (exists caseTypes = that.caseTypes) {
+            ret.caseTypes = transformCaseTypes(caseTypes);
+        }
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.classSpecifier = transformClassSpecifier(that.specifier);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

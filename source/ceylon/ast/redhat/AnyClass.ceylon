@@ -4,15 +4,17 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAnyClass=AnyClass,
+        JClassDeclaration=ClassDeclaration,
         JClassDefinition=ClassDefinition
     }
 }
 
 "Converts a RedHat AST [[AnyClass|JAnyClass]] to a `ceylon.ast` [[AnyClass]]."
 shared AnyClass anyClassToCeylon(JAnyClass anyClass) {
-    assert (is JClassDefinition anyClass);
+    assert (is JClassDefinition|JClassDeclaration anyClass);
     switch (anyClass)
     case (is JClassDefinition) { return classDefinitionToCeylon(anyClass); }
+    case (is JClassDeclaration) { return classAliasToCeylon(anyClass); }
 }
 
 "Compiles the given [[code]] for Any Class

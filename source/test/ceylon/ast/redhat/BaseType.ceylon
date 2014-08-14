@@ -48,6 +48,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType persistentType = construct("Persistent");
     shared String->BaseType printableType = construct("Printable");
     shared String->BaseType identifiableType = construct("Identifiable");
+    shared String->BaseType characterType = construct("Character");
     
     compile = compileBaseType;
     fromCeylon = RedHatTransformer.transformBaseType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed

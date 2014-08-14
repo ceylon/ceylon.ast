@@ -22,6 +22,9 @@ shared object variadicParameter satisfies ConcreteTest<VariadicParameter,JValueP
     
     shared String->VariadicParameter floatStarLidVariadicParameter = construct(annotations.emptyAnnotations, variadicType.floatStarType, identifier.lidLIdentifier);
     
+    // not tested directly, but used by other tests
+    shared String->VariadicParameter charactersVariadicParameter = construct(annotations.emptyAnnotations, variadicType.characterStarType, identifier.charactersLIdentifier);
+    
     compile = compileVariadicParameter;
     fromCeylon = RedHatTransformer.transformVariadicParameter;
     toCeylon = variadicParameterToCeylon;

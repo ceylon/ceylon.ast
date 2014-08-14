@@ -24,6 +24,9 @@ shared object parameters satisfies ConcreteTest<Parameters,JParameterList> {
             defaultedValueParameter.dynamicByDefaultsto0DefaultedValueParameter,
             variadicParameter.floatStarLidVariadicParameter]);
     
+    // not tested directly, but used by other tests
+    shared String->Parameters charactersParameters = construct([variadicParameter.charactersVariadicParameter]);
+    
     compile = compileParameters;
     fromCeylon = RedHatTransformer.transformParameters;
     toCeylon = parametersToCeylon;

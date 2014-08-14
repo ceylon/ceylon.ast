@@ -19,6 +19,7 @@ shared object variadicType satisfies ConcreteTest<VariadicType,JSequencedType> {
     // not tested directly, but used by other tests
     shared String->VariadicType stringPlusType = (baseType.stringType.key + "+")->VariadicType(baseType.stringType.item, true);
     shared String->VariadicType floatStarType = (baseType.floatType.key + "*")->VariadicType(baseType.floatType.item);
+    shared String->VariadicType characterStarType = (baseType.characterType.key + "*")->VariadicType(baseType.characterType.item);
     
     compile = compileVariadicType;
     fromCeylon = RedHatTransformer.transformVariadicType; // TODO use shortcut refinement syntax when ceylon-compiler#1719 is fixed

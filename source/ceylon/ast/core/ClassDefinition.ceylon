@@ -12,7 +12,7 @@
    - the [[type constraints|typeConstraints]], if present, and
    - the [[body]].
    
-   Examples:
+   Examples (multi-line):
    
        shared class PrintableWrapper<T>(shared T wrapped)
                satisfies Printable {
@@ -20,7 +20,6 @@
                package.print(wrapped else "<null>");
            }
        }
-   TODO multi-line
    
        shared class Counter(Integer initialCount=0) {
            

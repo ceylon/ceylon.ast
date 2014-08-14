@@ -1,6 +1,6 @@
 """A class definition or alias.
    
-   Examples:
+   Examples (multi-line):
    
        shared class PrintableWrapper<T>(shared T wrapped)
                satisfies Printable {
@@ -9,7 +9,6 @@
            }
        }
    
-       TODO multi-line
        shared class VariadicString(Character* characters) => String(characters);"""
 shared abstract class AnyClass()
         of ClassDefinition

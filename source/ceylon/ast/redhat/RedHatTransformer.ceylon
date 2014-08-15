@@ -125,6 +125,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNonempty=Nonempty,
         JNotEqualOp=NotEqualOp,
         JNotOp=NotOp,
+        JObjectDefinition=ObjectDefinition,
         JOfOp=OfOp,
         JOpenBound=OpenBound,
         JOperatorExpression=OperatorExpression,
@@ -267,6 +268,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
         not_op=\iNOT_OP,
+        object_definition=\iOBJECT_DEFINITION,
         optionalType=\iOPTIONAL,
         or_op=\iOR_OP,
         or_specify=\iOR_SPECIFY,
@@ -400,6 +402,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             anno.visit(aliteralVisitor);
             ret.addAnnotation(anno);
         }
+        return ret;
+    }
+    
+    shared actual JObjectDefinition transformObjectDefinition(ObjectDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JObjectDefinition ret = JObjectDefinition(tokens.token("object", object_definition));
+        ret.annotationList = annotationList;
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        ret.classBody = transformClassBody(that.body);
         return ret;
     }
     

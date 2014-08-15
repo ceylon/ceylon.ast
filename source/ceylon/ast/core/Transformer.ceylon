@@ -146,6 +146,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
     shared formal Result transformNotEqualOperation(NotEqualOperation that);
     shared formal Result transformNotOperation(NotOperation that);
+    shared formal Result transformObjectDefinition(ObjectDefinition that);
     shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOpenBound(OpenBound that);
     shared formal Result transformOperation(Operation that);

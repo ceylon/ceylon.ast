@@ -5,6 +5,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JDeclaration=Declaration,
         JMissingDeclaration=MissingDeclaration,
+        JObjectDefinition=ObjectDefinition,
         JTypedDeclaration=TypedDeclaration,
         JTypeDeclaration=TypeDeclaration,
         JTypeParameterDeclaration=TypeParameterDeclaration
@@ -19,7 +20,14 @@ shared Declaration declarationToCeylon(JDeclaration declaration) {
         throw AssertionError("Can’t convert a missing declaration");
     }
     case (is JTypeDeclaration) { return typeDeclarationToCeylon(declaration); }
-    case (is JTypedDeclaration) { return typedDeclarationToCeylon(declaration); }
+    case (is JTypedDeclaration) {
+        if (is JObjectDefinition declaration) {
+            // in the RedHat AST, ObjectDefinitions are TypedDeclarations, but in ceylon.ast they’re not
+            return objectDefinitionToCeylon(declaration);
+        } else {
+            return typedDeclarationToCeylon(declaration);
+        }
+    }
     case (is JTypeParameterDeclaration) {
         throw AssertionError("Can’t convert a type parameter declaration to a declaration");
     }

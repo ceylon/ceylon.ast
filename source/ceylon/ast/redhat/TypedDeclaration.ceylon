@@ -9,7 +9,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     }
 }
 
-"Converts a RedHat AST [[TypedDeclaration|JTypedDeclaration]] to a `ceylon.ast` [[TypedDeclaration]]."
+"Converts a RedHat AST [[TypedDeclaration|JTypedDeclaration]] to a `ceylon.ast` [[TypedDeclaration]].
+ 
+ (Warning: In the RedHat AST, [[ObjectDefinitions|com.redhat.ceylon.compiler.typechecker.tree::Tree.ObjectDefinition]]
+ are typed declarations; however, this is not the case in `ceylon.ast`, and this function
+ will not accept them.)"
 shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclaration) {
     assert (is JAnyAttribute|JAnyMethod typedDeclaration);
     switch (typedDeclaration)

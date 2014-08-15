@@ -429,6 +429,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence11Expression(that.leftOperand), transformPrecedence11Expression(that.rightOperand));
     shared actual default NotOperation transformNotOperation(NotOperation that)
             => that.copy(transformPrecedence13Expression(that.operand));
+    shared actual default ObjectDefinition transformObjectDefinition(ObjectDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformClassBody(that.body), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), transformAnnotations(that.annotations));
     shared actual default OfOperation transformOfOperation(OfOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
     shared actual default OpenBound transformOpenBound(OpenBound that)

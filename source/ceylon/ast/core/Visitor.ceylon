@@ -146,6 +146,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
     transformNotEqualOperation(NotEqualOperation that) => visitNotEqualOperation(that);
     transformNotOperation(NotOperation that) => visitNotOperation(that);
+    transformObjectDefinition(ObjectDefinition that) => visitObjectDefinition(that);
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOpenBound(OpenBound that) => visitOpenBound(that);
     transformOperation(Operation that) => visitOperation(that);
@@ -349,6 +350,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
+    shared default void visitObjectDefinition(ObjectDefinition that) => super.transformObjectDefinition(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);

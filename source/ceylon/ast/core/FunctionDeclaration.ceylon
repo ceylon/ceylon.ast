@@ -17,7 +17,6 @@
 shared class FunctionDeclaration(name, type, parameterLists, typeParameters = null, typeConstraints = [], annotations = Annotations())
         extends AnyFunction() {
     
-    "The name of the declared function."
     shared actual MemberName name;
     "The type of the declared function.
      

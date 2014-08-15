@@ -15,7 +15,6 @@
 shared class FunctionDefinition(name, type, parameterLists, definition, typeParameters = null, typeConstraints = [], annotations = Annotations())
         extends AnyFunction() {
     
-    "The function name."
     shared actual LIdentifier name;
     "The type of the function.
      
@@ -26,7 +25,6 @@ shared class FunctionDefinition(name, type, parameterLists, definition, typePara
      - a [[‘`dynamic’` modifier|DynamicModifier]] for a dynamically typed function."
     shared actual Type|VoidModifier|FunctionModifier|DynamicModifier type;
     shared actual [Parameters+] parameterLists;
-    "The function definition."
     shared actual Block definition;
     shared actual TypeParameters? typeParameters;
     shared actual TypeConstraint[] typeConstraints;

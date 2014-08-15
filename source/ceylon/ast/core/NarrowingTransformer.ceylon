@@ -133,6 +133,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeDeclaration) { return transformTypeDeclaration(that); }
         case (is TypedDeclaration) { return transformTypedDeclaration(that); }
         case (is ObjectDefinition) { return transformObjectDefinition(that); }
+        case (is ValueSetterDefinition) { return transformValueSetterDefinition(that); }
     }
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
         switch (that)

@@ -12,6 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[TypedDeclaration|JTypedDeclaration]] to a `ceylon.ast` [[TypedDeclaration]].
  
  (Warning: In the RedHat AST, [[ObjectDefinitions|com.redhat.ceylon.compiler.typechecker.tree::Tree.ObjectDefinition]]
+ and [[AttributeSetterDefinitions|com.redhat.ceylon.compiler.typechecker.tree::Tree.AttributeSetterDefinition]]
  are typed declarations; however, this is not the case in `ceylon.ast`, and this function
  will not accept them.)"
 shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclaration) {

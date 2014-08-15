@@ -232,6 +232,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformValueGetterDefinition(ValueGetterDefinition that) => visitValueGetterDefinition(that);
     transformValueModifier(ValueModifier that) => visitValueModifier(that);
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
+    transformValueSetterDefinition(ValueSetterDefinition that) => visitValueSetterDefinition(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
     transformVariance(Variance that) => visitVariance(that);
@@ -459,6 +460,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitValueGetterDefinition(ValueGetterDefinition that) => super.transformValueGetterDefinition(that);
     shared default void visitValueModifier(ValueModifier that) => super.transformValueModifier(that);
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
+    shared default void visitValueSetterDefinition(ValueSetterDefinition that) => super.transformValueSetterDefinition(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
     shared default void visitVariance(Variance that) => super.transformVariance(that);

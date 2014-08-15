@@ -224,6 +224,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformValueGetterDefinition(ValueGetterDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueModifier(ValueModifier that) => transformModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);
+    shared actual default Result transformValueSetterDefinition(ValueSetterDefinition that) => transformDeclaration(that);
     shared actual default Result transformValueSpecification(ValueSpecification that) => transformSpecification(that);
     shared actual default Result transformVariadicParameter(VariadicParameter that) => transformParameter(that);
     shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);

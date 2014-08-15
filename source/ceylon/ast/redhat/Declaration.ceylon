@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JAttributeSetterDefinition=AttributeSetterDefinition,
         JDeclaration=Declaration,
         JMissingDeclaration=MissingDeclaration,
         JObjectDefinition=ObjectDefinition,
@@ -24,6 +25,9 @@ shared Declaration declarationToCeylon(JDeclaration declaration) {
         if (is JObjectDefinition declaration) {
             // in the RedHat AST, ObjectDefinitions are TypedDeclarations, but in ceylon.ast they’re not
             return objectDefinitionToCeylon(declaration);
+        } else if (is JAttributeSetterDefinition declaration) {
+            // in the RedHat AST, AttributeSetterDefinitions are TypedDeclarations, but in ceylon.ast ValueSetterDefinitions aren’t
+            return valueSetterDefinitionToCeylon(declaration);
         } else {
             return typedDeclarationToCeylon(declaration);
         }

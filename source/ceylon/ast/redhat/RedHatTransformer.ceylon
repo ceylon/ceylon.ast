@@ -23,6 +23,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAtom=Atom,
         JAttributeDeclaration=AttributeDeclaration,
         JAttributeGetterDefinition=AttributeGetterDefinition,
+        JAttributeSetterDefinition=AttributeSetterDefinition,
         JBaseMemberExpression=BaseMemberExpression,
         JBaseMemberOrTypeExpression=BaseMemberOrTypeExpression,
         JBaseType=BaseType,
@@ -218,6 +219,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
         aidentifier=\iAIDENTIFIER,
+        assignType=\iASSIGN,
         astring_literal=\iASTRING_LITERAL,
         averbatim_string=\iAVERBATIM_STRING,
         and_op=\iAND_OP,
@@ -2334,6 +2336,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is DynamicModifier) { dec.type = transformDynamicModifier(type); }
         dec.identifier = transformLIdentifier(that.name);
         ret.typedDeclaration = dec;
+        return ret;
+    }
+    
+    shared actual JAttributeSetterDefinition transformValueSetterDefinition(ValueSetterDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JAttributeSetterDefinition ret = JAttributeSetterDefinition(tokens.token("assign", assignType));
+        ret.annotationList = annotationList;
+        ret.identifier = transformLIdentifier(that.name);
+        value definition = that.definition;
+        switch (definition)
+        case (is Block) { ret.block = transformBlock(definition); }
+        case (is LazySpecifier) {
+            ret.specifierExpression = transformLazySpecifier(definition);
+            ret.endToken = tokens.token(";", semicolon);
+        }
         return ret;
     }
     

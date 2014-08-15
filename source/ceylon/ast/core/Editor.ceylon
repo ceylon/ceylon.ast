@@ -758,6 +758,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(transformAnnotations(that.annotations), transformTypeOrDynamicModifier(that.type), transformLIdentifier(that.name));
     }
+    shared actual default ValueSetterDefinition transformValueSetterDefinition(ValueSetterDefinition that) {
+        Block|LazySpecifier transformBlockOrLazySpecifier(Block|LazySpecifier that) {
+            switch (that)
+            case (is Block) { return transformBlock(that); }
+            case (is LazySpecifier) { return transformLazySpecifier(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformBlockOrLazySpecifier(that.definition), transformAnnotations(that.annotations));
+    }
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
             => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
     shared actual default VariadicParameter transformVariadicParameter(VariadicParameter that)

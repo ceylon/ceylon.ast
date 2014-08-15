@@ -192,6 +192,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeConstriantList=TypeConstraintList,
         JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypeParameterList=TypeParameterList,
+        JTypeSpecifier=TypeSpecifier,
         JTypedDeclaration=TypedDeclaration,
         JTypeLiteral=TypeLiteral,
         JTypeOperatorExpression=TypeOperatorExpression,
@@ -2228,6 +2229,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addTypeParameterDeclaration(transformTypeParameter(typeParameter));
         }
         ret.endToken = tokens.token(">", larger_op);
+        return ret;
+    }
+    
+    shared actual JTypeSpecifier transformTypeSpecifier(TypeSpecifier that) {
+        JTypeSpecifier ret = JTypeSpecifier(tokens.token("=>", compute));
+        ret.type = transformType(that.type);
         return ret;
     }
     

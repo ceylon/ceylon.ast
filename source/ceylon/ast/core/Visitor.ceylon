@@ -217,6 +217,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
     transformTypeParameter(TypeParameter that) => visitTypeParameter(that);
     transformTypeParameters(TypeParameters that) => visitTypeParameters(that);
+    transformTypeSpecifier(TypeSpecifier that) => visitTypeSpecifier(that);
     transformTypedDeclaration(TypedDeclaration that) => visitTypedDeclaration(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
@@ -446,6 +447,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => super.transformTypeNameWithTypeArguments(that);
     shared default void visitTypeParameter(TypeParameter that) => super.transformTypeParameter(that);
     shared default void visitTypeParameters(TypeParameters that) => super.transformTypeParameters(that);
+    shared default void visitTypeSpecifier(TypeSpecifier that) => super.transformTypeSpecifier(that);
     shared default void visitTypedDeclaration(TypedDeclaration that) => super.transformTypedDeclaration(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);

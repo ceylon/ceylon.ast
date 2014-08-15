@@ -274,6 +274,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ClassInstantiation) { return transformClassInstantiation(that); }
         case (is ExtendedType) { return transformExtendedType(that); }
         case (is ClassSpecifier) { return transformClassSpecifier(that); }
+        case (is TypeSpecifier) { return transformTypeSpecifier(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

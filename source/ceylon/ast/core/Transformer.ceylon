@@ -219,6 +219,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
     shared formal Result transformTypeParameter(TypeParameter that);
     shared formal Result transformTypeParameters(TypeParameters that);
+    shared formal Result transformTypeSpecifier(TypeSpecifier that);
     shared formal Result transformTypedDeclaration(TypedDeclaration that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that);

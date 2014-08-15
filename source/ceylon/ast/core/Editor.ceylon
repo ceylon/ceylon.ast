@@ -686,6 +686,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformUIdentifier(that.parameterName), nullsafeInvoke(that.variance, transformVariance), nullsafeInvoke(that.defaultArgument, transformType));
     shared actual default TypeParameters transformTypeParameters(TypeParameters that)
             => that.copy(that.typeParameters.collect(transformTypeParameter));
+    shared actual default TypeSpecifier transformTypeSpecifier(TypeSpecifier that)
+            => that.copy(transformType(that.type));
     shared actual default TypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
         assert (is TypedDeclaration ret = super.transformTypedDeclaration(that));
         return ret;

@@ -17,5 +17,5 @@ shared object anyFunction satisfies AbstractTest<AnyFunction,JAnyMethod> {
     fromCeylon = RedHatTransformer.transformAnyFunction;
     toCeylon = anyFunctionToCeylon;
     
-    tests = [functionDeclaration, functionDefinition];
+    tests = [functionDeclaration, functionDefinition, functionShortcutDefinition];
 }

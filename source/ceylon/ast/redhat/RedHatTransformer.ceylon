@@ -2326,6 +2326,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JValueModifier transformValueModifier(ValueModifier that) {
+        JValueModifier ret = JValueModifier(tokens.token(that.text, value_modifier));
+        return ret;
+    }
+    
     shared actual JValueParameterDeclaration transformValueParameter(ValueParameter that) {
         JValueParameterDeclaration ret = JValueParameterDeclaration(null);
         JAttributeDeclaration dec = JAttributeDeclaration(null);
@@ -2359,11 +2364,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JSpecifierStatement ret = JSpecifierStatement(null);
         ret.baseMemberExpression = baseMemberExpression;
         ret.specifierExpression = transformSpecifier(that.specifier);
-        return ret;
-    }
-    
-    shared actual JValueModifier transformValueModifier(ValueModifier that) {
-        JValueModifier ret = JValueModifier(tokens.token(that.text, value_modifier));
         return ret;
     }
     

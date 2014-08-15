@@ -21,6 +21,9 @@ shared object lazySpecifier satisfies ConcreteTest<LazySpecifier,JLazySpecifierE
     shared String->LazySpecifier aTimesBPlusCLazySpecifier = construct(sumOperation.aTimesBPlusCExpression);
     shared String->LazySpecifier groupedLazySpecifier = construct(groupedExpression.nameElseWorldStringLiteralGroupedExpression);
     
+    // not tested directly, but used by other tests
+    shared String->LazySpecifier assignLazySpecifier = construct(assignOperation.textAssignExpression);
+    
     compile = compileLazySpecifier;
     fromCeylon = RedHatTransformer.transformLazySpecifier;
     toCeylon = lazySpecifierToCeylon;

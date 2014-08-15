@@ -47,6 +47,7 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->UIdentifier nullUIdentifier = constructU("Null");
     shared String->UIdentifier variadicStringUIdentifier = constructU("VariadicString");
     shared String->LIdentifier charactersLIdentifier = constructL("characters");
+    shared String->LIdentifier nameLIdentifier = constructL("name");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

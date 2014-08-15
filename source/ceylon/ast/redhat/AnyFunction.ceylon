@@ -18,7 +18,7 @@ shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction) {
     }
     case (is JMethodDeclaration) {
         if (anyFunction.specifierExpression exists) {
-            throw AssertionError("Function shortcut definitions not implemented yet"); // TODO implement function shortcut definitions
+            return functionShortcutDefinitionToCeylon(anyFunction);
         } else {
             return functionDeclarationToCeylon(anyFunction);
         }

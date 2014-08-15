@@ -264,13 +264,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifierOrVoidModifier(that.type), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     }
     shared actual default FunctionDefinition transformFunctionDefinition(FunctionDefinition that) {
-        Type|VoidModifier|FunctionModifier|DynamicModifier transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(Type|VoidModifier|FunctionModifier|DynamicModifier that) {
-            switch (that)
-            case (is Type) { return transformType(that); }
-            case (is VoidModifier) { return transformVoidModifier(that); }
-            case (is FunctionModifier) { return transformFunctionModifier(that); }
-            case (is DynamicModifier) { return transformDynamicModifier(that); }
-        }
         return that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformBlock(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     }
     shared actual default FunctionExpression transformFunctionExpression(FunctionExpression that) {
@@ -288,6 +281,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default FunctionModifier transformFunctionModifier(FunctionModifier that)
             => that.copy();
+    shared actual default FunctionShortcutDefinition transformFunctionShortcutDefinition(FunctionShortcutDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifier(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default FunctionValueAlias transformFunctionValueAlias(FunctionValueAlias that)
             => that.copy(transformLIdentifier(that.name));
     shared actual default GivenDec transformGivenDec(GivenDec that)
@@ -791,6 +786,13 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         switch (that)
         case (is Type) { return transformType(that); }
         case (is ValueModifier) { return transformValueModifier(that); }
+        case (is DynamicModifier) { return transformDynamicModifier(that); }
+    }
+    Type|VoidModifier|FunctionModifier|DynamicModifier transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(Type|VoidModifier|FunctionModifier|DynamicModifier that) {
+        switch (that)
+        case (is Type) { return transformType(that); }
+        case (is VoidModifier) { return transformVoidModifier(that); }
+        case (is FunctionModifier) { return transformFunctionModifier(that); }
         case (is DynamicModifier) { return transformDynamicModifier(that); }
     }
 }

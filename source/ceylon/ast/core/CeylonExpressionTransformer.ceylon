@@ -266,6 +266,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 ``indent``}";
     transformFunctionModifier(FunctionModifier that) => "FunctionModifier()";
+    transformFunctionShortcutDefinition(FunctionShortcutDefinition that)
+            => "FunctionShortcutDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
+                `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
+                `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
+                `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformFunctionValueAlias(FunctionValueAlias that) => "FunctionValueAlias(``transformWithIndent(that.name)``)";
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";

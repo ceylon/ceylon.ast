@@ -1121,6 +1121,49 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JMethodDeclaration transformFunctionShortcutDefinition(FunctionShortcutDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JStaticType|JVoidModifier|JFunctionModifier|JDynamicModifier jType;
+        JMethodDeclaration ret;
+        value type = that.type;
+        switch (type)
+        case (is Type) {
+            jType = transformType(type);
+            ret = JMethodDeclaration(null);
+        }
+        case (is VoidModifier) {
+            jType = transformVoidModifier(type);
+            ret = JMethodDeclaration(jType.mainToken);
+        }
+        case (is FunctionModifier) {
+            jType = transformFunctionModifier(type);
+            ret = JMethodDeclaration(jType.mainToken);
+        }
+        case (is DynamicModifier) {
+            jType = transformDynamicModifier(type);
+            ret = JMethodDeclaration(null);
+        }
+        ret.annotationList = annotationList;
+        ret.type = jType;
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        for (parameters in that.parameterLists) {
+            ret.addParameterList(transformParameters(parameters));
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.specifierExpression = transformLazySpecifier(that.definition);
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JAlias transformFunctionValueAlias(FunctionValueAlias that) {
         value identifier = transformLIdentifier(that.name);
         JAlias ret = JAlias(tokens.token("=", specify));

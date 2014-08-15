@@ -92,6 +92,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformFunctionDefinition(FunctionDefinition that);
     shared formal Result transformFunctionExpression(FunctionExpression that);
     shared formal Result transformFunctionModifier(FunctionModifier that);
+    shared formal Result transformFunctionShortcutDefinition(FunctionShortcutDefinition that);
     shared formal Result transformFunctionValueAlias(FunctionValueAlias that);
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);

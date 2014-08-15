@@ -10,7 +10,7 @@
        shared void run() {
            print("Hello, `` process.arguments.first else "World" ``!");"""
 shared abstract class AnyFunction()
-        of FunctionDeclaration | FunctionDefinition
+        of FunctionDeclaration | FunctionDefinition | FunctionShortcutDefinition
         extends TypedDeclaration() {
     
     shared actual formal Type|FunctionModifier|DynamicModifier|VoidModifier type;
@@ -25,5 +25,5 @@ shared abstract class AnyFunction()
      [[type parameters|typeParameters]], if any."
     shared formal TypeConstraint[] typeConstraints;
     
-    shared actual formal [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint|Block*] children;
+    shared actual formal [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint|Block|LazySpecifier*] children;
 }

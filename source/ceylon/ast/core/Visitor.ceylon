@@ -118,6 +118,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformInvocation(Invocation that) => visitInvocation(that);
     transformInvocationStatement(InvocationStatement that) => visitInvocationStatement(that);
+    transformIsCondition(IsCondition that) => visitIsCondition(that);
     transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterable(Iterable that) => visitIterable(that);
     transformIterableType(IterableType that) => visitIterableType(that);
@@ -350,6 +351,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);
     shared default void visitInvocation(Invocation that) => super.transformInvocation(that);
     shared default void visitInvocationStatement(InvocationStatement that) => super.transformInvocationStatement(that);
+    shared default void visitIsCondition(IsCondition that) => super.transformIsCondition(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitIterable(Iterable that) => super.transformIterable(that);
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);

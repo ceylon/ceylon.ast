@@ -13,6 +13,6 @@
      is Float number
      nonempty members"
 shared abstract class Condition()
-        of BooleanCondition // TODO other condition types
+        of BooleanCondition | IsCondition // TODO other condition types
         extends Node() {
 }

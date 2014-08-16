@@ -112,6 +112,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformCondition(Condition that) {
         switch (that)
         case (is BooleanCondition) { return transformBooleanCondition(that); }
+        case (is IsCondition) { return transformIsCondition(that); }
     }
     shared actual default Result transformControlStructure(ControlStructure that) {
         switch (that)

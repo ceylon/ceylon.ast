@@ -102,6 +102,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
         JInvocationExpression=InvocationExpression,
+        JIsCondition=IsCondition,
         JIsOp=IsOp,
         JIterableType=IterableType,
         JLargeAsOp=LargeAsOp,
@@ -181,6 +182,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSumOp=SumOp,
         JSuper=Super,
         JSuperType=SuperType,
+        JSyntheticVariable=SyntheticVariable,
         JTerm=Term,
         JThenOp=ThenOp,
         JThis=This,
@@ -1365,6 +1367,37 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JExpressionStatement ret = JExpressionStatement(null);
         ret.expression = wrapTerm(transformInvocation(that.expression));
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JIsCondition transformIsCondition(IsCondition that) {
+        JIsCondition ret;
+        if (that.negated) {
+            ret = JIsCondition(tokens.token("!", not_op));
+            ret.not = true;
+            tokens.token("is", is_op);
+        } else {
+            ret = JIsCondition(tokens.token("is", is_op));
+        }
+        ret.type = transformType(that.variable.type);
+        JVariable var = JVariable(null);
+        var.identifier = transformLIdentifier(that.variable.name);
+        if (exists specifier = that.variable.specifier) {
+            var.type = JValueModifier(null);
+            var.specifierExpression = transformSpecifier(specifier);
+        } else {
+            // the parser does lots of stuff here (impliedVariable rule), I assume the compiler needs it?
+            var.type = JSyntheticVariable(null);
+            value se = JSpecifierExpression(null);
+            value e = JExpression(null);
+            value bme = JBaseMemberExpression(null);
+            bme.identifier = var.identifier;
+            bme.typeArguments = JInferredTypeArguments(null);
+            e.term = bme;
+            se.expression = e;
+            var.specifierExpression = se;
+        }
+        ret.variable = var;
         return ret;
     }
     

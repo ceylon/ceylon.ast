@@ -118,6 +118,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformInvocation(Invocation that);
     shared formal Result transformInvocationStatement(InvocationStatement that);
+    shared formal Result transformIsCondition(IsCondition that);
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);

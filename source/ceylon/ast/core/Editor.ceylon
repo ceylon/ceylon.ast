@@ -337,6 +337,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimary(that.invoked), transformArguments(that.arguments));
     shared actual default InvocationStatement transformInvocationStatement(InvocationStatement that)
             => that.copy(transformInvocation(that.expression));
+    shared actual default IsCondition transformIsCondition(IsCondition that)
+            => that.copy(transformTypedVariable(that.variable), that.negated);
     shared actual default IterableType transformIterableType(IterableType that) {
         if (exists variadicType = that.variadicType) {
             return that.copy(transformVariadicType(variadicType));

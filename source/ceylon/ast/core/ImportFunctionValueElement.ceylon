@@ -12,7 +12,7 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
     "The name of the imported function or value."
     shared actual MemberName name;
     "The visible name of the imported function or value."
-    shared actual FunctionValueAlias? importAlias;
+    shared actual ImportFunctionValueAlias? importAlias;
     "The nested imports of the imported element. **Unspecified!**
      
      This is not blessed by the specification, and only supported by the compiler
@@ -22,7 +22,7 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
     shared actual ImportElements? nestedImports;
     
     // TODO use more precise type when backend bug is fixed
-    //shared actual [Alias, LIdentifier, ImportElements=]|[Identifier, ImportElements=] children;
+    //shared actual [ImportFunctionValueAlias, LIdentifier, ImportElements=]|[Identifier, ImportElements=] children;
     shared actual Node[] children;
     if (exists importAlias) {
         if (exists nestedImports) {
@@ -88,7 +88,7 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
     shared actual Integer hash
             => 31 * (name.hash + 31 * ((importAlias?.hash else 0) + 31 * (nestedImports?.hash else 0)));
     
-    shared ImportFunctionValueElement copy(MemberName name = this.name, FunctionValueAlias? importAlias = this.importAlias, ImportElements? nestedImports = this.nestedImports) {
+    shared ImportFunctionValueElement copy(MemberName name = this.name, ImportFunctionValueAlias? importAlias = this.importAlias, ImportElements? nestedImports = this.nestedImports) {
         value ret = ImportFunctionValueElement(name, importAlias, nestedImports);
         copyExtraInfoTo(ret);
         return ret;

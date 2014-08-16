@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 shared ImportTypeElement importTypeElementToCeylon(JImportMemberOrType importTypeElement) {
     return ImportTypeElement {
         uIdentifierToCeylon(importTypeElement.identifier);
-        importTypeElement.\ialias exists then typeAliasToCeylon(importTypeElement.\ialias);
+        importTypeElement.\ialias exists then importTypeAliasToCeylon(importTypeElement.\ialias);
         importTypeElement.importMemberOrTypeList exists then importElementsToCeylon(importTypeElement.importMemberOrTypeList);
     };
 }

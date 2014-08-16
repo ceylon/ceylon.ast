@@ -25,10 +25,6 @@
 shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // TODO make interface
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
-    shared actual default Alias transformAlias(Alias that) {
-        assert (is Alias ret = super.transformAlias(that));
-        return ret;
-    }
     shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
@@ -283,8 +279,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default FunctionShortcutDefinition transformFunctionShortcutDefinition(FunctionShortcutDefinition that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifier(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    shared actual default FunctionValueAlias transformFunctionValueAlias(FunctionValueAlias that)
-            => that.copy(transformLIdentifier(that.name));
     shared actual default GivenDec transformGivenDec(GivenDec that)
             => that.copy(transformUIdentifier(that.typeParameter));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
@@ -305,16 +299,24 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default Import transformImport(Import that)
             => that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements));
+    shared actual default ImportAlias transformImportAlias(ImportAlias that) {
+        assert (is ImportAlias ret = super.transformImportAlias(that));
+        return ret;
+    }
     shared actual default ImportElement transformImportElement(ImportElement that) {
         assert (is ImportElement ret = super.transformImportElement(that));
         return ret;
     }
     shared actual default ImportElements transformImportElements(ImportElements that)
             => that.copy(that.elements.collect(transformImportElement), nullsafeInvoke(that.wildcard, transformImportWildcard));
+    shared actual default ImportFunctionValueAlias transformImportFunctionValueAlias(ImportFunctionValueAlias that)
+            => that.copy(transformLIdentifier(that.name));
     shared actual default ImportFunctionValueElement transformImportFunctionValueElement(ImportFunctionValueElement that)
-            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.importAlias, transformFunctionValueAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.importAlias, transformImportFunctionValueAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
+    shared actual default ImportTypeAlias transformImportTypeAlias(ImportTypeAlias that)
+            => that.copy(transformUIdentifier(that.name));
     shared actual default ImportTypeElement transformImportTypeElement(ImportTypeElement that)
-            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.importAlias, transformTypeAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.importAlias, transformImportTypeAlias), nullsafeInvoke(that.nestedImports, transformImportElements));
     shared actual default ImportWildcard transformImportWildcard(ImportWildcard that)
             => that.copy();
     shared actual default InModifier transformInModifier(InModifier that)
@@ -650,8 +652,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Type ret = super.transformType(that));
         return ret;
     }
-    shared actual default TypeAlias transformTypeAlias(TypeAlias that)
-            => that.copy(transformUIdentifier(that.name));
     shared actual default TypeArgument transformTypeArgument(TypeArgument that)
             => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
     shared actual default TypeArguments transformTypeArguments(TypeArguments that)

@@ -15,7 +15,7 @@ shared abstract class ImportElement()
     "The name of the imported element."
     shared formal Identifier name;
     "The visible name of the imported element."
-    shared formal Alias? importAlias;
+    shared formal ImportAlias? importAlias;
     "The nested imported elements, if present.
      
      (The specification only blesses these for
@@ -25,6 +25,6 @@ shared abstract class ImportElement()
     shared formal ImportElements? nestedImports;
     
     // TODO use more precise type when backend bug is fixed
-    //shared actual formal [Alias, Identifier, ImportElements=]|[Identifier, ImportElements=] children;
+    //shared actual formal [ImportAlias, Identifier, ImportElements=]|[Identifier, ImportElements=] children;
     shared actual formal Node[] children;
 }

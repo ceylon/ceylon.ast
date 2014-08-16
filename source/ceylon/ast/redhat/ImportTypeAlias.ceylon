@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    TypeAlias
+    ImportTypeAlias
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,24 +12,24 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     }
 }
 
-"Converts a RedHat AST [[Alias|JAlias]] to a `ceylon.ast` [[TypeAlias]]."
-shared TypeAlias typeAliasToCeylon(JAlias typeAlias) {
-    return TypeAlias(uIdentifierToCeylon(typeAlias.identifier));
+"Converts a RedHat AST [[Alias|JAlias]] to a `ceylon.ast` [[ImportTypeAlias]]."
+shared ImportTypeAlias importTypeAliasToCeylon(JAlias importTypeAlias) {
+    return ImportTypeAlias(uIdentifierToCeylon(importTypeAlias.identifier));
 }
 
-"Compiles the given [[code]] for a Type Alias
- into a [[TypeAlias]] using the Ceylon compiler
+"Compiles the given [[code]] for an Import Type Alias
+ into an [[ImportTypeAlias]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared TypeAlias? compileTypeAlias(String code) {
+shared ImportTypeAlias? compileImportTypeAlias(String code) {
     /*
      there’s no separate rule for an alias (it might not even
      work out to do it that way, parser-wise), so we construct
-     a fake import elemen
+     a fake import element
      */
     if (exists jImportElement = createParser(code + "i").importElement(),
         exists jAlias = jImportElement.\ialias,
         jAlias.identifier.mainToken.type == uidentifier) {
-        return typeAliasToCeylon(jAlias);
+        return importTypeAliasToCeylon(jAlias);
     } else {
         return null;
     }

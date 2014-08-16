@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    FunctionValueAlias
+    ImportFunctionValueAlias
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,24 +12,24 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     }
 }
 
-"Converts a RedHat AST [[Alias|JAlias]] to a `ceylon.ast` [[FunctionValueAlias]]."
-shared FunctionValueAlias functionValueAliasToCeylon(JAlias functionValueAlias) {
-    return FunctionValueAlias(lIdentifierToCeylon(functionValueAlias.identifier));
+"Converts a RedHat AST [[Alias|JAlias]] to a `ceylon.ast` [[ImportFunctionValueAlias]]."
+shared ImportFunctionValueAlias importFunctionValueAliasToCeylon(JAlias importFunctionValueAlias) {
+    return ImportFunctionValueAlias(lIdentifierToCeylon(importFunctionValueAlias.identifier));
 }
 
-"Compiles the given [[code]] for a Function Value Alias
- into a [[FunctionValueAlias]] using the Ceylon compiler
+"Compiles the given [[code]] for an Import Function Value Alias
+ into an [[ImportFunctionValueAlias]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared FunctionValueAlias? compileFunctionValueAlias(String code) {
+shared ImportFunctionValueAlias? compileImportFunctionValueAlias(String code) {
     /*
      there’s no separate rule for an alias (it might not even
      work out to do it that way, parser-wise), so we construct
-     a fake import elemen
+     a fake import element
      */
     if (exists jImportElement = createParser(code + "i").importElement(),
         exists jAlias = jImportElement.\ialias,
         jAlias.identifier.mainToken.type == lidentifier) {
-        return functionValueAliasToCeylon(jAlias);
+        return importFunctionValueAliasToCeylon(jAlias);
     } else {
         return null;
     }

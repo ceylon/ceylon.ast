@@ -7,8 +7,8 @@
      JString=
      sysout="
 // TODO doclink to alias declarations
-shared abstract class Alias()
-        of TypeAlias | FunctionValueAlias
+shared abstract class ImportAlias()
+        of ImportTypeAlias | ImportFunctionValueAlias
         extends Node() {
     
     "The visible name of the imported element.

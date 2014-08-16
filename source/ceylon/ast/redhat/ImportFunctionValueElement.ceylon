@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 shared ImportFunctionValueElement importFunctionValueElementToCeylon(JImportMemberOrType importFunctionValueElement) {
     return ImportFunctionValueElement {
         lIdentifierToCeylon(importFunctionValueElement.identifier);
-        importFunctionValueElement.\ialias exists then functionValueAliasToCeylon(importFunctionValueElement.\ialias);
+        importFunctionValueElement.\ialias exists then importFunctionValueAliasToCeylon(importFunctionValueElement.\ialias);
         importFunctionValueElement.importMemberOrTypeList exists then importElementsToCeylon(importFunctionValueElement.importMemberOrTypeList);
     };
 }

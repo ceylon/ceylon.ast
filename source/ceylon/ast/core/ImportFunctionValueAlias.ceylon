@@ -5,18 +5,18 @@
  
      sysout=
      ln="
-shared class FunctionValueAlias(name)
-        extends Alias() {
+shared class ImportFunctionValueAlias(name)
+        extends ImportAlias() {
     
     shared actual MemberName name;
     
     shared actual [LIdentifier] children = [name];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformFunctionValueAlias(this);
+            => transformer.transformImportFunctionValueAlias(this);
     
     shared actual Boolean equals(Object that) {
-        if (is FunctionValueAlias that) {
+        if (is ImportFunctionValueAlias that) {
             return name == that.name;
         } else {
             return false;
@@ -26,8 +26,8 @@ shared class FunctionValueAlias(name)
     shared actual Integer hash
             => 31 * name.hash;
     
-    shared FunctionValueAlias copy(MemberName name = this.name) {
-        value ret = FunctionValueAlias(name);
+    shared ImportFunctionValueAlias copy(MemberName name = this.name) {
+        value ret = ImportFunctionValueAlias(name);
         copyExtraInfoTo(ret);
         return ret;
     }

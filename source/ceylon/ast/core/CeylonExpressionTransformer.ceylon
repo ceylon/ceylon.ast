@@ -276,7 +276,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
-    transformFunctionValueAlias(FunctionValueAlias that) => "FunctionValueAlias(``transformWithIndent(that.name)``)";
     transformGivenDec(GivenDec that) => "GivenDec(``transformWithIndent(that.typeParameter)``)";
     transformGroupedExpression(GroupedExpression that) => "GroupedExpression(``transformWithIndent(that.innerExpression)``)";
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
@@ -306,12 +305,14 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``elements = ``transformWithIndent(that.elements)``;
                 `` indent + indentLevel ``wildcard = ``transformWithIndent(that.wildcard)``;
                 ``indent``}";
+    transformImportFunctionValueAlias(ImportFunctionValueAlias that) => "FunctionValueAlias(``transformWithIndent(that.name)``)";
     transformImportFunctionValueElement(ImportFunctionValueElement that)
             => "ImportFunctionValueElement {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``importAlias = ``transformWithIndent(that.importAlias)``;
                 `` indent + indentLevel ``nestedImports = ``transformWithIndent(that.nestedImports)``;
                 ``indent``}";
+    transformImportTypeAlias(ImportTypeAlias that) => "TypeAlias(``transformWithIndent(that.name)``)";
     transformImportTypeElement(ImportTypeElement that)
             => "ImportTypeElement {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -554,7 +555,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformThrow(Throw that) => "Throw(``transformWithIndent(that.result)``)";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
-    transformTypeAlias(TypeAlias that) => "TypeAlias(``transformWithIndent(that.name)``)";
     transformTypeArgument(TypeArgument that)
             => "TypeArgument {
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;

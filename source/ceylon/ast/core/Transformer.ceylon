@@ -13,7 +13,6 @@
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
     shared formal Result transformAddAssignmentOperation(AddAssignmentOperation that);
-    shared formal Result transformAlias(Alias that);
     shared formal Result transformAndAssignmentOperation(AndAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformAnnotation(Annotation that);
@@ -93,7 +92,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformFunctionExpression(FunctionExpression that);
     shared formal Result transformFunctionModifier(FunctionModifier that);
     shared formal Result transformFunctionShortcutDefinition(FunctionShortcutDefinition that);
-    shared formal Result transformFunctionValueAlias(FunctionValueAlias that);
     shared formal Result transformGivenDec(GivenDec that);
     shared formal Result transformGroupedExpression(GroupedExpression that);
     shared formal Result transformGroupedType(GroupedType that);
@@ -103,9 +101,12 @@ shared interface Transformer<out Result> {
     shared formal Result transformIfClause(IfClause that);
     shared formal Result transformIfElse(IfElse that);
     shared formal Result transformImport(Import that);
+    shared formal Result transformImportAlias(ImportAlias that);
     shared formal Result transformImportElement(ImportElement that);
     shared formal Result transformImportElements(ImportElements that);
+    shared formal Result transformImportFunctionValueAlias(ImportFunctionValueAlias that);
     shared formal Result transformImportFunctionValueElement(ImportFunctionValueElement that);
+    shared formal Result transformImportTypeAlias(ImportTypeAlias that);
     shared formal Result transformImportTypeElement(ImportTypeElement that);
     shared formal Result transformImportWildcard(ImportWildcard that);
     shared formal Result transformInModifier(InModifier that);
@@ -207,7 +208,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
-    shared formal Result transformTypeAlias(TypeAlias that);
     shared formal Result transformTypeArgument(TypeArgument that);
     shared formal Result transformTypeArguments(TypeArguments that);
     shared formal Result transformTypeConstraint(TypeConstraint that);

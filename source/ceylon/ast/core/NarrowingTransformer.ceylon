@@ -275,6 +275,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ExtendedType) { return transformExtendedType(that); }
         case (is ClassSpecifier) { return transformClassSpecifier(that); }
         case (is TypeSpecifier) { return transformTypeSpecifier(that); }
+        case (is Variable) { return transformVariable(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
@@ -519,6 +520,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is Primary) { return transformPrimary(that); }
         case (is Operation) { return transformOperation(that); }
+    }
+    shared actual default Result transformVariable(Variable that) {
+        switch (that)
+        case (is TypedVariable) { return transformTypedVariable(that); }
     }
     shared actual default Result transformVariance(Variance that) {
         switch (that)

@@ -221,6 +221,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeParameters(TypeParameters that);
     shared formal Result transformTypeSpecifier(TypeSpecifier that);
     shared formal Result transformTypedDeclaration(TypedDeclaration that);
+    shared formal Result transformTypedVariable(TypedVariable that);
     shared formal Result transformUIdentifier(UIdentifier that);
     shared formal Result transformUnaryArithmeticOperation(UnaryArithmeticOperation that);
     shared formal Result transformUnaryIshOperation(UnaryIshOperation that);
@@ -238,6 +239,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSetterDefinition(ValueSetterDefinition that);
     shared formal Result transformValueSpecification(ValueSpecification that);
+    shared formal Result transformVariable(Variable that);
     shared formal Result transformVariadicParameter(VariadicParameter that);
     shared formal Result transformVariadicType(VariadicType that);
     shared formal Result transformVariance(Variance that);

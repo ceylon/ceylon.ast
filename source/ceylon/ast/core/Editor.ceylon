@@ -692,6 +692,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is TypedDeclaration ret = super.transformTypedDeclaration(that));
         return ret;
     }
+    shared actual default TypedVariable transformTypedVariable(TypedVariable that)
+            => that.copy(transformLIdentifier(that.name), transformType(that.type), nullsafeInvoke(that.specifier, transformSpecifier));
     shared actual default UIdentifier transformUIdentifier(UIdentifier that)
             => that.copy();
     shared actual default UnaryArithmeticOperation transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
@@ -765,6 +767,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
             => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
+    shared actual default Variable transformVariable(Variable that) {
+        assert (is Variable ret = super.transformVariable(that));
+        return ret;
+    }
     shared actual default VariadicParameter transformVariadicParameter(VariadicParameter that)
             => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
     shared actual default VariadicType transformVariadicType(VariadicType that)

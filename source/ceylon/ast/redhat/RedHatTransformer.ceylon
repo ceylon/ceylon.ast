@@ -206,6 +206,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionType=UnionType,
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
+        JVariable=Variable,
         JVoidModifier=VoidModifier,
         JWhileClause=WhileClause,
         JWhileStatement=WhileStatement,
@@ -2148,6 +2149,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The usage of [[TypedVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformTypedVariable(TypedVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast TypedVariable to a RedHat AST Variable");
+    }
+    
     shared actual JStaticType transformTypeArgument(TypeArgument that) {
         JTypeVariance? jVariance;
         if (exists variance = that.variance) {
@@ -2415,6 +2423,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.baseMemberExpression = baseMemberExpression;
         ret.specifierExpression = transformSpecifier(that.specifier);
         return ret;
+    }
+    
+    "The usage of [[Variable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformVariable(Variable that) {
+        throw AssertionError("Can’t transform a ceylon.ast Variable to a RedHat AST Variable");
     }
     
     shared actual JValueParameterDeclaration transformVariadicParameter(VariadicParameter that) {

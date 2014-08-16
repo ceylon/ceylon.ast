@@ -219,6 +219,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTypeParameters(TypeParameters that) => visitTypeParameters(that);
     transformTypeSpecifier(TypeSpecifier that) => visitTypeSpecifier(that);
     transformTypedDeclaration(TypedDeclaration that) => visitTypedDeclaration(that);
+    transformTypedVariable(TypedVariable that) => visitTypedVariable(that);
     transformUIdentifier(UIdentifier that) => visitUIdentifier(that);
     transformUnaryArithmeticOperation(UnaryArithmeticOperation that) => visitUnaryArithmeticOperation(that);
     transformUnaryIshOperation(UnaryIshOperation that) => visitUnaryIshOperation(that);
@@ -236,6 +237,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSetterDefinition(ValueSetterDefinition that) => visitValueSetterDefinition(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
+    transformVariable(Variable that) => visitVariable(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
     transformVariance(Variance that) => visitVariance(that);
     transformVoidModifier(VoidModifier that) => visitVoidModifier(that);
@@ -449,6 +451,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTypeParameter(TypeParameter that) => super.transformTypeParameter(that);
     shared default void visitTypeSpecifier(TypeSpecifier that) => super.transformTypeSpecifier(that);
     shared default void visitType(Type that) => super.transformType(that);
+    shared default void visitTypedVariable(TypedVariable that) => super.transformTypedVariable(that);
     shared default void visitUIdentifier(UIdentifier that) => super.transformUIdentifier(that);
     shared default void visitUnaryArithmeticOperation(UnaryArithmeticOperation that) => super.transformUnaryArithmeticOperation(that);
     shared default void visitUnaryIshOperation(UnaryIshOperation that) => super.transformUnaryIshOperation(that);
@@ -466,6 +469,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSetterDefinition(ValueSetterDefinition that) => super.transformValueSetterDefinition(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
+    shared default void visitVariable(Variable that) => super.transformVariable(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
     shared default void visitVariance(Variance that) => super.transformVariance(that);
     shared default void visitVoidModifier(VoidModifier that) => super.transformVoidModifier(that);

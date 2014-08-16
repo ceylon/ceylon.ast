@@ -17,5 +17,5 @@ shared object condition satisfies AbstractTest<Condition,JCondition> {
     fromCeylon = RedHatTransformer.transformCondition;
     toCeylon = conditionToCeylon;
     
-    tests = [booleanCondition];
+    tests = [booleanCondition, isCondition];
 }

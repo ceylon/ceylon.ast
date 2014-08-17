@@ -30,6 +30,12 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
         baseExpression.nameExpression.item,
         MemberNameWithTypeArguments(LIdentifier("empty")));
     
+    // not tested directly, but used by other tests
+    shared String->QualifiedExpression processArgumentsSequenceQualifiedExpression
+            = "``processArgumentsQualifiedExpression.key``.sequence"->QualifiedExpression(
+        processArgumentsQualifiedExpression.item,
+        MemberNameWithTypeArguments(LIdentifier("sequence")));
+    
     compile = compileQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;
     toCeylon = qualifiedExpressionToCeylon;

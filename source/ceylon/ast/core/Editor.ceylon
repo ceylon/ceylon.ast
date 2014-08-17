@@ -254,6 +254,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformClassInstantiation(that.instantiation));
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
+    shared actual default ForIterator transformForIterator(ForIterator that) {
+        assert (is ForIterator ret = super.transformForIterator(that));
+        return ret;
+    }
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
     shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
@@ -356,6 +360,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
     shared actual default Iterable transformIterable(Iterable that)
             => that.copy(transformArgumentList(that.argumentList));
+    shared actual default KeyValueIterator transformKeyValueIterator(KeyValueIterator that)
+            => that.copy(transformUnspecifiedVariable(that.keyVariable), transformUnspecifiedVariable(that.valueVariable), transformExpression(that.iterated));
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
@@ -761,6 +767,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ValueGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformBlock(that.definition), transformAnnotations(that.annotations));
+    shared actual default ValueIterator transformValueIterator(ValueIterator that)
+            => that.copy(transformUnspecifiedVariable(that.variable), transformExpression(that.iterated));
     shared actual default ValueModifier transformValueModifier(ValueModifier that)
             => that.copy();
     shared actual default ValueParameter transformValueParameter(ValueParameter that) {

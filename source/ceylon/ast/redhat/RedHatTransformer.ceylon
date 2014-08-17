@@ -76,6 +76,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
+        JForIterator=ForIterator,
         JFunctionArgument=FunctionArgument,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
@@ -107,6 +108,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIsCondition=IsCondition,
         JIsOp=IsOp,
         JIterableType=IterableType,
+        JKeyValueIterator=KeyValueIterator,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
         JLazySpecifierExpression=LazySpecifierExpression,
@@ -209,6 +211,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType,
+        JValueIterator=ValueIterator,
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
         JVariable=Variable,
@@ -1022,6 +1025,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     
+    shared actual JForIterator transformForIterator(ForIterator that) {
+        assert (is JForIterator ret = super.transformForIterator(that));
+        return ret;
+    }
+    
     shared actual JImportPath transformFullPackageName(FullPackageName that) {
         JImportPath ret = JImportPath(null);
         ret.addIdentifier(transformPIdentifier(that.components.first));
@@ -1435,6 +1443,34 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.elementType = transformVariadicType(varType);
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JKeyValueIterator transformKeyValueIterator(KeyValueIterator that) {
+        JKeyValueIterator ret = JKeyValueIterator(tokens.token("(", lparen));
+        value keyVariable = that.keyVariable;
+        value keyVar = JVariable(null);
+        if (exists type = keyVariable.type) {
+            keyVar.type = transformType(type);
+        } else {
+            keyVar.type = JValueModifier(null);
+        }
+        keyVar.identifier = transformLIdentifier(keyVariable.name);
+        ret.keyVariable = keyVar;
+        tokens.token("->", entry_op);
+        value valueVariable = that.valueVariable;
+        value valueVar = JVariable(null);
+        if (exists type = valueVariable.type) {
+            valueVar.type = transformType(type);
+        } else {
+            valueVar.type = JValueModifier(null);
+        }
+        valueVar.identifier = transformLIdentifier(valueVariable.name);
+        ret.valueVariable = valueVar;
+        value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
+        jSpecifierExpression.expression = wrapTerm(transformExpression(that.iterated));
+        ret.specifierExpression = jSpecifierExpression;
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     
@@ -2446,6 +2482,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.type = jType;
         ret.identifier = transformLIdentifier(that.name);
         ret.block = transformBlock(that.definition);
+        return ret;
+    }
+    
+    shared actual JValueIterator transformValueIterator(ValueIterator that) {
+        JValueIterator ret = JValueIterator(tokens.token("(", lparen));
+        value variable = that.variable;
+        value var = JVariable(null);
+        if (exists type = variable.type) {
+            var.type = transformType(type);
+        } else {
+            var.type = JValueModifier(null);
+        }
+        var.identifier = transformLIdentifier(variable.name);
+        ret.variable = var;
+        value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
+        jSpecifierExpression.expression = wrapTerm(transformExpression(that.iterated));
+        ret.specifierExpression = jSpecifierExpression;
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

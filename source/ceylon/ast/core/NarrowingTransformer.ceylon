@@ -184,6 +184,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PrefixPostfixStatement) { return transformPrefixPostfixStatement(that); }
         case (is InvocationStatement) { return transformInvocationStatement(that); }
     }
+    shared actual default Result transformForIterator(ForIterator that) {
+        switch (that)
+        case (is ValueIterator) { return transformValueIterator(that); }
+        case (is KeyValueIterator) { return transformKeyValueIterator(that); }
+    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }
@@ -283,6 +288,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ClassSpecifier) { return transformClassSpecifier(that); }
         case (is TypeSpecifier) { return transformTypeSpecifier(that); }
         case (is Variable) { return transformVariable(that); }
+        case (is ForIterator) { return transformForIterator(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

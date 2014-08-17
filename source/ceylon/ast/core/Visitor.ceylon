@@ -88,6 +88,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformExpressionStatement(ExpressionStatement that) => visitExpressionStatement(that);
     transformExtendedType(ExtendedType that) => visitExtendedType(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
+    transformForIterator(ForIterator that) => visitForIterator(that);
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
     transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
     transformFunctionDefinition(FunctionDefinition that) => visitFunctionDefinition(that);
@@ -124,6 +125,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterable(Iterable that) => visitIterable(that);
     transformIterableType(IterableType that) => visitIterableType(that);
+    transformKeyValueIterator(KeyValueIterator that) => visitKeyValueIterator(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
@@ -239,6 +241,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformValueDefinition(ValueDefinition that) => visitValueDefinition(that);
     transformValueExpression(ValueExpression that) => visitValueExpression(that);
     transformValueGetterDefinition(ValueGetterDefinition that) => visitValueGetterDefinition(that);
+    transformValueIterator(ValueIterator that) => visitValueIterator(that);
     transformValueModifier(ValueModifier that) => visitValueModifier(that);
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSetterDefinition(ValueSetterDefinition that) => visitValueSetterDefinition(that);
@@ -326,6 +329,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitExpressionStatement(ExpressionStatement that) => super.transformExpressionStatement(that);
     shared default void visitExtendedType(ExtendedType that) => super.transformExtendedType(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
+    shared default void visitForIterator(ForIterator that) => super.transformForIterator(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);
     shared default void visitFunctionDefinition(FunctionDefinition that) => super.transformFunctionDefinition(that);
@@ -362,6 +366,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitIterable(Iterable that) => super.transformIterable(that);
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
+    shared default void visitKeyValueIterator(KeyValueIterator that) => super.transformKeyValueIterator(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
@@ -477,6 +482,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitValueDefinition(ValueDefinition that) => super.transformValueDefinition(that);
     shared default void visitValueExpression(ValueExpression that) => super.transformValueExpression(that);
     shared default void visitValueGetterDefinition(ValueGetterDefinition that) => super.transformValueGetterDefinition(that);
+    shared default void visitValueIterator(ValueIterator that) => super.transformValueIterator(that);
     shared default void visitValueModifier(ValueModifier that) => super.transformValueModifier(that);
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSetterDefinition(ValueSetterDefinition that) => super.transformValueSetterDefinition(that);

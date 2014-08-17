@@ -88,6 +88,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformExtendedType(ExtendedType that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformForIterator(ForIterator that);
     shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionDefinition(FunctionDefinition that);
@@ -124,6 +125,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
+    shared formal Result transformKeyValueIterator(KeyValueIterator that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
@@ -241,6 +243,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);
     shared formal Result transformValueGetterDefinition(ValueGetterDefinition that);
+    shared formal Result transformValueIterator(ValueIterator that);
     shared formal Result transformValueModifier(ValueModifier that);
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSetterDefinition(ValueSetterDefinition that);

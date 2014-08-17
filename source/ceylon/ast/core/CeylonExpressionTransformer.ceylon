@@ -358,6 +358,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
+    transformKeyValueIterator(KeyValueIterator that)
+            => "KeyValueIterator {
+                `` indent + indentLevel ``keyVariable = ``transformWithIndent(that.keyVariable)``;
+                `` indent + indentLevel ``valueVariable = ``transformWithIndent(that.valueVariable)``;
+                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
+                ``indent``}";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.typeArguments exists
@@ -646,6 +652,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
+    transformValueIterator(ValueIterator that)
+            => "ValueIterator {
+                `` indent + indentLevel ``variable = ``transformWithIndent(that.variable)``;
+                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
     transformValueModifier(ValueModifier that) => "ValueModifier()";
     transformValueParameter(ValueParameter that)

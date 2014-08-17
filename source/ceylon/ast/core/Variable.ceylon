@@ -7,7 +7,7 @@
      firstEmployee = employees.first
      Integer|Float num"
 shared abstract class Variable()
-        of TypedVariable
+        of TypedVariable | SpecifiedVariable
         extends Node() {
     
     "The name of the variable."
@@ -19,5 +19,7 @@ shared abstract class Variable()
     "The definition of the variable, if present."
     shared formal Specifier? specifier;
     
-    shared actual formal [Type, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
+    //shared actual formal [Type, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
+    // TODO use above more precise type when backend bug is fixed
+    shared actual formal Node[] children;
 }

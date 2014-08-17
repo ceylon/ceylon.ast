@@ -2067,6 +2067,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The usage of [[SpecifiedVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformSpecifiedVariable(SpecifiedVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast SpecifiedVariable to a RedHat AST Variable");
+    }
+    
     shared actual JSpecifierExpression transformSpecifier(Specifier that) {
         JSpecifierExpression ret = JSpecifierExpression(tokens.token("=", specify));
         ret.expression = wrapTerm(transformExpression(that.expression));

@@ -622,6 +622,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default SpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that)
             => that.copy(transformSpecification(that.specification));
+    shared actual default SpecifiedVariable transformSpecifiedVariable(SpecifiedVariable that)
+            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier), nullsafeInvoke(that.type, transformType));
     shared actual default Specifier transformSpecifier(Specifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)

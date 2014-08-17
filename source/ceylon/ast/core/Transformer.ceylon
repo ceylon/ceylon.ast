@@ -236,6 +236,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformUnionOperation(UnionOperation that);
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);
+    shared formal Result transformUnspecifiedVariable(UnspecifiedVariable that);
     shared formal Result transformValueDeclaration(ValueDeclaration that);
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);

@@ -234,6 +234,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformUnionOperation(UnionOperation that) => visitUnionOperation(that);
     transformUnionType(UnionType that) => visitUnionType(that);
     transformUnionableType(UnionableType that) => visitUnionableType(that);
+    transformUnspecifiedVariable(UnspecifiedVariable that) => visitUnspecifiedVariable(that);
     transformValueDeclaration(ValueDeclaration that) => visitValueDeclaration(that);
     transformValueDefinition(ValueDefinition that) => visitValueDefinition(that);
     transformValueExpression(ValueExpression that) => visitValueExpression(that);
@@ -471,6 +472,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitUnionAssignmentOperation(UnionAssignmentOperation that) => super.transformUnionAssignmentOperation(that);
     shared default void visitUnionOperation(UnionOperation that) => super.transformUnionOperation(that);
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
+    shared default void visitUnspecifiedVariable(UnspecifiedVariable that) => super.transformUnspecifiedVariable(that);
     shared default void visitValueDeclaration(ValueDeclaration that) => super.transformValueDeclaration(that);
     shared default void visitValueDefinition(ValueDefinition that) => super.transformValueDefinition(that);
     shared default void visitValueExpression(ValueExpression that) => super.transformValueExpression(that);

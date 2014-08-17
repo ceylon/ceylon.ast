@@ -532,6 +532,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is TypedVariable) { return transformTypedVariable(that); }
         case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+        case (is UnspecifiedVariable) { return transformUnspecifiedVariable(that); }
     }
     shared actual default Result transformVariance(Variance that) {
         switch (that)

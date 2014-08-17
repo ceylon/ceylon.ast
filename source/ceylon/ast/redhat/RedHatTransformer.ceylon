@@ -2312,6 +2312,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The usage of [[UnspecifiedVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformUnspecifiedVariable(UnspecifiedVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast UnspecifiedVariable to a RedHat AST Variable");
+    }
+    
     shared actual JTypeLiteral transformTypeDec(TypeDec that) {
         assert (is JTypeLiteral ret = super.transformTypeDec(that));
         return ret;

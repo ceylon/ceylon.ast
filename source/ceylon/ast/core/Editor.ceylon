@@ -741,6 +741,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is UnionableType ret = super.transformUnionableType(that));
         return ret;
     }
+    shared actual default UnspecifiedVariable transformUnspecifiedVariable(UnspecifiedVariable that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformType));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
             switch (that)

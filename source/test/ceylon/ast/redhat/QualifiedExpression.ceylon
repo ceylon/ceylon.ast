@@ -35,6 +35,10 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
             = "``processArgumentsQualifiedExpression.key``.sequence"->QualifiedExpression(
         processArgumentsQualifiedExpression.item,
         MemberNameWithTypeArguments(LIdentifier("sequence")));
+    shared String->QualifiedExpression textIndexedQualifiedExpression
+            = "``baseExpression.textExpression.key``.indexed"->QualifiedExpression(
+        baseExpression.textExpression.item,
+        MemberNameWithTypeArguments(LIdentifier("indexed")));
     
     compile = compileQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;

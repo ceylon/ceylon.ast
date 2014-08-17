@@ -45,6 +45,8 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression assertionErrorExpression = "AssertionError"->BaseExpression(TypeNameWithTypeArguments(UIdentifier("AssertionError")));
     shared String->BaseExpression keyExpression = construct("key");
     shared String->BaseExpression itemExpression = construct("item");
+    shared String->BaseExpression peopleExpression = construct("people");
+    shared String->BaseExpression peopleByNameExpression = construct("peopleByName");
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

@@ -70,6 +70,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JEqualityOp=EqualityOp,
         JExecutableStatement=ExecutableStatement,
         JExists=Exists,
+        JExistsCondition=ExistsCondition,
+        JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
         JExpression=Expression,
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
@@ -125,6 +127,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNamedArgumentList=NamedArgumentList,
         JNegativeOp=NegativeOp,
         JNonempty=Nonempty,
+        JNonemptyCondition=NonemptyCondition,
         JNotEqualOp=NotEqualOp,
         JNotOp=NotOp,
         JObjectDefinition=ObjectDefinition,
@@ -968,10 +971,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JExistsCondition transformExistsCondition(ExistsCondition that) {
+        JExistsCondition ret = JExistsCondition(tokens.token("exists", exists_op));
+        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
+    }
+    
     shared actual JExists transformExistsOperation(ExistsOperation that) {
         JTerm term = transformPrecedence9Expression(that.operand);
         JExists ret = JExists(tokens.token(that.operator, exists_op));
         ret.term = term;
+        return ret;
+    }
+    
+    shared actual JExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
+        assert (is JExistsOrNonemptyCondition ret = super.transformExistsOrNonemptyCondition(that));
         return ret;
     }
     
@@ -1598,6 +1611,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JNegativeOp ret = JNegativeOp(tokens.token(that.operator, difference_op));
         ret.term = transformPrecedence2Expression(that.operand);
         return ret;
+    }
+    
+    shared actual JNonemptyCondition transformNonemptyCondition(NonemptyCondition that) {
+        JNonemptyCondition ret = JNonemptyCondition(tokens.token("nonempty", nonempty_op));
+        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
     }
     
     shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
@@ -2549,6 +2567,36 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ie.primary = ete;
         ie.positionalArgumentList = transformPositionalArguments(that.arguments);
         return [type, ie];
+    }
+    
+    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedVariable|LIdentifier variable)
+            given JCond satisfies JExistsOrNonemptyCondition {
+        JVariable var = JVariable(null);
+        switch (variable)
+        case (is SpecifiedVariable) {
+            if (exists type = variable.type) {
+                var.type = transformType(type);
+            } else {
+                var.type = JValueModifier(null);
+            }
+            var.identifier = transformLIdentifier(variable.name);
+            var.specifierExpression = transformSpecifier(variable.specifier);
+        }
+        case (is LIdentifier) {
+            var.identifier = transformLIdentifier(variable);
+            // the parser does lots of stuff here (impliedVariable rule), I assume the compiler needs it?
+            var.type = JSyntheticVariable(null);
+            value se = JSpecifierExpression(null);
+            value e = JExpression(null);
+            value bme = JBaseMemberExpression(null);
+            bme.identifier = var.identifier;
+            bme.typeArguments = JInferredTypeArguments(null);
+            e.term = bme;
+            se.expression = e;
+            var.specifierExpression = se;
+        }
+        ret.variable = var;
+        return ret;
     }
     
     JExpression wrapTerm(JTerm term) {

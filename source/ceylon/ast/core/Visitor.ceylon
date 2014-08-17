@@ -79,7 +79,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformEntryType(EntryType that) => visitEntryType(that);
     transformEqualOperation(EqualOperation that) => visitEqualOperation(that);
     transformEqualityOperation(EqualityOperation that) => visitEqualityOperation(that);
+    transformExistsCondition(ExistsCondition that) => visitExistsCondition(that);
     transformExistsOperation(ExistsOperation that) => visitExistsOperation(that);
+    transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => visitExistsOrNonemptyCondition(that);
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
@@ -146,6 +148,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNamedArguments(NamedArguments that) => visitNamedArguments(that);
     transformNegationOperation(NegationOperation that) => visitNegationOperation(that);
     transformNode(Node that) => visitNode(that);
+    transformNonemptyCondition(NonemptyCondition that) => visitNonemptyCondition(that);
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
     transformNotEqualOperation(NotEqualOperation that) => visitNotEqualOperation(that);
     transformNotOperation(NotOperation that) => visitNotOperation(that);
@@ -313,7 +316,9 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitEqualityOperation(EqualityOperation that) => super.transformEqualityOperation(that);
     shared default void visitEqualOperation(EqualOperation that) => super.transformEqualOperation(that);
+    shared default void visitExistsCondition(ExistsCondition that) => super.transformExistsCondition(that);
     shared default void visitExistsOperation(ExistsOperation that) => super.transformExistsOperation(that);
+    shared default void visitExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => super.transformExistsOrNonemptyCondition(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
     shared default void visitExpressionIsh(ExpressionIsh that) => super.transformExpressionIsh(that);
@@ -380,6 +385,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => super.transformNameWithTypeArguments(that);
     shared default void visitNegationOperation(NegationOperation that) => super.transformNegationOperation(that);
     shared default void visitNode(Node that) => that.visitChildren(this);
+    shared default void visitNonemptyCondition(NonemptyCondition that) => super.transformNonemptyCondition(that);
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);

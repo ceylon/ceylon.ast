@@ -113,6 +113,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is BooleanCondition) { return transformBooleanCondition(that); }
         case (is IsCondition) { return transformIsCondition(that); }
+        case (is ExistsOrNonemptyCondition) { return transformExistsOrNonemptyCondition(that); }
     }
     shared actual default Result transformControlStructure(ControlStructure that) {
         switch (that)
@@ -150,6 +151,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is EqualOperation) { return transformEqualOperation(that); }
         case (is NotEqualOperation) { return transformNotEqualOperation(that); }
         case (is IdenticalOperation) { return transformIdenticalOperation(that); }
+    }
+    shared actual default Result transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
+        switch (that)
+        case (is ExistsCondition) { return transformExistsCondition(that); }
+        case (is NonemptyCondition) { return transformNonemptyCondition(that); }
     }
     shared actual default Result transformExpression(Expression that) {
         switch (that)

@@ -70,7 +70,9 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformEntryType(EntryType that) => transformType(that);
     shared actual default Result transformEqualOperation(EqualOperation that) => transformEqualityOperation(that);
     shared actual default Result transformEqualityOperation(EqualityOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformExistsCondition(ExistsCondition that) => transformExistsOrNonemptyCondition(that);
     shared actual default Result transformExistsOperation(ExistsOperation that) => transformUnaryOperation(that);
+    shared actual default Result transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => transformCondition(that);
     shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
@@ -136,6 +138,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNamedArgument(NamedArgument that) => transformExpressionIsh(that);
     shared actual default Result transformNamedArguments(NamedArguments that) => transformArguments(that);
     shared actual default Result transformNegationOperation(NegationOperation that) => transformUnaryArithmeticOperation(that);
+    shared actual default Result transformNonemptyCondition(NonemptyCondition that) => transformExistsOrNonemptyCondition(that);
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
     shared actual default Result transformNotEqualOperation(NotEqualOperation that) => transformEqualityOperation(that);
     shared actual default Result transformNotOperation(NotOperation that) => transformUnaryOperation(that);

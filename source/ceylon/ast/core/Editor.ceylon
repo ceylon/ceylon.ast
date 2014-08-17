@@ -228,8 +228,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is EqualityOperation ret = super.transformEqualityOperation(that));
         return ret;
     }
+    shared actual default ExistsCondition transformExistsCondition(ExistsCondition that)
+            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy(transformPrecedence9Expression(that.operand));
+    shared actual default ExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
+        assert (is ExistsOrNonemptyCondition ret = super.transformExistsOrNonemptyCondition(that));
+        return ret;
+    }
     shared actual default ExponentiationOperation transformExponentiationOperation(ExponentiationOperation that)
             => that.copy(transformPrecedence1Expression(that.leftOperand), transformPrecedence2Expression(that.rightOperand));
     shared actual default Expression transformExpression(Expression that) {
@@ -422,6 +428,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy([for (namedArgument in that.namedArguments) transformNamedArgument(namedArgument)], transformArgumentList(that.iterableArgument));
     shared actual default NegationOperation transformNegationOperation(NegationOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
+    shared actual default NonemptyCondition transformNonemptyCondition(NonemptyCondition that)
+            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy(transformPrecedence9Expression(that.operand));
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
@@ -789,6 +797,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
+    SpecifiedVariable|LIdentifier transformSpecifiedVariableOrLIdentifier(SpecifiedVariable|LIdentifier that) {
+        switch (that)
+        case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+        case (is LIdentifier) { return transformLIdentifier(that); }
+    }
     Statement|Declaration transformStatementOrDeclaration(Statement|Declaration that) {
         switch (that)
         case (is Statement) { return transformStatement(that); }

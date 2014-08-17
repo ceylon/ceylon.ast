@@ -79,7 +79,9 @@ shared interface Transformer<out Result> {
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformEqualOperation(EqualOperation that);
     shared formal Result transformEqualityOperation(EqualityOperation that);
+    shared formal Result transformExistsCondition(ExistsCondition that);
     shared formal Result transformExistsOperation(ExistsOperation that);
+    shared formal Result transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that);
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionIsh(ExpressionIsh that);
@@ -146,6 +148,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNamedArguments(NamedArguments that);
     shared formal Result transformNegationOperation(NegationOperation that);
     shared formal Result transformNode(Node that);
+    shared formal Result transformNonemptyCondition(NonemptyCondition that);
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
     shared formal Result transformNotEqualOperation(NotEqualOperation that);
     shared formal Result transformNotOperation(NotOperation that);

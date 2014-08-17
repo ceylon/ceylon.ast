@@ -3,8 +3,8 @@
  There are four kinds of conditions:
  - a [[boolean condition|BooleanCondition]] is satisfied when a boolean expression evaluates to [[true]],
  - an [[assignability condition|IsCondition]] is satisfied when a value satisfies a specified type,
- - an [[existence condition|ExistsOrNonemptyCondition]] is satisfied when a value is not [[null]], and
- - a [[nonemptiness condition|ExistsOrNonemptyCondition]] is satisfied when a [[sequential|Sequential]] value is not [[null]] and not [[empty]].
+ - an [[existence condition|ExistsCondition]] is satisfied when a value is not [[null]], and
+ - a [[nonemptiness condition|NonemptyCondition]] is satisfied when a [[sequential|Sequential]] value is not [[null]] and not [[empty]].
  
  Examples:
  
@@ -13,6 +13,6 @@
      is Float number
      nonempty members"
 shared abstract class Condition()
-        of BooleanCondition | IsCondition // TODO other condition types
+        of BooleanCondition | IsCondition | ExistsOrNonemptyCondition
         extends Node() {
 }

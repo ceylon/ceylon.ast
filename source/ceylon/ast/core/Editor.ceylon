@@ -258,6 +258,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ForClause transformForClause(ForClause that)
             => that.copy(transformForIterator(that.iterator), transformBlock(that.block));
+    shared actual default ForFail transformForFail(ForFail that)
+            => that.copy(transformForClause(that.forClause), nullsafeInvoke(that.failClause, transformFailClause));
     shared actual default ForIterator transformForIterator(ForIterator that) {
         assert (is ForIterator ret = super.transformForIterator(that));
         return ret;

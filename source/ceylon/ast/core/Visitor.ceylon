@@ -90,6 +90,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformFailClause(FailClause that) => visitFailClause(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformForClause(ForClause that) => visitForClause(that);
+    transformForFail(ForFail that) => visitForFail(that);
     transformForIterator(ForIterator that) => visitForIterator(that);
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
     transformFunctionDeclaration(FunctionDeclaration that) => visitFunctionDeclaration(that);
@@ -333,6 +334,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFailClause(FailClause that) => super.transformFailClause(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
     shared default void visitForClause(ForClause that) => super.transformForClause(that);
+    shared default void visitForFail(ForFail that) => super.transformForFail(that);
     shared default void visitForIterator(ForIterator that) => super.transformForIterator(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
     shared default void visitFunctionDeclaration(FunctionDeclaration that) => super.transformFunctionDeclaration(that);

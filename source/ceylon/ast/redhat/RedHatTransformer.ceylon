@@ -78,6 +78,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFloatLiteral=FloatLiteral,
         JForClause=ForClause,
         JForIterator=ForIterator,
+        JForStatement=ForStatement,
         JFunctionArgument=FunctionArgument,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
@@ -1037,6 +1038,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JForClause ret = JForClause(tokens.token("for", for_clause));
         ret.forIterator = transformForIterator(that.iterator);
         ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
+    shared actual JForStatement transformForFail(ForFail that) {
+        JForStatement ret = JForStatement(null);
+        ret.forClause = transformForClause(that.forClause);
+        if (exists failClause = that.failClause) {
+            ret.elseClause = transformFailClause(failClause);
+        }
         return ret;
     }
     

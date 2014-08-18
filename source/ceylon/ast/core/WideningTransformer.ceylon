@@ -81,6 +81,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFailClause(FailClause that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformForClause(ForClause that) => transformNode(that);
+    shared actual default Result transformForFail(ForFail that) => transformControlStructure(that);
     shared actual default Result transformForIterator(ForIterator that) => transformNode(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);

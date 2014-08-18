@@ -1,8 +1,8 @@
 import ceylon.ast.core {
     baseExpression,
+    positionalArguments,
     qualifiedExpression,
     stringTemplate,
-    ArgumentList,
     Block,
     CompilationUnit,
     ElseOperation,
@@ -11,7 +11,6 @@ import ceylon.ast.core {
     InvocationStatement,
     LIdentifier,
     Parameters,
-    PositionalArguments,
     StringLiteral,
     VoidModifier
 }
@@ -24,15 +23,15 @@ shared CompilationUnit helloWorldCompilationUnit = CompilationUnit([
             definition = Block([
                     InvocationStatement(Invocation {
                             invoked = baseExpression("print");
-                            arguments = PositionalArguments(ArgumentList([
-                                        stringTemplate(
-                                            StringLiteral("Hello, "),
-                                            ElseOperation {
-                                                optionalValue = qualifiedExpression(qualifiedExpression("process", "arguments"), "first");
-                                                defaultValue = StringLiteral("World");
-                                            },
-                                            StringLiteral("!"))
-                                    ]));
+                            arguments = positionalArguments(
+                                stringTemplate(
+                                    StringLiteral("Hello, "),
+                                    ElseOperation {
+                                        optionalValue = qualifiedExpression(qualifiedExpression("process", "arguments"), "first");
+                                        defaultValue = StringLiteral("World");
+                                    },
+                                    StringLiteral("!"))
+                            );
                         })
                 ]);
         }

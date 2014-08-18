@@ -19,9 +19,10 @@ shared object invocationStatement satisfies ConcreteTest<InvocationStatement,JEx
             => "``expression.key``;"->InvocationStatement(expression.item);
     
     shared String->InvocationStatement printHelloWorldStatement = construct(invocation.printHelloWorldInvocation);
+    shared String->InvocationStatement printPersonNameStatement = construct(invocation.printPersonNameInvocation);
     
     compile = compileInvocationStatement;
     fromCeylon = RedHatTransformer.transformInvocationStatement;
     toCeylon = invocationStatementToCeylon;
-    codes = [printHelloWorldStatement];
+    codes = [printHelloWorldStatement, printPersonNameStatement];
 }

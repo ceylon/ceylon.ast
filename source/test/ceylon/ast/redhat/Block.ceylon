@@ -16,14 +16,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object block satisfies ConcreteTest<Block,JBlock> {
     
-    String->Block construct(<String->Declaration|Statement>[] content)
+    String->Block construct(<String->Declaration|Statement>* content)
             => "{``"".join(content*.key)``}"->Block(content*.item);
     
-    shared String->Block emptyBlock = construct([]);
-    // TODO add a real test as soon as we have some more statements + declarations!
+    shared String->Block emptyBlock = construct();
+    shared String->Block printPersonNameBlock = construct(invocationStatement.printPersonNameStatement);
     
     compile = compileBlock;
     fromCeylon = RedHatTransformer.transformBlock;
     toCeylon = blockToCeylon;
-    codes = [emptyBlock];
+    codes = [emptyBlock, printPersonNameBlock];
 }

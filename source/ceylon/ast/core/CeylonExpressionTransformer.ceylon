@@ -241,6 +241,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
+    transformForClause(ForClause that)
+            => "ForClause {
+                `` indent + indentLevel ``iterator = ``transformWithIndent(that.iterator)``;
+                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                ``indent``}";
     transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
     transformFunctionDeclaration(FunctionDeclaration that)
             => "FunctionDeclaration {

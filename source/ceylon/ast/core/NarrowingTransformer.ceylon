@@ -289,6 +289,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeSpecifier) { return transformTypeSpecifier(that); }
         case (is Variable) { return transformVariable(that); }
         case (is ForIterator) { return transformForIterator(that); }
+        case (is ForClause) { return transformForClause(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

@@ -88,6 +88,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformExtendedType(ExtendedType that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
+    shared formal Result transformForClause(ForClause that);
     shared formal Result transformForIterator(ForIterator that);
     shared formal Result transformFullPackageName(FullPackageName that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);

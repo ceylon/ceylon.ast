@@ -76,6 +76,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
+        JForClause=ForClause,
         JForIterator=ForIterator,
         JFunctionArgument=FunctionArgument,
         JFunctionModifier=FunctionModifier,
@@ -258,6 +259,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         exists_op=\iEXISTS,
         extendsType=\iEXTENDS,
         float_literal=\iFLOAT_LITERAL,
+        for_clause=\iFOR_CLAUSE,
         function_modifier=\iFUNCTION_MODIFIER,
         identical_op=\iIDENTICAL_OP,
         if_clause=\iIF_CLAUSE,
@@ -1024,6 +1026,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
+    
+    shared actual JForClause transformForClause(ForClause that) {
+        JForClause ret = JForClause(tokens.token("for", for_clause));
+        ret.forIterator = transformForIterator(that.iterator);
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
     
     shared actual JForIterator transformForIterator(ForIterator that) {
         assert (is JForIterator ret = super.transformForIterator(that));

@@ -252,6 +252,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ExtendedType transformExtendedType(ExtendedType that)
             => that.copy(transformClassInstantiation(that.instantiation));
+    shared actual default FailClause transformFailClause(FailClause that)
+            => that.copy(transformBlock(that.block));
     shared actual default FloatLiteral transformFloatLiteral(FloatLiteral that)
             => that.copy();
     shared actual default ForClause transformForClause(ForClause that)

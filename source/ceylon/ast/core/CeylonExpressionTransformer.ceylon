@@ -240,6 +240,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
+    transformFailClause(FailClause that) => "FailClause(``transformWithIndent(that.block)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformForClause(ForClause that)
             => "ForClause {

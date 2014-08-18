@@ -1024,6 +1024,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JElseClause transformFailClause(FailClause that) {
+        JElseClause ret = JElseClause(tokens.token("else", else_clause));
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
     shared actual JFloatLiteral transformFloatLiteral(FloatLiteral that)
             => JFloatLiteral(tokens.token(that.text, float_literal));
     

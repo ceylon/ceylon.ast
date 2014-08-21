@@ -1,4 +1,4 @@
-"""An ‘`else`’ failure clause for a [[‘`for`’ loop|ForStatement]], that is,
+"""An ‘`else`’ failure clause for a [[‘`for`’ loop|ForFail]], that is,
    the keyword ‘`else`’ followed by a [[block]].
    
    Examples:

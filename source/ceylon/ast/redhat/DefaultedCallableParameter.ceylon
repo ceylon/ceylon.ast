@@ -18,7 +18,7 @@ import ceylon.interop.java {
     CeylonIterable
 }
 
-"Converts a RedHat AST [[DefaultedCallableParameter|JDefaultedCallableParameter]] to a `ceylon.ast` [[DefaultedCallableParameter]]."
+"Converts a RedHat AST [[FunctionalParameterDeclaration|JFunctionalParameterDeclaration]] to a `ceylon.ast` [[DefaultedCallableParameter]]."
 shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctionalParameterDeclaration defaultedCallableParameter) {
     assert (is JMethodDeclaration dec = defaultedCallableParameter.typedDeclaration,
         is JLazySpecifierExpression specifier = dec.specifierExpression);

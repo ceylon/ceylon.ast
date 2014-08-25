@@ -49,6 +49,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCompilationUnit=CompilationUnit,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
+        JComprehensionClause=ComprehensionClause,
         JCondition=Condition,
         JConditionList=ConditionList,
         JContinue=Continue,
@@ -73,6 +74,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExistsCondition=ExistsCondition,
         JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
         JExpression=Expression,
+        JExpressionComprehensionClause=ExpressionComprehensionClause,
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
@@ -820,6 +822,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JComprehensionClause transformComprehensionClause(ComprehensionClause that) {
+        assert (is JComprehensionClause ret = super.transformComprehensionClause(that));
+        return ret;
+    }
+    
     shared actual JCondition transformCondition(Condition that) {
         assert (is JCondition ret = super.transformCondition(that));
         return ret;
@@ -1004,6 +1011,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformExpression(Expression that) {
         assert (is JTerm ret = super.transformExpression(that));
+        return ret;
+    }
+    
+    shared actual JExpressionComprehensionClause transformExpressionComprehensionClause(ExpressionComprehensionClause that) {
+        JExpressionComprehensionClause ret = JExpressionComprehensionClause(null);
+        ret.expression = wrapTerm(transformExpression(that.expression));
         return ret;
     }
     

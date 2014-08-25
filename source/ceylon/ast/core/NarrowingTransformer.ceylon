@@ -109,6 +109,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is LargeAsOperation) { return transformLargeAsOperation(that); }
         case (is SmallAsOperation) { return transformSmallAsOperation(that); }
     }
+    shared actual default Result transformComprehensionClause(ComprehensionClause that) {
+        switch (that)
+        case (is ExpressionComprehensionClause) { return transformExpressionComprehensionClause(that); }
+    }
     shared actual default Result transformCondition(Condition that) {
         switch (that)
         case (is BooleanCondition) { return transformBooleanCondition(that); }
@@ -292,6 +296,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ForIterator) { return transformForIterator(that); }
         case (is ForClause) { return transformForClause(that); }
         case (is FailClause) { return transformFailClause(that); }
+        case (is ComprehensionClause) { return transformComprehensionClause(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

@@ -48,6 +48,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
+    shared actual default Result transformComprehensionClause(ComprehensionClause that) => transformNode(that);
     shared actual default Result transformCondition(Condition that) => transformNode(that);
     shared actual default Result transformConditionList(ConditionList that) => transformNode(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
@@ -75,6 +76,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => transformCondition(that);
     shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
     shared actual default Result transformExpression(Expression that) => transformExpressionIsh(that);
+    shared actual default Result transformExpressionComprehensionClause(ExpressionComprehensionClause that) => transformComprehensionClause(that);
     shared actual default Result transformExpressionIsh(ExpressionIsh that) => transformNode(that);
     shared actual default Result transformExpressionStatement(ExpressionStatement that) => transformStatement(that);
     shared actual default Result transformExtendedType(ExtendedType that) => transformNode(that);

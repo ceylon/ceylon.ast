@@ -164,6 +164,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
+    shared actual default ComprehensionClause transformComprehensionClause(ComprehensionClause that) {
+        assert (is ComprehensionClause ret = super.transformComprehensionClause(that));
+        return ret;
+    }
     shared actual default Condition transformCondition(Condition that) {
         assert (is Condition ret = super.transformCondition(that));
         return ret;
@@ -242,6 +246,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Expression ret = super.transformExpression(that));
         return ret;
     }
+    shared actual default ExpressionComprehensionClause transformExpressionComprehensionClause(ExpressionComprehensionClause that)
+            => that.copy(transformExpression(that.expression));
     shared actual default ExpressionIsh transformExpressionIsh(ExpressionIsh that) {
         assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
         return ret;

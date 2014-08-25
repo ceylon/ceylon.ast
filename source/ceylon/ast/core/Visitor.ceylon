@@ -57,6 +57,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
+    transformComprehensionClause(ComprehensionClause that) => visitComprehensionClause(that);
     transformCondition(Condition that) => visitCondition(that);
     transformConditionList(ConditionList that) => visitConditionList(that);
     transformContinue(Continue that) => visitContinue(that);
@@ -84,6 +85,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => visitExistsOrNonemptyCondition(that);
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
+    transformExpressionComprehensionClause(ExpressionComprehensionClause that) => visitExpressionComprehensionClause(that);
     transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
     transformExpressionStatement(ExpressionStatement that) => visitExpressionStatement(that);
     transformExtendedType(ExtendedType that) => visitExtendedType(that);
@@ -301,6 +303,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
+    shared default void visitComprehensionClause(ComprehensionClause that) => super.transformComprehensionClause(that);
     shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitConditionList(ConditionList that) => super.transformConditionList(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
@@ -328,6 +331,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => super.transformExistsOrNonemptyCondition(that);
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
+    shared default void visitExpressionComprehensionClause(ExpressionComprehensionClause that) => super.transformExpressionComprehensionClause(that);
     shared default void visitExpressionIsh(ExpressionIsh that) => super.transformExpressionIsh(that);
     shared default void visitExpressionStatement(ExpressionStatement that) => super.transformExpressionStatement(that);
     shared default void visitExtendedType(ExtendedType that) => super.transformExtendedType(that);

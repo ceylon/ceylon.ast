@@ -92,6 +92,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformFailClause(FailClause that) => visitFailClause(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
     transformForClause(ForClause that) => visitForClause(that);
+    transformForComprehensionClause(ForComprehensionClause that) => visitForComprehensionClause(that);
     transformForFail(ForFail that) => visitForFail(that);
     transformForIterator(ForIterator that) => visitForIterator(that);
     transformFullPackageName(FullPackageName that) => visitFullPackageName(that);
@@ -107,6 +108,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIdentifier(Identifier that) => visitIdentifier(that);
     transformIdentityOperation(IdentityOperation that) => visitIdentityOperation(that);
     transformIfClause(IfClause that) => visitIfClause(that);
+    transformIfComprehensionClause(IfComprehensionClause that) => visitIfComprehensionClause(that);
     transformIfElse(IfElse that) => visitIfElse(that);
     transformImport(Import that) => visitImport(that);
     transformImportAlias(ImportAlias that) => visitImportAlias(that);
@@ -119,6 +121,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformImportWildcard(ImportWildcard that) => visitImportWildcard(that);
     transformInModifier(InModifier that) => visitInModifier(that);
     transformInOperation(InOperation that) => visitInOperation(that);
+    transformInitialComprehensionClause(InitialComprehensionClause that) => visitInitialComprehensionClause(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => visitIntersectAssignmentOperation(that);
@@ -338,6 +341,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitFailClause(FailClause that) => super.transformFailClause(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);
     shared default void visitForClause(ForClause that) => super.transformForClause(that);
+    shared default void visitForComprehensionClause(ForComprehensionClause that) => super.transformForComprehensionClause(that);
     shared default void visitForFail(ForFail that) => super.transformForFail(that);
     shared default void visitForIterator(ForIterator that) => super.transformForIterator(that);
     shared default void visitFullPackageName(FullPackageName that) => super.transformFullPackageName(that);
@@ -353,6 +357,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIdentifier(Identifier that) => super.transformIdentifier(that);
     shared default void visitIdentityOperation(IdentityOperation that) => super.transformIdentityOperation(that);
     shared default void visitIfClause(IfClause that) => super.transformIfClause(that);
+    shared default void visitIfComprehensionClause(IfComprehensionClause that) => super.transformIfComprehensionClause(that);
     shared default void visitIfElse(IfElse that) => super.transformIfElse(that);
     shared default void visitImportAlias(ImportAlias that) => super.transformImportAlias(that);
     shared default void visitImportElement(ImportElement that) => super.transformImportElement(that);
@@ -365,6 +370,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitImportWildcard(ImportWildcard that) => super.transformImportWildcard(that);
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
+    shared default void visitInitialComprehensionClause(InitialComprehensionClause that) => super.transformInitialComprehensionClause(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);

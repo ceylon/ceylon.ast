@@ -111,6 +111,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformComprehensionClause(ComprehensionClause that) {
         switch (that)
+        case (is InitialComprehensionClause) { return transformInitialComprehensionClause(that); }
         case (is ExpressionComprehensionClause) { return transformExpressionComprehensionClause(that); }
     }
     shared actual default Result transformCondition(Condition that) {
@@ -208,6 +209,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ImportTypeElement) { return transformImportTypeElement(that); }
         case (is ImportFunctionValueElement) { return transformImportFunctionValueElement(that); }
+    }
+    shared actual default Result transformInitialComprehensionClause(InitialComprehensionClause that) {
+        switch (that)
+        case (is ForComprehensionClause) { return transformForComprehensionClause(that); }
+        case (is IfComprehensionClause) { return transformIfComprehensionClause(that); }
     }
     shared actual default Result transformLiteral(Literal that) {
         switch (that)

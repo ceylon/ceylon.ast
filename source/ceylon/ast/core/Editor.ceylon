@@ -264,6 +264,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default ForClause transformForClause(ForClause that)
             => that.copy(transformForIterator(that.iterator), transformBlock(that.block));
+    shared actual default ForComprehensionClause transformForComprehensionClause(ForComprehensionClause that)
+            => that.copy(transformForIterator(that.iterator), transformComprehensionClause(that.clause));
     shared actual default ForFail transformForFail(ForFail that)
             => that.copy(transformForClause(that.forClause), nullsafeInvoke(that.failClause, transformFailClause));
     shared actual default ForIterator transformForIterator(ForIterator that) {
@@ -317,6 +319,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence2Expression(that.operand));
     shared actual default IfClause transformIfClause(IfClause that)
             => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
+    shared actual default IfComprehensionClause transformIfComprehensionClause(IfComprehensionClause that)
+            => that.copy(transformConditionList(that.conditions), transformComprehensionClause(that.clause));
     shared actual default IfElse transformIfElse(IfElse that)
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default Import transformImport(Import that)
@@ -345,6 +349,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default InOperation transformInOperation(InOperation that)
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
+    shared actual default InitialComprehensionClause transformInitialComprehensionClause(InitialComprehensionClause that) {
+        assert (is InitialComprehensionClause ret = super.transformInitialComprehensionClause(that));
+        return ret;
+    }
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)

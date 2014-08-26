@@ -248,6 +248,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``iterator = ``transformWithIndent(that.iterator)``;
                 `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
                 ``indent``}";
+    transformForComprehensionClause(ForComprehensionClause that)
+            => "ForComprehensionClause {
+                `` indent + indentLevel ``iterator = ``transformWithIndent(that.iterator)``;
+                `` indent + indentLevel ``clause = ``transformWithIndent(that.clause)``;
+                ``indent``}";
     transformForFail(ForFail that)
             => "ForFail {
                 `` indent + indentLevel ``forClause = ``transformWithIndent(that.forClause)``;
@@ -302,6 +307,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "IfClause {
                 `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
                 `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                ``indent``}";
+    transformIfComprehensionClause(IfComprehensionClause that)
+            => "IfComprehensionClause {
+                `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
+                `` indent + indentLevel ``clause = ``transformWithIndent(that.clause)``;
                 ``indent``}";
     transformIfElse(IfElse that)
             => "IfElse {

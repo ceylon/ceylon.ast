@@ -92,6 +92,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformFailClause(FailClause that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformForClause(ForClause that);
+    shared formal Result transformForComprehensionClause(ForComprehensionClause that);
     shared formal Result transformForFail(ForFail that);
     shared formal Result transformForIterator(ForIterator that);
     shared formal Result transformFullPackageName(FullPackageName that);
@@ -107,6 +108,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIdentifier(Identifier that);
     shared formal Result transformIdentityOperation(IdentityOperation that);
     shared formal Result transformIfClause(IfClause that);
+    shared formal Result transformIfComprehensionClause(IfComprehensionClause that);
     shared formal Result transformIfElse(IfElse that);
     shared formal Result transformImport(Import that);
     shared formal Result transformImportAlias(ImportAlias that);
@@ -119,6 +121,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformImportWildcard(ImportWildcard that);
     shared formal Result transformInModifier(InModifier that);
     shared formal Result transformInOperation(InOperation that);
+    shared formal Result transformInitialComprehensionClause(InitialComprehensionClause that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
     shared formal Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that);

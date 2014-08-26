@@ -13,10 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared ComprehensionClause comprehensionClauseToCeylon(JComprehensionClause comprehensionClause) {
     assert (is JInitialComprehensionClause|JExpressionComprehensionClause comprehensionClause);
     switch (comprehensionClause)
-    case (is JInitialComprehensionClause) {
-        // TODO implement initial comprehension clauses
-        throw AssertionError("Initial comprehension clauses are not yet implemented!");
-    }
+    case (is JInitialComprehensionClause) { return initialComprehensionClauseToCeylon(comprehensionClause); }
     case (is JExpressionComprehensionClause) { return expressionComprehensionClauseToCeylon(comprehensionClause); }
 }
 

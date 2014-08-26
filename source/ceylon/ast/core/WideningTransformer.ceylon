@@ -83,6 +83,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFailClause(FailClause that) => transformNode(that);
     shared actual default Result transformFloatLiteral(FloatLiteral that) => transformLiteral(that);
     shared actual default Result transformForClause(ForClause that) => transformNode(that);
+    shared actual default Result transformForComprehensionClause(ForComprehensionClause that) => transformInitialComprehensionClause(that);
     shared actual default Result transformForFail(ForFail that) => transformControlStructure(that);
     shared actual default Result transformForIterator(ForIterator that) => transformNode(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
@@ -98,6 +99,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIdentifier(Identifier that) => transformExpressionIsh(that);
     shared actual default Result transformIdentityOperation(IdentityOperation that) => transformUnaryArithmeticOperation(that);
     shared actual default Result transformIfClause(IfClause that) => transformNode(that);
+    shared actual default Result transformIfComprehensionClause(IfComprehensionClause that) => transformInitialComprehensionClause(that);
     shared actual default Result transformIfElse(IfElse that) => transformControlStructure(that);
     shared actual default Result transformImport(Import that) => transformNode(that);
     shared actual default Result transformImportAlias(ImportAlias that) => transformNode(that);
@@ -110,6 +112,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformImportWildcard(ImportWildcard that) => transformNode(that);
     shared actual default Result transformInModifier(InModifier that) => transformVariance(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformInitialComprehensionClause(InitialComprehensionClause that) => transformComprehensionClause(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
     shared actual default Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => transformSetAssignmentOperation(that);

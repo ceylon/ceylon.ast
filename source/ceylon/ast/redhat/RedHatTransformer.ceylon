@@ -79,6 +79,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExtendedType=ExtendedType,
         JFloatLiteral=FloatLiteral,
         JForClause=ForClause,
+        JForComprehensionClause=ForComprehensionClause,
         JForIterator=ForIterator,
         JForStatement=ForStatement,
         JFunctionArgument=FunctionArgument,
@@ -89,6 +90,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdenticalOp=IdenticalOp,
         JIdentifier=Identifier,
         JIfClause=IfClause,
+        JIfComprehensionClause=IfComprehensionClause,
         JIfStatement=IfStatement,
         JImport=Import,
         JImportList=ImportList,
@@ -102,6 +104,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInOp=InOp,
         JIncrementOp=IncrementOp,
         JInferredTypeArguments=InferredTypeArguments,
+        JInitialComprehensionClause=InitialComprehensionClause,
         JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
         JInterfaceBody=InterfaceBody,
@@ -1054,6 +1057,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JForComprehensionClause transformForComprehensionClause(ForComprehensionClause that) {
+        JForComprehensionClause ret = JForComprehensionClause(tokens.token("for", for_clause));
+        ret.forIterator = transformForIterator(that.iterator);
+        ret.comprehensionClause = transformComprehensionClause(that.clause);
+        return ret;
+    }
+    
     shared actual JForStatement transformForFail(ForFail that) {
         JForStatement ret = JForStatement(null);
         ret.forClause = transformForClause(that.forClause);
@@ -1270,6 +1280,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JIfComprehensionClause transformIfComprehensionClause(IfComprehensionClause that) {
+        JIfComprehensionClause ret = JIfComprehensionClause(tokens.token("if", if_clause));
+        ret.conditionList = transformConditionList(that.conditions);
+        ret.comprehensionClause = transformComprehensionClause(that.clause);
+        return ret;
+    }
+    
     shared actual JIfStatement transformIfElse(IfElse that) {
         JIfStatement ret = JIfStatement(null);
         ret.ifClause = transformIfClause(that.ifClause);
@@ -1358,6 +1375,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JImportWildcard transformImportWildcard(ImportWildcard that) {
         JImportWildcard ret = JImportWildcard(tokens.token("...", ellipsis));
+        return ret;
+    }
+    
+    shared actual JInitialComprehensionClause transformInitialComprehensionClause(InitialComprehensionClause that) {
+        assert (is JInitialComprehensionClause ret = super.transformInitialComprehensionClause(that));
         return ret;
     }
     

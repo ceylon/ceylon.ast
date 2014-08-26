@@ -50,14 +50,13 @@ shared class PositionalArguments(argumentList)
    
        positionalArguments()
        positionalArguments(thisInstance, spreadArgument(baseExpression("others")))"""
-// TODO comprehensions
-shared PositionalArguments positionalArguments(<Expression|SpreadArgument>* arguments) {
-    Expression assertIsExpression(Expression|SpreadArgument argument) {
+shared PositionalArguments positionalArguments(<Expression|SpreadArgument|Comprehension>* arguments) {
+    Expression assertIsExpression(Expression|SpreadArgument|Comprehension argument) {
         "Intermediate argument must be expression"
         assert (is Expression argument);
         return argument;
     }
-    if (is SpreadArgument sequenceArgument = arguments.last) {
+    if (is SpreadArgument|Comprehension sequenceArgument = arguments.last) {
         Expression[] listedArguments = arguments[... arguments.size - 2].collect(assertIsExpression);
         return PositionalArguments(ArgumentList(listedArguments, sequenceArgument));
     } else {

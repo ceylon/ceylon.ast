@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     ArgumentList,
+    Comprehension,
     Expression,
     SpreadArgument
 }
@@ -39,7 +40,8 @@ shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList) {
             // don’t worry, sequence.reversed is backed by the original sequence – this shouldn’t be slower than it needs to be
         }
         case (is JComprehension) {
-            throw AssertionError("Comprehensions not yet supported!"); // TODO use comprehensionToCeylon when added
+            Comprehension comprehension = comprehensionToCeylon(lastArgument);
+            return ArgumentList(arguments.reversed.rest.reversed.collect(listedArgumentToCeylon), comprehension);
         }
     } else {
         // empty argument list

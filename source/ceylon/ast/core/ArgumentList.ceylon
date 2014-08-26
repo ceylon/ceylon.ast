@@ -15,9 +15,9 @@ shared class ArgumentList(listedArguments = [], sequenceArgument = null)
     "The regular, listed arguments."
     shared Expression[] listedArguments;
     "The optional trailing spread argument or comprehension."
-    shared SpreadArgument? sequenceArgument; // TODO SpreadArgument|Comprehension?
+    shared SpreadArgument|Comprehension? sequenceArgument;
     
-    shared actual <Expression|SpreadArgument>[] children = concatenate(listedArguments, emptyOrSingleton(sequenceArgument));
+    shared actual <Expression|SpreadArgument|Comprehension>[] children = concatenate(listedArguments, emptyOrSingleton(sequenceArgument));
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformArgumentList(this);
@@ -45,7 +45,7 @@ shared class ArgumentList(listedArguments = [], sequenceArgument = null)
     shared actual Integer hash
             => 31 * (listedArguments.hash + 31 * (sequenceArgument?.hash else 0));
     
-    shared ArgumentList copy(Expression[] listedArguments = this.listedArguments, SpreadArgument? sequenceArgument = this.sequenceArgument) {
+    shared ArgumentList copy(Expression[] listedArguments = this.listedArguments, SpreadArgument|Comprehension? sequenceArgument = this.sequenceArgument) {
         value ret = ArgumentList(listedArguments, sequenceArgument);
         copyExtraInfoTo(ret);
         return ret;

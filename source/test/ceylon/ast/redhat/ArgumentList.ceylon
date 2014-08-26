@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     ArgumentList,
+    Comprehension,
     Expression,
     SpreadArgument
 }
@@ -16,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgument> {
     
-    String->ArgumentList construct(<String->Expression>[] listedArguments = [], <String->SpreadArgument>? sequenceArgument = null) {
+    String->ArgumentList construct(<String->Expression>[] listedArguments = [], <String->SpreadArgument|Comprehension>? sequenceArgument = null) {
         if (exists sequenceArgument) {
             if (nonempty listedArguments) {
                 return "``",".join(listedArguments.collect(Entry<String,Expression>.key))``,``sequenceArgument.key``"->ArgumentList(listedArguments.collect(Entry<String,Expression>.item), sequenceArgument.item);
@@ -31,6 +32,7 @@ shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgumen
     shared String->ArgumentList emptyArgumentList = construct();
     shared String->ArgumentList abcArgumentList = construct([baseExpression.aExpression, baseExpression.bExpression, baseExpression.cExpression]);
     shared String->ArgumentList spreadTextArgumentList = construct([], spreadArgument.spreadTextArgument);
+    shared String->ArgumentList comprehensionArgumentList = construct([], comprehension.forPersonInPeopleComprehension);
     
     // not tested directly, but used by other tests
     shared String->ArgumentList helloWorldArgumentList = construct([sumOperation.helloPlusNameElseWorldPlusBangExpression]);
@@ -41,5 +43,5 @@ shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgumen
     compile = compileArgumentList;
     fromCeylon = RedHatTransformer.transformArgumentList;
     toCeylon = argumentListToCeylon;
-    codes = [emptyArgumentList, abcArgumentList, spreadTextArgumentList];
+    codes = [emptyArgumentList, abcArgumentList, spreadTextArgumentList, comprehensionArgumentList];
 }

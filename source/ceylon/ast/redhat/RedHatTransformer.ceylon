@@ -483,12 +483,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
                 ret.positionalArguments.add(transformListedArgument(argument));
             }
             if (exists sequenceArgument = that.sequenceArgument) {
+                ret.endToken = tokens.token(",", comma);
                 switch (sequenceArgument)
                 case (is SpreadArgument) {
-                    ret.endToken = tokens.token(",", comma);
                     ret.positionalArguments.add(transformSpreadArgument(sequenceArgument));
                 }
-                // TODO case (is Comprehension)
+                case (is Comprehension) {
+                    ret.positionalArguments.add(transformComprehension(sequenceArgument));
+                }
             }
         } else {
             if (exists sequenceArgument = that.sequenceArgument) {
@@ -496,7 +498,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
                 case (is SpreadArgument) {
                     ret.positionalArguments.add(transformSpreadArgument(sequenceArgument));
                 }
-                // TODO case (is Comprehension)
+                case (is Comprehension) {
+                    ret.positionalArguments.add(transformComprehension(sequenceArgument));
+                }
             }
         }
         return ret;

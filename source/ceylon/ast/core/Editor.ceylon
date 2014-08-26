@@ -57,10 +57,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {
         value listedArguments = [for (listedArgument in that.listedArguments) transformExpression(listedArgument)];
-        SpreadArgument? sequenceArgument;
+        SpreadArgument|Comprehension? sequenceArgument;
         if (exists seq = that.sequenceArgument) {
             switch (seq)
             case (is SpreadArgument) { sequenceArgument = transformSpreadArgument(seq); }
+            case (is Comprehension) { sequenceArgument = transformComprehension(seq); }
         } else {
             sequenceArgument = null;
         }

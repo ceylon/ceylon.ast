@@ -49,6 +49,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JCompilationUnit=CompilationUnit,
         JComplementAssignOp=ComplementAssignOp,
         JComplementOp=ComplementOp,
+        JComprehension=Comprehension,
         JComprehensionClause=ComprehensionClause,
         JCondition=Condition,
         JConditionList=ConditionList,
@@ -822,6 +823,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JComplementOp ret = JComplementOp(tokens.token(that.operator, complement_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence4Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JComprehension transformComprehension(Comprehension that) {
+        JComprehension ret = JComprehension(null);
+        ret.initialComprehensionClause = transformInitialComprehensionClause(that.clause);
         return ret;
     }
     

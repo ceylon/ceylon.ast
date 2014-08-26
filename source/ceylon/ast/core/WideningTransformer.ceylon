@@ -48,6 +48,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCompilationUnit(CompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformComplementAssignmentOperation(ComplementAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformComplementOperation(ComplementOperation that) => transformSetOperation(that);
+    shared actual default Result transformComprehension(Comprehension that) => transformExpressionIsh(that);
     shared actual default Result transformComprehensionClause(ComprehensionClause that) => transformNode(that);
     shared actual default Result transformCondition(Condition that) => transformNode(that);
     shared actual default Result transformConditionList(ConditionList that) => transformNode(that);

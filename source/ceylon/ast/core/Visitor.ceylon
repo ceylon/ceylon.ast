@@ -57,6 +57,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCompilationUnit(CompilationUnit that) => visitCompilationUnit(that);
     transformComplementAssignmentOperation(ComplementAssignmentOperation that) => visitComplementAssignmentOperation(that);
     transformComplementOperation(ComplementOperation that) => visitComplementOperation(that);
+    transformComprehension(Comprehension that) => visitComprehension(that);
     transformComprehensionClause(ComprehensionClause that) => visitComprehensionClause(that);
     transformCondition(Condition that) => visitCondition(that);
     transformConditionList(ConditionList that) => visitConditionList(that);
@@ -306,6 +307,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCompilationUnit(CompilationUnit that) => super.transformCompilationUnit(that);
     shared default void visitComplementAssignmentOperation(ComplementAssignmentOperation that) => super.transformComplementAssignmentOperation(that);
     shared default void visitComplementOperation(ComplementOperation that) => super.transformComplementOperation(that);
+    shared default void visitComprehension(Comprehension that) => super.transformComprehension(that);
     shared default void visitComprehensionClause(ComprehensionClause that) => super.transformComprehensionClause(that);
     shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitConditionList(ConditionList that) => super.transformConditionList(that);

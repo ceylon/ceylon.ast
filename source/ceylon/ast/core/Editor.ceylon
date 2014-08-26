@@ -164,6 +164,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => that.copy(transformPrecedence5Expression(that.leftOperand), transformPrecedence4Expression(that.rightOperand));
+    shared actual default Comprehension transformComprehension(Comprehension that)
+            => that.copy(transformInitialComprehensionClause(that.clause));
     shared actual default ComprehensionClause transformComprehensionClause(ComprehensionClause that) {
         assert (is ComprehensionClause ret = super.transformComprehensionClause(that));
         return ret;

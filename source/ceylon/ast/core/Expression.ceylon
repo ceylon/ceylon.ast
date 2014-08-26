@@ -1,9 +1,9 @@
 "All node types in the expression sub-hierarchy:
  [[Expression]] and some auxiliary node types that aren’t proper Expressions."
 shared abstract class ExpressionIsh()
-        of Expression | TypeIsh | Identifier | FullPackageName | ArgumentList | SpreadArgument | Arguments | NamedArgument | AnySpecifier | Parameters | Bound | Modifier | Body
+        of Expression | TypeIsh | Identifier | FullPackageName | ArgumentList | SpreadArgument | Arguments | NamedArgument | AnySpecifier | Parameters | Bound | Modifier | Body | Comprehension
         extends Node() {
-    shared actual formal <ExpressionIsh|Identifier|Parameter|Declaration|Statement>[] children;
+    shared actual formal <ExpressionIsh|Identifier|Parameter|Declaration|Statement|ComprehensionClause>[] children;
 }
 
 "Abstract superclass of all expression nodes."

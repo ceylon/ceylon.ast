@@ -6,7 +6,6 @@
  Examples (multi-line):
  
      if (exists p = paragraphs.first) {
- 
          setupAnchor(p);
          paragraphs.collect(output);
      } else if (exists div) {
@@ -15,12 +14,12 @@
          outputEmpty();
      }
  
-     if (text.width >= terminalWidth) {
+     if (text.size >= terminalWidth) {
          print(text);
      } else if (text.size >= remainingWidth) {
          wrap();
          print(text);
-         remainingWidth = terminalWidth = text.size;
+         remainingWidth = terminalWidth - text.size;
      } else {
          print(text);
          remainingWidth -= text.size;

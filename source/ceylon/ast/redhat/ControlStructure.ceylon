@@ -4,6 +4,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JControlStatement=ControlStatement,
+        JForStatement=ForStatement,
         JIfStatement=IfStatement,
         JWhileStatement=WhileStatement
     }
@@ -11,9 +12,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ControlStatement|JControlStatement]] to a `ceylon.ast` [[ControlStructure]]."
 shared ControlStructure controlStructureToCeylon(JControlStatement controlStructure) {
-    assert (is JIfStatement|JWhileStatement controlStructure);
+    assert (is JIfStatement|JForStatement|JWhileStatement controlStructure);
     switch (controlStructure)
     case (is JIfStatement) { return ifElseToCeylon(controlStructure); }
+    case (is JForStatement) { return forFailToCeylon(controlStructure); }
     case (is JWhileStatement) { return whileToCeylon(controlStructure); }
 }
 

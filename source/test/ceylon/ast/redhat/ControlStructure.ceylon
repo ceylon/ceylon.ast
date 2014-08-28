@@ -17,5 +17,5 @@ shared object controlStructure satisfies AbstractTest<ControlStructure,JControlS
     fromCeylon = RedHatTransformer.transformControlStructure;
     toCeylon = controlStructureToCeylon;
     
-    tests = [ifElse, \iwhile];
+    tests = [ifElse, \iwhile, forFail];
 }

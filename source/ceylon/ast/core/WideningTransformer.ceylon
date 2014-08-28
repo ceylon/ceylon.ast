@@ -64,6 +64,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDifferenceOperation(DifferenceOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformDirective(Directive that) => transformStatement(that);
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
+    shared actual default Result transformDynamicBlock(DynamicBlock that) => transformControlStructure(that);
     shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
     shared actual default Result transformElseClause(ElseClause that) => transformNode(that);

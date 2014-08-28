@@ -73,6 +73,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
     transformDirective(Directive that) => visitDirective(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
+    transformDynamicBlock(DynamicBlock that) => visitDynamicBlock(that);
     transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
     transformElseClause(ElseClause that) => visitElseClause(that);
@@ -323,6 +324,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitDirective(Directive that) => super.transformDirective(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
+    shared default void visitDynamicBlock(DynamicBlock that) => super.transformDynamicBlock(that);
     shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
     shared default void visitElseClause(ElseClause that) => super.transformElseClause(that);

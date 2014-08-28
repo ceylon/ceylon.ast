@@ -73,6 +73,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformDirective(Directive that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
+    shared formal Result transformDynamicBlock(DynamicBlock that);
     shared formal Result transformDynamicModifier(DynamicModifier that);
     shared formal Result transformDynamicValue(DynamicValue that);
     shared formal Result transformElseClause(ElseClause that);

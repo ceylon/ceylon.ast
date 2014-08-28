@@ -64,7 +64,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDirective=Directive,
         JDivideAssignOp=DivideAssignOp,
         JDynamic=Dynamic,
+        JDynamicClause=DynamicClause,
         JDynamicModifier=DynamicModifier,
+        JDynamicStatement=DynamicStatement,
         JElseClause=ElseClause,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
@@ -931,6 +933,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JDivideAssignOp ret = JDivideAssignOp(tokens.token(that.operator, divide_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence17Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JDynamicStatement transformDynamicBlock(DynamicBlock that) {
+        JDynamicStatement ret = JDynamicStatement(null);
+        JDynamicClause clause = JDynamicClause(tokens.token("dynamic", dynamicType));
+        clause.block = transformBlock(that.block);
+        ret.dynamicClause = clause;
         return ret;
     }
     

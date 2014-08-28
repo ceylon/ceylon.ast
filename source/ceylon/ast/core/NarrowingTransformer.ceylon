@@ -125,6 +125,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is IfElse) { return transformIfElse(that); }
         case (is While) { return transformWhile(that); }
         case (is ForFail) { return transformForFail(that); }
+        case (is DynamicBlock) { return transformDynamicBlock(that); }
     }
     shared actual default Result transformDec(Dec that) {
         switch (that)

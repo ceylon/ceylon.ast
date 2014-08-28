@@ -6,7 +6,7 @@
  
      element
      AssertionError ae"
-shared class UnspecifiedVariable(name, type)
+shared class UnspecifiedVariable(name, type = null)
         extends Variable() {
     
     shared actual MemberName name;

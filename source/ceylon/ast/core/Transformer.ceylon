@@ -92,6 +92,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformExtendedType(ExtendedType that);
     shared formal Result transformFailClause(FailClause that);
+    shared formal Result transformFinallyClause(FinallyClause that);
     shared formal Result transformFloatLiteral(FloatLiteral that);
     shared formal Result transformForClause(ForClause that);
     shared formal Result transformForComprehensionClause(ForComprehensionClause that);

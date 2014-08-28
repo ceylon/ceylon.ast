@@ -244,6 +244,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => "ExpressionComprehensionClause(``transformWithIndent(that.expression)``)";
     transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
     transformFailClause(FailClause that) => "FailClause(``transformWithIndent(that.block)``)";
+    transformFinallyClause(FinallyClause that) => "FinallyClause(``transformWithIndent(that.block)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";
     transformForClause(ForClause that)
             => "ForClause {

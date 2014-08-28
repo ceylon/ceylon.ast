@@ -80,6 +80,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExpressionComprehensionClause=ExpressionComprehensionClause,
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
+        JFinallyClause=FinallyClause,
         JFloatLiteral=FloatLiteral,
         JForClause=ForClause,
         JForComprehensionClause=ForComprehensionClause,
@@ -267,6 +268,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         equal_op=\iEQUAL_OP,
         exists_op=\iEXISTS,
         extendsType=\iEXTENDS,
+        finally_clause=\iFINALLY_CLAUSE,
         float_literal=\iFLOAT_LITERAL,
         for_clause=\iFOR_CLAUSE,
         function_modifier=\iFUNCTION_MODIFIER,
@@ -1064,6 +1066,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JElseClause transformFailClause(FailClause that) {
         JElseClause ret = JElseClause(tokens.token("else", else_clause));
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
+    shared actual JFinallyClause transformFinallyClause(FinallyClause that) {
+        JFinallyClause ret = JFinallyClause(tokens.token("finally", finally_clause));
         ret.block = transformBlock(that.block);
         return ret;
     }

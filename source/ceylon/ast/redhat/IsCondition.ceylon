@@ -28,16 +28,7 @@ shared IsCondition isConditionToCeylon(JIsCondition isCondition) {
  into an [[IsCondition]] using the Ceylon compiler
  (more specifically, the rule for an `isCondition`)."
 shared IsCondition? compileIsCondition(String code) {
-    // if (exists jIsCondition = createParser(code + ",").isCondition()) {
-    // TODO use above variant when possible
-    /*
-     At the moment, Ceylon sees the method isCondition() as a getter
-     for an attribute ‘condition’ (this is intended for boolean attributes
-     (isHidden()), but apparently applied to methods of every type).
-     Because there’s also a condition() method, we can’t use the
-     condition “attribute” either.
-     */
-    if (is JIsCondition jIsCondition = createParser(code + ",").condition()) {
+    if (exists jIsCondition = createParser(code + ",").isCondition()) {
         // the parser needs that comma for conditions without a specifier
         return isConditionToCeylon(jIsCondition);
     } else {

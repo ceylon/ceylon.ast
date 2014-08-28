@@ -127,6 +127,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``argumentTypes = ``transformWithIndent(that.argumentTypes)``;
                 ``indent``}";
     transformCaseTypes(CaseTypes that) => "CaseTypes(``transformWithIndent(that.caseTypes)``)";
+    transformCatchClause(CatchClause that)
+            => "CatchClause {
+                `` indent + indentLevel ``variable = ``transformWithIndent(that.variable)``;
+                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                ``indent``}";
     transformCharacterLiteral(CharacterLiteral that) => "CharacterLiteral(\"\"\"``that.text``\"\"\")";
     transformClassAlias(ClassAlias that)
             => "ClassAlias {

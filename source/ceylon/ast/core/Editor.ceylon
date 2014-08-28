@@ -135,6 +135,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(that.caseTypes.collect(transformPrimaryTypeOrLIdentifier));
     }
+    shared actual default CatchClause transformCatchClause(CatchClause that)
+            => that.copy(transformUnspecifiedVariable(that.variable), transformBlock(that.block));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
     shared actual default ClassAlias transformClassAlias(ClassAlias that)

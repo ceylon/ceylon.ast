@@ -37,6 +37,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBound=Bound,
         JBreak=Break,
         JCaseTypes=CaseTypes,
+        JCatchClause=CatchClause,
+        JCatchVariable=CatchVariable,
         JCharacterLiteral=CharLiteral,
         JClassBody=ClassBody,
         JClassDeclaration=ClassDeclaration,
@@ -249,6 +251,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         backtick=\iBACKTICK,
         breakType=\iBREAK,
         case_types=\iCASE_TYPES,
+        catch_clause=\iCATCH_CLAUSE,
         character_literal=\iCHAR_LITERAL,
         class_definition=\iCLASS_DEFINITION,
         comma=\iCOMMA,
@@ -680,6 +683,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             addCaseType(caseType);
             ret.endToken = null;
         }
+        return ret;
+    }
+    
+    shared actual JCatchClause transformCatchClause(CatchClause that) {
+        JCatchClause ret = JCatchClause(tokens.token("catch", catch_clause));
+        value catchVariable = JCatchVariable(tokens.token("(", lparen));
+        value variable = that.variable;
+        value var = JVariable(null);
+        if (exists type = variable.type) {
+            var.type = transformType(type);
+        } else {
+            var.type = JValueModifier(null);
+        }
+        var.identifier = transformLIdentifier(variable.name);
+        catchVariable.variable = var;
+        catchVariable.endToken = tokens.token(")", rparen);
+        ret.catchVariable = catchVariable;
+        ret.block = transformBlock(that.block);
         return ret;
     }
     

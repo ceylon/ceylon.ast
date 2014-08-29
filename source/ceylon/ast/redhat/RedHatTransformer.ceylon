@@ -177,6 +177,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JRemainderAssignOp=RemainderAssignOp,
         JRemainderOp=RemainderOp,
         JResource=Resource,
+        JResourceList=ResourceList,
         JReturn=Return,
         JSatisfiedTypes=SatisfiedTypes,
         JScaleOp=ScaleOp,
@@ -2147,6 +2148,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             var.specifierExpression = transformSpecifier(resource.specifier);
             ret.variable = var;
         }
+        return ret;
+    }
+    
+    shared actual JResourceList transformResources(Resources that) {
+        JResourceList ret = JResourceList(tokens.token("(", lparen));
+        ret.addResource(transformResource(that.resources.first));
+        for (resource in that.resources.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addResource(transformResource(resource));
+        }
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

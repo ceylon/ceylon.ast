@@ -637,6 +637,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         }
         return that.copy(transformExpressionOrSpecifiedVariable(that.resource));
     }
+    shared actual default Resources transformResources(Resources that)
+            => that.copy(that.resources.collect(transformResource));
     shared actual default Return transformReturn(Return that)
             => that.copy(nullsafeInvoke(that.result, transformExpression));
     shared actual default SatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that)

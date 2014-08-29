@@ -4,7 +4,7 @@
  
      num = parseFloat(numString)
      String name = person.name"
-shared class SpecifiedVariable(name, specifier, type)
+shared class SpecifiedVariable(name, specifier, type = null)
         extends Variable() {
     
     shared actual MemberName name;

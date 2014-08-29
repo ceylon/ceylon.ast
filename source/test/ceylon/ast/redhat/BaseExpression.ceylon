@@ -48,6 +48,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression peopleExpression = construct("people");
     shared String->BaseExpression peopleByNameExpression = construct("peopleByName");
     shared String->BaseExpression personExpression = construct("person");
+    shared String->BaseExpression lockExpression = construct("lock");
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

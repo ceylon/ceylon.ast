@@ -7,17 +7,19 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDynamicStatement=DynamicStatement,
         JForStatement=ForStatement,
         JIfStatement=IfStatement,
+        JTryCatchStatement=TryCatchStatement,
         JWhileStatement=WhileStatement
     }
 }
 
 "Converts a RedHat AST [[ControlStatement|JControlStatement]] to a `ceylon.ast` [[ControlStructure]]."
 shared ControlStructure controlStructureToCeylon(JControlStatement controlStructure) {
-    assert (is JIfStatement|JForStatement|JWhileStatement|JDynamicStatement controlStructure);
+    assert (is JIfStatement|JForStatement|JWhileStatement|JTryCatchStatement|JDynamicStatement controlStructure);
     switch (controlStructure)
     case (is JIfStatement) { return ifElseToCeylon(controlStructure); }
     case (is JForStatement) { return forFailToCeylon(controlStructure); }
     case (is JWhileStatement) { return whileToCeylon(controlStructure); }
+    case (is JTryCatchStatement) { return tryCatchFinallyToCeylon(controlStructure); }
     case (is JDynamicStatement) { return dynamicBlockToCeylon(controlStructure); }
 }
 

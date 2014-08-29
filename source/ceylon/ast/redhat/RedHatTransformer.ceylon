@@ -207,6 +207,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JThenOp=ThenOp,
         JThis=This,
         JThrow=Throw,
+        JTryCatchStatement=TryCatchStatement,
         JTryClause=TryClause,
         JTuple=Tuple,
         JTupleType=TupleType,
@@ -2353,6 +2354,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.expression = wrapTerm(transformExpression(result));
         }
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JTryCatchStatement transformTryCatchFinally(TryCatchFinally that) {
+        JTryCatchStatement ret = JTryCatchStatement(null);
+        ret.tryClause = transformTryClause(that.tryClause);
+        for (catchClause in that.catchClauses) {
+            ret.addCatchClause(transformCatchClause(catchClause));
+        }
+        if (exists finallyClause = that.finallyClause) {
+            ret.finallyClause = transformFinallyClause(finallyClause);
+        }
         return ret;
     }
     

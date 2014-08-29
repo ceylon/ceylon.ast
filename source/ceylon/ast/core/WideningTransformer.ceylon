@@ -216,6 +216,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformThenOperation(ThenOperation that) => transformBinaryOperation(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
     shared actual default Result transformThrow(Throw that) => transformDirective(that);
+    shared actual default Result transformTryCatchFinally(TryCatchFinally that) => transformControlStructure(that);
     shared actual default Result transformTryClause(TryClause that) => transformNode(that);
     shared actual default Result transformTuple(Tuple that) => transformAtom(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);

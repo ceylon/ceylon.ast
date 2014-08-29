@@ -3,7 +3,8 @@ import ceylon.ast.core {
     CatchClause,
     UnspecifiedVariable,
     LIdentifier,
-    Type
+    Type,
+    ValueModifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -18,14 +19,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object catchClause satisfies ConcreteTest<CatchClause,JCatchClause> {
     
-    String->CatchClause construct(<String->Type>? type, String->LIdentifier name, String->Block block)
+    String->CatchClause construct(<String->Type|ValueModifier>? type, String->LIdentifier name, String->Block block)
             => "catch (`` type?.key else "" `` ``name.key``) ``block.key``"->CatchClause(UnspecifiedVariable(name.item, type?.item), block.item);
     
     shared String->CatchClause catchEDoNothingClause = construct(null, identifier.eLIdentifier, block.emptyBlock);
     shared String->CatchClause catchThrowableTPrintHelloWorldClause = construct(baseType.throwableType, identifier.tLIdentifier, block.printHelloWorldBlock);
+    shared String->CatchClause catchValueEDoNothingClause = construct(valueModifier.valueModifier, identifier.eLIdentifier, block.emptyBlock);
     
     compile = compileCatchClause;
     fromCeylon = RedHatTransformer.transformCatchClause;
     toCeylon = catchClauseToCeylon;
-    codes = [catchEDoNothingClause, catchThrowableTPrintHelloWorldClause];
+    codes = [catchEDoNothingClause, catchThrowableTPrintHelloWorldClause, catchValueEDoNothingClause];
 }

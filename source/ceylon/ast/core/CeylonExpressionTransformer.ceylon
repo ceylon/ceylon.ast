@@ -546,6 +546,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformResource(Resource that) => "Resource(``transformWithIndent(that.resource)``)";
     transformReturn(Return that) => "Return(``transformWithIndent(that.result)``)";
     transformSatisfiedTypes(SatisfiedTypes that) => "SatisfiedTypes(``transformWithIndent(that.satisfiedTypes)``)";
     transformScaleOperation(ScaleOperation that)

@@ -199,6 +199,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformRequiredParameter(RequiredParameter that);
+    shared formal Result transformResource(Resource that);
     shared formal Result transformReturn(Return that);
     shared formal Result transformSatisfiedTypes(SatisfiedTypes that);
     shared formal Result transformScaleOperation(ScaleOperation that);

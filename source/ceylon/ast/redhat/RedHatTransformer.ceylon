@@ -176,6 +176,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JRangeOp=RangeOp,
         JRemainderAssignOp=RemainderAssignOp,
         JRemainderOp=RemainderOp,
+        JResource=Resource,
         JReturn=Return,
         JSatisfiedTypes=SatisfiedTypes,
         JScaleOp=ScaleOp,
@@ -2127,6 +2128,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JParameter transformRequiredParameter(RequiredParameter that) {
         assert (is JParameter ret = super.transformRequiredParameter(that));
+        return ret;
+    }
+    
+    shared actual JResource transformResource(Resource that) {
+        JResource ret = JResource(null);
+        value resource = that.resource;
+        switch (resource)
+        case (is Expression) { ret.expression = wrapTerm(transformExpression(resource)); }
+        case (is SpecifiedVariable) {
+            JVariable var = JVariable(null);
+            value type = resource.type;
+            switch (type)
+            case (is Type) { var.type = transformType(type); }
+            case (is ValueModifier) { var.type = transformValueModifier(type); }
+            case (null) { var.type = JValueModifier(null); }
+            var.identifier = transformLIdentifier(resource.name);
+            var.specifierExpression = transformSpecifier(resource.specifier);
+            ret.variable = var;
+        }
         return ret;
     }
     

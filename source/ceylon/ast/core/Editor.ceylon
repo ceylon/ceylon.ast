@@ -629,6 +629,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is RequiredParameter ret = super.transformRequiredParameter(that));
         return ret;
     }
+    shared actual default Resource transformResource(Resource that) {
+        Expression|SpecifiedVariable transformExpressionOrSpecifiedVariable(Expression|SpecifiedVariable that) {
+            switch (that)
+            case (is Expression) { return transformExpression(that); }
+            case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+        }
+        return that.copy(transformExpressionOrSpecifiedVariable(that.resource));
+    }
     shared actual default Return transformReturn(Return that)
             => that.copy(nullsafeInvoke(that.result, transformExpression));
     shared actual default SatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that)

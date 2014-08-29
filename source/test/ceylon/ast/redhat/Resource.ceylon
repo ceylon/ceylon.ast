@@ -1,9 +1,7 @@
 import ceylon.ast.core {
-    ArgumentList,
     Expression,
     Invocation,
     LIdentifier,
-    PositionalArguments,
     Resource,
     SpecifiedVariable,
     Specifier,
@@ -28,7 +26,7 @@ shared object resource satisfies ConcreteTest<Resource,JResource> {
     shared String->Resource lockResource = construct(baseExpression.lockExpression);
     shared String->Resource writerResource = construct("writer = file.Writer()"->SpecifiedVariable {
             name = LIdentifier("writer");
-            specifier = Specifier(Invocation(qualifiedExpression("file", "Writer"), PositionalArguments(ArgumentList())));
+            specifier = Specifier(Invocation(qualifiedExpression("file", "Writer")));
         });
     
     compile = compileResource;

@@ -12,7 +12,7 @@
      (x, y, *messages)
      ()
      (for (i in 1..10) i^2)"
-shared class PositionalArguments(argumentList)
+shared class PositionalArguments(argumentList = ArgumentList())
         extends Arguments() {
     
     "The enclosed argument list."

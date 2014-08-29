@@ -5,7 +5,7 @@
        print("Hello, World!")
        process.kill()
        ArrayList { initialCapacity = 100; 1, 1 }"""
-shared class Invocation(invoked, arguments)
+shared class Invocation(invoked, arguments = PositionalArguments())
         extends Primary() {
     
     "The invoked expression."

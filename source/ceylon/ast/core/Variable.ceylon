@@ -14,12 +14,12 @@ shared abstract class Variable()
     shared formal MemberName name;
     "The type of the variable, if present.
      
-     (If the type isn’t present, it is inferred.)"
-    shared formal Type? type;
+     (If the type isn’t explicitly specified, it is inferred.)"
+    shared formal Type|ValueModifier? type;
     "The definition of the variable, if present."
     shared formal Specifier? specifier;
     
-    //shared actual formal [Type, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
+    //shared actual formal [Type|ValueModifier, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
     // TODO use above more precise type when backend bug is fixed
     shared actual formal Node[] children;
 }

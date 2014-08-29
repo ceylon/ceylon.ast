@@ -1,7 +1,8 @@
 import ceylon.ast.core {
     KeyValueIterator,
     Type,
-    UnspecifiedVariable
+    UnspecifiedVariable,
+    ValueModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,28 +14,26 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[KeyValueIterator|JKeyValueIterator]] to a `ceylon.ast` [[KeyValueIterator]]."
 shared KeyValueIterator keyValueIteratorToCeylon(JKeyValueIterator keyValueIterator) {
-    Type? keyType;
+    Type|ValueModifier? keyType;
     value jKeyVariable = keyValueIterator.keyVariable;
     value jKeyType = jKeyVariable.type;
     if (is JStaticType jKeyType) {
         keyType = typeToCeylon(jKeyType);
     } else {
-        "Must be untyped"
-        assert (jKeyType is JValueModifier,
-            !jKeyType.mainToken exists);
-        keyType = null;
+        assert (is JValueModifier jKeyType);
+        // The parser creates a ValueModifier with null token if the type is missing completely
+        keyType = jKeyType.mainToken exists then valueModifierToCeylon(jKeyType) else null;
     }
     value keyVariable = UnspecifiedVariable(lIdentifierToCeylon(jKeyVariable.identifier), keyType);
-    Type? valueType;
+    Type|ValueModifier? valueType;
     value jValueVariable = keyValueIterator.valueVariable;
     value jValueType = jValueVariable.type;
     if (is JStaticType jValueType) {
         valueType = typeToCeylon(jValueType);
     } else {
-        "Must be untyped"
-        assert (jValueType is JValueModifier,
-            !jValueType.mainToken exists);
-        valueType = null;
+        assert (is JValueModifier jValueType);
+        // The parser creates a ValueModifier with null token if the type is missing completely
+        valueType = jValueType.mainToken exists then valueModifierToCeylon(jValueType) else null;
     }
     value valueVariable = UnspecifiedVariable(lIdentifierToCeylon(jValueVariable.identifier), valueType);
     return KeyValueIterator(keyVariable, valueVariable, expressionToCeylon(keyValueIterator.specifierExpression.expression));

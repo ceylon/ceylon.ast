@@ -666,7 +666,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default SpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that)
             => that.copy(transformSpecification(that.specification));
     shared actual default SpecifiedVariable transformSpecifiedVariable(SpecifiedVariable that)
-            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier), nullsafeInvoke(that.type, transformType));
+            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier), nullsafeInvoke(that.type, transformTypeOrValueModifier));
     shared actual default Specifier transformSpecifier(Specifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
@@ -777,7 +777,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default UnspecifiedVariable transformUnspecifiedVariable(UnspecifiedVariable that)
-            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformType));
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformTypeOrValueModifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
             switch (that)
@@ -845,6 +845,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         switch (that)
         case (is Statement) { return transformStatement(that); }
         case (is Declaration) { return transformDeclaration(that); }
+    }
+    Type|ValueModifier transformTypeOrValueModifier(Type|ValueModifier that) {
+        switch (that)
+        case (is Type) { return transformType(that); }
+        case (is ValueModifier) { return transformValueModifier(that); }
     }
     Type|ValueModifier|DynamicModifier transformTypeOrValueModifierOrDynamicModifier(Type|ValueModifier|DynamicModifier that) {
         switch (that)

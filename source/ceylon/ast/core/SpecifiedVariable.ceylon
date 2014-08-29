@@ -10,9 +10,9 @@ shared class SpecifiedVariable(name, specifier, type)
     shared actual MemberName name;
     "The specifier of the variable (required)."
     shared actual Specifier specifier;
-    shared actual Type? type;
+    shared actual Type|ValueModifier? type;
     
-    //shared actual [Type, LIdentifier, Specifier]|[LIdentifier, Specifier] children;
+    //shared actual [Type|ValueModifier, LIdentifier, Specifier]|[LIdentifier, Specifier] children;
     // TODO use above more precise type when backend bug is fixed
     shared actual Node[] children;
     if (exists type) {
@@ -47,7 +47,7 @@ shared class SpecifiedVariable(name, specifier, type)
     shared actual Integer hash
             => 31 * (name.hash + 31 * (specifier.hash + 31 * (type?.hash else 0)));
     
-    shared SpecifiedVariable copy(LIdentifier name = this.name, Specifier specifier = this.specifier, Type? type = this.type) {
+    shared SpecifiedVariable copy(LIdentifier name = this.name, Specifier specifier = this.specifier, Type|ValueModifier? type = this.type) {
         value ret = SpecifiedVariable(name, specifier, type);
         copyExtraInfoTo(ret);
         return ret;

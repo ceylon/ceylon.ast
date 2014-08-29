@@ -1,7 +1,8 @@
 import ceylon.ast.core {
     Type,
     ValueIterator,
-    UnspecifiedVariable
+    UnspecifiedVariable,
+    ValueModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,16 +14,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ValueIterator|JValueIterator]] to a `ceylon.ast` [[ValueIterator]]."
 shared ValueIterator valueIteratorToCeylon(JValueIterator valueIterator) {
-    Type? type;
+    Type|ValueModifier? type;
     value jVariable = valueIterator.variable;
     value jType = jVariable.type;
     if (is JStaticType jType) {
         type = typeToCeylon(jType);
     } else {
-        "Must be untyped"
-        assert (jType is JValueModifier,
-            !jType.mainToken exists);
-        type = null;
+        assert (is JValueModifier jType);
+        // The parser creates a ValueModifier with null token if the type is missing completely
+        type = jType.mainToken exists then valueModifierToCeylon(jType) else null;
     }
     return ValueIterator(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier), type), expressionToCeylon(valueIterator.specifierExpression.expression));
 }

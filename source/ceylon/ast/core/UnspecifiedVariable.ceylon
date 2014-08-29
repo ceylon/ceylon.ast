@@ -10,11 +10,11 @@ shared class UnspecifiedVariable(name, type = null)
         extends Variable() {
     
     shared actual MemberName name;
-    shared actual Type? type;
+    shared actual Type|ValueModifier? type;
     "An unspecified variable has no specifier."
     shared actual Null specifier => null;
     
-    //shared actual [Type, LIdentifier]|[LIdentifier] children;
+    //shared actual [Type|ValueModifier, LIdentifier]|[LIdentifier] children;
     // TODO use the above more precise type when backend bug is fixed
     shared actual Node[] children;
     if (exists type) {
@@ -49,7 +49,7 @@ shared class UnspecifiedVariable(name, type = null)
     shared actual Integer hash
             => 31 * (name.hash + 31 * (type?.hash else 0));
     
-    shared UnspecifiedVariable copy(LIdentifier name = this.name, Type? type = this.type) {
+    shared UnspecifiedVariable copy(LIdentifier name = this.name, Type|ValueModifier? type = this.type) {
         value ret = UnspecifiedVariable(name, type);
         copyExtraInfoTo(ret);
         return ret;

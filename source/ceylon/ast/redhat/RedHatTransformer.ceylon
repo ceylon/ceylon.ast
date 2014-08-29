@@ -691,11 +691,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value catchVariable = JCatchVariable(tokens.token("(", lparen));
         value variable = that.variable;
         value var = JVariable(null);
-        if (exists type = variable.type) {
-            var.type = transformType(type);
-        } else {
-            var.type = JValueModifier(null);
-        }
+        value type = variable.type;
+        switch (type)
+        case (is Type) { var.type = transformType(type); }
+        case (is ValueModifier) { var.type = transformValueModifier(type); }
+        case (null) { var.type = JValueModifier(null); }
         var.identifier = transformLIdentifier(variable.name);
         catchVariable.variable = var;
         catchVariable.endToken = tokens.token(")", rparen);
@@ -1560,21 +1560,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JKeyValueIterator ret = JKeyValueIterator(tokens.token("(", lparen));
         value keyVariable = that.keyVariable;
         value keyVar = JVariable(null);
-        if (exists type = keyVariable.type) {
-            keyVar.type = transformType(type);
-        } else {
-            keyVar.type = JValueModifier(null);
-        }
+        value keyType = keyVariable.type;
+        switch (keyType)
+        case (is Type) { keyVar.type = transformType(keyType); }
+        case (is ValueModifier) { keyVar.type = transformValueModifier(keyType); }
+        case (null) { keyVar.type = JValueModifier(null); }
         keyVar.identifier = transformLIdentifier(keyVariable.name);
         ret.keyVariable = keyVar;
         tokens.token("->", entry_op);
         value valueVariable = that.valueVariable;
         value valueVar = JVariable(null);
-        if (exists type = valueVariable.type) {
-            valueVar.type = transformType(type);
-        } else {
-            valueVar.type = JValueModifier(null);
-        }
+        value valueType = valueVariable.type;
+        switch (valueType)
+        case (is Type) { valueVar.type = transformType(valueType); }
+        case (is ValueModifier) { valueVar.type = transformValueModifier(valueType); }
+        case (null) { valueVar.type = JValueModifier(null); }
         valueVar.identifier = transformLIdentifier(valueVariable.name);
         ret.valueVariable = valueVar;
         value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
@@ -2599,11 +2599,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JValueIterator ret = JValueIterator(tokens.token("(", lparen));
         value variable = that.variable;
         value var = JVariable(null);
-        if (exists type = variable.type) {
-            var.type = transformType(type);
-        } else {
-            var.type = JValueModifier(null);
-        }
+        value type = variable.type;
+        switch (type)
+        case (is Type) { var.type = transformType(type); }
+        case (is ValueModifier) { var.type = transformValueModifier(type); }
+        case (null) { var.type = JValueModifier(null); }
         var.identifier = transformLIdentifier(variable.name);
         ret.variable = var;
         value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
@@ -2745,11 +2745,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JVariable var = JVariable(null);
         switch (variable)
         case (is SpecifiedVariable) {
-            if (exists type = variable.type) {
-                var.type = transformType(type);
-            } else {
-                var.type = JValueModifier(null);
-            }
+            value type = variable.type;
+            switch (type)
+            case (is Type) { var.type = transformType(type); }
+            case (is ValueModifier) { var.type = transformValueModifier(type); }
+            case (null) { var.type = JValueModifier(null); }
             var.identifier = transformLIdentifier(variable.name);
             var.specifierExpression = transformSpecifier(variable.specifier);
         }

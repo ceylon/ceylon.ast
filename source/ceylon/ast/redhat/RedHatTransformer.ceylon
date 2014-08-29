@@ -432,21 +432,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JObjectDefinition transformObjectDefinition(ObjectDefinition that) {
-        value annotationList = transformAnnotations(that.annotations);
-        JObjectDefinition ret = JObjectDefinition(tokens.token("object", object_definition));
-        ret.annotationList = annotationList;
-        ret.identifier = transformLIdentifier(that.name);
-        if (exists extendedType = that.extendedType) {
-            ret.extendedType = transformExtendedType(extendedType);
-        }
-        if (exists satisfiedTypes = that.satisfiedTypes) {
-            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
-        }
-        ret.classBody = transformClassBody(that.body);
-        return ret;
-    }
-    
     shared actual JSpecifiedArgument transformAnonymousArgument(AnonymousArgument that) {
         JSpecifiedArgument ret = JSpecifiedArgument(null);
         value specifierExpression = JSpecifierExpression(null);
@@ -1786,6 +1771,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JNotOp transformNotOperation(NotOperation that) {
         JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
         ret.term = transformPrecedence13Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JObjectDefinition transformObjectDefinition(ObjectDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JObjectDefinition ret = JObjectDefinition(tokens.token("object", object_definition));
+        ret.annotationList = annotationList;
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        ret.classBody = transformClassBody(that.body);
         return ret;
     }
     

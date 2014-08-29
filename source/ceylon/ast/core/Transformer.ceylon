@@ -226,6 +226,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformThenOperation(ThenOperation that);
     shared formal Result transformThis(This that);
     shared formal Result transformThrow(Throw that);
+    shared formal Result transformTryClause(TryClause that);
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);

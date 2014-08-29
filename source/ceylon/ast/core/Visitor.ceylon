@@ -225,6 +225,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformThenOperation(ThenOperation that) => visitThenOperation(that);
     transformThis(This that) => visitThis(that);
     transformThrow(Throw that) => visitThrow(that);
+    transformTryClause(TryClause that) => visitTryClause(that);
     transformTuple(Tuple that) => visitTuple(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
@@ -480,6 +481,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);
     shared default void visitThis(This that) => super.transformThis(that);
     shared default void visitThrow(Throw that) => super.transformThrow(that);
+    shared default void visitTryClause(TryClause that) => super.transformTryClause(that);
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);

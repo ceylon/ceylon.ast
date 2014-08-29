@@ -207,6 +207,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JThenOp=ThenOp,
         JThis=This,
         JThrow=Throw,
+        JTryClause=TryClause,
         JTuple=Tuple,
         JTupleType=TupleType,
         JTypeArgumentList=TypeArgumentList,
@@ -333,6 +334,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         then_clause=\iTHEN_CLAUSE,
         thisType=\iTHIS,
         throwType=\iTHROW,
+        try_clause=\iTRY_CLAUSE,
         type_constraint=\iTYPE_CONSTRAINT,
         uidentifier=\iUIDENTIFIER,
         union_op=\iUNION_OP,
@@ -2351,6 +2353,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.expression = wrapTerm(transformExpression(result));
         }
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JTryClause transformTryClause(TryClause that) {
+        JTryClause ret = JTryClause(tokens.token("try", try_clause));
+        if (exists resources = that.resources) {
+            ret.resourceList = transformResources(resources);
+        }
+        ret.block = transformBlock(that.block);
         return ret;
     }
     

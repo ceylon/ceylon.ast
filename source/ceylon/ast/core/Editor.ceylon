@@ -701,6 +701,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default Throw transformThrow(Throw that)
             => that.copy(nullsafeInvoke(that.result, transformExpression));
+    shared actual default TryClause transformTryClause(TryClause that)
+            => that.copy(transformBlock(that.block), nullsafeInvoke(that.resources, transformResources));
     shared actual default Tuple transformTuple(Tuple that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default TupleType transformTupleType(TupleType that)

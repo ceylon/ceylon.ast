@@ -604,6 +604,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformThis(This that) => "This()";
     transformThrow(Throw that) => "Throw(``transformWithIndent(that.result)``)";
+    transformTryClause(TryClause that)
+            => "TryClause {
+                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                `` indent + indentLevel ``resources = ``transformWithIndent(that.resources)``;
+                ``indent``}";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     transformTypeArgument(TypeArgument that)

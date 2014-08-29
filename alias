@@ -1,2 +1,2 @@
 #!/bin/sh
-ceylon run source_gen.ceylon.ast --alias $@
+ceylon run source_gen.ceylon.ast --alias $@ || { ant csg; ceylon run source_gen.ceylon.ast --alias $@; }

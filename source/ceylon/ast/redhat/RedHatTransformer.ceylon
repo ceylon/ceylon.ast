@@ -112,6 +112,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JImportWildcard=ImportWildcard,
         JInOp=InOp,
         JIncrementOp=IncrementOp,
+        JIndexExpression=IndexExpression,
         JInferredTypeArguments=InferredTypeArguments,
         JInitialComprehensionClause=InitialComprehensionClause,
         JInitializerParameter=InitializerParameter,
@@ -968,6 +969,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JDynamic transformDynamicValue(DynamicValue that) {
         JDynamic ret = JDynamic(tokens.token("value", value_modifier));
         ret.namedArgumentList = transformNamedArguments(that.content);
+        return ret;
+    }
+    
+    shared actual JIndexExpression transformElementOrSubrangeExpression(ElementOrSubrangeExpression that) {
+        value jPrimary = transformPrimary(that.primary);
+        JIndexExpression ret = JIndexExpression(tokens.token("[", lbracket));
+        ret.primary = jPrimary;
+        ret.elementOrRange = transformSubscript(that.subscript);
+        ret.endToken = tokens.token("]", rbracket);
         return ret;
     }
     

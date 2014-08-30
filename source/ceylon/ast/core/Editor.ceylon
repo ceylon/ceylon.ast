@@ -219,6 +219,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
             => that.copy(transformNamedArguments(that.content));
+    shared actual default ElementOrSubrangeExpression transformElementOrSubrangeExpression(ElementOrSubrangeExpression that)
+            => that.copy(transformPrimary(that.primary), transformSubscript(that.subscript));
     shared actual default ElseClause transformElseClause(ElseClause that) {
         Block|IfElse transformBlockOrIfElse(Block|IfElse that) {
             switch (that)

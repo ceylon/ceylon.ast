@@ -218,6 +218,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformDynamicBlock(DynamicBlock that) => "DynamicBlock(``transformWithIndent(that.block)``)";
     transformDynamicModifier(DynamicModifier that) => "DynamicModifier()";
     transformDynamicValue(DynamicValue that) => "DynamicValue(``transformWithIndent(that.content)``)";
+    transformElementOrSubrangeExpression(ElementOrSubrangeExpression that)
+            => "ElementOrSubrangeExpression {
+                `` indent + indentLevel ``primary = ``transformWithIndent(that.primary)``;
+                `` indent + indentLevel ``subscript = ``transformWithIndent(that.subscript)``;
+                ``indent``}";
     transformElseClause(ElseClause that) => "ElseClause(``transformWithIndent(that.child)``)";
     transformElseOperation(ElseOperation that)
             => "ElseOperation {

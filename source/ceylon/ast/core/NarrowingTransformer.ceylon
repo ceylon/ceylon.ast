@@ -186,6 +186,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Modifier) { return transformModifier(that); }
         case (is Body) { return transformBody(that); }
         case (is Comprehension) { return transformComprehension(that); }
+        case (is Subscript) { return transformSubscript(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)
@@ -452,6 +453,13 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is GroupedType) { return transformGroupedType(that); }
         case (is CallableType) { return transformCallableType(that); }
     }
+    shared actual default Result transformRangeSubscript(RangeSubscript that) {
+        switch (that)
+        case (is SpanSubscript) { return transformSpanSubscript(that); }
+        case (is MeasureSubscript) { return transformMeasureSubscript(that); }
+        case (is SpanFromSubscript) { return transformSpanFromSubscript(that); }
+        case (is SpanToSubscript) { return transformSpanToSubscript(that); }
+    }
     shared actual default Result transformRequiredParameter(RequiredParameter that) {
         switch (that)
         case (is ValueParameter) { return transformValueParameter(that); }
@@ -493,6 +501,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Assertion) { return transformAssertion(that); }
         case (is Directive) { return transformDirective(that); }
         case (is ControlStructure) { return transformControlStructure(that); }
+    }
+    shared actual default Result transformSubscript(Subscript that) {
+        switch (that)
+        case (is KeySubscript) { return transformKeySubscript(that); }
+        case (is RangeSubscript) { return transformRangeSubscript(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

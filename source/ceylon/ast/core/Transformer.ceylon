@@ -137,6 +137,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
+    shared formal Result transformKeySubscript(KeySubscript that);
     shared formal Result transformKeyValueIterator(KeyValueIterator that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
@@ -147,6 +148,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLogicalOperation(LogicalOperation that);
     shared formal Result transformMainType(MainType that);
     shared formal Result transformMeasureOperation(MeasureOperation that);
+    shared formal Result transformMeasureSubscript(MeasureSubscript that);
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
@@ -196,6 +198,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformQualifiedExpression(QualifiedExpression that);
     shared formal Result transformQualifiedType(QualifiedType that);
     shared formal Result transformQuotientOperation(QuotientOperation that);
+    shared formal Result transformRangeSubscript(RangeSubscript that);
     shared formal Result transformRemainderAssignmentOperation(RemainderAssignmentOperation that);
     shared formal Result transformRemainderOperation(RemainderOperation that);
     shared formal Result transformRequiredParameter(RequiredParameter that);
@@ -211,7 +214,10 @@ shared interface Transformer<out Result> {
     shared formal Result transformSimpleType(SimpleType that);
     shared formal Result transformSmallAsOperation(SmallAsOperation that);
     shared formal Result transformSmallerOperation(SmallerOperation that);
+    shared formal Result transformSpanFromSubscript(SpanFromSubscript that);
     shared formal Result transformSpanOperation(SpanOperation that);
+    shared formal Result transformSpanSubscript(SpanSubscript that);
+    shared formal Result transformSpanToSubscript(SpanToSubscript that);
     shared formal Result transformSpecification(Specification that);
     shared formal Result transformSpecifiedArgument(SpecifiedArgument that);
     shared formal Result transformSpecifiedVariable(SpecifiedVariable that);
@@ -220,6 +226,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformStatement(Statement that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformStringTemplate(StringTemplate that);
+    shared formal Result transformSubscript(Subscript that);
     shared formal Result transformSubtractAssignmentOperation(SubtractAssignmentOperation that);
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);

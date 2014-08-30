@@ -69,6 +69,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDynamicClause=DynamicClause,
         JDynamicModifier=DynamicModifier,
         JDynamicStatement=DynamicStatement,
+        JElement=Element,
+        JElementOrRange=ElementOrRange,
+        JElementRange=ElementRange,
         JElseClause=ElseClause,
         JEntryOp=EntryOp,
         JEntryType=EntryType,
@@ -1546,6 +1549,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JElement transformKeySubscript(KeySubscript that) {
+        JElement ret = JElement(null);
+        ret.expression = wrapTerm(transformExpression(that.key));
+        return ret;
+    }
+    
     shared actual JKeyValueIterator transformKeyValueIterator(KeyValueIterator that) {
         JKeyValueIterator ret = JKeyValueIterator(tokens.token("(", lparen));
         value keyVariable = that.keyVariable;
@@ -1624,6 +1633,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JSegmentOp ret = JSegmentOp(tokens.token(that.operator, segment_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JElementRange transformMeasureSubscript(MeasureSubscript that) {
+        JElementRange ret = JElementRange(null);
+        ret.lowerBound = wrapTerm(transformExpression(that.from));
+        tokens.token(":", segment_op); // the parser temporarily assigns it to the surrounding IndexExpression,
+        // but there it’s later overwritten by the closing bracket, so it’s okay to forget it here
+        ret.length = wrapTerm(transformExpression(that.length));
         return ret;
     }
     
@@ -2114,6 +2132,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JElementRange transformRangeSubscript(RangeSubscript that) {
+        assert (is JElementRange ret = super.transformRangeSubscript(that));
+        return ret;
+    }
+    
     shared actual JRemainderAssignOp transformRemainderAssignmentOperation(RemainderAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);
         JRemainderAssignOp ret = JRemainderAssignOp(tokens.token(that.operator, remainder_specify));
@@ -2242,11 +2265,33 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JElementRange transformSpanFromSubscript(SpanFromSubscript that) {
+        JElementRange ret = JElementRange(null);
+        ret.lowerBound = wrapTerm(transformExpression(that.from));
+        tokens.token("...", ellipsis);
+        return ret;
+    }
+    
     shared actual JRangeOp transformSpanOperation(SpanOperation that) {
         JTerm left = transformPrecedence8Expression(that.leftOperand);
         JRangeOp ret = JRangeOp(tokens.token(that.operator, range_op));
         ret.leftTerm = left;
         ret.rightTerm = transformPrecedence8Expression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JElementRange transformSpanSubscript(SpanSubscript that) {
+        JElementRange ret = JElementRange(null);
+        ret.lowerBound = wrapTerm(transformExpression(that.from));
+        tokens.token("..", range_op);
+        ret.upperBound = wrapTerm(transformExpression(that.to));
+        return ret;
+    }
+    
+    shared actual JElementRange transformSpanToSubscript(SpanToSubscript that) {
+        JElementRange ret = JElementRange(null);
+        tokens.token("...", ellipsis);
+        ret.upperBound = wrapTerm(transformExpression(that.to));
         return ret;
     }
     
@@ -2315,6 +2360,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
                 ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + litCur.text + "\`\`", string_mid)));
             }
         }
+        return ret;
+    }
+    
+    shared actual JElementOrRange transformSubscript(Subscript that) {
+        assert (is JElementOrRange ret = super.transformSubscript(that));
         return ret;
     }
     

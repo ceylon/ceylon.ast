@@ -389,6 +389,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.operand), transformType(that.type));
     shared actual default Iterable transformIterable(Iterable that)
             => that.copy(transformArgumentList(that.argumentList));
+    shared actual default KeySubscript transformKeySubscript(KeySubscript that)
+            => that.copy(transformPrecedence8Expression(that.key));
     shared actual default KeyValueIterator transformKeyValueIterator(KeyValueIterator that)
             => that.copy(transformUnspecifiedVariable(that.keyVariable), transformUnspecifiedVariable(that.valueVariable), transformExpression(that.iterated));
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
@@ -417,6 +419,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
+    shared actual default MeasureSubscript transformMeasureSubscript(MeasureSubscript that)
+            => that.copy(transformPrecedence8Expression(that.from), transformPrecedence8Expression(that.length));
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
             => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
@@ -621,6 +625,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
             => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
+    shared actual default RangeSubscript transformRangeSubscript(RangeSubscript that) {
+        assert (is RangeSubscript ret = super.transformRangeSubscript(that));
+        return ret;
+    }
     shared actual default RemainderAssignmentOperation transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
@@ -667,8 +675,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default SmallerOperation transformSmallerOperation(SmallerOperation that)
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
+    shared actual default SpanFromSubscript transformSpanFromSubscript(SpanFromSubscript that)
+            => that.copy(transformPrecedence8Expression(that.from));
     shared actual default SpanOperation transformSpanOperation(SpanOperation that)
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
+    shared actual default SpanSubscript transformSpanSubscript(SpanSubscript that)
+            => that.copy(transformPrecedence8Expression(that.from), transformPrecedence8Expression(that.to));
+    shared actual default SpanToSubscript transformSpanToSubscript(SpanToSubscript that)
+            => that.copy(transformPrecedence8Expression(that.to));
     shared actual default Specification transformSpecification(Specification that) {
         assert (is Specification ret = super.transformSpecification(that));
         return ret;
@@ -689,6 +703,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default StringTemplate transformStringTemplate(StringTemplate that)
             => that.copy(that.literals.collect(transformStringLiteral), that.expressions.collect(transformValueExpression));
+    shared actual default Subscript transformSubscript(Subscript that) {
+        assert (is Subscript ret = super.transformSubscript(that));
+        return ret;
+    }
     shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default SumOperation transformSumOperation(SumOperation that)

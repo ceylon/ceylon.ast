@@ -388,6 +388,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
+    transformKeySubscript(KeySubscript that) => "KeySubscript(``transformWithIndent(that.key)``)";
     transformKeyValueIterator(KeyValueIterator that)
             => "KeyValueIterator {
                 `` indent + indentLevel ``keyVariable = ``transformWithIndent(that.keyVariable)``;
@@ -395,6 +396,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    transformMeasureSubscript(MeasureSubscript that)
+            => "MeasureSubscript {
+                `` indent + indentLevel ``from = ``transformWithIndent(that.from)``;
+                `` indent + indentLevel ``length = ``transformWithIndent(that.length)``;
+                ``indent``}";
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.typeArguments exists
             then "MemberNameWithTypeArguments {
@@ -566,11 +572,18 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformSpanFromSubscript(SpanFromSubscript that) => "SpanFromSubscript(``transformWithIndent(that.from)``)";
     transformSpanOperation(SpanOperation that)
             => "SpanOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
+    transformSpanSubscript(SpanSubscript that)
+            => "SpanSubscript {
+                `` indent + indentLevel ``from = ``transformWithIndent(that.from)``;
+                `` indent + indentLevel ``to = ``transformWithIndent(that.to)``;
+                ``indent``}";
+    transformSpanToSubscript(SpanToSubscript that) => "SpanToSubscript(``transformWithIndent(that.to)``)";
     transformSpecifiedArgument(SpecifiedArgument that) => "SpecifiedArgument(``transformWithIndent(that.specification)``)";
     transformSpecifiedVariable(SpecifiedVariable that)
             => "SpecifiedVariable {

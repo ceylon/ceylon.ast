@@ -21,6 +21,9 @@ shared object negationOperation satisfies ConcreteTest<NegationOperation,JNegati
     shared String->NegationOperation minus1138Expression = construct(integerLiteral._1138IntegerLiteral);
     shared String->NegationOperation minusPowExpression = construct(exponentiationOperation._1138Pow1Operation);
     
+    // not tested directly, but used by other tests
+    shared String->NegationOperation minusOneExpression = construct(integerLiteral.oneIntegerLiteral);
+    
     compile = compileNegationOperation;
     fromCeylon = RedHatTransformer.transformNegationOperation;
     toCeylon = negationOperationToCeylon;

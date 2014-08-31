@@ -227,6 +227,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformSwitchCases(SwitchCases that) => transformNode(that);
+    shared actual default Result transformSwitchClause(SwitchClause that) => transformNode(that);
     shared actual default Result transformThenOperation(ThenOperation that) => transformBinaryOperation(that);
     shared actual default Result transformThis(This that) => transformSelfReference(that);
     shared actual default Result transformThrow(Throw that) => transformDirective(that);

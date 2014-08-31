@@ -212,6 +212,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSuper=Super,
         JSuperType=SuperType,
         JSwitchCaseList=SwitchCaseList,
+        JSwitchClause=SwitchClause,
         JSyntheticVariable=SyntheticVariable,
         JTerm=Term,
         JThenOp=ThenOp,
@@ -343,6 +344,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         subtract_specify=\iSUBTRACT_SPECIFY,
         sum_op=\iSUM_OP,
         superType=\iSUPER,
+        switch_clause=\iSWITCH_CLAUSE,
         then_clause=\iTHEN_CLAUSE,
         thisType=\iTHIS,
         throwType=\iTHROW,
@@ -2451,6 +2453,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         if (exists elseCaseClause = that.elseCaseClause) {
             ret.elseClause = transformElseCaseClause(elseCaseClause);
         }
+        return ret;
+    }
+    
+    shared actual JSwitchClause transformSwitchClause(SwitchClause that) {
+        JSwitchClause ret = JSwitchClause(tokens.token("switch", switch_clause));
+        tokens.token("(", lparen);
+        ret.expression = wrapTerm(transformExpression(that.expression));
+        tokens.token(")", rparen);
         return ret;
     }
     

@@ -237,6 +237,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);
     shared formal Result transformSwitchCases(SwitchCases that);
+    shared formal Result transformSwitchClause(SwitchClause that);
     shared formal Result transformThenOperation(ThenOperation that);
     shared formal Result transformThis(This that);
     shared formal Result transformThrow(Throw that);

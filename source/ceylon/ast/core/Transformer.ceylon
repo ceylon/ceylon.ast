@@ -61,7 +61,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformComprehension(Comprehension that);
     shared formal Result transformComprehensionClause(ComprehensionClause that);
     shared formal Result transformCondition(Condition that);
-    shared formal Result transformConditionList(ConditionList that);
+    shared formal Result transformConditions(Conditions that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformControlStructure(ControlStructure that);
     shared formal Result transformDec(Dec that);

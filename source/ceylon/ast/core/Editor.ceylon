@@ -80,7 +80,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return ret;
     }
     shared actual default Assertion transformAssertion(Assertion that)
-            => that.copy(transformConditionList(that.conditions), transformAnnotations(that.annotations));
+            => that.copy(transformConditions(that.conditions), transformAnnotations(that.annotations));
     shared actual default AssignOperation transformAssignOperation(AssignOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {
@@ -177,7 +177,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Condition ret = super.transformCondition(that));
         return ret;
     }
-    shared actual default ConditionList transformConditionList(ConditionList that)
+    shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
@@ -329,9 +329,9 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default IdentityOperation transformIdentityOperation(IdentityOperation that)
             => that.copy(transformPrecedence2Expression(that.operand));
     shared actual default IfClause transformIfClause(IfClause that)
-            => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
+            => that.copy(transformConditions(that.conditions), transformBlock(that.block));
     shared actual default IfComprehensionClause transformIfComprehensionClause(IfComprehensionClause that)
-            => that.copy(transformConditionList(that.conditions), transformComprehensionClause(that.clause));
+            => that.copy(transformConditions(that.conditions), transformComprehensionClause(that.clause));
     shared actual default IfElse transformIfElse(IfElse that)
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default Import transformImport(Import that)
@@ -867,7 +867,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default VoidModifier transformVoidModifier(VoidModifier that)
             => that.copy();
     shared actual default While transformWhile(While that)
-            => that.copy(transformConditionList(that.conditions), transformBlock(that.block));
+            => that.copy(transformConditions(that.conditions), transformBlock(that.block));
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
     SpecifiedVariable|LIdentifier transformSpecifiedVariableOrLIdentifier(SpecifiedVariable|LIdentifier that) {

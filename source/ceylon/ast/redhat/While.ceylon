@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[WhileStatement|JWhileStatement]] to a `ceylon.ast` [[While]]."
 shared While whileToCeylon(JWhileStatement \iwhile) {
-    return While(conditionListToCeylon(\iwhile.whileClause.conditionList), blockToCeylon(\iwhile.whileClause.block));
+    return While(conditionsToCeylon(\iwhile.whileClause.conditionList), blockToCeylon(\iwhile.whileClause.block));
 }
 
 "Compiles the given [[code]] for a While

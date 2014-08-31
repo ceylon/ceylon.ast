@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     Block,
-    ConditionList,
+    Conditions,
     While
 }
 import ceylon.ast.redhat {
@@ -16,10 +16,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object \iwhile satisfies ConcreteTest<While,JWhileStatement> {
     
-    String->While construct(String->ConditionList conditions, String->Block block = package.block.emptyBlock)
+    String->While construct(String->Conditions conditions, String->Block block = package.block.emptyBlock)
             => "while``conditions.key````block.key``"->While(conditions.item, block.item);
     
-    shared String->While infiniteEmptyWhileLoop = construct(conditionList.trueConditionList);
+    shared String->While infiniteEmptyWhileLoop = construct(conditions.trueConditions);
     
     compile = compileWhile;
     fromCeylon = RedHatTransformer.transformWhile;

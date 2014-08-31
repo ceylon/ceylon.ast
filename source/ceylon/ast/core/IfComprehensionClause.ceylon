@@ -11,11 +11,11 @@ shared class IfComprehensionClause(conditions, clause)
         extends InitialComprehensionClause() {
     
     "The condition list of the comprehension clause."
-    shared ConditionList conditions;
+    shared Conditions conditions;
     "The following / next / inner comprehension clause."
     shared actual ComprehensionClause clause;
     
-    shared actual [ConditionList, ComprehensionClause] children = [conditions, clause];
+    shared actual [Conditions, ComprehensionClause] children = [conditions, clause];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIfComprehensionClause(this);
@@ -31,7 +31,7 @@ shared class IfComprehensionClause(conditions, clause)
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * clause.hash);
     
-    shared IfComprehensionClause copy(ConditionList conditions = this.conditions, ComprehensionClause clause = this.clause) {
+    shared IfComprehensionClause copy(Conditions conditions = this.conditions, ComprehensionClause clause = this.clause) {
         value ret = IfComprehensionClause(conditions, clause);
         copyExtraInfoTo(ret);
         return ret;

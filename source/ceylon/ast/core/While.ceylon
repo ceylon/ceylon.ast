@@ -9,11 +9,11 @@ shared class While(conditions, block)
         extends ControlStructure() {
     
     "The condition list that determines when the loop terminates."
-    shared ConditionList conditions;
+    shared Conditions conditions;
     "The block that is repeatedly executed."
     shared Block block;
     
-    shared actual [ConditionList, Block] children = [conditions, block];
+    shared actual [Conditions, Block] children = [conditions, block];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformWhile(this);
@@ -29,7 +29,7 @@ shared class While(conditions, block)
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * block.hash);
     
-    shared While copy(ConditionList conditions = this.conditions, Block block = this.block) {
+    shared While copy(Conditions conditions = this.conditions, Block block = this.block) {
         value ret = While(conditions, block);
         copyExtraInfoTo(ret);
         return ret;

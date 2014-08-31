@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[IfClause|JIfClause]] to a `ceylon.ast` [[IfClause]]."
 shared IfClause ifClauseToCeylon(JIfClause ifClause) {
-    return IfClause(conditionListToCeylon(ifClause.conditionList), blockToCeylon(ifClause.block));
+    return IfClause(conditionsToCeylon(ifClause.conditionList), blockToCeylon(ifClause.block));
 }
 
 "Compiles the given [[code]] for an If Clause

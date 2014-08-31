@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[IfComprehensionClause|JIfComprehensionClause]] to a `ceylon.ast` [[IfComprehensionClause]]."
 shared IfComprehensionClause ifComprehensionClauseToCeylon(JIfComprehensionClause ifComprehensionClause) {
-    return IfComprehensionClause(conditionListToCeylon(ifComprehensionClause.conditionList), comprehensionClauseToCeylon(ifComprehensionClause.comprehensionClause));
+    return IfComprehensionClause(conditionsToCeylon(ifComprehensionClause.conditionList), comprehensionClauseToCeylon(ifComprehensionClause.comprehensionClause));
 }
 
 "Compiles the given [[code]] for an If Comprehension Clause

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     Block,
-    ConditionList,
+    Conditions,
     IfClause
 }
 import ceylon.ast.redhat {
@@ -16,10 +16,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object ifClause satisfies ConcreteTest<IfClause,JIfClause> {
     
-    String->IfClause construct(String->ConditionList conditions, String->Block block)
+    String->IfClause construct(String->Conditions conditions, String->Block block)
             => "if``conditions.key````block.key``"->IfClause(conditions.item, block.item);
     
-    shared String->IfClause emptyIfClause = construct(conditionList.trueCommaAAndBConditionList, block.emptyBlock);
+    shared String->IfClause emptyIfClause = construct(conditions.trueCommaAAndBConditions, block.emptyBlock);
     
     compile = compileIfClause;
     fromCeylon = RedHatTransformer.transformIfClause;

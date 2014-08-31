@@ -9,14 +9,14 @@ shared class Assertion(conditions, annotations = Annotations())
         extends Statement() {
     
     "The conditions that are asserted."
-    shared ConditionList conditions;
+    shared Conditions conditions;
     "The annotations on the assertion.
      
      The `doc` annotation (typically as [[anonymous annotation|Annotations.anonymousAnnotation]])
      can be used to specify the message carried by the assertion failure."
     shared Annotations annotations;
     
-    shared actual [Annotations, ConditionList] children = [annotations, conditions];
+    shared actual [Annotations, Conditions] children = [annotations, conditions];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformAssertion(this);
@@ -32,7 +32,7 @@ shared class Assertion(conditions, annotations = Annotations())
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * annotations.hash);
     
-    shared Assertion copy(ConditionList conditions = this.conditions, Annotations annotations = this.annotations) {
+    shared Assertion copy(Conditions conditions = this.conditions, Annotations annotations = this.annotations) {
         value ret = Assertion(conditions, annotations);
         copyExtraInfoTo(ret);
         return ret;

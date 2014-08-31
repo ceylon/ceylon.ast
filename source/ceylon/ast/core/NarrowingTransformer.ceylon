@@ -295,7 +295,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Import) { return transformImport(that); }
         case (is AnyCompilationUnit) { return transformAnyCompilationUnit(that); }
         case (is Condition) { return transformCondition(that); }
-        case (is ConditionList) { return transformConditionList(that); }
+        case (is Conditions) { return transformConditions(that); }
         case (is IfClause) { return transformIfClause(that); }
         case (is ElseClause) { return transformElseClause(that); }
         case (is ClassInstantiation) { return transformClassInstantiation(that); }

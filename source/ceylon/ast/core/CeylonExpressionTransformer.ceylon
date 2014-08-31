@@ -187,7 +187,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformComprehension(Comprehension that) => "Comprehension(``transformWithIndent(that.clause)``)";
-    transformConditionList(ConditionList that) => "ConditionList(``transformWithIndent(that.conditions)``)";
+    transformConditions(Conditions that) => "Conditions(``transformWithIndent(that.conditions)``)";
     transformContinue(Continue that) => "Continue()";
     transformDefaultedCallableParameter(DefaultedCallableParameter that)
             => "DefaultedCallableParameter {

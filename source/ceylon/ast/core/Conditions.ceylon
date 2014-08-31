@@ -4,7 +4,7 @@
  
      (nonempty elems = that.elements, elems.first == expected)
      (is Integer num = obj.num, is Integer num2 = obj2.num, num == num2)"
-shared class ConditionList(conditions)
+shared class Conditions(conditions)
         extends Node() {
     
     "The conditions of this condition list."
@@ -13,10 +13,10 @@ shared class ConditionList(conditions)
     shared actual [Condition+] children = conditions;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformConditionList(this);
+            => transformer.transformConditions(this);
     
     shared actual Boolean equals(Object that) {
-        if (is ConditionList that) {
+        if (is Conditions that) {
             return conditions == that.conditions;
         } else {
             return false;
@@ -26,8 +26,8 @@ shared class ConditionList(conditions)
     shared actual Integer hash
             => 31 * conditions.hash;
     
-    shared ConditionList copy([Condition+] conditions = this.conditions) {
-        value ret = ConditionList(conditions);
+    shared Conditions copy([Condition+] conditions = this.conditions) {
+        value ret = Conditions(conditions);
         copyExtraInfoTo(ret);
         return ret;
     }

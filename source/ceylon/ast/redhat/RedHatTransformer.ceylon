@@ -526,7 +526,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         value annotationList = transformAnnotations(that.annotations);
         JAssertion ret = JAssertion(tokens.token("assert", assertType));
         ret.annotationList = annotationList;
-        ret.conditionList = transformConditionList(that.conditions);
+        ret.conditionList = transformConditions(that.conditions);
         ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
@@ -865,7 +865,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JConditionList transformConditionList(ConditionList that) {
+    shared actual JConditionList transformConditions(Conditions that) {
         JConditionList ret = JConditionList(tokens.token("(", lparen));
         ret.addCondition(transformCondition(that.conditions.first));
         for (condition in that.conditions.rest) {
@@ -1328,14 +1328,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JIfClause transformIfClause(IfClause that) {
         JIfClause ret = JIfClause(tokens.token("if", if_clause));
-        ret.conditionList = transformConditionList(that.conditions);
+        ret.conditionList = transformConditions(that.conditions);
         ret.block = transformBlock(that.block);
         return ret;
     }
     
     shared actual JIfComprehensionClause transformIfComprehensionClause(IfComprehensionClause that) {
         JIfComprehensionClause ret = JIfComprehensionClause(tokens.token("if", if_clause));
-        ret.conditionList = transformConditionList(that.conditions);
+        ret.conditionList = transformConditions(that.conditions);
         ret.comprehensionClause = transformComprehensionClause(that.clause);
         return ret;
     }
@@ -2812,7 +2812,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JWhileStatement transformWhile(While that) {
         JWhileStatement ret = JWhileStatement(null);
         JWhileClause whileClause = JWhileClause(tokens.token("while", while_clause));
-        whileClause.conditionList = transformConditionList(that.conditions);
+        whileClause.conditionList = transformConditions(that.conditions);
         whileClause.block = transformBlock(that.block);
         ret.whileClause = whileClause;
         return ret;

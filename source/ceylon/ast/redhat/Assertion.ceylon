@@ -16,7 +16,7 @@ shared Assertion assertionToCeylon(JAssertion assertion) {
     } else {
         annotations = Annotations();
     }
-    return Assertion(conditionListToCeylon(assertion.conditionList), annotations);
+    return Assertion(conditionsToCeylon(assertion.conditionList), annotations);
 }
 
 "Compiles the given [[code]] for an Assertion

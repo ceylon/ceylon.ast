@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     Annotations,
     Assertion,
-    ConditionList
+    Conditions
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,11 +16,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object assertion satisfies ConcreteTest<Assertion,JAssertion> {
     
-    String->Assertion construct(String->ConditionList conditions, String->Annotations annotations = package.annotations.emptyAnnotations)
+    String->Assertion construct(String->Conditions conditions, String->Annotations annotations = package.annotations.emptyAnnotations)
             => "``annotations.key`` assert``conditions.key``;"->Assertion(conditions.item, annotations.item);
     
-    shared String->Assertion unannotatedAssertion = construct(conditionList.trueCommaAAndBConditionList);
-    shared String->Assertion annotatedAssertion = construct(conditionList.trueCommaAAndBConditionList, annotations.helloSharedByLucasAnnotations);
+    shared String->Assertion unannotatedAssertion = construct(conditions.trueCommaAAndBConditions);
+    shared String->Assertion annotatedAssertion = construct(conditions.trueCommaAAndBConditions, annotations.helloSharedByLucasAnnotations);
     
     compile = compileAssertion;
     fromCeylon = RedHatTransformer.transformAssertion;

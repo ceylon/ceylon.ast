@@ -8,11 +8,11 @@ shared class IfClause(conditions, block)
         extends Node() {
     
     "The conditions that need to be satisfied to enter the [[block]]."
-    shared ConditionList conditions;
+    shared Conditions conditions;
     "The block that is entered if the [[conditions]] are satisfied."
     shared Block block;
     
-    shared actual [ConditionList, Block] children = [conditions, block];
+    shared actual [Conditions, Block] children = [conditions, block];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIfClause(this);
@@ -28,7 +28,7 @@ shared class IfClause(conditions, block)
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * block.hash);
     
-    shared IfClause copy(ConditionList conditions = this.conditions, Block block = this.block) {
+    shared IfClause copy(Conditions conditions = this.conditions, Block block = this.block) {
         value ret = IfClause(conditions, block);
         copyExtraInfoTo(ret);
         return ret;

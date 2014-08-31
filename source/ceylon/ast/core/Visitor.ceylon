@@ -61,7 +61,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformComprehension(Comprehension that) => visitComprehension(that);
     transformComprehensionClause(ComprehensionClause that) => visitComprehensionClause(that);
     transformCondition(Condition that) => visitCondition(that);
-    transformConditionList(ConditionList that) => visitConditionList(that);
+    transformConditions(Conditions that) => visitConditions(that);
     transformContinue(Continue that) => visitContinue(that);
     transformControlStructure(ControlStructure that) => visitControlStructure(that);
     transformDec(Dec that) => visitDec(that);
@@ -326,7 +326,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitComprehension(Comprehension that) => super.transformComprehension(that);
     shared default void visitComprehensionClause(ComprehensionClause that) => super.transformComprehensionClause(that);
     shared default void visitCondition(Condition that) => super.transformCondition(that);
-    shared default void visitConditionList(ConditionList that) => super.transformConditionList(that);
+    shared default void visitConditions(Conditions that) => super.transformConditions(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
     shared default void visitDec(Dec that) => super.transformDec(that);

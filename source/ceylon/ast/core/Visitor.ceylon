@@ -235,6 +235,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSubtractAssignmentOperation(SubtractAssignmentOperation that) => visitSubtractAssignmentOperation(that);
     transformSumOperation(SumOperation that) => visitSumOperation(that);
     transformSuper(Super that) => visitSuper(that);
+    transformSwitchCaseElse(SwitchCaseElse that) => visitSwitchCaseElse(that);
     transformSwitchCases(SwitchCases that) => visitSwitchCases(that);
     transformSwitchClause(SwitchClause that) => visitSwitchClause(that);
     transformThenOperation(ThenOperation that) => visitThenOperation(that);
@@ -507,6 +508,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSubtractAssignmentOperation(SubtractAssignmentOperation that) => super.transformSubtractAssignmentOperation(that);
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);
+    shared default void visitSwitchCaseElse(SwitchCaseElse that) => super.transformSwitchCaseElse(that);
     shared default void visitSwitchCases(SwitchCases that) => super.transformSwitchCases(that);
     shared default void visitSwitchClause(SwitchClause that) => super.transformSwitchClause(that);
     shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);

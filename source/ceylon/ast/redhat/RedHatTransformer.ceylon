@@ -213,6 +213,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSuperType=SuperType,
         JSwitchCaseList=SwitchCaseList,
         JSwitchClause=SwitchClause,
+        JSwitchStatement=SwitchStatement,
         JSyntheticVariable=SyntheticVariable,
         JTerm=Term,
         JThenOp=ThenOp,
@@ -2444,6 +2445,35 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSuper transformSuper(Super that)
             => JSuper(tokens.token("super", superType));
+    
+    shared actual JSwitchStatement transformSwitchCaseElse(SwitchCaseElse that) {
+        JSwitchStatement ret = JSwitchStatement(null);
+        ret.switchClause = transformSwitchClause(that.clause);
+        ret.switchCaseList = transformSwitchCases(that.cases);
+        // the parser now adds synthetic variables to all ‘is’ cases.
+        // this is mostly copied from the grammar.
+        value ex = ret.switchClause.expression.term;
+        if (is JBaseMemberExpression ex) {
+            value id = ex.identifier;
+            for (cc in CeylonIterable(ret.switchCaseList.caseClauses)) {
+                if (is JIsCase ic = cc.caseItem) {
+                    value v = JVariable(null);
+                    v.type = JSyntheticVariable(null);
+                    v.identifier = id;
+                    value se = JSpecifierExpression(null);
+                    value e = JExpression(null);
+                    value bme = JBaseMemberExpression(null);
+                    bme.identifier = id;
+                    bme.typeArguments = JInferredTypeArguments(null);
+                    e.term = bme;
+                    se.expression = e;
+                    v.specifierExpression = se;
+                    ic.variable = v;
+                }
+            }
+        }
+        return ret;
+    }
     
     shared actual JSwitchCaseList transformSwitchCases(SwitchCases that) {
         JSwitchCaseList ret = JSwitchCaseList(null);

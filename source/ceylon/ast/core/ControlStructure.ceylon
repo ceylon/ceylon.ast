@@ -8,6 +8,6 @@
      if (exists elem = queue.take) { process(elem); }
      for (i in 1:12) { print(month(i)); }"
 shared abstract class ControlStructure()
-        of IfElse | While | ForFail | TryCatchFinally | DynamicBlock
+        of IfElse | While | ForFail | SwitchCaseElse | TryCatchFinally | DynamicBlock
         extends Statement() {
 }

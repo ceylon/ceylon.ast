@@ -216,9 +216,7 @@ class ConcreteClassGenerator(
     
     void expandRedHatTransformer() {
         value filename = "source/ceylon/ast/redhat/RedHatTransformer.ceylon";
-        expandFile(filename,
-            "        J",
-            "``type``=``type``,");
+        expandRedHatTransformerImports();
         expandFile(filename,
             "    shared actual J",
             "``type`` transform``type``(``type`` that) {

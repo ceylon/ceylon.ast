@@ -136,6 +136,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         expandEditor();
         expandWideningTransformer();
         expandVisitor();
+        expandRedHatTransformerImports();
         expandRedHatTransformer();
     }
 }

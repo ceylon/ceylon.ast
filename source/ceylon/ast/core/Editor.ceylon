@@ -736,6 +736,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence7Expression(that.rightOperand));
     shared actual default Super transformSuper(Super that)
             => that.copy();
+    shared actual default SwitchCases transformSwitchCases(SwitchCases that)
+            => that.copy(that.caseClauses.collect(transformCaseClause), nullsafeInvoke(that.elseCaseClause, transformElseCaseClause));
     shared actual default ThenOperation transformThenOperation(ThenOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence15Expression(that.rightOperand));
     shared actual default This transformThis(This that)

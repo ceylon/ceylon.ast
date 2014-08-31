@@ -21,7 +21,7 @@ import ceylon.collection {
    assert (exists tokens = node.get(tokensKey));
    ~~~"""
 shared abstract class Node()
-        of ExpressionIsh | Statement | Declaration | Annotation | Annotations | Parameter | TypeParameter | TypeParameters | CaseTypes | SatisfiedTypes | TypeConstraint | PackageDescriptor | ModuleImport | ModuleBody | ModuleDescriptor | ImportAlias | ImportWildcard | ImportElement | ImportElements | Import | AnyCompilationUnit | Condition | Conditions | IfClause | ElseClause | ClassInstantiation | ExtendedType | ClassSpecifier | TypeSpecifier | Variable | ForIterator | ForClause | FailClause | ComprehensionClause | FinallyClause | CatchClause | Resource | Resources | TryClause | CaseItem | ElseCaseClause | CaseClause
+        of ExpressionIsh | Statement | Declaration | Annotation | Annotations | Parameter | TypeParameter | TypeParameters | CaseTypes | SatisfiedTypes | TypeConstraint | PackageDescriptor | ModuleImport | ModuleBody | ModuleDescriptor | ImportAlias | ImportWildcard | ImportElement | ImportElements | Import | AnyCompilationUnit | Condition | Conditions | IfClause | ElseClause | ClassInstantiation | ExtendedType | ClassSpecifier | TypeSpecifier | Variable | ForIterator | ForClause | FailClause | ComprehensionClause | FinallyClause | CatchClause | Resource | Resources | TryClause | CaseItem | ElseCaseClause | CaseClause | SwitchCases
         extends Object() {
     
     "The child nodes of this node."

@@ -211,6 +211,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSumOp=SumOp,
         JSuper=Super,
         JSuperType=SuperType,
+        JSwitchCaseList=SwitchCaseList,
         JSyntheticVariable=SyntheticVariable,
         JTerm=Term,
         JThenOp=ThenOp,
@@ -2441,6 +2442,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JSuper transformSuper(Super that)
             => JSuper(tokens.token("super", superType));
+    
+    shared actual JSwitchCaseList transformSwitchCases(SwitchCases that) {
+        JSwitchCaseList ret = JSwitchCaseList(null);
+        for (caseClause in that.caseClauses) {
+            ret.addCaseClause(transformCaseClause(caseClause));
+        }
+        if (exists elseCaseClause = that.elseCaseClause) {
+            ret.elseClause = transformElseCaseClause(elseCaseClause);
+        }
+        return ret;
+    }
     
     shared actual JThenOp transformThenOperation(ThenOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);

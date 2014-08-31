@@ -623,6 +623,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformSuper(Super that) => "Super()";
+    transformSwitchCases(SwitchCases that)
+            => "SwitchCases {
+                `` indent + indentLevel ``caseClauses = ``transformWithIndent(that.caseClauses)``;
+                `` indent + indentLevel ``elseCaseClause = ``transformWithIndent(that.elseCaseClause)``;
+                ``indent``}";
     transformThenOperation(ThenOperation that)
             => "ThenOperation {
                 `` indent + indentLevel ``condition = ``transformWithIndent(that.leftOperand)``;

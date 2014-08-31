@@ -43,6 +43,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBreak(Break that) => visitBreak(that);
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
+    transformCaseClause(CaseClause that) => visitCaseClause(that);
     transformCaseItem(CaseItem that) => visitCaseItem(that);
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCatchClause(CatchClause that) => visitCatchClause(that);
@@ -312,6 +313,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBreak(Break that) => super.transformBreak(that);
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
+    shared default void visitCaseClause(CaseClause that) => super.transformCaseClause(that);
     shared default void visitCaseItem(CaseItem that) => super.transformCaseItem(that);
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCatchClause(CatchClause that) => super.transformCatchClause(that);

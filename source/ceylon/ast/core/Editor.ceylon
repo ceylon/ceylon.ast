@@ -127,6 +127,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
+    shared actual default CaseClause transformCaseClause(CaseClause that)
+            => that.copy(transformCaseItem(that.caseItem), transformBlock(that.block));
     shared actual default CaseItem transformCaseItem(CaseItem that) {
         assert (is CaseItem ret = super.transformCaseItem(that));
         return ret;

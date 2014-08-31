@@ -36,6 +36,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBooleanCondition=BooleanCondition,
         JBound=Bound,
         JBreak=Break,
+        JCaseClause=CaseClause,
         JCaseItem=CaseItem,
         JCaseTypes=CaseTypes,
         JCatchClause=CatchClause,
@@ -262,6 +263,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         assertType=\iASSERT,
         backtick=\iBACKTICK,
         breakType=\iBREAK,
+        case_clause=\iCASE_CLAUSE,
         case_types=\iCASE_TYPES,
         catch_clause=\iCATCH_CLAUSE,
         character_literal=\iCHAR_LITERAL,
@@ -660,6 +662,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addArgumentType(transformVariadicType(var));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JCaseClause transformCaseClause(CaseClause that) {
+        JCaseClause ret = JCaseClause(tokens.token("case", case_clause));
+        tokens.token("(", lparen);
+        ret.caseItem = transformCaseItem(that.caseItem);
+        ret.caseItem.endToken = tokens.token(")", rparen);
+        ret.block = transformBlock(that.block);
         return ret;
     }
     

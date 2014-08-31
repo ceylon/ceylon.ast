@@ -319,6 +319,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TryClause) { return transformTryClause(that); }
         case (is CaseItem) { return transformCaseItem(that); }
         case (is ElseCaseClause) { return transformElseCaseClause(that); }
+        case (is CaseClause) { return transformCaseClause(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

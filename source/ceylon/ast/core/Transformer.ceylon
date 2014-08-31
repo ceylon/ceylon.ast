@@ -43,6 +43,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBreak(Break that);
     shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
+    shared formal Result transformCaseClause(CaseClause that);
     shared formal Result transformCaseItem(CaseItem that);
     shared formal Result transformCaseTypes(CaseTypes that);
     shared formal Result transformCatchClause(CatchClause that);

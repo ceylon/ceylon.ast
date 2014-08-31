@@ -990,6 +990,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JElseClause transformElseCaseClause(ElseCaseClause that) {
+        JElseClause ret = JElseClause(tokens.token("else", else_clause));
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
     shared actual JElseClause transformElseClause(ElseClause that) {
         JElseClause ret = JElseClause(tokens.token("else", else_clause));
         value child = that.child;

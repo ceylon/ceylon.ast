@@ -223,6 +223,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``primary = ``transformWithIndent(that.primary)``;
                 `` indent + indentLevel ``subscript = ``transformWithIndent(that.subscript)``;
                 ``indent``}";
+    transformElseCaseClause(ElseCaseClause that) => "ElseCaseClause(``transformWithIndent(that.block)``)";
     transformElseClause(ElseClause that) => "ElseClause(``transformWithIndent(that.child)``)";
     transformElseOperation(ElseOperation that)
             => "ElseOperation {

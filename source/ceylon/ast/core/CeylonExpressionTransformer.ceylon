@@ -381,6 +381,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
                 ``indent``}";
     transformInvocationStatement(InvocationStatement that) => "InvocationStatement(``transformWithIndent(that.expression)``)";
+    transformIsCase(IsCase that) => "IsCase(``transformWithIndent(that.type)``)";
     transformIsCondition(IsCondition that)
             => "IsCondition {
                 `` indent + indentLevel ``variable = ``transformWithIndent(that.variable)``;
@@ -401,6 +402,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
     transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.enforcePrefix``)";
+    transformMatchCase(MatchCase that) => "MatchCase(``transformWithIndent(that.expressions)``)";
     transformMeasureSubscript(MeasureSubscript that)
             => "MeasureSubscript {
                 `` indent + indentLevel ``from = ``transformWithIndent(that.from)``;

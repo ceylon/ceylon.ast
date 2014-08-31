@@ -36,6 +36,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JBooleanCondition=BooleanCondition,
         JBound=Bound,
         JBreak=Break,
+        JCaseItem=CaseItem,
         JCaseTypes=CaseTypes,
         JCatchClause=CatchClause,
         JCatchVariable=CatchVariable,
@@ -83,6 +84,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
         JExpression=Expression,
         JExpressionComprehensionClause=ExpressionComprehensionClause,
+        JExpressionList=ExpressionList,
         JExpressionStatement=ExpressionStatement,
         JExtendedType=ExtendedType,
         JFinallyClause=FinallyClause,
@@ -122,6 +124,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
         JInvocationExpression=InvocationExpression,
+        JIsCase=IsCase,
         JIsCondition=IsCondition,
         JIsOp=IsOp,
         JIterableType=IterableType,
@@ -134,6 +137,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLogicalAssignmentOp=LogicalAssignmentOp,
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
+        JMatchCase=MatchCase,
         JMemberLiteral=MemberLiteral,
         JMemberOp=MemberOp,
         JMetaLiteral=MetaLiteral,
@@ -656,6 +660,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addArgumentType(transformVariadicType(var));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JCaseItem transformCaseItem(CaseItem that) {
+        assert (is JCaseItem ret = super.transformCaseItem(that));
         return ret;
     }
     
@@ -1504,6 +1513,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JIsCase transformIsCase(IsCase that) {
+        JIsCase ret = JIsCase(tokens.token("is", is_op));
+        ret.type = transformType(that.type);
+        return ret;
+    }
+    
     shared actual JIsCondition transformIsCondition(IsCondition that) {
         JIsCondition ret;
         if (that.negated) {
@@ -1635,6 +1650,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JStaticType transformMainType(MainType that) {
         assert (is JStaticType ret = super.transformMainType(that));
+        return ret;
+    }
+    
+    shared actual JMatchCase transformMatchCase(MatchCase that) {
+        JMatchCase ret = JMatchCase(null);
+        JExpressionList expressions = JExpressionList(null);
+        expressions.addExpression(wrapTerm(transformExpression(that.expressions.first)));
+        for (expression in that.expressions.rest) {
+            expressions.endToken = tokens.token(",", comma);
+            expressions.addExpression(wrapTerm(transformExpression(expression)));
+        }
+        expressions.endToken = null;
+        ret.expressionList = expressions;
         return ret;
     }
     

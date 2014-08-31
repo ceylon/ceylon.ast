@@ -98,6 +98,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is OpenBound) { return transformOpenBound(that); }
         case (is ClosedBound) { return transformClosedBound(that); }
     }
+    shared actual default Result transformCaseItem(CaseItem that) {
+        switch (that)
+        case (is MatchCase) { return transformMatchCase(that); }
+        case (is IsCase) { return transformIsCase(that); }
+    }
     shared actual default Result transformClassOrInterface(ClassOrInterface that) {
         switch (that)
         case (is AnyClass) { return transformAnyClass(that); }
@@ -312,6 +317,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Resource) { return transformResource(that); }
         case (is Resources) { return transformResources(that); }
         case (is TryClause) { return transformTryClause(that); }
+        case (is CaseItem) { return transformCaseItem(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

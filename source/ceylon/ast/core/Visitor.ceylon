@@ -43,6 +43,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformBreak(Break that) => visitBreak(that);
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
+    transformCaseItem(CaseItem that) => visitCaseItem(that);
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCatchClause(CatchClause that) => visitCatchClause(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
@@ -134,6 +135,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
     transformInvocation(Invocation that) => visitInvocation(that);
     transformInvocationStatement(InvocationStatement that) => visitInvocationStatement(that);
+    transformIsCase(IsCase that) => visitIsCase(that);
     transformIsCondition(IsCondition that) => visitIsCondition(that);
     transformIsOperation(IsOperation that) => visitIsOperation(that);
     transformIterable(Iterable that) => visitIterable(that);
@@ -148,6 +150,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => visitLogicalAssignmentOperation(that);
     transformLogicalOperation(LogicalOperation that) => visitLogicalOperation(that);
     transformMainType(MainType that) => visitMainType(that);
+    transformMatchCase(MatchCase that) => visitMatchCase(that);
     transformMeasureOperation(MeasureOperation that) => visitMeasureOperation(that);
     transformMeasureSubscript(MeasureSubscript that) => visitMeasureSubscript(that);
     transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
@@ -308,6 +311,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitBreak(Break that) => super.transformBreak(that);
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
+    shared default void visitCaseItem(CaseItem that) => super.transformCaseItem(that);
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCatchClause(CatchClause that) => super.transformCatchClause(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
@@ -399,6 +403,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);
     shared default void visitInvocation(Invocation that) => super.transformInvocation(that);
     shared default void visitInvocationStatement(InvocationStatement that) => super.transformInvocationStatement(that);
+    shared default void visitIsCase(IsCase that) => super.transformIsCase(that);
     shared default void visitIsCondition(IsCondition that) => super.transformIsCondition(that);
     shared default void visitIsOperation(IsOperation that) => super.transformIsOperation(that);
     shared default void visitIterable(Iterable that) => super.transformIterable(that);
@@ -413,6 +418,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);
     shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMainType(MainType that) => super.transformMainType(that);
+    shared default void visitMatchCase(MatchCase that) => super.transformMatchCase(that);
     shared default void visitMeasureOperation(MeasureOperation that) => super.transformMeasureOperation(that);
     shared default void visitMeasureSubscript(MeasureSubscript that) => super.transformMeasureSubscript(that);
     shared default void visitMemberMeta(MemberMeta that) => super.transformMemberMeta(that);

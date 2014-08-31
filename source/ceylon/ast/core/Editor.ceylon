@@ -127,6 +127,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
+    shared actual default CaseItem transformCaseItem(CaseItem that) {
+        assert (is CaseItem ret = super.transformCaseItem(that));
+        return ret;
+    }
     shared actual default CaseTypes transformCaseTypes(CaseTypes that) {
         PrimaryType|LIdentifier transformPrimaryTypeOrLIdentifier(PrimaryType|LIdentifier that) {
             switch (that)
@@ -378,6 +382,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimary(that.invoked), transformArguments(that.arguments));
     shared actual default InvocationStatement transformInvocationStatement(InvocationStatement that)
             => that.copy(transformInvocation(that.expression));
+    shared actual default IsCase transformIsCase(IsCase that)
+            => that.copy(transformType(that.type));
     shared actual default IsCondition transformIsCondition(IsCondition that)
             => that.copy(transformTypedVariable(that.variable), that.negated);
     shared actual default IterableType transformIterableType(IterableType that) {
@@ -418,6 +424,17 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default MainType transformMainType(MainType that) {
         assert (is MainType ret = super.transformMainType(that));
         return ret;
+    }
+    shared actual default MatchCase transformMatchCase(MatchCase that) {
+        IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpression(IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression that) {
+            switch (that)
+            case (is IntegerLiteral) { return transformIntegerLiteral(that); }
+            case (is CharacterLiteral) { return transformCharacterLiteral(that); }
+            case (is StringLiteral) { return transformStringLiteral(that); }
+            case (is NegationOperation) { return transformNegationOperation(that); }
+            case (is BaseExpression) { return transformBaseExpression(that); }
+        }
+        return that.copy(that.expressions.collect(transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpression));
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));

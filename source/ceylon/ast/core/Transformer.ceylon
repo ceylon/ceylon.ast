@@ -43,6 +43,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformBreak(Break that);
     shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
+    shared formal Result transformCaseItem(CaseItem that);
     shared formal Result transformCaseTypes(CaseTypes that);
     shared formal Result transformCatchClause(CatchClause that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
@@ -134,6 +135,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntersectionType(IntersectionType that);
     shared formal Result transformInvocation(Invocation that);
     shared formal Result transformInvocationStatement(InvocationStatement that);
+    shared formal Result transformIsCase(IsCase that);
     shared formal Result transformIsCondition(IsCondition that);
     shared formal Result transformIsOperation(IsOperation that);
     shared formal Result transformIterable(Iterable that);
@@ -148,6 +150,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that);
     shared formal Result transformLogicalOperation(LogicalOperation that);
     shared formal Result transformMainType(MainType that);
+    shared formal Result transformMatchCase(MatchCase that);
     shared formal Result transformMeasureOperation(MeasureOperation that);
     shared formal Result transformMeasureSubscript(MeasureSubscript that);
     shared formal Result transformMemberMeta(MemberMeta that);

@@ -34,6 +34,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBreak(Break that) => transformDirective(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
+    shared actual default Result transformCaseItem(CaseItem that) => transformNode(that);
     shared actual default Result transformCaseTypes(CaseTypes that) => transformNode(that);
     shared actual default Result transformCatchClause(CatchClause that) => transformNode(that);
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
@@ -125,6 +126,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
     shared actual default Result transformInvocation(Invocation that) => transformPrimary(that);
     shared actual default Result transformInvocationStatement(InvocationStatement that) => transformExpressionStatement(that);
+    shared actual default Result transformIsCase(IsCase that) => transformCaseItem(that);
     shared actual default Result transformIsCondition(IsCondition that) => transformCondition(that);
     shared actual default Result transformIsOperation(IsOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformIterable(Iterable that) => transformAtom(that);
@@ -139,6 +141,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformLogicalOperation(LogicalOperation that) => transformBinaryOperation(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
+    shared actual default Result transformMatchCase(MatchCase that) => transformCaseItem(that);
     shared actual default Result transformMeasureOperation(MeasureOperation that) => transformBinaryOperation(that);
     shared actual default Result transformMeasureSubscript(MeasureSubscript that) => transformRangeSubscript(that);
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);

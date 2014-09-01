@@ -195,6 +195,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Dec ret = super.transformDec(that));
         return ret;
     }
+    shared actual default DecQualifier transformDecQualifier(DecQualifier that) {
+        [UIdentifier+]|[LIdentifier] transformUIdentifiersOrLIdentifier([UIdentifier+]|[LIdentifier] that) {
+            switch (that)
+            case (is [UIdentifier+]) { return that.collect(transformUIdentifier); }
+            case (is [LIdentifier]) { return [transformLIdentifier(that[0])]; }
+        }
+        return that.copy(transformUIdentifiersOrLIdentifier(that.components));
+    }
     shared actual default Declaration transformDeclaration(Declaration that) {
         assert (is Declaration ret = super.transformDeclaration(that));
         return ret;

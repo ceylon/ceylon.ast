@@ -193,6 +193,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Body) { return transformBody(that); }
         case (is Comprehension) { return transformComprehension(that); }
         case (is Subscript) { return transformSubscript(that); }
+        case (is DecQualifier) { return transformDecQualifier(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)

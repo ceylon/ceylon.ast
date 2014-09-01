@@ -67,6 +67,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformContinue(Continue that) => visitContinue(that);
     transformControlStructure(ControlStructure that) => visitControlStructure(that);
     transformDec(Dec that) => visitDec(that);
+    transformDecQualifier(DecQualifier that) => visitDecQualifier(that);
     transformDeclaration(Declaration that) => visitDeclaration(that);
     transformDefaultedCallableParameter(DefaultedCallableParameter that) => visitDefaultedCallableParameter(that);
     transformDefaultedParameter(DefaultedParameter that) => visitDefaultedParameter(that);
@@ -340,6 +341,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
+    shared default void visitDecQualifier(DecQualifier that) => super.transformDecQualifier(that);
     shared default void visitDeclaration(Declaration that) => super.transformDeclaration(that);
     shared default void visitDefaultedCallableParameter(DefaultedCallableParameter that) => super.transformDefaultedCallableParameter(that);
     shared default void visitDefaultedParameter(DefaultedParameter that) => super.transformDefaultedParameter(that);

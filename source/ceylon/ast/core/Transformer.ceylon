@@ -67,6 +67,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformContinue(Continue that);
     shared formal Result transformControlStructure(ControlStructure that);
     shared formal Result transformDec(Dec that);
+    shared formal Result transformDecQualifier(DecQualifier that);
     shared formal Result transformDeclaration(Declaration that);
     shared formal Result transformDefaultedCallableParameter(DefaultedCallableParameter that);
     shared formal Result transformDefaultedParameter(DefaultedParameter that);

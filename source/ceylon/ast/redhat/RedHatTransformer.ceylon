@@ -916,6 +916,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[DecQualifier]];
+     this method throws."
+    shared actual Nothing transformDecQualifier(DecQualifier that) {
+        throw AssertionError("DecQualifier has no RedHat AST equivalent!");
+    }
+    
     shared actual JDeclaration transformDeclaration(Declaration that) {
         assert (is JDeclaration ret = super.transformDeclaration(that));
         return ret;
@@ -2951,6 +2957,30 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ie.primary = ete;
         ie.positionalArgumentList = transformPositionalArguments(that.arguments);
         return [type, ie];
+    }
+    
+    JStaticType|JBaseMemberExpression helpTransformDecQualifier(DecQualifier that) {
+        value components = that.components;
+        switch (components)
+        case (is [UIdentifier+]) {
+            /*
+              the grammar just reuses the type rule – see also
+              https://github.com/ceylon/ceylon-spec/issues/1058 –
+              so we transform it into a base or qualified type and then
+              likewise reuse transformType
+             */
+            variable SimpleType type = BaseType(TypeNameWithTypeArguments(components.first));
+            for (component in components.rest) {
+                type = QualifiedType(type, TypeNameWithTypeArguments(component));
+            }
+            return transformType(type);
+        }
+        case (is [LIdentifier]) {
+            value bme = JBaseMemberExpression(null);
+            bme.identifier = transformLIdentifier(components[0]);
+            bme.typeArguments = JInferredTypeArguments(null);
+            return bme;
+        }
     }
     
     JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedVariable|LIdentifier variable)

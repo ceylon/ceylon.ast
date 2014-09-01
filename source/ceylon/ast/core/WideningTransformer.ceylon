@@ -58,6 +58,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformControlStructure(ControlStructure that) => transformStatement(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);
+    shared actual default Result transformDecQualifier(DecQualifier that) => transformExpressionIsh(that);
     shared actual default Result transformDeclaration(Declaration that) => transformNode(that);
     shared actual default Result transformDefaultedCallableParameter(DefaultedCallableParameter that) => transformDefaultedParameter(that);
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) => transformParameter(that);

@@ -376,6 +376,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     transformInterfaceBody(InterfaceBody that) => "InterfaceBody(``transformWithIndent(that.content)``)";
+    transformInterfaceDec(InterfaceDec that)
+            => "InterfaceDec {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                ``indent``}";
     transformIntersectionType(IntersectionType that) => "IntersectionType(``transformWithIndent(that.children)``)";
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => "IntersectAssignmentOperation {

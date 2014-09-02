@@ -134,6 +134,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformInitialComprehensionClause(InitialComprehensionClause that) => visitInitialComprehensionClause(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
+    transformInterfaceDec(InterfaceDec that) => visitInterfaceDec(that);
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => visitIntersectAssignmentOperation(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
@@ -409,6 +410,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitInitialComprehensionClause(InitialComprehensionClause that) => super.transformInitialComprehensionClause(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
+    shared default void visitInterfaceDec(InterfaceDec that) => super.transformInterfaceDec(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitIntersectionOperation(IntersectionOperation that) => super.transformIntersectionOperation(that);
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);

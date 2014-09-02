@@ -386,6 +386,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy();
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
             => that.copy(that.content.collect(transformDeclaration));
+    shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)

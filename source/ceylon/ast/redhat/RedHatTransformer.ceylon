@@ -122,6 +122,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
         JInterfaceBody=InterfaceBody,
+        JInterfaceLiteral=InterfaceLiteral,
         JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
         JIntersectionType=IntersectionType,
@@ -299,6 +300,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         in_op=\iIN_OP,
         increment_op=\iINCREMENT_OP,
         integer_literal=\iNATURAL_LITERAL,
+        interface_definition=\iINTERFACE_DEFINITION,
         intersection_op=\iINTERSECTION_OP,
         intersect_specify=\iINTERSECT_SPECIFY,
         is_op=\iIS_OP,
@@ -1524,6 +1526,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.addStatement(transformDeclaration(declaration));
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JInterfaceLiteral transformInterfaceDec(InterfaceDec that) {
+        JInterfaceLiteral ret = JInterfaceLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token(that.keyword, interface_definition);
+        if (exists qualifier = that.qualifier) {
+            "Qualifier can’t yet be an object!"
+            // https://github.com/ceylon/ceylon-spec/issues/1076
+            assert (is [UIdentifier+] components = qualifier.components);
+            assert (nonempty newComponents = concatenate(components, [that.name]));
+            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
+            ret.type = type;
+        } else {
+            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([that.name])));
+            ret.type = type;
+        }
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     

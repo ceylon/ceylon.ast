@@ -134,6 +134,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformInitialComprehensionClause(InitialComprehensionClause that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
+    shared formal Result transformInterfaceDec(InterfaceDec that);
     shared formal Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that);
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);

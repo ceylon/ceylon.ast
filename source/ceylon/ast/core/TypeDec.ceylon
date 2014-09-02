@@ -1,6 +1,6 @@
 "A type reference expression."
 shared abstract class TypeDec()
-        of ClassDec | GivenDec
+        of ClassDec | InterfaceDec | GivenDec
         extends Dec() {
     
     "The qualifier of the dec, if present."

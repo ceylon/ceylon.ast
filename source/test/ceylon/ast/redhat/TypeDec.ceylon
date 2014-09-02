@@ -17,5 +17,5 @@ shared object typeDec satisfies AbstractTest<TypeDec,JTypeLiteral> {
     fromCeylon = RedHatTransformer.transformTypeDec;
     toCeylon = typeDecToCeylon;
     
-    tests = [classDec, interfaceDec, givenDec];
+    tests = [classDec, interfaceDec, aliasDec, givenDec];
 }

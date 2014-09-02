@@ -563,10 +563,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformQualifiedExpression(QualifiedExpression that)
-            => "QualifiedExpression {
-                `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
-                `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
-                ``indent``}";
+            => that.memberOperator is MemberOperator
+            then "QualifiedExpression {
+                  `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  ``indent``}"
+            else "QualifiedExpression {
+                  `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  `` indent + indentLevel ``memberOperator = ``transformWithIndent(that.memberOperator)``;
+                  ``indent``}";
     transformQualifiedType(QualifiedType that)
             => "QualifiedType {
                 `` indent + indentLevel ``qualifyingType = ``transformWithIndent(that.qualifyingType)``;

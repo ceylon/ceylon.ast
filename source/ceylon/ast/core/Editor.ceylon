@@ -665,7 +665,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default ProductOperation transformProductOperation(ProductOperation that)
             => that.copy(transformPrecedence6Expression(that.leftOperand), transformPrecedence5Expression(that.rightOperand));
     shared actual default QualifiedExpression transformQualifiedExpression(QualifiedExpression that)
-            => that.copy(transformPrimary(that.receiverExpression), transformNameWithTypeArguments(that.nameAndArgs));
+            => that.copy(transformPrimary(that.receiverExpression), transformNameWithTypeArguments(that.nameAndArgs), transformAnyMemberOperator(that.memberOperator));
     shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
         value qualifyingType = that.qualifyingType;
         switch (qualifyingType)

@@ -1,5 +1,6 @@
-"""A receiver expression, followed by a member operator ('.')
-   and an (unqualified) identifier with optional type arguments.
+"""A [[receiver expression|receiverExpression]],
+   followed by a [[member operator|memberOperator]] (usually ‘`.`’)
+   and an (unqualified) [[identifier with optional type arguments|nameAndArgs]].
    
    (To create a `QualifiedExpression`, consider using the [[qualifiedExpression]]
    utility function in order to make your code more readable.)
@@ -7,17 +8,23 @@
    Examples:
    
        ", ".join
-       process.arguments.first"""
+       process.arguments.first
+       people*.name
+       sort(people, byAscending(Person.salary)).first?.salary"""
 see (`function qualifiedExpression`)
-shared class QualifiedExpression(receiverExpression, nameAndArgs)
+shared class QualifiedExpression(receiverExpression, nameAndArgs, memberOperator = MemberOperator())
         extends Primary() {
     
     "The receiver expression."
     shared Primary receiverExpression;
     "The name and, if any, type arguments."
     shared NameWithTypeArguments nameAndArgs;
+    "The member operator; by default, a normal
+     [[MemberOperator]], but a [[SafeMemberOperator]]
+     or a [[SpreadMemberOperator]] may also be used."
+    shared AnyMemberOperator memberOperator;
     
-    shared actual [Primary, NameWithTypeArguments] children = [receiverExpression, nameAndArgs];
+    shared actual [Primary, AnyMemberOperator, NameWithTypeArguments] children = [receiverExpression, memberOperator, nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedExpression(this);
@@ -33,8 +40,8 @@ shared class QualifiedExpression(receiverExpression, nameAndArgs)
     shared actual Integer hash
             => 31 * (receiverExpression.hash + 31 * nameAndArgs.hash);
     
-    shared QualifiedExpression copy(Primary receiverExpression = this.receiverExpression, NameWithTypeArguments nameAndArgs = this.nameAndArgs) {
-        value ret = QualifiedExpression(receiverExpression, nameAndArgs);
+    shared QualifiedExpression copy(Primary receiverExpression = this.receiverExpression, NameWithTypeArguments nameAndArgs = this.nameAndArgs, AnyMemberOperator memberOperator = this.memberOperator) {
+        value ret = QualifiedExpression(receiverExpression, nameAndArgs, memberOperator);
         copyExtraInfoTo(ret);
         return ret;
     }

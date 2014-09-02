@@ -11,11 +11,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMetaLiteral=MetaLiteral
     }
 }
+import test.ceylon.ast.redhat {
+    AbstractTest,
+    moduleDec,
+    packageDec
+}
 
 shared object dec satisfies AbstractTest<Dec,JMetaLiteral> {
     compile = compileDec;
     fromCeylon = RedHatTransformer.transformDec;
     toCeylon = decToCeylon;
     
-    tests = [givenDec, packageDec, moduleDec];
+    tests = [typeDec, packageDec, moduleDec];
 }

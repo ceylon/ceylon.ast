@@ -305,6 +305,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
+    shared actual default FunctionDec transformFunctionDec(FunctionDec that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
         Type|DynamicModifier|VoidModifier transformTypeOrDynamicModifierOrVoidModifier(Type|DynamicModifier|VoidModifier that) {
             switch (that)
@@ -458,6 +460,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence8Expression(that.leftOperand), transformPrecedence8Expression(that.rightOperand));
     shared actual default MeasureSubscript transformMeasureSubscript(MeasureSubscript that)
             => that.copy(transformPrecedence8Expression(that.from), transformPrecedence8Expression(that.length));
+    shared actual default MemberDec transformMemberDec(MemberDec that) {
+        assert (is MemberDec ret = super.transformMemberDec(that));
+        return ret;
+    }
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
             => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
@@ -853,6 +859,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UnspecifiedVariable transformUnspecifiedVariable(UnspecifiedVariable that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformTypeOrValueModifier));
+    shared actual default ValueDec transformValueDec(ValueDec that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
             switch (that)

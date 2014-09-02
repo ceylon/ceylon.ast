@@ -107,6 +107,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformForFail(ForFail that);
     shared formal Result transformForIterator(ForIterator that);
     shared formal Result transformFullPackageName(FullPackageName that);
+    shared formal Result transformFunctionDec(FunctionDec that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionDefinition(FunctionDefinition that);
     shared formal Result transformFunctionExpression(FunctionExpression that);
@@ -159,6 +160,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMatchCase(MatchCase that);
     shared formal Result transformMeasureOperation(MeasureOperation that);
     shared formal Result transformMeasureSubscript(MeasureSubscript that);
+    shared formal Result transformMemberDec(MemberDec that);
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
     shared formal Result transformMeta(Meta that);
@@ -275,6 +277,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformUnionType(UnionType that);
     shared formal Result transformUnionableType(UnionableType that);
     shared formal Result transformUnspecifiedVariable(UnspecifiedVariable that);
+    shared formal Result transformValueDec(ValueDec that);
     shared formal Result transformValueDeclaration(ValueDeclaration that);
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);

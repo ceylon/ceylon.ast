@@ -22,9 +22,7 @@ shared Dec decToCeylon(JMetaLiteral dec) {
     assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral dec);
     switch (dec)
     case (is JTypeLiteral) { return typeDecToCeylon(dec); }
-    case (is JMemberLiteral) {
-        throw AssertionError("Member literals not implemented yet!"); // TODO implement member literals
-    }
+    case (is JMemberLiteral) { return memberDecToCeylon(dec); }
     case (is JPackageLiteral) { return packageDecToCeylon(dec); }
     case (is JModuleLiteral) { return moduleDecToCeylon(dec); }
 }

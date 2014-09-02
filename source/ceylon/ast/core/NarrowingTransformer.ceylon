@@ -137,6 +137,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformDec(Dec that) {
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
+        case (is MemberDec) { return transformMemberDec(that); }
         case (is PackageDec) { return transformPackageDec(that); }
         case (is ModuleDec) { return transformModuleDec(that); }
     }
@@ -247,6 +248,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is UnionableType) { return transformUnionableType(that); }
         case (is UnionType) { return transformUnionType(that); }
+    }
+    shared actual default Result transformMemberDec(MemberDec that) {
+        switch (that)
+        case (is ValueDec) { return transformValueDec(that); }
+        case (is FunctionDec) { return transformFunctionDec(that); }
     }
     shared actual default Result transformMeta(Meta that) {
         switch (that)

@@ -97,6 +97,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JForIterator=ForIterator,
         JForStatement=ForStatement,
         JFunctionArgument=FunctionArgument,
+        JFunctionLiteral=FunctionLiteral,
         JFunctionModifier=FunctionModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
         JFunctionType=FunctionType,
@@ -243,6 +244,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType,
+        JValueLiteral=ValueLiteral,
         JValueIterator=ValueIterator,
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
@@ -1229,6 +1231,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JFunctionLiteral transformFunctionDec(FunctionDec that) {
+        JFunctionLiteral ret = JFunctionLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token(that.keyword, function_modifier);
+        helpTransformMemberDec(that, ret);
+        return ret;
+    }
+    
     shared actual JMethodDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
         value annotationList = transformAnnotations(that.annotations);
         JStaticType|JVoidModifier|JDynamicModifier jType;
@@ -1777,6 +1786,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         tokens.token(":", segment_op); // the parser temporarily assigns it to the surrounding IndexExpression,
         // but there it’s later overwritten by the closing bracket, so it’s okay to forget it here
         ret.length = wrapTerm(transformExpression(that.length));
+        return ret;
+    }
+    
+    shared actual JMemberLiteral transformMemberDec(MemberDec that) {
+        assert (is JMemberLiteral ret = super.transformMemberDec(that));
         return ret;
     }
     
@@ -2815,6 +2829,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JValueLiteral transformValueDec(ValueDec that) {
+        JValueLiteral ret = JValueLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token(that.keyword, object_definition);
+        helpTransformMemberDec(that, ret);
+        return ret;
+    }
+    
     shared actual JAttributeDeclaration transformValueDeclaration(ValueDeclaration that) {
         JAttributeDeclaration ret = JAttributeDeclaration(null);
         ret.annotationList = transformAnnotations(that.annotations);
@@ -3081,6 +3102,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         }
         ret.variable = var;
         return ret;
+    }
+    
+    void helpTransformMemberDec(MemberDec that, JMemberLiteral ret) {
+        if (exists qualifier = that.qualifier) {
+            value jQualifier = helpTransformDecQualifier(qualifier);
+            switch (jQualifier)
+            case (is JStaticType) { ret.type = jQualifier; }
+            case (is JBaseMemberExpression) { ret.objectExpression = jQualifier; }
+            ret.endToken = tokens.token(".", member_op);
+        }
+        ret.identifier = transformLIdentifier(that.name);
+        ret.endToken = tokens.token("`", backtick);
     }
     
     JExpression wrapTerm(JTerm term) {

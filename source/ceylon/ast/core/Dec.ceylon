@@ -12,7 +12,7 @@
    
    Reference expressions are often used in annotations, e. g. [[see]]."""
 shared abstract class Dec()
-        of TypeDec | PackageDec | ModuleDec
+        of TypeDec | MemberDec | PackageDec | ModuleDec
         extends Primary() {
     "The keyword of the declaration literal, that is:
      

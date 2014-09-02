@@ -98,6 +98,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformForFail(ForFail that) => transformControlStructure(that);
     shared actual default Result transformForIterator(ForIterator that) => transformNode(that);
     shared actual default Result transformFullPackageName(FullPackageName that) => transformExpressionIsh(that);
+    shared actual default Result transformFunctionDec(FunctionDec that) => transformMemberDec(that);
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
     shared actual default Result transformFunctionDefinition(FunctionDefinition that) => transformAnyFunction(that);
     shared actual default Result transformFunctionExpression(FunctionExpression that) => transformExpression(that);
@@ -150,6 +151,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMatchCase(MatchCase that) => transformCaseItem(that);
     shared actual default Result transformMeasureOperation(MeasureOperation that) => transformBinaryOperation(that);
     shared actual default Result transformMeasureSubscript(MeasureSubscript that) => transformRangeSubscript(that);
+    shared actual default Result transformMemberDec(MemberDec that) => transformDec(that);
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
@@ -265,6 +267,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);
     shared actual default Result transformUnspecifiedVariable(UnspecifiedVariable that) => transformVariable(that);
+    shared actual default Result transformValueDec(ValueDec that) => transformMemberDec(that);
     shared actual default Result transformValueDeclaration(ValueDeclaration that) => transformAnyValue(that);
     shared actual default Result transformValueDefinition(ValueDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);

@@ -41,6 +41,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCharacterLiteral(CharacterLiteral that) => transformLiteral(that);
     shared actual default Result transformClassAlias(ClassAlias that) => transformAnyClass(that);
     shared actual default Result transformClassBody(ClassBody that) => transformBody(that);
+    shared actual default Result transformClassDec(ClassDec that) => transformTypeDec(that);
     shared actual default Result transformClassDefinition(ClassDefinition that) => transformAnyClass(that);
     shared actual default Result transformClassInstantiation(ClassInstantiation that) => transformNode(that);
     shared actual default Result transformClassOrInterface(ClassOrInterface that) => transformTypeDeclaration(that);

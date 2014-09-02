@@ -7,9 +7,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JClassLiteral=ClassLiteral,
         JFunctionLiteral=FunctionLiteral,
         JInterfaceLiteral=InterfaceLiteral,
+        JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JModuleLiteral=ModuleLiteral,
         JPackageLiteral=PackageLiteral,
+        JTypeLiteral=TypeLiteral,
         JTypeParameterLiteral=TypeParameterLiteral,
         JValueLiteral=ValueLiteral
     }
@@ -19,11 +21,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Dec decToCeylon(JMetaLiteral dec) {
     assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral dec);
     switch (dec)
-    case (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JValueLiteral|JFunctionLiteral) {
-        "Not yet implemented!" // TODO implement
-        assert (false);
+    case (is JTypeLiteral) { return typeDecToCeylon(dec); }
+    case (is JMemberLiteral) {
+        throw AssertionError("Member literals not implemented yet!"); // TODO implement member literals
     }
-    case (is JTypeParameterLiteral) { return givenDecToCeylon(dec); }
     case (is JPackageLiteral) { return packageDecToCeylon(dec); }
     case (is JModuleLiteral) { return moduleDecToCeylon(dec); }
 }

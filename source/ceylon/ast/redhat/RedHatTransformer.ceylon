@@ -45,6 +45,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JClassBody=ClassBody,
         JClassDeclaration=ClassDeclaration,
         JClassDefinition=ClassDefinition,
+        JClassLiteral=ClassLiteral,
         JClassOrInterface=ClassOrInterface,
         JClassSpecifier=ClassSpecifier,
         JClosedBound=ClosedBound,
@@ -762,6 +763,35 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         }
         ret.classSpecifier = transformClassSpecifier(that.specifier);
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JClassLiteral transformClassDec(ClassDec that) {
+        JClassLiteral ret = JClassLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token(that.keyword, class_definition);
+        value name = that.name;
+        switch (name)
+        case (is LIdentifier) {
+            "Member references can’t be qualified yet!"
+            // https://github.com/ceylon/ceylon-spec/issues/1076
+            assert (!that.qualifier exists);
+            assert (is JBaseMemberExpression bme = helpTransformDecQualifier(DecQualifier([name])));
+            ret.objectExpression = bme;
+        }
+        case (is UIdentifier) {
+            if (exists qualifier = that.qualifier) {
+                "Qualifier can’t yet be an object!"
+                // https://github.com/ceylon/ceylon-spec/issues/1076
+                assert (is [UIdentifier+] components = qualifier.components);
+                assert (nonempty newComponents = concatenate(components, [name]));
+                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
+                ret.type = type;
+            } else {
+                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([name])));
+                ret.type = type;
+            }
+        }
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     

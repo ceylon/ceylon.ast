@@ -151,6 +151,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
     transformClassBody(ClassBody that) => "ClassBody(``transformWithIndent(that.content)``)";
+    transformClassDec(ClassDec that)
+            => "ClassDec {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                ``indent``}";
     transformClassDefinition(ClassDefinition that)
             => "ClassDefinition {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

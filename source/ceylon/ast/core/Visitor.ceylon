@@ -50,6 +50,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
     transformClassAlias(ClassAlias that) => visitClassAlias(that);
     transformClassBody(ClassBody that) => visitClassBody(that);
+    transformClassDec(ClassDec that) => visitClassDec(that);
     transformClassDefinition(ClassDefinition that) => visitClassDefinition(that);
     transformClassInstantiation(ClassInstantiation that) => visitClassInstantiation(that);
     transformClassOrInterface(ClassOrInterface that) => visitClassOrInterface(that);
@@ -324,6 +325,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
     shared default void visitClassAlias(ClassAlias that) => super.transformClassAlias(that);
     shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
+    shared default void visitClassDec(ClassDec that) => super.transformClassDec(that);
     shared default void visitClassDefinition(ClassDefinition that) => super.transformClassDefinition(that);
     shared default void visitClassInstantiation(ClassInstantiation that) => super.transformClassInstantiation(that);
     shared default void visitClassOrInterface(ClassOrInterface that) => super.transformClassOrInterface(that);

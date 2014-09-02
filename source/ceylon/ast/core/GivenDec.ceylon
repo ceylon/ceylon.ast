@@ -1,5 +1,5 @@
 """A type parameter reference expression, that is,
-   the name of a type parameter, prefixed by the type keyword “given” and surrounded by backticks.
+   the name of a type parameter, prefixed by the type keyword `given` and surrounded by backticks.
    
    Note that the type parameter may not be qualified (i. e., `` `given Entry.Key` `` is not allowed),
    because a type parameter is not considered visible outside the declaration with the type parameter.

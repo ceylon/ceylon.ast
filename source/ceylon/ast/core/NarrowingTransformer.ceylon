@@ -527,6 +527,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformTypeDec(TypeDec that) {
         switch (that)
+        case (is ClassDec) { return transformClassDec(that); }
         case (is GivenDec) { return transformGivenDec(that); }
     }
     shared actual default Result transformTypeDeclaration(TypeDeclaration that) {

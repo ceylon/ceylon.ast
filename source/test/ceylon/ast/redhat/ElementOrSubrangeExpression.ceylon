@@ -20,7 +20,7 @@ shared object elementOrSubrangeExpression satisfies ConcreteTest<ElementOrSubran
             => "``primary.key``[``subscript.key``]"->ElementOrSubrangeExpression(primary.item, subscript.item);
     
     shared String->ElementOrSubrangeExpression textElementIExpression = construct(baseExpression.textExpression, keySubscript.iKeySubscript);
-    shared String->ElementOrSubrangeExpression processArgumentsFirstSpanFrom2Expression = construct(qualifiedExpression.processArgumentsFirstQualifiedExpression, spanFromSubscript.spanFrom2Subscript);
+    shared String->ElementOrSubrangeExpression processArgumentsFirstSpanFrom2Expression = construct(qualifiedExpression.processArgumentsFirstExpression, spanFromSubscript.spanFrom2Subscript);
     
     compile = compileElementOrSubrangeExpression;
     fromCeylon = RedHatTransformer.transformElementOrSubrangeExpression;

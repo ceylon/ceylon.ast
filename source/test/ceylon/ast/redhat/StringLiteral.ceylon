@@ -26,6 +26,7 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     shared String->StringLiteral bangStringLiteral = construct("!");
     shared String->StringLiteral lucasStringLiteral = construct("Lucas");
     shared String->StringLiteral _100VersionStringLiteral = construct("1.0.0");
+    shared String->StringLiteral commaStringLiteral = construct(", ");
     
     compile = compileStringLiteral;
     fromCeylon = RedHatTransformer.transformStringLiteral;

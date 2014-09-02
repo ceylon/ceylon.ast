@@ -20,7 +20,7 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
     shared String->StringTemplate helloNameElseWorldStringTemplate
             = """"Hello, `` process.arguments.first else "World" ``!""""->stringTemplateUtil(
         StringLiteral("Hello, "),
-        ElseOperation(qualifiedExpression.processArgumentsFirstQualifiedExpression.item, StringLiteral("World")),
+        ElseOperation(qualifiedExpression.processArgumentsFirstExpression.item, StringLiteral("World")),
         StringLiteral("!")
     );
     

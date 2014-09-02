@@ -1,8 +1,13 @@
 import ceylon.ast.core {
+    AnyMemberOperator,
     LIdentifier,
     MemberNameWithTypeArguments,
+    NameWithTypeArguments,
+    Primary,
     QualifiedExpression,
-    StringLiteral
+    StringLiteral,
+    nameWithTypeArguments,
+    identifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,36 +21,31 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQualifiedMemberOrTypeExpression> {
-    shared String->QualifiedExpression joinWithCommasQualifiedExpression = """", ".join"""->QualifiedExpression(StringLiteral(""", """), MemberNameWithTypeArguments(LIdentifier("join")));
-    shared String->QualifiedExpression processArgumentsQualifiedExpression
-            = "``baseExpression.processExpression.key``.arguments"->QualifiedExpression(
-        baseExpression.processExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("arguments")));
-    shared String->QualifiedExpression processArgumentsFirstQualifiedExpression
-            = "``processArgumentsQualifiedExpression.key``.first"->QualifiedExpression(
-        processArgumentsQualifiedExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("first")));
-    shared String->QualifiedExpression nameEmptyExpression
-            = "``baseExpression.nameExpression.key``.empty"->QualifiedExpression(
-        baseExpression.nameExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("empty")));
+    
+    String->QualifiedExpression construct(String->Primary receiverExpression, <String->NameWithTypeArguments>|String nameAndArgs, String->AnyMemberOperator memberOperator = package.memberOperator.memberOperator) {
+        switch (nameAndArgs)
+        case (is String) {
+            return (receiverExpression.key + memberOperator.key + nameAndArgs)->QualifiedExpression(receiverExpression.item, nameWithTypeArguments(identifier(nameAndArgs)), memberOperator.item);
+        }
+        case (is String->NameWithTypeArguments) {
+            return (receiverExpression.key + memberOperator.key + nameAndArgs.key)->QualifiedExpression(receiverExpression.item, nameAndArgs.item, memberOperator.item);
+        }
+    }
+    
+    shared String->QualifiedExpression joinWithCommasExpression = construct(stringLiteral.commaStringLiteral, "join");
+    shared String->QualifiedExpression processArgumentsExpression = construct(baseExpression.processExpression, "arguments");
+    shared String->QualifiedExpression processArgumentsFirstExpression = construct(processArgumentsExpression, "first");
+    shared String->QualifiedExpression nameEmptyExpression = construct(baseExpression.nameExpression, "empty");
+    shared String->QualifiedExpression peopleSpreadNameExpression = construct(baseExpression.peopleExpression, "name", spreadMemberOperator.spreadMemberOperator);
+    shared String->QualifiedExpression processArgumentsFirstSafeLowercasedExpression = construct(processArgumentsFirstExpression, "lowercased", safeMemberOperator.safeMemberOperator);
     
     // not tested directly, but used by other tests
-    shared String->QualifiedExpression processArgumentsSequenceQualifiedExpression
-            = "``processArgumentsQualifiedExpression.key``.sequence"->QualifiedExpression(
-        processArgumentsQualifiedExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("sequence")));
-    shared String->QualifiedExpression textIndexedQualifiedExpression
-            = "``baseExpression.textExpression.key``.indexed"->QualifiedExpression(
-        baseExpression.textExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("indexed")));
-    shared String->QualifiedExpression personNameQualifiedExpression
-            = "``baseExpression.personExpression.key``.name"->QualifiedExpression(
-        baseExpression.personExpression.item,
-        MemberNameWithTypeArguments(LIdentifier("name")));
+    shared String->QualifiedExpression processArgumentsSequenceQualifiedExpression = construct(processArgumentsExpression, "sequence");
+    shared String->QualifiedExpression textIndexedQualifiedExpression = construct(baseExpression.textExpression, "indexed");
+    shared String->QualifiedExpression personNameQualifiedExpression = construct(baseExpression.personExpression, "name");
     
     compile = compileQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;
     toCeylon = qualifiedExpressionToCeylon;
-    codes = [joinWithCommasQualifiedExpression, processArgumentsFirstQualifiedExpression];
+    codes = [joinWithCommasExpression, processArgumentsFirstExpression, nameEmptyExpression, peopleSpreadNameExpression, processArgumentsFirstSafeLowercasedExpression];
 }

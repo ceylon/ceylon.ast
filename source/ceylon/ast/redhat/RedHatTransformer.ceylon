@@ -6,6 +6,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAlias=Alias,
         JAddAssignOp=AddAssignOp,
+        JAliasLiteral=AliasLiteral,
         JAndAssignOp=AndAssignOp,
         JAndOp=AndOp,
         JAnnotation=Annotation,
@@ -260,6 +261,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
         aidentifier=\iAIDENTIFIER,
+        aliasType=\iALIAS,
         assignType=\iASSIGN,
         astring_literal=\iASTRING_LITERAL,
         averbatim_string=\iAVERBATIM_STRING,
@@ -387,6 +389,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared JIdentifier transformAIdentifier(LIdentifier that) {
         value ret = transformIdentifier(that);
         ret.mainToken.type = aidentifier;
+        return ret;
+    }
+    
+    shared actual JAliasLiteral transformAliasDec(AliasDec that) {
+        JAliasLiteral ret = JAliasLiteral(null);
+        ret.endToken = tokens.token(that.keyword, aliasType);
+        if (exists qualifier = that.qualifier) {
+            "Qualifier can’t yet be an object!"
+            // https://github.com/ceylon/ceylon-spec/issues/1076
+            assert (is [UIdentifier+] components = qualifier.components);
+            assert (nonempty newComponents = concatenate(components, [that.name]));
+            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
+            ret.type = type;
+        } else {
+            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([that.name])));
+            ret.type = type;
+        }
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     

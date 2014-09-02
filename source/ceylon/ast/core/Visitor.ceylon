@@ -13,6 +13,7 @@
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
 shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
     transformAddAssignmentOperation(AddAssignmentOperation that) => visitAddAssignmentOperation(that);
+    transformAliasDec(AliasDec that) => visitAliasDec(that);
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);
     transformAndOperation(AndOperation that) => visitAndOperation(that);
     transformAnnotation(Annotation that) => visitAnnotation(that);
@@ -289,6 +290,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformWithinOperation(WithinOperation that) => visitWithinOperation(that);
     
     shared default void visitAddAssignmentOperation(AddAssignmentOperation that) => super.transformAddAssignmentOperation(that);
+    shared default void visitAliasDec(AliasDec that) => super.transformAliasDec(that);
     shared default void visitAndAssignmentOperation(AndAssignmentOperation that) => super.transformAndAssignmentOperation(that);
     shared default void visitAndOperation(AndOperation that) => super.transformAndOperation(that);
     shared default void visitAnnotation(Annotation that) => super.transformAnnotation(that);

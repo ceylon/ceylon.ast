@@ -13,6 +13,7 @@
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {
     shared formal Result transformAddAssignmentOperation(AddAssignmentOperation that);
+    shared formal Result transformAliasDec(AliasDec that);
     shared formal Result transformAndAssignmentOperation(AndAssignmentOperation that);
     shared formal Result transformAndOperation(AndOperation that);
     shared formal Result transformAnnotation(Annotation that);

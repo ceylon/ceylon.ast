@@ -18,9 +18,7 @@ shared TypeDec typeDecToCeylon(JTypeLiteral typeDec) {
     switch (typeDec)
     case (is JClassLiteral) { return classDecToCeylon(typeDec); }
     case (is JInterfaceLiteral) { return interfaceDecToCeylon(typeDec); }
-    case (is JAliasLiteral) {
-        throw AssertionError("Alias decs not implemented yet"); // TODO implement alias decs
-    }
+    case (is JAliasLiteral) { return aliasDecToCeylon(typeDec); }
     case (is JTypeParameterLiteral) { return givenDecToCeylon(typeDec); }
 }
 

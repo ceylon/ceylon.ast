@@ -11,6 +11,8 @@ shared class ModuleDec(moduleName)
     "The name of the referenced module."
     shared FullPackageName moduleName;
     
+    keyword = "module";
+    
     shared actual [FullPackageName] children = [moduleName];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

@@ -11,6 +11,8 @@ shared class PackageDec(packageName)
     "The name of the referenced package."
     shared FullPackageName packageName;
     
+    keyword = "package";
+    
     shared actual [FullPackageName] children = [packageName];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

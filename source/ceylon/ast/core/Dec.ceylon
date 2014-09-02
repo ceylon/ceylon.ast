@@ -14,4 +14,15 @@
 shared abstract class Dec()
         of TypeDec | PackageDec | ModuleDec
         extends Primary() {
+    "The keyword of the declaration literal, that is:
+     
+     - `class` for a [[ClassDec]],
+     - `interface` for an [[InterfaceDec]],
+     - `alias` for an [[AliasDec]],
+     - `given` for a [[GivenDec]],
+     - `value` for a [[ValueDec]],
+     - `function` for a [[FunctionDec]],
+     - `package` for a [[PackageDec]], or
+     - `module` for a [[ModuleDec]]."
+    shared formal String keyword;
 }

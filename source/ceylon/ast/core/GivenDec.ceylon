@@ -10,6 +10,8 @@ shared class GivenDec(typeParameter)
     "The name of the referenced type parameter."
     shared TypeName typeParameter;
     
+    keyword = "given";
+    
     shared actual [TypeName] children = [typeParameter];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

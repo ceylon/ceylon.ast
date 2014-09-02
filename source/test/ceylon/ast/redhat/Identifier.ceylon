@@ -55,6 +55,9 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier eLIdentifier = constructL("e");
     shared String->LIdentifier tLIdentifier = constructL("t");
     shared String->UIdentifier typeNameUIdentifier = constructU("TypeName");
+    shared String->LIdentifier concatenateLIdentifier = constructL("concatenate");
+    shared String->LIdentifier mapLIdentifier = constructL("map");
+    shared String->LIdentifier firstLIdentifier = constructL("first");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

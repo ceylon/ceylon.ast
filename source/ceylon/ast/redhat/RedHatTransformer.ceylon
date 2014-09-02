@@ -1324,7 +1324,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JTypeParameterLiteral transformGivenDec(GivenDec that) {
         JTypeParameterLiteral ret = JTypeParameterLiteral(tokens.token("`", backtick));
         ret.endToken = tokens.token("given", type_constraint);
-        ret.type = transformBaseType(BaseType(TypeNameWithTypeArguments(that.typeParameter)));
+        ret.type = transformBaseType(BaseType(TypeNameWithTypeArguments(that.name)));
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }

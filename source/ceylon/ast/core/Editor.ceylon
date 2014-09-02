@@ -331,7 +331,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default FunctionShortcutDefinition transformFunctionShortcutDefinition(FunctionShortcutDefinition that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifier(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default GivenDec transformGivenDec(GivenDec that)
-            => that.copy(transformUIdentifier(that.typeParameter));
+            => that.copy(transformUIdentifier(that.name));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
             => that.copy(transformExpression(that.innerExpression));
     shared actual default GroupedType transformGroupedType(GroupedType that)

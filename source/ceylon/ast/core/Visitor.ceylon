@@ -22,6 +22,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnyClass(AnyClass that) => visitAnyClass(that);
     transformAnyCompilationUnit(AnyCompilationUnit that) => visitAnyCompilationUnit(that);
     transformAnyFunction(AnyFunction that) => visitAnyFunction(that);
+    transformAnyMemberOperator(AnyMemberOperator that) => visitAnyMemberOperator(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
     transformAnyValue(AnyValue that) => visitAnyValue(that);
     transformArgumentList(ArgumentList that) => visitArgumentList(that);
@@ -163,6 +164,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformMemberDec(MemberDec that) => visitMemberDec(that);
     transformMemberMeta(MemberMeta that) => visitMemberMeta(that);
     transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => visitMemberNameWithTypeArguments(that);
+    transformMemberOperator(MemberOperator that) => visitMemberOperator(that);
     transformMeta(Meta that) => visitMeta(that);
     transformModifier(Modifier that) => visitModifier(that);
     transformModuleBody(ModuleBody that) => visitModuleBody(that);
@@ -216,6 +218,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformResource(Resource that) => visitResource(that);
     transformResources(Resources that) => visitResources(that);
     transformReturn(Return that) => visitReturn(that);
+    transformSafeMemberOperator(SafeMemberOperator that) => visitSafeMemberOperator(that);
     transformSatisfiedTypes(SatisfiedTypes that) => visitSatisfiedTypes(that);
     transformScaleOperation(ScaleOperation that) => visitScaleOperation(that);
     transformSelfReference(SelfReference that) => visitSelfReference(that);
@@ -234,6 +237,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformSpecifiedVariable(SpecifiedVariable that) => visitSpecifiedVariable(that);
     transformSpecifier(Specifier that) => visitSpecifier(that);
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
+    transformSpreadMemberOperator(SpreadMemberOperator that) => visitSpreadMemberOperator(that);
     transformStatement(Statement that) => visitStatement(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformStringTemplate(StringTemplate that) => visitStringTemplate(that);
@@ -302,6 +306,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnyClass(AnyClass that) => super.transformAnyClass(that);
     shared default void visitAnyCompilationUnit(AnyCompilationUnit that) => super.transformAnyCompilationUnit(that);
     shared default void visitAnyFunction(AnyFunction that) => super.transformAnyFunction(that);
+    shared default void visitAnyMemberOperator(AnyMemberOperator that) => super.transformAnyMemberOperator(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
     shared default void visitAnyValue(AnyValue that) => super.transformAnyValue(that);
     shared default void visitArgumentList(ArgumentList that) => super.transformArgumentList(that);
@@ -443,6 +448,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitMemberDec(MemberDec that) => super.transformMemberDec(that);
     shared default void visitMemberMeta(MemberMeta that) => super.transformMemberMeta(that);
     shared default void visitMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => super.transformMemberNameWithTypeArguments(that);
+    shared default void visitMemberOperator(MemberOperator that) => super.transformMemberOperator(that);
     shared default void visitMeta(Meta that) => super.transformMeta(that);
     shared default void visitModifier(Modifier that) => super.transformModifier(that);
     shared default void visitModuleBody(ModuleBody that) => super.transformModuleBody(that);
@@ -496,6 +502,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitResource(Resource that) => super.transformResource(that);
     shared default void visitResources(Resources that) => super.transformResources(that);
     shared default void visitReturn(Return that) => super.transformReturn(that);
+    shared default void visitSafeMemberOperator(SafeMemberOperator that) => super.transformSafeMemberOperator(that);
     shared default void visitSatisfiedTypes(SatisfiedTypes that) => super.transformSatisfiedTypes(that);
     shared default void visitScaleOperation(ScaleOperation that) => super.transformScaleOperation(that);
     shared default void visitSelfReference(SelfReference that) => super.transformSelfReference(that);
@@ -514,6 +521,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitSpecifiedVariable(SpecifiedVariable that) => super.transformSpecifiedVariable(that);
     shared default void visitSpecifier(Specifier that) => super.transformSpecifier(that);
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);
+    shared default void visitSpreadMemberOperator(SpreadMemberOperator that) => super.transformSpreadMemberOperator(that);
     shared default void visitStatement(Statement that) => super.transformStatement(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitStringTemplate(StringTemplate that) => super.transformStringTemplate(that);

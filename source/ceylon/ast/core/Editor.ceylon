@@ -49,6 +49,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is AnyFunction ret = super.transformAnyFunction(that));
         return ret;
     }
+    shared actual default AnyMemberOperator transformAnyMemberOperator(AnyMemberOperator that) {
+        assert (is AnyMemberOperator ret = super.transformAnyMemberOperator(that));
+        return ret;
+    }
     shared actual default AnyValue transformAnyValue(AnyValue that) {
         assert (is AnyValue ret = super.transformAnyValue(that));
         return ret;
@@ -468,6 +472,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.typeArguments, transformTypeArguments));
+    shared actual default MemberOperator transformMemberOperator(MemberOperator that)
+            => that.copy();
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
         return ret;
@@ -692,6 +698,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.resources.collect(transformResource));
     shared actual default Return transformReturn(Return that)
             => that.copy(nullsafeInvoke(that.result, transformExpression));
+    shared actual default SafeMemberOperator transformSafeMemberOperator(SafeMemberOperator that)
+            => that.copy();
     shared actual default SatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that)
             => that.copy(that.satisfiedTypes.collect(transformPrimaryType));
     shared actual default ScaleOperation transformScaleOperation(ScaleOperation that)
@@ -738,6 +746,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformExpression(that.expression));
     shared actual default SpreadArgument transformSpreadArgument(SpreadArgument that)
             => that.copy(transformPrecedence5Expression(that.argument));
+    shared actual default SpreadMemberOperator transformSpreadMemberOperator(SpreadMemberOperator that)
+            => that.copy();
     shared actual default Statement transformStatement(Statement that) {
         assert (is Statement ret = super.transformStatement(that));
         return ret;

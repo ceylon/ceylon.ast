@@ -13,6 +13,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnyClass(AnyClass that) => transformClassOrInterface(that);
     shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) => transformNode(that);
     shared actual default Result transformAnyFunction(AnyFunction that) => transformTypedDeclaration(that);
+    shared actual default Result transformAnyMemberOperator(AnyMemberOperator that) => transformExpressionIsh(that);
     shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
     shared actual default Result transformArgumentList(ArgumentList that) => transformExpressionIsh(that);
@@ -154,6 +155,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformMemberDec(MemberDec that) => transformDec(that);
     shared actual default Result transformMemberMeta(MemberMeta that) => transformMeta(that);
     shared actual default Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that) => transformNameWithTypeArguments(that);
+    shared actual default Result transformMemberOperator(MemberOperator that) => transformAnyMemberOperator(that);
     shared actual default Result transformMeta(Meta that) => transformPrimary(that);
     shared actual default Result transformModifier(Modifier that) => transformExpressionIsh(that);
     shared actual default Result transformModuleBody(ModuleBody that) => transformNode(that);
@@ -207,6 +209,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformResource(Resource that) => transformNode(that);
     shared actual default Result transformResources(Resources that) => transformNode(that);
     shared actual default Result transformReturn(Return that) => transformDirective(that);
+    shared actual default Result transformSafeMemberOperator(SafeMemberOperator that) => transformAnyMemberOperator(that);
     shared actual default Result transformSatisfiedTypes(SatisfiedTypes that) => transformNode(that);
     shared actual default Result transformScaleOperation(ScaleOperation that) => transformBinaryOperation(that);
     shared actual default Result transformSelfReference(SelfReference that) => transformExpression(that);
@@ -225,6 +228,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSpecifiedVariable(SpecifiedVariable that) => transformVariable(that);
     shared actual default Result transformSpecifier(Specifier that) => transformNode(that);
     shared actual default Result transformSpreadArgument(SpreadArgument that) => transformExpressionIsh(that);
+    shared actual default Result transformSpreadMemberOperator(SpreadMemberOperator that) => transformAnyMemberOperator(that);
     shared actual default Result transformStatement(Statement that) => transformNode(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformStringTemplate(StringTemplate that) => transformAtom(that);

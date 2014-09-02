@@ -1,7 +1,7 @@
 "All node types in the expression sub-hierarchy:
  [[Expression]] and some auxiliary node types that aren’t proper Expressions."
 shared abstract class ExpressionIsh()
-        of Expression | TypeIsh | Identifier | FullPackageName | ArgumentList | SpreadArgument | Arguments | NamedArgument | AnySpecifier | Parameters | Bound | Modifier | Body | Comprehension | Subscript | DecQualifier
+        of Expression | TypeIsh | Identifier | FullPackageName | ArgumentList | SpreadArgument | Arguments | NamedArgument | AnySpecifier | Parameters | Bound | Modifier | Body | Comprehension | Subscript | DecQualifier | AnyMemberOperator
         extends Node() {
     shared actual formal <ExpressionIsh|Identifier|Parameter|Declaration|Statement|ComprehensionClause>[] children;
 }

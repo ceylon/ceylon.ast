@@ -145,6 +145,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMatchCase=MatchCase,
         JMemberLiteral=MemberLiteral,
         JMemberOp=MemberOp,
+        JMemberOperator=MemberOperator,
         JMetaLiteral=MetaLiteral,
         JMethodDeclaration=MethodDeclaration,
         JMethodDefinition=MethodDefinition,
@@ -192,6 +193,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JResource=Resource,
         JResourceList=ResourceList,
         JReturn=Return,
+        JSafeMemberOp=SafeMemberOp,
         JSatisfiedTypes=SatisfiedTypes,
         JScaleOp=ScaleOp,
         JSegmentOp=SegmentOp,
@@ -207,6 +209,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSpecifierExpression=SpecifierExpression,
         JSpecifierStatement=SpecifierStatement,
         JSpreadArgument=SpreadArgument,
+        JSpreadOp=SpreadOp,
         JStatement=Statement,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
@@ -338,6 +341,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         remainder_op=\iREMAINDER_OP,
         returnType=\iRETURN,
         rparen=\iRPAREN,
+        safe_member_op=\iSAFE_MEMBER_OP,
         satisfiesType=\iSATISFIES,
         scale_op=\iSCALE_OP,
         segment_op=\iSEGMENT_OP,
@@ -345,6 +349,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         small_as_op=\iSMALL_AS_OP,
         smaller_op=\iSMALLER_OP,
         specify=\iSPECIFY,
+        spread_op=\iSPREAD_OP,
         string_end=\iSTRING_END,
         string_literal=\iSTRING_LITERAL,
         string_mid=\iSTRING_MID,
@@ -492,6 +497,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JAnyMethod transformAnyFunction(AnyFunction that) {
         assert (is JAnyMethod ret = super.transformAnyFunction(that));
+        return ret;
+    }
+    
+    shared actual JMemberOperator transformAnyMemberOperator(AnyMemberOperator that) {
+        assert (is JMemberOperator ret = super.transformAnyMemberOperator(that));
         return ret;
     }
     
@@ -1818,6 +1828,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         throw Exception("MemberNameWithTypeArguments has no RedHat AST equivalent!");
     }
     
+    shared actual JMemberOp transformMemberOperator(MemberOperator that)
+            => JMemberOp(tokens.token(that.text, member_op));
+    
     shared actual JMetaLiteral transformMeta(Meta that) {
         assert (is JMetaLiteral ret = super.transformMeta(that));
         return ret;
@@ -2346,6 +2359,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSafeMemberOp transformSafeMemberOperator(SafeMemberOperator that)
+            => JSafeMemberOp(tokens.token(that.text, safe_member_op));
+    
     shared actual JSatisfiedTypes transformSatisfiedTypes(SatisfiedTypes that) {
         JSatisfiedTypes ret = JSatisfiedTypes(tokens.token("satisfies", satisfiesType));
         ret.addType(transformPrimaryType(that.satisfiedTypes.first));
@@ -2480,6 +2496,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.expression = expression;
         return ret;
     }
+    
+    shared actual JSpreadOp transformSpreadMemberOperator(SpreadMemberOperator that)
+            => JSpreadOp(tokens.token(that.text, spread_op)); // yes, spread_op, not spread_member_op – the * operator is a product_op!
     
     shared actual JExecutableStatement transformStatement(Statement that) {
         assert (is JExecutableStatement ret = super.transformStatement(that));

@@ -463,6 +463,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                 `` indent + indentLevel ``nameWithArguments = ``transformWithIndent(that.nameAndArgs)``;
                 ``indent``}";
+    transformMemberOperator(MemberOperator that) => "MemberOperator()";
     transformModuleBody(ModuleBody that) => "ModuleBody(``transformWithIndent(that.moduleImports)``)";
     transformModuleCompilationUnit(ModuleCompilationUnit that)
             => "ModuleCompilationUnit {
@@ -589,6 +590,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformResource(Resource that) => "Resource(``transformWithIndent(that.resource)``)";
     transformResources(Resources that) => "Resources(``transformWithIndent(that.resources)``)";
     transformReturn(Return that) => "Return(``transformWithIndent(that.result)``)";
+    transformSafeMemberOperator(SafeMemberOperator that) => "SafeMemberOperator()";
     transformSatisfiedTypes(SatisfiedTypes that) => "SatisfiedTypes(``transformWithIndent(that.satisfiedTypes)``)";
     transformScaleOperation(ScaleOperation that)
             => "ScaleOperation {
@@ -627,6 +629,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformSpecifier(Specifier that) => "Specifier(``transformWithIndent(that.expression)``)";
     transformSpreadArgument(SpreadArgument that) => "SpreadArgument(``transformWithIndent(that.argument)``)";
+    transformSpreadMemberOperator(SpreadMemberOperator that) => "SpreadMemberOperator()";
     transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
     transformStringTemplate(StringTemplate that)
             => "StringTemplate {

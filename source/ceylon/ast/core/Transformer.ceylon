@@ -22,6 +22,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnyClass(AnyClass that);
     shared formal Result transformAnyCompilationUnit(AnyCompilationUnit that);
     shared formal Result transformAnyFunction(AnyFunction that);
+    shared formal Result transformAnyMemberOperator(AnyMemberOperator that);
     shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformAnyValue(AnyValue that);
     shared formal Result transformArgumentList(ArgumentList that);
@@ -163,6 +164,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformMemberDec(MemberDec that);
     shared formal Result transformMemberMeta(MemberMeta that);
     shared formal Result transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that);
+    shared formal Result transformMemberOperator(MemberOperator that);
     shared formal Result transformMeta(Meta that);
     shared formal Result transformModifier(Modifier that);
     shared formal Result transformModuleBody(ModuleBody that);
@@ -217,6 +219,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformResource(Resource that);
     shared formal Result transformResources(Resources that);
     shared formal Result transformReturn(Return that);
+    shared formal Result transformSafeMemberOperator(SafeMemberOperator that);
     shared formal Result transformSatisfiedTypes(SatisfiedTypes that);
     shared formal Result transformScaleOperation(ScaleOperation that);
     shared formal Result transformSelfReference(SelfReference that);
@@ -235,6 +238,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSpecifiedVariable(SpecifiedVariable that);
     shared formal Result transformSpecifier(Specifier that);
     shared formal Result transformSpreadArgument(SpreadArgument that);
+    shared formal Result transformSpreadMemberOperator(SpreadMemberOperator that);
     shared formal Result transformStatement(Statement that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformStringTemplate(StringTemplate that);

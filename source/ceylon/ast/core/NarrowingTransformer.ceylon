@@ -20,6 +20,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is FunctionDefinition) { return transformFunctionDefinition(that); }
         case (is FunctionShortcutDefinition) { return transformFunctionShortcutDefinition(that); }
     }
+    shared actual default Result transformAnyMemberOperator(AnyMemberOperator that) {
+        switch (that)
+        case (is MemberOperator) { return transformMemberOperator(that); }
+        case (is SafeMemberOperator) { return transformSafeMemberOperator(that); }
+        case (is SpreadMemberOperator) { return transformSpreadMemberOperator(that); }
+    }
     shared actual default Result transformAnySpecifier(AnySpecifier that) {
         switch (that)
         case (is Specifier) { return transformSpecifier(that); }
@@ -195,6 +201,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Comprehension) { return transformComprehension(that); }
         case (is Subscript) { return transformSubscript(that); }
         case (is DecQualifier) { return transformDecQualifier(that); }
+        case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)

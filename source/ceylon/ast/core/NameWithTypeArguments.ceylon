@@ -13,7 +13,7 @@ shared abstract class NameWithTypeArguments()
 
 "Convenience function to create either a [[MemberNameWithTypeArguments]]
  or a [[TypeNameWithTypeArguments]], depending on the type of [[name]]."
-shared NameWithTypeArguments nameWithTypeArguments(Identifier name, TypeArguments? typeArguments) {
+shared NameWithTypeArguments nameWithTypeArguments(Identifier name, TypeArguments? typeArguments = null) {
     switch (name)
     case (is TypeName) { return TypeNameWithTypeArguments(name, typeArguments); }
     case (is MemberName) { return MemberNameWithTypeArguments(name, typeArguments); }

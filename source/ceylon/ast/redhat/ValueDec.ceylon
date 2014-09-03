@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ValueLiteral|JValueLiteral]] to a `ceylon.ast` [[ValueDec]]."
 shared ValueDec valueDecToCeylon(JValueLiteral valueDec) {
     DecQualifier? qualifier;
-    if (exists jQualifier = valueDec.type else valueDec.objectExpression of Tree.BaseMemberExpression?) { // TODO remove workaround for https://github.com/ceylon/ceylon-compiler/issues/1784
+    if (exists jQualifier = valueDec.type else valueDec.objectExpression) {
         qualifier = decQualifierToCeylon(jQualifier);
     } else {
         qualifier = null;

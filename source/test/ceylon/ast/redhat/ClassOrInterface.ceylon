@@ -17,5 +17,5 @@ shared object classOrInterface satisfies AbstractTest<ClassOrInterface,JClassOrI
     fromCeylon = RedHatTransformer.transformClassOrInterface;
     toCeylon = classOrInterfaceToCeylon;
     
-    tests = [anyClass];
+    tests = [anyClass, anyInterface];
 }

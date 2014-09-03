@@ -22,6 +22,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformAnyClass(AnyClass that);
     shared formal Result transformAnyCompilationUnit(AnyCompilationUnit that);
     shared formal Result transformAnyFunction(AnyFunction that);
+    shared formal Result transformAnyInterface(AnyInterface that);
+    shared formal Result transformAnyInterfaceDefinition(AnyInterfaceDefinition that);
     shared formal Result transformAnyMemberOperator(AnyMemberOperator that);
     shared formal Result transformAnySpecifier(AnySpecifier that);
     shared formal Result transformAnyValue(AnyValue that);
@@ -81,6 +83,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDirective(Directive that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
     shared formal Result transformDynamicBlock(DynamicBlock that);
+    shared formal Result transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that);
     shared formal Result transformDynamicModifier(DynamicModifier that);
     shared formal Result transformDynamicValue(DynamicValue that);
     shared formal Result transformElementOrSubrangeExpression(ElementOrSubrangeExpression that);
@@ -138,6 +141,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
     shared formal Result transformInterfaceDec(InterfaceDec that);
+    shared formal Result transformInterfaceDefinition(InterfaceDefinition that);
     shared formal Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that);
     shared formal Result transformIntersectionOperation(IntersectionOperation that);
     shared formal Result transformIntersectionType(IntersectionType that);

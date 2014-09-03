@@ -4,15 +4,17 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAnyClass=AnyClass,
+        JAnyInterface=AnyInterface,
         JClassOrInterface=ClassOrInterface
     }
 }
 
 "Converts a RedHat AST [[ClassOrInterface|JClassOrInterface]] to a `ceylon.ast` [[ClassOrInterface]]."
 shared ClassOrInterface classOrInterfaceToCeylon(JClassOrInterface classOrInterface) {
-    assert (is JAnyClass classOrInterface);
+    assert (is JAnyClass|JAnyInterface classOrInterface);
     switch (classOrInterface)
     case (is JAnyClass) { return anyClassToCeylon(classOrInterface); }
+    case (is JAnyInterface) { return anyInterfaceToCeylon(classOrInterface); }
 }
 
 "Compiles the given [[code]] for a Class Or Interface

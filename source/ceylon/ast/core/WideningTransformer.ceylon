@@ -13,6 +13,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAnyClass(AnyClass that) => transformClassOrInterface(that);
     shared actual default Result transformAnyCompilationUnit(AnyCompilationUnit that) => transformNode(that);
     shared actual default Result transformAnyFunction(AnyFunction that) => transformTypedDeclaration(that);
+    shared actual default Result transformAnyInterface(AnyInterface that) => transformClassOrInterface(that);
+    shared actual default Result transformAnyInterfaceDefinition(AnyInterfaceDefinition that) => transformAnyInterface(that);
     shared actual default Result transformAnyMemberOperator(AnyMemberOperator that) => transformExpressionIsh(that);
     shared actual default Result transformAnyValue(AnyValue that) => transformTypedDeclaration(that);
     shared actual default Result transformAnySpecifier(AnySpecifier that) => transformExpressionIsh(that);
@@ -72,6 +74,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDirective(Directive that) => transformStatement(that);
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformDynamicBlock(DynamicBlock that) => transformControlStructure(that);
+    shared actual default Result transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that) => transformAnyInterfaceDefinition(that);
     shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
     shared actual default Result transformElementOrSubrangeExpression(ElementOrSubrangeExpression that) => transformPrimary(that);
@@ -129,6 +132,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
     shared actual default Result transformInterfaceDec(InterfaceDec that) => transformTypeDec(that);
+    shared actual default Result transformInterfaceDefinition(InterfaceDefinition that) => transformAnyInterfaceDefinition(that);
     shared actual default Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => transformSetAssignmentOperation(that);
     shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);

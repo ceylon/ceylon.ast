@@ -232,6 +232,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformDynamicBlock(DynamicBlock that) => "DynamicBlock(``transformWithIndent(that.block)``)";
+    transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that)
+            => "DynamicInterfaceDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``body = ``transformWithIndent(that.body)``;
+                `` indent + indentLevel ``caseTypes = ``transformWithIndent(that.caseTypes)``;
+                `` indent + indentLevel ``satisfiedTypes = ``transformWithIndent(that.satisfiedTypes)``;
+                `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
+                `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformDynamicModifier(DynamicModifier that) => "DynamicModifier()";
     transformDynamicValue(DynamicValue that) => "DynamicValue(``transformWithIndent(that.content)``)";
     transformElementOrSubrangeExpression(ElementOrSubrangeExpression that)
@@ -390,6 +400,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "InterfaceDec {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                ``indent``}";
+    transformInterfaceDefinition(InterfaceDefinition that)
+            => "InterfaceDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``body = ``transformWithIndent(that.body)``;
+                `` indent + indentLevel ``caseTypes = ``transformWithIndent(that.caseTypes)``;
+                `` indent + indentLevel ``satisfiedTypes = ``transformWithIndent(that.satisfiedTypes)``;
+                `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
+                `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
     transformIntersectionType(IntersectionType that) => "IntersectionType(``transformWithIndent(that.children)``)";
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that)

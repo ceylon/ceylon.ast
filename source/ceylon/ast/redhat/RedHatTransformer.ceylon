@@ -14,6 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAnonymousAnnotation=AnonymousAnnotation,
         JAnyAttribute=AnyAttribute,
         JAnyClass=AnyClass,
+        JAnyInterface=AnyInterface,
         JAnyMethod=AnyMethod,
         JArgumentList=ArgumentList,
         JArithmeticAssignmentOp=ArithmeticAssignmentOp,
@@ -124,6 +125,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
         JInterfaceBody=InterfaceBody,
+        JInterfaceDefinition=InterfaceDefinition,
         JInterfaceLiteral=InterfaceLiteral,
         JIntersectAssignOp=IntersectAssignOp,
         JIntersectionOp=IntersectionOp,
@@ -497,6 +499,45 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JAnyMethod transformAnyFunction(AnyFunction that) {
         assert (is JAnyMethod ret = super.transformAnyFunction(that));
+        return ret;
+    }
+    
+    shared actual JAnyInterface transformAnyInterface(AnyInterface that) {
+        assert (is JAnyInterface ret = super.transformAnyInterface(that));
+        return ret;
+    }
+    
+    shared actual JInterfaceDefinition transformAnyInterfaceDefinition(AnyInterfaceDefinition that) {
+        value annotations = transformAnnotations(that.annotations);
+        JInterfaceDefinition ret;
+        switch (that)
+        case (is InterfaceDefinition) {
+            ret = JInterfaceDefinition(tokens.token("interface", interface_definition));
+        }
+        case (is DynamicInterfaceDefinition) {
+            ret = JInterfaceDefinition(tokens.token("dynamic", dynamicType));
+            ret.\idynamic = true;
+        }
+        // everything else is common for regular and dynamic interface definitions
+        ret.annotationList = annotations;
+        ret.identifier = transformUIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        if (exists caseTypes = that.caseTypes) {
+            ret.caseTypes = transformCaseTypes(caseTypes);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.interfaceBody = transformInterfaceBody(that.body);
         return ret;
     }
     
@@ -1055,6 +1096,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JInterfaceDefinition transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that)
+            => transformAnyInterfaceDefinition(that);
+    
     shared actual JDynamicModifier transformDynamicModifier(DynamicModifier that) {
         JDynamicModifier ret = JDynamicModifier(tokens.token("dynamic", dynamicType));
         return ret;
@@ -1585,6 +1629,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
+    
+    shared actual JInterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)
+            => transformAnyInterfaceDefinition(that);
     
     shared actual JIntersectAssignOp transformIntersectAssignmentOperation(IntersectAssignmentOperation that) {
         JTerm left = transformPrecedence16Expression(that.leftOperand);

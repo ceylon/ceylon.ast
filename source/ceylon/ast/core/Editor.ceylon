@@ -49,6 +49,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is AnyFunction ret = super.transformAnyFunction(that));
         return ret;
     }
+    shared actual default AnyInterface transformAnyInterface(AnyInterface that) {
+        assert (is AnyInterface ret = super.transformAnyInterface(that));
+        return ret;
+    }
+    shared actual default AnyInterfaceDefinition transformAnyInterfaceDefinition(AnyInterfaceDefinition that) {
+        assert (is AnyInterfaceDefinition ret = super.transformAnyInterfaceDefinition(that));
+        return ret;
+    }
     shared actual default AnyMemberOperator transformAnyMemberOperator(AnyMemberOperator that) {
         assert (is AnyMemberOperator ret = super.transformAnyMemberOperator(that));
         return ret;
@@ -237,6 +245,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default DynamicBlock transformDynamicBlock(DynamicBlock that)
             => that.copy(transformBlock(that.block));
+    shared actual default DynamicInterfaceDefinition transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformInterfaceBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default DynamicModifier transformDynamicModifier(DynamicModifier that)
             => that.copy();
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
@@ -396,6 +406,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(that.content.collect(transformDeclaration));
     shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+    shared actual default InterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformInterfaceBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
             => that.copy(transformPrecedence16Expression(that.leftOperand), transformPrecedence17Expression(that.rightOperand));
     shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)

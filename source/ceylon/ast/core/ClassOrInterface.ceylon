@@ -16,7 +16,7 @@
            shared formal Unit height;
        }"""
 shared abstract class ClassOrInterface()
-        of AnyClass
+        of AnyClass | AnyInterface
         extends TypeDeclaration() {
     
     "The case types of the class or interface, if present."

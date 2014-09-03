@@ -22,6 +22,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformAnyClass(AnyClass that) => visitAnyClass(that);
     transformAnyCompilationUnit(AnyCompilationUnit that) => visitAnyCompilationUnit(that);
     transformAnyFunction(AnyFunction that) => visitAnyFunction(that);
+    transformAnyInterface(AnyInterface that) => visitAnyInterface(that);
+    transformAnyInterfaceDefinition(AnyInterfaceDefinition that) => visitAnyInterfaceDefinition(that);
     transformAnyMemberOperator(AnyMemberOperator that) => visitAnyMemberOperator(that);
     transformAnySpecifier(AnySpecifier that) => visitAnySpecifier(that);
     transformAnyValue(AnyValue that) => visitAnyValue(that);
@@ -81,6 +83,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformDirective(Directive that) => visitDirective(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
     transformDynamicBlock(DynamicBlock that) => visitDynamicBlock(that);
+    transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that) => visitDynamicInterfaceDefinition(that);
     transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
     transformElementOrSubrangeExpression(ElementOrSubrangeExpression that) => visitElementOrSubrangeExpression(that);
@@ -138,6 +141,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
     transformInterfaceDec(InterfaceDec that) => visitInterfaceDec(that);
+    transformInterfaceDefinition(InterfaceDefinition that) => visitInterfaceDefinition(that);
     transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => visitIntersectAssignmentOperation(that);
     transformIntersectionOperation(IntersectionOperation that) => visitIntersectionOperation(that);
     transformIntersectionType(IntersectionType that) => visitIntersectionType(that);
@@ -306,6 +310,8 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitAnyClass(AnyClass that) => super.transformAnyClass(that);
     shared default void visitAnyCompilationUnit(AnyCompilationUnit that) => super.transformAnyCompilationUnit(that);
     shared default void visitAnyFunction(AnyFunction that) => super.transformAnyFunction(that);
+    shared default void visitAnyInterface(AnyInterface that) => super.transformAnyInterface(that);
+    shared default void visitAnyInterfaceDefinition(AnyInterfaceDefinition that) => super.transformAnyInterfaceDefinition(that);
     shared default void visitAnyMemberOperator(AnyMemberOperator that) => super.transformAnyMemberOperator(that);
     shared default void visitAnySpecifier(AnySpecifier that) => super.transformAnySpecifier(that);
     shared default void visitAnyValue(AnyValue that) => super.transformAnyValue(that);
@@ -365,6 +371,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitDirective(Directive that) => super.transformDirective(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
     shared default void visitDynamicBlock(DynamicBlock that) => super.transformDynamicBlock(that);
+    shared default void visitDynamicInterfaceDefinition(DynamicInterfaceDefinition that) => super.transformDynamicInterfaceDefinition(that);
     shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
     shared default void visitElementOrSubrangeExpression(ElementOrSubrangeExpression that) => super.transformElementOrSubrangeExpression(that);
@@ -422,6 +429,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitInterfaceDec(InterfaceDec that) => super.transformInterfaceDec(that);
+    shared default void visitInterfaceDefinition(InterfaceDefinition that) => super.transformInterfaceDefinition(that);
     shared default void visitIntersectAssignmentOperation(IntersectAssignmentOperation that) => super.transformIntersectAssignmentOperation(that);
     shared default void visitIntersectionOperation(IntersectionOperation that) => super.transformIntersectionOperation(that);
     shared default void visitIntersectionType(IntersectionType that) => super.transformIntersectionType(that);

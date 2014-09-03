@@ -20,6 +20,15 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is FunctionDefinition) { return transformFunctionDefinition(that); }
         case (is FunctionShortcutDefinition) { return transformFunctionShortcutDefinition(that); }
     }
+    shared actual default Result transformAnyInterface(AnyInterface that) {
+        switch (that)
+        case (is AnyInterfaceDefinition) { return transformAnyInterfaceDefinition(that); }
+    }
+    shared actual default Result transformAnyInterfaceDefinition(AnyInterfaceDefinition that) {
+        switch (that)
+        case (is InterfaceDefinition) { return transformInterfaceDefinition(that); }
+        case (is DynamicInterfaceDefinition) { return transformDynamicInterfaceDefinition(that); }
+    }
     shared actual default Result transformAnyMemberOperator(AnyMemberOperator that) {
         switch (that)
         case (is MemberOperator) { return transformMemberOperator(that); }
@@ -112,6 +121,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformClassOrInterface(ClassOrInterface that) {
         switch (that)
         case (is AnyClass) { return transformAnyClass(that); }
+        case (is AnyInterface) { return transformAnyInterface(that); }
     }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)

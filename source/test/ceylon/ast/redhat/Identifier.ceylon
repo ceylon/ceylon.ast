@@ -23,8 +23,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     
     shared String->LIdentifier lidLIdentifier = "lid"->LIdentifier("lid");
     shared String->UIdentifier uidUIdentifier = "Uid"->UIdentifier("Uid");
-    shared String->LIdentifier uidLIdentifier = "\\iUid"->LIdentifier("Uid");
-    shared String->UIdentifier lidUIdentifier = "\\Ilid"->UIdentifier("lid");
+    shared String->LIdentifier uidLIdentifier = "\\iUid"->LIdentifier("Uid", true);
+    shared String->UIdentifier lidUIdentifier = "\\Ilid"->UIdentifier("lid", true);
     
     // not tested directly, but used by other tests
     shared String->LIdentifier sharedLIdentifier = constructL("shared");
@@ -38,7 +38,7 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier collectionLIdentifier = constructL("collection");
     shared String->UIdentifier stringUIdentifier = constructU("String");
     shared String->UIdentifier jstringUIdentifier = constructU("JString");
-    shared String->LIdentifier outLIdentifier = "\\iout"->LIdentifier("out");
+    shared String->LIdentifier outLIdentifier = "\\iout"->LIdentifier("out", true);
     shared String->LIdentifier sysoutLIdentifier = constructL("sysout");
     shared String->UIdentifier systemUIdentifier = constructU("System");
     shared String->UIdentifier arrayListUIdentifier = constructU("ArrayList");

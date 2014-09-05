@@ -14,21 +14,31 @@ shared alias TypeName => UIdentifier;
 shared alias MemberName => LIdentifier;
 shared alias PackageName => LIdentifier;
 
-shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifier extends ExpressionIsh() {
+// TODO should we share these functions?
+Boolean lidentifierNeedsPrefix(String name) {
+    "Name must not be empty"
+    assert (exists firstChar = name.first);
+    return firstChar.uppercase || name in keywords;
+}
+Boolean uidentifierNeedsPrefix(String name) {
+    "Name must not be empty"
+    assert (exists firstChar = name.first);
+    return firstChar.lowercase || firstChar == '_'; // there are no initial uppercase keywords
+}
+
+shared abstract class Identifier(name, usePrefix) of LIdentifier | UIdentifier extends ExpressionIsh() {
     
     "The name of the identifier."
     shared default String name;
     
-    """If [[true]], enforce the `\i`/`\I` prefix.
+    """If [[true]], use the `\i`/`\I` [[prefix]].
        
        This property is only of concern to tools which deal immediately with source code;
-       it does not influence the equality of `Identifier` instances."""
-    shared default Boolean enforcePrefix;
-    """Whether this identifier has a `\i`/`\I` prefix in code.
-       The identifier has this prefix if it is [[enforced|enforcePrefix]]
-       or if it is necessary because the text’s case doesn’t match
-       that of the identifier, or because it’s a keyword (e. g. `\ithis`)."""
-    shared formal Boolean usePrefix;
+       it does not influence the equality of `Identifier` instances.
+       
+       (If this is [[false]] and the [[name]] requires a prefix,
+       an [[AssertionError]] is thrown.)"""
+    shared default Boolean usePrefix;
     "The prefix for this kind of identifier – `\\i` for a [[lowercase identifier|LIdentifier]],
      `\\I` for an [[uppercase identifier|UIdentifier]]."
     shared formal String prefix;
@@ -43,11 +53,11 @@ shared abstract class Identifier(name, enforcePrefix) of LIdentifier | UIdentifi
     
     "Creates a copy of this identifier.
      All parameters default to the value of the corresponding parameter of this instance."
-    shared formal Identifier copy(String name = this.name, Boolean enforcePrefix = this.enforcePrefix);
+    shared formal Identifier copy(String name = this.name, Boolean usePrefix = this.usePrefix);
 }
 
 "An initial lowercase identifier."
-shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Identifier(name, enforcePrefix) {
+shared class LIdentifier(String name, Boolean usePrefix = false) extends Identifier(name, usePrefix) {
     
     "Name must not be empty"
     assert (exists first = name.first);
@@ -55,9 +65,9 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     assert (first.letter || first == '_');
     "Name may only contain letters, digits and underscores"
     assert (name.every((Character c) => c.letter || c.digit || c == '_'));
+    "Prefix must be present if necessary"
+    assert (usePrefix || !lidentifierNeedsPrefix(name));
     
-    usePrefix
-            = enforcePrefix || first.uppercase || name in keywords;
     prefix = "\\i";
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -71,15 +81,15 @@ shared class LIdentifier(String name, Boolean enforcePrefix = false) extends Ide
         }
     }
     
-    shared actual LIdentifier copy(String name, Boolean enforcePrefix) {
-        value ret = LIdentifier(name, enforcePrefix);
+    shared actual LIdentifier copy(String name, Boolean usePrefix) {
+        value ret = LIdentifier(name, usePrefix);
         copyExtraInfoTo(ret);
         return ret;
     }
 }
 
 "An initial uppercase identifier."
-shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Identifier(name, enforcePrefix) {
+shared class UIdentifier(String name, Boolean usePrefix = false) extends Identifier(name, usePrefix) {
     
     "Name must not be empty"
     assert (exists first = name.first);
@@ -87,9 +97,9 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
     assert (first.letter || first == '_');
     "Name may only contain letters, digits and underscores"
     assert (name.every((Character c) => c.letter || c.digit || c == '_'));
+    "Prefix must be present if necessary"
+    assert (usePrefix || !uidentifierNeedsPrefix(name));
     
-    usePrefix
-            = enforcePrefix || first.lowercase || first == '_' /* || name in keywords */; // there are no uppercase keywords
     prefix = "\\I";
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -103,8 +113,8 @@ shared class UIdentifier(String name, Boolean enforcePrefix = false) extends Ide
         }
     }
     
-    shared actual UIdentifier copy(String name, Boolean enforcePrefix) {
-        value ret = UIdentifier(name, enforcePrefix);
+    shared actual UIdentifier copy(String name, Boolean usePrefix) {
+        value ret = UIdentifier(name, usePrefix);
         copyExtraInfoTo(ret);
         return ret;
     }
@@ -130,3 +140,13 @@ shared Identifier identifier(String text) {
         }
     }
 }
+
+"Utility function to create an [[LIdentifier]],
+ [[with prefix|LIdentifier.usePrefix]] if and only if necessary."
+shared LIdentifier lidentifier(String name)
+        => LIdentifier(name, lidentifierNeedsPrefix(name));
+
+"Utility function to create an [[UIdentifier]],
+ [[with prefix|UIdentifier.usePrefix]] if and only if necessary."
+shared UIdentifier uidentifier(String name)
+        => UIdentifier(name, uidentifierNeedsPrefix(name));

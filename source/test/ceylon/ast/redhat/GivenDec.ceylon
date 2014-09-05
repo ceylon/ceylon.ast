@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object givenDec satisfies ConcreteTest<GivenDec,JTypeParameterLiteral> {
     shared String->GivenDec keyGivenDec = "`given Key`"->GivenDec(UIdentifier("Key"));
-    shared String->GivenDec lowercaseKeyGivenDec = "`given \\Ikey`"->GivenDec(UIdentifier("key"));
+    shared String->GivenDec lowercaseKeyGivenDec = "`given \\Ikey`"->GivenDec(UIdentifier("key", true));
     
     compile = compileGivenDec;
     fromCeylon = RedHatTransformer.transformGivenDec;

@@ -67,10 +67,10 @@ shared BaseExpression baseExpression(String name, String|Type* typeArguments) {
         args = null;
     }
     NameWithTypeArguments na;
-    if (name.first?.lowercase else false) {
-        na = MemberNameWithTypeArguments(LIdentifier(name), args);
+    if (name.first?.uppercase else false) {
+        na = TypeNameWithTypeArguments(uidentifier(name), args);
     } else {
-        na = TypeNameWithTypeArguments(UIdentifier(name), args);
+        na = MemberNameWithTypeArguments(lidentifier(name), args);
     }
     return BaseExpression(na);
 }

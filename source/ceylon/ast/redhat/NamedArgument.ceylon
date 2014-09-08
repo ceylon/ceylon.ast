@@ -3,14 +3,15 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JNamedArgument=NamedArgument,
         JSpecifiedArgument=SpecifiedArgument,
-        JNamedArgument=NamedArgument
+        JTypedArgument=TypedArgument
     }
 }
 
 "Converts a RedHat AST [[NamedArgument|JNamedArgument]] to a `ceylon.ast` [[NamedArgument]]."
 shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument) {
-    assert (is JSpecifiedArgument namedArgument);
+    assert (is JSpecifiedArgument|JTypedArgument namedArgument);
     switch (namedArgument)
     case (is JSpecifiedArgument) {
         if (!namedArgument.identifier exists) {
@@ -21,6 +22,7 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument) {
             return specifiedArgumentToCeylon(namedArgument);
         }
     }
+    case (is JTypedArgument) { return inlineDefinitionArgumentToCeylon(namedArgument); }
 }
 
 "Compiles the given [[code]] for a Named Argument

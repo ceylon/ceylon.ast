@@ -138,6 +138,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformInModifier(InModifier that);
     shared formal Result transformInOperation(InOperation that);
     shared formal Result transformInitialComprehensionClause(InitialComprehensionClause that);
+    shared formal Result transformInlineDefinitionArgument(InlineDefinitionArgument that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
     shared formal Result transformInterfaceDec(InterfaceDec that);
@@ -186,6 +187,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformNonemptyOperation(NonemptyOperation that);
     shared formal Result transformNotEqualOperation(NotEqualOperation that);
     shared formal Result transformNotOperation(NotOperation that);
+    shared formal Result transformObjectArgument(ObjectArgument that);
     shared formal Result transformObjectDefinition(ObjectDefinition that);
     shared formal Result transformOfOperation(OfOperation that);
     shared formal Result transformOpenBound(OpenBound that);

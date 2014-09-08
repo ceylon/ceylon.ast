@@ -161,6 +161,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNonemptyCondition=NonemptyCondition,
         JNotEqualOp=NotEqualOp,
         JNotOp=NotOp,
+        JObjectArgument=ObjectArgument,
         JObjectDefinition=ObjectDefinition,
         JOfOp=OfOp,
         JOpenBound=OpenBound,
@@ -238,6 +239,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTypeParameterDeclaration=TypeParameterDeclaration,
         JTypeParameterList=TypeParameterList,
         JTypeSpecifier=TypeSpecifier,
+        JTypedArgument=TypedArgument,
         JTypedDeclaration=TypedDeclaration,
         JTypeLiteral=TypeLiteral,
         JTypeOperatorExpression=TypeOperatorExpression,
@@ -1587,6 +1589,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JTypedArgument transformInlineDefinitionArgument(InlineDefinitionArgument that) {
+        assert (is JTypedArgument ret = super.transformInlineDefinitionArgument(that));
+        return ret;
+    }
+    
     shared actual JTypeVariance transformInModifier(InModifier that) {
         JTypeVariance ret = JTypeVariance(tokens.token(that.text, in_op));
         return ret;
@@ -1999,6 +2006,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     shared actual JNotOp transformNotOperation(NotOperation that) {
         JNotOp ret = JNotOp(tokens.token(that.operator, not_op));
         ret.term = transformPrecedence13Expression(that.operand);
+        return ret;
+    }
+    
+    shared actual JObjectArgument transformObjectArgument(ObjectArgument that) {
+        JObjectArgument ret = JObjectArgument(tokens.token("object", object_definition));
+        ret.identifier = transformLIdentifier(that.name);
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        ret.classBody = transformClassBody(that.body);
         return ret;
     }
     

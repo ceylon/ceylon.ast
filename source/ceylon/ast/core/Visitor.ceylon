@@ -138,6 +138,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformInModifier(InModifier that) => visitInModifier(that);
     transformInOperation(InOperation that) => visitInOperation(that);
     transformInitialComprehensionClause(InitialComprehensionClause that) => visitInitialComprehensionClause(that);
+    transformInlineDefinitionArgument(InlineDefinitionArgument that) => visitInlineDefinitionArgument(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
     transformInterfaceDec(InterfaceDec that) => visitInterfaceDec(that);
@@ -186,6 +187,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformNonemptyOperation(NonemptyOperation that) => visitNonemptyOperation(that);
     transformNotEqualOperation(NotEqualOperation that) => visitNotEqualOperation(that);
     transformNotOperation(NotOperation that) => visitNotOperation(that);
+    transformObjectArgument(ObjectArgument that) => visitObjectArgument(that);
     transformObjectDefinition(ObjectDefinition that) => visitObjectDefinition(that);
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOpenBound(OpenBound that) => visitOpenBound(that);
@@ -426,6 +428,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitInitialComprehensionClause(InitialComprehensionClause that) => super.transformInitialComprehensionClause(that);
+    shared default void visitInlineDefinitionArgument(InlineDefinitionArgument that) => super.transformInlineDefinitionArgument(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitInterfaceDec(InterfaceDec that) => super.transformInterfaceDec(that);
@@ -474,6 +477,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitNonemptyOperation(NonemptyOperation that) => super.transformNonemptyOperation(that);
     shared default void visitNotEqualOperation(NotEqualOperation that) => super.transformNotEqualOperation(that);
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
+    shared default void visitObjectArgument(ObjectArgument that) => super.transformObjectArgument(that);
     shared default void visitObjectDefinition(ObjectDefinition that) => super.transformObjectDefinition(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);

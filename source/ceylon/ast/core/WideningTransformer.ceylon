@@ -129,6 +129,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformInModifier(InModifier that) => transformVariance(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);
     shared actual default Result transformInitialComprehensionClause(InitialComprehensionClause that) => transformComprehensionClause(that);
+    shared actual default Result transformInlineDefinitionArgument(InlineDefinitionArgument that) => transformNamedArgument(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
     shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
     shared actual default Result transformInterfaceDec(InterfaceDec that) => transformTypeDec(that);
@@ -176,6 +177,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNonemptyOperation(NonemptyOperation that) => transformUnaryOperation(that);
     shared actual default Result transformNotEqualOperation(NotEqualOperation that) => transformEqualityOperation(that);
     shared actual default Result transformNotOperation(NotOperation that) => transformUnaryOperation(that);
+    shared actual default Result transformObjectArgument(ObjectArgument that) => transformInlineDefinitionArgument(that);
     shared actual default Result transformObjectDefinition(ObjectDefinition that) => transformDeclaration(that);
     shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOpenBound(OpenBound that) => transformBound(that);

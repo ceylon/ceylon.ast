@@ -244,6 +244,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is ForComprehensionClause) { return transformForComprehensionClause(that); }
         case (is IfComprehensionClause) { return transformIfComprehensionClause(that); }
     }
+    shared actual default Result transformInlineDefinitionArgument(InlineDefinitionArgument that) {
+        switch (that)
+        case (is ObjectArgument) { return transformObjectArgument(that); }
+    }
     shared actual default Result transformLiteral(Literal that) {
         switch (that)
         case (is IntegerLiteral) { return transformIntegerLiteral(that); }
@@ -300,6 +304,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is AnonymousArgument) { return transformAnonymousArgument(that); }
         case (is SpecifiedArgument) { return transformSpecifiedArgument(that); }
+        case (is InlineDefinitionArgument) { return transformInlineDefinitionArgument(that); }
     }
     shared actual default Result transformNode(Node that) {
         switch (that)

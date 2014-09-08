@@ -6,6 +6,6 @@
      size = width * height;
      Color color(Integer x, Integer y) => red;"
 shared abstract class NamedArgument()
-        of AnonymousArgument | SpecifiedArgument
+        of AnonymousArgument | SpecifiedArgument | InlineDefinitionArgument
         extends ExpressionIsh() {
 }

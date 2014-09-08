@@ -400,6 +400,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is InitialComprehensionClause ret = super.transformInitialComprehensionClause(that));
         return ret;
     }
+    shared actual default InlineDefinitionArgument transformInlineDefinitionArgument(InlineDefinitionArgument that) {
+        assert (is InlineDefinitionArgument ret = super.transformInlineDefinitionArgument(that));
+        return ret;
+    }
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
@@ -536,6 +540,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence11Expression(that.leftOperand), transformPrecedence11Expression(that.rightOperand));
     shared actual default NotOperation transformNotOperation(NotOperation that)
             => that.copy(transformPrecedence13Expression(that.operand));
+    shared actual default ObjectArgument transformObjectArgument(ObjectArgument that)
+            => that.copy(transformLIdentifier(that.name), transformClassBody(that.body), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes));
     shared actual default ObjectDefinition transformObjectDefinition(ObjectDefinition that)
             => that.copy(transformLIdentifier(that.name), transformClassBody(that.body), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), transformAnnotations(that.annotations));
     shared actual default OfOperation transformOfOperation(OfOperation that)

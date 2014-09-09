@@ -277,6 +277,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformUnionType(UnionType that) => transformMainType(that);
     shared actual default Result transformUnionableType(UnionableType that) => transformMainType(that);
     shared actual default Result transformUnspecifiedVariable(UnspecifiedVariable that) => transformVariable(that);
+    shared actual default Result transformValueArgument(ValueArgument that) => transformInlineDefinitionArgument(that);
     shared actual default Result transformValueDec(ValueDec that) => transformMemberDec(that);
     shared actual default Result transformValueDeclaration(ValueDeclaration that) => transformAnyValue(that);
     shared actual default Result transformValueDefinition(ValueDefinition that) => transformAnyValue(that);

@@ -23,6 +23,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAssignmentOp=AssignmentOp,
         JAssignOp=AssignOp,
         JAtom=Atom,
+        JAttributeArgument=AttributeArgument,
         JAttributeDeclaration=AttributeDeclaration,
         JAttributeGetterDefinition=AttributeGetterDefinition,
         JAttributeSetterDefinition=AttributeSetterDefinition,
@@ -2911,6 +2912,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             switch (elementType)
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }
+        }
+        return ret;
+    }
+    
+    shared actual JAttributeArgument transformValueArgument(ValueArgument that) {
+        JAttributeArgument ret = JAttributeArgument(null);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is ValueModifier) { ret.type = transformValueModifier(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        value definition = that.definition;
+        switch (definition)
+        case (is Block) { ret.block = transformBlock(definition); }
+        case (is AnySpecifier) {
+            ret.specifierExpression = transformAnySpecifier(definition);
+            ret.endToken = tokens.token(";", semicolon);
         }
         return ret;
     }

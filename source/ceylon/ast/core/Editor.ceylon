@@ -887,6 +887,14 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default UnspecifiedVariable transformUnspecifiedVariable(UnspecifiedVariable that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformTypeOrValueModifier));
+    shared actual default ValueArgument transformValueArgument(ValueArgument that) {
+        AnySpecifier|Block transformAnySpecifierOrBlock(AnySpecifier|Block that) {
+            switch (that)
+            case (is AnySpecifier) { return transformAnySpecifier(that); }
+            case (is Block) { return transformBlock(that); }
+        }
+        return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifierOrBlock(that.definition));
+    }
     shared actual default ValueDec transformValueDec(ValueDec that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {

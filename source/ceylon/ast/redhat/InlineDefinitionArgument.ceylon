@@ -3,6 +3,7 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JAttributeArgument=AttributeArgument,
         JTypedArgument=TypedArgument,
         JObjectArgument=ObjectArgument
     }
@@ -10,8 +11,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[TypedArgument|JTypedArgument]] to a `ceylon.ast` [[InlineDefinitionArgument]]."
 shared InlineDefinitionArgument inlineDefinitionArgumentToCeylon(JTypedArgument inlineDefinitionArgument) {
-    assert (is JObjectArgument inlineDefinitionArgument);
+    assert (is JAttributeArgument|JObjectArgument inlineDefinitionArgument);
     switch (inlineDefinitionArgument)
+    case (is JAttributeArgument) { return valueArgumentToCeylon(inlineDefinitionArgument); }
     case (is JObjectArgument) { return objectArgumentToCeylon(inlineDefinitionArgument); }
 }
 

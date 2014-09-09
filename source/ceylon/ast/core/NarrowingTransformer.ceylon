@@ -246,6 +246,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformInlineDefinitionArgument(InlineDefinitionArgument that) {
         switch (that)
+        case (is ValueArgument) { return transformValueArgument(that); }
         case (is ObjectArgument) { return transformObjectArgument(that); }
     }
     shared actual default Result transformLiteral(Literal that) {

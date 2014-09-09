@@ -17,5 +17,5 @@ shared object inlineDefinitionArgument satisfies AbstractTest<InlineDefinitionAr
     fromCeylon = RedHatTransformer.transformInlineDefinitionArgument;
     toCeylon = inlineDefinitionArgumentToCeylon;
     
-    tests = [objectArgument];
+    tests = [valueArgument, objectArgument];
 }

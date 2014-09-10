@@ -111,6 +111,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformForFail(ForFail that);
     shared formal Result transformForIterator(ForIterator that);
     shared formal Result transformFullPackageName(FullPackageName that);
+    shared formal Result transformFunctionArgument(FunctionArgument that);
     shared formal Result transformFunctionDec(FunctionDec that);
     shared formal Result transformFunctionDeclaration(FunctionDeclaration that);
     shared formal Result transformFunctionDefinition(FunctionDefinition that);

@@ -299,6 +299,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``failClause = ``transformWithIndent(that.failClause)``;
                 ``indent``}";
     transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
+    transformFunctionArgument(FunctionArgument that)
+            => "FunctionArgument {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
+                `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
+                ``indent``}";
     transformFunctionDec(FunctionDec that)
             => "FunctionDec {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

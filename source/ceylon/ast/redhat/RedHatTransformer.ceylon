@@ -150,6 +150,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMemberOp=MemberOp,
         JMemberOperator=MemberOperator,
         JMetaLiteral=MetaLiteral,
+        JMethodArgument=MethodArgument,
         JMethodDeclaration=MethodDeclaration,
         JMethodDefinition=MethodDefinition,
         JModuleDescriptor=ModuleDescriptor,
@@ -1284,6 +1285,28 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         for (component in that.components.rest) {
             ret.endToken = tokens.token(".", member_op);
             ret.addIdentifier(transformPIdentifier(component));
+        }
+        return ret;
+    }
+    
+    shared actual JMethodArgument transformFunctionArgument(FunctionArgument that) {
+        JMethodArgument ret = JMethodArgument(null);
+        value type = that.type;
+        switch (type)
+        case (is Type) { ret.type = transformType(type); }
+        case (is FunctionModifier) { ret.type = transformFunctionModifier(type); }
+        case (is VoidModifier) { ret.type = transformVoidModifier(type); }
+        case (is DynamicModifier) { ret.type = transformDynamicModifier(type); }
+        ret.identifier = transformLIdentifier(that.name);
+        for (parameters in that.parameterLists) {
+            ret.addParameterList(transformParameters(parameters));
+        }
+        value definition = that.definition;
+        switch (definition)
+        case (is Block) { ret.block = transformBlock(definition); }
+        case (is LazySpecifier) {
+            ret.specifierExpression = transformLazySpecifier(definition);
+            ret.endToken = tokens.token(";", semicolon);
         }
         return ret;
     }

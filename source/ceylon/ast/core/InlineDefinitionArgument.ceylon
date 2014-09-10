@@ -19,7 +19,7 @@
  in ceylon.ast, ObjectDefinition doesn’t extend TypedDeclaration.)
  */
 shared abstract class InlineDefinitionArgument()
-        of ValueArgument | ObjectArgument
+        of ValueArgument | FunctionArgument | ObjectArgument
         extends NamedArgument() {
     "The name of the getter, function, or object,
      as well as of the parameter it’s assigned to."

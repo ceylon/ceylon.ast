@@ -319,6 +319,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
+    shared actual default FunctionArgument transformFunctionArgument(FunctionArgument that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifierOrBlock(that.definition));
     shared actual default FunctionDec transformFunctionDec(FunctionDec that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
@@ -334,11 +336,6 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         return that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformBlock(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     }
     shared actual default FunctionExpression transformFunctionExpression(FunctionExpression that) {
-        LazySpecifier|Block transformLazySpecifierOrBlock(LazySpecifier|Block that) {
-            switch (that)
-            case (is LazySpecifier) { return transformLazySpecifier(that); }
-            case (is Block) { return transformBlock(that); }
-        }
         FunctionModifier|VoidModifier transformFunctionModifierOrVoidModifier(FunctionModifier|VoidModifier that) {
             switch (that)
             case (is FunctionModifier) { return transformFunctionModifier(that); }
@@ -955,6 +952,11 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformConditions(that.conditions), transformBlock(that.block));
     shared actual default WithinOperation transformWithinOperation(WithinOperation that)
             => that.copy(transformPrecedence10Expression(that.operand), transformBound(that.lowerBound), transformBound(that.upperBound));
+    LazySpecifier|Block transformLazySpecifierOrBlock(LazySpecifier|Block that) {
+        switch (that)
+        case (is LazySpecifier) { return transformLazySpecifier(that); }
+        case (is Block) { return transformBlock(that); }
+    }
     SpecifiedVariable|LIdentifier transformSpecifiedVariableOrLIdentifier(SpecifiedVariable|LIdentifier that) {
         switch (that)
         case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }

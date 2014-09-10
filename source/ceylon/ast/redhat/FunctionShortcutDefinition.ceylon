@@ -1,12 +1,6 @@
 import ceylon.ast.core {
     Annotations,
-    DynamicModifier,
-    FunctionModifier,
-    FunctionShortcutDefinition,
-    Type,
-    TypeConstraint,
-    TypeParameters,
-    VoidModifier
+    FunctionShortcutDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,44 +17,47 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDeclaration|JMethodDeclaration]] to a `ceylon.ast` [[FunctionShortcutDefinition]]."
-shared FunctionShortcutDefinition functionShortcutDefinitionToCeylon(JMethodDeclaration functionShortcutDefinition) {
-    assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionShortcutDefinition.type);
-    Type|VoidModifier|FunctionModifier|DynamicModifier type;
-    switch (jType)
-    case (is JStaticType) { type = typeToCeylon(jType); }
-    case (is JVoidModifier) { type = voidModifierToCeylon(jType); }
-    case (is JFunctionModifier) { type = functionModifierToCeylon(jType); }
-    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
-    TypeParameters? typeParameters;
-    if (exists jTypeParameterList = functionShortcutDefinition.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameterList);
-    } else {
-        typeParameters = null;
+shared FunctionShortcutDefinition functionShortcutDefinitionToCeylon(JMethodDeclaration functionShortcutDefinition)
+        => FunctionShortcutDefinition {
+    name = lIdentifierToCeylon(functionShortcutDefinition.identifier);
+    value type {
+        assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionShortcutDefinition.type);
+        switch (jType)
+        case (is JStaticType) { return typeToCeylon(jType); }
+        case (is JVoidModifier) { return voidModifierToCeylon(jType); }
+        case (is JFunctionModifier) { return functionModifierToCeylon(jType); }
+        case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
     }
-    assert (nonempty parameterLists = CeylonIterable(functionShortcutDefinition.parameterLists).collect(parametersToCeylon));
-    Annotations annotations;
-    if (exists jAnnotationList = functionShortcutDefinition.annotationList) {
-        annotations = annotationsToCeylon(jAnnotationList);
-    } else {
-        annotations = Annotations();
+    value parameterLists {
+        assert (nonempty parameterLists = CeylonIterable(functionShortcutDefinition.parameterLists).collect(parametersToCeylon));
+        return parameterLists;
     }
-    TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraintList = functionShortcutDefinition.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
-    } else {
-        typeConstraints = [];
+    value definition {
+        assert (is JLazySpecifierExpression jSpecifierExpression = functionShortcutDefinition.specifierExpression);
+        return lazySpecifierToCeylon(jSpecifierExpression);
     }
-    assert (is JLazySpecifierExpression jSpecifierExpression = functionShortcutDefinition.specifierExpression);
-    return FunctionShortcutDefinition {
-        name = lIdentifierToCeylon(functionShortcutDefinition.identifier);
-        type = type;
-        parameterLists = parameterLists;
-        definition = lazySpecifierToCeylon(jSpecifierExpression);
-        typeParameters = typeParameters;
-        typeConstraints = typeConstraints;
-        annotations = annotations;
-    };
-}
+    value typeParameters {
+        if (exists jTypeParameterList = functionShortcutDefinition.typeParameterList) {
+            return typeParametersToCeylon(jTypeParameterList);
+        } else {
+            return null;
+        }
+    }
+    value typeConstraints {
+        if (exists jTypeConstraintList = functionShortcutDefinition.typeConstraintList) {
+            return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+        } else {
+            return [];
+        }
+    }
+    value annotations {
+        if (exists jAnnotationList = functionShortcutDefinition.annotationList) {
+            return annotationsToCeylon(jAnnotationList);
+        } else {
+            return Annotations();
+        }
+    }
+};
 
 "Compiles the given [[code]] for a Function Shortcut Definition
  into a [[FunctionShortcutDefinition]] using the Ceylon compiler

@@ -9,3 +9,7 @@
 # backup files
 *~
 .ceylon/config.old
+
+# coverage
+coverage/
+lib/

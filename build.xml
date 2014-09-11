@@ -259,4 +259,131 @@
         </ceylon-doc>
         
     </target>
+
+    <property name="jacoco.dir" location="lib"/>
+    <property name="jacoco.tmp.file" location="${jacoco.dir}/jacoco.zip"/>
+    <property name="jacoco.agent.jar" location="${jacoco.dir}/jacocoagent.jar"/>
+    <property name="jacoco.ant.jar" location="${jacoco.dir}/jacocoant.jar"/>
+    <property name="jacoco.exec.file" location="jacoco.exec"/>
+    <property name="jacoco.classes.dir" location="classes"/>
+    <property name="jacoco.report.dir" location="coverage"/>
+
+    <target name="coverage-install"
+            description="Dowloads the latest JaCoCo build and extracts the libraries into the ${jacoco.dir} directory">
+        <mkdir dir="${jacoco.dir}"/>
+        <get src="https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots&amp;g=org.jacoco&amp;a=jacoco&amp;e=zip&amp;v=LATEST"
+             dest="${jacoco.tmp.file}"/>
+        <unzip src="${jacoco.tmp.file}"
+               dest="${jacoco.dir}">
+            <patternset>
+                <include name="lib/*.jar"/>
+            </patternset>
+            <mapper type="flatten"/>
+        </unzip>
+        <delete file="${jacoco.tmp.file}"/>
+    </target>
+
+    <target name="coverage-uninstall"
+            description="Removes the JaCoCo libraries from the ${jacoco.dir} directory">
+        <!-- remove the JaCoCo files -->
+        <delete>
+            <fileset dir="${jacoco.dir}" includes="*jacoco*.jar"/>
+        </delete>
+        <!-- and if there was nothing else in the directory, remove it as well -->
+        <delete includeemptydirs="true">
+            <fileset dir="${jacoco.dir}">
+                <size value="0"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="coverage-test" depends="compile"
+            description="Runs the tests with JaCoCo attached">
+        <fail message="JaCoCo agent not found; try running ‘ant coverage-install’.">
+            <condition>
+                <not>
+                    <available file="${jacoco.agent.jar}"/>
+                </not>
+            </condition>
+        </fail>
+        <!--
+            We have to run Java with a special JVM option to add the JaCoCo Java Agent.
+            The ceylon-test ant task doesn’t support that, but luckily the 'ceylon test' tool does:
+            Set the JAVA_OPTS environment variable.
+        -->
+        <exec executable="ceylon">
+            <arg value="test"/>
+            <arg value="test.ceylon.ast.core"/>
+            <arg value="test.ceylon.ast.redhat"/>
+            <arg value="test.ceylon.ast.redhat"/>
+            <env key="JAVA_OPTS" value="-javaagent:${jacoco.agent.jar}=destfile=${jacoco.exec.file},append=false"/>
+        </exec>
+    </target>
+
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml"
+             onerror="ignore"> <!-- we’ll check in coverage-report if the jar is present or not -->
+        <classpath path="${jacoco.ant.jar}"/>
+    </taskdef>
+        
+    <target name="coverage-report"
+            description="Generates the JaCoCo coverage report">
+        <fail message="JaCoCo libraries not found; try running ‘ant coverage-install’.">
+            <condition>
+                <not>
+                    <available file="${jacoco.ant.jar}"/>
+                </not>
+            </condition>
+        </fail>
+        
+        <!-- the report generator needs the class files extracted -->
+        <unzip dest="${jacoco.classes.dir}">
+            <fileset dir="modules">
+                <include name="**/*.car"/>
+            </fileset>
+            <patternset>
+                <include name="**/*.class"/>
+            </patternset>
+        </unzip>
+        
+        <jacoco:report xmlns:jacoco="antlib:org.jacoco.ant">
+            <executiondata>
+                <file file="${jacoco.exec.file}"/>
+            </executiondata>
+            
+            <structure name="ceylon.ast">
+                <classfiles>
+                    <fileset dir="${jacoco.classes.dir}"/>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="source">
+                        <include name="**/*.ceylon"/>
+                    </fileset>
+                </sourcefiles>
+            </structure>
+            
+            <html destdir="${jacoco.report.dir}"/>
+            <csv destfile="${jacoco.report.dir}/report.csv"/>
+            <xml destfile="${jacoco.report.dir}/report.xml"/>
+        </jacoco:report>
+    </target>
+
+    <target name="coverage-show"
+            description="Opens the JaCoCo coverage report in Firefox">
+        <exec executable="firefox">
+            <arg file="${jacoco.report.dir}/index.html"/>
+        </exec>
+    </target>
+
+    <target name="coverage-clean-intermediate"
+            description="Deletes the raw coverage data">
+        <delete file="${jacoco.exec.file}"/>
+    </target>
+    <target name="coverage-clean" depends="coverage-clean-intermediate"
+            description="Deletes all coverage data">
+        <delete dir="${jacoco.report.dir}"/>
+    </target>
+
+    <target name="coverage" depends="coverage-test,coverage-report,coverage-clean-intermediate,coverage-show"
+            description="Runs the tests with JaCoCo attached and shows a report"/>
+
 </project>

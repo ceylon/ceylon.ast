@@ -29,7 +29,7 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
         assertEquals {
             actual = toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node));
             expected = node;
-            message = "Double parse of ``node``";
+            message = "Double conversion";
         };
     }
 }
@@ -41,7 +41,7 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
         assertEquals {
             actual = compiled;
             expected = node;
-            message = "Compile '``code``' to '``node``'";
+            message = "Compile ‘``code``’";
         };
     }
 }

@@ -2931,7 +2931,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         case (is PrimaryType) { ret.addStaticType(transformPrimaryType(firstType)); }
         case (is IntersectionType) { ret.addStaticType(transformIntersectionType(firstType)); }
         for (elementType in that.children.rest) {
-            tokens.token("&", union_op);
+            tokens.token("|", union_op);
             switch (elementType)
             case (is PrimaryType) { ret.addStaticType(transformPrimaryType(elementType)); }
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }

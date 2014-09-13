@@ -17,5 +17,5 @@ shared object specification satisfies AbstractTest<Specification,JSpecifierState
     fromCeylon = RedHatTransformer.transformSpecification;
     toCeylon = specificationToCeylon;
     
-    tests = [valueSpecification];
+    tests = [valueSpecification, lazySpecification];
 }

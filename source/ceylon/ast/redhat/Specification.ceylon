@@ -11,9 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SpecifierStatement|JSpecifierStatement]] to a `ceylon.ast` [[Specification]]."
 shared Specification specificationToCeylon(JSpecifierStatement specification) {
     if (specification.specifierExpression is JLazySpecifierExpression) {
-        throw AssertionError("Lazy specifier statements not yet implemented");
+        return lazySpecificationToCeylon(specification);
     } else {
-        // simple value specification
         return valueSpecificationToCeylon(specification);
     }
 }

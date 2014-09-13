@@ -444,6 +444,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrecedence10Expression(that.leftOperand), transformPrecedence10Expression(that.rightOperand));
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
+    shared actual default LazySpecification transformLazySpecification(LazySpecification that)
+            => that.copy(transformLIdentifier(that.name), transformLazySpecifier(that.specifier), that.parameterLists.collect(transformParameters));
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default Literal transformLiteral(Literal that) {

@@ -159,6 +159,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
+    shared formal Result transformLazySpecification(LazySpecification that);
     shared formal Result transformLazySpecifier(LazySpecifier that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that);

@@ -1,8 +1,13 @@
 import ceylon.ast.core {
-    NamedArgument
+    FunctionArgument,
+    LazySpecification,
+    LazySpecifier,
+    NamedArgument,
+    SpecifiedArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JFunctionModifier=FunctionModifier,
         JNamedArgument=NamedArgument,
         JSpecifiedArgument=SpecifiedArgument,
         JTypedArgument=TypedArgument
@@ -22,7 +27,15 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument) {
             return specifiedArgumentToCeylon(namedArgument);
         }
     }
-    case (is JTypedArgument) { return inlineDefinitionArgumentToCeylon(namedArgument); }
+    case (is JTypedArgument) {
+        if (exists type = namedArgument.type, type is JFunctionModifier, !namedArgument.type.mainToken exists) {
+            // specified argument with parameters is parsed as function argument with synthetic ‘function’ modifier
+            return specifiedArgumentToCeylon(namedArgument);
+        } else {
+            // inline definition argument
+            return inlineDefinitionArgumentToCeylon(namedArgument);
+        }
+    }
 }
 
 "Compiles the given [[code]] for a Named Argument

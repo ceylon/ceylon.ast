@@ -536,6 +536,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformSpecification(Specification that) {
         switch (that)
         case (is ValueSpecification) { return transformValueSpecification(that); }
+        case (is LazySpecification) { return transformLazySpecification(that); }
     }
     shared actual default Result transformStatement(Statement that) {
         switch (that)

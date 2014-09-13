@@ -159,6 +159,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
+    transformLazySpecification(LazySpecification that) => visitLazySpecification(that);
     transformLazySpecifier(LazySpecifier that) => visitLazySpecifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => visitLogicalAssignmentOperation(that);
@@ -450,6 +451,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitKeyValueIterator(KeyValueIterator that) => super.transformKeyValueIterator(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
+    shared default void visitLazySpecification(LazySpecification that) => super.transformLazySpecification(that);
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);

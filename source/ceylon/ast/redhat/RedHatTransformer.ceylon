@@ -177,6 +177,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackageLiteral=PackageLiteral,
         JParameter=Parameter,
         JParameterList=ParameterList,
+        JParameterizedExpression=ParameterizedExpression,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -1818,6 +1819,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JSpecifierStatement transformLazySpecification(LazySpecification that) {
+        JSpecifierStatement ret = JSpecifierStatement(null);
+        value nameBME = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        if (nonempty parameterLists = that.parameterLists) {
+            JParameterizedExpression pe = JParameterizedExpression(null);
+            pe.primary = nameBME;
+            for (parameters in parameterLists) {
+                pe.addParameterList(transformParameters(parameters));
+            }
+            ret.baseMemberExpression = pe;
+        } else {
+            ret.baseMemberExpression = nameBME;
+        }
+        ret.specifierExpression = transformLazySpecifier(that.specifier);
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
     shared actual JLazySpecifierExpression transformLazySpecifier(LazySpecifier that) {
         JLazySpecifierExpression ret = JLazySpecifierExpression(tokens.token("=>", compute));
         ret.expression = wrapTerm(transformExpression(that.expression));
@@ -2556,15 +2575,35 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JSpecifiedArgument transformSpecifiedArgument(SpecifiedArgument that) {
-        JSpecifiedArgument ret = JSpecifiedArgument(null);
-        assert (is ValueSpecification specification = that.specification);
-        switch (specification)
-        case (is ValueSpecification) {
-            ret.identifier = transformIdentifier(specification.name);
-            ret.specifierExpression = transformSpecifier(specification.specifier);
+    "Returns a [[NamedArgument|JNamedArgument]], not a [[SpecifiedArgument|JSpecifiedArgument]],
+     because a function specification argument like
+     
+         comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
+     
+     is parsed as a function argument with a “synthetic” ‘`function`’
+     modifier (null token). We duplicate that here."
+    shared actual JNamedArgument transformSpecifiedArgument(SpecifiedArgument that) {
+        if (is LazySpecification specification = that.specification,
+            specification.parameterLists nonempty) {
+            JMethodArgument ret = JMethodArgument(null);
+            ret.type = JFunctionModifier(null);
+            ret.identifier = transformLIdentifier(specification.name);
+            for (parameters in specification.parameterLists) {
+                ret.addParameterList(transformParameters(parameters));
+            }
+            ret.specifierExpression = transformLazySpecifier(specification.specifier);
+            ret.endToken = tokens.token(";", semicolon);
+            return ret;
+        } else {
+            JSpecifiedArgument ret = JSpecifiedArgument(null);
+            assert (is ValueSpecification specification = that.specification);
+            switch (specification)
+            case (is ValueSpecification) {
+                ret.identifier = transformIdentifier(specification.name);
+                ret.specifierExpression = transformSpecifier(specification.specifier);
+            }
+            return ret;
         }
-        return ret;
     }
     
     "The usage of [[SpecifiedVariable]] in `ceylon.ast` differs significantly

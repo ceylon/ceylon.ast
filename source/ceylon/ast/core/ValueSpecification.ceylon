@@ -7,10 +7,8 @@
 shared class ValueSpecification(name, specifier)
         extends Specification() {
     
-    "The name of the member being specified."
-    shared MemberName name;
-    "The specifier."
-    shared Specifier specifier;
+    shared actual MemberName name;
+    shared actual Specifier specifier;
     
     shared actual [LIdentifier, Specifier] children = [name, specifier];
     

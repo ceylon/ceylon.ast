@@ -53,7 +53,7 @@ shared class BaseExpression(nameAndArgs)
        baseExpression("null") // null
        baseExpression("String") // String; not to be confused with baseType("String")!
        baseExpression("emptyOrSingleton", "Integer") // emptyOrSingleton<Integer>"""
-shared BaseExpression baseExpression(String name, String|Type* typeArguments) {
+shared BaseExpression baseExpression(String|Identifier name, String|Type* typeArguments) {
     Type toType(String|Type typeArgument) {
         switch (typeArgument)
         case (is String) { return baseType(typeArgument); }
@@ -66,11 +66,21 @@ shared BaseExpression baseExpression(String name, String|Type* typeArguments) {
     } else {
         args = null;
     }
-    NameWithTypeArguments na;
-    if (name.first?.uppercase else false) {
-        na = TypeNameWithTypeArguments(uidentifier(name), args);
-    } else {
-        na = MemberNameWithTypeArguments(lidentifier(name), args);
+    Identifier identifier;
+    switch (name)
+    case (is String) {
+        if (name.first?.uppercase else false) {
+            identifier = uidentifier(name);
+        } else {
+            identifier = lidentifier(name);
+        }
     }
+    case (is Identifier) {
+        identifier = name;
+    }
+    NameWithTypeArguments na;
+    switch (identifier)
+    case (is LIdentifier) { na = MemberNameWithTypeArguments(identifier, args); }
+    case (is UIdentifier) { na = TypeNameWithTypeArguments(identifier, args); }
     return BaseExpression(na);
 }

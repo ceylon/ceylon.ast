@@ -1110,8 +1110,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     }
     
     shared actual JDynamic transformDynamicValue(DynamicValue that) {
-        JDynamic ret = JDynamic(tokens.token("value", value_modifier));
-        ret.namedArgumentList = transformNamedArguments(that.content);
+        JDynamic ret = JDynamic(tokens.token("dynamic", dynamicType));
+        JNamedArgumentList namedArgList = JNamedArgumentList(tokens.token("[", lbracket));
+        for (namedArgument in that.namedArguments) {
+            namedArgList.addNamedArgument(transformNamedArgument(namedArgument));
+        }
+        if (that.iterableArgument.children nonempty) {
+            namedArgList.sequencedArgument = transformArgumentList(that.iterableArgument);
+        }
+        namedArgList.endToken = tokens.token("]", rbracket);
+        ret.namedArgumentList = namedArgList;
         return ret;
     }
     

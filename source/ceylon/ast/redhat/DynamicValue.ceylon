@@ -9,7 +9,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[Dynamic|JDynamic]] to a `ceylon.ast` [[DynamicValue]]."
 shared DynamicValue dynamicValueToCeylon(JDynamic dynamicValue) {
-    return DynamicValue(namedArgumentsToCeylon(dynamicValue.namedArgumentList));
+    value namedArgumentList = namedArgumentsToCeylon(dynamicValue.namedArgumentList);
+    return DynamicValue(namedArgumentList.namedArguments, namedArgumentList.iterableArgument);
 }
 
 "Compiles the given [[code]] for a Dynamic Value

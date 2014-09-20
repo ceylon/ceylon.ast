@@ -250,7 +250,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     shared actual default DynamicModifier transformDynamicModifier(DynamicModifier that)
             => that.copy();
     shared actual default DynamicValue transformDynamicValue(DynamicValue that)
-            => that.copy(transformNamedArguments(that.content));
+            => that.copy(that.namedArguments.collect(transformNamedArgument), transformArgumentList(that.iterableArgument), transformDynamicModifier(that.modifier));
     shared actual default ElementOrSubrangeExpression transformElementOrSubrangeExpression(ElementOrSubrangeExpression that)
             => that.copy(transformPrimary(that.primary), transformSubscript(that.subscript));
     shared actual default ElseCaseClause transformElseCaseClause(ElseCaseClause that)

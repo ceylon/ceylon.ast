@@ -1,6 +1,7 @@
 import ceylon.ast.core {
+    ArgumentList,
     DynamicValue,
-    NamedArguments
+    NamedArgument
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,10 +16,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object dynamicValue satisfies ConcreteTest<DynamicValue,JDynamic> {
     
-    String->DynamicValue construct(String->NamedArguments content)
-            => "value``content.key``"->DynamicValue(content.item);
+    String->DynamicValue construct(<String->NamedArgument>[] namedArguments, String->ArgumentList iterableArgument)
+            => "dynamic [``";\n".join(namedArguments*.key)``\n``iterableArgument.key``]"->DynamicValue(namedArguments*.item, iterableArgument.item);
     
-    shared String->DynamicValue abcabcDynamicValue = construct(namedArguments.abcabcNamedArguments);
+    shared String->DynamicValue abcabcDynamicValue = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);
     
     compile = compileDynamicValue;
     fromCeylon = RedHatTransformer.transformDynamicValue;

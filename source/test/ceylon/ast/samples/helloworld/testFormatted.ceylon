@@ -20,9 +20,6 @@ import ceylon.test {
     assertEquals,
     testSuite
 }
-import ceylon.collection {
-    StringBuilder
-}
 import ceylon.file {
     Writer
 }

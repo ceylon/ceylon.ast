@@ -54,8 +54,7 @@ shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionE
  (more specifically, the rule for an `anonymousFunction`)."
 shared FunctionExpression? compileFunctionExpression(String code) {
     if (exists jAnonymousFunction = createParser(code).anonymousFunction()) {
-        assert (is JFunctionArgument jTerm = jAnonymousFunction.term);
-        return functionExpressionToCeylon(jTerm);
+        return functionExpressionToCeylon(jAnonymousFunction);
     } else {
         return null;
     }

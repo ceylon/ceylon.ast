@@ -18,5 +18,5 @@ shared object operatorStyleExpression satisfies AbstractTest<OperatorStyleExpres
     fromCeylon = RedHatTransformer.transformOperatorStyleExpression;
     toCeylon = operatorStyleExpressionToCeylon;
     
-    tests = [operatorStyleMemberExpression];
+    tests = [operatorStyleInvocation, operatorStyleMemberExpression];
 }

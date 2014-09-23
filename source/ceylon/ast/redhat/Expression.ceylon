@@ -5,8 +5,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
         JFunctionArgument=FunctionArgument,
+        JInvocationExpression=InvocationExpression,
         JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
+        JQualifiedMemberExpression=QualifiedMemberExpression,
         JTerm=Term
     }
 }
@@ -18,6 +20,16 @@ shared Expression expressionToCeylon(JTerm term) {
         if (is JExpression term, !term.mainToken exists) {
             // a JTerm wrapped in a JExpression
             return expressionToCeylon(term.term);
+        }
+        if (is JInvocationExpression term,
+            !term.namedArgumentList?.mainToken exists && !term.positionalArgumentList exists) {
+            // operator-style invocation expression
+            throw AssertionError("Operator-style invocation expressions not yet supported"); // TODO support operator-style invocation expressions
+        }
+        if (is JQualifiedMemberExpression term,
+            !term.memberOperator.mainToken exists) {
+            // operator-style member expression
+            return operatorStyleMemberExpressionToCeylon(term);
         }
         return valueExpressionToCeylon(term);
     }

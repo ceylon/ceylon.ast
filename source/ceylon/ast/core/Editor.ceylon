@@ -551,6 +551,12 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Operation ret = super.transformOperation(that));
         return ret;
     }
+    shared actual default OperatorStyleExpression transformOperatorStyleExpression(OperatorStyleExpression that) {
+        assert (is OperatorStyleExpression ret = super.transformOperatorStyleExpression(that));
+        return ret;
+    }
+    shared actual default OperatorStyleMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that)
+            => that.copy(transformPrecedence16Expression(that.receiverExpression), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
@@ -585,6 +591,10 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformPrimary(that.operand));
     shared actual default PostfixOperation transformPostfixOperation(PostfixOperation that) {
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
+        return ret;
+    }
+    shared actual default Precedence17Expression transformPrecedence17Expression(Precedence17Expression that) {
+        assert (is Precedence17Expression ret = super.transformPrecedence17Expression(that));
         return ret;
     }
     shared actual default Precedence1Expression transformPrecedence1Expression(Precedence1Expression that) {

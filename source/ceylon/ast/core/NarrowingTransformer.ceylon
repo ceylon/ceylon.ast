@@ -192,6 +192,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
         case (is FunctionExpression) { return transformFunctionExpression(that); }
+        case (is OperatorStyleExpression) { return transformOperatorStyleExpression(that); }
     }
     shared actual default Result transformExpressionIsh(ExpressionIsh that) {
         switch (that)
@@ -361,6 +362,10 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is BinaryOperation) { return transformBinaryOperation(that); }
         case (is WithinOperation) { return transformWithinOperation(that); }
     }
+    shared actual default Result transformOperatorStyleExpression(OperatorStyleExpression that) {
+        switch (that)
+        case (is OperatorStyleMemberExpression) { return transformOperatorStyleMemberExpression(that); }
+    }
     shared actual default Result transformParameter(Parameter that) {
         switch (that)
         case (is RequiredParameter) { return transformRequiredParameter(that); }
@@ -371,11 +376,6 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         switch (that)
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
-    }
-    shared default Result transformPrecedence18Expression(Precedence18Expression that) {
-        switch (that)
-        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
-        case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
     shared default Result transformPrecedence1Expression(Precedence1Expression that) {
         switch (that)
@@ -470,6 +470,16 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is Precedence15Expression) { return transformPrecedence15Expression(that); }
         case (is ThenOperation) { return transformThenOperation(that); }
         case (is ElseOperation) { return transformElseOperation(that); }
+    }
+    shared default Result transformPrecedence17Expression(Precedence17Expression that) {
+        switch (that)
+        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
+        case (is OperatorStyleExpression) { return transformOperatorStyleExpression(that); }
+    }
+    shared default Result transformPrecedence18Expression(Precedence18Expression that) {
+        switch (that)
+        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
+        case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {
         switch (that)

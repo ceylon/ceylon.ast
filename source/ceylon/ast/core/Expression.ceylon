@@ -9,7 +9,7 @@ shared abstract class ExpressionIsh()
 "Abstract superclass of all expression nodes."
 // TODO document the expression hierarchy as soon as some members of that hierarchy are actually implemented
 shared abstract class Expression()
-        of ValueExpression | FunctionExpression // TODO operator-style expressions
+        of ValueExpression | FunctionExpression | OperatorStyleExpression
         extends ExpressionIsh() {
     shared actual formal ExpressionIsh[] children;
 }

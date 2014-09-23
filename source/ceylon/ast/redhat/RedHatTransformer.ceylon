@@ -2118,6 +2118,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JInvocationExpression|JQualifiedMemberExpression transformOperatorStyleExpression(OperatorStyleExpression that) {
+        assert (is JInvocationExpression|JQualifiedMemberExpression ret = super.transformOperatorStyleExpression(that));
+        return ret;
+    }
+    
+    shared actual JQualifiedMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that) {
+        JQualifiedMemberExpression ret = JQualifiedMemberExpression(null);
+        JExpression e = JExpression(null);
+        e.term = transformPrecedence16Expression(that.receiverExpression);
+        ret.primary = e;
+        ret.memberOperator = JMemberOp(null);
+        ret.identifier = transformLIdentifier(that.nameAndArgs.name);
+        if (exists typeArgs = that.nameAndArgs.typeArguments) {
+            ret.typeArguments = transformTypeArguments(typeArgs);
+        } else {
+            ret.typeArguments = JInferredTypeArguments(null);
+        }
+        return ret;
+    }
+    
     shared actual JOptionalType transformOptionalType(OptionalType that) {
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
@@ -2323,6 +2343,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
     
     shared actual JTerm transformPrecedence16Expression(Precedence16Expression that) {
         assert (is JTerm ret = super.transformPrecedence16Expression(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformPrecedence17Expression(Precedence17Expression that) {
+        assert (is JTerm ret = super.transformPrecedence17Expression(that));
         return ret;
     }
     

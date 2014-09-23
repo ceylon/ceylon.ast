@@ -2123,6 +2123,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JInvocationExpression transformOperatorStyleInvocation(OperatorStyleInvocation that) {
+        JInvocationExpression ret = JInvocationExpression(null);
+        ret.primary = transformOperatorStyleMemberExpression(OperatorStyleMemberExpression(that.receiverExpression, that.nameAndArgs));
+        JPositionalArgumentList al = JPositionalArgumentList(null);
+        JListedArgument la = JListedArgument(null);
+        la.expression = wrapTerm(transformExpression(that.argument));
+        al.addPositionalArgument(la);
+        ret.positionalArgumentList = al;
+        return ret;
+    }
+    
     shared actual JQualifiedMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that) {
         JQualifiedMemberExpression ret = JQualifiedMemberExpression(null);
         JExpression e = JExpression(null);

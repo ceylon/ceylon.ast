@@ -195,6 +195,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformOpenBound(OpenBound that);
     shared formal Result transformOperation(Operation that);
     shared formal Result transformOperatorStyleExpression(OperatorStyleExpression that);
+    shared formal Result transformOperatorStyleInvocation(OperatorStyleInvocation that);
     shared formal Result transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that);
     shared formal Result transformOptionalType(OptionalType that);
     shared formal Result transformOrAssignmentOperation(OrAssignmentOperation that);

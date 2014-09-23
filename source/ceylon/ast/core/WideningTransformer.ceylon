@@ -185,6 +185,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformOpenBound(OpenBound that) => transformBound(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);
     shared actual default Result transformOperatorStyleExpression(OperatorStyleExpression that) => transformExpression(that);
+    shared actual default Result transformOperatorStyleInvocation(OperatorStyleInvocation that) => transformOperatorStyleExpression(that);
     shared actual default Result transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that) => transformOperatorStyleExpression(that);
     shared actual default Result transformOptionalType(OptionalType that) => transformPrimaryType(that);
     shared actual default Result transformOrAssignmentOperation(OrAssignmentOperation that) => transformLogicalAssignmentOperation(that);

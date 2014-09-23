@@ -364,6 +364,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     }
     shared actual default Result transformOperatorStyleExpression(OperatorStyleExpression that) {
         switch (that)
+        case (is OperatorStyleInvocation) { return transformOperatorStyleInvocation(that); }
         case (is OperatorStyleMemberExpression) { return transformOperatorStyleMemberExpression(that); }
     }
     shared actual default Result transformParameter(Parameter that) {

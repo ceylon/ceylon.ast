@@ -555,6 +555,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is OperatorStyleExpression ret = super.transformOperatorStyleExpression(that));
         return ret;
     }
+    shared actual default OperatorStyleInvocation transformOperatorStyleInvocation(OperatorStyleInvocation that)
+            => that.copy(transformPrecedence16Expression(that.receiverExpression), transformMemberNameWithTypeArguments(that.nameAndArgs), transformExpression(that.argument));
     shared actual default OperatorStyleMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that)
             => that.copy(transformPrecedence16Expression(that.receiverExpression), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default OptionalType transformOptionalType(OptionalType that)

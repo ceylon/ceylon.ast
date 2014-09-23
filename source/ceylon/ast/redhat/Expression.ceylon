@@ -22,9 +22,9 @@ shared Expression expressionToCeylon(JTerm term) {
             return expressionToCeylon(term.term);
         }
         if (is JInvocationExpression term,
-            !term.namedArgumentList?.mainToken exists && !term.positionalArgumentList exists) {
+            !term.positionalArgumentList?.mainToken exists && !term.namedArgumentList exists) {
             // operator-style invocation expression
-            throw AssertionError("Operator-style invocation expressions not yet supported"); // TODO support operator-style invocation expressions
+            return operatorStyleInvocationToCeylon(term);
         }
         if (is JQualifiedMemberExpression term,
             !term.memberOperator.mainToken exists) {

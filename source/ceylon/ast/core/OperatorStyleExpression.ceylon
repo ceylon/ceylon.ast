@@ -8,6 +8,6 @@
      bits not
      set subset otherSet"
 shared abstract class OperatorStyleExpression()
-        of OperatorStyleMemberExpression
+        of OperatorStyleInvocation | OperatorStyleMemberExpression
         extends Expression() {
 }

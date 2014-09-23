@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared OperatorStyleExpression operatorStyleExpressionToCeylon(JQualifiedMemberExpression|JInvocationExpression operatorStyleExpression) {
     switch (operatorStyleExpression)
     case (is JInvocationExpression) {
-        throw AssertionError("Operator-style invocation expressions not yet supported"); // TODO support operator-style invocation expressions
+        return operatorStyleInvocationToCeylon(operatorStyleExpression);
     }
     case (is JQualifiedMemberExpression) {
         return operatorStyleMemberExpressionToCeylon(operatorStyleExpression);
@@ -26,7 +26,7 @@ shared OperatorStyleExpression operatorStyleExpressionToCeylon(JQualifiedMemberE
 shared OperatorStyleExpression? compileOperatorStyleExpression(String code) {
     if (exists jOperatorStyleExpression = createParser(code).assignmentExpression()) {
         if (is JInvocationExpression jOperatorStyleExpression,
-            !jOperatorStyleExpression.mainToken exists) {
+            !jOperatorStyleExpression.positionalArgumentList?.mainToken exists && !jOperatorStyleExpression.namedArgumentList exists) {
             return operatorStyleExpressionToCeylon(jOperatorStyleExpression);
         } else if (is JQualifiedMemberExpression jOperatorStyleExpression,
             !jOperatorStyleExpression.memberOperator.mainToken exists) {

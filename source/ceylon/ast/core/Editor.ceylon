@@ -159,7 +159,7 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
             => that.copy(transformUnspecifiedVariable(that.variable), transformBlock(that.block));
     shared actual default CharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => that.copy();
-    shared actual default ClassAlias transformClassAlias(ClassAlias that)
+    shared actual default ClassAliasDefinition transformClassAliasDefinition(ClassAliasDefinition that)
             => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassSpecifier(that.specifier), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassBody transformClassBody(ClassBody that)
             => that.copy(that.content.collect(transformStatementOrDeclaration));

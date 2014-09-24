@@ -52,7 +52,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCatchClause(CatchClause that) => visitCatchClause(that);
     transformCharacterLiteral(CharacterLiteral that) => visitCharacterLiteral(that);
-    transformClassAlias(ClassAlias that) => visitClassAlias(that);
+    transformClassAliasDefinition(ClassAliasDefinition that) => visitClassAliasDefinition(that);
     transformClassBody(ClassBody that) => visitClassBody(that);
     transformClassDec(ClassDec that) => visitClassDec(that);
     transformClassDefinition(ClassDefinition that) => visitClassDefinition(that);
@@ -348,7 +348,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCatchClause(CatchClause that) => super.transformCatchClause(that);
     shared default void visitCharacterLiteral(CharacterLiteral that) => super.transformCharacterLiteral(that);
-    shared default void visitClassAlias(ClassAlias that) => super.transformClassAlias(that);
+    shared default void visitClassAliasDefinition(ClassAliasDefinition that) => super.transformClassAliasDefinition(that);
     shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
     shared default void visitClassDec(ClassDec that) => super.transformClassDec(that);
     shared default void visitClassDefinition(ClassDefinition that) => super.transformClassDefinition(that);

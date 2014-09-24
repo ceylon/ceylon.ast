@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     Annotations,
     CaseTypes,
-    ClassAlias,
+    ClassAliasDefinition,
     ExtendedType,
     SatisfiedTypes,
     TypeConstraint,
@@ -16,63 +16,63 @@ import ceylon.interop.java {
     CeylonIterable
 }
 
-"Converts a RedHat AST [[ClassDeclaration|JClassDeclaration]] to a `ceylon.ast` [[ClassAlias]]."
-shared ClassAlias classAliasToCeylon(JClassDeclaration classAlias) {
+"Converts a RedHat AST [[ClassDeclaration|JClassDeclaration]] to a `ceylon.ast` [[ClassAliasDefinition]]."
+shared ClassAliasDefinition classAliasDefinitionToCeylon(JClassDeclaration classAliasDefinition) {
     Annotations annotations;
-    if (exists jAnnotations = classAlias.annotationList) {
+    if (exists jAnnotations = classAliasDefinition.annotationList) {
         annotations = annotationsToCeylon(jAnnotations);
     } else {
         annotations = Annotations();
     }
     TypeParameters? typeParameters;
-    if (exists jTypeParameters = classAlias.typeParameterList) {
+    if (exists jTypeParameters = classAliasDefinition.typeParameterList) {
         typeParameters = typeParametersToCeylon(jTypeParameters);
     } else {
         typeParameters = null;
     }
     CaseTypes? caseTypes;
-    if (exists jCaseTypes = classAlias.caseTypes) {
+    if (exists jCaseTypes = classAliasDefinition.caseTypes) {
         caseTypes = caseTypesToCeylon(jCaseTypes);
     } else {
         caseTypes = null;
     }
     ExtendedType? extendedType;
-    if (exists jExtendedType = classAlias.extendedType) {
+    if (exists jExtendedType = classAliasDefinition.extendedType) {
         extendedType = extendedTypeToCeylon(jExtendedType);
     } else {
         extendedType = null;
     }
     SatisfiedTypes? satisfiedTypes;
-    if (exists jSatisfiedTypes = classAlias.satisfiedTypes) {
+    if (exists jSatisfiedTypes = classAliasDefinition.satisfiedTypes) {
         satisfiedTypes = satisfiedTypesToCeylon(jSatisfiedTypes);
     } else {
         satisfiedTypes = null;
     }
     TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraints = classAlias.typeConstraintList) {
+    if (exists jTypeConstraints = classAliasDefinition.typeConstraintList) {
         typeConstraints = CeylonIterable(jTypeConstraints.typeConstraints).collect(typeConstraintToCeylon);
     } else {
         typeConstraints = [];
     }
-    return ClassAlias {
+    return ClassAliasDefinition {
         annotations = annotations;
-        name = uIdentifierToCeylon(classAlias.identifier);
+        name = uIdentifierToCeylon(classAliasDefinition.identifier);
         typeParameters = typeParameters;
-        parameters = parametersToCeylon(classAlias.parameterList);
+        parameters = parametersToCeylon(classAliasDefinition.parameterList);
         caseTypes = caseTypes;
         extendedType = extendedType;
         satisfiedTypes = satisfiedTypes;
         typeConstraints = typeConstraints;
-        specifier = classSpecifierToCeylon(classAlias.classSpecifier);
+        specifier = classSpecifierToCeylon(classAliasDefinition.classSpecifier);
     };
 }
 
 "Compiles the given [[code]] for a Class Alias
- into a [[ClassAlias]] using the Ceylon compiler
+ into a [[ClassAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassAlias? compileClassAlias(String code) {
+shared ClassAliasDefinition? compileClassAliasDefinition(String code) {
     if (is JClassDeclaration jDeclaration = createParser(code).declaration()) {
-        return classAliasToCeylon(jDeclaration);
+        return classAliasDefinitionToCeylon(jDeclaration);
     } else {
         return null;
     }

@@ -17,5 +17,5 @@ shared object anyClass satisfies AbstractTest<AnyClass,JAnyClass> {
     fromCeylon = RedHatTransformer.transformAnyClass;
     toCeylon = anyClassToCeylon;
     
-    tests = [classDefinition, classAlias];
+    tests = [classDefinition, classAliasDefinition];
 }

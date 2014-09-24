@@ -1,6 +1,6 @@
-"A class alias declaration.
+"A class alias definition.
  
- A class alias declaration has the following components:
+ A class alias definition has the following components:
  - [[annotations]],
  - the ‘`class`’ keyword,
  - the [[name]],
@@ -21,7 +21,7 @@
  
      shared class VariadicString(Character* characters) => String(characters);
      shared class MemberName(String name) => LIdentifier(name);"
-shared class ClassAlias(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations)
+shared class ClassAliasDefinition(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations)
         extends AnyClass() {
     
     "The name of the class."
@@ -67,10 +67,10 @@ shared class ClassAlias(name, parameters, specifier, caseTypes, extendedType, sa
     );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformClassAlias(this);
+            => transformer.transformClassAliasDefinition(this);
     
     shared actual Boolean equals(Object that) {
-        if (is ClassAlias that) {
+        if (is ClassAliasDefinition that) {
             if (exists caseTypes) {
                 if (exists caseTypes_ = that.caseTypes) {
                     if (exists extendedType) {
@@ -260,8 +260,8 @@ shared class ClassAlias(name, parameters, specifier, caseTypes, extendedType, sa
     shared actual Integer hash
             => 31 * (name.hash + 31 * (parameters.hash + 31 * (specifier.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))))));
     
-    shared ClassAlias copy(UIdentifier name = this.name, Parameters parameters = this.parameters, ClassSpecifier specifier = this.specifier, CaseTypes? caseTypes = this.caseTypes, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
-        value ret = ClassAlias(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations);
+    shared ClassAliasDefinition copy(UIdentifier name = this.name, Parameters parameters = this.parameters, ClassSpecifier specifier = this.specifier, CaseTypes? caseTypes = this.caseTypes, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
+        value ret = ClassAliasDefinition(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations);
         copyExtraInfoTo(ret);
         return ret;
     }

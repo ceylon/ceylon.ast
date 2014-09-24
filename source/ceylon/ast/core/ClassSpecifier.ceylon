@@ -1,4 +1,4 @@
-"A class specifier for a [[class alias|ClassAlias]],
+"A class specifier for a [[class alias|ClassAliasDefinition]],
  that is, a lazy specification operator ‘`=>`’ followed by a [[class instantiation|instantiation]].
  
  Examples:

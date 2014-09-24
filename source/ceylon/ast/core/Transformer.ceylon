@@ -52,7 +52,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCaseTypes(CaseTypes that);
     shared formal Result transformCatchClause(CatchClause that);
     shared formal Result transformCharacterLiteral(CharacterLiteral that);
-    shared formal Result transformClassAlias(ClassAlias that);
+    shared formal Result transformClassAliasDefinition(ClassAliasDefinition that);
     shared formal Result transformClassBody(ClassBody that);
     shared formal Result transformClassDec(ClassDec that);
     shared formal Result transformClassDefinition(ClassDefinition that);

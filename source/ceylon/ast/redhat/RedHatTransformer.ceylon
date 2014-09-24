@@ -816,7 +816,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
-    shared actual JClassDeclaration transformClassAlias(ClassAlias that) {
+    shared actual JClassDeclaration transformClassAliasDefinition(ClassAliasDefinition that) {
         value annotationList = transformAnnotations(that.annotations);
         JClassDeclaration ret = JClassDeclaration(tokens.token("class", class_definition));
         ret.annotationList = annotationList;

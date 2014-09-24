@@ -14,7 +14,7 @@ shared AnyClass anyClassToCeylon(JAnyClass anyClass) {
     assert (is JClassDefinition|JClassDeclaration anyClass);
     switch (anyClass)
     case (is JClassDefinition) { return classDefinitionToCeylon(anyClass); }
-    case (is JClassDeclaration) { return classAliasToCeylon(anyClass); }
+    case (is JClassDeclaration) { return classAliasDefinitionToCeylon(anyClass); }
 }
 
 "Compiles the given [[code]] for Any Class

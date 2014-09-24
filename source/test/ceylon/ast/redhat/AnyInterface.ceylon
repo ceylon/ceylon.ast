@@ -17,5 +17,5 @@ shared object anyInterface satisfies AbstractTest<AnyInterface,JAnyInterface> {
     fromCeylon = RedHatTransformer.transformAnyInterface;
     toCeylon = anyInterfaceToCeylon;
     
-    tests = [anyInterfaceDefinition];
+    tests = [anyInterfaceDefinition, interfaceAliasDefinition];
 }

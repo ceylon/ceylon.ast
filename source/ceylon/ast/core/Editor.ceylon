@@ -403,6 +403,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
     }
     shared actual default IntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => that.copy();
+    shared actual default InterfaceAliasDefinition transformInterfaceAliasDefinition(InterfaceAliasDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformTypeSpecifier(that.specifier), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
             => that.copy(that.content.collect(transformDeclaration));
     shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)

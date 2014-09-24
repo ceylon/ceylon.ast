@@ -4,15 +4,17 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JAnyInterface=AnyInterface,
+        JInterfaceDeclaration=InterfaceDeclaration,
         JInterfaceDefinition=InterfaceDefinition
     }
 }
 
 "Converts a RedHat AST [[AnyInterface|JAnyInterface]] to a `ceylon.ast` [[AnyInterface]]."
 shared AnyInterface anyInterfaceToCeylon(JAnyInterface anyInterface) {
-    assert (is JInterfaceDefinition anyInterface);
+    assert (is JInterfaceDefinition|JInterfaceDeclaration anyInterface);
     switch (anyInterface)
     case (is JInterfaceDefinition) { return anyInterfaceDefinitionToCeylon(anyInterface); }
+    case (is JInterfaceDeclaration) { return interfaceAliasDefinitionToCeylon(anyInterface); }
 }
 
 "Compiles the given [[code]] for Any Interface

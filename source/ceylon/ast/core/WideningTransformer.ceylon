@@ -132,6 +132,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformInitialComprehensionClause(InitialComprehensionClause that) => transformComprehensionClause(that);
     shared actual default Result transformInlineDefinitionArgument(InlineDefinitionArgument that) => transformNamedArgument(that);
     shared actual default Result transformIntegerLiteral(IntegerLiteral that) => transformLiteral(that);
+    shared actual default Result transformInterfaceAliasDefinition(InterfaceAliasDefinition that) => transformAnyInterface(that);
     shared actual default Result transformInterfaceBody(InterfaceBody that) => transformBody(that);
     shared actual default Result transformInterfaceDec(InterfaceDec that) => transformTypeDec(that);
     shared actual default Result transformInterfaceDefinition(InterfaceDefinition that) => transformAnyInterfaceDefinition(that);

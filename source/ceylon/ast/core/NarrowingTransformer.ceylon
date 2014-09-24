@@ -23,6 +23,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformAnyInterface(AnyInterface that) {
         switch (that)
         case (is AnyInterfaceDefinition) { return transformAnyInterfaceDefinition(that); }
+        case (is InterfaceAliasDefinition) { return transformInterfaceAliasDefinition(that); }
     }
     shared actual default Result transformAnyInterfaceDefinition(AnyInterfaceDefinition that) {
         switch (that)

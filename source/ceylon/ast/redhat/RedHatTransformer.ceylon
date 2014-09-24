@@ -126,6 +126,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInitializerParameter=InitializerParameter,
         JIntegerLiteral=NaturalLiteral,
         JInterfaceBody=InterfaceBody,
+        JInterfaceDeclaration=InterfaceDeclaration,
         JInterfaceDefinition=InterfaceDefinition,
         JInterfaceLiteral=InterfaceLiteral,
         JIntersectAssignOp=IntersectAssignOp,
@@ -1667,6 +1668,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
             ret.type = type;
         }
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JInterfaceDeclaration transformInterfaceAliasDefinition(InterfaceAliasDefinition that) {
+        value annotations = transformAnnotations(that.annotations);
+        JInterfaceDeclaration ret = JInterfaceDeclaration(tokens.token("interface", interface_definition));
+        ret.annotationList = annotations;
+        ret.identifier = transformUIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        if (exists caseTypes = that.caseTypes) {
+            ret.caseTypes = transformCaseTypes(caseTypes);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.typeSpecifier = transformTypeSpecifier(that.specifier);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

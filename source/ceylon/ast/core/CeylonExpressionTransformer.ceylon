@@ -403,6 +403,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
+    transformInterfaceAliasDefinition(InterfaceAliasDefinition that)
+            => "InterfaceAliasDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                `` indent + indentLevel ``caseTypes = ``transformWithIndent(that.caseTypes)``;
+                `` indent + indentLevel ``satisfiedTypes = ``transformWithIndent(that.satisfiedTypes)``;
+                `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
+                `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformInterfaceBody(InterfaceBody that) => "InterfaceBody(``transformWithIndent(that.content)``)";
     transformInterfaceDec(InterfaceDec that)
             => "InterfaceDec {

@@ -8,6 +8,6 @@
  
      shared interface People => {Person*};"
 shared abstract class AnyInterface()
-        of AnyInterfaceDefinition
+        of AnyInterfaceDefinition | InterfaceAliasDefinition
         extends ClassOrInterface() {
 }

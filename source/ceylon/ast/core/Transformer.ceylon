@@ -141,6 +141,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformInitialComprehensionClause(InitialComprehensionClause that);
     shared formal Result transformInlineDefinitionArgument(InlineDefinitionArgument that);
     shared formal Result transformIntegerLiteral(IntegerLiteral that);
+    shared formal Result transformInterfaceAliasDefinition(InterfaceAliasDefinition that);
     shared formal Result transformInterfaceBody(InterfaceBody that);
     shared formal Result transformInterfaceDec(InterfaceDec that);
     shared formal Result transformInterfaceDefinition(InterfaceDefinition that);

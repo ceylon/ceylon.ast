@@ -141,6 +141,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformInitialComprehensionClause(InitialComprehensionClause that) => visitInitialComprehensionClause(that);
     transformInlineDefinitionArgument(InlineDefinitionArgument that) => visitInlineDefinitionArgument(that);
     transformIntegerLiteral(IntegerLiteral that) => visitIntegerLiteral(that);
+    transformInterfaceAliasDefinition(InterfaceAliasDefinition that) => visitInterfaceAliasDefinition(that);
     transformInterfaceBody(InterfaceBody that) => visitInterfaceBody(that);
     transformInterfaceDec(InterfaceDec that) => visitInterfaceDec(that);
     transformInterfaceDefinition(InterfaceDefinition that) => visitInterfaceDefinition(that);
@@ -437,6 +438,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitInModifier(InModifier that) => super.transformInModifier(that);
     shared default void visitInOperation(InOperation that) => super.transformInOperation(that);
     shared default void visitIntegerLiteral(IntegerLiteral that) => super.transformIntegerLiteral(that);
+    shared default void visitInterfaceAliasDefinition(InterfaceAliasDefinition that) => super.transformInterfaceAliasDefinition(that);
     shared default void visitInterfaceBody(InterfaceBody that) => super.transformInterfaceBody(that);
     shared default void visitInterfaceDec(InterfaceDec that) => super.transformInterfaceDec(that);
     shared default void visitInterfaceDefinition(InterfaceDefinition that) => super.transformInterfaceDefinition(that);

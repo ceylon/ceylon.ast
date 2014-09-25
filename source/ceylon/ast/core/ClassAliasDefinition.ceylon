@@ -61,7 +61,6 @@ shared class ClassAliasDefinition(name, parameters, specifier, caseTypes, extend
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(extendedType),
         emptyOrSingleton(satisfiedTypes),
-        emptyOrSingleton(typeParameters),
         typeConstraints,
         [specifier]
     );

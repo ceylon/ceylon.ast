@@ -46,7 +46,6 @@ shared class InterfaceAliasDefinition(name, specifier, caseTypes = null, satisfi
         emptyOrSingleton(typeParameters),
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(satisfiedTypes),
-        emptyOrSingleton(typeParameters),
         typeConstraints,
         [specifier]
     );

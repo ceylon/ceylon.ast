@@ -47,7 +47,6 @@ shared class InterfaceDefinition(name, body, caseTypes = null, satisfiedTypes = 
         emptyOrSingleton(typeParameters),
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(satisfiedTypes),
-        emptyOrSingleton(typeParameters),
         typeConstraints,
         [body]
     );

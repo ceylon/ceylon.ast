@@ -60,7 +60,6 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(extendedType),
         emptyOrSingleton(satisfiedTypes),
-        emptyOrSingleton(typeParameters),
         typeConstraints,
         [body]
     );

@@ -21,6 +21,9 @@ shared object typeSpecifier satisfies ConcreteTest<TypeSpecifier,JTypeSpecifier>
     shared String->TypeSpecifier mapOfStringPeopleTypeSpecifier = construct(baseType.mapOfStringPeopleType);
     shared String->TypeSpecifier callableTypeSpecifier = construct(callableType.floatStarTupleFromStringPlusCallableType);
     
+    // not tested directly, but used by other tests
+    shared String->TypeSpecifier uidentifierTypeSpecifier = construct(baseType.uidentifierType);
+    
     compile = compileTypeSpecifier;
     fromCeylon = RedHatTransformer.transformTypeSpecifier;
     toCeylon = typeSpecifierToCeylon;

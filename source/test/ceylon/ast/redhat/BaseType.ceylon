@@ -52,6 +52,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType mapOfStringPeopleType = construct("Map", [construct("String"), construct("People")]);
     shared String->BaseType throwableType = construct("Throwable");
     shared String->BaseType objectType = construct("Object");
+    shared String->BaseType uidentifierType = construct("UIdentifier");
     
     compile = compileBaseType;
     fromCeylon = RedHatTransformer.transformBaseType;

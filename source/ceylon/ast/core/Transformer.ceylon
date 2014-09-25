@@ -269,6 +269,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
+    shared formal Result transformTypeAliasDefinition(TypeAliasDefinition that);
     shared formal Result transformTypeArgument(TypeArgument that);
     shared formal Result transformTypeArguments(TypeArguments that);
     shared formal Result transformTypeConstraint(TypeConstraint that);

@@ -268,6 +268,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     transformTuple(Tuple that) => visitTuple(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
+    transformTypeAliasDefinition(TypeAliasDefinition that) => visitTypeAliasDefinition(that);
     transformTypeArgument(TypeArgument that) => visitTypeArgument(that);
     transformTypeArguments(TypeArguments that) => visitTypeArguments(that);
     transformTypeConstraint(TypeConstraint that) => visitTypeConstraint(that);
@@ -564,6 +565,7 @@ shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { 
     shared default void visitTryClause(TryClause that) => super.transformTryClause(that);
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
+    shared default void visitTypeAliasDefinition(TypeAliasDefinition that) => super.transformTypeAliasDefinition(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);
     shared default void visitTypeConstraint(TypeConstraint that) => super.transformTypeConstraint(that);

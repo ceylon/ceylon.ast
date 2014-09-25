@@ -746,6 +746,14 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
+    transformTypeAliasDefinition(TypeAliasDefinition that)
+            => "TypeAliasDefinition {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
+                `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                ``indent``}";
     transformTypeArgument(TypeArgument that)
             => "TypeArgument {
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;

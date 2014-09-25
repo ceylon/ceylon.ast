@@ -237,6 +237,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTryClause=TryClause,
         JTuple=Tuple,
         JTupleType=TupleType,
+        JTypeAliasDeclaration=TypeAliasDeclaration,
         JTypeArgumentList=TypeArgumentList,
         JTypeConstraint=TypeConstraint,
         JTypeConstriantList=TypeConstraintList,
@@ -2881,6 +2882,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
      where a conversion at the level of individual variable nodes isn’t possible."
     shared actual Nothing transformTypedVariable(TypedVariable that) {
         throw AssertionError("Can’t transform a ceylon.ast TypedVariable to a RedHat AST Variable");
+    }
+    
+    shared actual JTypeAliasDeclaration transformTypeAliasDefinition(TypeAliasDefinition that) {
+        value annotations = transformAnnotations(that.annotations);
+        JTypeAliasDeclaration ret = JTypeAliasDeclaration(tokens.token("alias", aliasType));
+        ret.annotationList = annotations;
+        ret.identifier = transformUIdentifier(that.name);
+        if (exists typeParameters = that.typeParameters) {
+            ret.typeParameterList = transformTypeParameters(typeParameters);
+        }
+        if (nonempty typeConstraints = that.typeConstraints) {
+            value typeConstraintList = JTypeConstriantList(null);
+            for (typeConstraint in typeConstraints) {
+                typeConstraintList.addTypeConstraint(transformTypeConstraint(typeConstraint));
+            }
+            ret.typeConstraintList = typeConstraintList;
+        }
+        ret.typeSpecifier = transformTypeSpecifier(that.specifier);
+        ret.endToken = tokens.token(";", semicolon);
+        return ret;
     }
     
     shared actual JStaticType transformTypeArgument(TypeArgument that) {

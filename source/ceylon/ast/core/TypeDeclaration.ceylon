@@ -10,7 +10,7 @@
  
      shared alias TypeName => UIdentifier;"
 shared abstract class TypeDeclaration()
-        of ClassOrInterface
+        of ClassOrInterface | TypeAliasDefinition
         extends Declaration() {
     
     "The name of the declared type."

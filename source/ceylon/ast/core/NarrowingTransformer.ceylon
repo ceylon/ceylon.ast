@@ -578,6 +578,7 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
     shared actual default Result transformTypeDeclaration(TypeDeclaration that) {
         switch (that)
         case (is ClassOrInterface) { return transformClassOrInterface(that); }
+        case (is TypeAliasDefinition) { return transformTypeAliasDefinition(that); }
     }
     shared actual default Result transformTypeIsh(TypeIsh that) {
         switch (that)

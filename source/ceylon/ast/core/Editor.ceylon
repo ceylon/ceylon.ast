@@ -821,6 +821,8 @@ shared /* abstract */ class Editor() satisfies NarrowingTransformer<Node> { // T
         assert (is Type ret = super.transformType(that));
         return ret;
     }
+    shared actual default TypeAliasDefinition transformTypeAliasDefinition(TypeAliasDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformTypeSpecifier(that.specifier), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default TypeArgument transformTypeArgument(TypeArgument that)
             => that.copy(transformType(that.type), nullsafeInvoke(that.variance, transformVariance));
     shared actual default TypeArguments transformTypeArguments(TypeArguments that)

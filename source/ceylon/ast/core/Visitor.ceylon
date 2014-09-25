@@ -11,7 +11,7 @@
  Thus, the default visitor will already traverse the AST fully,
  and if you need to perform some operation only for some node type that might appear
  anywhere in the AST, you can simply override that particular method and leave the rest as it is."
-shared /* abstract */ class Visitor() satisfies WideningTransformer<Anything> { // TODO make interface
+shared interface Visitor satisfies WideningTransformer<Anything> {
     transformAddAssignmentOperation(AddAssignmentOperation that) => visitAddAssignmentOperation(that);
     transformAliasDec(AliasDec that) => visitAliasDec(that);
     transformAndAssignmentOperation(AndAssignmentOperation that) => visitAndAssignmentOperation(that);

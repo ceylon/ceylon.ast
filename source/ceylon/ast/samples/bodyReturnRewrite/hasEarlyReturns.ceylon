@@ -31,7 +31,7 @@ shared Boolean hasEarlyReturns(Body body) {
     class VisitAbortion() extends Exception("Abort visit") {}
     try {
         body.visit {
-            object visitor extends Visitor() {
+            object visitor satisfies Visitor {
                 
                 variable Boolean returnAllowed = true;
                 

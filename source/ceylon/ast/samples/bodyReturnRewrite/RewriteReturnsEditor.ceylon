@@ -35,7 +35,7 @@ import ceylon.ast.core {
  Usage:
  
      rewrittenBlock= someBlock.transform(RewriteReturnsEditor(returnValueName));"
-shared class RewriteReturnsEditor(LIdentifier returnValueName) extends Editor() {
+shared class RewriteReturnsEditor(LIdentifier returnValueName) satisfies Editor {
     
     "Rewrites a single return statement to a value specification,
      or returns [[null]] if the return statement has no [[result|Return.result]]."

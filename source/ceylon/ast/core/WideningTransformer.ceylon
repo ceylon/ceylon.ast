@@ -1,7 +1,7 @@
 "A [[Transformer]] with the default operation to widen the type of the visited subject:
  [[transformLIdentifier]] delegates to [[transformIdentifier]], which in turn delegates to
  [[transformNode]], which ([[Node]] being without a superclass) is the only `formal` method left."
-see (`class Visitor`)
+see (`interface Visitor`)
 shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformAddAssignmentOperation(AddAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformAliasDec(AliasDec that) => transformTypeDec(that);

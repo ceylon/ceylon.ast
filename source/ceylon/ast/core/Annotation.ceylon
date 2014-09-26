@@ -9,7 +9,7 @@
        by ("John Doe <john.doe@company.com>")
        see (`function print`)
        action { description = "Log in"; url = "/login"; }"""
-shared class Annotation(name, arguments)
+shared class Annotation(name, arguments = null)
         extends Node() {
     
     "The name of the annotation constructor."

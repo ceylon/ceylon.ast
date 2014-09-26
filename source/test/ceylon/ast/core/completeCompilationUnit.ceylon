@@ -231,6 +231,32 @@ import ceylon.ast.core {
 // TODO expand until there are no more unused import warnings
 CompilationUnit completeCompilationUnit
         = /* BEGIN */ CompilationUnit {
-    imports = [];
+    imports = [
+        Import {
+            packageName = FullPackageName([
+                    LIdentifier("java"),
+                    LIdentifier("lang")
+                ]);
+            elements = ImportElements {
+                elements = [
+                    ImportTypeElement {
+                        name = UIdentifier("System");
+                        importAlias = ImportTypeAlias(UIdentifier("Sys"));
+                        nestedImports = ImportElements {
+                            elements = [
+                                ImportFunctionValueElement {
+                                    name = LIdentifier("out", true);
+                                    importAlias = ImportFunctionValueAlias(LIdentifier("sysout"));
+                                    nestedImports = null;
+                                }
+                            ];
+                            wildcard = null;
+                        };
+                    }
+                ];
+                wildcard = ImportWildcard();
+            };
+        }
+    ];
     declarations = [];
 } /* END */;

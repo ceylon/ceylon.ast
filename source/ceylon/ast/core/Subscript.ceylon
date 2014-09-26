@@ -1,5 +1,5 @@
 "A subscript used to access an element or subrange
- in a [[KeyOrSubrangeExpression]] (where it is surrounded by brackets).
+ in a [[ElementOrSubrangeExpression]] (where it is surrounded by brackets).
  
  In mathematical notations, these accessors are usually written as subscript,
  e. g. *x<sub>i</sub>* for the *i*<sup>th</sup> *x* element.

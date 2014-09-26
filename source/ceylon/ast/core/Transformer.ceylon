@@ -3,12 +3,14 @@
  For every subtype of [[Node]], there is one `transform` method, each returning `Result`.
  These are all `formal`, as there are two sensible default behaviors:
  
- * widening, as done in `WideningTransformer`:
-   `transformLIdentifier` delegates to `transformIdentifier`, which in turn
-   delegates to `transformNode`, going up their class hierarchy.
- * narrowing, as done in `NarrowingTransformer`:
-   `transformIdentifier` switches on [[Identifier]]’s case types and delegates
-   to the respective `transform` methods of the subclasses.
+ * widening, as done in [[WideningTransformer]]: every transform eventually ends up in
+   [[transformNode]].
+     * for example: [[transformTypeAliasDefinition]] → [[transformTypeDeclaration]]
+       → [[transformDeclaration]] → [[transformNode]]
+ * narrowing, as done in [[NarrowingTransformer]]: every transform eventually ends up
+   in the `transform` method for the concrete class.
+     * for example: [[transformIdentifier]] switches on [[Identifier]]’s case types
+       and delegates to the `transform` methods for the subclasses.
  
  Be careful when mixing the two behaviors, lest you end up in an infinite recursion!"
 shared interface Transformer<out Result> {

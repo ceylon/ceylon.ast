@@ -82,10 +82,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   ``indent``}"
             else "ArgumentList(``transformWithIndent(that.listedArguments)``)";
     transformAnnotation(Annotation that)
-            => "Annotation {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
-                ``indent``}";
+            => that.arguments exists
+            then "Annotation {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                  ``indent``}"
+            else "Annotation(``transformWithIndent(that.name)``)";
     transformAnnotations(Annotations that)
             => that.anonymousAnnotation exists
             then (that.annotations nonempty

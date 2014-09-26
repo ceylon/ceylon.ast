@@ -26,11 +26,12 @@ test
 shared void testHasEarlyReturns() {
     
     value trueConditions = Conditions([BooleanCondition(baseExpression("true"))]);
-    value returnBlock = Block([Return()]);
-    value nonReturnBlock = Block([InvocationStatement(Invocation(
-                    baseExpression("print"),
-                    positionalArguments(StringLiteral("Hello, World!")
-                    )))]);
+    value returnStmt = Return();
+    value returnBlock = Block([returnStmt]);
+    value nonReturnStmt = InvocationStatement(Invocation(
+            baseExpression("print"),
+            positionalArguments(StringLiteral("Hello, World!"))));
+    value nonReturnBlock = Block([nonReturnStmt]);
     
     assertFalse {
         hasEarlyReturns(Block([]));
@@ -60,7 +61,7 @@ shared void testHasEarlyReturns() {
                         ifClause = IfClause(trueConditions, returnBlock);
                         elseClause = null;
                     },
-                    nonReturnBlock.children.first else nothing
+                    nonReturnStmt
                 ]));
         message = "Block with an if statement and a return afterwards";
     };

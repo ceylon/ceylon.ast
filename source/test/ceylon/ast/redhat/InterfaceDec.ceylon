@@ -16,8 +16,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object interfaceDec satisfies ConcreteTest<InterfaceDec,JInterfaceLiteral> {
     
-    String->InterfaceDec construct(String->UIdentifier name, <String->DecQualifier>? qualifier = null)
-            => "` interface ``(qualifier exists then (qualifier?.key else nothing) + "." else "")````name.key`` `"->InterfaceDec(name.item, qualifier?.item);
+    String->InterfaceDec construct(String->UIdentifier name, <String->DecQualifier>? qualifier = null) {
+        String qualification;
+        if (exists qualifier) {
+            qualification = qualifier.key + ".";
+        } else {
+            qualification = "";
+        }
+        return "` interface ``qualification````name.key`` `"->InterfaceDec(name.item, qualifier?.item);
+    }
     
     shared String->InterfaceDec mutableListInterfaceDec = construct(identifier.mutableListUIdentifier);
     shared String->InterfaceDec abcInterfaceDec = construct("C"->UIdentifier("C"), "A.B"->DecQualifier([UIdentifier("A"), UIdentifier("B")]));

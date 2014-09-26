@@ -17,8 +17,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object functionDec satisfies ConcreteTest<FunctionDec,JFunctionLiteral> {
     
-    String->FunctionDec construct(String->LIdentifier name, <String->DecQualifier>? qualifier = null)
-            => "` function ``(qualifier exists then (qualifier?.key else nothing) + "." else "")````name.key`` `"->FunctionDec(name.item, qualifier?.item);
+    String->FunctionDec construct(String->LIdentifier name, <String->DecQualifier>? qualifier = null) {
+        String qualification;
+        if (exists qualifier) {
+            qualification = qualifier.key + ".";
+        } else {
+            qualification = "";
+        }
+        return "` function ``qualification````name.key`` `"->FunctionDec(name.item, qualifier?.item);
+    }
     
     shared String->FunctionDec concatenateFunctionDec = construct(identifier.concatenateLIdentifier);
     shared String->FunctionDec iterableMapFunctionDec = construct(identifier.mapLIdentifier, "Iterable"->DecQualifier([UIdentifier("Iterable")]));

@@ -29,20 +29,22 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             assert (is [Node+] that);
             value origIndent = indent;
             indent += indentLevel + indentLevel;
+            value firstString = that.first.transform(this);
+            value multiLine = that.size > 1 || firstString.lines.longerThan(1);
             StringBuilder code = StringBuilder();
             code.append("[");
-            if (that.size > 1) {
+            if (multiLine) {
                 code.appendNewline();
                 code.append(indent);
             }
-            code.append(that.first.transform(this));
+            code.append(firstString);
             for (node in that.rest) {
                 code.append(",");
                 code.appendNewline();
                 code.append(indent);
                 code.append(node.transform(this));
             }
-            if (that.size > 1) {
+            if (multiLine) {
                 code.appendNewline();
                 code.append(origIndent + indentLevel);
             }
@@ -381,14 +383,14 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``elements = ``transformWithIndent(that.elements)``;
                 `` indent + indentLevel ``wildcard = ``transformWithIndent(that.wildcard)``;
                 ``indent``}";
-    transformImportFunctionValueAlias(ImportFunctionValueAlias that) => "FunctionValueAlias(``transformWithIndent(that.name)``)";
+    transformImportFunctionValueAlias(ImportFunctionValueAlias that) => "ImportFunctionValueAlias(``transformWithIndent(that.name)``)";
     transformImportFunctionValueElement(ImportFunctionValueElement that)
             => "ImportFunctionValueElement {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``importAlias = ``transformWithIndent(that.importAlias)``;
                 `` indent + indentLevel ``nestedImports = ``transformWithIndent(that.nestedImports)``;
                 ``indent``}";
-    transformImportTypeAlias(ImportTypeAlias that) => "TypeAlias(``transformWithIndent(that.name)``)";
+    transformImportTypeAlias(ImportTypeAlias that) => "ImportTypeAlias(``transformWithIndent(that.name)``)";
     transformImportTypeElement(ImportTypeElement that)
             => "ImportTypeElement {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

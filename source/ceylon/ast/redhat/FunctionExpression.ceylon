@@ -9,7 +9,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionArgument=FunctionArgument,
         JFunctionModifier=FunctionModifier,
-        JType=Type,
         JVoidModifier=VoidModifier
     }
 }

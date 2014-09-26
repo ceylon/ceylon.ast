@@ -1,9 +1,5 @@
 import ceylon.ast.core {
-    FunctionArgument,
-    LazySpecification,
-    LazySpecifier,
-    NamedArgument,
-    SpecifiedArgument
+    NamedArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {

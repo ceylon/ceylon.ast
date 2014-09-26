@@ -1,11 +1,8 @@
 import ceylon.ast.core {
     AnyMemberOperator,
-    LIdentifier,
-    MemberNameWithTypeArguments,
     NameWithTypeArguments,
     Primary,
     QualifiedExpression,
-    StringLiteral,
     nameWithTypeArguments,
     identifier
 }

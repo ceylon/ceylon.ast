@@ -705,7 +705,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformSpecifier(Specifier that) => "Specifier(``transformWithIndent(that.expression)``)";
     transformSpreadArgument(SpreadArgument that) => "SpreadArgument(``transformWithIndent(that.argument)``)";
     transformSpreadMemberOperator(SpreadMemberOperator that) => "SpreadMemberOperator()";
-    transformStringLiteral(StringLiteral that) => "StringLiteral(\"\"\"``that.text``\"\"\", ``that.isVerbatim``)";
+    transformStringLiteral(StringLiteral that)
+            => that.isVerbatim
+            then "StringLiteral(\"\"\"``that.text``\"\"\", true)"
+            else "StringLiteral(\"\"\"``that.text``\"\"\")";
     transformStringTemplate(StringTemplate that)
             => "StringTemplate {
                 `` indent + indentLevel ``literals = ``transformWithIndent(that.literals)``;

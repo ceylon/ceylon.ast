@@ -388,6 +388,27 @@ import org.antlr.runtime {
     CommonToken
 }
 
+"A [[Transformer]] from `ceylon.ast` to the RedHat AST.
+ 
+ Sample usage:
+ 
+     JCompilationUnit redHatCU
+         = RedHatTransformer(TokenFactoryImpl())
+             .transformCompilationUnit(ceylonAstCU);
+ 
+ If your [[TokenFactory]] supports resets, or you don’t care
+ about the properties of the generated tokens, you may reuse
+ a [[RedHatTransformer]] instance to transform several nodes
+ without problems.
+ 
+ All tokens present in source code are requested from the
+ [[token factory|tokens]], even if they won’t be reachable
+ from the transformed RedHat AST node; your [[TokenFactory]]
+ implementation may track them, and later offer them as a
+ `TokenSource` or `TokenStream`, for example.
+ Note however that no whitespace tokens are generated,
+ and thus simply concatenating all the tokens will not give
+ you valid Ceylon code for the transformed node(s)."
 shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
     
     value isLowerBoundKey = ScopedKey<Boolean>(`class RedHatTransformer`, "isLowerBound");

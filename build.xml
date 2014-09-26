@@ -315,7 +315,7 @@
             <arg value="test"/>
             <arg value="test.ceylon.ast.core"/>
             <arg value="test.ceylon.ast.redhat"/>
-            <arg value="test.ceylon.ast.redhat"/>
+            <arg value="test.ceylon.ast.samples"/>
             <env key="JAVA_OPTS" value="-javaagent:${jacoco.agent.jar}=destfile=${jacoco.exec.file},append=false"/>
         </exec>
     </target>

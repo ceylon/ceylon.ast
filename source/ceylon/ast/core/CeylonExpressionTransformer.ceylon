@@ -466,7 +466,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``valueVariable = ``transformWithIndent(that.valueVariable)``;
                 `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
-    transformLIdentifier(LIdentifier that) => "LIdentifier(\"``that.name``\", ``that.usePrefix``)";
+    transformLIdentifier(LIdentifier that)
+            => that.usePrefix
+            then "LIdentifier(\"``that.name``\", true)"
+            else "LIdentifier(\"``that.name``\")";
     transformLazySpecification(LazySpecification that)
             => "LazySpecification {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -795,7 +798,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
-    transformUIdentifier(UIdentifier that) => "UIdentifier(\"``that.name``\", ``that.usePrefix``)";
+    transformUIdentifier(UIdentifier that)
+            => that.usePrefix
+            then "UIdentifier(\"``that.name``\", true)"
+            else "UIdentifier(\"``that.name``\")";
     transformUnionType(UnionType that)
             => "UnionType(``transformWithIndent(that.children)``)";
     transformUnionAssignmentOperation(UnionAssignmentOperation that)

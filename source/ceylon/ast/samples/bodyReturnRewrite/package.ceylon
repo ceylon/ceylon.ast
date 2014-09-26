@@ -29,7 +29,7 @@
  
  [[hasEarlyReturns]] detects if a body contains such an early return
  by [[visit|ceylon.ast.core::Node.visit]]ing the body;
- [[rewriteReturnsToAssignments]] rewrites a body as shown above.
+ [[RewriteReturnsEditor]] rewrites a body as shown above.
  
  This could be used for some [compiler optimizations](https://github.com/ceylon/ceylon-compiler/issues/1794)."
 shared package ceylon.ast.samples.bodyReturnRewrite;

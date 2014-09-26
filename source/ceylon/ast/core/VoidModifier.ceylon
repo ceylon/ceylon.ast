@@ -1,6 +1,6 @@
 "A ‘`void`’ modifier keyword."
 shared class VoidModifier()
-        extends Modifier() {
+        extends TypeModifier() {
     
     shared actual String text = "void";
     

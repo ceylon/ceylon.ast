@@ -1887,6 +1887,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         return ret;
     }
     
+    shared actual JLocalModifier transformLocalModifier(LocalModifier that) {
+        assert (is JLocalModifier ret = super.transformLocalModifier(that));
+        return ret;
+    }
+    
     shared actual JLogicalAssignmentOp transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
         assert (is JLogicalAssignmentOp ret = super.transformLogicalAssignmentOperation(that));
         return ret;
@@ -3017,6 +3022,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransform
         JTypeLiteral ret = JTypeLiteral(tokens.token("`", backtick));
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JLocalModifier|JVoidModifier|JDynamicModifier transformTypeModifier(TypeModifier that) {
+        assert (is JLocalModifier|JVoidModifier|JDynamicModifier ret = super.transformTypeModifier(that));
         return ret;
     }
     

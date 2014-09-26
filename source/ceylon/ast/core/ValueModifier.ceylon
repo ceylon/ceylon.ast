@@ -3,7 +3,7 @@
  The ‘`value`’ modifier keyword indicates that the type of a value
  is inferred."
 shared class ValueModifier()
-        extends Modifier() {
+        extends LocalModifier() {
     
     shared actual String text = "value";
     

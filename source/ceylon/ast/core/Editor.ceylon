@@ -454,6 +454,10 @@ shared interface Editor satisfies NarrowingTransformer<Node> {
         assert (is Literal ret = super.transformLiteral(that));
         return ret;
     }
+    shared actual default LocalModifier transformLocalModifier(LocalModifier that) {
+        assert (is LocalModifier ret = super.transformLocalModifier(that));
+        return ret;
+    }
     shared actual default LogicalAssignmentOperation transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
         assert (is LogicalAssignmentOperation ret = super.transformLogicalAssignmentOperation(that));
         return ret;
@@ -851,6 +855,10 @@ shared interface Editor satisfies NarrowingTransformer<Node> {
     }
     shared actual default TypeMeta transformTypeMeta(TypeMeta that)
             => that.copy(transformType(that.type));
+    shared actual default TypeModifier transformTypeModifier(TypeModifier that) {
+        assert (is TypeModifier ret = super.transformTypeModifier(that));
+        return ret;
+    }
     shared actual default TypeNameWithTypeArguments transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.typeArguments, transformTypeArguments));
     shared actual default TypeParameter transformTypeParameter(TypeParameter that)

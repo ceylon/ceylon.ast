@@ -1,11 +1,10 @@
 import ceylon.ast.core {
-    Modifier
+    TypeModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JDynamicModifier=DynamicModifier,
         JLocalModifier=LocalModifier,
-        JTypeVariance=TypeVariance,
         JVoidModifier=VoidModifier
     }
 }
@@ -18,18 +17,19 @@ import com.redhat.ceylon.compiler.typechecker.parser {
     }
 }
 
-"Converts a RedHat AST [[VoidModifier|JVoidModifier]] or [[DynamicModifier|JDynamicModifier]]
- to a `ceylon.ast` [[Modifier]]."
-shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier|JTypeVariance modifier) {
-    switch (modifier)
-    case (is JLocalModifier|JVoidModifier|JDynamicModifier) { return typeModifierToCeylon(modifier); }
-    case (is JTypeVariance) { return varianceToCeylon(modifier); }
+"Converts a RedHat AST [[LocalModifier|JLocalModifier]], [[VoidModifier|JVoidModifier]]
+ or [[DynamicModifier|JDynamicModifier]] to a `ceylon.ast` [[TypeModifier]]."
+shared TypeModifier typeModifierToCeylon(JLocalModifier|JVoidModifier|JDynamicModifier typeModifier) {
+    switch (typeModifier)
+    case (is JLocalModifier) { return localModifierToCeylon(typeModifier); }
+    case (is JVoidModifier) { return voidModifierToCeylon(typeModifier); }
+    case (is JDynamicModifier) { return dynamicModifierToCeylon(typeModifier); }
 }
 
-"Compiles the given [[code]] for a Modifier
- into a [[Modifier]] using the Ceylon compiler
+"Compiles the given [[code]] for a Type Modifier
+ into a [[TypeModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared Modifier? compileModifier(String code) {
+shared TypeModifier? compileTypeModifier(String code) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == void_modifier) {
         return compileVoidModifier(code);
@@ -39,8 +39,6 @@ shared Modifier? compileModifier(String code) {
         return compileFunctionModifier(code);
     } else if (type == dynamicModifier) {
         return compileDynamicModifier(code);
-    } else if (exists variance = compileVariance(code)) {
-        return variance;
     } else {
         return null;
     }

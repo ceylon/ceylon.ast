@@ -3,7 +3,7 @@
  The ‘`function`’ modifier keyword indicates that the type of a function
  is inferred."
 shared class FunctionModifier()
-        extends Modifier() {
+        extends LocalModifier() {
     
     shared actual String text = "function";
     

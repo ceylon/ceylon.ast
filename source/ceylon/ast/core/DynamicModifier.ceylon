@@ -1,6 +1,6 @@
 "A ‘`dynamic`’ modifier keyword."
 shared class DynamicModifier()
-        extends Modifier() {
+        extends TypeModifier() {
     
     shared actual String text = "dynamic";
     

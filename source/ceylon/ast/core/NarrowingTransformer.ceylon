@@ -259,6 +259,11 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is StringLiteral) { return transformStringLiteral(that); }
         case (is CharacterLiteral) { return transformCharacterLiteral(that); }
     }
+    shared actual default Result transformLocalModifier(LocalModifier that) {
+        switch (that)
+        case (is ValueModifier) { return transformValueModifier(that); }
+        case (is FunctionModifier) { return transformFunctionModifier(that); }
+    }
     shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) {
         switch (that)
         case (is AndAssignmentOperation) { return transformAndAssignmentOperation(that); }
@@ -589,6 +594,12 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is TypeList) { return transformTypeList(that); }
         case (is TypeArgument) { return transformTypeArgument(that); }
         case (is TypeArguments) { return transformTypeArguments(that); }
+    }
+    shared actual default Result transformTypeModifier(TypeModifier that) {
+        switch (that)
+        case (is LocalModifier) { return transformLocalModifier(that); }
+        case (is VoidModifier) { return transformVoidModifier(that); }
+        case (is DynamicModifier) { return transformDynamicModifier(that); }
     }
     shared actual default Result transformTypedDeclaration(TypedDeclaration that) {
         switch (that)

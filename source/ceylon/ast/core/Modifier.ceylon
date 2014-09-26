@@ -11,7 +11,7 @@
  - `function` – [[FunctionModifier]]
  - `value` – [[ValueModifier]]"
 shared abstract class Modifier()
-        of VoidModifier | ValueModifier | FunctionModifier | DynamicModifier | Variance
+        of TypeModifier | Variance
         extends ExpressionIsh() {
     
     "The text / keyword of the modifier."

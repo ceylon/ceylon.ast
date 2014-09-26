@@ -75,7 +75,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformDivideAssignmentOperation(DivideAssignmentOperation that) => transformArithmeticAssignmentOperation(that);
     shared actual default Result transformDynamicBlock(DynamicBlock that) => transformControlStructure(that);
     shared actual default Result transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that) => transformAnyInterfaceDefinition(that);
-    shared actual default Result transformDynamicModifier(DynamicModifier that) => transformModifier(that);
+    shared actual default Result transformDynamicModifier(DynamicModifier that) => transformTypeModifier(that);
     shared actual default Result transformDynamicValue(DynamicValue that) => transformAtom(that);
     shared actual default Result transformElementOrSubrangeExpression(ElementOrSubrangeExpression that) => transformPrimary(that);
     shared actual default Result transformElseCaseClause(ElseCaseClause that) => transformNode(that);
@@ -107,7 +107,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformFunctionDeclaration(FunctionDeclaration that) => transformAnyFunction(that);
     shared actual default Result transformFunctionDefinition(FunctionDefinition that) => transformAnyFunction(that);
     shared actual default Result transformFunctionExpression(FunctionExpression that) => transformExpression(that);
-    shared actual default Result transformFunctionModifier(FunctionModifier that) => transformModifier(that);
+    shared actual default Result transformFunctionModifier(FunctionModifier that) => transformLocalModifier(that);
     shared actual default Result transformFunctionShortcutDefinition(FunctionShortcutDefinition that) => transformAnyFunction(that);
     shared actual default Result transformGivenDec(GivenDec that) => transformTypeDec(that);
     shared actual default Result transformGroupedExpression(GroupedExpression that) => transformAtom(that);
@@ -154,6 +154,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLazySpecification(LazySpecification that) => transformSpecification(that);
     shared actual default Result transformLazySpecifier(LazySpecifier that) => transformAnySpecifier(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
+    shared actual default Result transformLocalModifier(LocalModifier that) => transformTypeModifier(that);
     shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => transformAssignmentOperation(that);
     shared actual default Result transformLogicalOperation(LogicalOperation that) => transformBinaryOperation(that);
     shared actual default Result transformMainType(MainType that) => transformType(that);
@@ -268,6 +269,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTypeIsh(TypeIsh that) => transformExpressionIsh(that);
     shared actual default Result transformTypeList(TypeList that) => transformTypeIsh(that);
     shared actual default Result transformTypeMeta(TypeMeta that) => transformMeta(that);
+    shared actual default Result transformTypeModifier(TypeModifier that) => transformModifier(that);
     shared actual default Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => transformNameWithTypeArguments(that);
     shared actual default Result transformTypeParameter(TypeParameter that) => transformNode(that);
     shared actual default Result transformTypeParameters(TypeParameters that) => transformNode(that);
@@ -291,7 +293,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);
     shared actual default Result transformValueGetterDefinition(ValueGetterDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueIterator(ValueIterator that) => transformForIterator(that);
-    shared actual default Result transformValueModifier(ValueModifier that) => transformModifier(that);
+    shared actual default Result transformValueModifier(ValueModifier that) => transformLocalModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);
     shared actual default Result transformValueSetterDefinition(ValueSetterDefinition that) => transformDeclaration(that);
     shared actual default Result transformValueSpecification(ValueSpecification that) => transformSpecification(that);
@@ -299,7 +301,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformVariadicParameter(VariadicParameter that) => transformParameter(that);
     shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);
     shared actual default Result transformVariance(Variance that) => transformModifier(that);
-    shared actual default Result transformVoidModifier(VoidModifier that) => transformModifier(that);
+    shared actual default Result transformVoidModifier(VoidModifier that) => transformTypeModifier(that);
     shared actual default Result transformWhile(While that) => transformControlStructure(that);
     shared actual default Result transformWithinOperation(WithinOperation that) => transformOperation(that);
 }

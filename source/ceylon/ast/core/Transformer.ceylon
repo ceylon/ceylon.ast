@@ -163,6 +163,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformLazySpecification(LazySpecification that);
     shared formal Result transformLazySpecifier(LazySpecifier that);
     shared formal Result transformLiteral(Literal that);
+    shared formal Result transformLocalModifier(LocalModifier that);
     shared formal Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that);
     shared formal Result transformLogicalOperation(LogicalOperation that);
     shared formal Result transformMainType(MainType that);
@@ -278,6 +279,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTypeIsh(TypeIsh that);
     shared formal Result transformTypeList(TypeList that);
     shared formal Result transformTypeMeta(TypeMeta that);
+    shared formal Result transformTypeModifier(TypeModifier that);
     shared formal Result transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that);
     shared formal Result transformTypeParameter(TypeParameter that);
     shared formal Result transformTypeParameters(TypeParameters that);

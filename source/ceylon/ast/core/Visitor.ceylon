@@ -163,6 +163,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformLazySpecification(LazySpecification that) => visitLazySpecification(that);
     transformLazySpecifier(LazySpecifier that) => visitLazySpecifier(that);
     transformLiteral(Literal that) => visitLiteral(that);
+    transformLocalModifier(LocalModifier that) => visitLocalModifier(that);
     transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => visitLogicalAssignmentOperation(that);
     transformLogicalOperation(LogicalOperation that) => visitLogicalOperation(that);
     transformMainType(MainType that) => visitMainType(that);
@@ -276,6 +277,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformTypeDeclaration(TypeDeclaration that) => visitTypeDeclaration(that);
     transformTypeList(TypeList that) => visitTypeList(that);
     transformTypeMeta(TypeMeta that) => visitTypeMeta(that);
+    transformTypeModifier(TypeModifier that) => visitTypeModifier(that);
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that) => visitTypeNameWithTypeArguments(that);
     transformTypeParameter(TypeParameter that) => visitTypeParameter(that);
     transformTypeParameters(TypeParameters that) => visitTypeParameters(that);
@@ -461,6 +463,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
+    shared default void visitLocalModifier(LocalModifier that) => super.transformLocalModifier(that);
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);
     shared default void visitLogicalOperation(LogicalOperation that) => super.transformLogicalOperation(that);
     shared default void visitMainType(MainType that) => super.transformMainType(that);
@@ -569,6 +572,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);
     shared default void visitTypeConstraint(TypeConstraint that) => super.transformTypeConstraint(that);
+    shared default void visitTypeModifier(TypeModifier that) => super.transformTypeModifier(that);
     shared default void visitTypedDeclaration(TypedDeclaration that) => super.transformTypedDeclaration(that);
     shared default void visitTypeDeclaration(TypeDeclaration that) => super.transformTypeDeclaration(that);
     shared default void visitTypeDec(TypeDec that) => super.transformTypeDec(that);

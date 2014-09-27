@@ -278,6 +278,37 @@ CompilationUnit completeCompilationUnit
                 anonymousAnnotation = StringLiteral("""The run function.""");
                 annotations = [Annotation(LIdentifier("shared"))];
             };
+        },
+        ClassDefinition {
+            name = UIdentifier("MyBoolean");
+            parameters = Parameters([
+                    ValueParameter {
+                        annotations = Annotations {
+                            annotations = [
+                                Annotation(LIdentifier("shared")),
+                                Annotation(LIdentifier("actual"))
+                            ];
+                        };
+                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                        name = LIdentifier("string");
+                    }
+                ]);
+            body = ClassBody([]);
+            caseTypes = CaseTypes([
+                    LIdentifier("myTrue"),
+                    LIdentifier("myFalse")
+                ]);
+            extendedType = ExtendedType(ClassInstantiation {
+                    name = TypeNameWithTypeArguments(UIdentifier("Object"));
+                    arguments = PositionalArguments(ArgumentList([]));
+                    qualifier = null;
+                });
+            satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("MyObject")))]);
+            typeParameters = null;
+            typeConstraints = [];
+            annotations = Annotations {
+                annotations = [Annotation(LIdentifier("shared"))];
+            };
         }
     ];
 } /* END */;

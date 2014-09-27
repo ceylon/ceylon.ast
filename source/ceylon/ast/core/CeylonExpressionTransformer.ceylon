@@ -6,7 +6,7 @@
  ~~~
  myNode.transform(CeylonExpressionTransformer());
  ~~~"
-shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies NarrowingTransformer<String> {
+shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies ImmediateNarrowingTransformer<String> {
     
     variable String indent = "";
     

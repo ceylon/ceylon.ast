@@ -409,7 +409,7 @@ import org.antlr.runtime {
  Note however that no whitespace tokens are generated,
  and thus simply concatenating all the tokens will not give
  you valid Ceylon code for the transformed node(s)."
-shared class RedHatTransformer(TokenFactory tokens) satisfies NarrowingTransformer<JNode> {
+shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowingTransformer<JNode> {
     
     value isLowerBoundKey = ScopedKey<Boolean>(`class RedHatTransformer`, "isLowerBound");
     

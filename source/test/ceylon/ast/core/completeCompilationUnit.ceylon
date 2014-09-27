@@ -258,5 +258,26 @@ CompilationUnit completeCompilationUnit
             };
         }
     ];
-    declarations = [];
+    declarations = [
+        FunctionDefinition {
+            name = LIdentifier("run");
+            type = VoidModifier();
+            parameterLists = [Parameters()];
+            definition = Block([
+                    InvocationStatement(Invocation {
+                            invoked = QualifiedExpression {
+                                receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("sysout")));
+                                nameAndArgs = MemberNameWithTypeArguments(LIdentifier("println"));
+                            };
+                            arguments = PositionalArguments(ArgumentList([StringLiteral("""Hello, World!""")]));
+                        })
+                ]);
+            typeParameters = null;
+            typeConstraints = [];
+            annotations = Annotations {
+                anonymousAnnotation = StringLiteral("""The run function.""");
+                annotations = [Annotation(LIdentifier("shared"))];
+            };
+        }
+    ];
 } /* END */;

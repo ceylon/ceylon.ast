@@ -785,11 +785,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             else "TypeList(``transformWithIndent(that.elements)``)";
     transformTypeNameWithTypeArguments(TypeNameWithTypeArguments that)
             => that.typeArguments exists
-            then "TypeList {
+            then "TypeNameWithTypeArguments {
                   `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                   `` indent + indentLevel ``typeArguments = ``transformWithIndent(that.typeArguments)``;
                   }"
-            else "TypeList(``transformWithIndent(that.name)``)";
+            else "TypeNameWithTypeArguments(``transformWithIndent(that.name)``)";
     transformTypeMeta(TypeMeta that) => "TypeMeta(``transformWithIndent(that.type)``)";
     transformTypeParameter(TypeParameter that)
             => "TypeParameter {

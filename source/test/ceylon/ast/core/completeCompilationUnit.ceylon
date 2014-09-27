@@ -342,6 +342,22 @@ CompilationUnit completeCompilationUnit
                                 BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
                             ]);
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("metas");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        TypeMeta(IntersectionType([
+                                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable"))),
+                                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Usable")))
+                                                ])),
+                                        BaseMeta(MemberNameWithTypeArguments(LIdentifier("process"))),
+                                        MemberMeta {
+                                            qualifier = LIdentifier("process");
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("arguments"));
+                                        }
+                                    ])));
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

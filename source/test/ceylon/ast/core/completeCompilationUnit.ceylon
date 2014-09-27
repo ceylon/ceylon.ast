@@ -358,6 +358,21 @@ CompilationUnit completeCompilationUnit
                                         }
                                     ])));
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("decs");
+                        type = ValueModifier();
+                        definition = Specifier(Tuple(ArgumentList([
+                                        ClassDec(UIdentifier("String")),
+                                        InterfaceDec(UIdentifier("Iterable")),
+                                        AliasDec(UIdentifier("AddingExpression")),
+                                        GivenDec(UIdentifier("Element")),
+                                        ValueDec(LIdentifier("process")),
+                                        FunctionDec(LIdentifier("print")),
+                                        PackageDec(FullPackageName([LIdentifier("tmp")])),
+                                        ModuleDec(FullPackageName([LIdentifier("tmp")]))
+                                    ])));
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

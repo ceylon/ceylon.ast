@@ -309,6 +309,21 @@ CompilationUnit completeCompilationUnit
             annotations = Annotations {
                 annotations = [Annotation(LIdentifier("shared"))];
             };
+        },
+        ClassAliasDefinition {
+            name = UIdentifier("B");
+            parameters = Parameters();
+            specifier = ClassSpecifier(ClassInstantiation {
+                    name = TypeNameWithTypeArguments(UIdentifier("MyBoolean"));
+                    arguments = PositionalArguments(ArgumentList([]));
+                    qualifier = null;
+                });
+            caseTypes = null;
+            extendedType = null;
+            satisfiedTypes = null;
+            typeParameters = null;
+            typeConstraints = [];
+            annotations = Annotations();
         }
     ];
 } /* END */;

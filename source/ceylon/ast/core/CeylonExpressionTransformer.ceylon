@@ -60,10 +60,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformAliasDec(AliasDec that)
-            => "AliasDec {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
+            => that.qualifier exists
+            then "AliasDec {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "AliasDec(``transformWithIndent(that.name)``)";
     transformAndAssignmentOperation(AndAssignmentOperation that)
             => "AndAssignmentOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
@@ -157,10 +159,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformClassBody(ClassBody that) => "ClassBody(``transformWithIndent(that.content)``)";
     transformClassDec(ClassDec that)
-            => "ClassDec {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
+            => that.qualifier exists
+            then "ClassDec {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "ClassDec(``transformWithIndent(that.name)``)";
     transformClassDefinition(ClassDefinition that)
             => "ClassDefinition {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -312,10 +316,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 ``indent``}";
     transformFunctionDec(FunctionDec that)
-            => "FunctionDec {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
+            => that.qualifier exists
+            then "FunctionDec {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "FunctionDec(``transformWithIndent(that.name)``)";
     transformFunctionDeclaration(FunctionDeclaration that)
             => "FunctionDeclaration {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -419,10 +425,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformInterfaceBody(InterfaceBody that) => "InterfaceBody(``transformWithIndent(that.content)``)";
     transformInterfaceDec(InterfaceDec that)
-            => "InterfaceDec {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
+            => that.qualifier exists
+            then "InterfaceDec {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "InterfaceDec(``transformWithIndent(that.name)``)";
     transformInterfaceDefinition(InterfaceDefinition that)
             => "InterfaceDefinition {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -835,10 +843,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 ``indent``}";
     transformValueDec(ValueDec that)
-            => "ValueDec {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
+            => that.qualifier exists
+            then "ValueDec {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "ValueDec(``transformWithIndent(that.name)``)";
     transformValueDeclaration(ValueDeclaration that)
             => "ValueDeclaration {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

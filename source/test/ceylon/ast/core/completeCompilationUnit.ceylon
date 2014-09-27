@@ -324,6 +324,15 @@ CompilationUnit completeCompilationUnit
             typeParameters = null;
             typeConstraints = [];
             annotations = Annotations();
+        },
+        InterfaceAliasDefinition {
+            name = UIdentifier("Strings");
+            specifier = TypeSpecifier(IterableType(VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))))));
+            caseTypes = null;
+            satisfiedTypes = null;
+            typeParameters = null;
+            typeConstraints = [];
+            annotations = Annotations();
         }
     ];
 } /* END */;

@@ -345,6 +345,75 @@ CompilationUnit completeCompilationUnit
             typeParameters = null;
             typeConstraints = [];
             annotations = Annotations();
+        },
+        FunctionShortcutDefinition {
+            name = LIdentifier("genericLoop");
+            type = FunctionModifier();
+            parameterLists = [
+                Parameters([
+                        DefaultedValueParameter {
+                            parameter = ValueParameter {
+                                annotations = Annotations();
+                                type = DynamicModifier();
+                                name = LIdentifier("param");
+                            };
+                            specifier = Specifier(Tuple(ArgumentList([])));
+                        }
+                    ])
+            ];
+            definition = LazySpecifier(Invocation {
+                    invoked = BaseExpression(MemberNameWithTypeArguments {
+                            name = LIdentifier("genericLoop");
+                            typeArguments = TypeArguments([
+                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam1")))),
+                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam2"))))
+                                ]);
+                        });
+                    arguments = PositionalArguments(ArgumentList([]));
+                });
+            typeParameters = TypeParameters([
+                    TypeParameter {
+                        parameterName = UIdentifier("TParam1");
+                        variance = InModifier();
+                        defaultArgument = EntryType {
+                            key = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                            item = BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")));
+                        };
+                    },
+                    TypeParameter {
+                        parameterName = UIdentifier("TParam2");
+                        variance = OutModifier();
+                        defaultArgument = CallableType {
+                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
+                            argumentTypes = TypeList([]);
+                        };
+                    }
+                ]);
+            typeConstraints = [
+                TypeConstraint {
+                    parameterName = UIdentifier("TParam1");
+                    caseTypes = CaseTypes([
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                            BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))
+                        ]);
+                    satisfiedTypes = null;
+                },
+                TypeConstraint {
+                    parameterName = UIdentifier("TParam2");
+                    caseTypes = null;
+                    satisfiedTypes = SatisfiedTypes([
+                            TupleType(TypeList([
+                                        BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))),
+                                        DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))))
+                                    ])),
+                            SequentialType(GroupedType(QualifiedType {
+                                        qualifyingType = BaseType(TypeNameWithTypeArguments(UIdentifier("Outer")));
+                                        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Inner"));
+                                    }))
+                        ]);
+                }
+            ];
+            annotations = Annotations();
         }
     ];
 } /* END */;

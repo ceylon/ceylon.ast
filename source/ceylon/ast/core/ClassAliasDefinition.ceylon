@@ -21,7 +21,7 @@
  
      shared class VariadicString(Character* characters) => String(characters);
      shared class MemberName(String name) => LIdentifier(name);"
-shared class ClassAliasDefinition(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations)
+shared class ClassAliasDefinition(name, parameters, specifier, caseTypes = null, extendedType = null, satisfiedTypes = null, typeParameters = null, typeConstraints = [], annotations = Annotations())
         extends AnyClass() {
     
     "The name of the class."

@@ -315,6 +315,33 @@ CompilationUnit completeCompilationUnit
                             }
                         ];
                         finallyClause = FinallyClause(Block([]));
+                    },
+                    Assertion {
+                        conditions = Conditions([
+                                IsCondition {
+                                    variable = TypedVariable {
+                                        name = LIdentifier("arg1");
+                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                        specifier = null;
+                                    };
+                                    negated = false;
+                                },
+                                ExistsCondition(SpecifiedVariable {
+                                        name = LIdentifier("arg2");
+                                        specifier = Specifier(ElementOrSubrangeExpression {
+                                                primary = QualifiedExpression {
+                                                    receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1")));
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("uppercased"));
+                                                    memberOperator = SpreadMemberOperator();
+                                                };
+                                                subscript = SpanToSubscript(IntegerLiteral("65536"));
+                                            });
+                                        type = null;
+                                    }),
+                                NonemptyCondition(LIdentifier("arg2")),
+                                BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
+                            ]);
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

@@ -293,7 +293,30 @@ CompilationUnit completeCompilationUnit
                         name = LIdentifier("string");
                     }
                 ]);
-            body = ClassBody([]);
+            body = ClassBody([
+                    TryCatchFinally {
+                        tryClause = TryClause {
+                            block = Block([]);
+                            resources = Resources([
+                                    Resource(SpecifiedVariable {
+                                            name = LIdentifier("w");
+                                            specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("wr"))));
+                                            type = ValueModifier();
+                                        })
+                                ]);
+                        };
+                        catchClauses = [
+                            CatchClause {
+                                variable = UnspecifiedVariable {
+                                    name = LIdentifier("t");
+                                    type = BaseType(TypeNameWithTypeArguments(UIdentifier("Throwable")));
+                                };
+                                block = Block([]);
+                            }
+                        ];
+                        finallyClause = FinallyClause(Block([]));
+                    }
+                ]);
             caseTypes = CaseTypes([
                     LIdentifier("myTrue"),
                     LIdentifier("myFalse")

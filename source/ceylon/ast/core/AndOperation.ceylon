@@ -11,13 +11,13 @@ shared class AndOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     
     // TODO remove ceylon-compiler#1728 workaround
-    Precedence14Expression leftOperand_;
-    Precedence13Expression rightOperand_;
+    ConjoiningExpression leftOperand_;
+    NegatingExpression rightOperand_;
     
-    shared actual Precedence14Expression leftOperand = leftOperand_;
-    shared actual Precedence13Expression rightOperand = rightOperand_;
+    shared actual ConjoiningExpression leftOperand = leftOperand_;
+    shared actual NegatingExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence14Expression, Precedence13Expression] children = [leftOperand, rightOperand];
+    shared actual [ConjoiningExpression, NegatingExpression] children = [leftOperand, rightOperand];
     
     operator = "&&";
     
@@ -35,7 +35,7 @@ shared class AndOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared AndOperation copy(Precedence14Expression leftOperand = this.leftOperand, Precedence13Expression rightOperand = this.rightOperand) {
+    shared AndOperation copy(ConjoiningExpression leftOperand = this.leftOperand, NegatingExpression rightOperand = this.rightOperand) {
         value ret = AndOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

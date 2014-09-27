@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     LargeAsOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object largeAsOperation satisfies ConcreteTest<LargeAsOperation,JLargeAsOp> {
     
-    String->LargeAsOperation construct(String->Precedence10Expression left, String->Precedence10Expression right)
+    String->LargeAsOperation construct(String->ExistsNonemptyExpression left, String->ExistsNonemptyExpression right)
             => "``left.key``>=``right.key``"->LargeAsOperation(left.item, right.item);
     
     shared String->LargeAsOperation _1138LargeAs1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);

@@ -11,18 +11,18 @@ shared class SumOperation(leftSummand, rightSummand)
         extends ArithmeticOperation() {
     
     "The left summand."
-    shared Precedence8Expression leftSummand;
+    shared AddingExpression leftSummand;
     "The right summand."
-    shared Precedence7Expression rightSummand;
+    shared ScalingExpression rightSummand;
     
     "The left summand."
     see (`value leftSummand`)
-    shared actual Precedence8Expression leftOperand = leftSummand;
+    shared actual AddingExpression leftOperand = leftSummand;
     "The right summand."
     see (`value rightSummand`)
-    shared actual Precedence7Expression rightOperand = rightSummand;
+    shared actual ScalingExpression rightOperand = rightSummand;
     
-    shared actual [Precedence8Expression, Precedence7Expression] children = [leftOperand, rightOperand];
+    shared actual [AddingExpression, ScalingExpression] children = [leftOperand, rightOperand];
     
     operator = "+";
     
@@ -40,7 +40,7 @@ shared class SumOperation(leftSummand, rightSummand)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SumOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+    shared SumOperation copy(AddingExpression leftOperand = this.leftOperand, ScalingExpression rightOperand = this.rightOperand) {
         value ret = SumOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

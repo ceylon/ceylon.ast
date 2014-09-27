@@ -2,8 +2,8 @@ import ceylon.ast.core {
     Editor,
     GroupedExpression,
     IntersectionOperation,
-    Precedence3Expression,
-    Precedence4Expression
+    InvertingExpression,
+    IntersectingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -22,7 +22,7 @@ import ceylon.test {
 
 shared object intersectionOperation satisfies ConcreteTest<IntersectionOperation,JIntersectionOp> {
     
-    String->IntersectionOperation construct(String->Precedence4Expression left, String->Precedence3Expression right)
+    String->IntersectionOperation construct(String->IntersectingExpression left, String->InvertingExpression right)
             => "``left.key``&``right.key``"->IntersectionOperation(left.item, right.item);
     
     shared String->IntersectionOperation aIntersectBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
@@ -38,7 +38,7 @@ shared object intersectionOperation satisfies ConcreteTest<IntersectionOperation
     shared void testAssociativity() {
         object ungroupEditor satisfies Editor {
             shared actual IntersectionOperation transformIntersectionOperation(IntersectionOperation that) {
-                if (is GroupedExpression left = that.leftOperand, is Precedence4Expression inner = left.innerExpression) {
+                if (is GroupedExpression left = that.leftOperand, is IntersectingExpression inner = left.innerExpression) {
                     return IntersectionOperation(inner, that.rightOperand);
                 } else {
                     return that;

@@ -7,12 +7,12 @@ shared class IdentityOperation(operand_)
         extends UnaryArithmeticOperation() {
     
     // TODO remove ceylon-compiler#1728 workaround
-    Precedence2Expression operand_;
+    ExponentiatingExpression operand_;
     
     "The inner expression."
-    shared actual Precedence2Expression operand = operand_;
+    shared actual ExponentiatingExpression operand = operand_;
     
-    shared actual [Precedence2Expression] children = [operand];
+    shared actual [ExponentiatingExpression] children = [operand];
     
     operator = "+";
     
@@ -30,7 +30,7 @@ shared class IdentityOperation(operand_)
     shared actual Integer hash
             => 31 * operand.hash;
     
-    shared IdentityOperation copy(Precedence2Expression operand = this.operand) {
+    shared IdentityOperation copy(ExponentiatingExpression operand = this.operand) {
         value ret = IdentityOperation(operand);
         copyExtraInfoTo(ret);
         return ret;

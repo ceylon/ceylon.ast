@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     OpenBound,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,6 +11,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[OpenBound|JOpenBound]] to a `ceylon.ast` [[OpenBound]]."
 shared OpenBound openBoundToCeylon(JOpenBound openBound) {
     "Check precedence"
-    assert (is Precedence10Expression endpoint = expressionToCeylon(openBound.term));
+    assert (is ExistsNonemptyExpression endpoint = expressionToCeylon(openBound.term));
     return OpenBound(endpoint);
 }

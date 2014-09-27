@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence5Expression,
+    UnioningExpression,
     SpreadArgument
 }
 import ceylon.ast.redhat {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object spreadArgument satisfies ConcreteTest<SpreadArgument,JSpreadArgument> {
     
-    String->SpreadArgument construct(String->Precedence5Expression argument)
+    String->SpreadArgument construct(String->UnioningExpression argument)
             => "*``argument.key``"->SpreadArgument(argument.item);
     
     shared String->SpreadArgument spreadTextArgument = construct(baseExpression.textExpression);

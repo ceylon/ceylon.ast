@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ProductOperation,
-    Precedence5Expression,
-    Precedence6Expression
+    UnioningExpression,
+    MultiplyingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object productOperation satisfies ConcreteTest<ProductOperation,JProductOp> {
     
-    String->ProductOperation construct(String->Precedence6Expression left, String->Precedence5Expression right)
+    String->ProductOperation construct(String->MultiplyingExpression left, String->UnioningExpression right)
             => "``left.key``*``right.key``"->ProductOperation(left.item, right.item);
     
     shared String->ProductOperation aTimesBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

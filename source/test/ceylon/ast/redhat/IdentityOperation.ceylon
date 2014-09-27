@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     IdentityOperation,
-    Precedence2Expression
+    ExponentiatingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object identityOperation satisfies ConcreteTest<IdentityOperation,JPositiveOp> {
     
-    String->IdentityOperation construct(String->Precedence2Expression operand)
+    String->IdentityOperation construct(String->ExponentiatingExpression operand)
             => "+``operand.key``"->IdentityOperation(operand.item);
     
     shared String->IdentityOperation plus1138Expression = construct(integerLiteral._1138IntegerLiteral);

@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     OrAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[OrAssignOp|JOrAssignOp]] to a `ceylon.ast` [[OrAssignmentOperation]]."
 shared OrAssignmentOperation orAssignmentOperationToCeylon(JOrAssignOp orAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(orAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(orAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(orAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(orAssignmentOperation.rightTerm));
     return OrAssignmentOperation(left, right);
 }
 

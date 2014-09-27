@@ -11,13 +11,13 @@ shared class OrOperation(leftOperand_, rightOperand_)
         extends LogicalOperation() {
     
     // TODO remove ceylon-compiler#1728 workaround
-    Precedence15Expression leftOperand_;
-    Precedence14Expression rightOperand_;
+    DisjoiningExpression leftOperand_;
+    ConjoiningExpression rightOperand_;
     
-    shared actual Precedence15Expression leftOperand = leftOperand_;
-    shared actual Precedence14Expression rightOperand = rightOperand_;
+    shared actual DisjoiningExpression leftOperand = leftOperand_;
+    shared actual ConjoiningExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence15Expression, Precedence14Expression] children = [leftOperand, rightOperand];
+    shared actual [DisjoiningExpression, ConjoiningExpression] children = [leftOperand, rightOperand];
     
     operator = "||";
     
@@ -35,7 +35,7 @@ shared class OrOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared OrOperation copy(Precedence15Expression leftOperand = this.leftOperand, Precedence14Expression rightOperand = this.rightOperand) {
+    shared OrOperation copy(DisjoiningExpression leftOperand = this.leftOperand, ConjoiningExpression rightOperand = this.rightOperand) {
         value ret = OrOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

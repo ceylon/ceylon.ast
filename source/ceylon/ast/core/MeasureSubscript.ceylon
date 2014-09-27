@@ -13,13 +13,13 @@ shared class MeasureSubscript(from, length)
     "The expression for the first selected index.
      
      See [[Ranged.measure.from]]."
-    shared Precedence8Expression from;
+    shared AddingExpression from;
     "The expression for the length.
      
      See [[Ranged.measure.length]]."
-    shared Precedence8Expression length;
+    shared AddingExpression length;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [from, length];
+    shared actual [AddingExpression, AddingExpression] children = [from, length];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMeasureSubscript(this);
@@ -35,7 +35,7 @@ shared class MeasureSubscript(from, length)
     shared actual Integer hash
             => 31 * (from.hash + 31 * length.hash);
     
-    shared MeasureSubscript copy(Precedence8Expression from = this.from, Precedence8Expression length = this.length) {
+    shared MeasureSubscript copy(AddingExpression from = this.from, AddingExpression length = this.length) {
         value ret = MeasureSubscript(from, length);
         copyExtraInfoTo(ret);
         return ret;

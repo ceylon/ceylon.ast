@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence6Expression,
-    Precedence7Expression,
+    MultiplyingExpression,
+    ScalingExpression,
     ScaleOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ScaleOp|JScaleOp]] to a `ceylon.ast` [[ScaleOperation]]."
 shared ScaleOperation scaleOperationToCeylon(JScaleOp scaleOperation) {
     "Check precedence"
-    assert (is Precedence6Expression left = expressionToCeylon(scaleOperation.leftTerm),
-        is Precedence7Expression right = expressionToCeylon(scaleOperation.rightTerm));
+    assert (is MultiplyingExpression left = expressionToCeylon(scaleOperation.leftTerm),
+        is ScalingExpression right = expressionToCeylon(scaleOperation.rightTerm));
     return ScaleOperation(left, right);
 }
 

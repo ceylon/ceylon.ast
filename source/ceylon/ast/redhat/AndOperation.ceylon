@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AndOperation,
-    Precedence13Expression,
-    Precedence14Expression
+    NegatingExpression,
+    ConjoiningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[AndOp|JAndOp]] to a `ceylon.ast` [[AndOperation]]."
 shared AndOperation andOperationToCeylon(JAndOp andOperation) {
     "Check precedence"
-    assert (is Precedence14Expression left = expressionToCeylon(andOperation.leftTerm),
-        is Precedence13Expression right = expressionToCeylon(andOperation.rightTerm));
+    assert (is ConjoiningExpression left = expressionToCeylon(andOperation.leftTerm),
+        is NegatingExpression right = expressionToCeylon(andOperation.rightTerm));
     return AndOperation(left, right);
 }
 

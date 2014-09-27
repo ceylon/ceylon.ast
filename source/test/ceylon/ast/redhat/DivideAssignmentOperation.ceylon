@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     DivideAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object divideAssignmentOperation satisfies ConcreteTest<DivideAssignmentOperation,JDivideAssignOp> {
     
-    String->DivideAssignmentOperation construct(String->Precedence16Expression left, String->Precedence18Expression right)
+    String->DivideAssignmentOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
             => "``left.key``/=``right.key``"->DivideAssignmentOperation(left.item, right.item);
     
     shared String->DivideAssignmentOperation stepDivideAssign2Expression = construct(baseExpression.stepExpression, integerLiteral._2IntegerLiteral);

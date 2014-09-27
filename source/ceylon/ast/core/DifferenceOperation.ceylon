@@ -11,18 +11,18 @@ shared class DifferenceOperation(minuend, subtrahend)
         extends ArithmeticOperation() {
     
     "The minuend (the `a` in `a - b`)."
-    shared Precedence8Expression minuend;
+    shared AddingExpression minuend;
     "The subtrahend (the `b` in `a -b`)."
-    shared Precedence7Expression subtrahend;
+    shared ScalingExpression subtrahend;
     
     "The minuend (the `a` in `a - b`)."
     see (`value minuend`)
-    shared actual Precedence8Expression leftOperand = minuend;
+    shared actual AddingExpression leftOperand = minuend;
     "The subtrahend (the `b` in `a -b`)."
     see (`value subtrahend`)
-    shared actual Precedence7Expression rightOperand = subtrahend;
+    shared actual ScalingExpression rightOperand = subtrahend;
     
-    shared actual [Precedence8Expression, Precedence7Expression] children = [leftOperand, rightOperand];
+    shared actual [AddingExpression, ScalingExpression] children = [leftOperand, rightOperand];
     
     operator = "-";
     
@@ -40,7 +40,7 @@ shared class DifferenceOperation(minuend, subtrahend)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared DifferenceOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+    shared DifferenceOperation copy(AddingExpression leftOperand = this.leftOperand, ScalingExpression rightOperand = this.rightOperand) {
         value ret = DifferenceOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

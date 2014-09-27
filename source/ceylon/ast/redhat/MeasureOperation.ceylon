@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     MeasureOperation,
-    Precedence8Expression
+    AddingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SegmentOp|JSegmentOp]] to a `ceylon.ast` [[MeasureOperation]]."
 shared MeasureOperation measureOperationToCeylon(JSegmentOp measureOperation) {
     "Check precedence"
-    assert (is Precedence8Expression left = expressionToCeylon(measureOperation.leftTerm),
-        is Precedence8Expression right = expressionToCeylon(measureOperation.rightTerm));
+    assert (is AddingExpression left = expressionToCeylon(measureOperation.leftTerm),
+        is AddingExpression right = expressionToCeylon(measureOperation.rightTerm));
     return MeasureOperation(left, right);
 }
 

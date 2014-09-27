@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     IntersectAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[IntersectAssignOp|JIntersectAssignOp]] to a `ceylon.ast` [[IntersectAssignmentOperation]]."
 shared IntersectAssignmentOperation intersectAssignmentOperationToCeylon(JIntersectAssignOp intersectAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(intersectAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(intersectAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(intersectAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(intersectAssignmentOperation.rightTerm));
     return IntersectAssignmentOperation(left, right);
 }
 

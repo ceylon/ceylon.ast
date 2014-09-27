@@ -6,18 +6,18 @@ shared class RemainderOperation(dividend, divisor)
         extends ArithmeticOperation() {
     
     "The dividend, or numerator."
-    shared Precedence6Expression dividend;
+    shared MultiplyingExpression dividend;
     "The divisor, or denominator."
-    shared Precedence5Expression divisor;
+    shared UnioningExpression divisor;
     
     "The dividend, or numerator."
     see (`value dividend`)
-    shared actual Precedence6Expression leftOperand = dividend;
+    shared actual MultiplyingExpression leftOperand = dividend;
     "The divisor, or denominator."
     see (`value divisor`)
-    shared actual Precedence5Expression rightOperand = divisor;
+    shared actual UnioningExpression rightOperand = divisor;
     
-    shared actual [Precedence6Expression, Precedence5Expression] children = [leftOperand, rightOperand];
+    shared actual [MultiplyingExpression, UnioningExpression] children = [leftOperand, rightOperand];
     
     operator = "%";
     
@@ -35,7 +35,7 @@ shared class RemainderOperation(dividend, divisor)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared RemainderOperation copy(Precedence6Expression leftOperand = this.leftOperand, Precedence5Expression rightOperand = this.rightOperand) {
+    shared RemainderOperation copy(MultiplyingExpression leftOperand = this.leftOperand, UnioningExpression rightOperand = this.rightOperand) {
         value ret = RemainderOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

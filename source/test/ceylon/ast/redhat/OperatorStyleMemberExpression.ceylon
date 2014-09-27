@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     MemberNameWithTypeArguments,
     OperatorStyleMemberExpression,
-    Precedence16Expression
+    ThenElseExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object operatorStyleMemberExpression satisfies ConcreteTest<OperatorStyleMemberExpression,JQualifiedMemberExpression> {
     
-    String->OperatorStyleMemberExpression construct(String->Precedence16Expression receiverExpression, String->MemberNameWithTypeArguments nameAndArgs)
+    String->OperatorStyleMemberExpression construct(String->ThenElseExpression receiverExpression, String->MemberNameWithTypeArguments nameAndArgs)
             => "``receiverExpression.key``  ``nameAndArgs.key``"->OperatorStyleMemberExpression(receiverExpression.item, nameAndArgs.item);
     
     shared String->OperatorStyleMemberExpression todo = construct(baseExpression.nameExpression, identifier.lidLIdentifier.key->MemberNameWithTypeArguments(identifier.lidLIdentifier.item));

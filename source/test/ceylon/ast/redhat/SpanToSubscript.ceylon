@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence8Expression,
+    AddingExpression,
     SpanToSubscript
 }
 import ceylon.ast.redhat {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object spanToSubscript satisfies ConcreteTest<SpanToSubscript,JElementRange> {
     
-    String->SpanToSubscript construct(String->Precedence8Expression to)
+    String->SpanToSubscript construct(String->AddingExpression to)
             => "...``to.key``"->SpanToSubscript(to.item);
     
     shared String->SpanToSubscript spanToCountSubscript = construct(baseExpression.countExpression);

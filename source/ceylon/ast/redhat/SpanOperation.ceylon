@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence8Expression,
+    AddingExpression,
     SpanOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[RangeOp|JRangeOp]] to a `ceylon.ast` [[SpanOperation]]."
 shared SpanOperation spanOperationToCeylon(JRangeOp spanOperation) {
     "Check precedence"
-    assert (is Precedence8Expression left = expressionToCeylon(spanOperation.leftTerm),
-        is Precedence8Expression right = expressionToCeylon(spanOperation.rightTerm));
+    assert (is AddingExpression left = expressionToCeylon(spanOperation.leftTerm),
+        is AddingExpression right = expressionToCeylon(spanOperation.rightTerm));
     return SpanOperation(left, right);
 }
 

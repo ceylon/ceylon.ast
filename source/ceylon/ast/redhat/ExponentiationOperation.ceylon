@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ExponentiationOperation,
-    Precedence1Expression,
-    Precedence2Expression
+    PrePostfixingExpression,
+    ExponentiatingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[PowerOp|JPowerOp]] to a `ceylon.ast` [[ExponentiationOperation]]."
 shared ExponentiationOperation exponentiationOperationToCeylon(JPowerOp exponentiationExpression) {
-    assert (is Precedence1Expression left = expressionToCeylon(exponentiationExpression.leftTerm));
-    assert (is Precedence2Expression right = expressionToCeylon(exponentiationExpression.rightTerm));
+    assert (is PrePostfixingExpression left = expressionToCeylon(exponentiationExpression.leftTerm));
+    assert (is ExponentiatingExpression right = expressionToCeylon(exponentiationExpression.rightTerm));
     return ExponentiationOperation(left, right);
 }
 

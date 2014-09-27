@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NegationOperation,
-    Precedence2Expression
+    ExponentiatingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object negationOperation satisfies ConcreteTest<NegationOperation,JNegativeOp> {
     
-    String->NegationOperation construct(String->Precedence2Expression operand)
+    String->NegationOperation construct(String->ExponentiatingExpression operand)
             => "-``operand.key``"->NegationOperation(operand.item);
     
     shared String->NegationOperation minus1138Expression = construct(integerLiteral._1138IntegerLiteral);

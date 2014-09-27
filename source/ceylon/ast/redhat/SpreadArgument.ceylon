@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence5Expression,
+    UnioningExpression,
     SpreadArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SpreadArgument|JSpreadArgument]] to a `ceylon.ast` [[SpreadArgument]]."
 shared SpreadArgument spreadArgumentToCeylon(JSpreadArgument spreadArgument) {
     "Check precedence"
-    assert (is Precedence5Expression expression = expressionToCeylon(spreadArgument.expression));
+    assert (is UnioningExpression expression = expressionToCeylon(spreadArgument.expression));
     return SpreadArgument(expression);
 }
 

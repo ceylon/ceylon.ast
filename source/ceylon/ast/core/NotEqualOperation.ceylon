@@ -10,13 +10,13 @@ shared class NotEqualOperation(leftOperand_, rightOperand_)
         extends EqualityOperation() {
     
     // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    Precedence11Expression leftOperand_;
-    Precedence11Expression rightOperand_;
+    ComparingExpression leftOperand_;
+    ComparingExpression rightOperand_;
     
-    shared actual Precedence11Expression leftOperand = leftOperand_;
-    shared actual Precedence11Expression rightOperand = rightOperand_;
+    shared actual ComparingExpression leftOperand = leftOperand_;
+    shared actual ComparingExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence11Expression, Precedence11Expression] children = [leftOperand, rightOperand];
+    shared actual [ComparingExpression, ComparingExpression] children = [leftOperand, rightOperand];
     
     operator = "!=";
     
@@ -34,7 +34,7 @@ shared class NotEqualOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared NotEqualOperation copy(Precedence11Expression leftOperand = this.leftOperand, Precedence11Expression rightOperand = this.rightOperand) {
+    shared NotEqualOperation copy(ComparingExpression leftOperand = this.leftOperand, ComparingExpression rightOperand = this.rightOperand) {
         value ret = NotEqualOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -12,15 +12,15 @@ shared class OfOperation(operand_, type_)
         extends UnaryTypeOperation() {
     
     // TODO operand_ and type_ are a workaround for ceylon-compiler#1728; remove!
-    Precedence10Expression operand_;
+    ExistsNonemptyExpression operand_;
     Type type_;
     
     "The expression whose type is narrowed or widened."
-    shared actual Precedence10Expression operand = operand_;
+    shared actual ExistsNonemptyExpression operand = operand_;
     "The covering type to which the expression is narrowed or widened."
     shared actual Type type = type_;
     
-    shared actual [Precedence10Expression, Type] children = [operand, type];
+    shared actual [ExistsNonemptyExpression, Type] children = [operand, type];
     
     operator = "of";
     
@@ -38,7 +38,7 @@ shared class OfOperation(operand_, type_)
     shared actual Integer hash
             => 31 * (operand.hash + 31 * type.hash);
     
-    shared OfOperation copy(Precedence10Expression operand = this.operand, Type type = this.type) {
+    shared OfOperation copy(ExistsNonemptyExpression operand = this.operand, Type type = this.type) {
         value ret = OfOperation(operand, type);
         copyExtraInfoTo(ret);
         return ret;

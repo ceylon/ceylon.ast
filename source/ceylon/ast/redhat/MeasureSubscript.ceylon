@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     MeasureSubscript,
-    Precedence8Expression
+    AddingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,8 +14,8 @@ shared MeasureSubscript measureSubscriptToCeylon(JElementRange measureSubscript)
         exists jLength = measureSubscript.length,
         !measureSubscript.upperBound exists);
     "Check precedence"
-    assert (is Precedence8Expression from = expressionToCeylon(jFrom),
-        is Precedence8Expression length = expressionToCeylon(jLength));
+    assert (is AddingExpression from = expressionToCeylon(jFrom),
+        is AddingExpression length = expressionToCeylon(jLength));
     return MeasureSubscript(from, length);
 }
 

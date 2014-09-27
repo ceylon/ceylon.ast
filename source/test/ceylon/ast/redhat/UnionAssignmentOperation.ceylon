@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence16Expression,
-    Precedence18Expression,
+    ThenElseExpression,
+    AssigningExpression,
     UnionAssignmentOperation
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object unionAssignmentOperation satisfies ConcreteTest<UnionAssignmentOperation,JUnionAssignOp> {
     
-    String->UnionAssignmentOperation construct(String->Precedence16Expression left, String->Precedence18Expression right)
+    String->UnionAssignmentOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
             => "``left.key``|=``right.key``"->UnionAssignmentOperation(left.item, right.item);
     
     shared String->UnionAssignmentOperation aUnionAssignBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

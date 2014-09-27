@@ -22,18 +22,18 @@ shared class ScaleOperation(factor, scalable)
         extends BinaryOperation() {
     
     "The factor by which the [[scalable]] is scaled"
-    shared Precedence6Expression factor;
+    shared MultiplyingExpression factor;
     "The [[Scalable]] being scaled"
-    shared Precedence7Expression scalable;
+    shared ScalingExpression scalable;
     
     "The factor by which the [[scalable]] is scaled"
     see (`value factor`)
-    shared actual Precedence6Expression leftOperand = factor;
+    shared actual MultiplyingExpression leftOperand = factor;
     "The [[Scalable]] being scaled"
     see (`value scalable`)
-    shared actual Precedence7Expression rightOperand = scalable;
+    shared actual ScalingExpression rightOperand = scalable;
     
-    shared actual [Precedence6Expression, Precedence7Expression] children = [leftOperand, rightOperand];
+    shared actual [MultiplyingExpression, ScalingExpression] children = [leftOperand, rightOperand];
     
     operator = "**";
     
@@ -51,7 +51,7 @@ shared class ScaleOperation(factor, scalable)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ScaleOperation copy(Precedence6Expression leftOperand = this.leftOperand, Precedence7Expression rightOperand = this.rightOperand) {
+    shared ScaleOperation copy(MultiplyingExpression leftOperand = this.leftOperand, ScalingExpression rightOperand = this.rightOperand) {
         value ret = ScaleOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

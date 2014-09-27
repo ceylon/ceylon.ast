@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence6Expression,
-    Precedence7Expression,
+    MultiplyingExpression,
+    ScalingExpression,
     ScaleOperation
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object scaleOperation satisfies ConcreteTest<ScaleOperation,JScaleOp> {
     
-    String->ScaleOperation construct(String->Precedence6Expression left, String->Precedence7Expression right)
+    String->ScaleOperation construct(String->MultiplyingExpression left, String->ScalingExpression right)
             => "``left.key``**``right.key``"->ScaleOperation(left.item, right.item);
     
     shared String->ScaleOperation _1138ScaleAExpression = construct(integerLiteral._1138IntegerLiteral, baseExpression.aExpression);

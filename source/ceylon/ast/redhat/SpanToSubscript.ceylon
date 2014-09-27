@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence8Expression,
+    AddingExpression,
     SpanToSubscript
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -14,7 +14,7 @@ shared SpanToSubscript spanToSubscriptToCeylon(JElementRange spanToSubscript) {
         !spanToSubscript.lowerBound exists,
         !spanToSubscript.length exists);
     "Check precedence"
-    assert (is Precedence8Expression to = expressionToCeylon(jTo));
+    assert (is AddingExpression to = expressionToCeylon(jTo));
     return SpanToSubscript(to);
 }
 

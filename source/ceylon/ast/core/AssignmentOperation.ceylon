@@ -9,8 +9,8 @@ shared abstract class AssignmentOperation()
         extends BinaryOperation() {
     
     "The target expression."
-    shared actual formal Precedence16Expression leftOperand;
-    shared actual formal Precedence18Expression rightOperand;
+    shared actual formal ThenElseExpression leftOperand;
+    shared actual formal AssigningExpression rightOperand;
     
-    shared actual formal [Precedence16Expression, Precedence18Expression] children;
+    shared actual formal [ThenElseExpression, AssigningExpression] children;
 }

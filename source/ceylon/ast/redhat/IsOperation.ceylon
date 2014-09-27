@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     IsOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[IsOp|JIsOp]] to a `ceylon.ast` [[IsOperation]]."
 shared IsOperation isOperationToCeylon(JIsOp isOperation) {
     "Check precedence"
-    assert (is Precedence10Expression operand = expressionToCeylon(isOperation.term));
+    assert (is ExistsNonemptyExpression operand = expressionToCeylon(isOperation.term));
     "Must be a real type"
     assert (is JStaticType type = isOperation.type);
     return IsOperation(operand, typeToCeylon(type));

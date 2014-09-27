@@ -9,9 +9,9 @@
 shared class OpenBound(endpoint)
         extends Bound() {
     
-    shared actual Precedence10Expression endpoint;
+    shared actual ExistsNonemptyExpression endpoint;
     
-    shared actual [Precedence10Expression] children = [endpoint];
+    shared actual [ExistsNonemptyExpression] children = [endpoint];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOpenBound(this);
@@ -27,7 +27,7 @@ shared class OpenBound(endpoint)
     shared actual Integer hash
             => 31 * endpoint.hash;
     
-    shared OpenBound copy(Precedence10Expression endpoint = this.endpoint) {
+    shared OpenBound copy(ExistsNonemptyExpression endpoint = this.endpoint) {
         value ret = OpenBound(endpoint);
         copyExtraInfoTo(ret);
         return ret;

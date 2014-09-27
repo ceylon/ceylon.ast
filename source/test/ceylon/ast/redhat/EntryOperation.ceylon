@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     EntryOperation,
-    Precedence8Expression
+    AddingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object entryOperation satisfies ConcreteTest<EntryOperation,JEntryOp> {
     
-    String->EntryOperation construct(String->Precedence8Expression left, String->Precedence8Expression right)
+    String->EntryOperation construct(String->AddingExpression left, String->AddingExpression right)
             => "``left.key``->``right.key``"->EntryOperation(left.item, right.item);
     
     shared String->EntryOperation cCharToCStringExpression = construct(characterLiteral.capitalCCharacterLiteral, stringLiteral.capitalCStringLiteral);

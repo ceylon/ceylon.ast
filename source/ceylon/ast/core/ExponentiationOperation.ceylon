@@ -10,20 +10,20 @@ shared class ExponentiationOperation(base, exponent)
         extends ArithmeticOperation() {
     
     "The base expression."
-    shared Precedence1Expression base;
+    shared PrePostfixingExpression base;
     "The exponent or power expression."
-    shared Precedence2Expression exponent;
+    shared ExponentiatingExpression exponent;
     
     "The base expression."
     see (`value base`)
-    shared actual Precedence1Expression leftOperand = base;
+    shared actual PrePostfixingExpression leftOperand = base;
     "The exponent or power expression."
     see (`value exponent`)
-    shared actual Precedence2Expression rightOperand = exponent;
+    shared actual ExponentiatingExpression rightOperand = exponent;
     
     operator = "^";
     
-    shared actual [Precedence1Expression, Precedence2Expression] children = [leftOperand, rightOperand];
+    shared actual [PrePostfixingExpression, ExponentiatingExpression] children = [leftOperand, rightOperand];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExponentiationOperation(this);
@@ -39,7 +39,7 @@ shared class ExponentiationOperation(base, exponent)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ExponentiationOperation copy(Precedence1Expression leftOperand = this.leftOperand, Precedence2Expression rightOperand = this.rightOperand) {
+    shared ExponentiationOperation copy(PrePostfixingExpression leftOperand = this.leftOperand, ExponentiatingExpression rightOperand = this.rightOperand) {
         value ret = ExponentiationOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     IdenticalOperation,
-    Precedence11Expression
+    ComparingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[IdenticalOp|JIdenticalOp]] to a `ceylon.ast` [[IdenticalOperation]]."
 shared IdenticalOperation identicalOperationToCeylon(JIdenticalOp identicalOperation) {
     "Check precedence"
-    assert (is Precedence11Expression left = expressionToCeylon(identicalOperation.leftTerm),
-        is Precedence11Expression right = expressionToCeylon(identicalOperation.rightTerm));
+    assert (is ComparingExpression left = expressionToCeylon(identicalOperation.leftTerm),
+        is ComparingExpression right = expressionToCeylon(identicalOperation.rightTerm));
     return IdenticalOperation(left, right);
 }
 

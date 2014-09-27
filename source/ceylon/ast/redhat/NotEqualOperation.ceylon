@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NotEqualOperation,
-    Precedence11Expression
+    ComparingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[NotEqualOp|JNotEqualOp]] to a `ceylon.ast` [[NotEqualOperation]]."
 shared NotEqualOperation notEqualOperationToCeylon(JNotEqualOp notEqualOperation) {
     "Check precedence"
-    assert (is Precedence11Expression left = expressionToCeylon(notEqualOperation.leftTerm),
-        is Precedence11Expression right = expressionToCeylon(notEqualOperation.rightTerm));
+    assert (is ComparingExpression left = expressionToCeylon(notEqualOperation.leftTerm),
+        is ComparingExpression right = expressionToCeylon(notEqualOperation.rightTerm));
     return NotEqualOperation(left, right);
 }
 

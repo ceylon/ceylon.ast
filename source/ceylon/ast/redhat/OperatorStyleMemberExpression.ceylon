@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     MemberNameWithTypeArguments,
     OperatorStyleMemberExpression,
-    Precedence16Expression,
+    ThenElseExpression,
     TypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST operator-style [[QualifiedMemberExpression|JQualifiedMemberExpression]] to a `ceylon.ast` [[OperatorStyleMemberExpression]]."
 shared OperatorStyleMemberExpression operatorStyleMemberExpressionToCeylon(JQualifiedMemberExpression operatorStyleMemberExpression) {
     assert (!operatorStyleMemberExpression.memberOperator.mainToken exists);
-    assert (is Precedence16Expression receiverExpression = expressionToCeylon(operatorStyleMemberExpression.primary));
+    assert (is ThenElseExpression receiverExpression = expressionToCeylon(operatorStyleMemberExpression.primary));
     TypeArguments? typeArguments;
     assert (is JInferredTypeArguments|JTypeArgumentList jTypeArgs = operatorStyleMemberExpression.typeArguments);
     switch (jTypeArgs)

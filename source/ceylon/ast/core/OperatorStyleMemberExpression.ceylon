@@ -12,11 +12,11 @@ shared class OperatorStyleMemberExpression(receiverExpression, nameAndArgs)
     "The receiver expression.
      
      (Unlike [[QualifiedExpression.receiverExpression]], this may be almost any expression.)"
-    shared Precedence16Expression receiverExpression;
+    shared ThenElseExpression receiverExpression;
     "The member name and, if present, type arguments."
     shared MemberNameWithTypeArguments nameAndArgs;
     
-    shared actual [Precedence16Expression, MemberNameWithTypeArguments] children = [receiverExpression, nameAndArgs];
+    shared actual [ThenElseExpression, MemberNameWithTypeArguments] children = [receiverExpression, nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOperatorStyleMemberExpression(this);
@@ -32,7 +32,7 @@ shared class OperatorStyleMemberExpression(receiverExpression, nameAndArgs)
     shared actual Integer hash
             => 31 * (receiverExpression.hash + 31 * nameAndArgs.hash);
     
-    shared OperatorStyleMemberExpression copy(Precedence16Expression receiverExpression = this.receiverExpression, MemberNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
+    shared OperatorStyleMemberExpression copy(ThenElseExpression receiverExpression = this.receiverExpression, MemberNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = OperatorStyleMemberExpression(receiverExpression, nameAndArgs);
         copyExtraInfoTo(ret);
         return ret;

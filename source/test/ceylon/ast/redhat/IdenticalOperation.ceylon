@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     IdenticalOperation,
-    Precedence11Expression
+    ComparingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object identicalOperation satisfies ConcreteTest<IdenticalOperation,JIdenticalOp> {
     
-    String->IdenticalOperation construct(String->Precedence11Expression left, String->Precedence11Expression right)
+    String->IdenticalOperation construct(String->ComparingExpression left, String->ComparingExpression right)
             => "``left.key``===``right.key``"->IdenticalOperation(left.item, right.item);
     
     shared String->IdenticalOperation aIdenticalBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

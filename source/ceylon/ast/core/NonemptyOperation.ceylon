@@ -5,12 +5,12 @@ shared class NonemptyOperation(operand_)
         extends UnaryOperation() {
     
     // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    Precedence9Expression operand_;
+    SpanningExpression operand_;
     
     "The operand expression whose nonemptiness is tested."
-    shared actual Precedence9Expression operand = operand_;
+    shared actual SpanningExpression operand = operand_;
     
-    shared actual [Precedence9Expression] children = [operand];
+    shared actual [SpanningExpression] children = [operand];
     
     operator = "nonempty";
     
@@ -30,7 +30,7 @@ shared class NonemptyOperation(operand_)
     shared actual Integer hash
             => 31 * operand.hash;
     
-    shared NonemptyOperation copy(Precedence9Expression operand = this.operand) {
+    shared NonemptyOperation copy(SpanningExpression operand = this.operand) {
         value ret = NonemptyOperation(operand);
         copyExtraInfoTo(ret);
         return ret;

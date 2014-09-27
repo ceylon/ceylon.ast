@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     CompareOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object compareOperation satisfies ConcreteTest<CompareOperation,JCompareOp> {
     
-    String->CompareOperation construct(String->Precedence10Expression left, String->Precedence10Expression right)
+    String->CompareOperation construct(String->ExistsNonemptyExpression left, String->ExistsNonemptyExpression right)
             => "``left.key``<=>``right.key``"->CompareOperation(left.item, right.item);
     
     shared String->CompareOperation aCompareBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

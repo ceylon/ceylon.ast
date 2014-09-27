@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     DifferenceOperation,
-    Precedence7Expression,
-    Precedence8Expression
+    ScalingExpression,
+    AddingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object differenceOperation satisfies ConcreteTest<DifferenceOperation,JDifferenceOp> {
     
-    String->DifferenceOperation construct(String->Precedence8Expression left, String->Precedence7Expression right)
+    String->DifferenceOperation construct(String->AddingExpression left, String->ScalingExpression right)
             => "``left.key``-``right.key``"->DifferenceOperation(left.item, right.item);
     
     shared String->DifferenceOperation _1138Minus1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence5Expression,
-    Precedence6Expression,
+    UnioningExpression,
+    MultiplyingExpression,
     ProductOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ProductOp|JProductOp]] to a `ceylon.ast` [[ProductOperation]]."
 shared ProductOperation productOperationToCeylon(JProductOp productOperation) {
     "Check precedence"
-    assert (is Precedence6Expression left = expressionToCeylon(productOperation.leftTerm),
-        is Precedence5Expression right = expressionToCeylon(productOperation.rightTerm));
+    assert (is MultiplyingExpression left = expressionToCeylon(productOperation.leftTerm),
+        is UnioningExpression right = expressionToCeylon(productOperation.rightTerm));
     return ProductOperation(left, right);
 }
 

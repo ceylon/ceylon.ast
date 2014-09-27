@@ -10,18 +10,18 @@ shared class EntryOperation(key, item)
         extends BinaryOperation() {
     
     "The [[key|Entry.key]] of the entry."
-    shared Precedence8Expression key;
+    shared AddingExpression key;
     "The [[item|Entry.item]] of the entry."
-    shared Precedence8Expression item;
+    shared AddingExpression item;
     
     "The [[key|Entry.key]] of the entry."
     see (`value key`)
-    shared actual Precedence8Expression leftOperand = key;
+    shared actual AddingExpression leftOperand = key;
     "The [[item|Entry.item]] of the entry."
     see (`value item`)
-    shared actual Precedence8Expression rightOperand = item;
+    shared actual AddingExpression rightOperand = item;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [leftOperand, rightOperand];
+    shared actual [AddingExpression, AddingExpression] children = [leftOperand, rightOperand];
     
     operator = "->";
     
@@ -39,7 +39,7 @@ shared class EntryOperation(key, item)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared EntryOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence8Expression rightOperand = this.rightOperand) {
+    shared EntryOperation copy(AddingExpression leftOperand = this.leftOperand, AddingExpression rightOperand = this.rightOperand) {
         value ret = EntryOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

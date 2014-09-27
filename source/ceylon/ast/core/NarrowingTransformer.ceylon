@@ -384,67 +384,67 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is PostfixIncrementOperation) { return transformPostfixIncrementOperation(that); }
         case (is PostfixDecrementOperation) { return transformPostfixDecrementOperation(that); }
     }
-    shared default Result transformPrecedence1Expression(Precedence1Expression that) {
+    shared default Result transformPrePostfixingExpression(PrePostfixingExpression that) {
         switch (that)
         case (is Primary) { return transformPrimary(that); }
         case (is PrefixOperation) { return transformPrefixOperation(that); }
         case (is PostfixOperation) { return transformPostfixOperation(that); }
     }
-    shared default Result transformPrecedence2Expression(Precedence2Expression that) {
+    shared default Result transformExponentiatingExpression(ExponentiatingExpression that) {
         switch (that)
-        case (is Precedence1Expression) { return transformPrecedence1Expression(that); }
+        case (is PrePostfixingExpression) { return transformPrePostfixingExpression(that); }
         case (is ExponentiationOperation) { return transformExponentiationOperation(that); }
     }
-    shared default Result transformPrecedence3Expression(Precedence3Expression that) {
+    shared default Result transformInvertingExpression(InvertingExpression that) {
         switch (that)
-        case (is Precedence2Expression) { return transformPrecedence2Expression(that); }
+        case (is ExponentiatingExpression) { return transformExponentiatingExpression(that); }
         case (is UnaryArithmeticOperation) { return transformUnaryArithmeticOperation(that); }
     }
-    shared default Result transformPrecedence4Expression(Precedence4Expression that) {
+    shared default Result transformIntersectingExpression(IntersectingExpression that) {
         switch (that)
-        case (is Precedence3Expression) { return transformPrecedence3Expression(that); }
+        case (is InvertingExpression) { return transformInvertingExpression(that); }
         case (is IntersectionOperation) { return transformIntersectionOperation(that); }
     }
-    shared default Result transformPrecedence5Expression(Precedence5Expression that) {
+    shared default Result transformUnioningExpression(UnioningExpression that) {
         switch (that)
-        case (is Precedence4Expression) { return transformPrecedence4Expression(that); }
+        case (is IntersectingExpression) { return transformIntersectingExpression(that); }
         case (is UnionOperation) { return transformUnionOperation(that); }
         case (is ComplementOperation) { return transformComplementOperation(that); }
     }
-    shared default Result transformPrecedence6Expression(Precedence6Expression that) {
+    shared default Result transformMultiplyingExpression(MultiplyingExpression that) {
         switch (that)
-        case (is Precedence5Expression) { return transformPrecedence5Expression(that); }
+        case (is UnioningExpression) { return transformUnioningExpression(that); }
         case (is ProductOperation) { return transformProductOperation(that); }
         case (is QuotientOperation) { return transformQuotientOperation(that); }
         case (is RemainderOperation) { return transformRemainderOperation(that); }
     }
-    shared default Result transformPrecedence7Expression(Precedence7Expression that) {
+    shared default Result transformScalingExpression(ScalingExpression that) {
         switch (that)
-        case (is Precedence6Expression) { return transformPrecedence6Expression(that); }
+        case (is MultiplyingExpression) { return transformMultiplyingExpression(that); }
         case (is ScaleOperation) { return transformScaleOperation(that); }
     }
-    shared default Result transformPrecedence8Expression(Precedence8Expression that) {
+    shared default Result transformAddingExpression(AddingExpression that) {
         switch (that)
-        case (is Precedence7Expression) { return transformPrecedence7Expression(that); }
+        case (is ScalingExpression) { return transformScalingExpression(that); }
         case (is SumOperation) { return transformSumOperation(that); }
         case (is DifferenceOperation) { return transformDifferenceOperation(that); }
     }
-    shared default Result transformPrecedence9Expression(Precedence9Expression that) {
+    shared default Result transformSpanningExpression(SpanningExpression that) {
         switch (that)
-        case (is Precedence8Expression) { return transformPrecedence8Expression(that); }
+        case (is AddingExpression) { return transformAddingExpression(that); }
         case (is SpanOperation) { return transformSpanOperation(that); }
         case (is MeasureOperation) { return transformMeasureOperation(that); }
         case (is EntryOperation) { return transformEntryOperation(that); }
     }
-    shared default Result transformPrecedence10Expression(Precedence10Expression that) {
+    shared default Result transformExistsNonemptyExpression(ExistsNonemptyExpression that) {
         switch (that)
-        case (is Precedence9Expression) { return transformPrecedence9Expression(that); }
+        case (is SpanningExpression) { return transformSpanningExpression(that); }
         case (is ExistsOperation) { return transformExistsOperation(that); }
         case (is NonemptyOperation) { return transformNonemptyOperation(that); }
     }
-    shared default Result transformPrecedence11Expression(Precedence11Expression that) {
+    shared default Result transformComparingExpression(ComparingExpression that) {
         switch (that)
-        case (is Precedence10Expression) { return transformPrecedence10Expression(that); }
+        case (is ExistsNonemptyExpression) { return transformExistsNonemptyExpression(that); }
         case (is IsOperation) { return transformIsOperation(that); }
         case (is OfOperation) { return transformOfOperation(that); }
         case (is InOperation) { return transformInOperation(that); }
@@ -452,40 +452,40 @@ shared interface NarrowingTransformer<out Result> satisfies Transformer<Result> 
         case (is CompareOperation) { return transformCompareOperation(that); }
         case (is WithinOperation) { return transformWithinOperation(that); }
     }
-    shared default Result transformPrecedence12Expression(Precedence12Expression that) {
+    shared default Result transformEquatingExpression(EquatingExpression that) {
         switch (that)
-        case (is Precedence11Expression) { return transformPrecedence11Expression(that); }
+        case (is ComparingExpression) { return transformComparingExpression(that); }
         case (is EqualityOperation) { return transformEqualityOperation(that); }
     }
-    shared default Result transformPrecedence13Expression(Precedence13Expression that) {
+    shared default Result transformNegatingExpression(NegatingExpression that) {
         switch (that)
-        case (is Precedence12Expression) { return transformPrecedence12Expression(that); }
+        case (is EquatingExpression) { return transformEquatingExpression(that); }
         case (is NotOperation) { return transformNotOperation(that); }
     }
-    shared default Result transformPrecedence14Expression(Precedence14Expression that) {
+    shared default Result transformConjoiningExpression(ConjoiningExpression that) {
         switch (that)
-        case (is Precedence13Expression) { return transformPrecedence13Expression(that); }
+        case (is NegatingExpression) { return transformNegatingExpression(that); }
         case (is AndOperation) { return transformAndOperation(that); }
     }
-    shared default Result transformPrecedence15Expression(Precedence15Expression that) {
+    shared default Result transformDisjoiningExpression(DisjoiningExpression that) {
         switch (that)
-        case (is Precedence14Expression) { return transformPrecedence14Expression(that); }
+        case (is ConjoiningExpression) { return transformConjoiningExpression(that); }
         case (is OrOperation) { return transformOrOperation(that); }
     }
-    shared default Result transformPrecedence16Expression(Precedence16Expression that) {
+    shared default Result transformThenElseExpression(ThenElseExpression that) {
         switch (that)
-        case (is Precedence15Expression) { return transformPrecedence15Expression(that); }
+        case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
         case (is ThenOperation) { return transformThenOperation(that); }
         case (is ElseOperation) { return transformElseOperation(that); }
     }
-    shared default Result transformPrecedence17Expression(Precedence17Expression that) {
+    shared default Result transformOperatingExpression(OperatingExpression that) {
         switch (that)
-        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
+        case (is ThenElseExpression) { return transformThenElseExpression(that); }
         case (is OperatorStyleExpression) { return transformOperatorStyleExpression(that); }
     }
-    shared default Result transformPrecedence18Expression(Precedence18Expression that) {
+    shared default Result transformAssigningExpression(AssigningExpression that) {
         switch (that)
-        case (is Precedence16Expression) { return transformPrecedence16Expression(that); }
+        case (is ThenElseExpression) { return transformThenElseExpression(that); }
         case (is AssignmentOperation) { return transformAssignmentOperation(that); }
     }
     shared actual default Result transformPrefixOperation(PrefixOperation that) {

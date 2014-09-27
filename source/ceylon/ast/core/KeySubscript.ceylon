@@ -12,9 +12,9 @@ shared class KeySubscript(key)
     "The key / index expression itself.
      
      See [[Correspondence.get.key]]."
-    shared Precedence8Expression key;
+    shared AddingExpression key;
     
-    shared actual [Precedence8Expression] children = [key];
+    shared actual [AddingExpression] children = [key];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformKeySubscript(this);
@@ -30,7 +30,7 @@ shared class KeySubscript(key)
     shared actual Integer hash
             => 31 * key.hash;
     
-    shared KeySubscript copy(Precedence8Expression key = this.key) {
+    shared KeySubscript copy(AddingExpression key = this.key) {
         value ret = KeySubscript(key);
         copyExtraInfoTo(ret);
         return ret;

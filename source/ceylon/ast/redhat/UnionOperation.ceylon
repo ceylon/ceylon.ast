@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence4Expression,
-    Precedence5Expression,
+    IntersectingExpression,
+    UnioningExpression,
     UnionOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[UnionOp|JUnionOp]] to a `ceylon.ast` [[UnionOperation]]."
 shared UnionOperation unionOperationToCeylon(JUnionOp unionOperation) {
     "Check precedence"
-    assert (is Precedence5Expression left = expressionToCeylon(unionOperation.leftTerm),
-        is Precedence4Expression right = expressionToCeylon(unionOperation.rightTerm));
+    assert (is UnioningExpression left = expressionToCeylon(unionOperation.leftTerm),
+        is IntersectingExpression right = expressionToCeylon(unionOperation.rightTerm));
     return UnionOperation(left, right);
 }
 

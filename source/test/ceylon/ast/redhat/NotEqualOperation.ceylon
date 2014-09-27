@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NotEqualOperation,
-    Precedence11Expression
+    ComparingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object notEqualOperation satisfies ConcreteTest<NotEqualOperation,JNotEqualOp> {
     
-    String->NotEqualOperation construct(String->Precedence11Expression left, String->Precedence11Expression right)
+    String->NotEqualOperation construct(String->ComparingExpression left, String->ComparingExpression right)
             => "``left.key``!=``right.key``"->NotEqualOperation(left.item, right.item);
     
     shared String->NotEqualOperation aNotEqualsBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

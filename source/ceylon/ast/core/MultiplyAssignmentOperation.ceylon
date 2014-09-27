@@ -9,18 +9,18 @@ shared class MultiplyAssignmentOperation(target, factor)
         extends ArithmeticAssignmentOperation() {
     
     "The target expression and left factor."
-    shared Precedence16Expression target;
+    shared ThenElseExpression target;
     "The right factor."
-    shared Precedence18Expression factor;
+    shared AssigningExpression factor;
     
     "The target expression and left factor."
     see (`value target`)
-    shared actual Precedence16Expression leftOperand = target;
+    shared actual ThenElseExpression leftOperand = target;
     "The right factor."
     see (`value factor`)
-    shared actual Precedence18Expression rightOperand = factor;
+    shared actual AssigningExpression rightOperand = factor;
     
-    shared actual [Precedence16Expression, Precedence18Expression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
     
     operator = "*=";
     
@@ -38,7 +38,7 @@ shared class MultiplyAssignmentOperation(target, factor)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared MultiplyAssignmentOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence18Expression rightOperand = this.rightOperand) {
+    shared MultiplyAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
         value ret = MultiplyAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

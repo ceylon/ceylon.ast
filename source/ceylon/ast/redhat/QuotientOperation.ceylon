@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence5Expression,
-    Precedence6Expression,
+    UnioningExpression,
+    MultiplyingExpression,
     QuotientOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[QuotientOp|JQuotientOp]] to a `ceylon.ast` [[QuotientOperation]]."
 shared QuotientOperation quotientOperationToCeylon(JQuotientOp divisionOperation) {
     "Check precedence"
-    assert (is Precedence6Expression left = expressionToCeylon(divisionOperation.leftTerm),
-        is Precedence5Expression right = expressionToCeylon(divisionOperation.rightTerm));
+    assert (is MultiplyingExpression left = expressionToCeylon(divisionOperation.leftTerm),
+        is UnioningExpression right = expressionToCeylon(divisionOperation.rightTerm));
     return QuotientOperation(left, right);
 }
 

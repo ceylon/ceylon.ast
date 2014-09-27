@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NonemptyOperation,
-    Precedence9Expression
+    SpanningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object nonemptyOperation satisfies ConcreteTest<NonemptyOperation,JNonempty> {
     
-    String->NonemptyOperation construct(String->Precedence9Expression operand)
+    String->NonemptyOperation construct(String->SpanningExpression operand)
             => "``operand.key`` nonempty"->NonemptyOperation(operand.item);
     
     shared String->NonemptyOperation aIntersectBNonemptyExpression = construct(intersectionOperation.aIntersectBExpression);

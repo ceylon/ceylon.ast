@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     RemainderOperation,
-    Precedence5Expression,
-    Precedence6Expression
+    UnioningExpression,
+    MultiplyingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[RemainderOp|JRemainderOp]] to a `ceylon.ast` [[RemainderOperation]]."
 shared RemainderOperation remainderOperationToCeylon(JRemainderOp remainderOperation) {
     "Check precedence"
-    assert (is Precedence6Expression left = expressionToCeylon(remainderOperation.leftTerm),
-        is Precedence5Expression right = expressionToCeylon(remainderOperation.rightTerm));
+    assert (is MultiplyingExpression left = expressionToCeylon(remainderOperation.leftTerm),
+        is UnioningExpression right = expressionToCeylon(remainderOperation.rightTerm));
     return RemainderOperation(left, right);
 }
 

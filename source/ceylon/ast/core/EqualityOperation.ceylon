@@ -7,9 +7,9 @@ shared abstract class EqualityOperation()
         extends BinaryOperation() {
     
     "The left operand to be tested."
-    shared actual formal Precedence11Expression leftOperand;
+    shared actual formal ComparingExpression leftOperand;
     "The right operand to be tested."
-    shared actual formal Precedence11Expression rightOperand;
+    shared actual formal ComparingExpression rightOperand;
     
-    shared actual formal [Precedence11Expression, Precedence11Expression] children;
+    shared actual formal [ComparingExpression, ComparingExpression] children;
 }

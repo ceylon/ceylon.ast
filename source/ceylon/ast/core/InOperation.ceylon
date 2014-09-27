@@ -23,18 +23,18 @@ shared class InOperation(element, category)
         extends BinaryOperation() {
     
     "The element that’s tested for being in [[category]]."
-    shared Precedence10Expression element;
+    shared ExistsNonemptyExpression element;
     "The [[Category]] that is tested for containing [[element]]."
-    shared Precedence10Expression category;
+    shared ExistsNonemptyExpression category;
     
     "The element that’s tested for being in [[category]]."
     see (`value element`)
-    shared actual Precedence10Expression leftOperand = element;
+    shared actual ExistsNonemptyExpression leftOperand = element;
     "The [[Category]] that is tested for containing [[element]]."
     see (`value category`)
-    shared actual Precedence10Expression rightOperand = category;
+    shared actual ExistsNonemptyExpression rightOperand = category;
     
-    shared actual [Precedence10Expression, Precedence10Expression] children = [leftOperand, rightOperand];
+    shared actual [ExistsNonemptyExpression, ExistsNonemptyExpression] children = [leftOperand, rightOperand];
     
     operator = "in";
     
@@ -52,7 +52,7 @@ shared class InOperation(element, category)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared InOperation copy(Precedence10Expression leftOperand = this.leftOperand, Precedence10Expression rightOperand = this.rightOperand) {
+    shared InOperation copy(ExistsNonemptyExpression leftOperand = this.leftOperand, ExistsNonemptyExpression rightOperand = this.rightOperand) {
         value ret = InOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     IdentityOperation,
-    Precedence2Expression
+    ExponentiatingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[PositiveOp|JPositiveOp]] to a `ceylon.ast` [[IdentityOperation]]."
 shared IdentityOperation identityOperationToCeylon(JPositiveOp identityOperation) {
-    assert (is Precedence2Expression operand = expressionToCeylon(identityOperation.term));
+    assert (is ExponentiatingExpression operand = expressionToCeylon(identityOperation.term));
     return IdentityOperation(operand);
 }
 

@@ -5,7 +5,7 @@ shared abstract class Bound()
     
     "The endpoint of the bound, against which
      the [[operand|WithinOperation.operand]] is compared."
-    shared formal Precedence10Expression endpoint;
+    shared formal ExistsNonemptyExpression endpoint;
     
-    shared actual formal [Precedence10Expression] children;
+    shared actual formal [ExistsNonemptyExpression] children;
 }

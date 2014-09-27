@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     OrOperation,
-    Precedence14Expression,
-    Precedence15Expression
+    ConjoiningExpression,
+    DisjoiningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[OrOp|JOrOp]] to a `ceylon.ast` [[OrOperation]]."
 shared OrOperation orOperationToCeylon(JOrOp orOperation) {
     "Check precedence"
-    assert (is Precedence15Expression left = expressionToCeylon(orOperation.leftTerm),
-        is Precedence14Expression right = expressionToCeylon(orOperation.rightTerm));
+    assert (is DisjoiningExpression left = expressionToCeylon(orOperation.leftTerm),
+        is ConjoiningExpression right = expressionToCeylon(orOperation.rightTerm));
     return OrOperation(left, right);
 }
 

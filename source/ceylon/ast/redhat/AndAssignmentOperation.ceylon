@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AndAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[AndAssignOp|JAndAssignOp]] to a `ceylon.ast` [[AndAssignmentOperation]]."
 shared AndAssignmentOperation andAssignmentOperationToCeylon(JAndAssignOp andAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(andAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(andAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(andAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(andAssignmentOperation.rightTerm));
     return AndAssignmentOperation(left, right);
 }
 

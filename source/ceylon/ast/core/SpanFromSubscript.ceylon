@@ -13,9 +13,9 @@ shared class SpanFromSubscript(from)
     "The expression for the first selected index.
      
      See [[Ranged.spanFrom.from]]."
-    shared Precedence8Expression from;
+    shared AddingExpression from;
     
-    shared actual [Precedence8Expression] children = [from];
+    shared actual [AddingExpression] children = [from];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpanFromSubscript(this);
@@ -31,7 +31,7 @@ shared class SpanFromSubscript(from)
     shared actual Integer hash
             => 31 * from.hash;
     
-    shared SpanFromSubscript copy(Precedence8Expression from = this.from) {
+    shared SpanFromSubscript copy(AddingExpression from = this.from) {
         value ret = SpanFromSubscript(from);
         copyExtraInfoTo(ret);
         return ret;

@@ -12,9 +12,9 @@ shared class SpanToSubscript(to)
     "The expression for the last selected index.
      
      See [[Ranged.spanTo.to]]."
-    shared Precedence8Expression to;
+    shared AddingExpression to;
     
-    shared actual [Precedence8Expression] children = [to];
+    shared actual [AddingExpression] children = [to];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpanToSubscript(this);
@@ -30,7 +30,7 @@ shared class SpanToSubscript(to)
     shared actual Integer hash
             => 31 * to.hash;
     
-    shared SpanToSubscript copy(Precedence8Expression to = this.to) {
+    shared SpanToSubscript copy(AddingExpression to = this.to) {
         value ret = SpanToSubscript(to);
         copyExtraInfoTo(ret);
         return ret;

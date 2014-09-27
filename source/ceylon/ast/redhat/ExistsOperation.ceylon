@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     ExistsOperation,
-    Precedence9Expression
+    SpanningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Exists|JExists]] to a `ceylon.ast` [[ExistsOperation]]."
 shared ExistsOperation existsOperationToCeylon(JExists existsOperation) {
     "Check precedence"
-    assert (is Precedence9Expression operand = expressionToCeylon(existsOperation.term));
+    assert (is SpanningExpression operand = expressionToCeylon(existsOperation.term));
     return ExistsOperation(operand);
 }
 

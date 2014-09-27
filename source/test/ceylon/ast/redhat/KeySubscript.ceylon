@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     KeySubscript,
-    Precedence8Expression
+    AddingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object keySubscript satisfies ConcreteTest<KeySubscript,JElement> {
     
-    String->KeySubscript construct(String->Precedence8Expression key)
+    String->KeySubscript construct(String->AddingExpression key)
             => "``key.key``"->KeySubscript(key.item);
     
     shared String->KeySubscript iKeySubscript = construct(baseExpression.iExpression);

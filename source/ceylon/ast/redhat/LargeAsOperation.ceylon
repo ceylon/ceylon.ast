@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     LargeAsOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[LargeAsOp|JLargeAsOp]] to a `ceylon.ast` [[LargeAsOperation]]."
 shared LargeAsOperation largeAsOperationToCeylon(JLargeAsOp largeAsOperation) {
     "Check precedence"
-    assert (is Precedence10Expression left = expressionToCeylon(largeAsOperation.leftTerm),
-        is Precedence10Expression right = expressionToCeylon(largeAsOperation.rightTerm));
+    assert (is ExistsNonemptyExpression left = expressionToCeylon(largeAsOperation.leftTerm),
+        is ExistsNonemptyExpression right = expressionToCeylon(largeAsOperation.rightTerm));
     return LargeAsOperation(left, right);
 }
 

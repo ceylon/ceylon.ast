@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence8Expression,
+    AddingExpression,
     SpanSubscript
 }
 import ceylon.ast.redhat {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object spanSubscript satisfies ConcreteTest<SpanSubscript,JElementRange> {
     
-    String->SpanSubscript construct(String->Precedence8Expression first, String->Precedence8Expression last)
+    String->SpanSubscript construct(String->AddingExpression first, String->AddingExpression last)
             => "``first.key``..``last.key``"->SpanSubscript(first.item, last.item);
     
     shared String->SpanSubscript spanOneToParsedIntSubscript = construct(integerLiteral.oneIntegerLiteral, baseExpression.parsedIntExpression);

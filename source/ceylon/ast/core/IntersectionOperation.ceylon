@@ -11,15 +11,15 @@ shared class IntersectionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     
     // TODO these are workarounds for ceylon-compiler#1728; remove!
-    Precedence4Expression leftOperand_;
-    Precedence3Expression rightOperand_;
+    IntersectingExpression leftOperand_;
+    InvertingExpression rightOperand_;
     
     "The left intersected set."
-    shared actual Precedence4Expression leftOperand = leftOperand_;
+    shared actual IntersectingExpression leftOperand = leftOperand_;
     "The right intersected set."
-    shared actual Precedence3Expression rightOperand = rightOperand_;
+    shared actual InvertingExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence4Expression, Precedence3Expression] children = [leftOperand, rightOperand];
+    shared actual [IntersectingExpression, InvertingExpression] children = [leftOperand, rightOperand];
     
     operator = "&";
     
@@ -37,7 +37,7 @@ shared class IntersectionOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared IntersectionOperation copy(Precedence4Expression leftOperand = this.leftOperand, Precedence3Expression rightOperand = this.rightOperand) {
+    shared IntersectionOperation copy(IntersectingExpression leftOperand = this.leftOperand, InvertingExpression rightOperand = this.rightOperand) {
         value ret = IntersectionOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ThenOperation,
-    Precedence15Expression,
-    Precedence16Expression
+    DisjoiningExpression,
+    ThenElseExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ThenOp|JThenOp]] to a `ceylon.ast` [[ThenOperation]]."
 shared ThenOperation thenOperationToCeylon(JThenOp thenOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(thenOperation.leftTerm),
-        is Precedence15Expression right = expressionToCeylon(thenOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(thenOperation.leftTerm),
+        is DisjoiningExpression right = expressionToCeylon(thenOperation.rightTerm));
     return ThenOperation(left, right);
 }
 

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence16Expression,
-    Precedence18Expression,
+    ThenElseExpression,
+    AssigningExpression,
     RemainderAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[RemainderAssignOp|JRemainderAssignOp]] to a `ceylon.ast` [[RemainderAssignmentOperation]]."
 shared RemainderAssignmentOperation remainderAssignmentOperationToCeylon(JRemainderAssignOp remainderAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(remainderAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(remainderAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(remainderAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(remainderAssignmentOperation.rightTerm));
     return RemainderAssignmentOperation(left, right);
 }
 

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence7Expression,
-    Precedence8Expression,
+    ScalingExpression,
+    AddingExpression,
     SumOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SumOp|JSumOp]] to a `ceylon.ast` [[SumOperation]]."
 shared SumOperation sumOperationToCeylon(JSumOp sumOperation) {
     "Check precedence"
-    assert (is Precedence8Expression left = expressionToCeylon(sumOperation.leftTerm),
-        is Precedence7Expression right = expressionToCeylon(sumOperation.rightTerm));
+    assert (is AddingExpression left = expressionToCeylon(sumOperation.leftTerm),
+        is ScalingExpression right = expressionToCeylon(sumOperation.rightTerm));
     return SumOperation(left, right);
 }
 

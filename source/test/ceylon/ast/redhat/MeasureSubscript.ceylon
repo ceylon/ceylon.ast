@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     MeasureSubscript,
-    Precedence8Expression
+    AddingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object measureSubscript satisfies ConcreteTest<MeasureSubscript,JElementRange> {
     
-    String->MeasureSubscript construct(String->Precedence8Expression from, String->Precedence8Expression length)
+    String->MeasureSubscript construct(String->AddingExpression from, String->AddingExpression length)
             => "``from.key``:``length.key``"->MeasureSubscript(from.item, length.item);
     
     shared String->MeasureSubscript iMeasureLength2Subscript = construct(baseExpression.iExpression, integerLiteral._2IntegerLiteral);

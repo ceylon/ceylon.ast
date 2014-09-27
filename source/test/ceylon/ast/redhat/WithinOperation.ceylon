@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     Bound,
     OpenBound,
-    Precedence10Expression,
+    ExistsNonemptyExpression,
     WithinOperation
 }
 import ceylon.ast.redhat {
@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object withinOperation satisfies ConcreteTest<WithinOperation,JWithinOp> {
     
-    String->WithinOperation construct(String->Precedence10Expression operand, String->Bound lowerBound, String->Bound upperBound)
+    String->WithinOperation construct(String->ExistsNonemptyExpression operand, String->Bound lowerBound, String->Bound upperBound)
             => (lowerBound.key + (lowerBound.item is OpenBound then "<" else "<=") + operand.key + (upperBound.item is OpenBound then "<" else "<=") + upperBound.key)->WithinOperation(operand.item, lowerBound.item, upperBound.item);
     
     // I know these make no sense, it doesn’t matter

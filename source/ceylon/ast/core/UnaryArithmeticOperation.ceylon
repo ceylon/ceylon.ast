@@ -3,9 +3,9 @@ shared abstract class UnaryArithmeticOperation()
         of IdentityOperation | NegationOperation
         extends UnaryOperation() {
     
-    shared actual formal Precedence2Expression operand;
+    shared actual formal ExponentiatingExpression operand;
     
-    shared actual formal [Precedence2Expression] children;
+    shared actual formal [ExponentiatingExpression] children;
     
     prefix = true;
 }

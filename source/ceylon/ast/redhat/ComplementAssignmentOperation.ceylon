@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ComplementAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ComplementAssignOp|JComplementAssignOp]] to a `ceylon.ast` [[ComplementAssignmentOperation]]."
 shared ComplementAssignmentOperation complementAssignmentOperationToCeylon(JComplementAssignOp complementAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(complementAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(complementAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(complementAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(complementAssignmentOperation.rightTerm));
     return ComplementAssignmentOperation(left, right);
 }
 

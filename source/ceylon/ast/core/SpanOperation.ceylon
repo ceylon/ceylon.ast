@@ -11,18 +11,18 @@ shared class SpanOperation(first, last)
         extends BinaryOperation() {
     
     "The first element of the spanned range."
-    shared Precedence8Expression first;
+    shared AddingExpression first;
     "The last element of the spanned range."
-    shared Precedence8Expression last;
+    shared AddingExpression last;
     
     "The first element of the spanned range."
     see (`value first`)
-    shared actual Precedence8Expression leftOperand = first;
+    shared actual AddingExpression leftOperand = first;
     "The last element of the spanned range."
     see (`value last`)
-    shared actual Precedence8Expression rightOperand = last;
+    shared actual AddingExpression rightOperand = last;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [leftOperand, rightOperand];
+    shared actual [AddingExpression, AddingExpression] children = [leftOperand, rightOperand];
     
     operator = "..";
     
@@ -40,7 +40,7 @@ shared class SpanOperation(first, last)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SpanOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence8Expression rightOperand = this.rightOperand) {
+    shared SpanOperation copy(AddingExpression leftOperand = this.leftOperand, AddingExpression rightOperand = this.rightOperand) {
         value ret = SpanOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

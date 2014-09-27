@@ -10,12 +10,12 @@ shared class ExistsOperation(operand_)
         extends UnaryOperation() {
     
     // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    Precedence9Expression operand_;
+    SpanningExpression operand_;
     
     "The operand expression whose existence is tested."
-    shared actual Precedence9Expression operand = operand_;
+    shared actual SpanningExpression operand = operand_;
     
-    shared actual [Precedence9Expression] children = [operand];
+    shared actual [SpanningExpression] children = [operand];
     
     operator = "exists";
     
@@ -35,7 +35,7 @@ shared class ExistsOperation(operand_)
     shared actual Integer hash
             => 31 * operand.hash;
     
-    shared ExistsOperation copy(Precedence9Expression operand = this.operand) {
+    shared ExistsOperation copy(SpanningExpression operand = this.operand) {
         value ret = ExistsOperation(operand);
         copyExtraInfoTo(ret);
         return ret;

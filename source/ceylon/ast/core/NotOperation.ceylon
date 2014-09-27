@@ -10,12 +10,12 @@ shared class NotOperation(operand_)
         extends UnaryOperation() {
     
     // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    Precedence13Expression operand_;
+    NegatingExpression operand_;
     
     "The negated expression."
-    shared actual Precedence13Expression operand = operand_;
+    shared actual NegatingExpression operand = operand_;
     
-    shared actual [Precedence13Expression] children = [operand];
+    shared actual [NegatingExpression] children = [operand];
     
     operator = "!";
     
@@ -35,7 +35,7 @@ shared class NotOperation(operand_)
     shared actual Integer hash
             => 31 * operand.hash;
     
-    shared NotOperation copy(Precedence13Expression operand = this.operand) {
+    shared NotOperation copy(NegatingExpression operand = this.operand) {
         value ret = NotOperation(operand);
         copyExtraInfoTo(ret);
         return ret;

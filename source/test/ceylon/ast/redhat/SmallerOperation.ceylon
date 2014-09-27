@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence10Expression,
+    ExistsNonemptyExpression,
     SmallerOperation
 }
 import ceylon.ast.redhat {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object smallerOperation satisfies ConcreteTest<SmallerOperation,JSmallerOp> {
     
-    String->SmallerOperation construct(String->Precedence10Expression left, String->Precedence10Expression right)
+    String->SmallerOperation construct(String->ExistsNonemptyExpression left, String->ExistsNonemptyExpression right)
             => "``left.key``<``right.key``"->SmallerOperation(left.item, right.item);
     
     shared String->SmallerOperation _1138SmallerExpression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);

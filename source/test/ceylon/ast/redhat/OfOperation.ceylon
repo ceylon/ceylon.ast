@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     OfOperation,
-    Precedence10Expression,
+    ExistsNonemptyExpression,
     Type
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object ofOperation satisfies ConcreteTest<OfOperation,JOfOp> {
     
-    String->OfOperation construct(String->Precedence10Expression operand, String->Type type)
+    String->OfOperation construct(String->ExistsNonemptyExpression operand, String->Type type)
             => "``operand.key`` of ``type.key``"->OfOperation(operand.item, type.item);
     
     shared String->OfOperation stringOfStringOptionalExpression = construct(stringLiteral.capitalCStringLiteral, optionalType.stringOptionalType);

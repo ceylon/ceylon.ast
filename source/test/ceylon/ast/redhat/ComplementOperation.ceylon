@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ComplementOperation,
-    Precedence4Expression,
-    Precedence5Expression
+    IntersectingExpression,
+    UnioningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object complementOperation satisfies ConcreteTest<ComplementOperation,JComplementOp> {
     
-    String->ComplementOperation construct(String->Precedence5Expression left, String->Precedence4Expression right)
+    String->ComplementOperation construct(String->UnioningExpression left, String->IntersectingExpression right)
             => "``left.key``~``right.key``"->ComplementOperation(left.item, right.item);
     
     shared String->ComplementOperation aComplementBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

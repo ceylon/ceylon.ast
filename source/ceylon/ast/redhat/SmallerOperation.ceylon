@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    Precedence10Expression,
+    ExistsNonemptyExpression,
     SmallerOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SmallerOp|JSmallerOp]] to a `ceylon.ast` [[SmallerOperation]]."
 shared SmallerOperation smallerOperationToCeylon(JSmallerOp smallerOperation) {
     "Check precedence"
-    assert (is Precedence10Expression left = expressionToCeylon(smallerOperation.leftTerm),
-        is Precedence10Expression right = expressionToCeylon(smallerOperation.rightTerm));
+    assert (is ExistsNonemptyExpression left = expressionToCeylon(smallerOperation.leftTerm),
+        is ExistsNonemptyExpression right = expressionToCeylon(smallerOperation.rightTerm));
     return SmallerOperation(left, right);
 }
 

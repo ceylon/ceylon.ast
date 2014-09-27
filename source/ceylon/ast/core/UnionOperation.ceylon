@@ -11,15 +11,15 @@ shared class UnionOperation(leftOperand_, rightOperand_)
         extends SetOperation() {
     
     // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728; remove!
-    Precedence5Expression leftOperand_;
-    Precedence4Expression rightOperand_;
+    UnioningExpression leftOperand_;
+    IntersectingExpression rightOperand_;
     
     "The left unioned set."
-    shared actual Precedence5Expression leftOperand = leftOperand_;
+    shared actual UnioningExpression leftOperand = leftOperand_;
     "The right unioned set."
-    shared actual Precedence4Expression rightOperand = rightOperand_;
+    shared actual IntersectingExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence5Expression, Precedence4Expression] children = [leftOperand, rightOperand];
+    shared actual [UnioningExpression, IntersectingExpression] children = [leftOperand, rightOperand];
     
     operator = "|";
     
@@ -37,7 +37,7 @@ shared class UnionOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared UnionOperation copy(Precedence5Expression leftOperand = this.leftOperand, Precedence4Expression rightOperand = this.rightOperand) {
+    shared UnionOperation copy(UnioningExpression leftOperand = this.leftOperand, IntersectingExpression rightOperand = this.rightOperand) {
         value ret = UnionOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

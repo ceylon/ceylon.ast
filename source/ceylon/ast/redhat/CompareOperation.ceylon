@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     CompareOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[CompareOp|JCompareOp]] to a `ceylon.ast` [[CompareOperation]]."
 shared CompareOperation compareOperationToCeylon(JCompareOp compareOperation) {
     "Check precedence"
-    assert (is Precedence10Expression left = expressionToCeylon(compareOperation.leftTerm),
-        is Precedence10Expression right = expressionToCeylon(compareOperation.rightTerm));
+    assert (is ExistsNonemptyExpression left = expressionToCeylon(compareOperation.leftTerm),
+        is ExistsNonemptyExpression right = expressionToCeylon(compareOperation.rightTerm));
     return CompareOperation(left, right);
 }
 

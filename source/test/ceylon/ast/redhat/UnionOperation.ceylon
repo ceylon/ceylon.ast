@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence4Expression,
-    Precedence5Expression,
+    IntersectingExpression,
+    UnioningExpression,
     UnionOperation
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object unionOperation satisfies ConcreteTest<UnionOperation,JUnionOp> {
     
-    String->UnionOperation construct(String->Precedence5Expression left, String->Precedence4Expression right)
+    String->UnionOperation construct(String->UnioningExpression left, String->IntersectingExpression right)
             => "``left.key``|``right.key``"->UnionOperation(left.item, right.item);
     
     shared String->UnionOperation aUnionBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

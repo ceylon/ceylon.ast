@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Expression,
     MemberNameWithTypeArguments,
     OperatorStyleInvocation,
-    Precedence16Expression,
+    ThenElseExpression,
     lidentifier
 }
 import ceylon.ast.redhat {
@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object operatorStyleInvocation satisfies ConcreteTest<OperatorStyleInvocation,JInvocationExpression> {
     
-    String->OperatorStyleInvocation construct(String->Precedence16Expression receiverExpression, <String->MemberNameWithTypeArguments>|String nameAndArgs, String->Expression argument) {
+    String->OperatorStyleInvocation construct(String->ThenElseExpression receiverExpression, <String->MemberNameWithTypeArguments>|String nameAndArgs, String->Expression argument) {
         switch (nameAndArgs)
         case (is String->MemberNameWithTypeArguments) {
             return "``receiverExpression.key`` ``nameAndArgs.key`` ``argument.key``"->OperatorStyleInvocation(receiverExpression.item, nameAndArgs.item, argument.item);

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     EntryOperation,
-    Precedence8Expression
+    AddingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[EntryOp|JEntryOp]] to a `ceylon.ast` [[EntryOperation]]."
 shared EntryOperation entryOperationToCeylon(JEntryOp entryOperation) {
     "Check precedence"
-    assert (is Precedence8Expression left = expressionToCeylon(entryOperation.leftTerm),
-        is Precedence8Expression right = expressionToCeylon(entryOperation.rightTerm));
+    assert (is AddingExpression left = expressionToCeylon(entryOperation.leftTerm),
+        is AddingExpression right = expressionToCeylon(entryOperation.rightTerm));
     return EntryOperation(left, right);
 }
 

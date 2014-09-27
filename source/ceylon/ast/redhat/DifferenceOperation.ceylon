@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     DifferenceOperation,
-    Precedence7Expression,
-    Precedence8Expression
+    ScalingExpression,
+    AddingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[DifferenceOp|JDifferenceOp]] to a `ceylon.ast` [[DifferenceOperation]]."
 shared DifferenceOperation differenceOperationToCeylon(JDifferenceOp differenceOperation) {
     "Check precedence"
-    assert (is Precedence8Expression left = expressionToCeylon(differenceOperation.leftTerm),
-        is Precedence7Expression right = expressionToCeylon(differenceOperation.rightTerm));
+    assert (is AddingExpression left = expressionToCeylon(differenceOperation.leftTerm),
+        is ScalingExpression right = expressionToCeylon(differenceOperation.rightTerm));
     return DifferenceOperation(left, right);
 }
 

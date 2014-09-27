@@ -10,18 +10,18 @@ shared class SubtractAssignmentOperation(target, subtrahend)
         extends ArithmeticAssignmentOperation() {
     
     "The target expression and minuend."
-    shared Precedence16Expression target;
+    shared ThenElseExpression target;
     "The subtrahend."
-    shared Precedence18Expression subtrahend;
+    shared AssigningExpression subtrahend;
     
     "The target expression and minuend."
     see (`value target`)
-    shared actual Precedence16Expression leftOperand = target;
+    shared actual ThenElseExpression leftOperand = target;
     "The subtrahend."
     see (`value subtrahend`)
-    shared actual Precedence18Expression rightOperand = subtrahend;
+    shared actual AssigningExpression rightOperand = subtrahend;
     
-    shared actual [Precedence16Expression, Precedence18Expression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
     
     operator = "-=";
     
@@ -39,7 +39,7 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SubtractAssignmentOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence18Expression rightOperand = this.rightOperand) {
+    shared SubtractAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
         value ret = SubtractAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

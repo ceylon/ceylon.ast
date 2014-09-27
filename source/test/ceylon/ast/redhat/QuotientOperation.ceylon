@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence5Expression,
-    Precedence6Expression,
+    UnioningExpression,
+    MultiplyingExpression,
     QuotientOperation
 }
 import ceylon.ast.redhat {
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object quotientOperation satisfies ConcreteTest<QuotientOperation,JQuotientOp> {
     
-    String->QuotientOperation construct(String->Precedence6Expression left, String->Precedence5Expression right)
+    String->QuotientOperation construct(String->MultiplyingExpression left, String->UnioningExpression right)
             => "``left.key``/``right.key``"->QuotientOperation(left.item, right.item);
     
     shared String->QuotientOperation minus1138Divide1138Expression = construct(negationOperation.minus1138Expression, integerLiteral._1138IntegerLiteral);

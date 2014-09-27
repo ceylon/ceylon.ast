@@ -5,15 +5,15 @@ shared class SmallerOperation(leftOperand_, rightOperand_)
         extends ComparisonOperation() {
     
     // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    Precedence10Expression leftOperand_;
-    Precedence10Expression rightOperand_;
+    ExistsNonemptyExpression leftOperand_;
+    ExistsNonemptyExpression rightOperand_;
     
     "The left-hand side, expected to be smaller."
-    shared actual Precedence10Expression leftOperand = leftOperand_;
+    shared actual ExistsNonemptyExpression leftOperand = leftOperand_;
     "The right-hand side, expected to be larger."
-    shared actual Precedence10Expression rightOperand = rightOperand_;
+    shared actual ExistsNonemptyExpression rightOperand = rightOperand_;
     
-    shared actual [Precedence10Expression, Precedence10Expression] children = [leftOperand, rightOperand];
+    shared actual [ExistsNonemptyExpression, ExistsNonemptyExpression] children = [leftOperand, rightOperand];
     
     operator = "<";
     
@@ -31,7 +31,7 @@ shared class SmallerOperation(leftOperand_, rightOperand_)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SmallerOperation copy(Precedence10Expression leftOperand = this.leftOperand, Precedence10Expression rightOperand = this.rightOperand) {
+    shared SmallerOperation copy(ExistsNonemptyExpression leftOperand = this.leftOperand, ExistsNonemptyExpression rightOperand = this.rightOperand) {
         value ret = SmallerOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     KeySubscript,
-    Precedence8Expression
+    AddingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Element|JElement]] to a `ceylon.ast` [[KeySubscript]]."
 shared KeySubscript keySubscriptToCeylon(JElement keySubscript) {
     "Check precedence"
-    assert (is Precedence8Expression key = expressionToCeylon(keySubscript.expression));
+    assert (is AddingExpression key = expressionToCeylon(keySubscript.expression));
     return KeySubscript(key);
 }
 

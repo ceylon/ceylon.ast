@@ -19,9 +19,9 @@ shared class SpreadArgument(argument)
      (Note that even though the spread operator is no true operator,
      it has the same precedence as the [[product operator|ProductOperation]],
      whose symbol it shares.)"
-    shared Precedence5Expression argument;
+    shared UnioningExpression argument;
     
-    shared actual [Precedence5Expression] children = [argument];
+    shared actual [UnioningExpression] children = [argument];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpreadArgument(this);
@@ -37,7 +37,7 @@ shared class SpreadArgument(argument)
     shared actual Integer hash
             => 31 * argument.hash;
     
-    shared SpreadArgument copy(Precedence5Expression argument = this.argument) {
+    shared SpreadArgument copy(UnioningExpression argument = this.argument) {
         value ret = SpreadArgument(argument);
         copyExtraInfoTo(ret);
         return ret;

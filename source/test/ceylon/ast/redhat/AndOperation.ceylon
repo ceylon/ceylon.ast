@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AndOperation,
-    Precedence13Expression,
-    Precedence14Expression
+    NegatingExpression,
+    ConjoiningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object andOperation satisfies ConcreteTest<AndOperation,JAndOp> {
     
-    String->AndOperation construct(String->Precedence14Expression left, String->Precedence13Expression right)
+    String->AndOperation construct(String->ConjoiningExpression left, String->NegatingExpression right)
             => "``left.key``&&``right.key``"->AndOperation(left.item, right.item);
     
     shared String->AndOperation aAndBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);

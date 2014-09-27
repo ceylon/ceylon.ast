@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     EqualOperation,
-    Precedence11Expression
+    ComparingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[EqualOp|JEqualOp]] to a `ceylon.ast` [[EqualOperation]]."
 shared EqualOperation equalOperationToCeylon(JEqualOp equalOperation) {
     "Check precedence"
-    assert (is Precedence11Expression left = expressionToCeylon(equalOperation.leftTerm),
-        is Precedence11Expression right = expressionToCeylon(equalOperation.rightTerm));
+    assert (is ComparingExpression left = expressionToCeylon(equalOperation.leftTerm),
+        is ComparingExpression right = expressionToCeylon(equalOperation.rightTerm));
     return EqualOperation(left, right);
 }
 

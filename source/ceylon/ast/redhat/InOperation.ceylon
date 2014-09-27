@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     InOperation,
-    Precedence10Expression
+    ExistsNonemptyExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,8 +11,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[InOp|JInOp]] to a `ceylon.ast` [[InOperation]]."
 shared InOperation inOperationToCeylon(JInOp inOperation) {
     "Check precedence"
-    assert (is Precedence10Expression left = expressionToCeylon(inOperation.leftTerm),
-        is Precedence10Expression right = expressionToCeylon(inOperation.rightTerm));
+    assert (is ExistsNonemptyExpression left = expressionToCeylon(inOperation.leftTerm),
+        is ExistsNonemptyExpression right = expressionToCeylon(inOperation.rightTerm));
     return InOperation(left, right);
 }
 

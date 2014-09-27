@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AssignOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> {
     
-    String->AssignOperation construct(String->Precedence16Expression left, String->Precedence18Expression right)
+    String->AssignOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
             => "``left.key``=``right.key``"->AssignOperation(left.item, right.item);
     
     shared String->AssignOperation iAssign1Expression = construct(baseExpression.iExpression, integerLiteral.oneIntegerLiteral);

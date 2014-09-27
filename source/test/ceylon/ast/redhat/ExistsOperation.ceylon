@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     ExistsOperation,
-    Precedence9Expression
+    SpanningExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object existsOperation satisfies ConcreteTest<ExistsOperation,JExists> {
     
-    String->ExistsOperation construct(String->Precedence9Expression operand)
+    String->ExistsOperation construct(String->SpanningExpression operand)
             => "``operand.key`` exists"->ExistsOperation(operand.item);
     
     shared String->ExistsOperation aExistsExpression = construct(baseExpression.aExpression);

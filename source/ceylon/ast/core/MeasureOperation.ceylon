@@ -10,18 +10,18 @@ shared class MeasureOperation(first, size)
         extends BinaryOperation() {
     
     "The first element of the measured range."
-    shared Precedence8Expression first;
+    shared AddingExpression first;
     "The size of the measured range."
-    shared Precedence8Expression size;
+    shared AddingExpression size;
     
     "The first element of the measured range."
     see (`value first`)
-    shared actual Precedence8Expression leftOperand = first;
+    shared actual AddingExpression leftOperand = first;
     "The size of the measured range."
     see (`value size`)
-    shared actual Precedence8Expression rightOperand = size;
+    shared actual AddingExpression rightOperand = size;
     
-    shared actual [Precedence8Expression, Precedence8Expression] children = [leftOperand, rightOperand];
+    shared actual [AddingExpression, AddingExpression] children = [leftOperand, rightOperand];
     
     operator = ":";
     
@@ -39,7 +39,7 @@ shared class MeasureOperation(first, size)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared MeasureOperation copy(Precedence8Expression leftOperand = this.leftOperand, Precedence8Expression rightOperand = this.rightOperand) {
+    shared MeasureOperation copy(AddingExpression leftOperand = this.leftOperand, AddingExpression rightOperand = this.rightOperand) {
         value ret = MeasureOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

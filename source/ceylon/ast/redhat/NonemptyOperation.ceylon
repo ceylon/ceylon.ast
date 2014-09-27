@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NonemptyOperation,
-    Precedence9Expression
+    SpanningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Nonempty|JNonempty]] to a `ceylon.ast` [[NonemptyOperation]]."
 shared NonemptyOperation nonemptyOperationToCeylon(JNonempty nonemptyOperation) {
     "Check precedence"
-    assert (is Precedence9Expression operand = expressionToCeylon(nonemptyOperation.term));
+    assert (is SpanningExpression operand = expressionToCeylon(nonemptyOperation.term));
     return NonemptyOperation(operand);
 }
 

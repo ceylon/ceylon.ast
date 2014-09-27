@@ -1,6 +1,6 @@
 import ceylon.ast.core {
-    Precedence4Expression,
-    Precedence5Expression,
+    IntersectingExpression,
+    UnioningExpression,
     ComplementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ComplementOp|JComplementOp]] to a `ceylon.ast` [[ComplementOperation]]."
 shared ComplementOperation complementOperationToCeylon(JComplementOp complementOperation) {
     "Check precedence"
-    assert (is Precedence5Expression left = expressionToCeylon(complementOperation.leftTerm),
-        is Precedence4Expression right = expressionToCeylon(complementOperation.rightTerm));
+    assert (is UnioningExpression left = expressionToCeylon(complementOperation.leftTerm),
+        is IntersectingExpression right = expressionToCeylon(complementOperation.rightTerm));
     return ComplementOperation(left, right);
 }
 

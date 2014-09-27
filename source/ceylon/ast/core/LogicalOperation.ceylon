@@ -3,8 +3,8 @@ shared abstract class LogicalOperation()
         of AndOperation | OrOperation
         extends BinaryOperation() {
     
-    shared actual formal Precedence15Expression leftOperand;
-    shared actual formal Precedence14Expression rightOperand;
+    shared actual formal DisjoiningExpression leftOperand;
+    shared actual formal ConjoiningExpression rightOperand;
     
-    shared actual formal [Precedence15Expression, Precedence14Expression] children;
+    shared actual formal [DisjoiningExpression, ConjoiningExpression] children;
 }

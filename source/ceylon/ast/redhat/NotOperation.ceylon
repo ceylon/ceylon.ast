@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NotOperation,
-    Precedence13Expression
+    NegatingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[NotOp|JNotOp]] to a `ceylon.ast` [[NotOperation]]."
 shared NotOperation notOperationToCeylon(JNotOp notOperation) {
     "Check precedence"
-    assert (is Precedence13Expression operand = expressionToCeylon(notOperation.term));
+    assert (is NegatingExpression operand = expressionToCeylon(notOperation.term));
     return NotOperation(operand);
 }
 

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NotOperation,
-    Precedence13Expression
+    NegatingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object notOperation satisfies ConcreteTest<NotOperation,JNotOp> {
     
-    String->NotOperation construct(String->Precedence13Expression operand)
+    String->NotOperation construct(String->NegatingExpression operand)
             => "!``operand.key``"->NotOperation(operand.item);
     
     shared String->NotOperation notTrueExpression = construct(baseExpression.trueExpression);

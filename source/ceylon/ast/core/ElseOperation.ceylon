@@ -10,18 +10,18 @@ shared class ElseOperation(optionalValue, defaultValue)
         extends BinaryOperation() {
     
     "The optional value whose existence is tested."
-    shared Precedence16Expression optionalValue;
+    shared ThenElseExpression optionalValue;
     "The default value that is used if [[optionalValue]] is [[null]]."
-    shared Precedence15Expression defaultValue;
+    shared DisjoiningExpression defaultValue;
     
     "The optional value whose existence is tested."
     see (`value optionalValue`)
-    shared actual Precedence16Expression leftOperand = optionalValue;
+    shared actual ThenElseExpression leftOperand = optionalValue;
     "The default value that is used if [[optionalValue]] is [[null]]."
     see (`value defaultValue`)
-    shared actual Precedence15Expression rightOperand = defaultValue;
+    shared actual DisjoiningExpression rightOperand = defaultValue;
     
-    shared actual [Precedence16Expression, Precedence15Expression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, DisjoiningExpression] children = [leftOperand, rightOperand];
     
     operator = "else";
     
@@ -39,7 +39,7 @@ shared class ElseOperation(optionalValue, defaultValue)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ElseOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence15Expression rightOperand = this.rightOperand) {
+    shared ElseOperation copy(ThenElseExpression leftOperand = this.leftOperand, DisjoiningExpression rightOperand = this.rightOperand) {
         value ret = ElseOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

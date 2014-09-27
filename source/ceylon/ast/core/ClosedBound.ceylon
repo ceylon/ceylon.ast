@@ -5,9 +5,9 @@
 shared class ClosedBound(endpoint)
         extends Bound() {
     
-    shared actual Precedence10Expression endpoint;
+    shared actual ExistsNonemptyExpression endpoint;
     
-    shared actual [Precedence10Expression] children = [endpoint];
+    shared actual [ExistsNonemptyExpression] children = [endpoint];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClosedBound(this);
@@ -23,7 +23,7 @@ shared class ClosedBound(endpoint)
     shared actual Integer hash
             => 31 * endpoint.hash;
     
-    shared ClosedBound copy(Precedence10Expression endpoint = this.endpoint) {
+    shared ClosedBound copy(ExistsNonemptyExpression endpoint = this.endpoint) {
         value ret = ClosedBound(endpoint);
         copyExtraInfoTo(ret);
         return ret;

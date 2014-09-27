@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ElseOperation,
-    Precedence15Expression,
-    Precedence16Expression
+    DisjoiningExpression,
+    ThenElseExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object elseOperation satisfies ConcreteTest<ElseOperation,JDefaultOp> {
     
-    String->ElseOperation construct(String->Precedence16Expression left, String->Precedence15Expression right)
+    String->ElseOperation construct(String->ThenElseExpression left, String->DisjoiningExpression right)
             => "``left.key`` else ``right.key``"->ElseOperation(left.item, right.item);
     
     shared String->ElseOperation parsedIntElse0LiteralExpression = construct(baseExpression.parsedIntExpression, integerLiteral._0IntegerLiteral);

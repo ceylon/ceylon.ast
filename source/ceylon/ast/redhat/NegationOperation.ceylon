@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     NegationOperation,
-    Precedence2Expression
+    ExponentiatingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[NegativeOp|JNegativeOp]] to a `ceylon.ast` [[NegationOperation]]."
 shared NegationOperation negationOperationToCeylon(JNegativeOp negationOperation) {
-    assert (is Precedence2Expression operand = expressionToCeylon(negationOperation.term));
+    assert (is ExponentiatingExpression operand = expressionToCeylon(negationOperation.term));
     return NegationOperation(operand);
 }
 

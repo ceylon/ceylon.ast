@@ -10,18 +10,18 @@ shared class ThenOperation(condition, result)
         extends BinaryOperation() {
     
     "The condition."
-    shared Precedence16Expression condition;
+    shared ThenElseExpression condition;
     "The result that is produced if [[condition]] evaluates to [[true]]."
-    shared Precedence15Expression result;
+    shared DisjoiningExpression result;
     
     "The condition."
     see (`value condition`)
-    shared actual Precedence16Expression leftOperand = condition;
+    shared actual ThenElseExpression leftOperand = condition;
     "The result that is produced if [[condition]] evaluates to [[true]]."
     see (`value result`)
-    shared actual Precedence15Expression rightOperand = result;
+    shared actual DisjoiningExpression rightOperand = result;
     
-    shared actual [Precedence16Expression, Precedence15Expression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, DisjoiningExpression] children = [leftOperand, rightOperand];
     
     operator = "then";
     
@@ -39,7 +39,7 @@ shared class ThenOperation(condition, result)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared ThenOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence15Expression rightOperand = this.rightOperand) {
+    shared ThenOperation copy(ThenElseExpression leftOperand = this.leftOperand, DisjoiningExpression rightOperand = this.rightOperand) {
         value ret = ThenOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -26,7 +26,7 @@
    These codes are typically shared members of the object, constructed via an unshared
    `construct()` method that constructs them from other test codes:
    ~~~
-   String->SumOperation construct(String->Precedence8Expression left, String->Precedence7Expression right)
+   String->SumOperation construct(String->AddingExpression left, String->ScalingExpression right)
            => "``left.key``+``right.key``"->SumOperation(left.item, right.item);
            
    shared String->SumOperation onePlusOneExpression

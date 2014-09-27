@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     MultiplyAssignmentOperation,
-    Precedence16Expression,
-    Precedence18Expression
+    ThenElseExpression,
+    AssigningExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -12,8 +12,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[MultiplyAssignOp|JMultiplyAssignOp]] to a `ceylon.ast` [[MultiplyAssignmentOperation]]."
 shared MultiplyAssignmentOperation multiplyAssignmentOperationToCeylon(JMultiplyAssignOp multiplyAssignmentOperation) {
     "Check precedence"
-    assert (is Precedence16Expression left = expressionToCeylon(multiplyAssignmentOperation.leftTerm),
-        is Precedence18Expression right = expressionToCeylon(multiplyAssignmentOperation.rightTerm));
+    assert (is ThenElseExpression left = expressionToCeylon(multiplyAssignmentOperation.leftTerm),
+        is AssigningExpression right = expressionToCeylon(multiplyAssignmentOperation.rightTerm));
     return MultiplyAssignmentOperation(left, right);
 }
 

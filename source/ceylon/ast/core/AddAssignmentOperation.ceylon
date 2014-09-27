@@ -11,18 +11,18 @@ shared class AddAssignmentOperation(target, summand)
         extends ArithmeticAssignmentOperation() {
     
     "The target expression and left summand."
-    shared Precedence16Expression target;
+    shared ThenElseExpression target;
     "The right summand."
-    shared Precedence18Expression summand;
+    shared AssigningExpression summand;
     
     "The target expression and left summand."
     see (`value target`)
-    shared actual Precedence16Expression leftOperand = target;
+    shared actual ThenElseExpression leftOperand = target;
     "The right summand."
     see (`value summand`)
-    shared actual Precedence18Expression rightOperand = summand;
+    shared actual AssigningExpression rightOperand = summand;
     
-    shared actual [Precedence16Expression, Precedence18Expression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
     
     operator = "+=";
     
@@ -40,7 +40,7 @@ shared class AddAssignmentOperation(target, summand)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared AddAssignmentOperation copy(Precedence16Expression leftOperand = this.leftOperand, Precedence18Expression rightOperand = this.rightOperand) {
+    shared AddAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
         value ret = AddAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

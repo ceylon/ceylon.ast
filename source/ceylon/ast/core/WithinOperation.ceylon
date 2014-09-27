@@ -10,7 +10,7 @@ shared class WithinOperation(operand, lowerBound, upperBound)
     
     "The expression being tested against the [[lower|lowerBound]]
      and [[upper bound|upperBound]]."
-    shared Precedence10Expression operand;
+    shared ExistsNonemptyExpression operand;
     "The lower bound against which the [[operand]] is tested."
     shared Bound lowerBound;
     "The upper bound against which the [[operand]] is tested."
@@ -36,7 +36,7 @@ shared class WithinOperation(operand, lowerBound, upperBound)
     shared actual Integer hash
             => 31 * (lowerBound.hash + 31 * upperBound.hash);
     
-    shared WithinOperation copy(Precedence10Expression operand = this.operand, Bound lowerBound = this.lowerBound, Bound upperBound = this.upperBound) {
+    shared WithinOperation copy(ExistsNonemptyExpression operand = this.operand, Bound lowerBound = this.lowerBound, Bound upperBound = this.upperBound) {
         value ret = WithinOperation(operand, lowerBound, upperBound);
         copyExtraInfoTo(ret);
         return ret;

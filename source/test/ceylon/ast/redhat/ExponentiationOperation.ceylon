@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ExponentiationOperation,
-    Precedence1Expression,
-    Precedence2Expression
+    PrePostfixingExpression,
+    ExponentiatingExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object exponentiationOperation satisfies ConcreteTest<ExponentiationOperation,JPowerOp> {
     
-    String->ExponentiationOperation construct(String->Precedence1Expression left, String->Precedence2Expression right)
+    String->ExponentiationOperation construct(String->PrePostfixingExpression left, String->ExponentiatingExpression right)
             => "``left.key``^``right.key``"->ExponentiationOperation(left.item, right.item);
     
     shared String->ExponentiationOperation _1138Pow1Operation = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);

@@ -333,6 +333,18 @@ CompilationUnit completeCompilationUnit
             typeParameters = null;
             typeConstraints = [];
             annotations = Annotations();
+        },
+        TypeAliasDefinition {
+            name = UIdentifier("Primitive");
+            specifier = TypeSpecifier(UnionType([
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))),
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Boolean"))),
+                        OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Character"))))
+                    ]));
+            typeParameters = null;
+            typeConstraints = [];
+            annotations = Annotations();
         }
     ];
 } /* END */;

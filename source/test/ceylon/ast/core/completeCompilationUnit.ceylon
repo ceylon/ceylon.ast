@@ -470,6 +470,45 @@ CompilationUnit completeCompilationUnit
                                 };
                             });
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("assignments");
+                        type = ValueModifier();
+                        definition = Specifier(AssignOperation {
+                                target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                expression = AddAssignmentOperation {
+                                    target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                    summand = SubtractAssignmentOperation {
+                                        target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                        subtrahend = MultiplyAssignmentOperation {
+                                            target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                            factor = DivideAssignmentOperation {
+                                                target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                divisor = RemainderAssignmentOperation {
+                                                    target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                    divisor = IntersectAssignmentOperation {
+                                                        target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                        other = UnionAssignmentOperation {
+                                                            target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                            other = ComplementAssignmentOperation {
+                                                                target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                other = AndAssignmentOperation {
+                                                                    target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                    other = OrAssignmentOperation {
+                                                                        target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                        other = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                    };
+                                                                };
+                                                            };
+                                                        };
+                                                    };
+                                                };
+                                            };
+                                        };
+                                    };
+                                };
+                            });
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

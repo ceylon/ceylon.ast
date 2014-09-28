@@ -17,5 +17,5 @@ shared object meta satisfies AbstractTest<Meta,JMetaLiteral> {
     fromCeylon = RedHatTransformer.transformMeta;
     toCeylon = metaToCeylon;
     
-    tests = [typeMeta, memberMeta];
+    tests = [typeMeta, baseMeta, memberMeta];
 }

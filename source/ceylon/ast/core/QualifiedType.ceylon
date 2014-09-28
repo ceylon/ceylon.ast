@@ -32,7 +32,7 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     shared actual Integer hash
             => 31 * nameAndArgs.hash + nameAndArgs.hash;
     
-    shared QualifiedType copy(SimpleType|GroupedType qualifyingtype = this.qualifyingType, TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
+    shared QualifiedType copy(SimpleType|GroupedType qualifyingType = this.qualifyingType, TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = QualifiedType(qualifyingType, nameAndArgs);
         copyExtraInfoTo(ret);
         return ret;

@@ -27,7 +27,7 @@ shared ExistsCondition existsConditionToCeylon(JExistsCondition existsCondition)
         assert (is JStaticType|JValueModifier? jType);
         switch (jType)
         case (is JStaticType) { type = typeToCeylon(jType); }
-        case (is JValueModifier) { type = valueModifierToCeylon(jType); }
+        case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType); }
         case (null) { type = null; }
         return ExistsCondition(SpecifiedVariable(lIdentifierToCeylon(variable.identifier), specifierToCeylon(variable.specifierExpression), type));
     }

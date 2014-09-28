@@ -220,8 +220,19 @@ import ceylon.ast.core {
 }
 
 "A compilation unit node containing every AST node that can be a child of a regular compilation unit
- (that is, all nodes except those exclusively for module or package descriptors)."
-CompilationUnit completeCompilationUnit
+ (that is, all nodes except those exclusively for module or package descriptors).
+ 
+ If you’re looking at its source code: **This is not how you *should* write your nodes.**
+ This node’s original purpose was to test [[ceylon.ast.core::CeylonExpressionTransformer]]:
+ If you read the source file, everything between the `BEGIN` and `END` comments
+ is (trimmed) the exact output of `completeCompilationUnit.transform(CeylonExpressionTransformer())`.
+ For this reason, it is very verbose, using no utility functions, but only occasionally
+ omitting defaulted arguments.
+ 
+ Its main use is to test `ceylon.ast` transformers and consumers that need to be able to handle
+ every kind of node. Of course, it doesn’t contain each possible configuration of every node type
+ (there is, for example, no `else if`)."
+shared CompilationUnit completeCompilationUnit
         = /* BEGIN */ CompilationUnit {
     imports = [
         Import {

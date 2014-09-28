@@ -9,11 +9,14 @@ import ceylon.file {
 import ceylon.ast.core {
     CeylonExpressionTransformer
 }
+import ceylon.ast.samples.completeCompilationUnit {
+    completeCompilationUnit
+}
 
 "Tests that [[CeylonExpressionTransformer]] returns a valid expression."
 test
 shared void testCeylonExpressionTransformer() {
-    assert (is File completeCUFile = parsePath("source/test/ceylon/ast/core/completeCompilationUnit.ceylon").resource);
+    assert (is File completeCUFile = parsePath("source/ceylon/ast/samples/completeCompilationUnit/completeCompilationUnit.ceylon").resource);
     String completeCUCode;
     try (r = completeCUFile.Reader("UTF-8")) {
         StringBuilder completeCUCodeSb = StringBuilder();

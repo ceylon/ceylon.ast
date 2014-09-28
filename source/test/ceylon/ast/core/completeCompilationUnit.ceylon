@@ -524,7 +524,7 @@ CompilationUnit completeCompilationUnit
                                 valueVariable = UnspecifiedVariable(LIdentifier("v"));
                                 iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
                             };
-                            block = Block([]);
+                            block = Block([Continue()]);
                         };
                         failClause = FailClause(Block([]));
                     },

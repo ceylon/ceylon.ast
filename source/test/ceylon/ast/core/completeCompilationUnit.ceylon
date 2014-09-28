@@ -118,7 +118,6 @@ import ceylon.ast.core {
     MeasureSubscript,
     MemberMeta,
     MemberNameWithTypeArguments,
-    MemberOperator,
     ModuleDec,
     MultiplyAssignmentOperation,
     NamedArguments,
@@ -719,6 +718,31 @@ CompilationUnit completeCompilationUnit
                     ValueSetterDefinition {
                         name = LIdentifier("valueSetterDefinition");
                         definition = Block([]);
+                        annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("selfReferences");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        QualifiedExpression {
+                                            receiverExpression = This();
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("thisReference"));
+                                        },
+                                        QualifiedExpression {
+                                            receiverExpression = Super();
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("superReference"));
+                                        },
+                                        QualifiedExpression {
+                                            receiverExpression = Outer();
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("outerReference"));
+                                            memberOperator = SafeMemberOperator();
+                                        },
+                                        QualifiedExpression {
+                                            receiverExpression = Package();
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("packageReference"));
+                                            memberOperator = SpreadMemberOperator();
+                                        }
+                                    ])));
                         annotations = Annotations();
                     }
                 ]);

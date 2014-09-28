@@ -15,7 +15,7 @@
        } else {
            print("Hello, World!");
        }"""
-shared class ForFail(forClause, failClause)
+shared class ForFail(forClause, failClause = null)
         extends ControlStructure() {
     
     "The ‘`for`’ clause of the loop."

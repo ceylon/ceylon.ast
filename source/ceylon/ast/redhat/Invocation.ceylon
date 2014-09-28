@@ -14,10 +14,7 @@ shared Invocation invocationToCeylon(JInvocationExpression invocation) {
     value arguments = invocation.positionalArgumentList else invocation.namedArgumentList;
     switch (arguments)
     case (is JPositionalArgumentList) { return Invocation(primaryToCeylon(invocation.primary), positionalArgumentsToCeylon(arguments)); }
-    case (is JNamedArgumentList) // TODO { return Invocation(primaryToCeylon(invocation.primary), namedArgumentsToCeylon(arguments)); }
-    {
-        throw AssertionError("Not yet implemented!");
-    }
+    case (is JNamedArgumentList) { return Invocation(primaryToCeylon(invocation.primary), namedArgumentsToCeylon(arguments)); }
 }
 
 "Compiles the given [[code]] for an Invocation

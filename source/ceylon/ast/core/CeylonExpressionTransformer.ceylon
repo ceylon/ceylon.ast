@@ -751,7 +751,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``result = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformThis(This that) => "This()";
-    transformThrow(Throw that) => "Throw(``transformWithIndent(that.result)``)";
+    transformThrow(Throw that)
+            => that.result exists
+            then "Throw(``transformWithIndent(that.result)``)"
+            else "Throw()";
     transformTryCatchFinally(TryCatchFinally that)
             => "TryCatchFinally {
                 `` indent + indentLevel ``tryClause = ``transformWithIndent(that.tryClause)``;

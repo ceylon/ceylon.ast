@@ -639,6 +639,18 @@ CompilationUnit completeCompilationUnit
                         typeParameters = null;
                         typeConstraints = [];
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("literals");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        StringLiteral("""String literal"""),
+                                        StringLiteral("""Verbatim string literal""", true),
+                                        CharacterLiteral("""c"""),
+                                        IntegerLiteral("0"),
+                                        FloatLiteral("0.0")
+                                    ])));
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

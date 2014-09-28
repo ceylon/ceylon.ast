@@ -28,9 +28,10 @@ shared object nonemptyCondition satisfies ConcreteTest<NonemptyCondition,JNonemp
     shared String->NonemptyCondition nonemptyCollectionCondition = constructI(identifier.collectionLIdentifier);
     shared String->NonemptyCondition nonemptyArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier, tupleType.stringPlusTupleType);
     shared String->NonemptyCondition nonemptyValueArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier, valueModifier.valueModifier);
+    shared String->NonemptyCondition nonemptyUntypedArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier);
     
     compile = compileNonemptyCondition;
     fromCeylon = RedHatTransformer.transformNonemptyCondition;
     toCeylon = nonemptyConditionToCeylon;
-    codes = [nonemptyCollectionCondition, nonemptyArgsSpecifyCondition, nonemptyValueArgsSpecifyCondition];
+    codes = [nonemptyCollectionCondition, nonemptyArgsSpecifyCondition, nonemptyValueArgsSpecifyCondition, nonemptyUntypedArgsSpecifyCondition];
 }

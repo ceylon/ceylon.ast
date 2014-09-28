@@ -28,9 +28,10 @@ shared object existsCondition satisfies ConcreteTest<ExistsCondition,JExistsCond
     shared String->ExistsCondition existsCeylonCondition = constructI(identifier.ceylonLIdentifier);
     shared String->ExistsCondition existsNameSpecifyCondition = constructV(identifier.nameLIdentifier, specifier.processArgumentsFirstSpecifier, baseType.stringType);
     shared String->ExistsCondition existsValueNameSpecifyCondition = constructV(identifier.nameLIdentifier, specifier.processArgumentsFirstSpecifier, valueModifier.valueModifier);
+    shared String->ExistsCondition existsUntypedNameSpecifyCondition = constructV(identifier.nameLIdentifier, specifier.processArgumentsFirstSpecifier);
     
     compile = compileExistsCondition;
     fromCeylon = RedHatTransformer.transformExistsCondition;
     toCeylon = existsConditionToCeylon;
-    codes = [existsCeylonCondition, existsNameSpecifyCondition, existsValueNameSpecifyCondition];
+    codes = [existsCeylonCondition, existsNameSpecifyCondition, existsValueNameSpecifyCondition, existsUntypedNameSpecifyCondition];
 }

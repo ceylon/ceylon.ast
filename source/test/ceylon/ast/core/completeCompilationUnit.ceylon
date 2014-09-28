@@ -367,7 +367,10 @@ CompilationUnit completeCompilationUnit
                                         InterfaceDec(UIdentifier("Iterable")),
                                         AliasDec(UIdentifier("AddingExpression")),
                                         GivenDec(UIdentifier("Element")),
-                                        ValueDec(LIdentifier("process")),
+                                        ValueDec {
+                                            name = LIdentifier("arguments");
+                                            qualifier = DecQualifier([LIdentifier("process")]);
+                                        },
                                         FunctionDec(LIdentifier("print")),
                                         PackageDec(FullPackageName([LIdentifier("tmp")])),
                                         ModuleDec(FullPackageName([LIdentifier("tmp")]))

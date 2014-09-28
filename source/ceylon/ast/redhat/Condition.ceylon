@@ -5,16 +5,18 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBooleanCondition=BooleanCondition,
         JCondition=Condition,
+        JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
         JIsCondition=IsCondition
     }
 }
 
 "Converts a RedHat AST [[Condition|JCondition]] to a `ceylon.ast` [[Condition]]."
 shared Condition conditionToCeylon(JCondition condition) {
-    assert (is JBooleanCondition|JIsCondition condition);
+    assert (is JBooleanCondition|JIsCondition|JExistsOrNonemptyCondition condition);
     switch (condition)
     case (is JBooleanCondition) { return booleanConditionToCeylon(condition); }
     case (is JIsCondition) { return isConditionToCeylon(condition); }
+    case (is JExistsOrNonemptyCondition) { return existsOrNonemptyConditionToCeylon(condition); }
 }
 
 "Compiles the given [[code]] for a Condition

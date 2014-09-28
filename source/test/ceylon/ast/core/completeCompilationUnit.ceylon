@@ -221,7 +221,6 @@ import ceylon.ast.core {
 
 "A compilation unit node containing every AST node that can be a child of a regular compilation unit
  (that is, all nodes except those exclusively for module or package descriptors)."
-// TODO expand until there are no more unused import warnings
 CompilationUnit completeCompilationUnit
         = /* BEGIN */ CompilationUnit {
     imports = [
@@ -768,6 +767,38 @@ CompilationUnit completeCompilationUnit
                         body = ClassBody([]);
                         extendedType = null;
                         satisfiedTypes = null;
+                        annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("miscExpressions");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        GroupedExpression(FunctionExpression {
+                                                parameterLists = [Parameters()];
+                                                definition = LazySpecifier(DynamicValue {
+                                                        namedArguments = [];
+                                                        iterableArgument = ArgumentList([]);
+                                                        modifier = DynamicModifier();
+                                                    });
+                                                type = null;
+                                            }),
+                                        OperatorStyleInvocation {
+                                            receiverExpression = IntegerLiteral("0");
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("and"));
+                                            argument = IntegerLiteral("0");
+                                        },
+                                        OperatorStyleMemberExpression {
+                                            receiverExpression = IntegerLiteral("0");
+                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("and"));
+                                        },
+                                        StringTemplate {
+                                            literals = [
+                                                StringLiteral("""Hello, """),
+                                                StringLiteral("""!""")
+                                            ];
+                                            expressions = [IntegerLiteral("0")];
+                                        }
+                                    ])));
                         annotations = Annotations();
                     }
                 ]);

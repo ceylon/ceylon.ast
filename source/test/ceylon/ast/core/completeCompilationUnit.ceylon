@@ -373,6 +373,103 @@ CompilationUnit completeCompilationUnit
                                         ModuleDec(FullPackageName([LIdentifier("tmp")]))
                                     ])));
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("operations");
+                        type = ValueModifier();
+                        definition = Specifier(ElseOperation {
+                                optionalValue = ThenOperation {
+                                    condition = OrOperation {
+                                        leftOperand_ = AndOperation {
+                                            leftOperand_ = NotOperation(EqualOperation {
+                                                    leftOperand_ = IsOperation {
+                                                        operand_ = ExistsOperation(SpanOperation {
+                                                                first = SumOperation {
+                                                                    leftSummand = ScaleOperation {
+                                                                        factor = ProductOperation {
+                                                                            leftFactor = UnionOperation {
+                                                                                leftOperand_ = IntersectionOperation {
+                                                                                    leftOperand_ = IdentityOperation(ExponentiationOperation {
+                                                                                            base = PrefixIncrementOperation(IntegerLiteral("0"));
+                                                                                            exponent = PrefixDecrementOperation(IntegerLiteral("0"));
+                                                                                        });
+                                                                                    rightOperand_ = NegationOperation(PostfixIncrementOperation(IntegerLiteral("0")));
+                                                                                };
+                                                                                rightOperand_ = PostfixDecrementOperation(IntegerLiteral("0"));
+                                                                            };
+                                                                            rightFactor = ComplementOperation {
+                                                                                leftOperand_ = IntegerLiteral("0");
+                                                                                rightOperand_ = IntegerLiteral("0");
+                                                                            };
+                                                                        };
+                                                                        scalable = QuotientOperation {
+                                                                            dividend = IntegerLiteral("0");
+                                                                            divisor = IntegerLiteral("0");
+                                                                        };
+                                                                    };
+                                                                    rightSummand = RemainderOperation {
+                                                                        dividend = IntegerLiteral("0");
+                                                                        divisor = IntegerLiteral("0");
+                                                                    };
+                                                                };
+                                                                last = DifferenceOperation {
+                                                                    minuend = IntegerLiteral("0");
+                                                                    subtrahend = IntegerLiteral("0");
+                                                                };
+                                                            });
+                                                        type_ = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                    };
+                                                    rightOperand_ = OfOperation {
+                                                        operand_ = NonemptyOperation(MeasureOperation {
+                                                                first = IntegerLiteral("0");
+                                                                size = IntegerLiteral("0");
+                                                            });
+                                                        type_ = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                    };
+                                                });
+                                            rightOperand_ = InOperation {
+                                                element = EntryOperation {
+                                                    key = IntegerLiteral("0");
+                                                    item = IntegerLiteral("0");
+                                                };
+                                                category = IntegerLiteral("0");
+                                            };
+                                        };
+                                        rightOperand_ = NotEqualOperation {
+                                            leftOperand_ = LargerOperation {
+                                                leftOperand_ = IntegerLiteral("0");
+                                                rightOperand_ = IntegerLiteral("0");
+                                            };
+                                            rightOperand_ = SmallerOperation {
+                                                leftOperand_ = IntegerLiteral("0");
+                                                rightOperand_ = IntegerLiteral("0");
+                                            };
+                                        };
+                                    };
+                                    result = IdenticalOperation {
+                                        leftOperand_ = LargeAsOperation {
+                                            leftOperand_ = IntegerLiteral("0");
+                                            rightOperand_ = IntegerLiteral("0");
+                                        };
+                                        rightOperand_ = SmallAsOperation {
+                                            leftOperand_ = IntegerLiteral("0");
+                                            rightOperand_ = IntegerLiteral("0");
+                                        };
+                                    };
+                                };
+                                defaultValue = EqualOperation {
+                                    leftOperand_ = CompareOperation {
+                                        leftOperand_ = IntegerLiteral("0");
+                                        rightOperand_ = IntegerLiteral("0");
+                                    };
+                                    rightOperand_ = WithinOperation {
+                                        operand = IntegerLiteral("0");
+                                        lowerBound = ClosedBound(IntegerLiteral("0"));
+                                        upperBound = OpenBound(IntegerLiteral("0"));
+                                    };
+                                };
+                            });
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

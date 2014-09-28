@@ -744,6 +744,31 @@ CompilationUnit completeCompilationUnit
                                         }
                                     ])));
                         annotations = Annotations();
+                    },
+                    InterfaceDefinition {
+                        name = UIdentifier("Interface");
+                        body = InterfaceBody([]);
+                        caseTypes = null;
+                        satisfiedTypes = null;
+                        typeParameters = null;
+                        typeConstraints = [];
+                        annotations = Annotations();
+                    },
+                    DynamicInterfaceDefinition {
+                        name = UIdentifier("DynamicInterface");
+                        body = InterfaceBody([]);
+                        caseTypes = null;
+                        satisfiedTypes = null;
+                        typeParameters = null;
+                        typeConstraints = [];
+                        annotations = Annotations();
+                    },
+                    ObjectDefinition {
+                        name = LIdentifier("objectDefinition");
+                        body = ClassBody([]);
+                        extendedType = null;
+                        satisfiedTypes = null;
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

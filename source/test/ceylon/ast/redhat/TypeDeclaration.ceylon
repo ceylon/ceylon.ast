@@ -17,5 +17,5 @@ shared object typeDeclaration satisfies AbstractTest<TypeDeclaration,JTypeDeclar
     fromCeylon = RedHatTransformer.transformTypeDeclaration;
     toCeylon = typeDeclarationToCeylon;
     
-    tests = [classOrInterface];
+    tests = [classOrInterface, typeAliasDefinition];
 }

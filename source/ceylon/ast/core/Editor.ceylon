@@ -702,10 +702,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default QualifiedExpression transformQualifiedExpression(QualifiedExpression that)
             => that.copy(transformPrimary(that.receiverExpression), transformNameWithTypeArguments(that.nameAndArgs), transformAnyMemberOperator(that.memberOperator));
     shared actual default QualifiedType transformQualifiedType(QualifiedType that) {
-        value qualifyingType = that.qualifyingType;
-        switch (qualifyingType)
-        case (is SimpleType) { return that.copy(transformSimpleType(qualifyingType)); }
-        case (is GroupedType) { return that.copy(transformGroupedType(qualifyingType)); }
+        SimpleType|GroupedType transformSimpleTypeOrGroupedType(SimpleType|GroupedType that) {
+            switch (that)
+            case (is SimpleType) { return transformSimpleType(that); }
+            case (is GroupedType) { return transformGroupedType(that); }
+        }
+        return that.copy(transformSimpleTypeOrGroupedType(that.qualifyingType), transformTypeNameWithTypeArguments(that.nameAndArgs));
     }
     shared actual default QuotientOperation transformQuotientOperation(QuotientOperation that)
             => that.copy(transformMultiplyingExpression(that.leftOperand), transformUnioningExpression(that.rightOperand));

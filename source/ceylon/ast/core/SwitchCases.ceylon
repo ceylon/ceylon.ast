@@ -11,7 +11,7 @@
      else {
          return i % 2 == 1 && expensivePrimeTest(i);
      }"
-shared class SwitchCases(caseClauses, elseCaseClause)
+shared class SwitchCases(caseClauses, elseCaseClause = null)
         extends Node() {
     
     "The `case` clauses."

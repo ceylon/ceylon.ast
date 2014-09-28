@@ -20,6 +20,7 @@ shared object invocation satisfies ConcreteTest<Invocation,JInvocationExpression
             => "``invoked.key````arguments.key``"->Invocation(invoked.item, arguments.item);
     
     shared String->Invocation printHelloWorldInvocation = construct(baseExpression.printExpression, positionalArguments.helloWorldPositionalArguments);
+    shared String->Invocation namedArgumentsInvocation => construct(baseExpression.printExpression, namedArguments.sizeSpecify0NamedArguments);
     
     // not tested directly, but used by other tests
     shared String->Invocation assertionErrorInvocation = construct(baseExpression.assertionErrorExpression, positionalArguments.emptyPositionalArguments);
@@ -29,5 +30,5 @@ shared object invocation satisfies ConcreteTest<Invocation,JInvocationExpression
     compile = compileInvocation;
     fromCeylon = RedHatTransformer.transformInvocation;
     toCeylon = invocationToCeylon;
-    codes = [printHelloWorldInvocation];
+    codes => [printHelloWorldInvocation, namedArgumentsInvocation];
 }

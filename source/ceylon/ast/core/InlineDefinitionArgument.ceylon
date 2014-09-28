@@ -10,14 +10,6 @@
      object destroyable satisfies Destroyable {
          shared actual void destroy(Anything error) => process.exit(1);
      }"
-/*
- TODO
- The spec calls this “InlineDeclarationArgument”. I think they’re all definitions,
- not just declarations, but perhaps I’m wrong?
- 
- (The RedHat AST has “TypedArgument”… which makes sense as well. However,
- in ceylon.ast, ObjectDefinition doesn’t extend TypedDeclaration.)
- */
 shared abstract class InlineDefinitionArgument()
         of ValueArgument | FunctionArgument | ObjectArgument
         extends NamedArgument() {

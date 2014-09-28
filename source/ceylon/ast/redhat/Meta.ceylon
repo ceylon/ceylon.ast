@@ -14,7 +14,13 @@ shared Meta metaToCeylon(JMetaLiteral metaLiteral) {
     assert (is JTypeLiteral|JMemberLiteral metaLiteral);
     switch (metaLiteral)
     case (is JTypeLiteral) { return typeMetaToCeylon(metaLiteral); }
-    case (is JMemberLiteral) { return memberMetaToCeylon(metaLiteral); }
+    case (is JMemberLiteral) {
+        if (exists jQualifier = metaLiteral.type else metaLiteral.objectExpression) {
+            return memberMetaToCeylon(metaLiteral);
+        } else {
+            return baseMetaToCeylon(metaLiteral);
+        }
+    }
 }
 
 "Compiles the given [[code]] for a Meta

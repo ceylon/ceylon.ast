@@ -676,7 +676,40 @@ CompilationUnit completeCompilationUnit
                             elseCaseClause = ElseCaseClause(Block([]));
                         };
                     },
-                    DynamicBlock(Block([]))
+                    DynamicBlock(Block([])),
+                    ValueDefinition {
+                        name = LIdentifier("subscripts");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        ElementOrSubrangeExpression {
+                                            primary = IntegerLiteral("0");
+                                            subscript = KeySubscript(IntegerLiteral("0"));
+                                        },
+                                        ElementOrSubrangeExpression {
+                                            primary = IntegerLiteral("0");
+                                            subscript = SpanSubscript {
+                                                from = IntegerLiteral("0");
+                                                to = IntegerLiteral("0");
+                                            };
+                                        },
+                                        ElementOrSubrangeExpression {
+                                            primary = IntegerLiteral("0");
+                                            subscript = MeasureSubscript {
+                                                from = IntegerLiteral("0");
+                                                length = IntegerLiteral("0");
+                                            };
+                                        },
+                                        ElementOrSubrangeExpression {
+                                            primary = IntegerLiteral("0");
+                                            subscript = SpanFromSubscript(IntegerLiteral("0"));
+                                        },
+                                        ElementOrSubrangeExpression {
+                                            primary = IntegerLiteral("0");
+                                            subscript = SpanToSubscript(IntegerLiteral("0"));
+                                        }
+                                    ])));
+                        annotations = Annotations();
+                    }
                 ]);
             caseTypes = CaseTypes([
                     LIdentifier("myTrue"),

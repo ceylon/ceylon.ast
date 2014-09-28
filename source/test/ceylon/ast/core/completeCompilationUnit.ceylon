@@ -583,6 +583,10 @@ CompilationUnit completeCompilationUnit
                                         satisfiedTypes = null;
                                     }
                                 ]);
+                        }),
+                    AssignmentStatement(AddAssignmentOperation {
+                            target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
+                            summand = IntegerLiteral("0");
                         })
                 ]);
             caseTypes = CaseTypes([

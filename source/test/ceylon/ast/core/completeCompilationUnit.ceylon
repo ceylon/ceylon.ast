@@ -651,7 +651,31 @@ CompilationUnit completeCompilationUnit
                                         FloatLiteral("0.0")
                                     ])));
                         annotations = Annotations();
-                    }
+                    },
+                    IfElse {
+                        ifClause = IfClause {
+                            conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("ifElse"))))]);
+                            block = Block([]);
+                        };
+                        elseClause = ElseClause(Block([]));
+                    },
+                    SwitchCaseElse {
+                        clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchCaseElse"))));
+                        cases = SwitchCases {
+                            caseClauses = [
+                                CaseClause {
+                                    caseItem = MatchCase([IntegerLiteral("0")]);
+                                    block = Block([]);
+                                },
+                                CaseClause {
+                                    caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                    block = Block([]);
+                                }
+                            ];
+                            elseCaseClause = ElseCaseClause(Block([]));
+                        };
+                    },
+                    DynamicBlock(Block([]))
                 ]);
             caseTypes = CaseTypes([
                     LIdentifier("myTrue"),

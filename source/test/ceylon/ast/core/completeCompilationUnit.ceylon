@@ -296,7 +296,7 @@ CompilationUnit completeCompilationUnit
             body = ClassBody([
                     TryCatchFinally {
                         tryClause = TryClause {
-                            block = Block([]);
+                            block = Block([Throw()]);
                             resources = Resources([
                                     Resource(SpecifiedVariable {
                                             name = LIdentifier("w");

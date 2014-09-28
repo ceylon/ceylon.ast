@@ -703,6 +703,22 @@ CompilationUnit completeCompilationUnit
                                         }
                                     ])));
                         annotations = Annotations();
+                    },
+                    ValueDeclaration {
+                        name = LIdentifier("valueDeclaration");
+                        type = DynamicModifier();
+                        annotations = Annotations();
+                    },
+                    ValueGetterDefinition {
+                        name = LIdentifier("valueGetterDefinition");
+                        type = ValueModifier();
+                        definition = Block([]);
+                        annotations = Annotations();
+                    },
+                    ValueSetterDefinition {
+                        name = LIdentifier("valueSetterDefinition");
+                        definition = Block([]);
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

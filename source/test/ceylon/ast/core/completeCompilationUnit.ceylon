@@ -590,7 +590,56 @@ CompilationUnit completeCompilationUnit
                     AssignmentStatement(AddAssignmentOperation {
                             target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
                             summand = IntegerLiteral("0");
-                        })
+                        }),
+                    FunctionDeclaration {
+                        name = LIdentifier("functionDeclaration");
+                        type = VoidModifier();
+                        parameterLists = [
+                            Parameters([
+                                    ValueParameter {
+                                        annotations = Annotations();
+                                        type = DynamicModifier();
+                                        name = LIdentifier("valueParameter");
+                                    },
+                                    CallableParameter {
+                                        annotations = Annotations();
+                                        type = VoidModifier();
+                                        name = LIdentifier("callableParameter");
+                                        parameterLists = [Parameters()];
+                                    },
+                                    ParameterReference(LIdentifier("parameterReference")),
+                                    DefaultedValueParameter {
+                                        parameter = ValueParameter {
+                                            annotations = Annotations();
+                                            type = DynamicModifier();
+                                            name = LIdentifier("defaultedValueParameter");
+                                        };
+                                        specifier = Specifier(IntegerLiteral("0"));
+                                    },
+                                    DefaultedCallableParameter {
+                                        parameter = CallableParameter {
+                                            annotations = Annotations();
+                                            type = VoidModifier();
+                                            name = LIdentifier("defaultedCallableParameter");
+                                            parameterLists = [Parameters()];
+                                        };
+                                        specifier = LazySpecifier(IntegerLiteral("0"));
+                                    },
+                                    DefaultedParameterReference {
+                                        parameter = ParameterReference(LIdentifier("defaultedParameterReference"));
+                                        specifier = Specifier(IntegerLiteral("0"));
+                                    },
+                                    VariadicParameter {
+                                        annotations = Annotations();
+                                        type = VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                        name = LIdentifier("variadicParameter");
+                                    }
+                                ])
+                        ];
+                        typeParameters = null;
+                        typeConstraints = [];
+                        annotations = Annotations();
+                    }
                 ]);
             caseTypes = CaseTypes([
                     LIdentifier("myTrue"),

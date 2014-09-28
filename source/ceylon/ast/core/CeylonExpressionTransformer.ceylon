@@ -329,6 +329,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
                 `` indent + indentLevel ``typeParameters = ``transformWithIndent(that.typeParameters)``;
                 `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
+                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
     transformFunctionDefinition(FunctionDefinition that)
             => "FunctionDefinition {

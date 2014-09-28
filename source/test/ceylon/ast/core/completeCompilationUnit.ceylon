@@ -264,7 +264,8 @@ CompilationUnit completeCompilationUnit
                                 nameAndArgs = MemberNameWithTypeArguments(LIdentifier("println"));
                             };
                             arguments = PositionalArguments(ArgumentList([StringLiteral("""Hello, World!""")]));
-                        })
+                        }),
+                    Return()
                 ]);
             typeParameters = null;
             typeConstraints = [];

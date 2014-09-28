@@ -524,6 +524,24 @@ CompilationUnit completeCompilationUnit
                             block = Block([]);
                         };
                         failClause = FailClause(Block([]));
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("comprehension");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList {
+                                    listedArguments = [];
+                                    sequenceArgument = Comprehension(ForComprehensionClause {
+                                            iterator = ValueIterator {
+                                                variable = UnspecifiedVariable(LIdentifier("v"));
+                                                iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs")));
+                                            };
+                                            clause = IfComprehensionClause {
+                                                conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
+                                                clause = ExpressionComprehensionClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
+                                            };
+                                        });
+                                }));
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

@@ -509,6 +509,21 @@ CompilationUnit completeCompilationUnit
                                 };
                             });
                         annotations = Annotations();
+                    },
+                    While {
+                        conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("true"))))]);
+                        block = Block([Break()]);
+                    },
+                    ForFail {
+                        forClause = ForClause {
+                            iterator = KeyValueIterator {
+                                keyVariable = UnspecifiedVariable(LIdentifier("k"));
+                                valueVariable = UnspecifiedVariable(LIdentifier("v"));
+                                iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
+                            };
+                            block = Block([]);
+                        };
+                        failClause = FailClause(Block([]));
                     }
                 ]);
             caseTypes = CaseTypes([

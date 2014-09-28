@@ -551,7 +551,39 @@ CompilationUnit completeCompilationUnit
                                     sequenceArgument = SpreadArgument(BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs"))));
                                 }));
                         annotations = Annotations();
-                    }
+                    },
+                    InvocationStatement(Invocation {
+                            invoked = BaseExpression(MemberNameWithTypeArguments(LIdentifier("namedArguments")));
+                            arguments = NamedArguments([
+                                    AnonymousArgument(IntegerLiteral("0")),
+                                    SpecifiedArgument(ValueSpecification {
+                                            name = LIdentifier("specifiedArgument");
+                                            specifier = Specifier(IntegerLiteral("0"));
+                                        }),
+                                    SpecifiedArgument(LazySpecification {
+                                            name = LIdentifier("lazySpecifiedArgument");
+                                            specifier = LazySpecifier(IntegerLiteral("0"));
+                                            parameterLists = [];
+                                        }),
+                                    ValueArgument {
+                                        name = LIdentifier("valueArgument");
+                                        type = ValueModifier();
+                                        definition = Specifier(IntegerLiteral("0"));
+                                    },
+                                    FunctionArgument {
+                                        name = LIdentifier("functionArgument");
+                                        type = FunctionModifier();
+                                        parameterLists = [Parameters()];
+                                        definition = LazySpecifier(IntegerLiteral("0"));
+                                    },
+                                    ObjectArgument {
+                                        name = LIdentifier("objectArgument");
+                                        body = ClassBody([]);
+                                        extendedType = null;
+                                        satisfiedTypes = null;
+                                    }
+                                ]);
+                        })
                 ]);
             caseTypes = CaseTypes([
                     LIdentifier("myTrue"),

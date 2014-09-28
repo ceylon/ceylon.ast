@@ -5,8 +5,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionModifier=FunctionModifier,
         JNamedArgument=NamedArgument,
+        JObjectArgument=ObjectArgument,
         JSpecifiedArgument=SpecifiedArgument,
-        JTypedArgument=TypedArgument
+        JTypedArgument=TypedArgument,
+        JValueModifier=ValueModifier
     }
 }
 
@@ -24,8 +26,8 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument) {
         }
     }
     case (is JTypedArgument) {
-        if (exists type = namedArgument.type, type is JFunctionModifier, !namedArgument.type.mainToken exists) {
-            // specified argument with parameters is parsed as function argument with synthetic ‘function’ modifier
+        if (exists type = namedArgument.type, !type.mainToken exists, type is JFunctionModifier|JValueModifier, !namedArgument is JObjectArgument) {
+            // lazy specified arguments are parsed as value / function definitions with synthetic ‘value’ / ‘function’ modifiers
             return specifiedArgumentToCeylon(namedArgument);
         } else {
             // inline definition argument

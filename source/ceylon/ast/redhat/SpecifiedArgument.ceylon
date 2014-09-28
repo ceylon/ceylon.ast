@@ -3,38 +3,52 @@ import ceylon.ast.core {
     ValueSpecification,
     LazySpecifier,
     FunctionArgument,
-    LazySpecification
+    LazySpecification,
+    ValueArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionModifier=FunctionModifier,
         JNamedArgument=NamedArgument,
         JSpecifiedArgument=SpecifiedArgument,
-        JTypedArgument=TypedArgument
+        JTypedArgument=TypedArgument,
+        JValueModifier=ValueModifier
     }
 }
 
-"Converts a RedHat AST [[NamedArgument|JNamedArgument]] to a `ceylon.ast` [[SpecifiedArgument]].
- 
- The main RedHat AST type for specified arguments is [[SpecifiedArgument|JSpecifiedArgument]];
- however, a lazy function specification like
- 
-     comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
- 
- is instead parsed as a [[FunctionArgument|Tree.FunctionArgument]] with a synthetic
- ‘`function`’ modifier (`null` token)."
+"""Converts a RedHat AST [[NamedArgument|JNamedArgument]] to a `ceylon.ast` [[SpecifiedArgument]].
+   
+   The main RedHat AST type for specified arguments is [[SpecifiedArgument|JSpecifiedArgument]];
+   however, lazy specifications like
+   
+       val => "Hello, World!";
+       comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
+   
+   are instead parsed as [[AttributeArguments|Tree.AttributeArgument]] / [[FunctionArguments|Tree.FunctionArgument]]
+   with a synthetic ‘`function`’ / ‘`value`’ modifier (`null` token)."""
 shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument) {
     if (is JSpecifiedArgument specifiedArgument) {
         return SpecifiedArgument(ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier), specifierToCeylon(specifiedArgument.specifierExpression)));
     } else {
-        assert (is JTypedArgument specifiedArgument, exists type = specifiedArgument.type, type is JFunctionModifier, !specifiedArgument.type.mainToken exists);
-        assert (is FunctionArgument functionArgument = inlineDefinitionArgumentToCeylon(specifiedArgument));
-        assert (is LazySpecifier definition = functionArgument.definition);
-        return SpecifiedArgument(LazySpecification {
-                name = functionArgument.name;
-                parameterLists = functionArgument.parameterLists;
-                specifier = definition;
-            });
+        assert (is JTypedArgument specifiedArgument, exists type = specifiedArgument.type, !type.mainToken exists);
+        if (type is JFunctionModifier) {
+            assert (is FunctionArgument functionArgument = inlineDefinitionArgumentToCeylon(specifiedArgument));
+            assert (is LazySpecifier definition = functionArgument.definition);
+            return SpecifiedArgument(LazySpecification {
+                    name = functionArgument.name;
+                    parameterLists = functionArgument.parameterLists;
+                    specifier = definition;
+                });
+        } else {
+            assert (type is JValueModifier);
+            assert (is ValueArgument valueArgument = inlineDefinitionArgumentToCeylon(specifiedArgument));
+            assert (is LazySpecifier definition = valueArgument.definition);
+            return SpecifiedArgument(LazySpecification {
+                    name = valueArgument.name;
+                    parameterLists = [];
+                    specifier = definition;
+                });
+        }
     }
 }
 

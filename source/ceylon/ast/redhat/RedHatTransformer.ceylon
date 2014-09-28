@@ -2673,25 +2673,34 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    "Returns a [[NamedArgument|JNamedArgument]], not a [[SpecifiedArgument|JSpecifiedArgument]],
-     because a function specification argument like
-     
-         comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
-     
-     is parsed as a function argument with a “synthetic” ‘`function`’
-     modifier (null token). We duplicate that here."
+    """Returns a [[NamedArgument|JNamedArgument]], not a [[SpecifiedArgument|JSpecifiedArgument]],
+       because lazy specification arguments like
+       
+           val => "Hello, World!"
+           comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
+       
+       are instead parsed as value / function arguments with a “synthetic”
+       ‘`value`’ / ‘`function`’ modifier (null token). We duplicate that here."""
     shared actual JNamedArgument transformSpecifiedArgument(SpecifiedArgument that) {
-        if (is LazySpecification specification = that.specification,
-            specification.parameterLists nonempty) {
-            JMethodArgument ret = JMethodArgument(null);
-            ret.type = JFunctionModifier(null);
-            ret.identifier = transformLIdentifier(specification.name);
-            for (parameters in specification.parameterLists) {
-                ret.addParameterList(transformParameters(parameters));
+        if (is LazySpecification specification = that.specification) {
+            if (specification.parameterLists nonempty) {
+                JMethodArgument ret = JMethodArgument(null);
+                ret.type = JFunctionModifier(null);
+                ret.identifier = transformLIdentifier(specification.name);
+                for (parameters in specification.parameterLists) {
+                    ret.addParameterList(transformParameters(parameters));
+                }
+                ret.specifierExpression = transformLazySpecifier(specification.specifier);
+                ret.endToken = tokens.token(";", semicolon);
+                return ret;
+            } else {
+                JAttributeArgument ret = JAttributeArgument(null);
+                ret.type = JValueModifier(null);
+                ret.identifier = transformLIdentifier(specification.name);
+                ret.specifierExpression = transformLazySpecifier(specification.specifier);
+                ret.endToken = tokens.token(";", semicolon);
+                return ret;
             }
-            ret.specifierExpression = transformLazySpecifier(specification.specifier);
-            ret.endToken = tokens.token(";", semicolon);
-            return ret;
         } else {
             JSpecifiedArgument ret = JSpecifiedArgument(null);
             assert (is ValueSpecification specification = that.specification);

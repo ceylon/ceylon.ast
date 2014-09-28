@@ -591,6 +591,7 @@ CompilationUnit completeCompilationUnit
                             target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
                             summand = IntegerLiteral("0");
                         }),
+                    PrefixPostfixStatement(PostfixIncrementOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("i"))))),
                     FunctionDeclaration {
                         name = LIdentifier("functionDeclaration");
                         type = VoidModifier();

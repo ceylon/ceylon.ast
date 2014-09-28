@@ -542,6 +542,15 @@ CompilationUnit completeCompilationUnit
                                         });
                                 }));
                         annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("spread");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList {
+                                    listedArguments = [];
+                                    sequenceArgument = SpreadArgument(BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs"))));
+                                }));
+                        annotations = Annotations();
                     }
                 ]);
             caseTypes = CaseTypes([

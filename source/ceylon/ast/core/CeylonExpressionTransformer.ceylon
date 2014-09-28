@@ -73,8 +73,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformAndOperation(AndOperation that)
             => "AndOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformArgumentList(ArgumentList that)
             => that.sequenceArgument exists
@@ -187,8 +187,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformClosedBound(ClosedBound that) => "ClosedBound(``transformWithIndent(that.endpoint)``)";
     transformCompareOperation(CompareOperation that)
             => "CompareOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformCompilationUnit(CompilationUnit that)
             => "CompilationUnit {
@@ -202,8 +202,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformComplementOperation(ComplementOperation that)
             => "ComplementOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformComprehension(Comprehension that) => "Comprehension(``transformWithIndent(that.clause)``)";
     transformConditions(Conditions that) => "Conditions(``transformWithIndent(that.conditions)``)";
@@ -227,8 +227,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformDifferenceOperation(DifferenceOperation that)
             => "DifferenceOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``minuend = ``transformWithIndent(that.minuend)``;
+                `` indent + indentLevel ``subtrahend = ``transformWithIndent(that.subtrahend)``;
                 ``indent``}";
     transformDivideAssignmentOperation(DivideAssignmentOperation that)
             => "DivideAssignmentOperation {
@@ -267,8 +267,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformEntryOperation(EntryOperation that)
             => "EntryOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
+                `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
     transformEntryType(EntryType that)
             => "EntryType {
@@ -277,15 +277,15 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformEqualOperation(EqualOperation that)
             => "EqualOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformExistsCondition(ExistsCondition that) => "ExistsCondition(``transformWithIndent(that.variable)``)";
     transformExistsOperation(ExistsOperation that) => "ExistsOperation(``transformWithIndent(that.operand)``)";
     transformExponentiationOperation(ExponentiationOperation that)
             => "ExponentiationOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``base = ``transformWithIndent(that.base)``;
+                `` indent + indentLevel ``exponent = ``transformWithIndent(that.exponent)``;
                 ``indent``}";
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => "ExpressionComprehensionClause(``transformWithIndent(that.expression)``)";
     transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
@@ -362,8 +362,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformGroupedType(GroupedType that) => "GroupedType(``transformWithIndent(that.type)``)";
     transformIdenticalOperation(IdenticalOperation that)
             => "IdenticalOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformIdentityOperation(IdentityOperation that) => "IdentityOperation(``transformWithIndent(that.operand)``)";
     transformIfClause(IfClause that)
@@ -409,8 +409,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformInModifier(InModifier that) => "InModifier()";
     transformInOperation(InOperation that)
             => "InOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``element = ``transformWithIndent(that.element)``;
+                `` indent + indentLevel ``category = ``transformWithIndent(that.category)``;
                 ``indent``}";
     transformIntegerLiteral(IntegerLiteral that) => "IntegerLiteral(\"``that.text``\")";
     transformInterfaceAliasDefinition(InterfaceAliasDefinition that)
@@ -449,8 +449,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformIntersectionOperation(IntersectionOperation that)
             => "IntersectionOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformInvocation(Invocation that)
             => "Invocation {
@@ -466,8 +466,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformIsOperation(IsOperation that)
             => "IsOperation {
-                `` indent + indentLevel ``child = ``transformWithIndent(that.operand)``;
-                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``operand_ = ``transformWithIndent(that.operand)``;
+                `` indent + indentLevel ``type_ = ``transformWithIndent(that.type)``;
                 ``indent``}";
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
@@ -503,19 +503,19 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             else "MemberNameWithTypeArguments(``transformWithIndent(that.name)``)";
     transformLargeAsOperation(LargeAsOperation that)
             => "LargeAsOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformLargerOperation(LargerOperation that)
             => "LargerOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformLazySpecifier(LazySpecifier that) => "LazySpecifier(``transformWithIndent(that.expression)``)";
     transformMeasureOperation(MeasureOperation that)
             => "MeasureOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``first = ``transformWithIndent(that.first)``;
+                `` indent + indentLevel ``size = ``transformWithIndent(that.size)``;
                 ``indent``}";
     transformMemberMeta(MemberMeta that)
             => "MemberMeta {
@@ -562,8 +562,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)
             => "NotEqualOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformNotOperation(NotOperation that) => "NotOperation(``transformWithIndent(that.operand)``)";
     transformObjectArgument(ObjectArgument that)
@@ -583,8 +583,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformOfOperation(OfOperation that)
             => "OfOperation {
-                `` indent + indentLevel ``child = ``transformWithIndent(that.operand)``;
-                `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                `` indent + indentLevel ``operand_ = ``transformWithIndent(that.operand)``;
+                `` indent + indentLevel ``type_ = ``transformWithIndent(that.type)``;
                 ``indent``}";
     transformOpenBound(OpenBound that) => "OpenBound(``transformWithIndent(that.endpoint)``)";
     transformOperatorStyleInvocation(OperatorStyleInvocation that)
@@ -606,8 +606,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformOrOperation(OrOperation that)
             => "OrOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformOutModifier(OutModifier that) => "OutModifier()";
     transformOuter(Outer that) => "Outer()";
@@ -636,8 +636,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformPrefixPostfixStatement(PrefixPostfixStatement that) => "PrefixPostfixStatement(``transformWithIndent(that.expression)``)";
     transformProductOperation(ProductOperation that)
             => "ProductOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftFactor = ``transformWithIndent(that.leftFactor)``;
+                `` indent + indentLevel ``rightFactor = ``transformWithIndent(that.rightFactor)``;
                 ``indent``}";
     transformQualifiedExpression(QualifiedExpression that)
             => that.memberOperator is MemberOperator
@@ -657,8 +657,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformQuotientOperation(QuotientOperation that)
             => "QuotientOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``dividend = ``transformWithIndent(that.dividend)``;
+                `` indent + indentLevel ``divisor = ``transformWithIndent(that.divisor)``;
                 ``indent``}";
     transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
             => "RemainderAssignmentOperation {
@@ -667,8 +667,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformRemainderOperation(RemainderOperation that)
             => "RemainderOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``dividend = ``transformWithIndent(that.dividend)``;
+                `` indent + indentLevel ``divisor = ``transformWithIndent(that.divisor)``;
                 ``indent``}";
     transformResource(Resource that) => "Resource(``transformWithIndent(that.resource)``)";
     transformResources(Resources that) => "Resources(``transformWithIndent(that.resources)``)";
@@ -677,25 +677,25 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformSatisfiedTypes(SatisfiedTypes that) => "SatisfiedTypes(``transformWithIndent(that.satisfiedTypes)``)";
     transformScaleOperation(ScaleOperation that)
             => "ScaleOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``factor = ``transformWithIndent(that.factor)``;
+                `` indent + indentLevel ``scalable = ``transformWithIndent(that.scalable)``;
                 ``indent``}";
     transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
     transformSmallAsOperation(SmallAsOperation that)
             => "SmallAsOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformSmallerOperation(SmallerOperation that)
             => "SmallerOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformSpanFromSubscript(SpanFromSubscript that) => "SpanFromSubscript(``transformWithIndent(that.from)``)";
     transformSpanOperation(SpanOperation that)
             => "SpanOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``first = ``transformWithIndent(that.first)``;
+                `` indent + indentLevel ``last = ``transformWithIndent(that.last)``;
                 ``indent``}";
     transformSpanSubscript(SpanSubscript that)
             => "SpanSubscript {
@@ -729,8 +729,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformSumOperation(SumOperation that)
             => "SumOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftSummand = ``transformWithIndent(that.leftSummand)``;
+                `` indent + indentLevel ``rightSummand = ``transformWithIndent(that.rightSummand)``;
                 ``indent``}";
     transformSuper(Super that) => "Super()";
     transformSwitchCaseElse(SwitchCaseElse that)
@@ -828,8 +828,8 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformUnionOperation(UnionOperation that)
             => "UnionOperation {
-                `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
-                `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
+                `` indent + indentLevel ``leftOperand_ = ``transformWithIndent(that.leftOperand)``;
+                `` indent + indentLevel ``rightOperand_ = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
     transformUnspecifiedVariable(UnspecifiedVariable that)
             => "UnspecifiedVariable {

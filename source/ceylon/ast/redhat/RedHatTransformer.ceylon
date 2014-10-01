@@ -430,7 +430,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JAliasLiteral transformAliasDec(AliasDec that) {
-        JAliasLiteral ret = JAliasLiteral(null);
+        JAliasLiteral ret = JAliasLiteral(tokens.token("`", backtick));
         ret.endToken = tokens.token(that.keyword, aliasType);
         if (exists qualifier = that.qualifier) {
             "Qualifier can’t yet be an object!"
@@ -512,6 +512,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value specifierExpression = JSpecifierExpression(null);
         specifierExpression.expression = wrapTerm(transformExpression(that.expression));
         ret.specifierExpression = specifierExpression;
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     
@@ -2640,7 +2641,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     """Returns a [[NamedArgument|JNamedArgument]], not a [[SpecifiedArgument|JSpecifiedArgument]],
        because lazy specification arguments like
        
-           val => "Hello, World!"
+           val => "Hello, World!";
            comparing(Integer x, Integer y) => x.magnitude <=> y.magnitude;
        
        are instead parsed as value / function arguments with a “synthetic”
@@ -2673,6 +2674,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
                 ret.identifier = transformIdentifier(specification.name);
                 ret.specifierExpression = transformSpecifier(specification.specifier);
             }
+            ret.endToken = tokens.token(";", semicolon);
             return ret;
         }
     }

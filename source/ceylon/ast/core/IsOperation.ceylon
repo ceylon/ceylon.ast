@@ -6,17 +6,13 @@
  
      element is String|Integer
      user is ExecutiveUser"
-shared class IsOperation(operand_, type_)
+shared class IsOperation(operand, type)
         extends UnaryTypeOperation() {
     
-    // TODO operand_ and type_ are a workaround for ceylon-compiler#1728, remove!
-    ExistsNonemptyExpression operand_;
-    Type type_;
-    
     "The expression whose type is tested."
-    shared actual ExistsNonemptyExpression operand = operand_;
+    shared actual ExistsNonemptyExpression operand;
     "The type against which the expression’s type is tested."
-    shared actual Type type = type_;
+    shared actual Type type;
     
     shared actual [ExistsNonemptyExpression, Type] children = [operand, type];
     

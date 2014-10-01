@@ -7,15 +7,11 @@
      digit == 0 || digit == 1
      element in errors || !element exists"
 see (`class OrAssignmentOperation`)
-shared class OrOperation(leftOperand_, rightOperand_)
+shared class OrOperation(leftOperand, rightOperand)
         extends LogicalOperation() {
     
-    // TODO remove ceylon-compiler#1728 workaround
-    DisjoiningExpression leftOperand_;
-    ConjoiningExpression rightOperand_;
-    
-    shared actual DisjoiningExpression leftOperand = leftOperand_;
-    shared actual ConjoiningExpression rightOperand = rightOperand_;
+    shared actual DisjoiningExpression leftOperand;
+    shared actual ConjoiningExpression rightOperand;
     
     shared actual [DisjoiningExpression, ConjoiningExpression] children = [leftOperand, rightOperand];
     

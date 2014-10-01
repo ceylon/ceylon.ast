@@ -6,14 +6,11 @@
  
      !n in primes
      !predicate(element)"
-shared class NotOperation(operand_)
+shared class NotOperation(operand)
         extends UnaryOperation() {
     
-    // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    NegatingExpression operand_;
-    
     "The negated expression."
-    shared actual NegatingExpression operand = operand_;
+    shared actual NegatingExpression operand;
     
     shared actual [NegatingExpression] children = [operand];
     

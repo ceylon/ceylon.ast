@@ -1,14 +1,11 @@
 "A nonempty postfix expression.
  
  No associativity."
-shared class NonemptyOperation(operand_)
+shared class NonemptyOperation(operand)
         extends UnaryOperation() {
     
-    // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    SpanningExpression operand_;
-    
     "The operand expression whose nonemptiness is tested."
-    shared actual SpanningExpression operand = operand_;
+    shared actual SpanningExpression operand;
     
     shared actual [SpanningExpression] children = [operand];
     

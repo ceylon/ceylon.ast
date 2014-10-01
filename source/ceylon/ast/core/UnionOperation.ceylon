@@ -7,17 +7,13 @@
      ints|floats
      x1&y1|x2&y2"
 see (`class UnionAssignmentOperation`)
-shared class UnionOperation(leftOperand_, rightOperand_)
+shared class UnionOperation(leftOperand, rightOperand)
         extends SetOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728; remove!
-    UnioningExpression leftOperand_;
-    IntersectingExpression rightOperand_;
-    
     "The left unioned set."
-    shared actual UnioningExpression leftOperand = leftOperand_;
+    shared actual UnioningExpression leftOperand;
     "The right unioned set."
-    shared actual IntersectingExpression rightOperand = rightOperand_;
+    shared actual IntersectingExpression rightOperand;
     
     shared actual [UnioningExpression, IntersectingExpression] children = [leftOperand, rightOperand];
     

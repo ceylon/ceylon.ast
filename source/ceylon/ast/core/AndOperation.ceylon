@@ -7,15 +7,11 @@
      i%2 == 0 && j%2 == 1
      attr1 == that.attr1 && attr2 == that.attr2 && attr3 == that.attr3"
 see (`class AndAssignmentOperation`)
-shared class AndOperation(leftOperand_, rightOperand_)
+shared class AndOperation(leftOperand, rightOperand)
         extends LogicalOperation() {
     
-    // TODO remove ceylon-compiler#1728 workaround
-    ConjoiningExpression leftOperand_;
-    NegatingExpression rightOperand_;
-    
-    shared actual ConjoiningExpression leftOperand = leftOperand_;
-    shared actual NegatingExpression rightOperand = rightOperand_;
+    shared actual ConjoiningExpression leftOperand;
+    shared actual NegatingExpression rightOperand;
     
     shared actual [ConjoiningExpression, NegatingExpression] children = [leftOperand, rightOperand];
     

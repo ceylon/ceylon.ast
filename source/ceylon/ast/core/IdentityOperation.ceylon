@@ -3,14 +3,11 @@
  This expression is defined to return `i` for any `i` of [[Invertible]] type.
  
  (Not to be confused with [[IdenticalOperation]], `i === i`.)"
-shared class IdentityOperation(operand_)
+shared class IdentityOperation(operand)
         extends UnaryArithmeticOperation() {
     
-    // TODO remove ceylon-compiler#1728 workaround
-    ExponentiatingExpression operand_;
-    
     "The inner expression."
-    shared actual ExponentiatingExpression operand = operand_;
+    shared actual ExponentiatingExpression operand;
     
     shared actual [ExponentiatingExpression] children = [operand];
     

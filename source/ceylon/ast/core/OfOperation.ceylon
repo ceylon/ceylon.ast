@@ -8,17 +8,13 @@
  
      thing of Object?
      component.parent of Container?"
-shared class OfOperation(operand_, type_)
+shared class OfOperation(operand, type)
         extends UnaryTypeOperation() {
     
-    // TODO operand_ and type_ are a workaround for ceylon-compiler#1728; remove!
-    ExistsNonemptyExpression operand_;
-    Type type_;
-    
     "The expression whose type is narrowed or widened."
-    shared actual ExistsNonemptyExpression operand = operand_;
+    shared actual ExistsNonemptyExpression operand;
     "The covering type to which the expression is narrowed or widened."
-    shared actual Type type = type_;
+    shared actual Type type;
     
     shared actual [ExistsNonemptyExpression, Type] children = [operand, type];
     

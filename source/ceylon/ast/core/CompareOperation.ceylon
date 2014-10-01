@@ -9,17 +9,13 @@
  
  This is the concrete class for expressions like `first <=> last`;
  not to be confused with [[ComparisonOperation]], the abstract superclass of expressions like `a <= b` and `x > 3`!"
-shared class CompareOperation(leftOperand_, rightOperand_)
+shared class CompareOperation(leftOperand, rightOperand)
         extends BinaryOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    ExistsNonemptyExpression leftOperand_;
-    ExistsNonemptyExpression rightOperand_;
-    
     "The left-hand side."
-    shared actual ExistsNonemptyExpression leftOperand = leftOperand_;
+    shared actual ExistsNonemptyExpression leftOperand;
     "The right-hand side."
-    shared actual ExistsNonemptyExpression rightOperand = rightOperand_;
+    shared actual ExistsNonemptyExpression rightOperand;
     
     shared actual [ExistsNonemptyExpression, ExistsNonemptyExpression] children = [leftOperand, rightOperand];
     

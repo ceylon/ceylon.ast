@@ -385,26 +385,26 @@ shared CompilationUnit completeCompilationUnit
                         definition = Specifier(ElseOperation {
                                 optionalValue = ThenOperation {
                                     condition = OrOperation {
-                                        leftOperand_ = AndOperation {
-                                            leftOperand_ = NotOperation(EqualOperation {
-                                                    leftOperand_ = IsOperation {
-                                                        operand_ = ExistsOperation(SpanOperation {
+                                        leftOperand = AndOperation {
+                                            leftOperand = NotOperation(EqualOperation {
+                                                    leftOperand = IsOperation {
+                                                        operand = ExistsOperation(SpanOperation {
                                                                 first = SumOperation {
                                                                     leftSummand = ScaleOperation {
                                                                         factor = ProductOperation {
                                                                             leftFactor = UnionOperation {
-                                                                                leftOperand_ = IntersectionOperation {
-                                                                                    leftOperand_ = IdentityOperation(ExponentiationOperation {
+                                                                                leftOperand = IntersectionOperation {
+                                                                                    leftOperand = IdentityOperation(ExponentiationOperation {
                                                                                             base = PrefixIncrementOperation(IntegerLiteral("0"));
                                                                                             exponent = PrefixDecrementOperation(IntegerLiteral("0"));
                                                                                         });
-                                                                                    rightOperand_ = NegationOperation(PostfixIncrementOperation(IntegerLiteral("0")));
+                                                                                    rightOperand = NegationOperation(PostfixIncrementOperation(IntegerLiteral("0")));
                                                                                 };
-                                                                                rightOperand_ = PostfixDecrementOperation(IntegerLiteral("0"));
+                                                                                rightOperand = PostfixDecrementOperation(IntegerLiteral("0"));
                                                                             };
                                                                             rightFactor = ComplementOperation {
-                                                                                leftOperand_ = IntegerLiteral("0");
-                                                                                rightOperand_ = IntegerLiteral("0");
+                                                                                leftOperand = IntegerLiteral("0");
+                                                                                rightOperand = IntegerLiteral("0");
                                                                             };
                                                                         };
                                                                         scalable = QuotientOperation {
@@ -422,17 +422,17 @@ shared CompilationUnit completeCompilationUnit
                                                                     subtrahend = IntegerLiteral("0");
                                                                 };
                                                             });
-                                                        type_ = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
                                                     };
-                                                    rightOperand_ = OfOperation {
-                                                        operand_ = NonemptyOperation(MeasureOperation {
+                                                    rightOperand = OfOperation {
+                                                        operand = NonemptyOperation(MeasureOperation {
                                                                 first = IntegerLiteral("0");
                                                                 size = IntegerLiteral("0");
                                                             });
-                                                        type_ = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
                                                     };
                                                 });
-                                            rightOperand_ = InOperation {
+                                            rightOperand = InOperation {
                                                 element = EntryOperation {
                                                     key = IntegerLiteral("0");
                                                     item = IntegerLiteral("0");
@@ -440,34 +440,34 @@ shared CompilationUnit completeCompilationUnit
                                                 category = IntegerLiteral("0");
                                             };
                                         };
-                                        rightOperand_ = NotEqualOperation {
-                                            leftOperand_ = LargerOperation {
-                                                leftOperand_ = IntegerLiteral("0");
-                                                rightOperand_ = IntegerLiteral("0");
+                                        rightOperand = NotEqualOperation {
+                                            leftOperand = LargerOperation {
+                                                leftOperand = IntegerLiteral("0");
+                                                rightOperand = IntegerLiteral("0");
                                             };
-                                            rightOperand_ = SmallerOperation {
-                                                leftOperand_ = IntegerLiteral("0");
-                                                rightOperand_ = IntegerLiteral("0");
+                                            rightOperand = SmallerOperation {
+                                                leftOperand = IntegerLiteral("0");
+                                                rightOperand = IntegerLiteral("0");
                                             };
                                         };
                                     };
                                     result = IdenticalOperation {
-                                        leftOperand_ = LargeAsOperation {
-                                            leftOperand_ = IntegerLiteral("0");
-                                            rightOperand_ = IntegerLiteral("0");
+                                        leftOperand = LargeAsOperation {
+                                            leftOperand = IntegerLiteral("0");
+                                            rightOperand = IntegerLiteral("0");
                                         };
-                                        rightOperand_ = SmallAsOperation {
-                                            leftOperand_ = IntegerLiteral("0");
-                                            rightOperand_ = IntegerLiteral("0");
+                                        rightOperand = SmallAsOperation {
+                                            leftOperand = IntegerLiteral("0");
+                                            rightOperand = IntegerLiteral("0");
                                         };
                                     };
                                 };
                                 defaultValue = EqualOperation {
-                                    leftOperand_ = CompareOperation {
-                                        leftOperand_ = IntegerLiteral("0");
-                                        rightOperand_ = IntegerLiteral("0");
+                                    leftOperand = CompareOperation {
+                                        leftOperand = IntegerLiteral("0");
+                                        rightOperand = IntegerLiteral("0");
                                     };
-                                    rightOperand_ = WithinOperation {
+                                    rightOperand = WithinOperation {
                                         operand = IntegerLiteral("0");
                                         lowerBound = ClosedBound(IntegerLiteral("0"));
                                         upperBound = OpenBound(IntegerLiteral("0"));
@@ -845,9 +845,9 @@ shared CompilationUnit completeCompilationUnit
         TypeAliasDefinition {
             name = UIdentifier("Primitive");
             specifier = TypeSpecifier(UnionType([
-                        OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))),
-                        OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))),
-                        OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Boolean")))),
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))),
+                        BaseType(TypeNameWithTypeArguments(UIdentifier("Boolean"))),
                         OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Character"))))
                     ]));
             typeParameters = null;

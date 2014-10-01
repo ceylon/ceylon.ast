@@ -6,15 +6,11 @@
  
      node === rootNode
      this === zero"
-shared class IdenticalOperation(leftOperand_, rightOperand_)
+shared class IdenticalOperation(leftOperand, rightOperand)
         extends EqualityOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    ComparingExpression leftOperand_;
-    ComparingExpression rightOperand_;
-    
-    shared actual ComparingExpression leftOperand = leftOperand_;
-    shared actual ComparingExpression rightOperand = rightOperand_;
+    shared actual ComparingExpression leftOperand;
+    shared actual ComparingExpression rightOperand;
     
     shared actual [ComparingExpression, ComparingExpression] children = [leftOperand, rightOperand];
     

@@ -6,14 +6,11 @@
  
      element exists
      parseInteger(text) exists"
-shared class ExistsOperation(operand_)
+shared class ExistsOperation(operand)
         extends UnaryOperation() {
     
-    // TODO operand_ is a workaround for ceylon-compiler#1728, remove!
-    SpanningExpression operand_;
-    
     "The operand expression whose existence is tested."
-    shared actual SpanningExpression operand = operand_;
+    shared actual SpanningExpression operand;
     
     shared actual [SpanningExpression] children = [operand];
     

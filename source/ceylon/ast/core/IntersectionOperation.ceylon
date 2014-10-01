@@ -7,17 +7,13 @@
      persistents&printables&identifiables
      x1&y1"
 see (`class IntersectAssignmentOperation`)
-shared class IntersectionOperation(leftOperand_, rightOperand_)
+shared class IntersectionOperation(leftOperand, rightOperand)
         extends SetOperation() {
     
-    // TODO these are workarounds for ceylon-compiler#1728; remove!
-    IntersectingExpression leftOperand_;
-    InvertingExpression rightOperand_;
-    
     "The left intersected set."
-    shared actual IntersectingExpression leftOperand = leftOperand_;
+    shared actual IntersectingExpression leftOperand;
     "The right intersected set."
-    shared actual InvertingExpression rightOperand = rightOperand_;
+    shared actual InvertingExpression rightOperand;
     
     shared actual [IntersectingExpression, InvertingExpression] children = [leftOperand, rightOperand];
     

@@ -7,17 +7,13 @@
      receivers~blocked
      primes ~ HashSet { 2 }"
 see (`class ComplementAssignmentOperation`)
-shared class ComplementOperation(leftOperand_, rightOperand_)
+shared class ComplementOperation(leftOperand, rightOperand)
         extends SetOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728; remove!
-    UnioningExpression leftOperand_;
-    IntersectingExpression rightOperand_;
-    
     "The “this” set, from which elements for the result set are taken."
-    shared actual UnioningExpression leftOperand = leftOperand_;
+    shared actual UnioningExpression leftOperand;
     "The “other” set, the elements of which are not present in the result set."
-    shared actual IntersectingExpression rightOperand = rightOperand_;
+    shared actual IntersectingExpression rightOperand;
     
     shared actual [UnioningExpression, IntersectingExpression] children = [leftOperand, rightOperand];
     

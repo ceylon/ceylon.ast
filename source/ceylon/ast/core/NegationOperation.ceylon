@@ -1,14 +1,11 @@
 "An arithmetic unary negation operation, that is, `-i`.
  
  This operator is defined in terms of [[Invertible.negated]]."
-shared class NegationOperation(operand_)
+shared class NegationOperation(operand)
         extends UnaryArithmeticOperation() {
     
-    // TODO remove ceylon-compiler#1728 workaround
-    ExponentiatingExpression operand_;
-    
     "The negated expression."
-    shared actual ExponentiatingExpression operand = operand_;
+    shared actual ExponentiatingExpression operand;
     
     shared actual [ExponentiatingExpression] children = [operand];
     

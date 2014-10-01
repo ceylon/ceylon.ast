@@ -1,17 +1,13 @@
 "A “small as” expression.
  
  No associativity."
-shared class SmallAsOperation(leftOperand_, rightOperand_)
+shared class SmallAsOperation(leftOperand, rightOperand)
         extends ComparisonOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    ExistsNonemptyExpression leftOperand_;
-    ExistsNonemptyExpression rightOperand_;
-    
     "The left-hand side, expected to be at least as small as the right-hand side."
-    shared actual ExistsNonemptyExpression leftOperand = leftOperand_;
+    shared actual ExistsNonemptyExpression leftOperand;
     "The right-hand side, expected to be at least as large as the left-hand side."
-    shared actual ExistsNonemptyExpression rightOperand = rightOperand_;
+    shared actual ExistsNonemptyExpression rightOperand;
     
     shared actual [ExistsNonemptyExpression, ExistsNonemptyExpression] children = [leftOperand, rightOperand];
     

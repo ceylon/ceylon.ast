@@ -1,17 +1,13 @@
 "A “larger than” expression.
  
  No associativity."
-shared class LargerOperation(leftOperand_, rightOperand_)
+shared class LargerOperation(leftOperand, rightOperand)
         extends ComparisonOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    ExistsNonemptyExpression leftOperand_;
-    ExistsNonemptyExpression rightOperand_;
-    
     "The left-hand side, expected to be larger."
-    shared actual ExistsNonemptyExpression leftOperand = leftOperand_;
+    shared actual ExistsNonemptyExpression leftOperand;
     "The right-hand side, expected to be smaller."
-    shared actual ExistsNonemptyExpression rightOperand = rightOperand_;
+    shared actual ExistsNonemptyExpression rightOperand;
     
     shared actual [ExistsNonemptyExpression, ExistsNonemptyExpression] children = [leftOperand, rightOperand];
     

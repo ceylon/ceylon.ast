@@ -6,15 +6,11 @@
  
      uid != 0
      process.arguments.length != 7"
-shared class NotEqualOperation(leftOperand_, rightOperand_)
+shared class NotEqualOperation(leftOperand, rightOperand)
         extends EqualityOperation() {
     
-    // TODO leftOperand_, rightOperand_ are a workaround for ceylon-compiler#1728, remove!
-    ComparingExpression leftOperand_;
-    ComparingExpression rightOperand_;
-    
-    shared actual ComparingExpression leftOperand = leftOperand_;
-    shared actual ComparingExpression rightOperand = rightOperand_;
+    shared actual ComparingExpression leftOperand;
+    shared actual ComparingExpression rightOperand;
     
     shared actual [ComparingExpression, ComparingExpression] children = [leftOperand, rightOperand];
     

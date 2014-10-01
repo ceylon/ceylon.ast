@@ -8,14 +8,40 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
-    compilationUnitToCeylon
+    compilationUnitToCeylon,
+    compileCompilationUnit,
+    TokenFactoryImpl
 }
 import ceylon.ast.samples.completeCompilationUnit {
     completeCU=completeCompilationUnit
 }
+import ceylon.formatter {
+    format
+}
+import ceylon.file {
+    Writer
+}
 
-object completeCompilationUnit satisfies ConversionTest<CompilationUnit,JCompilationUnit> {
+object completeCompilationUnit satisfies ConcreteTest<CompilationUnit,JCompilationUnit> {
+    
+    value sb = StringBuilder();
+    format {
+        node = completeCU.transform(RedHatTransformer(TokenFactoryImpl()));
+        object output satisfies Writer {
+            close() => flush();
+            shared actual void flush() {}
+            write(String string) => sb.append(string);
+            shared actual void writeLine(String line) {
+                throw AssertionError("Shouldn’t be used");
+            }
+            shared actual void writeBytes({Byte*} bytes) {
+                throw AssertionError("Shouldn’t be used");
+            }
+        }
+    };
+    
+    compile = compileCompilationUnit;
     fromCeylon = RedHatTransformer.transformCompilationUnit;
     toCeylon = compilationUnitToCeylon;
-    nodes = [completeCU];
+    codes = [sb.string->completeCU];
 }

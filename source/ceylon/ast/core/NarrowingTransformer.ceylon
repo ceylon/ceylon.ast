@@ -28,7 +28,6 @@ shared interface NarrowingTransformer<out Result>
     shared formal Result transformMetaQualifier(MetaQualifier that);
     shared formal Result transformMultiplyingExpression(MultiplyingExpression that);
     shared formal Result transformNegatingExpression(NegatingExpression that);
-    shared formal Result transformOperatingExpression(OperatingExpression that);
     shared formal Result transformPrePostfixingExpression(PrePostfixingExpression that);
     shared formal Result transformScalingExpression(ScalingExpression that);
     shared formal Result transformSpanningExpression(SpanningExpression that);

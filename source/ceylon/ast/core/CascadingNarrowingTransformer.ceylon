@@ -207,7 +207,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
         case (is FunctionExpression) { return transformFunctionExpression(that); }
-        case (is OperatorStyleExpression) { return transformOperatorStyleExpression(that); }
     }
     shared actual default Result transformExpressionIsh(ExpressionIsh that) {
         switch (that)
@@ -382,11 +381,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is BinaryOperation) { return transformBinaryOperation(that); }
         case (is WithinOperation) { return transformWithinOperation(that); }
     }
-    shared actual default Result transformOperatorStyleExpression(OperatorStyleExpression that) {
-        switch (that)
-        case (is OperatorStyleInvocation) { return transformOperatorStyleInvocation(that); }
-        case (is OperatorStyleMemberExpression) { return transformOperatorStyleMemberExpression(that); }
-    }
     shared actual default Result transformParameter(Parameter that) {
         switch (that)
         case (is RequiredParameter) { return transformRequiredParameter(that); }
@@ -491,11 +485,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
         case (is ThenOperation) { return transformThenOperation(that); }
         case (is ElseOperation) { return transformElseOperation(that); }
-    }
-    shared actual default Result transformOperatingExpression(OperatingExpression that) {
-        switch (that)
-        case (is ThenElseExpression) { return transformThenElseExpression(that); }
-        case (is OperatorStyleExpression) { return transformOperatorStyleExpression(that); }
     }
     shared actual default Result transformAssigningExpression(AssigningExpression that) {
         switch (that)

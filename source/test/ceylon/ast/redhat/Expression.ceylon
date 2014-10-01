@@ -17,5 +17,5 @@ shared object expression satisfies AbstractTest<Expression,JTerm> {
     fromCeylon = RedHatTransformer.transformExpression;
     toCeylon = expressionToCeylon;
     
-    tests = [primary, operation, functionExpression, operatorStyleExpression];
+    tests = [primary, operation, functionExpression];
 }

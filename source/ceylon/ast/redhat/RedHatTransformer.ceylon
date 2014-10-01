@@ -2172,37 +2172,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JInvocationExpression|JQualifiedMemberExpression transformOperatorStyleExpression(OperatorStyleExpression that) {
-        assert (is JInvocationExpression|JQualifiedMemberExpression ret = super.transformOperatorStyleExpression(that));
-        return ret;
-    }
-    
-    shared actual JInvocationExpression transformOperatorStyleInvocation(OperatorStyleInvocation that) {
-        JInvocationExpression ret = JInvocationExpression(null);
-        ret.primary = transformOperatorStyleMemberExpression(OperatorStyleMemberExpression(that.receiverExpression, that.nameAndArgs));
-        JPositionalArgumentList al = JPositionalArgumentList(null);
-        JListedArgument la = JListedArgument(null);
-        la.expression = wrapTerm(transformExpression(that.argument));
-        al.addPositionalArgument(la);
-        ret.positionalArgumentList = al;
-        return ret;
-    }
-    
-    shared actual JQualifiedMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that) {
-        JQualifiedMemberExpression ret = JQualifiedMemberExpression(null);
-        JExpression e = JExpression(null);
-        e.term = transformThenElseExpression(that.receiverExpression);
-        ret.primary = e;
-        ret.memberOperator = JMemberOp(null);
-        ret.identifier = transformLIdentifier(that.nameAndArgs.name);
-        if (exists typeArgs = that.nameAndArgs.typeArguments) {
-            ret.typeArguments = transformTypeArguments(typeArgs);
-        } else {
-            ret.typeArguments = JInferredTypeArguments(null);
-        }
-        return ret;
-    }
-    
     shared actual JOptionalType transformOptionalType(OptionalType that) {
         JOptionalType ret = JOptionalType(null);
         ret.definiteType = transformPrimaryType(that.definiteType);
@@ -2408,11 +2377,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JTerm transformThenElseExpression(ThenElseExpression that) {
         assert (is JTerm ret = super.transformThenElseExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformOperatingExpression(OperatingExpression that) {
-        assert (is JTerm ret = super.transformOperatingExpression(that));
         return ret;
     }
     

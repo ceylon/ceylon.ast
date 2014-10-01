@@ -5,10 +5,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
         JFunctionArgument=FunctionArgument,
-        JInvocationExpression=InvocationExpression,
         JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
-        JQualifiedMemberExpression=QualifiedMemberExpression,
         JTerm=Term
     }
 }
@@ -21,22 +19,12 @@ shared Expression expressionToCeylon(JTerm term) {
             // a JTerm wrapped in a JExpression
             return expressionToCeylon(term.term);
         }
-        if (is JInvocationExpression term,
-            !term.positionalArgumentList?.mainToken exists && !term.namedArgumentList exists) {
-            // operator-style invocation expression
-            return operatorStyleInvocationToCeylon(term);
-        }
-        if (is JQualifiedMemberExpression term,
-            !term.memberOperator.mainToken exists) {
-            // operator-style member expression
-            return operatorStyleMemberExpressionToCeylon(term);
-        }
         return valueExpressionToCeylon(term);
     }
     case (is JOperatorExpression) { return operationToCeylon(term); }
     case (is JFunctionArgument) { return functionExpressionToCeylon(term); }
     else {
-        throw AssertionError("Other JTerm types not yet implemented");
+        throw AssertionError("Unknown term type!");
     }
 }
 

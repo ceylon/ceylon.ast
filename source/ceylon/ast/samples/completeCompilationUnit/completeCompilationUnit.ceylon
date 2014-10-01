@@ -130,8 +130,6 @@ import ceylon.ast.core {
     ObjectDefinition,
     OfOperation,
     OpenBound,
-    OperatorStyleInvocation,
-    OperatorStyleMemberExpression,
     OptionalType,
     OrAssignmentOperation,
     OrOperation,
@@ -793,15 +791,6 @@ shared CompilationUnit completeCompilationUnit
                                                     });
                                                 type = null;
                                             }),
-                                        OperatorStyleInvocation {
-                                            receiverExpression = IntegerLiteral("0");
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("and"));
-                                            argument = IntegerLiteral("0");
-                                        },
-                                        OperatorStyleMemberExpression {
-                                            receiverExpression = IntegerLiteral("0");
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("and"));
-                                        },
                                         StringTemplate {
                                             literals = [
                                                 StringLiteral("""Hello, """),

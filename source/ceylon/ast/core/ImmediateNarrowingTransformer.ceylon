@@ -133,11 +133,7 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformNode(Node that)
             => that.transform(this);
-    shared actual default Result transformOperatingExpression(OperatingExpression that)
-            => that.transform(this);
     shared actual default Result transformOperation(Operation that)
-            => that.transform(this);
-    shared actual default Result transformOperatorStyleExpression(OperatorStyleExpression that)
             => that.transform(this);
     shared actual default Result transformParameter(Parameter that)
             => that.transform(this);

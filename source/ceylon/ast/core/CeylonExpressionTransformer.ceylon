@@ -588,17 +588,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type_ = ``transformWithIndent(that.type)``;
                 ``indent``}";
     transformOpenBound(OpenBound that) => "OpenBound(``transformWithIndent(that.endpoint)``)";
-    transformOperatorStyleInvocation(OperatorStyleInvocation that)
-            => "OperatorStyleInvocation {
-                `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
-                `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
-                `` indent + indentLevel ``argument = ``transformWithIndent(that.argument)``;
-                ``indent``}";
-    transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that)
-            => "OperatorStyleMemberExpression {
-                `` indent + indentLevel ``receiverExpression = ``transformWithIndent(that.receiverExpression)``;
-                `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
-                ``indent``}";
     transformOptionalType(OptionalType that) => "OptionalType(``transformWithIndent(that.definiteType)``)";
     transformOrAssignmentOperation(OrAssignmentOperation that)
             => "OrAssignmentOperation {

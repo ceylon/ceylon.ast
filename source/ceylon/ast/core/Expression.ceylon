@@ -88,10 +88,9 @@ shared abstract class ExpressionIsh()
    - [[ConjoiningExpression]]
    - [[DisjoiningExpression]]
    - [[ThenElseExpression]]
-   - [[OperatingExpression]]
    - [[AssigningExpression]]"""
 shared abstract class Expression()
-        of ValueExpression | FunctionExpression | OperatorStyleExpression
+        of ValueExpression | FunctionExpression
         extends ExpressionIsh() {
     shared actual formal ExpressionIsh[] children;
 }

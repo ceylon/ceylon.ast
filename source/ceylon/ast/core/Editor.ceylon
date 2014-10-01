@@ -557,14 +557,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Operation ret = super.transformOperation(that));
         return ret;
     }
-    shared actual default OperatorStyleExpression transformOperatorStyleExpression(OperatorStyleExpression that) {
-        assert (is OperatorStyleExpression ret = super.transformOperatorStyleExpression(that));
-        return ret;
-    }
-    shared actual default OperatorStyleInvocation transformOperatorStyleInvocation(OperatorStyleInvocation that)
-            => that.copy(transformThenElseExpression(that.receiverExpression), transformMemberNameWithTypeArguments(that.nameAndArgs), transformExpression(that.argument));
-    shared actual default OperatorStyleMemberExpression transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that)
-            => that.copy(transformThenElseExpression(that.receiverExpression), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => that.copy(transformPrimaryType(that.definiteType));
     shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
@@ -599,10 +591,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformPrimary(that.operand));
     shared actual default PostfixOperation transformPostfixOperation(PostfixOperation that) {
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
-        return ret;
-    }
-    shared actual default OperatingExpression transformOperatingExpression(OperatingExpression that) {
-        assert (is OperatingExpression ret = super.transformOperatingExpression(that));
         return ret;
     }
     shared actual default PrePostfixingExpression transformPrePostfixingExpression(PrePostfixingExpression that) {

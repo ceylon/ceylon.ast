@@ -196,9 +196,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOpenBound(OpenBound that) => visitOpenBound(that);
     transformOperation(Operation that) => visitOperation(that);
-    transformOperatorStyleExpression(OperatorStyleExpression that) => visitOperatorStyleExpression(that);
-    transformOperatorStyleInvocation(OperatorStyleInvocation that) => visitOperatorStyleInvocation(that);
-    transformOperatorStyleMemberExpression(OperatorStyleMemberExpression that) => visitOperatorStyleMemberExpression(that);
     transformOptionalType(OptionalType that) => visitOptionalType(that);
     transformOrAssignmentOperation(OrAssignmentOperation that) => visitOrAssignmentOperation(that);
     transformOrOperation(OrOperation that) => visitOrOperation(that);
@@ -496,9 +493,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);
     shared default void visitOperation(Operation that) => super.transformOperation(that);
-    shared default void visitOperatorStyleExpression(OperatorStyleExpression that) => super.transformOperatorStyleExpression(that);
-    shared default void visitOperatorStyleInvocation(OperatorStyleInvocation that) => super.transformOperatorStyleInvocation(that);
-    shared default void visitOperatorStyleMemberExpression(OperatorStyleMemberExpression that) => super.transformOperatorStyleMemberExpression(that);
     shared default void visitOptionalType(OptionalType that) => super.transformOptionalType(that);
     shared default void visitOrAssignmentOperation(OrAssignmentOperation that) => super.transformOrAssignmentOperation(that);
     shared default void visitOrOperation(OrOperation that) => super.transformOrOperation(that);

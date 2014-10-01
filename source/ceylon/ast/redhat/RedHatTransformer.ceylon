@@ -1813,7 +1813,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JSequenceEnumeration transformIterable(Iterable that) {
         JSequenceEnumeration ret = JSequenceEnumeration(tokens.token("{", lbrace));
-        ret.sequencedArgument = transformArgumentList(that.argumentList);
+        if (that.argumentList.children nonempty) {
+            ret.sequencedArgument = transformArgumentList(that.argumentList);
+        }
         ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
@@ -2849,7 +2851,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JTuple transformTuple(Tuple that) {
         JTuple ret = JTuple(tokens.token("[", lbracket));
-        ret.sequencedArgument = transformArgumentList(that.argumentList);
+        if (that.argumentList.children nonempty) {
+            ret.sequencedArgument = transformArgumentList(that.argumentList);
+        }
         ret.endToken = tokens.token("]", rbracket);
         return ret;
     }

@@ -1,11 +1,6 @@
 import ceylon.ast.core {
     Annotations,
-    CaseTypes,
-    ClassDefinition,
-    ExtendedType,
-    SatisfiedTypes,
-    TypeConstraint,
-    TypeParameters
+    ClassDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -17,55 +12,54 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ClassDefinition|JClassDefinition]] to a `ceylon.ast` [[ClassDefinition]]."
-shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition) {
-    Annotations annotations;
-    if (exists jAnnotations = classDefinition.annotationList) {
-        annotations = annotationsToCeylon(jAnnotations);
-    } else {
-        annotations = Annotations();
+shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition)
+        => ClassDefinition {
+    name = uIdentifierToCeylon(classDefinition.identifier);
+    parameters = parametersToCeylon(classDefinition.parameterList);
+    body = classBodyToCeylon(classDefinition.classBody);
+    value caseTypes {
+        if (exists jCaseTypes = classDefinition.caseTypes) {
+            return caseTypesToCeylon(jCaseTypes);
+        } else {
+            return null;
+        }
     }
-    TypeParameters? typeParameters;
-    if (exists jTypeParameters = classDefinition.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameters);
-    } else {
-        typeParameters = null;
+    value extendedType {
+        if (exists jExtendedType = classDefinition.extendedType) {
+            return extendedTypeToCeylon(jExtendedType);
+        } else {
+            return null;
+        }
     }
-    CaseTypes? caseTypes;
-    if (exists jCaseTypes = classDefinition.caseTypes) {
-        caseTypes = caseTypesToCeylon(jCaseTypes);
-    } else {
-        caseTypes = null;
+    value satisfiedTypes {
+        if (exists jSatisfiedTypes = classDefinition.satisfiedTypes) {
+            return satisfiedTypesToCeylon(jSatisfiedTypes);
+        } else {
+            return null;
+        }
     }
-    ExtendedType? extendedType;
-    if (exists jExtendedType = classDefinition.extendedType) {
-        extendedType = extendedTypeToCeylon(jExtendedType);
-    } else {
-        extendedType = null;
+    value typeParameters {
+        if (exists jTypeParameters = classDefinition.typeParameterList) {
+            return typeParametersToCeylon(jTypeParameters);
+        } else {
+            return null;
+        }
     }
-    SatisfiedTypes? satisfiedTypes;
-    if (exists jSatisfiedTypes = classDefinition.satisfiedTypes) {
-        satisfiedTypes = satisfiedTypesToCeylon(jSatisfiedTypes);
-    } else {
-        satisfiedTypes = null;
+    value typeConstraints {
+        if (exists jTypeConstraints = classDefinition.typeConstraintList) {
+            return CeylonIterable(jTypeConstraints.typeConstraints).collect(typeConstraintToCeylon);
+        } else {
+            return [];
+        }
     }
-    TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraints = classDefinition.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraints.typeConstraints).collect(typeConstraintToCeylon);
-    } else {
-        typeConstraints = [];
+    value annotations {
+        if (exists jAnnotations = classDefinition.annotationList) {
+            return annotationsToCeylon(jAnnotations);
+        } else {
+            return Annotations();
+        }
     }
-    return ClassDefinition {
-        annotations = annotations;
-        name = uIdentifierToCeylon(classDefinition.identifier);
-        typeParameters = typeParameters;
-        parameters = parametersToCeylon(classDefinition.parameterList);
-        caseTypes = caseTypes;
-        extendedType = extendedType;
-        satisfiedTypes = satisfiedTypes;
-        typeConstraints = typeConstraints;
-        body = classBodyToCeylon(classDefinition.classBody);
-    };
-}
+};
 
 "Compiles the given [[code]] for a Class Definition
  into a [[ClassDefinition]] using the Ceylon compiler

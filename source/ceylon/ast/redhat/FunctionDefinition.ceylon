@@ -1,11 +1,5 @@
 import ceylon.ast.core {
     FunctionDefinition,
-    FunctionModifier,
-    TypeConstraint,
-    VoidModifier,
-    TypeParameters,
-    Type,
-    DynamicModifier,
     Annotations
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -22,43 +16,44 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDefinition|JMethodDefinition]] to a `ceylon.ast` [[FunctionDefinition]]."
-shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition) {
-    assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDefinition.type);
-    Type|VoidModifier|FunctionModifier|DynamicModifier type;
-    switch (jType)
-    case (is JStaticType) { type = typeToCeylon(jType); }
-    case (is JVoidModifier) { type = voidModifierToCeylon(jType); }
-    case (is JFunctionModifier) { type = functionModifierToCeylon(jType); }
-    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
-    TypeParameters? typeParameters;
-    if (exists jTypeParameterList = functionDefinition.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameterList);
-    } else {
-        typeParameters = null;
+shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition)
+        => FunctionDefinition {
+    name = lIdentifierToCeylon(functionDefinition.identifier);
+    value type {
+        assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDefinition.type);
+        switch (jType)
+        case (is JStaticType) { return typeToCeylon(jType); }
+        case (is JVoidModifier) { return voidModifierToCeylon(jType); }
+        case (is JFunctionModifier) { return functionModifierToCeylon(jType); }
+        case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
     }
-    assert (nonempty parameterLists = CeylonIterable(functionDefinition.parameterLists).collect(parametersToCeylon));
-    Annotations annotations;
-    if (exists jAnnotationList = functionDefinition.annotationList) {
-        annotations = annotationsToCeylon(jAnnotationList);
-    } else {
-        annotations = Annotations();
+    value parameterLists {
+        assert (nonempty parameterLists = CeylonIterable(functionDefinition.parameterLists).collect(parametersToCeylon));
+        return parameterLists;
     }
-    TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraintList = functionDefinition.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
-    } else {
-        typeConstraints = [];
+    definition = blockToCeylon(functionDefinition.block);
+    value typeParameters {
+        if (exists jTypeParameterList = functionDefinition.typeParameterList) {
+            return typeParametersToCeylon(jTypeParameterList);
+        } else {
+            return null;
+        }
     }
-    return FunctionDefinition {
-        name = lIdentifierToCeylon(functionDefinition.identifier);
-        type = type;
-        parameterLists = parameterLists;
-        definition = blockToCeylon(functionDefinition.block);
-        typeParameters = typeParameters;
-        typeConstraints = typeConstraints;
-        annotations = annotations;
-    };
-}
+    value typeConstraints {
+        if (exists jTypeConstraintList = functionDefinition.typeConstraintList) {
+            return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+        } else {
+            return [];
+        }
+    }
+    value annotations {
+        if (exists jAnnotationList = functionDefinition.annotationList) {
+            return annotationsToCeylon(jAnnotationList);
+        } else {
+            return Annotations();
+        }
+    }
+};
 
 "Compiles the given [[code]] for a Function Definition
  into a [[FunctionDefinition]] using the Ceylon compiler

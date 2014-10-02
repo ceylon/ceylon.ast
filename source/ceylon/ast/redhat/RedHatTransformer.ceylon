@@ -1385,6 +1385,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             }
             ret.typeConstraintList = typeConstraintList;
         }
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

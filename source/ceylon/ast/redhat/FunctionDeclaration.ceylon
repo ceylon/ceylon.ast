@@ -1,11 +1,6 @@
 import ceylon.ast.core {
     Annotations,
-    DynamicModifier,
-    FunctionDeclaration,
-    Type,
-    TypeConstraint,
-    TypeParameters,
-    VoidModifier
+    FunctionDeclaration
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,38 +18,40 @@ import ceylon.interop.java {
 shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functionDeclaration) {
     "Must not have a specification"
     assert (!functionDeclaration.specifierExpression exists);
-    assert (is JStaticType|JVoidModifier|JDynamicModifier jType = functionDeclaration.type);
-    Type|VoidModifier|DynamicModifier type;
-    switch (jType)
-    case (is JStaticType) { type = typeToCeylon(jType); }
-    case (is JVoidModifier) { type = voidModifierToCeylon(jType); }
-    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
-    TypeParameters? typeParameters;
-    if (exists jTypeParameterList = functionDeclaration.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameterList);
-    } else {
-        typeParameters = null;
-    }
-    assert (nonempty parameterLists = CeylonIterable(functionDeclaration.parameterLists).collect(parametersToCeylon));
-    Annotations annotations;
-    if (exists jAnnotationList = functionDeclaration.annotationList) {
-        annotations = annotationsToCeylon(jAnnotationList);
-    } else {
-        annotations = Annotations();
-    }
-    TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraintList = functionDeclaration.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
-    } else {
-        typeConstraints = [];
-    }
     return FunctionDeclaration {
         name = lIdentifierToCeylon(functionDeclaration.identifier);
-        type = type;
-        parameterLists = parameterLists;
-        typeParameters = typeParameters;
-        typeConstraints = typeConstraints;
-        annotations = annotations;
+        value type {
+            assert (is JStaticType|JVoidModifier|JDynamicModifier jType = functionDeclaration.type);
+            switch (jType)
+            case (is JStaticType) { return typeToCeylon(jType); }
+            case (is JVoidModifier) { return voidModifierToCeylon(jType); }
+            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
+        }
+        value parameterLists {
+            assert (nonempty parameterLists = CeylonIterable(functionDeclaration.parameterLists).collect(parametersToCeylon));
+            return parameterLists;
+        }
+        value typeParameters {
+            if (exists jTypeParameterList = functionDeclaration.typeParameterList) {
+                return typeParametersToCeylon(jTypeParameterList);
+            } else {
+                return null;
+            }
+        }
+        value typeConstraints {
+            if (exists jTypeConstraintList = functionDeclaration.typeConstraintList) {
+                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+            } else {
+                return [];
+            }
+        }
+        value annotations {
+            if (exists jAnnotationList = functionDeclaration.annotationList) {
+                return annotationsToCeylon(jAnnotationList);
+            } else {
+                return Annotations();
+            }
+        }
     };
 }
 

@@ -1,9 +1,6 @@
 import ceylon.ast.core {
-    InterfaceAliasDefinition,
-    CaseTypes,
-    TypeConstraint,
-    TypeParameters,
-    SatisfiedTypes
+    Annotations,
+    InterfaceAliasDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,38 +13,44 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[InterfaceDeclaration|JInterfaceDeclaration]] to a `ceylon.ast` [[InterfaceAliasDefinition]]."
 shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDeclaration interfaceAliasDefinition) {
-    CaseTypes? caseTypes;
-    if (exists jCaseTypes = interfaceAliasDefinition.caseTypes) {
-        caseTypes = caseTypesToCeylon(jCaseTypes);
-    } else {
-        caseTypes = null;
-    }
-    SatisfiedTypes? satisfiedTypes;
-    if (exists jSatisfiedTypes = interfaceAliasDefinition.satisfiedTypes) {
-        satisfiedTypes = satisfiedTypesToCeylon(jSatisfiedTypes);
-    } else {
-        satisfiedTypes = null;
-    }
-    TypeParameters? typeParameters;
-    if (exists jTypeParameterList = interfaceAliasDefinition.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameterList);
-    } else {
-        typeParameters = null;
-    }
-    TypeConstraint[] typeConstraints;
-    if (exists jTypeConstraintList = interfaceAliasDefinition.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
-    } else {
-        typeConstraints = [];
-    }
     return InterfaceAliasDefinition {
         name = uIdentifierToCeylon(interfaceAliasDefinition.identifier);
         specifier = typeSpecifierToCeylon(interfaceAliasDefinition.typeSpecifier);
-        caseTypes = caseTypes;
-        satisfiedTypes = satisfiedTypes;
-        typeParameters = typeParameters;
-        typeConstraints = typeConstraints;
-        annotations = annotationsToCeylon(interfaceAliasDefinition.annotationList);
+        value caseTypes {
+            if (exists jCaseTypes = interfaceAliasDefinition.caseTypes) {
+                return caseTypesToCeylon(jCaseTypes);
+            } else {
+                return null;
+            }
+        }
+        value satisfiedTypes {
+            if (exists jSatisfiedTypes = interfaceAliasDefinition.satisfiedTypes) {
+                return satisfiedTypesToCeylon(jSatisfiedTypes);
+            } else {
+                return null;
+            }
+        }
+        value typeParameters {
+            if (exists jTypeParameterList = interfaceAliasDefinition.typeParameterList) {
+                return typeParametersToCeylon(jTypeParameterList);
+            } else {
+                return null;
+            }
+        }
+        value typeConstraints {
+            if (exists jTypeConstraintList = interfaceAliasDefinition.typeConstraintList) {
+                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+            } else {
+                return [];
+            }
+        }
+        value annotations {
+            if (exists jAnnotations = interfaceAliasDefinition.annotationList) {
+                return annotationsToCeylon(jAnnotations);
+            } else {
+                return Annotations();
+            }
+        }
     };
 }
 

@@ -75,5 +75,7 @@ test
 void testFormattedHelloWorldCU()
         => testFormatted {
     helloWorldCompilationUnit;
-    """void run() { print("Hello, `` process.arguments.first else "World" ``!"); }""";
+    """void run() {
+           print("Hello, `` process.arguments.first else "World" ``!");
+       }""";
 };

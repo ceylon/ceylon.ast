@@ -1,12 +1,14 @@
 import ceylon.ast.core {
     CaseTypes,
     MemberName,
-    PrimaryType
+    PrimaryType,
+    UIdentifier,
+    LIdentifier
 }
 
 shared alias CaseTypesIsh<Absent>
         given Absent satisfies Null
-        => CaseTypes|Iterable<PrimaryType|MemberName,Absent>;
+        => CaseTypes|Iterable<PrimaryTypeIsh|IdentifierIsh,Absent>;
 
 """Converts a stream of [[primary types and anonymous class names|caseTypes]]
    to [[CaseTypes]].
@@ -31,8 +33,20 @@ shared CaseTypes|Absent caseTypes<Absent>(CaseTypesIsh<Absent> caseTypes)
     if (is CaseTypes caseTypes) {
         return caseTypes;
     } else {
-        assert (is Iterable<PrimaryType|MemberName,Absent> caseTypes);
-        if (is Sequence<PrimaryType|MemberName> seq = caseTypes.sequence()) {
+        assert (is Iterable<PrimaryTypeIsh|IdentifierIsh,Absent> caseTypes);
+        value seq = caseTypes.collect {
+            PrimaryType|MemberName collecting(PrimaryTypeIsh|IdentifierIsh element) {
+                switch (element)
+                case (is PrimaryType) { return element; }
+                case (is IdentifierIsh) {
+                    value id = identifier(element);
+                    switch (id)
+                    case (is UIdentifier) { return primaryType(id); }
+                    case (is LIdentifier) { return id; }
+                }
+            }
+        };
+        if (nonempty seq) {
             return CaseTypes(seq);
         } else {
             assert (is Absent null);

@@ -19,12 +19,12 @@ shared void caseTypes() {
         message = "Missing case types";
     };
     assertEquals {
-        actual = createCaseTypes({ createBaseType("Other") });
+        actual = createCaseTypes({ "Other" });
         expected = CaseTypes([createBaseType("Other")]);
         message = "Self case type";
     };
     assertEquals {
-        actual = createCaseTypes({ createLIdentifier("true"), createLIdentifier("false") });
+        actual = createCaseTypes({ "true", "false" });
         expected = CaseTypes([createLIdentifier("true"), createLIdentifier("false")]);
         message = "Object case types";
     };

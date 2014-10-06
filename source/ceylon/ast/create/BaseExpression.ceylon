@@ -22,10 +22,10 @@ import ceylon.ast.core {
        baseExpression("null") // null
        baseExpression("String") // String; not to be confused with baseType("String")!
        baseExpression("emptyOrSingleton", "Integer") // emptyOrSingleton<Integer>"""
-shared BaseExpression baseExpression(String|Identifier name, String|Type* typeArguments) {
-    Type toType(String|Type typeArgument) {
+shared BaseExpression baseExpression(IdentifierIsh name, IdentifierIsh|Type* typeArguments) {
+    Type toType(IdentifierIsh|Type typeArgument) {
         switch (typeArgument)
-        case (is String) { return baseType(typeArgument); }
+        case (is IdentifierIsh) { return baseType(typeArgument); }
         case (is Type) { return typeArgument; }
     }
     TypeArguments? args;
@@ -35,21 +35,10 @@ shared BaseExpression baseExpression(String|Identifier name, String|Type* typeAr
     } else {
         args = null;
     }
-    Identifier identifier;
-    switch (name)
-    case (is String) {
-        if (name.first?.uppercase else false) {
-            identifier = uidentifier(name);
-        } else {
-            identifier = lidentifier(name);
-        }
-    }
-    case (is Identifier) {
-        identifier = name;
-    }
+    Identifier id = identifier(name);
     NameWithTypeArguments na;
-    switch (identifier)
-    case (is LIdentifier) { na = MemberNameWithTypeArguments(identifier, args); }
-    case (is UIdentifier) { na = TypeNameWithTypeArguments(identifier, args); }
+    switch (id)
+    case (is LIdentifier) { na = MemberNameWithTypeArguments(id, args); }
+    case (is UIdentifier) { na = TypeNameWithTypeArguments(id, args); }
     return BaseExpression(na);
 }

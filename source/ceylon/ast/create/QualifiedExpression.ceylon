@@ -1,4 +1,6 @@
 import ceylon.ast.core {
+    Identifier,
+    LIdentifier,
     MemberNameWithTypeArguments,
     NameWithTypeArguments,
     Primary,
@@ -6,7 +8,8 @@ import ceylon.ast.core {
     Type,
     TypeArgument,
     TypeArguments,
-    TypeNameWithTypeArguments
+    TypeNameWithTypeArguments,
+    UIdentifier
 }
 
 """A utility function to create a [[QualifiedExpression]] directly from some strings,
@@ -19,15 +22,15 @@ import ceylon.ast.core {
    
        qualifiedExpression("x", "Y") // x.Y
        qualifiedExpression(qualifiedExpression(baseExpression("process"), "arguments"), "first") // process.arguments.first"""
-shared QualifiedExpression qualifiedExpression(String|Primary receiverExpression, String name, String|Type* typeArguments) {
-    Type toType(String|Type typeArgument) {
+shared QualifiedExpression qualifiedExpression(IdentifierIsh|Primary receiverExpression, IdentifierIsh name, IdentifierIsh|Type* typeArguments) {
+    Type toType(IdentifierIsh|Type typeArgument) {
         switch (typeArgument)
-        case (is String) { return baseType(typeArgument); }
+        case (is IdentifierIsh) { return baseType(typeArgument); }
         case (is Type) { return typeArgument; }
     }
-    Primary toPrimary(String|Primary receiverExpression) {
+    Primary toPrimary(IdentifierIsh|Primary receiverExpression) {
         switch (receiverExpression)
-        case (is String) { return baseExpression(receiverExpression); }
+        case (is IdentifierIsh) { return baseExpression(receiverExpression); }
         case (is Primary) { return receiverExpression; }
     }
     TypeArguments? args;
@@ -37,11 +40,10 @@ shared QualifiedExpression qualifiedExpression(String|Primary receiverExpression
     } else {
         args = null;
     }
+    Identifier id = identifier(name);
     NameWithTypeArguments na;
-    if (name.first?.uppercase else false) {
-        na = TypeNameWithTypeArguments(uidentifier(name), args);
-    } else {
-        na = MemberNameWithTypeArguments(lidentifier(name), args);
-    }
+    switch (id)
+    case (is UIdentifier) { na = TypeNameWithTypeArguments(uidentifier(name), args); }
+    case (is LIdentifier) { na = MemberNameWithTypeArguments(lidentifier(name), args); }
     return QualifiedExpression(toPrimary(receiverExpression), na);
 }

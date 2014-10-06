@@ -3,8 +3,7 @@ import ceylon.ast.core {
     Type,
     TypeArgument,
     TypeArguments,
-    TypeNameWithTypeArguments,
-    UIdentifier
+    TypeNameWithTypeArguments
 }
 
 """A utility function to create a [[BaseType]] directly from a string,
@@ -17,10 +16,10 @@ import ceylon.ast.core {
    
        baseType("String") // String
        baseType("Sequence", "Integer") // Sequence<Integer>"""
-shared BaseType baseType(String name, String|Type* typeArguments) {
-    Type toType(String|Type typeArgument) {
+shared BaseType baseType(IdentifierIsh name, IdentifierIsh|Type* typeArguments) {
+    Type toType(IdentifierIsh|Type typeArgument) {
         switch (typeArgument)
-        case (is String) { return baseType(typeArgument); }
+        case (is IdentifierIsh) { return baseType(typeArgument); }
         case (is Type) { return typeArgument; }
     }
     TypeArguments? args;
@@ -30,5 +29,5 @@ shared BaseType baseType(String name, String|Type* typeArguments) {
     } else {
         args = null;
     }
-    return BaseType(TypeNameWithTypeArguments(UIdentifier(name), args));
+    return BaseType(TypeNameWithTypeArguments(uidentifier(name), args));
 }

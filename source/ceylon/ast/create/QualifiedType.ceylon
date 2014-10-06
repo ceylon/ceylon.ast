@@ -6,8 +6,7 @@ import ceylon.ast.core {
     Type,
     TypeArgument,
     TypeArguments,
-    TypeNameWithTypeArguments,
-    UIdentifier
+    TypeNameWithTypeArguments
 }
 
 """A utility function to create a [[QualifiedType]] directly from a string,
@@ -20,11 +19,11 @@ import ceylon.ast.core {
    
        qualifiedType("X", "Y") // X.Y
        qualifiedType(qualifiedType(baseType("X", "A"), "Y", "B"), "Z", "C") //X<A>.Y<B>.Z<C>"""
-shared QualifiedType qualifiedType(String|SimpleType|GroupedType qualifyingType, String name, String|Type* typeArguments) {
-    BaseType|OtherType toType<OtherType>(String|OtherType typeArgument)
+shared QualifiedType qualifiedType(IdentifierIsh|SimpleType|GroupedType qualifyingType, IdentifierIsh name, IdentifierIsh|Type* typeArguments) {
+    BaseType|OtherType toType<OtherType>(IdentifierIsh|OtherType typeArgument)
             given OtherType satisfies Type {
         switch (typeArgument)
-        case (is String) { return baseType(typeArgument); }
+        case (is IdentifierIsh) { return baseType(typeArgument); }
         case (is OtherType) { return typeArgument; }
     }
     TypeArguments? args;
@@ -34,5 +33,5 @@ shared QualifiedType qualifiedType(String|SimpleType|GroupedType qualifyingType,
     } else {
         args = null;
     }
-    return QualifiedType(toType(qualifyingType), TypeNameWithTypeArguments(UIdentifier(name), args));
+    return QualifiedType(toType(qualifyingType), TypeNameWithTypeArguments(uidentifier(name), args));
 }

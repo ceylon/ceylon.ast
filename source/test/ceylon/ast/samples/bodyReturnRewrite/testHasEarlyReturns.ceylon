@@ -2,8 +2,6 @@ import ceylon.ast.samples.bodyReturnRewrite {
     hasEarlyReturns
 }
 import ceylon.ast.core {
-    baseExpression,
-    positionalArguments,
     Block,
     BooleanCondition,
     Conditions,
@@ -15,6 +13,10 @@ import ceylon.ast.core {
     Return,
     StringLiteral,
     While
+}
+import ceylon.ast.create {
+    baseExpression,
+    positionalArguments
 }
 import ceylon.test {
     test,

@@ -2,7 +2,6 @@ import ceylon.ast.samples.bodyReturnRewrite {
     RewriteReturnsEditor
 }
 import ceylon.ast.core {
-    baseExpression,
     Block,
     BooleanCondition,
     Conditions,
@@ -13,6 +12,9 @@ import ceylon.ast.core {
     Return,
     Specifier,
     ValueSpecification
+}
+import ceylon.ast.create {
+    baseExpression
 }
 import ceylon.test {
     test,

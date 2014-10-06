@@ -2,9 +2,7 @@ import ceylon.ast.core {
     AnyMemberOperator,
     NameWithTypeArguments,
     Primary,
-    QualifiedExpression,
-    nameWithTypeArguments,
-    identifier
+    QualifiedExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,6 +13,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
     }
+}
+import ceylon.ast.create {
+    identifier,
+    nameWithTypeArguments
 }
 
 shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQualifiedMemberOrTypeExpression> {

@@ -1,9 +1,4 @@
-import ceylon.test {
-    test,
-    assertEquals
-}
 import ceylon.ast.core {
-    baseExpression,
     BaseExpression,
     BaseType,
     LIdentifier,
@@ -13,19 +8,26 @@ import ceylon.ast.core {
     TypeNameWithTypeArguments,
     UIdentifier
 }
+import ceylon.ast.create {
+    createBaseExpression=baseExpression
+}
+import ceylon.test {
+    test,
+    assertEquals
+}
 
 test
-shared void baseExpressionFunction() {
+shared void baseExpression() {
     assertEquals {
-        actual = baseExpression("null");
+        actual = createBaseExpression("null");
         expected = BaseExpression(MemberNameWithTypeArguments(LIdentifier("null")));
     };
     assertEquals {
-        actual = baseExpression("String");
+        actual = createBaseExpression("String");
         expected = BaseExpression(TypeNameWithTypeArguments(UIdentifier("String")));
     };
     assertEquals {
-        actual = baseExpression("emptyOrSingleton", "Integer");
+        actual = createBaseExpression("emptyOrSingleton", "Integer");
         expected = BaseExpression(MemberNameWithTypeArguments(LIdentifier("emptyOrSingleton"), TypeArguments([TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))))])));
         // this is why we need that function
     };

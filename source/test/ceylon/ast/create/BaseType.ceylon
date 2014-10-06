@@ -1,23 +1,26 @@
-import ceylon.test {
-    test,
-    assertEquals
-}
 import ceylon.ast.core {
-    baseType,
     BaseType,
     TypeArgument,
     TypeArguments,
     TypeNameWithTypeArguments,
     UIdentifier
 }
+import ceylon.ast.create {
+    createBaseType=baseType
+}
+import ceylon.test {
+    test,
+    assertEquals
+}
+
 test
-shared void baseTypeFunction() {
+shared void baseType() {
     assertEquals {
-        actual = baseType("String");
+        actual = createBaseType("String");
         expected = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
     };
     assertEquals {
-        actual = baseType("Iterable", "String", "Nothing");
+        actual = createBaseType("Iterable", "String", "Nothing");
         expected = BaseType(TypeNameWithTypeArguments(UIdentifier("Iterable"), TypeArguments([
                         TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("String")))),
                         TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"))))

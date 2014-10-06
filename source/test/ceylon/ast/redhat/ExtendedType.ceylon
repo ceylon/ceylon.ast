@@ -3,8 +3,7 @@ import ceylon.ast.core {
     ExtendedType,
     TypeNameWithTypeArguments,
     PositionalArguments,
-    Super,
-    baseType
+    Super
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,6 +14,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExtendedType=ExtendedType
     }
+}
+import ceylon.ast.create {
+    baseType
 }
 
 shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {

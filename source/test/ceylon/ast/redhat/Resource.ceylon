@@ -4,8 +4,7 @@ import ceylon.ast.core {
     LIdentifier,
     Resource,
     SpecifiedVariable,
-    Specifier,
-    qualifiedExpression
+    Specifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,6 +15,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JResource=Resource
     }
+}
+import ceylon.ast.create {
+    qualifiedExpression
 }
 
 shared object resource satisfies ConcreteTest<Resource,JResource> {

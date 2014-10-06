@@ -4,9 +4,6 @@
  is based only on the position of the argument. Syntactically, this is
  just a wrapper for an [[ArgumentList]], enclosed in parentheses.
  
- (To create `PositionalArguments`, consider using the [[positionalArguments]]
- utility function in order to make your code more readable.)
- 
  Examples:
  
      (x, y, *messages)
@@ -38,29 +35,5 @@ shared class PositionalArguments(argumentList = ArgumentList())
         value ret = PositionalArguments(argumentList);
         copyExtraInfoTo(ret);
         return ret;
-    }
-}
-
-"""A utility function to create [[PositionalArguments]] directly from a list of
-   expressions, spread arguments and comprehensions, without having to use
-   [[ArgumentList]] and having to wrap the [[listed arguments|ArgumentList.listedArguments]]
-   in a sequence.
-   
-   Usage examples:
-   
-       positionalArguments()
-       positionalArguments(thisInstance, spreadArgument(baseExpression("others")))"""
-shared PositionalArguments positionalArguments(<Expression|SpreadArgument|Comprehension>* arguments) {
-    Expression assertIsExpression(Expression|SpreadArgument|Comprehension argument) {
-        "Intermediate argument must be expression"
-        assert (is Expression argument);
-        return argument;
-    }
-    if (is SpreadArgument|Comprehension sequenceArgument = arguments.last) {
-        Expression[] listedArguments = arguments[... arguments.size - 2].collect(assertIsExpression);
-        return PositionalArguments(ArgumentList(listedArguments, sequenceArgument));
-    } else {
-        Expression[] listedArguments = arguments.collect(assertIsExpression);
-        return PositionalArguments(ArgumentList(listedArguments));
     }
 }

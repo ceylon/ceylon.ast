@@ -5,7 +5,7 @@ import ceylon.ast.core {
 
 shared alias SatisfiedTypesIsh<Absent>
         given Absent satisfies Null
-        => SatisfiedTypes|Iterable<PrimaryType,Absent>;
+        => SatisfiedTypes|Iterable<PrimaryTypeIsh,Absent>;
 
 """Converts a stream of [[primary types|satisfiedTypes]]
    to [[SatisfiedTypes]].
@@ -30,8 +30,9 @@ shared SatisfiedTypes|Absent satisfiedTypes<Absent>(SatisfiedTypesIsh<Absent> sa
     if (is SatisfiedTypes satisfiedTypes) {
         return satisfiedTypes;
     } else {
-        assert (is Iterable<PrimaryType,Absent> satisfiedTypes);
-        if (is Sequence<PrimaryType> seq = satisfiedTypes.sequence()) {
+        assert (is Iterable<PrimaryTypeIsh,Absent> satisfiedTypes);
+        value seq = satisfiedTypes.collect(primaryType);
+        if (nonempty seq) {
             return SatisfiedTypes(seq);
         } else {
             assert (is Absent null);

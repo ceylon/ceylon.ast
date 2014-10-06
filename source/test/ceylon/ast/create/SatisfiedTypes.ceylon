@@ -18,6 +18,11 @@ shared void satisfiedTypes() {
         message = "Missing satisfied types";
     };
     assertEquals {
+        actual = createSatisfiedTypes({ "Identifiable" });
+        expected = SatisfiedTypes([createBaseType("Identifiable")]);
+        message = "One satisfied type";
+    };
+    assertEquals {
         actual = createSatisfiedTypes({ createBaseType("Iterable", "Integer", "Null"), createBaseType("Summable", "Vector") });
         expected = SatisfiedTypes([createBaseType("Iterable", "Integer", "Null"), createBaseType("Summable", "Vector")]);
         message = "Two satisfied types";

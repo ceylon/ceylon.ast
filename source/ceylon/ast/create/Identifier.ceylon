@@ -40,12 +40,38 @@ shared Identifier identifier(IdentifierIsh text) {
     case (is Identifier) { return text; }
 }
 
-"Utility function to create an [[LIdentifier]],
- [[with prefix|LIdentifier.usePrefix]] if and only if necessary."
-shared LIdentifier lidentifier(String name)
-        => LIdentifier(name, lidentifierNeedsPrefix(name));
+"""Utility function to create an [[LIdentifier]],
+   [[with prefix|LIdentifier.usePrefix]] if and only if necessary.
+   
+   Examples:
+   
+       lidentifier("null")
+       lidentifier(attributeName)"""
+throws (`class AssertionError`, "If [[name]] is a [[UIdentifier]].")
+shared LIdentifier lidentifier(IdentifierIsh name) {
+    switch (name)
+    case (is String) { return LIdentifier(name, lidentifierNeedsPrefix(name)); }
+    case (is Identifier) {
+        "Cannot convert UIdentifier to LIdentifier"
+        assert (is LIdentifier name);
+        return name;
+    }
+}
 
-"Utility function to create an [[UIdentifier]],
- [[with prefix|UIdentifier.usePrefix]] if and only if necessary."
-shared UIdentifier uidentifier(String name)
-        => UIdentifier(name, uidentifierNeedsPrefix(name));
+"""Utility function to create an [[UIdentifier]],
+   [[with prefix|UIdentifier.usePrefix]] if and only if necessary.
+   
+   Examples:
+   
+       uidentifier("Anything")
+       uidentifier(className)"""
+throws (`class AssertionError`, "If [[name]] is an [[LIdentifier]].")
+shared UIdentifier uidentifier(IdentifierIsh name) {
+    switch (name)
+    case (is String) { return UIdentifier(name, uidentifierNeedsPrefix(name)); }
+    case (is Identifier) {
+        "Cannot convert LIdentifier to UIdentifier"
+        assert (is UIdentifier name);
+        return name;
+    }
+}

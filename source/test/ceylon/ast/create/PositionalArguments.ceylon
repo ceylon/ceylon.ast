@@ -14,7 +14,7 @@ import ceylon.test {
 }
 
 test
-shared void positionalArgumentsFunction() {
+shared void positionalArguments() {
     assertEquals {
         actual = createPositionalArguments();
         expected = PositionalArguments(ArgumentList());

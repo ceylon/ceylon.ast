@@ -1,6 +1,5 @@
 import ceylon.ast.core {
-    SatisfiedTypes,
-    PrimaryType
+    SatisfiedTypes
 }
 
 shared alias SatisfiedTypesIsh<Absent>

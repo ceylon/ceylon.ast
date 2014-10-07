@@ -13,17 +13,12 @@ import ceylon.test {
 test
 shared void satisfiedTypes() {
     assertEquals {
-        actual = createSatisfiedTypes({});
-        expected = null;
-        message = "Missing satisfied types";
-    };
-    assertEquals {
-        actual = createSatisfiedTypes({ "Identifiable" });
+        actual = createSatisfiedTypes("Identifiable");
         expected = SatisfiedTypes([createBaseType("Identifiable")]);
         message = "One satisfied type";
     };
     assertEquals {
-        actual = createSatisfiedTypes({ createBaseType("Iterable", "Integer", "Null"), createBaseType("Summable", "Vector") });
+        actual = createSatisfiedTypes(createBaseType("Iterable", "Integer", "Null"), createBaseType("Summable", "Vector"));
         expected = SatisfiedTypes([createBaseType("Iterable", "Integer", "Null"), createBaseType("Summable", "Vector")]);
         message = "Two satisfied types";
     };

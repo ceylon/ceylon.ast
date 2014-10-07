@@ -14,17 +14,12 @@ import ceylon.test {
 test
 shared void caseTypes() {
     assertEquals {
-        actual = createCaseTypes({});
-        expected = null;
-        message = "Missing case types";
-    };
-    assertEquals {
-        actual = createCaseTypes({ "Other" });
+        actual = createCaseTypes("Other");
         expected = CaseTypes([createBaseType("Other")]);
         message = "Self case type";
     };
     assertEquals {
-        actual = createCaseTypes({ "true", "false" });
+        actual = createCaseTypes("true", "false");
         expected = CaseTypes([createLIdentifier("true"), createLIdentifier("false")]);
         message = "Object case types";
     };

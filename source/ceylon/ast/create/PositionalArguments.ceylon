@@ -6,6 +6,8 @@ import ceylon.ast.core {
     SpreadArgument
 }
 
+shared alias PositionalArgumentIsh => Expression|SpreadArgument|Comprehension;
+
 """A utility function to create [[PositionalArguments]] directly from a list of
    expressions, spread arguments and comprehensions, without having to use
    [[ArgumentList]] and having to wrap the [[listed arguments|ArgumentList.listedArguments]]
@@ -15,8 +17,8 @@ import ceylon.ast.core {
    
        positionalArguments()
        positionalArguments(thisInstance, SpreadArgument(baseExpression("others")))"""
-shared PositionalArguments positionalArguments(<Expression|SpreadArgument|Comprehension>* arguments) {
-    Expression assertIsExpression(Expression|SpreadArgument|Comprehension argument) {
+shared PositionalArguments positionalArguments(PositionalArgumentIsh* arguments) {
+    Expression assertIsExpression(PositionalArgumentIsh argument) {
         "Intermediate argument must be expression"
         assert (is Expression argument);
         return argument;

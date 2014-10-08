@@ -3,8 +3,8 @@
  Examples:
  
      null
-     0, 1
-     null, smaller, larger"
+     0 | 1
+     null | smaller | larger"
 shared class MatchCase(expressions)
         extends CaseItem() {
     

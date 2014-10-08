@@ -16,11 +16,11 @@ shared InterfaceBody interfaceBody(BodyIsh content) {
     } else {
         assert (is {Declaration|Statement*} content);
         return InterfaceBody(content.collect {
-            Declaration collecting(Declaration|Statement element) {
-                "Interface body cannot contain statements"
-                assert (is Declaration element);
-                return element;
-            }
-        });
+                Declaration collecting(Declaration|Statement element) {
+                    "Interface body cannot contain statements"
+                    assert (is Declaration element);
+                    return element;
+                }
+            });
     }
 }

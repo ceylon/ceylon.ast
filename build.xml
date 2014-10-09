@@ -256,6 +256,7 @@
             pass="${herd.pass}"
             encoding="UTF-8">
             <moduleset refid="modules.source"/>
+            <rep url="https://modules.ceylon-lang.org/repo/1/"/>
         </ceylon-doc>
         
     </target>

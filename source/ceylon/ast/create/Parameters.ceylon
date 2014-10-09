@@ -3,12 +3,8 @@ import ceylon.ast.core {
     Parameters
 }
 
-"Something that can readily be converted to [[Parameters]]
- using the [[parameters]] utility function."
-shared alias ParametersIsh => Parameters|{Parameter*};
-
 "Converts a stream of [[parameters]] to a [[Parameters]] object."
-shared Parameters parameters(ParametersIsh parameters) {
+Parameters parameters_internal(Parameters|{Parameter*} parameters) {
     if (is Parameters parameters) {
         return parameters;
     } else {

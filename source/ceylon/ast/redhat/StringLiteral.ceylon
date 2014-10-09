@@ -14,17 +14,52 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
+import org.antlr.runtime {
+    CommonToken
+}
+
+"""Strips quotes and leading indentation from a string literal.
+   
+   For example,
+   
+           "Hello,
+            World"
+   
+   is turned into
+   
+       Hello,
+       World"""
+String stripStringLiteral(CommonToken token, Boolean isVerbatim) {
+    // value isVerbatim = token.type == verbatim_string_literal || token.type == averbatim_string;
+    value quoteLength = isVerbatim then 3 else 1;
+    Integer toStrip = token.charPositionInLine + quoteLength;
+    StringBuilder ret = StringBuilder();
+    value text = token.text[quoteLength .. token.text.size - (quoteLength + 1)];
+    value lines = text.lines;
+    if (exists firstLine = lines.first) {
+        ret.append(firstLine);
+        for (line in lines.rest) {
+            ret.appendNewline();
+            value parts = line.slice(toStrip);
+            "Multiline string content should align with start of string"
+            assert (parts[0].every(Character.whitespace));
+            ret.append(parts[1]);
+        }
+    }
+    return ret.string;
+}
 
 "Converts a RedHat AST [[StringLiteral|JStringLiteral]] to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `STRING_LITERAL` nor `VERBATIM_STRING`
                                  nor `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
 shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral) {
-    if (stringLiteral.mainToken.type == verbatim_string_literal || stringLiteral.mainToken.type == averbatim_string) {
+    assert (is CommonToken token = stringLiteral.mainToken);
+    if (token.type == verbatim_string_literal || token.type == averbatim_string) {
         // verbatim
-        return StringLiteral(stringLiteral.text[3 .. stringLiteral.text.size - 4], true);
-    } else if (stringLiteral.mainToken.type == string_literal || stringLiteral.mainToken.type == astring_literal) {
+        return StringLiteral(stripStringLiteral(token, true), true);
+    } else if (token.type == string_literal || token.type == astring_literal) {
         // regular
-        return StringLiteral(stringLiteral.text[1 .. stringLiteral.text.size - 2], false);
+        return StringLiteral(stripStringLiteral(token, false), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }
@@ -34,12 +69,13 @@ shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral) {
  (`ASTRING_LITERAL` or `AVERBATIM_STRING`) to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
 shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral) {
-    if (stringLiteral.mainToken.type == averbatim_string) {
+    assert (is CommonToken token = stringLiteral.mainToken);
+    if (token.type == averbatim_string) {
         // verbatim
-        return StringLiteral(stringLiteral.text[3 .. stringLiteral.text.size - 4], true);
-    } else if (stringLiteral.mainToken.type == astring_literal) {
+        return StringLiteral(stripStringLiteral(token, true), true);
+    } else if (token.type == astring_literal) {
         // regular
-        return StringLiteral(stringLiteral.text[1 .. stringLiteral.text.size - 2], false);
+        return StringLiteral(stripStringLiteral(token, false), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }

@@ -2585,7 +2585,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JStringLiteral transformStringLiteral(StringLiteral that) {
         value quotes = that.isVerbatim then "\"\"\"" else "\"";
-        return JStringLiteral(tokens.token(quotes + that.text + quotes, that.isVerbatim then verbatim_string_literal else string_literal));
+        return JStringLiteral(tokens.token(quotes + padStringLiteral(that.text, quotes.size) + quotes, that.isVerbatim then verbatim_string_literal else string_literal));
     }
     
     shared actual JSelfExpression|JOuter|JPackage transformSelfReference(SelfReference that) {
@@ -2716,7 +2716,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value litIt = that.literals.iterator();
         value exprIt = that.expressions.iterator();
         assert (is StringLiteral litFirst = litIt.next());
-        ret.addStringLiteral(JStringLiteral(tokens.token("\"" + litFirst.text + "\`\`", string_start)));
+        ret.addStringLiteral(JStringLiteral(tokens.token("\"" + padStringLiteral(litFirst.text, 1) + "\`\`", string_start)));
         variable value litNext = litIt.next();
         variable value exprNext = exprIt.next();
         while (!litNext is Finished) {
@@ -2726,12 +2726,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             exprNext = exprIt.next();
             ret.addExpression(wrapTerm(transformValueExpression(exprCur)));
             if (litNext is Finished) {
-                // last part, litCur needs to be come a string_end
-                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + litCur.text + "\"", string_end)));
+                // last part, litCur needs to become a string_end
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\"", string_end)));
                 break; // not strictly necessary, but we know that the loop condition will be false iff we entered this block, so why not
             } else {
                 // mid part, litCur needs to become a string_mid
-                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + litCur.text + "\`\`", string_mid)));
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\`\`", string_mid)));
             }
         }
         return ret;
@@ -3390,5 +3390,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value expression = JExpression(null);
         expression.term = term;
         return expression;
+    }
+    
+    String padStringLiteral(String text, Integer initial) {
+        StringBuilder ret = StringBuilder();
+        value lines = text.lines;
+        if (exists firstLine = lines.first) {
+            ret.append(firstLine);
+            for (line in lines.rest) {
+                ret.appendNewline();
+                for (i in 0:initial) {
+                    ret.append(" ");
+                }
+                ret.append(line);
+            }
+        }
+        return ret.string;
     }
 }

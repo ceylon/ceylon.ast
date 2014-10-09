@@ -20,6 +20,10 @@ import org.antlr.runtime {
     CommonToken
 }
 
+Boolean isPrefixed(CommonToken token) {
+    return token.text.size != token.stopIndex - token.startIndex + 1;
+}
+
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[Identifier]]."
 throws (`class AssertionError`, "If the token type is neither `LIDENTIFIER` nor `UIDENTIFIER`.")
 shared Identifier identifierToCeylon(JIdentifier identifier) {
@@ -27,9 +31,9 @@ shared Identifier identifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     value type = token.type;
     if (type == lidentifier) {
-        return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+        return LIdentifier(identifier.text, isPrefixed(token));
     } else if (type == uidentifier) {
-        return UIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+        return UIdentifier(identifier.text, isPrefixed(token));
     } else {
         throw AssertionError("Token type of Identifier token must be LIDENTIFIER (``lidentifier``) or UIDENTIFIER (``uidentifier``)");
     }
@@ -42,7 +46,7 @@ shared LIdentifier lIdentifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     "Must be LIDENTIFIER token"
     assert (token.type == lidentifier);
-    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+    return LIdentifier(identifier.text, isPrefixed(token));
 }
 
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[UIdentifier]]."
@@ -52,7 +56,7 @@ shared UIdentifier uIdentifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     "Must be UIDENTIFIER token"
     assert (token.type == uidentifier);
-    return UIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+    return UIdentifier(identifier.text, isPrefixed(token));
 }
 
 "Converts a RedHat AST [[Identifier|JIdentifier]] with token type `PIDENTIFIER` to a `ceylon.ast` [[LIdentifier]].
@@ -64,7 +68,7 @@ shared LIdentifier pIdentifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     "Must be PIDENTIFIER token"
     assert (token.type == pidentifier);
-    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+    return LIdentifier(identifier.text, isPrefixed(token));
 }
 
 "Converts a RedHat AST [[Identifier|JIdentifier]] with token type `AIDENTIFIER` to a `ceylon.ast` [[LIdentifier]].
@@ -76,7 +80,7 @@ shared LIdentifier aIdentifierToCeylon(JIdentifier identifier) {
     assert (is CommonToken token = identifier.mainToken);
     "Must be AIDENTIFIER token"
     assert (token.type == aidentifier);
-    return LIdentifier(identifier.text, identifier.text.size != token.stopIndex - token.startIndex);
+    return LIdentifier(identifier.text, isPrefixed(token));
 }
 
 "Compiles the given [[code]] for an Identifier

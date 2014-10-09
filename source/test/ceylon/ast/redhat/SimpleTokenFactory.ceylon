@@ -13,6 +13,7 @@ class SimpleTokenFactory() satisfies TokenFactory {
         value token = CommonToken(type, text);
         token.startIndex = 0;
         token.stopIndex = length;
+        token.charPositionInLine = 0; // initialized to -1
         return token;
     }
 }

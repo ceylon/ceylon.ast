@@ -21,6 +21,7 @@ shared class TokenFactoryImpl(initialIndex = 0, initialStartIndex = 0) satisfies
         token.tokenIndex = index++;
         token.startIndex = startIndex;
         token.stopIndex = (startIndex += length) - 1;
+        token.charPositionInLine = 0; // initialized to -1
         return token;
     }
 }

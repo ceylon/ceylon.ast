@@ -277,7 +277,10 @@ shared CompilationUnit completeCompilationUnit
             typeParameters = null;
             typeConstraints = [];
             annotations = Annotations {
-                anonymousAnnotation = StringLiteral("""The run function.""");
+                anonymousAnnotation = StringLiteral(
+                    """The run function.
+                       
+                       Prints “Hello, World!”.""");
                 annotations = [Annotation(LIdentifier("shared"))];
             };
         },

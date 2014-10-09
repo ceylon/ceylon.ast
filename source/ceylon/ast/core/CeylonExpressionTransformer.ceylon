@@ -707,9 +707,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformSpreadArgument(SpreadArgument that) => "SpreadArgument(``transformWithIndent(that.argument)``)";
     transformSpreadMemberOperator(SpreadMemberOperator that) => "SpreadMemberOperator()";
     transformStringLiteral(StringLiteral that)
-            => that.isVerbatim
-            then "StringLiteral(\"\"\"``that.text``\"\"\", true)"
-            else "StringLiteral(\"\"\"``that.text``\"\"\")";
+            => that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.longerThan(1)
+            then "StringLiteral(
+                  `` indent + indentLevel ``\"\"\"`` that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.first else "" ````"".join(that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.rest.collect(("\n" + " ".repeat(indent.size + indentLevel.size + "\"\"\"".size)).plus))``\"\"\"`` that.isVerbatim then ", true" else "" ``)"
+            else "StringLiteral(\"\"\"``that.text``\"\"\"`` that.isVerbatim then ", true" else "" ``)";
     transformStringTemplate(StringTemplate that)
             => "StringTemplate {
                 `` indent + indentLevel ``literals = ``transformWithIndent(that.literals)``;

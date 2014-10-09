@@ -5,7 +5,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node
 }
 import ceylon.ast.redhat {
-    RedHatTransformer
+    RedHatTransformer,
+    TokenFactoryImpl
 }
 import ceylon.test {
     assertEquals,
@@ -27,7 +28,7 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
         given RedHatType satisfies JNode {
     for (node in nodes) {
         assertEquals {
-            actual = toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node));
+            actual = toCeylon(fromCeylon(RedHatTransformer(TokenFactoryImpl()))(node));
             expected = node;
             message = "Double conversion";
         };

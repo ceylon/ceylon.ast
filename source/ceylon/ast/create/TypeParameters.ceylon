@@ -15,8 +15,7 @@ shared alias TypeParameterIsh => TypeParameter|IdentifierIsh;
        typeParameters(
            TypeParameter(UIdentifier("Element"), OutModifier()),
            TypeParameter(UIdentifier("Absent"), OutModifier(), baseType("Null"))
-       ) // covariant, e. g. Iterable 
-   """
+       ) // covariant, e. g. Iterable"""
 shared TypeParameters typeParameters(TypeParameterIsh+ typeParameters) {
     return TypeParameters(typeParameters.collect {
             TypeParameter collecting(TypeParameterIsh typeParameter) {

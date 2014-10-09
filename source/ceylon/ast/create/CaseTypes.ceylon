@@ -7,9 +7,6 @@ import ceylon.ast.core {
 }
 
 shared alias CaseTypeIsh => PrimaryTypeIsh|IdentifierIsh;
-shared alias CaseTypesIsh<Absent>
-        given Absent satisfies Null
-        => Iterable<CaseTypeIsh,Absent>;
 
 """Converts a stream of [[primary types and anonymous class names|caseTypes]]
    to [[CaseTypes]].
@@ -36,16 +33,14 @@ shared CaseTypes caseTypes(CaseTypeIsh+ caseTypes) {
 
 "Internal version of [[ceylon.ast.create::caseTypes]]
  that also accepts a [[CaseTypes]] argument or an empty argument."
-CaseTypes|Absent caseTypes_internal<Absent>(CaseTypes|CaseTypesIsh<Absent> caseTypes)
-        given Absent satisfies Null {
+CaseTypes? caseTypes_internal(CaseTypes|{CaseTypeIsh*}? caseTypes) {
     if (is CaseTypes caseTypes) {
         return caseTypes;
     } else {
-        assert (is CaseTypesIsh<Absent> caseTypes);
-        if (is CaseTypesIsh<Nothing> caseTypes) {
+        assert (is {CaseTypeIsh*}? caseTypes);
+        if (is {CaseTypeIsh+} caseTypes) {
             return package.caseTypes(*caseTypes);
         } else {
-            assert (is Absent null);
             return null;
         }
     }

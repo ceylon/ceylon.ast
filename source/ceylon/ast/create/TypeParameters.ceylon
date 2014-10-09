@@ -25,3 +25,16 @@ shared TypeParameters typeParameters(TypeParameterIsh+ typeParameters) {
             }
         });
 }
+
+TypeParameters? typeParameters_internal(TypeParameters|{TypeParameterIsh*}? typeParameters) {
+    if (is TypeParameters typeParameters) {
+        return typeParameters;
+    } else {
+        assert (is {TypeParameterIsh*}? typeParameters);
+        if (is {TypeParameterIsh+} typeParameters) {
+            return package.typeParameters(*typeParameters);
+        } else {
+            return null;
+        }
+    }
+}

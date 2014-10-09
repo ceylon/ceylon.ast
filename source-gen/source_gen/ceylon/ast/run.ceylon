@@ -1,7 +1,6 @@
 import ceylon.collection {
     MutableList,
-    ArrayList,
-    StringBuilder
+    ArrayList
 }
 
 String readDoc() {

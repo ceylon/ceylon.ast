@@ -1,5 +1,6 @@
 import ceylon.ast.core {
-    Node
+    Node,
+    Identifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node
@@ -11,6 +12,22 @@ import ceylon.ast.redhat {
 import ceylon.test {
     assertEquals,
     test
+}
+
+void assertNodesEquals(Node actual, Node expected, String? message = null) {
+    assertEquals {
+        actual = actual;
+        expected = expected;
+        message = message;
+    };
+    if (is Identifier actual) {
+        assert (is Identifier expected);
+        assertEquals {
+            actual = actual.usePrefix;
+            expected = expected.usePrefix;
+            message = message;
+        };
+    }
 }
 
 void doTest<CeylonAstType,RedHatType>(
@@ -27,7 +44,7 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     for (node in nodes) {
-        assertEquals {
+        assertNodesEquals {
             actual = toCeylon(fromCeylon(RedHatTransformer(TokenFactoryImpl()))(node));
             expected = node;
             message = "Double conversion";
@@ -39,7 +56,7 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
         given CeylonAstType satisfies Node {
     for (code->node in codes) {
         assert (exists compiled = compile(code));
-        assertEquals {
+        assertNodesEquals {
             actual = compiled;
             expected = node;
             message = "Compile ‘``code``’";

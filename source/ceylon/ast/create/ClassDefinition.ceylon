@@ -1,7 +1,6 @@
 import ceylon.ast.core {
     Annotations,
     CaseTypes,
-    ClassBody,
     ClassDefinition,
     Declaration,
     ExtendedType,
@@ -50,23 +49,23 @@ import ceylon.ast.core {
 shared ClassDefinition classDefinition(
     name,
     parameters = Parameters(),
+    body = [],
     caseTypes = null,
     extendedType = null,
     satisfiedTypes = null,
     typeParameters = null,
     typeConstraints = [],
-    annotations = Annotations(),
-    body = ClassBody([])) {
+    annotations = Annotations()) {
     
     IdentifierIsh name;
     Parameters|{Parameter*} parameters;
+    {Declaration|Statement*} body;
     {CaseTypeIsh*}|CaseTypes? caseTypes;
     ExtendedType? extendedType;
     {PrimaryTypeIsh*}|SatisfiedTypes? satisfiedTypes;
     {TypeParameterIsh*}|TypeParameters? typeParameters;
     {TypeConstraint*} typeConstraints;
     Annotations annotations;
-    {Declaration|Statement*}|ClassBody body;
     
     return ClassDefinition {
         name = uidentifier(name);

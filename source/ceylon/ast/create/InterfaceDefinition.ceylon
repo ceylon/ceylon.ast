@@ -2,7 +2,6 @@ import ceylon.ast.core {
     Annotations,
     CaseTypes,
     Declaration,
-    InterfaceBody,
     InterfaceDefinition,
     SatisfiedTypes,
     TypeConstraint,
@@ -34,20 +33,20 @@ import ceylon.ast.core {
        }"""
 shared InterfaceDefinition interfaceDefinition(
     name,
+    body = [],
     caseTypes = null,
     satisfiedTypes = null,
     typeParameters = null,
     typeConstraints = [],
-    annotations = Annotations(),
-    body = InterfaceBody([])) {
+    annotations = Annotations()) {
     
     IdentifierIsh name;
+    {Declaration*} body;
     {CaseTypeIsh*}|CaseTypes? caseTypes;
     {PrimaryTypeIsh*}|SatisfiedTypes? satisfiedTypes;
     {TypeParameterIsh*}|TypeParameters? typeParameters;
     {TypeConstraint*} typeConstraints;
     Annotations annotations;
-    {Declaration*}|InterfaceBody body;
     
     return InterfaceDefinition {
         name = uidentifier(name);

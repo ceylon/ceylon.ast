@@ -877,7 +877,15 @@ shared CompilationUnit completeCompilationUnit
                             name = LIdentifier("genericLoop");
                             typeArguments = TypeArguments([
                                     TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam1")))),
-                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam2"))))
+                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam2")))),
+                                    TypeArgument {
+                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam3")));
+                                        variance = InModifier();
+                                    },
+                                    TypeArgument {
+                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam4")));
+                                        variance = OutModifier();
+                                    }
                                 ]);
                         });
                     arguments = PositionalArguments(ArgumentList([]));
@@ -894,6 +902,22 @@ shared CompilationUnit completeCompilationUnit
                     TypeParameter {
                         parameterName = UIdentifier("TParam2");
                         variance = OutModifier();
+                        defaultArgument = CallableType {
+                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
+                            argumentTypes = TypeList([]);
+                        };
+                    },
+                    TypeParameter {
+                        parameterName = UIdentifier("TParam3");
+                        variance = null;
+                        defaultArgument = CallableType {
+                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
+                            argumentTypes = TypeList([]);
+                        };
+                    },
+                    TypeParameter {
+                        parameterName = UIdentifier("TParam4");
+                        variance = null;
                         defaultArgument = CallableType {
                             returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
                             argumentTypes = TypeList([]);

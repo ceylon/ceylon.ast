@@ -8,6 +8,7 @@ import ceylon.ast.core {
     Parameter,
     Parameters,
     SatisfiedTypes,
+    Statement,
     TypeConstraint,
     TypeParameters
 }
@@ -65,7 +66,7 @@ shared ClassDefinition classDefinition(
     {TypeParameterIsh*}|TypeParameters? typeParameters;
     {TypeConstraint*} typeConstraints;
     Annotations annotations;
-    {Declaration|Declaration*}|ClassBody body;
+    {Declaration|Statement*}|ClassBody body;
     
     return ClassDefinition {
         name = uidentifier(name);

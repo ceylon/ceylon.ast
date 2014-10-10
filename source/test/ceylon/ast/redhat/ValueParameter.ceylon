@@ -18,14 +18,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object valueParameter satisfies ConcreteTest<ValueParameter,JValueParameterDeclaration> {
     
-    String->ValueParameter construct(String->Annotations annotations, String->Type|DynamicModifier type, String->LIdentifier name)
-            => "``annotations.key`` ``type.key`` ``name.key``"->ValueParameter(annotations.item, type.item, name.item);
+    String->ValueParameter construct(String->Type|DynamicModifier type, String->LIdentifier name, String->Annotations annotations = package.annotations.emptyAnnotations)
+            => "``annotations.key`` ``type.key`` ``name.key``"->ValueParameter(type.item, name.item, annotations.item);
     
-    shared String->ValueParameter dynamicByValueParameter = construct(annotations.emptyAnnotations, dynamicModifier.dynamicModifier, identifier.byLIdentifier);
-    shared String->ValueParameter annotatedStringLidValueParameter = construct(annotations.helloSharedByLucasAnnotations, baseType.stringType, identifier.lidLIdentifier);
+    shared String->ValueParameter dynamicByValueParameter = construct(dynamicModifier.dynamicModifier, identifier.byLIdentifier);
+    shared String->ValueParameter annotatedStringLidValueParameter = construct(baseType.stringType, identifier.lidLIdentifier, annotations.helloSharedByLucasAnnotations);
     
     // not tested directly, but used by other tests
-    shared String->ValueParameter objectThatParameter = construct(annotations.emptyAnnotations, baseType.objectType, identifier.thatLIdentifier);
+    shared String->ValueParameter objectThatParameter = construct(baseType.objectType, identifier.thatLIdentifier);
     
     compile = compileValueParameter;
     fromCeylon = RedHatTransformer.transformValueParameter;

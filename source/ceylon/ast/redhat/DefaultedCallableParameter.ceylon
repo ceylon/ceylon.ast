@@ -30,12 +30,12 @@ shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctional
     assert (nonempty parameterLists = CeylonIterable(dec.parameterLists).collect(parametersToCeylon));
     return DefaultedCallableParameter {
         parameter = CallableParameter {
-            dec.annotationList exists
-                    then annotationsToCeylon(dec.annotationList)
-                    else Annotations();
             type;
             lIdentifierToCeylon(dec.identifier);
             parameterLists;
+            dec.annotationList exists
+                    then annotationsToCeylon(dec.annotationList)
+                    else Annotations();
         };
         specifier = lazySpecifierToCeylon(specifier);
     };

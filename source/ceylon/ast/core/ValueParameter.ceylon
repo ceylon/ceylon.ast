@@ -6,8 +6,7 @@
      Integer length
      Boolean(Element) selecting
      shared Address privateAddress"
-// TODO parameter order? This way, we can’t default annotations to Annotations()
-shared class ValueParameter(annotations, type, name)
+shared class ValueParameter(type, name, annotations = Annotations())
         extends RequiredParameter() {
     
     "The annotations of the parameter."
@@ -33,8 +32,8 @@ shared class ValueParameter(annotations, type, name)
     shared actual Integer hash
             => 31 * (annotations.hash + 31 * (type.hash + 31 * name.hash));
     
-    shared ValueParameter copy(Annotations annotations = this.annotations, Type|DynamicModifier type = this.type, LIdentifier name = this.name) {
-        value ret = ValueParameter(annotations, type, name);
+    shared ValueParameter copy(Type|DynamicModifier type = this.type, LIdentifier name = this.name, Annotations annotations = this.annotations) {
+        value ret = ValueParameter(type, name, annotations);
         copyExtraInfoTo(ret);
         return ret;
     }

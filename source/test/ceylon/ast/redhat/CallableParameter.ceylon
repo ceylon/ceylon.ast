@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object callableParameter satisfies ConcreteTest<CallableParameter,JFunctionalParameterDeclaration> {
     
     String->CallableParameter construct(String->Annotations annotations, String->Type|VoidModifier type, String->LIdentifier name, [<String->Parameters>+] parameterLists)
-            => "``annotations.key`` ``type.key`` ``name.key````"".join(parameterLists*.key)``"->CallableParameter(annotations.item, type.item, name.item, parameterLists*.item);
+            => "``annotations.key`` ``type.key`` ``name.key````"".join(parameterLists*.key)``"->CallableParameter(type.item, name.item, parameterLists*.item, annotations.item);
     
     shared String->CallableParameter emptyCallableParameter = construct(annotations.emptyAnnotations, voidModifier.voidModifier, identifier.byLIdentifier, [parameters.emptyParameters]);
     shared String->CallableParameter notEmptyCallableParameter = construct(annotations.helloSharedByLucasAnnotations, intersectionType.persistentAndPrintableAndIdentifiableIntersectionType, identifier.lidLIdentifier, [parameters.notEmptyParameters, parameters.emptyParameters]);

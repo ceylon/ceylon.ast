@@ -26,12 +26,12 @@ shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclarati
     case (is JVoidModifier) { type = voidModifierToCeylon(jType); }
     assert (nonempty parameterLists = CeylonIterable(dec.parameterLists).collect(parametersToCeylon));
     return CallableParameter {
-        dec.annotationList exists
-                then annotationsToCeylon(dec.annotationList)
-                else Annotations();
         type;
         lIdentifierToCeylon(dec.identifier);
         parameterLists;
+        dec.annotationList exists
+                then annotationsToCeylon(dec.annotationList)
+                else Annotations();
     };
 }
 

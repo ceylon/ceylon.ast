@@ -21,11 +21,11 @@ shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valuePar
     case (is JStaticType) { type = typeToCeylon(jType); }
     case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     return ValueParameter(
+        type,
+        lIdentifierToCeylon(valueParameter.typedDeclaration.identifier),
         valueParameter.typedDeclaration.annotationList exists
                 then annotationsToCeylon(valueParameter.typedDeclaration.annotationList)
-                else Annotations(),
-        type,
-        lIdentifierToCeylon(valueParameter.typedDeclaration.identifier));
+                else Annotations());
 }
 
 "Compiles the given [[code]] for a Value Parameter

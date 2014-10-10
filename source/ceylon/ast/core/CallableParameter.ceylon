@@ -4,7 +4,7 @@
  
      Comparison comparing(Element left, Element right)
      void onSuccess()"
-shared class CallableParameter(annotations, type, name, parameterLists)
+shared class CallableParameter(type, name, parameterLists, annotations)
         extends RequiredParameter() {
     
     "The annotations of the parameter."
@@ -32,8 +32,8 @@ shared class CallableParameter(annotations, type, name, parameterLists)
     shared actual Integer hash
             => 31 * (annotations.hash + 31 * (type.hash + 31 * (name.hash + 31 * parameterLists.hash)));
     
-    shared CallableParameter copy(Annotations annotations = this.annotations, Type|VoidModifier type = this.type, MemberName name = this.name, [Parameters+] parameterLists = this.parameterLists) {
-        value ret = CallableParameter(annotations, type, name, parameterLists);
+    shared CallableParameter copy(Type|VoidModifier type = this.type, MemberName name = this.name, [Parameters+] parameterLists = this.parameterLists, Annotations annotations = this.annotations) {
+        value ret = CallableParameter(type, name, parameterLists, annotations);
         copyExtraInfoTo(ret);
         return ret;
     }

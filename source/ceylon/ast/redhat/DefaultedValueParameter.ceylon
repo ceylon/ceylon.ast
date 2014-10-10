@@ -28,11 +28,11 @@ shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDe
     case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     return DefaultedValueParameter {
         parameter = ValueParameter(
+            type,
+            lIdentifierToCeylon(dec.identifier),
             dec.annotationList exists
                     then annotationsToCeylon(dec.annotationList)
-                    else Annotations(),
-            type,
-            lIdentifierToCeylon(dec.identifier));
+                    else Annotations());
         specifier = specifierToCeylon(specifier);
     };
 }

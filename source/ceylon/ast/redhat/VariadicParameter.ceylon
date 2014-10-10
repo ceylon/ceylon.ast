@@ -13,9 +13,9 @@ shared VariadicParameter variadicParameterToCeylon(JValueParameterDeclaration va
     "Must be variadic"
     assert (is JSequencedType type = variadicParameter.typedDeclaration.type);
     return VariadicParameter(
-        annotationsToCeylon(variadicParameter.typedDeclaration.annotationList),
         variadicTypeToCeylon(type),
-        lIdentifierToCeylon(variadicParameter.typedDeclaration.identifier));
+        lIdentifierToCeylon(variadicParameter.typedDeclaration.identifier),
+        annotationsToCeylon(variadicParameter.typedDeclaration.annotationList));
 }
 
 "Compiles the given [[code]] for a Variadic Parameter

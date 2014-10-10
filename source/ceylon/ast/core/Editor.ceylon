@@ -137,7 +137,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             case (is Type) { return transformType(that); }
             case (is VoidModifier) { return transformVoidModifier(that); }
         }
-        return that.copy(transformAnnotations(that.annotations), transformTypeOrVoidModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters));
+        return that.copy(transformTypeOrVoidModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters), transformAnnotations(that.annotations));
     }
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
@@ -938,7 +938,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             case (is Type) { return transformType(that); }
             case (is DynamicModifier) { return transformDynamicModifier(that); }
         }
-        return that.copy(transformAnnotations(that.annotations), transformTypeOrDynamicModifier(that.type), transformLIdentifier(that.name));
+        return that.copy(transformTypeOrDynamicModifier(that.type), transformLIdentifier(that.name), transformAnnotations(that.annotations));
     }
     shared actual default ValueSetterDefinition transformValueSetterDefinition(ValueSetterDefinition that) {
         Block|LazySpecifier transformBlockOrLazySpecifier(Block|LazySpecifier that) {
@@ -955,7 +955,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default VariadicParameter transformVariadicParameter(VariadicParameter that)
-            => that.copy(transformAnnotations(that.annotations), transformVariadicType(that.type), transformLIdentifier(that.name));
+            => that.copy(transformVariadicType(that.type), transformLIdentifier(that.name), transformAnnotations(that.annotations));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
     shared actual default Variance transformVariance(Variance that) {

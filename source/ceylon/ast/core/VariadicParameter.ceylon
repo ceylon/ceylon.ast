@@ -5,7 +5,7 @@
        Element+ elements
        String* messages
        "The indexes" Integer+ indexes"""
-shared class VariadicParameter(annotations, type, name)
+shared class VariadicParameter(type, name, annotations)
         extends Parameter() {
     
     "The annotations of the parameter."
@@ -31,8 +31,8 @@ shared class VariadicParameter(annotations, type, name)
     shared actual Integer hash
             => 31 * (annotations.hash + 31 * (type.hash + 31 * name.hash));
     
-    shared VariadicParameter copy(Annotations annotations = this.annotations, VariadicType type = this.type, MemberName name = this.name) {
-        value ret = VariadicParameter(annotations, type, name);
+    shared VariadicParameter copy(VariadicType type = this.type, MemberName name = this.name, Annotations annotations = this.annotations) {
+        value ret = VariadicParameter(type, name, annotations);
         copyExtraInfoTo(ret);
         return ret;
     }

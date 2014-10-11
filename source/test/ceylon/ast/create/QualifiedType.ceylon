@@ -1,10 +1,4 @@
-import ceylon.test {
-    test,
-    assertEquals
-}
 import ceylon.ast.core {
-    baseType,
-    qualifiedType,
     BaseType,
     QualifiedType,
     TypeNameWithTypeArguments,
@@ -12,15 +6,23 @@ import ceylon.ast.core {
     TypeArgument,
     TypeArguments
 }
+import ceylon.ast.create {
+    createBaseType=baseType,
+    createQualifiedType=qualifiedType
+}
+import ceylon.test {
+    test,
+    assertEquals
+}
 
 test
-shared void qualifiedTypeFunction() {
+shared void qualifiedType() {
     assertEquals {
-        actual = qualifiedType("X", "Y");
+        actual = createQualifiedType("X", "Y");
         expected = QualifiedType(BaseType(TypeNameWithTypeArguments(UIdentifier("X"))), TypeNameWithTypeArguments(UIdentifier("Y")));
     };
     assertEquals {
-        actual = qualifiedType(qualifiedType(baseType("X", "A"), "Y", "B"), "Z", "C");
+        actual = createQualifiedType(createQualifiedType(createBaseType("X", "A"), "Y", "B"), "Z", "C");
         expected = QualifiedType {
             qualifyingType = QualifiedType {
                 qualifyingType = BaseType(TypeNameWithTypeArguments(UIdentifier("X"), TypeArguments([TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("A"))))])));

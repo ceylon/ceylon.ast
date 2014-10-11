@@ -1,6 +1,10 @@
 import ceylon.ast.core {
     BaseExpression,
-    nameWithTypeArguments
+    LIdentifier,
+    MemberNameWithTypeArguments,
+    NameWithTypeArguments,
+    TypeNameWithTypeArguments,
+    UIdentifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +20,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  to a `ceylon.ast` [[BaseExpression]]."
 shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMemberOrTypeExpression) {
     assert (is JTypeArgumentList|JInferredTypeArguments jTypeArguments = baseMemberOrTypeExpression.typeArguments);
-    return BaseExpression(nameWithTypeArguments(identifierToCeylon(baseMemberOrTypeExpression.identifier), anyTypeArgumentsToCeylon(baseMemberOrTypeExpression.typeArguments)));
+    value name = identifierToCeylon(baseMemberOrTypeExpression.identifier);
+    value ta = anyTypeArgumentsToCeylon(baseMemberOrTypeExpression.typeArguments);
+    NameWithTypeArguments nta;
+    switch (name)
+    case (is LIdentifier) { nta = MemberNameWithTypeArguments(name, ta); }
+    case (is UIdentifier) { nta = TypeNameWithTypeArguments(name, ta); }
+    return BaseExpression(nta);
 }
 
 "Compiles the given [[code]] for a Base Expression

@@ -3,8 +3,7 @@ import ceylon.ast.core {
     ClassSpecifier,
     PositionalArguments,
     Super,
-    TypeNameWithTypeArguments,
-    baseType
+    TypeNameWithTypeArguments
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,6 +14,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JClassSpecifier=ClassSpecifier
     }
+}
+import ceylon.ast.create {
+    baseType
 }
 
 shared object classSpecifier satisfies ConcreteTest<ClassSpecifier,JClassSpecifier> {

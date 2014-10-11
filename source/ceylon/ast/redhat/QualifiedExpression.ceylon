@@ -1,6 +1,10 @@
 import ceylon.ast.core {
-    nameWithTypeArguments,
-    QualifiedExpression
+    LIdentifier,
+    MemberNameWithTypeArguments,
+    NameWithTypeArguments,
+    QualifiedExpression,
+    TypeNameWithTypeArguments,
+    UIdentifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -11,7 +15,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[QualifiedMemberOrTypeExpression|JQualifiedMemberOrTypeExpression]]
  to a `ceylon.ast` [[QualifiedExpression]]."
 shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExpression qualifiedMemberOrTypeExpression) {
-    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), nameWithTypeArguments(identifierToCeylon(qualifiedMemberOrTypeExpression.identifier), anyTypeArgumentsToCeylon(qualifiedMemberOrTypeExpression.typeArguments)), anyMemberOperatorToCeylon(qualifiedMemberOrTypeExpression.memberOperator));
+    value name = identifierToCeylon(qualifiedMemberOrTypeExpression.identifier);
+    value ta = anyTypeArgumentsToCeylon(qualifiedMemberOrTypeExpression.typeArguments);
+    NameWithTypeArguments nta;
+    switch (name)
+    case (is LIdentifier) { nta = MemberNameWithTypeArguments(name, ta); }
+    case (is UIdentifier) { nta = TypeNameWithTypeArguments(name, ta); }
+    return QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary), nta, anyMemberOperatorToCeylon(qualifiedMemberOrTypeExpression.memberOperator));
 }
 
 "Compiles the given [[code]] for a Qualified Expression

@@ -1,8 +1,7 @@
 import ceylon.ast.core {
     ElseOperation,
     StringTemplate,
-    StringLiteral,
-    stringTemplateUtil=stringTemplate
+    StringLiteral
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -14,11 +13,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStringTemplate=StringTemplate
     }
 }
+import ceylon.ast.create {
+    createStringTemplate=stringTemplate
+}
 
 shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTemplate> {
     
     shared String->StringTemplate helloNameElseWorldStringTemplate
-            = """"Hello, `` process.arguments.first else "World" ``!""""->stringTemplateUtil(
+            = """"Hello, `` process.arguments.first else "World" ``!""""->createStringTemplate(
         StringLiteral("Hello, "),
         ElseOperation(qualifiedExpression.processArgumentsFirstExpression.item, StringLiteral("World")),
         StringLiteral("!")

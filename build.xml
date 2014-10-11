@@ -31,6 +31,10 @@
         <module name="ceylon.ast.core"/> 
     </moduleset>
     
+    <moduleset id="modules.source.create">
+        <module name="ceylon.ast.create"/> 
+    </moduleset>
+    
     <moduleset id="modules.source.redhat">
         <module name="ceylon.ast.redhat"/> 
     </moduleset>
@@ -41,12 +45,17 @@
     
     <moduleset id="modules.source">
         <moduleset refid="modules.source.core"/>
+        <moduleset refid="modules.source.create"/>
         <moduleset refid="modules.source.redhat"/>
         <moduleset refid="modules.source.samples"/>
     </moduleset>
     
     <moduleset id="modules.test.core">
         <module name="test.ceylon.ast.core"/> 
+    </moduleset>
+    
+    <moduleset id="modules.test.create">
+        <module name="test.ceylon.ast.create"/> 
     </moduleset>
     
     <moduleset id="modules.test.redhat">
@@ -59,6 +68,7 @@
     
     <moduleset id="modules.test">
         <moduleset refid="modules.test.core"/>
+        <moduleset refid="modules.test.create"/>
         <moduleset refid="modules.test.redhat"/>
         <moduleset refid="modules.test.samples"/>
     </moduleset>
@@ -87,6 +97,16 @@
         </ceylon-compile>
     </target>
 
+    <target name="compile-create" depends="compile-core"
+            description="Compiles the Ceylon AST creation utilities module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.source.create"/>
+        </ceylon-compile>
+    </target>
+
     <target name="compile-redhat" depends="compile-core"
             description="Compiles the Ceylon AST RedHat backend module">
         <ceylon-compile executable="${ceylon.executable}"
@@ -97,7 +117,7 @@
         </ceylon-compile>
     </target>
 
-    <target name="compile-samples" depends="compile-core"
+    <target name="compile-samples" depends="compile-core,compile-create"
             description="Compiles the Ceylon AST samples module">
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
@@ -128,7 +148,17 @@
         </ceylon-compile>
     </target>
 
-    <target name="compile-test-redhat" depends="compile-redhat"
+    <target name="compile-test-create" depends="compile-create"
+            description="Compiles the Ceylon AST creation utilities test module">
+        <ceylon-compile executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            pack200="true">
+            <moduleset refid="modules.test.core"/>
+        </ceylon-compile>
+    </target>
+
+    <target name="compile-test-redhat" depends="compile-redhat,compile-test-create"
             description="Compiles the Ceylon AST RedHat backend test module">
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
@@ -185,6 +215,13 @@
     
     <target name="test-core" depends="compile-test-core"
         description="Tests the Ceylon AST core">
+        <ceylon-test>
+            <moduleset refid="modules.test.core"/>
+        </ceylon-test>
+    </target>
+    
+    <target name="test-create" depends="compile-test-create"
+        description="Tests the Ceylon AST creation utilities">
         <ceylon-test>
             <moduleset refid="modules.test.core"/>
         </ceylon-test>
@@ -315,6 +352,7 @@
         <exec executable="ceylon">
             <arg value="test"/>
             <arg value="test.ceylon.ast.core"/>
+        	<arg value="test.ceylon.ast.create"/>
             <arg value="test.ceylon.ast.redhat"/>
             <arg value="test.ceylon.ast.samples"/>
             <env key="JAVA_OPTS" value="-javaagent:${jacoco.agent.jar}=destfile=${jacoco.exec.file},append=false"/>

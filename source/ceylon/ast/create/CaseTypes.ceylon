@@ -38,8 +38,8 @@ CaseTypes? caseTypes_internal(CaseTypes|{CaseTypeIsh*}? caseTypes) {
         return caseTypes;
     } else {
         assert (is {CaseTypeIsh*}? caseTypes);
-        if (is {CaseTypeIsh+} caseTypes) {
-            return package.caseTypes(*caseTypes);
+        if (exists caseTypes, nonempty seq = caseTypes.sequence()) {
+            return package.caseTypes(*seq);
         } else {
             return null;
         }

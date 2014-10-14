@@ -2134,6 +2134,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JObjectDefinition transformObjectDefinition(ObjectDefinition that) {
         value annotationList = transformAnnotations(that.annotations);
         JObjectDefinition ret = JObjectDefinition(tokens.token("object", object_definition));
+        ret.type = JValueModifier(null);
         ret.annotationList = annotationList;
         ret.identifier = transformLIdentifier(that.name);
         if (exists extendedType = that.extendedType) {

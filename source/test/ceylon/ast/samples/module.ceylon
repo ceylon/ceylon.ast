@@ -8,4 +8,5 @@ module test.ceylon.ast.samples "1.1.0" {
     import ceylon.ast.samples "1.1.0";
     import ceylon.formatter "1.1.0";
     import ceylon.collection "1.1.0";
+    import ceylon.interop.java "1.1.0";
 }

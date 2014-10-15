@@ -16,9 +16,6 @@ import ceylon.test {
     test,
     assertEquals
 }
-import ceylon.file {
-    Writer
-}
 import ceylon.ast.redhat {
     RedHatTransformer,
     TokenFactoryImpl
@@ -217,18 +214,5 @@ shared void powerOfTwo() {
     } finally {
         System.setOut(sysOut);
         System.setErr(sysErr);
-    }
-}
-
-class StringBuilderWriter(StringBuilder sb) satisfies Writer {
-    shared actual void close() => flush();
-    shared actual void flush() {}
-    shared actual void write(String string) => sb.append(string);
-    shared actual void writeBytes({Byte*} bytes) {
-        throw AssertionError("May not write bytes");
-    }
-    shared actual void writeLine(String line) {
-        sb.append(line);
-        sb.appendNewline();
     }
 }

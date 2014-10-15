@@ -456,7 +456,7 @@ shared class TuringMachineCreator(
                                 baseType(stateTypeName(state)),
                                 rightTested,
                                 rightTarget,
-                                baseType("Box", stateTypeName(nextState), "LeftStack", baseType("LeftStackHead", symbolTypeName(nextSymbol), "RightRest"))
+                                baseType("Box", stateTypeName(nextState), "LeftStack", baseType("RightStackHead", symbolTypeName(nextSymbol), "RightRest"))
                             ])
                     };
                 }

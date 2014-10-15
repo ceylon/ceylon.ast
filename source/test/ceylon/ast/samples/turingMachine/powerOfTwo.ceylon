@@ -9,7 +9,6 @@ import ceylon.ast.samples.turingMachine {
     IllegalSymbolException
 }
 import ceylon.collection {
-    LinkedList,
     SingletonSet,
     TreeSet
 }
@@ -19,9 +18,6 @@ import ceylon.test {
 }
 import ceylon.file {
     Writer
-}
-import ceylon.formatter {
-    format
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -38,17 +34,21 @@ import java.util {
     List
 }
 import java.io {
-    ByteArrayInputStream,
     InputStream,
     OutputStream,
     PrintStream
 }
 import java.lang {
-    JString=String,
     System
 }
 import ceylon.interop.java {
     JavaList
+}
+import com.redhat.ceylon.compiler.typechecker.context {
+    PhasedUnit
+}
+import com.redhat.ceylon.compiler.typechecker.analyzer {
+    ModuleManager
 }
 
 "Tests the Type System Turing Machine
@@ -120,81 +120,61 @@ shared void powerOfTwo() {
             else { throw IllegalStateException(state); }
         }
     };
-    value scale = 3;
+    value scale = 3; // warning: scale ≥ 7 causes an OOME “GC overhead limit exceeded” when the typechecker tries to print the involved types
     value goodDriver = useTuringMachine("x".repeat(2 ^ scale), requiredIterations(2 ^ scale), "good");
     value badDriver = useTuringMachine("x".repeat(2 ^ scale - 1), requiredIterations(2 ^ scale - 1), "bad");
     
     /*
-     Here comes the ugly part.
-     
-     We’ll typecheck the turing machine + drivers
-     and assert that there’s exactly one error
-     (when assigning to ‘Accept accept’ in the bad driver).
-     However, calling the typechecker isn’t exactly easy…
-     
-     What we do here is write the units to three strings,
-     construct virtual files that read from these strings
-     (plus a virtual directory containing them),
-     then feed that virtual directory into the typechecker.
-     To check the typechecker’s output, we capture stdout and stderr.
-     
-     The main smell here is that we format the compilation units
-     just so the typechecker can immediately parse them again.
-     It would be a lot better if we could pass compilation units
-     to the typechecker directly, but I couldn’t figure out
-     a way to do this.
+     Now we feed those compilation units into the typechecker.
      
      A big Thank You goes to Tako Schotanus, who helped me
-     rig up this thing :)
+     rig this up :)
      */
     
-    value turingMachineSb = StringBuilder();
-    format {
-        turingMachine.transform(RedHatTransformer(TokenFactoryImpl()));
-        output = StringBuilderWriter(turingMachineSb);
-    };
-    value goodDriverSb = StringBuilder();
-    format {
-        goodDriver.transform(RedHatTransformer(TokenFactoryImpl()));
-        output = StringBuilderWriter(goodDriverSb);
-    };
-    value badDriverSb = StringBuilder();
-    format {
-        badDriver.transform(RedHatTransformer(TokenFactoryImpl()));
-        output = StringBuilderWriter(badDriverSb);
-    };
+    value turingMachineRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(turingMachine);
+    value goodDriverRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(goodDriver);
+    value badDriverRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(badDriver);
     
-    TypeCheckerBuilder tcb = TypeCheckerBuilder();
     object turingMachineFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
         shared actual Boolean folder => false;
-        shared actual InputStream? inputStream => ByteArrayInputStream(JString(turingMachineSb.string).bytes);
+        shared actual InputStream? inputStream => null;
         shared actual String name => "turingMachine.ceylon";
         shared actual String path => "synthetic/turingMachine.ceylon";
     }
     object goodDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
         shared actual Boolean folder => false;
-        shared actual InputStream? inputStream => ByteArrayInputStream(JString(goodDriverSb.string).bytes);
+        shared actual InputStream? inputStream => null;
         shared actual String name => "goodDriver.ceylon";
         shared actual String path => "synthetic/goodDriver.ceylon";
     }
     object badDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
         shared actual Boolean folder => false;
-        shared actual InputStream? inputStream => ByteArrayInputStream(JString(badDriverSb.string).bytes);
+        shared actual InputStream? inputStream => null;
         shared actual String name => "badDriver.ceylon";
         shared actual String path => "synthetic/badDriver.ceylon";
     }
     object srcDir satisfies VirtualFile {
-        shared actual List<VirtualFile>? children => JavaList(LinkedList<VirtualFile> { turingMachineFile, goodDriverFile, badDriverFile });
+        shared actual List<VirtualFile>? children => JavaList<VirtualFile>([turingMachineFile, goodDriverFile, badDriverFile]);
         shared actual Boolean folder => true;
         shared actual InputStream? inputStream => null;
         shared actual String name => "synthetic";
         shared actual String path => "synthetic";
     }
-    tcb.addSrcDirectory(srcDir);
-    TypeChecker tc = tcb.typeChecker;
+    
+    TypeChecker tc = TypeCheckerBuilder().typeChecker;
+    value context = tc.context;
+    value moduleManager = ModuleManager(context);
+    moduleManager.initCoreModules();
+    value turingMachinePU = PhasedUnit(turingMachineFile, srcDir, turingMachineRH, moduleManager.currentPackage, moduleManager, context, null);
+    value goodDriverPU = PhasedUnit(goodDriverFile, srcDir, goodDriverRH, moduleManager.currentPackage, moduleManager, context, null);
+    value badDriverPU = PhasedUnit(badDriverFile, srcDir, badDriverRH, moduleManager.currentPackage, moduleManager, context, null);
+    tc.phasedUnits.addPhasedUnit(turingMachineFile, turingMachinePU);
+    tc.phasedUnits.addPhasedUnit(goodDriverFile, goodDriverPU);
+    tc.phasedUnits.addPhasedUnit(badDriverFile, badDriverPU);
+    
     value sysOut = System.\iout;
     value sysErr = System.err;
     value outSb = StringBuilder();

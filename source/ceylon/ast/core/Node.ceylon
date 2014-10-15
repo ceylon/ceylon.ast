@@ -48,7 +48,7 @@ shared abstract class Node()
     "Returns the additional information attached to this node
      using the given [[key]], if any."
     see (`function put`)
-    shared Type? get<Type>(Key<Type> key)
+    shared Type? get<out Type>(Key<out Type> key)
             given Type satisfies Object {
         if (exists ret = extraInfo[key.id]) {
             assert (is Type ret);
@@ -59,20 +59,35 @@ shared abstract class Node()
     }
     
     "Attaches the given [[additional information|item]]
-     to this node using the given [[key]]. If other information
-     was attached with the same key previously, it is returned."
-    see (`function get`, `function remove`)
+     to this node using the given [[key]].
+     If other information was attached
+     with the same key previously, it is returned.
+     
+     If you don’t care about the previously attached information,
+     you might want to use [[set]] instead."
+    see (`function set`, `function get`, `function remove`)
     shared Type? put<Type>(Key<Type> key, Type item)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.put(key.id, item));
         return ret;
     }
     
+    "Attaches the given [[additional information|item]]
+     to this node using the given [[key]].
+     
+     Unlike [[put]], this method discards any previously attached information;
+     this makes it possible to declare the type parameter of [[key]]
+     contravariant, enabling users to abstract over keys of different types."
+    see (`function put`, `function get`, `function remove`)
+    shared void set<in Type>(Key<in Type> key, Type item)
+            given Type satisfies Object
+            => extraInfo.put(key.id, item);
+    
     "Removes the additional information attached to
      this node using the given [[key]] from this node,
      returning it."
     see (`function put`)
-    shared Type? remove<Type>(Key<Type> key)
+    shared Type? remove<Type>(Key<out Type> key)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.remove(key.id));
         return ret;

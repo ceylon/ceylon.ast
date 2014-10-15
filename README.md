@@ -1,9 +1,10 @@
 ceylon.ast
 ==========
 
-This repository will contain several modules to work with a Ceylon Abstract Syntax Tree (AST):
+This repository contains several modules to work with a Ceylon Abstract Syntax Tree (AST):
 
 * `ceylon.ast.core` – the Ceylon classes that represent a Ceylon AST. Pure Ceylon (backend-independent).
+* `ceylon.ast.create` – utility functions to create some AST nodes in a less verbose way.
 * `ceylon.ast.redhat` – transforms a `ceylon.ast.core` AST from + to a RedHat compiler ([ceylon-spec](https://github.com/ceylon/ceylon-spec]) AST, and also contains functions to compile a `ceylon.ast.core` AST from a code string (using the RedHat compiler).
 * `ceylon.ast.samples` – sample ASTs, to see how `ceylon.ast` is used and to test your tools that work with a `ceylon.ast` AST.
 * a test module for each of these (`test.ceylon...`).
@@ -14,7 +15,7 @@ Any and all feedback is welcome – especially before the first release is out, 
 If you’re unhappy with a particular aspect of `ceylon.ast`’s design (perhaps a class or attribute should have a better name, or a class should be split up into several parts?),
 please say so now (contact me or create an issue) before it’s fixed in stone.
 
-This is the Google Summer of Code 2014 project of Lucas Werkmeister (@lucaswerkmeister); see [the mailing list thread](https://groups.google.com/forum/#!topic/ceylon-dev/_Uo5P2AgxmA)
+This was the Google Summer of Code 2014 project of Lucas Werkmeister (@lucaswerkmeister); see [the mailing list thread](https://groups.google.com/forum/#!topic/ceylon-dev/_Uo5P2AgxmA)
 or the [project](https://www.google-melange.com/gsoc/project/details/google/gsoc2014/lucaswerkmeister/5741031244955648).
 Contributions are of course welcome!
 

@@ -1,12 +1,13 @@
 import org.antlr.runtime {
     CommonToken
 }
-import ceylon.ast.redhat {
-    TokenFactory
-}
 
-"A [[TokenFactory]] implementation."
-shared class TokenFactoryImpl(initialIndex = 0, initialStartIndex = 0) satisfies TokenFactory {
+"A simple [[TokenFactory]] implementation.
+ 
+ The [[token index|CommonToken.tokenIndex]]
+ and [[start index|CommonToken.startIndex]]
+ is incremented with each token."
+shared class SimpleTokenFactory(initialIndex = 0, initialStartIndex = 0) satisfies TokenFactory {
     
     "The [[token index|CommonToken.tokenIndex]] of the first token."
     Integer initialIndex;

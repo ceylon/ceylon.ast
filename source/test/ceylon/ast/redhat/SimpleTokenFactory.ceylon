@@ -1,6 +1,6 @@
 import ceylon.ast.redhat {
     TokenFactory,
-    TokenFactoryImpl
+    SimpleTokenFactory
 }
 import ceylon.test {
     test,
@@ -8,8 +8,8 @@ import ceylon.test {
 }
 
 test
-shared void tokenFactoryImpl() {
-    TokenFactory f = TokenFactoryImpl();
+shared void simpleTokenFactory() {
+    TokenFactory f = SimpleTokenFactory();
     value foo = f.token("foo", 0);
     value bar = f.token("bar", 1);
     assertEquals(foo.tokenIndex, 0);

@@ -393,7 +393,7 @@ import org.antlr.runtime {
  Sample usage:
  
      JCompilationUnit redHatCU
-         = RedHatTransformer(TokenFactoryImpl())
+         = RedHatTransformer(SimpleTokenFactory())
              .transformCompilationUnit(ceylonAstCU);
  
  If your [[TokenFactory]] supports resets, or you don’t care

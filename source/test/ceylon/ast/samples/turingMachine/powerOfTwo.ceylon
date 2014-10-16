@@ -18,7 +18,7 @@ import ceylon.test {
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
-    TokenFactoryImpl
+    SimpleTokenFactory
 }
 import com.redhat.ceylon.compiler.typechecker {
     TypeCheckerBuilder,
@@ -128,9 +128,9 @@ shared void powerOfTwo() {
      rig this up :)
      */
     
-    value turingMachineRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(turingMachine);
-    value goodDriverRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(goodDriver);
-    value badDriverRH = RedHatTransformer(TokenFactoryImpl()).transformCompilationUnit(badDriver);
+    value turingMachineRH = RedHatTransformer(SimpleTokenFactory()).transformCompilationUnit(turingMachine);
+    value goodDriverRH = RedHatTransformer(SimpleTokenFactory()).transformCompilationUnit(goodDriver);
+    value badDriverRH = RedHatTransformer(SimpleTokenFactory()).transformCompilationUnit(badDriver);
     
     object turingMachineFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;

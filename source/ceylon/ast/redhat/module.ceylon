@@ -4,7 +4,7 @@
  
  `ceylon.ast` → RedHat AST:
  
-     that.transform(RedHatTransformer(TokenFactoryImpl))
+     that.transform(RedHatTransformer(SimpleTokenFactory()))
  
  RedHat AST → `ceylon.ast`:
  

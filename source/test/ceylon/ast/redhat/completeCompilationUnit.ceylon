@@ -10,7 +10,7 @@ import ceylon.ast.redhat {
     RedHatTransformer,
     compilationUnitToCeylon,
     compileCompilationUnit,
-    TokenFactoryImpl
+    TokenSourceTokenFactory
 }
 import ceylon.ast.samples.completeCompilationUnit {
     completeCU=completeCompilationUnit
@@ -21,12 +21,16 @@ import ceylon.formatter {
 import ceylon.file {
     Writer
 }
+import org.antlr.runtime {
+    BufferedTokenStream
+}
 
 object completeCompilationUnit satisfies ConcreteTest<CompilationUnit,JCompilationUnit> {
     
     value sb = StringBuilder();
+    value tokens = TokenSourceTokenFactory();
     format {
-        node = completeCU.transform(RedHatTransformer(TokenFactoryImpl()));
+        node = completeCU.transform(RedHatTransformer(tokens));
         object output satisfies Writer {
             close() => flush();
             shared actual void flush() {}
@@ -38,6 +42,7 @@ object completeCompilationUnit satisfies ConcreteTest<CompilationUnit,JCompilati
                 throw AssertionError("Shouldn’t be used");
             }
         }
+        tokens = BufferedTokenStream(tokens);
     };
     
     compile = compileCompilationUnit;

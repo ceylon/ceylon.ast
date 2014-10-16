@@ -10,7 +10,7 @@ import ceylon.ast.core {
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
-    TokenFactoryImpl
+    TokenSourceTokenFactory
 }
 import ceylon.formatter {
     format
@@ -23,11 +23,15 @@ import ceylon.test {
 import ceylon.file {
     Writer
 }
+import org.antlr.runtime {
+    BufferedTokenStream
+}
 
 void testFormatted(AnyCompilationUnit cu, String code) {
     StringBuilder sb = StringBuilder();
+    value tokens = TokenSourceTokenFactory();
     format {
-        cu.transform(RedHatTransformer(TokenFactoryImpl())); // TODO other TokenFactory impl that returns token stream and lets us pass it to formatter
+        cu.transform(RedHatTransformer(tokens));
         object output satisfies Writer {
             shared actual void close() {}
             shared actual void flush() {}
@@ -40,6 +44,7 @@ void testFormatted(AnyCompilationUnit cu, String code) {
                 throw AssertionError("Should not be used!");
             }
         }
+        tokens = BufferedTokenStream(tokens);
     };
     assertEquals(sb.string, code + "\n");
 }
@@ -75,7 +80,5 @@ test
 void testFormattedHelloWorldCU()
         => testFormatted {
     helloWorldCompilationUnit;
-    """void run() {
-           print("Hello, `` process.arguments.first else "World" ``!");
-       }""";
+    """void run() { print("Hello, `` process.arguments.first else "World" ``!"); }""";
 };

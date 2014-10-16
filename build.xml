@@ -50,6 +50,12 @@
         <moduleset refid="modules.source.samples"/>
     </moduleset>
     
+    <moduleset id="modules.js">
+        <moduleset refid="module.source.core"/>
+        <moduleset refid="modules.source.create"/>
+        <moduleset refid="modules.source.samples"/>
+    </moduleset>
+    
     <moduleset id="modules.test.core">
         <module name="test.ceylon.ast.core"/> 
     </moduleset>
@@ -284,6 +290,15 @@
             encoding="UTF-8">
             <moduleset refid="modules.source"/>
         </ceylon-compile>
+        
+        <ceylon-compile-js executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            out="${herd.repo}"
+            user="${herd.user}"
+            pass="${herd.pass}"
+            encoding="UTF-8">
+            <moduleset refid="modules.js"/>
+        </ceylon-compile-js>
         
         <ceylon-doc executable="${ceylon.executable}"
             includesourcecode="true"

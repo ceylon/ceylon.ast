@@ -6,7 +6,7 @@
      case (is Block) { return transformBlock(that); }
      case (is IfElse) { return transformIfElse(that); }
  
-     case (0, 1) { return false; }
+     case (0 | 1) { return false; }
      case (2) { return true; }
      else {
          return i % 2 == 1 && expensivePrimeTest(i);

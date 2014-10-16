@@ -4,7 +4,7 @@
  Examples (multi-line):
  
      switch (i.magnitude)
-     case (0, 1) { return false; }
+     case (0 | 1) { return false; }
      case (2) { return true; }
      else {
          return i % 2 == 1 && expensivePrimeTest(i);

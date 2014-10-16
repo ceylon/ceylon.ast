@@ -12,7 +12,8 @@ import ceylon.collection {
    using the [[put]] and [[get]] methods. Usage example:
    ~~~
    // toplevel
-   Key<Token[]> tokensKey = Key<Token[]>("my.module::tokens");
+   shared Key<Token[]> tokensKey
+       = ScopedKey<Token[]>(`module my.module`, "tokens");
    
    // in the parser
    node.set(tokensKey, tokens);

@@ -12,7 +12,7 @@ shared class ValueDec(name, qualifier = null)
     shared actual LIdentifier name;
     shared actual DecQualifier? qualifier;
     
-    keyword = "function";
+    keyword = "value";
     
     shared actual <DecQualifier|LIdentifier>[] children = concatenate(emptyOrSingleton(qualifier), [name]);
     

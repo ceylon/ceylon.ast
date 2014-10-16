@@ -13,10 +13,10 @@ import ceylon.collection {
    ~~~
    // toplevel
    shared Key<Token[]> tokensKey
-       = ScopedKey<Token[]>(`module my.module`, "tokens");
+       = ScopedKey<Token[]>(`module my.parser`, "tokens");
    
    // in the parser
-   node.set(tokensKey, tokens);
+   node.put(tokensKey, tokens);
    
    // somewhere else
    assert (exists tokens = node.get(tokensKey));

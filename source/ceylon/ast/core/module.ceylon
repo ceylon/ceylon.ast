@@ -64,17 +64,18 @@
    You can also attach your analysis results to the AST nodes.
    To do this, you first need to create a [[Key]]:
    
-       shared Key<Token[]> tokensKey = ScopedKey<Token[]>(`module my.parser`, "tokens");
+       shared Key<Token[]> tokensKey
+           = ScopedKey<Token[]>(`module my.parser`, "tokens");
    
    (We recommend the use of [[ScopedKey]] to avoid naming collisions.)
    
    Then, you can attach information using [[Node.put]]
    
-       that.put(tokensKey, tokens)
+       node.put(tokensKey, tokens)
    
    and later retrieve it with [[Node.get]] (perhaps in a different module):
    
-       assert (exists tokens = that.get(tokensKey));
+       assert (exists tokens = node.get(tokensKey));
    
    The key is typed, so you don’t lose typing information (except about the
    presence of the attached information).

@@ -1977,6 +1977,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.objectExpression.identifier = qualifier;
             ret.objectExpression.typeArguments = JInferredTypeArguments(null);
         }
+        ret.endToken = tokens.token(".", member_op);
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
         if (exists typeArguments = that.nameAndArgs.typeArguments) {
             ret.typeArgumentList = transformTypeArguments(typeArguments);
@@ -2161,10 +2162,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         if (exists isLowerBound = that.get(isLowerBoundKey), isLowerBound) {
             // lower bound: endpoint, then token
             endpoint = transformExistsNonemptyExpression(that.endpoint);
-            token = tokens.token("<=", small_as_op);
+            token = tokens.token("<", small_as_op);
         } else {
             // upper bound: token, then endpoint
-            token = tokens.token("<=", small_as_op);
+            token = tokens.token("<", small_as_op);
             endpoint = transformExistsNonemptyExpression(that.endpoint);
         }
         JOpenBound ret = JOpenBound(null); // TODO JOpenBound(token)? the compiler grammar doesn’t do it, but I don’t see why not
@@ -2862,12 +2863,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JTupleType transformTupleType(TupleType that) {
         JTupleType ret = JTupleType(tokens.token("[", lbracket));
-        for (elementType in that.typeList.elements) {
-            switch (elementType)
-            case (is Type) { ret.addElementType(transformType(elementType)); }
-            case (is DefaultedType) { ret.addElementType(transformDefaultedType(elementType)); }
+        value firstElementType = that.typeList.elements.first;
+        if (exists firstElementType) {
+            switch (firstElementType)
+            case (is Type) { ret.addElementType(transformType(firstElementType)); }
+            case (is DefaultedType) { ret.addElementType(transformDefaultedType(firstElementType)); }
+            for (elementType in that.typeList.elements.rest) {
+                ret.endToken = tokens.token(",", comma);
+                switch (elementType)
+                case (is Type) { ret.addElementType(transformType(elementType)); }
+                case (is DefaultedType) { ret.addElementType(transformDefaultedType(elementType)); }
+            }
         }
         if (exists var = that.typeList.variadic) {
+            if (that.typeList.elements nonempty) {
+                ret.endToken = tokens.token(",", comma);
+            }
             ret.addElementType(transformVariadicType(var));
         }
         ret.endToken = tokens.token("]", rbracket);

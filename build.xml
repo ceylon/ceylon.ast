@@ -51,7 +51,7 @@
     </moduleset>
     
     <moduleset id="modules.js">
-        <moduleset refid="module.source.core"/>
+        <moduleset refid="modules.source.core"/>
         <moduleset refid="modules.source.create"/>
         <moduleset refid="modules.source.samples"/>
     </moduleset>

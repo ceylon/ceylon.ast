@@ -40,7 +40,7 @@ shared class RemoveExtraInfoVisitorTest() {
     
     [Key<out AA>+] keysAA = [kAA, kAAA, kAAB];
     [Key<out AB>+] keysAB = [kAB, kABA];
-    [Key<out A>+] keysA = [kA, kAA, kAAA, kAAB, kAB, kABA]; // TODO when ceylon.language#573 is fixed: [kA, *concatenate(keysAA, keysAB)];
+    [Key<out A>+] keysA = [kA, *concatenate(keysAA, keysAB)];
     [Key<out B>+] keysB = [kB, kBA];
     [Key<out Object>+] keys = keysA.append(keysB);
     

@@ -229,7 +229,7 @@
     <target name="test-create" depends="compile-test-create"
         description="Tests the Ceylon AST creation utilities">
         <ceylon-test>
-            <moduleset refid="modules.test.core"/>
+            <moduleset refid="modules.test.create"/>
         </ceylon-test>
     </target>
         

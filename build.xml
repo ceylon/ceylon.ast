@@ -98,6 +98,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.source.core"/>
         </ceylon-compile>
@@ -108,6 +109,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.source.create"/>
         </ceylon-compile>
@@ -118,6 +120,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.source.redhat"/>
         </ceylon-compile>
@@ -128,6 +131,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.source.samples"/>
         </ceylon-compile>
@@ -139,6 +143,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true"> 
             <moduleset refid="modules.source"/>
         </ceylon-compile>
@@ -149,6 +154,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.test.core"/>
         </ceylon-compile>
@@ -159,6 +165,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.test.core"/>
         </ceylon-compile>
@@ -169,6 +176,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.test.redhat"/>
         </ceylon-compile>
@@ -179,6 +187,7 @@
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
+            out="${out.repo}"
             pack200="true">
             <moduleset refid="modules.test.samples"/>
         </ceylon-compile>
@@ -187,9 +196,10 @@
     <target name="compile-test" depends="compile-source"
         description="Compiles the Ceylon AST test modules">
         <ceylon-compile executable="${ceylon.executable}"
-            out="${out.repo}"
             verbose="${ceylon.verbosity}"
-            encoding="UTF-8">
+            encoding="UTF-8"
+            out="${out.repo}"
+            pack200="true">
             <moduleset refid="modules.test"/>
         </ceylon-compile>
     </target>
@@ -197,9 +207,10 @@
     <target name="compile"
         description="Compiles all the Ceylon AST modules">
         <ceylon-compile executable="${ceylon.executable}"
-            out="${out.repo}"
             verbose="${ceylon.verbosity}"
-            encoding="UTF-8">
+            encoding="UTF-8"
+            out="${out.repo}"
+            pack200="true">
             <moduleset refid="modules.all"/>
         </ceylon-compile>
     </target>
@@ -207,10 +218,10 @@
     <target name="compile-source-gen"
         description="Compiles the Ceylon AST source-gen module">
         <ceylon-compile executable="${ceylon.executable}"
-                        src="source-gen"
-            out="${out.repo}"
             verbose="${ceylon.verbosity}"
-            encoding="UTF-8">
+            encoding="UTF-8"
+            out="${out.repo}"
+            pack200="true">
             <moduleset refid="modules.source-gen"/>
         </ceylon-compile>
     </target>

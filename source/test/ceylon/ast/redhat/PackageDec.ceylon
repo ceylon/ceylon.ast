@@ -15,13 +15,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object packageDec satisfies ConcreteTest<PackageDec,JPackageLiteral> {
     
-    String->PackageDec construct(String->FullPackageName packageName)
-            => "`package ``packageName.key```"->PackageDec(packageName.item);
+    String->PackageDec construct(<String->FullPackageName>? packageName)
+            => "`package `` packageName?.key else "" ```"->PackageDec(packageName?.item);
     
     shared String->PackageDec ceylonAstCorePackageDec = construct(fullPackageName.ceylonAstCorePackageName);
+    shared String->PackageDec currentPackageDec = construct(null);
     
     compile = compilePackageDec;
     fromCeylon = RedHatTransformer.transformPackageDec;
     toCeylon = packageDecToCeylon;
-    codes = [ceylonAstCorePackageDec];
+    codes = [ceylonAstCorePackageDec, currentPackageDec];
 }

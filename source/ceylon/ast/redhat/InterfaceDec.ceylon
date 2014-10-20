@@ -11,10 +11,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[InterfaceLiteral|JInterfaceLiteral]] to a `ceylon.ast` [[InterfaceDec]]."
 shared InterfaceDec interfaceDecToCeylon(JInterfaceLiteral interfaceDec) {
-    assert (is JBaseType|JQualifiedType jType = interfaceDec.type);
+    assert (is JBaseType|JQualifiedType? jType = interfaceDec.type);
     switch (jType)
     case (is JBaseType) { return InterfaceDec(uIdentifierToCeylon(jType.identifier)); }
     case (is JQualifiedType) { return InterfaceDec(uIdentifierToCeylon(jType.identifier), decQualifierToCeylon(jType.outerType)); }
+    case (null) { return InterfaceDec(null); }
 }
 
 "Compiles the given [[code]] for an Interface Dec

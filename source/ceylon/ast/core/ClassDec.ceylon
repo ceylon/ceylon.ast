@@ -1,5 +1,7 @@
 "A class reference expression, that is,
- the [[name]] of a class or anonymous class, optionally qualified by a [[qualifier]] (separated from it by a member operator ‘`.`’),
+ the [[name]] of a class or anonymous class,
+ optionally qualified by a [[qualifier]] (separated from it by a member operator ‘`.`’),
+ or empty for the current class,
  prefixed by the type keyword `class` and surrounded by backticks.
  
  The [[name]] may be an [[LIdentifier]] to refer to the class declaration of an anonymous class.
@@ -14,16 +16,20 @@
  Examples:
  
      `class String`
-     `class A.B.C`"
+     `class A.B.C`
+     `class`"
 shared class ClassDec(name, qualifier = null)
         extends TypeDec() {
     
-    shared actual Identifier name;
+    shared actual Identifier? name;
     shared actual DecQualifier? qualifier;
     
     keyword = "class";
     
-    shared actual <DecQualifier|Identifier>[] children = concatenate(emptyOrSingleton(qualifier), [name]);
+    "If the qualifier exists, the name must exist as well"
+    assert (!qualifier exists || name exists);
+    
+    shared actual <DecQualifier|Identifier>[] children = concatenate(emptyOrSingleton(qualifier), emptyOrSingleton(name));
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassDec(this);
@@ -32,13 +38,37 @@ shared class ClassDec(name, qualifier = null)
         if (is ClassDec that) {
             if (exists qualifier) {
                 if (exists qualifier_ = that.qualifier) {
-                    return qualifier == qualifier_ && name == that.name;
+                    if (exists name) {
+                        if (exists name_ = that.name) {
+                            return qualifier == qualifier_ && name == name_;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        if (!(that.name exists)) {
+                            return qualifier == qualifier_;
+                        } else {
+                            return false;
+                        }
+                    }
                 } else {
                     return false;
                 }
             } else {
                 if (!(that.qualifier exists)) {
-                    return name == that.name;
+                    if (exists name) {
+                        if (exists name_ = that.name) {
+                            return name == name_;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        if (!(that.name exists)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
                 } else {
                     return false;
                 }
@@ -49,9 +79,9 @@ shared class ClassDec(name, qualifier = null)
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (qualifier?.hash else 0));
+            => 31 * ((name?.hash else 0) + 31 * (qualifier?.hash else 0));
     
-    shared ClassDec copy(Identifier name = this.name, DecQualifier? qualifier = this.qualifier) {
+    shared ClassDec copy(Identifier? name = this.name, DecQualifier? qualifier = this.qualifier) {
         value ret = ClassDec(name, qualifier);
         copyExtraInfoTo(ret);
         return ret;

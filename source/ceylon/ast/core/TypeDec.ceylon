@@ -5,6 +5,8 @@ shared abstract class TypeDec()
     
     "The qualifier of the dec, if present."
     shared formal DecQualifier? qualifier;
-    "The name of the declaration."
-    shared formal Identifier name;
+    "The name of the declaration,
+     or [[null]] for a reference to the current type
+     (only in a [[ClassDec]] or [[InterfaceDec]])."
+    shared formal Identifier? name;
 }

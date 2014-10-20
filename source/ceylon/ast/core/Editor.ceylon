@@ -164,7 +164,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ClassBody transformClassBody(ClassBody that)
             => that.copy(that.content.collect(transformStatementOrDeclaration));
     shared actual default ClassDec transformClassDec(ClassDec that)
-            => that.copy(transformIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+            => that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
             => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
@@ -408,7 +408,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
             => that.copy(that.content.collect(transformDeclaration));
     shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)
-            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+            => that.copy(nullsafeInvoke(that.name, transformUIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default InterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)
             => that.copy(transformUIdentifier(that.name), transformInterfaceBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
@@ -512,7 +512,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ModuleCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that)
             => that.copy(transformModuleDescriptor(that.moduleDescriptor), that.imports.collect(transformImport));
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
-            => that.copy(transformFullPackageName(that.moduleName));
+            => that.copy(nullsafeInvoke(that.moduleName, transformFullPackageName));
     shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
             => that.copy(transformFullPackageName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations));
     shared actual default ModuleImport transformModuleImport(ModuleImport that) {
@@ -572,7 +572,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default PackageCompilationUnit transformPackageCompilationUnit(PackageCompilationUnit that)
             => that.copy(transformPackageDescriptor(that.packageDescriptor), that.imports.collect(transformImport));
     shared actual default PackageDec transformPackageDec(PackageDec that)
-            => that.copy(transformFullPackageName(that.packageName));
+            => that.copy(nullsafeInvoke(that.packageName, transformFullPackageName));
     shared actual default PackageDescriptor transformPackageDescriptor(PackageDescriptor that)
             => that.copy(transformFullPackageName(that.name), transformAnnotations(that.annotations));
     shared actual default Parameter transformParameter(Parameter that) {

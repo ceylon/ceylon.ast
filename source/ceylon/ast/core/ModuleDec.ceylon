@@ -1,35 +1,50 @@
 "A module reference expression, that is,
- the name of a module, prefixed by the keyword “module” and surrounded by backticks.
+ the name of a module (or empty for the current module),
+ prefixed by the keyword “module” and surrounded by backticks.
  
  Examples:
  
      `module ceylon.language`
-     `module ceylon.ast.core`"
+     `module ceylon.ast.core`
+     `module`"
 shared class ModuleDec(moduleName)
         extends Dec() {
     
-    "The name of the referenced module."
-    shared FullPackageName moduleName;
+    "The name of the referenced module,
+     or [[null]] for a reference to the current module."
+    shared FullPackageName? moduleName;
     
     keyword = "module";
     
-    shared actual [FullPackageName] children = [moduleName];
+    shared actual [FullPackageName=] children = emptyOrSingleton(moduleName);
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleDec(this);
     
     shared actual Boolean equals(Object that) {
         if (is ModuleDec that) {
-            return moduleName == that.moduleName;
+            if (exists moduleName) {
+                if (exists moduleName_ = that.moduleName) {
+                    return moduleName == moduleName_;
+                } else {
+                    return false;
+                }
+            } else {
+                if (!(that.moduleName exists)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * moduleName.hash;
+            => 31 * (moduleName?.hash else 0);
     
-    shared ModuleDec copy(FullPackageName moduleName = this.moduleName) {
+    shared ModuleDec copy(FullPackageName? moduleName = this.moduleName) {
         value ret = ModuleDec(moduleName);
         copyExtraInfoTo(ret);
         return ret;

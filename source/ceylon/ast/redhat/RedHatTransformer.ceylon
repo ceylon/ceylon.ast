@@ -895,6 +895,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
                 ret.type = type;
             }
         }
+        case (null) {
+            // reference to current class, do nothing
+        }
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -1684,12 +1687,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             "Qualifier can’t yet be an object!"
             // https://github.com/ceylon/ceylon-spec/issues/1076
             assert (is [UIdentifier+] components = qualifier.components);
-            assert (nonempty newComponents = concatenate(components, [that.name]));
+            assert (exists name = that.name);
+            assert (nonempty newComponents = concatenate(components, [name]));
             assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
             ret.type = type;
         } else {
-            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([that.name])));
-            ret.type = type;
+            if (exists name = that.name) {
+                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([name])));
+                ret.type = type;
+            } else {
+                // reference to current interface, do nothing
+            }
         }
         ret.endToken = tokens.token("`", backtick);
         return ret;
@@ -2013,7 +2021,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JModuleLiteral transformModuleDec(ModuleDec that) {
         JModuleLiteral ret = JModuleLiteral(tokens.token("`", backtick));
         ret.endToken = tokens.token("module", moduleType);
-        ret.importPath = transformFullPackageName(that.moduleName);
+        if (exists moduleName = that.moduleName) {
+            ret.importPath = transformFullPackageName(moduleName);
+        }
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -2227,7 +2237,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JPackageLiteral transformPackageDec(PackageDec that) {
         JPackageLiteral ret = JPackageLiteral(tokens.token("`", backtick));
         ret.endToken = tokens.token("package", packageType);
-        ret.importPath = transformFullPackageName(that.packageName);
+        if (exists packageName = that.packageName) {
+            ret.importPath = transformFullPackageName(packageName);
+        }
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }

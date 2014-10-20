@@ -18,8 +18,11 @@ shared ClassDec classDecToCeylon(JClassLiteral classDec) {
         case (is JBaseType) { return ClassDec(uIdentifierToCeylon(jType.identifier)); }
         case (is JQualifiedType) { return ClassDec(uIdentifierToCeylon(jType.identifier), decQualifierToCeylon(jType.outerType)); }
     } else {
-        assert (exists jObjectExpression = classDec.objectExpression);
-        return ClassDec(lIdentifierToCeylon(jObjectExpression.identifier));
+        if (exists jObjectExpression = classDec.objectExpression) {
+            return ClassDec(lIdentifierToCeylon(jObjectExpression.identifier));
+        } else {
+            return ClassDec(null);
+        }
     }
 }
 

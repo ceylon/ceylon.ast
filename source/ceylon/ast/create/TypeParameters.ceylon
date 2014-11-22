@@ -30,7 +30,6 @@ TypeParameters? typeParameters_internal(TypeParameters|{TypeParameterIsh*}? type
     if (is TypeParameters typeParameters) {
         return typeParameters;
     } else {
-        assert (is {TypeParameterIsh*}? typeParameters);
         if (exists typeParameters, nonempty seq = typeParameters.sequence()) {
             return package.typeParameters(*seq);
         } else {

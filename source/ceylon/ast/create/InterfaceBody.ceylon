@@ -14,7 +14,6 @@ shared InterfaceBody interfaceBody(BodyIsh content) {
         assert (is InterfaceBody content);
         return content;
     } else {
-        assert (is {Declaration|Statement*} content);
         return InterfaceBody(content.collect {
                 Declaration collecting(Declaration|Statement element) {
                     "Interface body cannot contain statements"

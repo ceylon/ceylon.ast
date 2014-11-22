@@ -127,7 +127,6 @@ shared class TuringMachineCreator(
             {
                 classDefinition {
                     name = inputTypeName(symbol);
-                    caseTypes = { inputInstanceName(symbol) };
                     satisfiedTypes = { symbolTypeName(symbol) };
                     annotations = annotations {
                         doc = symbolDescription(symbol);

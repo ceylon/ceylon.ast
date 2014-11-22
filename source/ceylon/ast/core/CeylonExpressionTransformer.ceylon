@@ -26,7 +26,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "null";
         }
         else { // case (is [Node+]) { – but Node and [Node+] are not disjoint, because Sequence is a sealed interface, not a class
-            assert (is [Node+] that);
             value origIndent = indent;
             indent += indentLevel + indentLevel;
             value firstString = that.first.transform(this);
@@ -737,7 +736,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``caseClauses = ``transformWithIndent(that.caseClauses)``;
                 `` indent + indentLevel ``elseCaseClause = ``transformWithIndent(that.elseCaseClause)``;
                 ``indent``}";
-    transformSwitchClause(SwitchClause that) => "SwitchClause(``transformWithIndent(that.expression)``)";
+    transformSwitchClause(SwitchClause that) => "SwitchClause(``transformWithIndent(that.switched)``)";
     transformThenOperation(ThenOperation that)
             => "ThenOperation {
                 `` indent + indentLevel ``condition = ``transformWithIndent(that.leftOperand)``;

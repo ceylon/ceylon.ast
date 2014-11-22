@@ -37,7 +37,6 @@ CaseTypes? caseTypes_internal(CaseTypes|{CaseTypeIsh*}? caseTypes) {
     if (is CaseTypes caseTypes) {
         return caseTypes;
     } else {
-        assert (is {CaseTypeIsh*}? caseTypes);
         if (exists caseTypes, nonempty seq = caseTypes.sequence()) {
             return package.caseTypes(*seq);
         } else {

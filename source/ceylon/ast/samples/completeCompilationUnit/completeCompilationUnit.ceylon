@@ -681,6 +681,26 @@ shared CompilationUnit completeCompilationUnit
                             elseCaseClause = ElseCaseClause(Block([]));
                         };
                     },
+                    SwitchCaseElse {
+                        clause = SwitchClause(SpecifiedVariable {
+                                name = LIdentifier("switchVariable");
+                                specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchVariableExpression"))));
+                                type = ValueModifier();
+                            });
+                        cases = SwitchCases {
+                            caseClauses = [
+                                CaseClause {
+                                    caseItem = MatchCase([IntegerLiteral("0")]);
+                                    block = Block([]);
+                                },
+                                CaseClause {
+                                    caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                    block = Block([]);
+                                }
+                            ];
+                            elseCaseClause = ElseCaseClause(Block([]));
+                        };
+                    },
                     DynamicBlock(Block([])),
                     ValueDefinition {
                         name = LIdentifier("subscripts");

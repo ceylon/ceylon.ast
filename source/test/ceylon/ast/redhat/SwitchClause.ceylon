@@ -1,5 +1,8 @@
 import ceylon.ast.core {
     Expression,
+    LIdentifier,
+    SpecifiedVariable,
+    Specifier,
     SwitchClause
 }
 import ceylon.ast.redhat {
@@ -15,13 +18,17 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object switchClause satisfies ConcreteTest<SwitchClause,JSwitchClause> {
     
-    String->SwitchClause construct(String->Expression expression)
+    String->SwitchClause construct(String->Expression|SpecifiedVariable expression)
             => "switch (``expression.key``)"->SwitchClause(expression.item);
     
     shared String->SwitchClause switchIClause = construct(baseExpression.iExpression);
+    shared String->SwitchClause switchVarIClause = construct("var = i"->SpecifiedVariable {
+            name = LIdentifier("var");
+            specifier = Specifier(baseExpression.iExpression.item);
+        });
     
     compile = compileSwitchClause;
     fromCeylon = RedHatTransformer.transformSwitchClause;
     toCeylon = switchClauseToCeylon;
-    codes = [switchIClause];
+    codes = [switchIClause, switchVarIClause];
 }

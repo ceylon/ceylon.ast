@@ -1,8 +1,6 @@
 import ceylon.ast.core {
     Block,
-    Body,
-    Declaration,
-    Statement
+    Body
 }
 
 "Converts a [[stream of declarations and statements|content]]
@@ -14,7 +12,6 @@ shared Block block(BodyIsh content) {
         assert (is Block content);
         return content;
     } else {
-        assert (is {Declaration|Statement*} content);
         return Block(content.sequence());
     }
 }

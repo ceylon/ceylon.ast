@@ -26,7 +26,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             return "null";
         }
         else { // case (is [Node+]) { – but Node and [Node+] are not disjoint, because Sequence is a sealed interface, not a class
-            assert (is [Node+] that);
             value origIndent = indent;
             indent += indentLevel + indentLevel;
             value firstString = that.first.transform(this);

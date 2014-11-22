@@ -8,7 +8,6 @@ Parameters parameters_internal(Parameters|{Parameter*} parameters) {
     if (is Parameters parameters) {
         return parameters;
     } else {
-        assert (is {Parameter*} parameters);
         return Parameters(parameters.sequence());
     }
 }
@@ -20,7 +19,6 @@ Parameters parameters_internal(Parameters|{Parameter*} parameters) {
         assert (nonempty ret = parameters.sequence());
         return ret;
     } else {
-        assert (is {Parameter*} parameters);
         return [parameters_internal(parameters)];
     }
 }

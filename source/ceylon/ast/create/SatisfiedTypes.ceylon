@@ -19,7 +19,6 @@ SatisfiedTypes? satisfiedTypes_internal(SatisfiedTypes|{PrimaryTypeIsh*}? satisf
     if (is SatisfiedTypes satisfiedTypes) {
         return satisfiedTypes;
     } else {
-        assert (is {PrimaryTypeIsh*}? satisfiedTypes);
         if (exists satisfiedTypes, nonempty seq = satisfiedTypes.sequence()) {
             return package.satisfiedTypes(*seq);
         } else {

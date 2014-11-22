@@ -711,14 +711,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is RequiredParameter ret = super.transformRequiredParameter(that));
         return ret;
     }
-    shared actual default Resource transformResource(Resource that) {
-        Expression|SpecifiedVariable transformExpressionOrSpecifiedVariable(Expression|SpecifiedVariable that) {
-            switch (that)
-            case (is Expression) { return transformExpression(that); }
-            case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
-        }
-        return that.copy(transformExpressionOrSpecifiedVariable(that.resource));
-    }
+    shared actual default Resource transformResource(Resource that)
+            => that.copy(transformExpressionOrSpecifiedVariable(that.resource));
     shared actual default Resources transformResources(Resources that)
             => that.copy(that.resources.collect(transformResource));
     shared actual default Return transformReturn(Return that)
@@ -796,7 +790,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default SwitchCases transformSwitchCases(SwitchCases that)
             => that.copy(that.caseClauses.collect(transformCaseClause), nullsafeInvoke(that.elseCaseClause, transformElseCaseClause));
     shared actual default SwitchClause transformSwitchClause(SwitchClause that)
-            => that.copy(transformExpression(that.expression));
+            => that.copy(transformExpressionOrSpecifiedVariable(that.switched));
     shared actual default ThenOperation transformThenOperation(ThenOperation that)
             => that.copy(transformThenElseExpression(that.leftOperand), transformDisjoiningExpression(that.rightOperand));
     shared actual default This transformThis(This that)
@@ -1000,5 +994,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is VoidModifier) { return transformVoidModifier(that); }
         case (is FunctionModifier) { return transformFunctionModifier(that); }
         case (is DynamicModifier) { return transformDynamicModifier(that); }
+    }
+    Expression|SpecifiedVariable transformExpressionOrSpecifiedVariable(Expression|SpecifiedVariable that) {
+        switch (that)
+        case (is Expression) { return transformExpression(that); }
+        case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
     }
 }

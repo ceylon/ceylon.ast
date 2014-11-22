@@ -228,6 +228,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSwitchCaseList=SwitchCaseList,
         JSwitchClause=SwitchClause,
         JSwitchStatement=SwitchStatement,
+        JSwitched=Switched,
         JSyntheticVariable=SyntheticVariable,
         JTerm=Term,
         JThenOp=ThenOp,
@@ -2779,26 +2780,38 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JSwitchStatement ret = JSwitchStatement(null);
         ret.switchClause = transformSwitchClause(that.clause);
         ret.switchCaseList = transformSwitchCases(that.cases);
-        // the parser now adds synthetic variables to all ‘is’ cases.
+        // the parser now adds synthetic variables to all ‘is’ cases and the else case.
         // this is mostly copied from the grammar.
-        value ex = ret.switchClause.expression.term;
-        if (is JBaseMemberExpression ex) {
-            value id = ex.identifier;
+        JIdentifier? id;
+        if (is JBaseMemberExpression ex = ret.switchClause.switched.expression?.term) {
+            id = ex.identifier;
+        } else if (exists var = ret.switchClause.switched.variable) {
+            id = var.identifier;
+        } else {
+            id = null;
+        }
+        if (exists id) {
+            JVariable makeVariable() {
+                value v = JVariable(null);
+                v.type = JSyntheticVariable(null);
+                v.identifier = id;
+                value se = JSpecifierExpression(null);
+                value e = JExpression(null);
+                value bme = JBaseMemberExpression(null);
+                bme.identifier = id;
+                bme.typeArguments = JInferredTypeArguments(null);
+                e.term = bme;
+                se.expression = e;
+                v.specifierExpression = se;
+                return v;
+            }
             for (cc in CeylonIterable(ret.switchCaseList.caseClauses)) {
                 if (is JIsCase ic = cc.caseItem) {
-                    value v = JVariable(null);
-                    v.type = JSyntheticVariable(null);
-                    v.identifier = id;
-                    value se = JSpecifierExpression(null);
-                    value e = JExpression(null);
-                    value bme = JBaseMemberExpression(null);
-                    bme.identifier = id;
-                    bme.typeArguments = JInferredTypeArguments(null);
-                    e.term = bme;
-                    se.expression = e;
-                    v.specifierExpression = se;
-                    ic.variable = v;
+                    ic.variable = makeVariable();
                 }
+            }
+            if (exists ec = ret.switchCaseList.elseClause) {
+                ec.variable = makeVariable();
             }
         }
         return ret;
@@ -2818,7 +2831,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JSwitchClause transformSwitchClause(SwitchClause that) {
         JSwitchClause ret = JSwitchClause(tokens.token("switch", switch_clause));
         tokens.token("(", lparen);
-        ret.expression = wrapTerm(transformExpression(that.expression));
+        ret.switched = JSwitched(null);
+        switch (switched = that.switched)
+        case (is Expression) { ret.switched.expression = wrapTerm(transformExpression(switched)); }
+        case (is SpecifiedVariable) {
+            JVariable var = JVariable(null);
+            value type = switched.type;
+            switch (type)
+            case (is Type) { var.type = transformType(type); }
+            case (is ValueModifier) { var.type = transformValueModifier(type); }
+            case (null) { var.type = JValueModifier(null); }
+            var.identifier = transformLIdentifier(switched.name);
+            var.specifierExpression = transformSpecifier(switched.specifier);
+            ret.switched.variable = var;
+        }
         tokens.token(")", rparen);
         return ret;
     }

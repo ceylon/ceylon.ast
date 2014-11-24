@@ -1,20 +1,25 @@
-"""A callable type, that is, a shortcut for
-   `SimpleType(TypeNameWithTypeArguments(UIdentifier("Callable"), [returnType, TupleType(argumentTypes)]))`.
+"""A callable type.
    
    Examples:
    
        Integer(Integer,Integer)
-       String(Character*)"""
+       String(Character*)
+       Ret(*Args)"""
 shared class CallableType(returnType, argumentTypes)
         extends PrimaryType() {
     
     "The return type, that is, the first type parameter to `Callable`."
     shared PrimaryType returnType;
-    "The argument types, that is, the [[typeList|TupleType.typeList]]
-     of the [[TupleType]] that’s the second type parameter to `Callable`."
-    shared TypeList argumentTypes;
+    "The argument types.
+     
+     This can be:
+     - a [[TypeList]], forming the [[`typeList`|TupleType.typeList]]
+       of the [[TupleType]] that’s the second type argument to `Callable`, or
+     - a [[SpreadType]], where the [[inner type|SpreadType.type]]
+       is the second type argument to `Callable`."
+    shared TypeList|SpreadType argumentTypes;
     
-    shared actual [PrimaryType, TypeList] children = [returnType, argumentTypes];
+    shared actual [PrimaryType, TypeList|SpreadType] children = [returnType, argumentTypes];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCallableType(this);
@@ -30,7 +35,7 @@ shared class CallableType(returnType, argumentTypes)
     shared actual Integer hash
             => 31 * (returnType.hash + 31 * argumentTypes.hash);
     
-    shared CallableType copy(PrimaryType returnType = this.returnType, TypeList argumentTypes = this.argumentTypes) {
+    shared CallableType copy(PrimaryType returnType = this.returnType, TypeList|SpreadType argumentTypes = this.argumentTypes) {
         value ret = CallableType(returnType, argumentTypes);
         copyExtraInfoTo(ret);
         return ret;

@@ -595,6 +595,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is VariadicType) { return transformVariadicType(that); }
         case (is DefaultedType) { return transformDefaultedType(that); }
         case (is TypeList) { return transformTypeList(that); }
+        case (is SpreadType) { return transformSpreadType(that); }
         case (is TypeArgument) { return transformTypeArgument(that); }
         case (is TypeArguments) { return transformTypeArguments(that); }
     }

@@ -4,7 +4,7 @@
  (For example, while `String*` is part of the valid type `{String*}`,
  it’s not a valid type by itself.)"
 shared abstract class TypeIsh()
-        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | TypeArgument | TypeArguments
+        of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | SpreadType | TypeArgument | TypeArguments
         extends ExpressionIsh() {
     shared actual formal <TypeIsh|Identifier|Variance>[] children;
 }

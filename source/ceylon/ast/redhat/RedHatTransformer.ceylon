@@ -217,6 +217,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSpecifierStatement=SpecifierStatement,
         JSpreadArgument=SpreadArgument,
         JSpreadOp=SpreadOp,
+        JSpreadType=SpreadType,
         JStatement=Statement,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
@@ -1089,6 +1090,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("=", specify);
+        return ret;
+    }
+    
+    shared actual JSpreadType transformSpreadType(SpreadType that) {
+        JSpreadType ret = JSpreadType(null);
+        ret.TODO = transformTODO(that.TODO);
         return ret;
     }
     

@@ -248,6 +248,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformSpecifier(Specifier that) => visitSpecifier(that);
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
     transformSpreadMemberOperator(SpreadMemberOperator that) => visitSpreadMemberOperator(that);
+    transformSpreadType(SpreadType that) => visitSpreadType(that);
     transformStatement(Statement that) => visitStatement(that);
     transformStringLiteral(StringLiteral that) => visitStringLiteral(that);
     transformStringTemplate(StringTemplate that) => visitStringTemplate(that);
@@ -545,6 +546,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitSpecifier(Specifier that) => super.transformSpecifier(that);
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);
     shared default void visitSpreadMemberOperator(SpreadMemberOperator that) => super.transformSpreadMemberOperator(that);
+    shared default void visitSpreadType(SpreadType that) => super.transformSpreadType(that);
     shared default void visitStatement(Statement that) => super.transformStatement(that);
     shared default void visitStringLiteral(StringLiteral that) => super.transformStringLiteral(that);
     shared default void visitStringTemplate(StringTemplate that) => super.transformStringTemplate(that);

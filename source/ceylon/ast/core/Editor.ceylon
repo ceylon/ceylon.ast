@@ -140,7 +140,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return that.copy(transformTypeOrVoidModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters), transformAnnotations(that.annotations));
     }
     shared actual default CallableType transformCallableType(CallableType that)
-            => that.copy(transformPrimaryType(that.returnType), transformTypeList(that.argumentTypes));
+            => that.copy(transformPrimaryType(that.returnType), transformTypeListOrSpreadType(that.argumentTypes));
     shared actual default CaseClause transformCaseClause(CaseClause that)
             => that.copy(transformCaseItem(that.caseItem), transformBlock(that.block));
     shared actual default CaseItem transformCaseItem(CaseItem that) {
@@ -767,6 +767,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformUnioningExpression(that.argument));
     shared actual default SpreadMemberOperator transformSpreadMemberOperator(SpreadMemberOperator that)
             => that.copy();
+    shared actual default SpreadType transformSpreadType(SpreadType that)
+            => that.copy(transformType(that.type));
     shared actual default Statement transformStatement(Statement that) {
         assert (is Statement ret = super.transformStatement(that));
         return ret;
@@ -999,5 +1001,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is Expression) { return transformExpression(that); }
         case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+    }
+    TypeList|SpreadType transformTypeListOrSpreadType(TypeList|SpreadType that) {
+        switch (that)
+        case (is TypeList) { return transformTypeList(that); }
+        case (is SpreadType) { return transformSpreadType(that); }
     }
 }

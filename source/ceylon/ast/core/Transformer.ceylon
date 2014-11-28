@@ -251,6 +251,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSpecifier(Specifier that);
     shared formal Result transformSpreadArgument(SpreadArgument that);
     shared formal Result transformSpreadMemberOperator(SpreadMemberOperator that);
+    shared formal Result transformSpreadType(SpreadType that);
     shared formal Result transformStatement(Statement that);
     shared formal Result transformStringLiteral(StringLiteral that);
     shared formal Result transformStringTemplate(StringTemplate that);

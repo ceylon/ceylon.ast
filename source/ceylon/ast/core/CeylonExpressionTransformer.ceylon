@@ -705,6 +705,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformSpecifier(Specifier that) => "Specifier(``transformWithIndent(that.expression)``)";
     transformSpreadArgument(SpreadArgument that) => "SpreadArgument(``transformWithIndent(that.argument)``)";
     transformSpreadMemberOperator(SpreadMemberOperator that) => "SpreadMemberOperator()";
+    transformSpreadType(SpreadType that) => "SpreadType(``transformWithIndent(that.type)``)";
     transformStringLiteral(StringLiteral that)
             => that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.longerThan(1)
             then "StringLiteral(

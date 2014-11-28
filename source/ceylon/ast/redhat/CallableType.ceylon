@@ -2,13 +2,16 @@ import ceylon.ast.core {
     CallableType,
     DefaultedType,
     PrimaryType,
+    SpreadType,
     Type,
     TypeList,
     VariadicType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JFunctionType=FunctionType
+        JFunctionType=FunctionType,
+        JSpreadType=SpreadType,
+        JType=Type
     }
 }
 import ceylon.interop.java {
@@ -17,26 +20,34 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[FunctionType|JFunctionType]] to a `ceylon.ast` [[CallableType]]."
 shared CallableType callableTypeToCeylon(JFunctionType callableType) {
-    variable VariadicType? variadicType = null;
-    <Type|DefaultedType>[] argumentTypes = CeylonIterable(callableType.argumentTypes).collect((Tree.Type jtype) {
-            value typeIsh = typeIshToCeylon(jtype);
-            if (is VariadicType typeIsh) {
-                "Can’t have multiple variadic types"
-                assert (!(variadicType exists));
-                variadicType = typeIsh;
-                return null; // filtered out
-            } else {
-                assert (is Type|DefaultedType typeIsh);
-                "Can’t have non-variadic type after variadic type"
-                assert (!(variadicType exists));
-                return typeIsh;
-            }
-        }).select((Anything a) => a exists).collect((Type|DefaultedType? element) {
-            assert (exists element);
-            return element;
-        });
+    TypeList|SpreadType argumentTypes;
+    if (is JSpreadType spreadType = CeylonIterable(callableType.argumentTypes).first) {
+        "Cannot have any other types beside a spread type"
+        assert (callableType.argumentTypes.size() == 1);
+        argumentTypes = spreadTypeToCeylon(spreadType);
+    } else {
+        variable VariadicType? variadicType = null;
+        <Type|DefaultedType>[] argumentTypesSeq = CeylonIterable(callableType.argumentTypes).collect((JType jtype) {
+                value typeIsh = typeIshToCeylon(jtype);
+                if (is VariadicType typeIsh) {
+                    "Can’t have multiple variadic types"
+                    assert (!(variadicType exists));
+                    variadicType = typeIsh;
+                    return null; // filtered out
+                } else {
+                    assert (is Type|DefaultedType typeIsh);
+                    "Can’t have non-variadic type after variadic type"
+                    assert (!(variadicType exists));
+                    return typeIsh;
+                }
+            }).select((Anything a) => a exists).collect((Type|DefaultedType? element) {
+                assert (exists element);
+                return element;
+            });
+        argumentTypes = TypeList(argumentTypesSeq, variadicType);
+    }
     assert (is PrimaryType returnType = typeToCeylon(callableType.returnType));
-    return CallableType(returnType, TypeList(argumentTypes, variadicType));
+    return CallableType(returnType, argumentTypes);
 }
 
 "Compiles the given [[code]] for a Callable Type

@@ -239,6 +239,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSpecifier(Specifier that) => transformNode(that);
     shared actual default Result transformSpreadArgument(SpreadArgument that) => transformExpressionIsh(that);
     shared actual default Result transformSpreadMemberOperator(SpreadMemberOperator that) => transformAnyMemberOperator(that);
+    shared actual default Result transformSpreadType(SpreadType that) => transformTypeIsh(that);
     shared actual default Result transformStatement(Statement that) => transformNode(that);
     shared actual default Result transformStringLiteral(StringLiteral that) => transformLiteral(that);
     shared actual default Result transformStringTemplate(StringTemplate that) => transformAtom(that);

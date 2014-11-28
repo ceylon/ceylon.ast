@@ -217,6 +217,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSpecifierStatement=SpecifierStatement,
         JSpreadArgument=SpreadArgument,
         JSpreadOp=SpreadOp,
+        JSpreadType=SpreadType,
         JStatement=Statement,
         JStaticType=StaticType,
         JStringLiteral=StringLiteral,
@@ -763,13 +764,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JStaticType returnType = transformPrimaryType(that.returnType);
         JFunctionType ret = JFunctionType(tokens.token("(", lparen));
         ret.returnType = returnType;
-        for (elementType in that.argumentTypes.elements) {
-            switch (elementType)
-            case (is Type) { ret.addArgumentType(transformType(elementType)); }
-            case (is DefaultedType) { ret.addArgumentType(transformDefaultedType(elementType)); }
+        switch (argumentTypes = that.argumentTypes)
+        case (is TypeList) {
+            for (elementType in argumentTypes.elements) {
+                switch (elementType)
+                case (is Type) { ret.addArgumentType(transformType(elementType)); }
+                case (is DefaultedType) { ret.addArgumentType(transformDefaultedType(elementType)); }
+            }
+            if (exists var = argumentTypes.variadic) {
+                ret.addArgumentType(transformVariadicType(var));
+            }
         }
-        if (exists var = that.argumentTypes.variadic) {
-            ret.addArgumentType(transformVariadicType(var));
+        case (is SpreadType) {
+            ret.addArgumentType(transformSpreadType(argumentTypes));
         }
         ret.endToken = tokens.token(")", rparen);
         return ret;
@@ -1089,6 +1096,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("=", specify);
+        return ret;
+    }
+    
+    shared actual JSpreadType transformSpreadType(SpreadType that) {
+        JSpreadType ret = JSpreadType(tokens.token("*", product_op));
+        ret.type = transformType(that.type);
         return ret;
     }
     

@@ -169,6 +169,7 @@ import ceylon.ast.core {
     Specifier,
     SpreadArgument,
     SpreadMemberOperator,
+    SpreadType,
     StringLiteral,
     StringTemplate,
     SubtractAssignmentOperation,
@@ -931,8 +932,8 @@ shared CompilationUnit completeCompilationUnit
                         parameterName = UIdentifier("TParam3");
                         variance = null;
                         defaultArgument = CallableType {
-                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
-                            argumentTypes = TypeList([]);
+                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Ret")));
+                            argumentTypes = SpreadType(BaseType(TypeNameWithTypeArguments(UIdentifier("Args"))));
                         };
                     },
                     TypeParameter {

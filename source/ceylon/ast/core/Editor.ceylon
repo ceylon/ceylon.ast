@@ -450,6 +450,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name), transformLazySpecifier(that.specifier), that.parameterLists.collect(transformParameters));
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
+    shared actual default LetExpression transformLetExpression(LetExpression that)
+            => that.copy(transformLetValueList(that.letValues), transformExpression(that.expression));
+    shared actual default LetValueList transformLetValueList(LetValueList that)
+            => that.copy(that.letValues.collect(transformSpecifiedVariable));
     shared actual default Literal transformLiteral(Literal that) {
         assert (is Literal ret = super.transformLiteral(that));
         return ret;

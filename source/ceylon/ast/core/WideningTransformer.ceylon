@@ -153,6 +153,8 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLargerOperation(LargerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLazySpecification(LazySpecification that) => transformSpecification(that);
     shared actual default Result transformLazySpecifier(LazySpecifier that) => transformAnySpecifier(that);
+    shared actual default Result transformLetExpression(LetExpression that) => transformExpression(that);
+    shared actual default Result transformLetValueList(LetValueList that) => transformExpressionIsh(that);
     shared actual default Result transformLiteral(Literal that) => transformNode(that);
     shared actual default Result transformLocalModifier(LocalModifier that) => transformTypeModifier(that);
     shared actual default Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => transformAssignmentOperation(that);

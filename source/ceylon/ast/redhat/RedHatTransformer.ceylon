@@ -141,6 +141,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
         JLazySpecifierExpression=LazySpecifierExpression,
+        JLetClause=LetClause,
+        JLetExpression=LetExpression,
         JListedArgument=ListedArgument,
         JLocalModifier=LocalModifier,
         JLogicalAssignmentOp=LogicalAssignmentOp,
@@ -326,6 +328,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         larger_op=\iLARGER_OP,
         lbrace=\iLBRACE,
         lbracket=\iLBRACKET,
+        letType=\iLET,
         lidentifier=\iLIDENTIFIER,
         lparen=\iLPAREN,
         member_op=\iMEMBER_OP,
@@ -1929,6 +1932,28 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JIdentifier transformLIdentifier(LIdentifier that)
             => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
     
+    shared actual JLetExpression transformLetExpression(LetExpression that) {
+        JLetExpression ret = JLetExpression(null);
+        JLetClause letClause = JLetClause(tokens.token("let", letType));
+        letClause.endToken = tokens.token("(", lparen);
+        letClause.addVariable(helpTransformSpecifiedVariable(that.letValues.letValues.first));
+        for (letValue in that.letValues.letValues.rest) {
+            letClause.endToken = tokens.token(",", comma);
+            letClause.addVariable(helpTransformSpecifiedVariable(letValue));
+        }
+        letClause.endToken = tokens.token(")", rparen);
+        letClause.expression = wrapTerm(transformExpression(that.expression));
+        letClause.endToken = null;
+        ret.letClause = letClause;
+        return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[LetValueList]];
+     this method throws."
+    shared actual Nothing transformLetValueList(LetValueList that) {
+        throw Exception("LetValueList has no RedHat AST equivalent!");
+    }
+    
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
         return ret;
@@ -2530,15 +2555,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         switch (resource)
         case (is Expression) { ret.expression = wrapTerm(transformExpression(resource)); }
         case (is SpecifiedVariable) {
-            JVariable var = JVariable(null);
-            value type = resource.type;
-            switch (type)
-            case (is Type) { var.type = transformType(type); }
-            case (is ValueModifier) { var.type = transformValueModifier(type); }
-            case (null) { var.type = JValueModifier(null); }
-            var.identifier = transformLIdentifier(resource.name);
-            var.specifierExpression = transformSpecifier(resource.specifier);
-            ret.variable = var;
+            ret.variable = helpTransformSpecifiedVariable(resource);
         }
         return ret;
     }
@@ -3447,6 +3464,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
         ret.identifier = transformLIdentifier(that.name);
         ret.endToken = tokens.token("`", backtick);
+    }
+    
+    JVariable helpTransformSpecifiedVariable(SpecifiedVariable resource) {
+        JVariable var = JVariable(null);
+        value type = resource.type;
+        switch (type)
+        case (is Type) { var.type = transformType(type); }
+        case (is ValueModifier) { var.type = transformValueModifier(type); }
+        case (null) { var.type = JValueModifier(null); }
+        var.identifier = transformLIdentifier(resource.name);
+        var.specifierExpression = transformSpecifier(resource.specifier);
+        return var;
     }
     
     JExpression wrapTerm(JTerm term) {

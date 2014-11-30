@@ -162,6 +162,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
     transformLazySpecification(LazySpecification that) => visitLazySpecification(that);
     transformLazySpecifier(LazySpecifier that) => visitLazySpecifier(that);
+    transformLetExpression(LetExpression that) => visitLetExpression(that);
+    transformLetValueList(LetValueList that) => visitLetValueList(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformLocalModifier(LocalModifier that) => visitLocalModifier(that);
     transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => visitLogicalAssignmentOperation(that);
@@ -460,6 +462,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitLazySpecification(LazySpecification that) => super.transformLazySpecification(that);
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
+    shared default void visitLetExpression(LetExpression that) => super.transformLetExpression(that);
+    shared default void visitLetValueList(LetValueList that) => super.transformLetValueList(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitLocalModifier(LocalModifier that) => super.transformLocalModifier(that);
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);

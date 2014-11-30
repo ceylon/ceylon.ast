@@ -207,6 +207,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         switch (that)
         case (is ValueExpression) { return transformValueExpression(that); }
         case (is FunctionExpression) { return transformFunctionExpression(that); }
+        case (is LetExpression) { return transformLetExpression(that); }
     }
     shared actual default Result transformExpressionIsh(ExpressionIsh that) {
         switch (that)
@@ -227,6 +228,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Subscript) { return transformSubscript(that); }
         case (is DecQualifier) { return transformDecQualifier(that); }
         case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
+        case (is LetValueList) { return transformLetValueList(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)

@@ -112,6 +112,8 @@ import ceylon.ast.core {
     LargerOperation,
     LazySpecification,
     LazySpecifier,
+    LetExpression,
+    LetValueList,
     LIdentifier,
     MatchCase,
     MeasureOperation,
@@ -546,7 +548,16 @@ shared CompilationUnit completeCompilationUnit
                                             };
                                             clause = IfComprehensionClause {
                                                 conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
-                                                clause = ExpressionComprehensionClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
+                                                clause = ExpressionComprehensionClause(LetExpression {
+                                                        letValues = LetValueList([
+                                                                SpecifiedVariable {
+                                                                    name = LIdentifier("w");
+                                                                    specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
+                                                                    type = null;
+                                                                }
+                                                            ]);
+                                                        expression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("w")));
+                                                    });
                                             };
                                         });
                                 }));

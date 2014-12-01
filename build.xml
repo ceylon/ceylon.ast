@@ -218,6 +218,7 @@
     <target name="compile-source-gen"
         description="Compiles the Ceylon AST source-gen module">
         <ceylon-compile executable="${ceylon.executable}"
+            src="source-gen"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
             out="${out.repo}"

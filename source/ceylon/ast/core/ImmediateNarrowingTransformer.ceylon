@@ -85,8 +85,6 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformExpression(Expression that)
             => that.transform(this);
-    shared actual default Result transformExpressionIsh(ExpressionIsh that)
-            => that.transform(this);
     shared actual default Result transformExpressionStatement(ExpressionStatement that)
             => that.transform(this);
     shared actual default Result transformForIterator(ForIterator that)

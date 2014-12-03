@@ -35,7 +35,7 @@
  Instead, we have just one list of parameters; the separation into required,
  defaulted, and variadic ones may then be done in later stages of AST processing."
 shared class Parameters(parameters = [])
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The parameters."
     shared Parameter[] parameters;

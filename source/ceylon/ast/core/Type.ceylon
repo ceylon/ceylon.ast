@@ -5,7 +5,7 @@
  it’s not a valid type by itself.)"
 shared abstract class TypeIsh()
         of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | SpreadType | TypeArgument | TypeArguments
-        extends ExpressionIsh() {
+        extends Node() {
     shared actual formal <TypeIsh|Identifier|Variance>[] children;
 }
 

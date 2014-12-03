@@ -10,5 +10,5 @@
      ... text.size - 2"
 shared abstract class Subscript()
         of KeySubscript | RangeSubscript
-        extends ExpressionIsh() {
+        extends Node() {
 }

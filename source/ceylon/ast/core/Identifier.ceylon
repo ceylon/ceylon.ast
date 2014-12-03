@@ -25,7 +25,7 @@ shared Boolean uidentifierNeedsPrefix(String name) {
     return firstChar.lowercase || firstChar == '_'; // there are no initial uppercase keywords
 }
 
-shared abstract class Identifier(name, usePrefix) of LIdentifier | UIdentifier extends ExpressionIsh() {
+shared abstract class Identifier(name, usePrefix) of LIdentifier | UIdentifier extends Node() {
     
     "The name of the identifier."
     shared default String name;

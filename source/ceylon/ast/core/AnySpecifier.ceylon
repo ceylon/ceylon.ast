@@ -6,7 +6,7 @@
      => text.uppercased"
 shared abstract class AnySpecifier()
         of Specifier | LazySpecifier
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The specified expression."
     shared formal Expression expression;

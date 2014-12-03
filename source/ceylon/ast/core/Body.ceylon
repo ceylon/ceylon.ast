@@ -6,7 +6,7 @@
      { shared String name; string => name; }"
 shared abstract class Body()
         of Block | ClassBody | InterfaceBody
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The content of the body."
     shared formal <Declaration|Statement>[] content;

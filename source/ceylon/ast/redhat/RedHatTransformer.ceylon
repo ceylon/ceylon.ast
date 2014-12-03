@@ -1271,11 +1271,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JTerm transformExpressionIsh(ExpressionIsh that) {
-        assert (is JTerm ret = super.transformExpressionIsh(that));
-        return ret;
-    }
-    
     shared actual JExpressionStatement transformExpressionStatement(ExpressionStatement that) {
         assert (is JExpressionStatement ret = super.transformExpressionStatement(that));
         return ret;

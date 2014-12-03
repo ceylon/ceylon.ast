@@ -5,7 +5,7 @@
      ceylon.language
      ceylon.ast.core"
 shared class FullPackageName(components)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The component names.
      

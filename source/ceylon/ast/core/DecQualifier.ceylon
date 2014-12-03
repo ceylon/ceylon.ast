@@ -7,7 +7,7 @@
      process
      Entry"
 shared class DecQualifier(components)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The components of the qualifier."
     /*

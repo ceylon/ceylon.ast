@@ -291,10 +291,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default ExpressionComprehensionClause transformExpressionComprehensionClause(ExpressionComprehensionClause that)
             => that.copy(transformExpression(that.expression));
-    shared actual default ExpressionIsh transformExpressionIsh(ExpressionIsh that) {
-        assert (is ExpressionIsh ret = super.transformExpressionIsh(that));
-        return ret;
-    }
     shared actual default ExpressionStatement transformExpressionStatement(ExpressionStatement that) {
         assert (is ExpressionStatement ret = super.transformExpressionStatement(that));
         return ret;

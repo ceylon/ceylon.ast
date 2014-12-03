@@ -12,7 +12,7 @@
      *values.collect(Object.string)
      *[]"
 shared class SpreadArgument(argument)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The expression being spread.
      

@@ -5,7 +5,7 @@
      (dist = sqrt(x^2 + y^2))
      (c = other.a, d = other.b)"
 shared class LetValueList(letValues)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The individual values."
     shared [SpecifiedVariable+] letValues;

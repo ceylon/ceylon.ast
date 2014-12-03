@@ -10,7 +10,7 @@
      /* empty parameter list is also allowed */
      this, *others"
 shared class ArgumentList(listedArguments = [], sequenceArgument = null)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The regular, listed arguments."
     shared Expression[] listedArguments;

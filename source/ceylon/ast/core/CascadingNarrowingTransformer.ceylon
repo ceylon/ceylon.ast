@@ -209,27 +209,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is FunctionExpression) { return transformFunctionExpression(that); }
         case (is LetExpression) { return transformLetExpression(that); }
     }
-    shared actual default Result transformExpressionIsh(ExpressionIsh that) {
-        switch (that)
-        case (is Expression) { return transformExpression(that); }
-        case (is TypeIsh) { return transformTypeIsh(that); }
-        case (is Identifier) { return transformIdentifier(that); }
-        case (is FullPackageName) { return transformFullPackageName(that); }
-        case (is ArgumentList) { return transformArgumentList(that); }
-        case (is SpreadArgument) { return transformSpreadArgument(that); }
-        case (is Arguments) { return transformArguments(that); }
-        case (is NamedArgument) { return transformNamedArgument(that); }
-        case (is AnySpecifier) { return transformAnySpecifier(that); }
-        case (is Parameters) { return transformParameters(that); }
-        case (is Bound) { return transformBound(that); }
-        case (is Modifier) { return transformModifier(that); }
-        case (is Body) { return transformBody(that); }
-        case (is Comprehension) { return transformComprehension(that); }
-        case (is Subscript) { return transformSubscript(that); }
-        case (is DecQualifier) { return transformDecQualifier(that); }
-        case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
-        case (is LetValueList) { return transformLetValueList(that); }
-    }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)
         case (is AssignmentStatement) { return transformAssignmentStatement(that); }
@@ -332,7 +311,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
     }
     shared actual default Result transformNode(Node that) {
         switch (that)
-        case (is ExpressionIsh) { return transformExpressionIsh(that); }
+        case (is Expression) { return transformExpression(that); }
         case (is Statement) { return transformStatement(that); }
         case (is Declaration) { return transformDeclaration(that); }
         case (is Annotation) { return transformAnnotation(that); }
@@ -376,6 +355,23 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is CaseClause) { return transformCaseClause(that); }
         case (is SwitchCases) { return transformSwitchCases(that); }
         case (is SwitchClause) { return transformSwitchClause(that); }
+        case (is TypeIsh) { return transformTypeIsh(that); }
+        case (is Identifier) { return transformIdentifier(that); }
+        case (is FullPackageName) { return transformFullPackageName(that); }
+        case (is ArgumentList) { return transformArgumentList(that); }
+        case (is SpreadArgument) { return transformSpreadArgument(that); }
+        case (is Arguments) { return transformArguments(that); }
+        case (is NamedArgument) { return transformNamedArgument(that); }
+        case (is AnySpecifier) { return transformAnySpecifier(that); }
+        case (is Parameters) { return transformParameters(that); }
+        case (is Bound) { return transformBound(that); }
+        case (is Modifier) { return transformModifier(that); }
+        case (is Body) { return transformBody(that); }
+        case (is Comprehension) { return transformComprehension(that); }
+        case (is Subscript) { return transformSubscript(that); }
+        case (is DecQualifier) { return transformDecQualifier(that); }
+        case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
+        case (is LetValueList) { return transformLetValueList(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

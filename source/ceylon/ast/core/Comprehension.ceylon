@@ -8,7 +8,7 @@
      for (people in peoples) for (person in people) if (person.age >= age) person
      if (exists typeArguments = that.typeArguments) for (typeArgument in typeArguments) typeArgument.type"
 shared class Comprehension(clause)
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The initial, “head” comprehension clause.
      The other comprehension clauses are stored

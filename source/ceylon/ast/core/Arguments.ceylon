@@ -13,5 +13,5 @@
      { factor = 2.1; *actors }"
 shared abstract class Arguments()
         of PositionalArguments | NamedArguments
-        extends ExpressionIsh() {
+        extends Node() {
 }

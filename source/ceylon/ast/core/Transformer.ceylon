@@ -102,7 +102,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformExponentiationOperation(ExponentiationOperation that);
     shared formal Result transformExpression(Expression that);
     shared formal Result transformExpressionComprehensionClause(ExpressionComprehensionClause that);
-    shared formal Result transformExpressionIsh(ExpressionIsh that);
     shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformExtendedType(ExtendedType that);
     shared formal Result transformFailClause(FailClause that);

@@ -12,7 +12,7 @@
  - `value` – [[ValueModifier]]"
 shared abstract class Modifier()
         of TypeModifier | Variance
-        extends ExpressionIsh() {
+        extends Node() {
     
     "The text / keyword of the modifier."
     shared formal String text;

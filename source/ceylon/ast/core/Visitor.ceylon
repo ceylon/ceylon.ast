@@ -100,7 +100,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformExponentiationOperation(ExponentiationOperation that) => visitExponentiationOperation(that);
     transformExpression(Expression that) => visitExpression(that);
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => visitExpressionComprehensionClause(that);
-    transformExpressionIsh(ExpressionIsh that) => visitExpressionIsh(that);
     transformExpressionStatement(ExpressionStatement that) => visitExpressionStatement(that);
     transformExtendedType(ExtendedType that) => visitExtendedType(that);
     transformFailClause(FailClause that) => visitFailClause(that);
@@ -400,7 +399,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitExponentiationOperation(ExponentiationOperation that) => super.transformExponentiationOperation(that);
     shared default void visitExpressionComprehensionClause(ExpressionComprehensionClause that) => super.transformExpressionComprehensionClause(that);
     shared default void visitExpression(Expression that) => super.transformExpression(that);
-    shared default void visitExpressionIsh(ExpressionIsh that) => super.transformExpressionIsh(that);
     shared default void visitExpressionStatement(ExpressionStatement that) => super.transformExpressionStatement(that);
     shared default void visitExtendedType(ExtendedType that) => super.transformExtendedType(that);
     shared default void visitFailClause(FailClause that) => super.transformFailClause(that);

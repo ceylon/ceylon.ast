@@ -184,6 +184,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformNotOperation(NotOperation that) => transformUnaryOperation(that);
     shared actual default Result transformObjectArgument(ObjectArgument that) => transformInlineDefinitionArgument(that);
     shared actual default Result transformObjectDefinition(ObjectDefinition that) => transformDeclaration(that);
+    shared actual default Result transformObjectExpression(ObjectExpression that) => transformAtom(that);
     shared actual default Result transformOfOperation(OfOperation that) => transformUnaryTypeOperation(that);
     shared actual default Result transformOpenBound(OpenBound that) => transformBound(that);
     shared actual default Result transformOperation(Operation that) => transformValueExpression(that);

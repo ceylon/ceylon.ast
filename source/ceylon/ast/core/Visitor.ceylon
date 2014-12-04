@@ -194,6 +194,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformNotOperation(NotOperation that) => visitNotOperation(that);
     transformObjectArgument(ObjectArgument that) => visitObjectArgument(that);
     transformObjectDefinition(ObjectDefinition that) => visitObjectDefinition(that);
+    transformObjectExpression(ObjectExpression that) => visitObjectExpression(that);
     transformOfOperation(OfOperation that) => visitOfOperation(that);
     transformOpenBound(OpenBound that) => visitOpenBound(that);
     transformOperation(Operation that) => visitOperation(that);
@@ -493,6 +494,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitNotOperation(NotOperation that) => super.transformNotOperation(that);
     shared default void visitObjectArgument(ObjectArgument that) => super.transformObjectArgument(that);
     shared default void visitObjectDefinition(ObjectDefinition that) => super.transformObjectDefinition(that);
+    shared default void visitObjectExpression(ObjectExpression that) => super.transformObjectExpression(that);
     shared default void visitOfOperation(OfOperation that) => super.transformOfOperation(that);
     shared default void visitOpenBound(OpenBound that) => super.transformOpenBound(that);
     shared default void visitOperation(Operation that) => super.transformOperation(that);

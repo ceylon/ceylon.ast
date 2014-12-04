@@ -99,6 +99,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Iterable) { return transformIterable(that); }
         case (is Tuple) { return transformTuple(that); }
         case (is DynamicValue) { return transformDynamicValue(that); }
+        case (is ObjectExpression) { return transformObjectExpression(that); }
     }
     shared actual default Result transformBinaryOperation(BinaryOperation that) {
         switch (that)

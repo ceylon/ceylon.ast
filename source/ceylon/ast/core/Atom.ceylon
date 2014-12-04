@@ -5,6 +5,6 @@
  in `1.add`, however, the child expressions are not wrapped.
  Therefore, a [[Tuple]] is an atom, while a [[QualifiedExpression]] isn’t."
 shared abstract class Atom()
-        of Literal | StringTemplate | SelfReference | GroupedExpression | Iterable | Tuple | DynamicValue
+        of Literal | StringTemplate | SelfReference | GroupedExpression | Iterable | Tuple | DynamicValue | ObjectExpression
         extends Primary() {
 }

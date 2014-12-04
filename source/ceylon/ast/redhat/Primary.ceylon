@@ -14,6 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JInvocationExpression=InvocationExpression,
         JMetaLiteral=MetaLiteral,
         JModuleLiteral=ModuleLiteral,
+        JObjectExpression=ObjectExpression,
         JPackageLiteral=PackageLiteral,
         JPrimary=Primary,
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
@@ -45,6 +46,7 @@ shared Primary primaryToCeylon(JPrimary primary) {
             return metaToCeylon(primary);
         }
     }
+    case (is JObjectExpression) { return objectExpressionToCeylon(primary); }
     else {
         throw AssertionError("Unknown primary type, or not a primary");
     }

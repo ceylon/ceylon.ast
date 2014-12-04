@@ -130,6 +130,7 @@ import ceylon.ast.core {
     NotOperation,
     ObjectArgument,
     ObjectDefinition,
+    ObjectExpression,
     OfOperation,
     OpenBound,
     OptionalType,
@@ -834,6 +835,20 @@ shared CompilationUnit completeCompilationUnit
                                             expressions = [IntegerLiteral("0")];
                                         }
                                     ])));
+                        annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("objectExpression");
+                        type = ValueModifier();
+                        definition = Specifier(ObjectExpression {
+                                body = ClassBody([]);
+                                extendedType = ExtendedType(ClassInstantiation {
+                                        name = TypeNameWithTypeArguments(UIdentifier("Object"));
+                                        arguments = PositionalArguments(ArgumentList([]));
+                                        qualifier = null;
+                                    });
+                                satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))]);
+                            });
                         annotations = Annotations();
                     }
                 ]);

@@ -168,6 +168,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNotOp=NotOp,
         JObjectArgument=ObjectArgument,
         JObjectDefinition=ObjectDefinition,
+        JObjectExpression=ObjectExpression,
         JOfOp=OfOp,
         JOpenBound=OpenBound,
         JOperatorExpression=OperatorExpression,
@@ -2182,6 +2183,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.type = JValueModifier(null);
         ret.annotationList = annotationList;
         ret.identifier = transformLIdentifier(that.name);
+        if (exists extendedType = that.extendedType) {
+            ret.extendedType = transformExtendedType(extendedType);
+        }
+        if (exists satisfiedTypes = that.satisfiedTypes) {
+            ret.satisfiedTypes = transformSatisfiedTypes(satisfiedTypes);
+        }
+        ret.classBody = transformClassBody(that.body);
+        return ret;
+    }
+    
+    shared actual JObjectExpression transformObjectExpression(ObjectExpression that) {
+        JObjectExpression ret = JObjectExpression(tokens.token("object", object_definition));
         if (exists extendedType = that.extendedType) {
             ret.extendedType = transformExtendedType(extendedType);
         }

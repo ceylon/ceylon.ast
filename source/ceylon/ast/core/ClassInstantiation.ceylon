@@ -24,9 +24,7 @@ shared class ClassInstantiation(name, arguments, qualifier = null)
     "The qualifier of the instantiation, if present."
     shared TypeNameWithTypeArguments|Super? qualifier;
     
-    shared actual Node[] children;
-    // TODO use more precise type when backend bug is fixed!
-    //shared actual [TypeNameWithTypeArguments, PositionalArguments]|[TypeNameWithTypeArguments|Super, TypeNameWithTypeArguments, PositionalArguments] children;
+    shared actual [TypeNameWithTypeArguments, PositionalArguments]|[TypeNameWithTypeArguments|Super, TypeNameWithTypeArguments, PositionalArguments] children;
     if (exists qualifier) {
         children = [qualifier, name, arguments];
     } else {

@@ -14,9 +14,7 @@ shared class UnspecifiedVariable(name, type = null)
     "An unspecified variable has no specifier."
     shared actual Null specifier => null;
     
-    //shared actual [Type|ValueModifier, LIdentifier]|[LIdentifier] children;
-    // TODO use the above more precise type when backend bug is fixed
-    shared actual Node[] children;
+    shared actual [Type|ValueModifier, LIdentifier]|[LIdentifier] children;
     if (exists type) {
         children = [type, name];
     } else {

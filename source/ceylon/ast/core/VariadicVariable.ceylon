@@ -14,9 +14,7 @@ shared class VariadicVariable(name, type = null)
     "A variadic variable has no specifier."
     shared actual Null specifier => null;
     
-    //shared actual [UnionType, LIdentifier]|[LIdentifier] children;
-    // TODO use the above more precise type when backend bug is fixed
-    shared actual Node[] children;
+    shared actual [UnionType, LIdentifier]|[LIdentifier] children;
     if (exists type) {
         children = [type, name];
     } else {

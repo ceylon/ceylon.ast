@@ -20,9 +20,7 @@ shared class TypeParameter(parameterName, variance = null, defaultArgument = nul
      or [[null]] if there is no default type argument."
     shared Type? defaultArgument;
     
-    // TODO use the following more precise type when backend bug is fixed:
-    // shared actual [Variance, UIdentifier, Type=]|[UIdentifier, Type=] children;
-    shared actual Node[] children;
+    shared actual [Variance, UIdentifier, Type=]|[UIdentifier, Type=] children;
     if (exists variance) {
         children = [variance, parameterName, *emptyOrSingleton(defaultArgument)];
     } else {

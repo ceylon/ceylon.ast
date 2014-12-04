@@ -15,9 +15,7 @@ shared class TypeConstraint(parameterName, caseTypes = null, satisfiedTypes = nu
     "The type(s) that the type argument must satisfy."
     shared SatisfiedTypes? satisfiedTypes;
     
-    // TODO use the following more precise type when backend bug is fixed
-    // shared actual [UIdentifier]|[UIdentifier, CaseTypes]|[UIdentifier, SatisfiedTypes]|[UIdentifier, CaseTypes, SatisfiedTypes] children;
-    shared actual Node[] children;
+    shared actual [UIdentifier]|[UIdentifier, CaseTypes]|[UIdentifier, SatisfiedTypes]|[UIdentifier, CaseTypes, SatisfiedTypes] children;
     if (exists caseTypes) {
         if (exists satisfiedTypes) {
             children = [parameterName, caseTypes, satisfiedTypes];

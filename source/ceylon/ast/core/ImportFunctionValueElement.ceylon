@@ -23,9 +23,7 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
      See [ceylon/ceylon-spec#323](https://github.com/ceylon/ceylon-spec/issues/323)."
     shared actual ImportElements? nestedImports;
     
-    // TODO use more precise type when backend bug is fixed
-    //shared actual [ImportFunctionValueAlias, LIdentifier, ImportElements=]|[Identifier, ImportElements=] children;
-    shared actual Node[] children;
+    shared actual [ImportFunctionValueAlias, LIdentifier, ImportElements=]|[Identifier, ImportElements=] children;
     if (exists importAlias) {
         if (exists nestedImports) {
             children = [importAlias, name, nestedImports];

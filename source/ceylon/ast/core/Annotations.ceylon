@@ -17,9 +17,7 @@ shared class Annotations(anonymousAnnotation = null, annotations = [])
     "The regular annotations."
     shared Annotation[] annotations;
     
-    shared actual Node[] children;
-    // TODO use the following, more precise type instead when backend bug (ceylon-compiler#1728?) is fixed
-    // shared actual Annotation[]|[StringLiteral, Annotation*] children;
+    shared actual Annotation[]|[StringLiteral, Annotation*] children;
     if (exists anonymousAnnotation) {
         children = [anonymousAnnotation, *annotations];
     } else {

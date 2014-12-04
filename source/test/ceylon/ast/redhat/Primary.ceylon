@@ -17,5 +17,5 @@ shared object primary satisfies AbstractTest<Primary,JPrimary> {
     fromCeylon = RedHatTransformer.transformPrimary;
     toCeylon = primaryToCeylon;
     
-    tests = [atom, baseExpression, qualifiedExpression, invocation, elementOrSubrangeExpression, meta, dec];
+    tests = [atom, baseExpression, qualifiedExpression, invocation, elementOrSubrangeExpression, meta, dec, objectExpression];
 }

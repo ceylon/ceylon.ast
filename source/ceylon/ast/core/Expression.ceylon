@@ -82,7 +82,7 @@
    - [[ThenElseExpression]]
    - [[AssigningExpression]]"""
 shared abstract class Expression()
-        of ValueExpression | FunctionExpression | LetExpression
+        of ValueExpression | FunctionExpression | LetExpression | ConditionalExpression
         extends Node() {
     shared actual formal Node[] children;
 }

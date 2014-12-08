@@ -218,7 +218,8 @@ import ceylon.ast.core {
     VariadicType,
     VoidModifier,
     While,
-    WithinOperation
+    WithinOperation,
+    IfElseExpression
 }
 
 "A compilation unit node containing every AST node that can be a child of a regular compilation unit
@@ -849,6 +850,22 @@ shared CompilationUnit completeCompilationUnit
                                     });
                                 satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))]);
                             });
+                        annotations = Annotations();
+                    },
+                    ValueDefinition {
+                        name = LIdentifier("conditionalExpressions");
+                        type = ValueModifier();
+                        definition = Specifier(Iterable(ArgumentList([
+                                        IfElseExpression {
+                                            conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition"))))]);
+                                            thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("thenExpression")));
+                                            elseExpression = IfElseExpression {
+                                                conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition2"))))]);
+                                                thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseThenExpression")));
+                                                elseExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseExpression")));
+                                            };
+                                        }
+                                    ])));
                         annotations = Annotations();
                     }
                 ]);

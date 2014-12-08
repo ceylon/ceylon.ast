@@ -157,6 +157,10 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is IsCondition) { return transformIsCondition(that); }
         case (is ExistsOrNonemptyCondition) { return transformExistsOrNonemptyCondition(that); }
     }
+    shared actual default Result transformConditionalExpression(ConditionalExpression that) {
+        switch (that)
+        case (is IfElseExpression) { return transformIfElseExpression(that); }
+    }
     shared actual default Result transformControlStructure(ControlStructure that) {
         switch (that)
         case (is IfElse) { return transformIfElse(that); }
@@ -209,6 +213,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is ValueExpression) { return transformValueExpression(that); }
         case (is FunctionExpression) { return transformFunctionExpression(that); }
         case (is LetExpression) { return transformLetExpression(that); }
+        case (is ConditionalExpression) { return transformConditionalExpression(that); }
     }
     shared actual default Result transformExpressionStatement(ExpressionStatement that) {
         switch (that)

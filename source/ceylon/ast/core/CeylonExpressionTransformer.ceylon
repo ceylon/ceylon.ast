@@ -381,6 +381,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``ifClause = ``transformWithIndent(that.ifClause)``;
                 `` indent + indentLevel ``elseClause = ``transformWithIndent(that.elseClause)``;
                 ``indent``}";
+    transformIfElseExpression(IfElseExpression that)
+            => "IfElseExpression {
+                `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
+                `` indent + indentLevel ``thenExpression = ``transformWithIndent(that.thenExpression)``;
+                `` indent + indentLevel ``elseExpression = ``transformWithIndent(that.elseExpression)``;
+                ``indent``}";
     transformImport(Import that)
             => "Import {
                 `` indent + indentLevel ``packageName = ``transformWithIndent(that.packageName)``;

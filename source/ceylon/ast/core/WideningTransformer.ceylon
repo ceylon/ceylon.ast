@@ -59,6 +59,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformComprehension(Comprehension that) => transformNode(that);
     shared actual default Result transformComprehensionClause(ComprehensionClause that) => transformNode(that);
     shared actual default Result transformCondition(Condition that) => transformNode(that);
+    shared actual default Result transformConditionalExpression(ConditionalExpression that) => transformExpression(that);
     shared actual default Result transformConditions(Conditions that) => transformNode(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformControlStructure(ControlStructure that) => transformStatement(that);
@@ -117,6 +118,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIfClause(IfClause that) => transformNode(that);
     shared actual default Result transformIfComprehensionClause(IfComprehensionClause that) => transformInitialComprehensionClause(that);
     shared actual default Result transformIfElse(IfElse that) => transformControlStructure(that);
+    shared actual default Result transformIfElseExpression(IfElseExpression that) => transformConditionalExpression(that);
     shared actual default Result transformImport(Import that) => transformNode(that);
     shared actual default Result transformImportAlias(ImportAlias that) => transformNode(that);
     shared actual default Result transformImportElement(ImportElement that) => transformNode(that);

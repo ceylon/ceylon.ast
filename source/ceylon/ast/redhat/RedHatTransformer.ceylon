@@ -108,6 +108,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIdentifier=Identifier,
         JIfClause=IfClause,
         JIfComprehensionClause=IfComprehensionClause,
+        JIfExpression=IfExpression,
         JIfStatement=IfStatement,
         JImport=Import,
         JImportList=ImportList,
@@ -1038,6 +1039,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JIfExpression transformConditionalExpression(ConditionalExpression that) {
+        assert (is JIfExpression ret = super.transformConditionalExpression(that));
+        return ret;
+    }
+    
     shared actual JConditionList transformConditions(Conditions that) {
         JConditionList ret = JConditionList(tokens.token("(", lparen));
         ret.addCondition(transformCondition(that.conditions.first));
@@ -1572,6 +1578,50 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.ifClause = transformIfClause(that.ifClause);
         if (exists elseClause = that.elseClause) {
             ret.elseClause = transformElseClause(elseClause);
+        }
+        return ret;
+    }
+    
+    shared actual JIfExpression transformIfElseExpression(IfElseExpression that) {
+        JIfExpression ret = JIfExpression(tokens.token("if", if_clause));
+        value cl = transformConditions(that.conditions);
+        value ic = JIfClause(tokens.token("then", then_clause));
+        ic.expression = wrapTerm(transformExpression(that.thenExpression));
+        value ec = JElseClause(tokens.token("else", else_clause));
+        ec.expression = wrapTerm(transformExpression(that.elseExpression));
+        ret.ifClause = ic;
+        ret.elseClause = ec;
+        ic.conditionList = cl;
+        // now comes lots of variable manipulation, pulled from the grammar
+        value conditions = cl.conditions;
+        if (conditions.size() == 1) {
+            assert (exists c = conditions.get(0));
+            JIdentifier? id;
+            JType? t;
+            if (is JExistsOrNonemptyCondition c, exists v = c.variable) {
+                t = v.type;
+                id = v.identifier;
+            } else if (is JIsCondition c, exists v = c.variable) {
+                t = v.type;
+                id = v.identifier;
+            } else {
+                t = null;
+                id = null;
+            }
+            if (id exists, t is JSyntheticVariable) {
+                value ev = JVariable(null);
+                ev.type = JSyntheticVariable(null);
+                value ese = JSpecifierExpression(null);
+                value ee = JExpression(null);
+                value ebme = JBaseMemberExpression(null);
+                ebme.typeArguments = JInferredTypeArguments(null);
+                ee.term = ebme;
+                ese.expression = ee;
+                ev.specifierExpression = ese;
+                ec.variable = ev;
+                ev.identifier = id;
+                ebme.identifier = id;
+            }
         }
         return ret;
     }

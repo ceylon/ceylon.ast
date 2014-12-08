@@ -68,6 +68,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformComprehension(Comprehension that) => visitComprehension(that);
     transformComprehensionClause(ComprehensionClause that) => visitComprehensionClause(that);
     transformCondition(Condition that) => visitCondition(that);
+    transformConditionalExpression(ConditionalExpression that) => visitConditionalExpression(that);
     transformConditions(Conditions that) => visitConditions(that);
     transformContinue(Continue that) => visitContinue(that);
     transformControlStructure(ControlStructure that) => visitControlStructure(that);
@@ -126,6 +127,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformIfClause(IfClause that) => visitIfClause(that);
     transformIfComprehensionClause(IfComprehensionClause that) => visitIfComprehensionClause(that);
     transformIfElse(IfElse that) => visitIfElse(that);
+    transformIfElseExpression(IfElseExpression that) => visitIfElseExpression(that);
     transformImport(Import that) => visitImport(that);
     transformImportAlias(ImportAlias that) => visitImportAlias(that);
     transformImportElement(ImportElement that) => visitImportElement(that);
@@ -368,6 +370,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitComprehensionClause(ComprehensionClause that) => super.transformComprehensionClause(that);
     shared default void visitComprehension(Comprehension that) => super.transformComprehension(that);
     shared default void visitCondition(Condition that) => super.transformCondition(that);
+    shared default void visitConditionalExpression(ConditionalExpression that) => super.transformConditionalExpression(that);
     shared default void visitConditions(Conditions that) => super.transformConditions(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
@@ -426,6 +429,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitIfClause(IfClause that) => super.transformIfClause(that);
     shared default void visitIfComprehensionClause(IfComprehensionClause that) => super.transformIfComprehensionClause(that);
     shared default void visitIfElse(IfElse that) => super.transformIfElse(that);
+    shared default void visitIfElseExpression(IfElseExpression that) => super.transformIfElseExpression(that);
     shared default void visitImportAlias(ImportAlias that) => super.transformImportAlias(that);
     shared default void visitImportElement(ImportElement that) => super.transformImportElement(that);
     shared default void visitImportElements(ImportElements that) => super.transformImportElements(that);

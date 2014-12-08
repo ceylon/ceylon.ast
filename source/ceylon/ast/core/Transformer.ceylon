@@ -70,6 +70,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformComprehension(Comprehension that);
     shared formal Result transformComprehensionClause(ComprehensionClause that);
     shared formal Result transformCondition(Condition that);
+    shared formal Result transformConditionalExpression(ConditionalExpression that);
     shared formal Result transformConditions(Conditions that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformControlStructure(ControlStructure that);
@@ -128,6 +129,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformIfClause(IfClause that);
     shared formal Result transformIfComprehensionClause(IfComprehensionClause that);
     shared formal Result transformIfElse(IfElse that);
+    shared formal Result transformIfElseExpression(IfElseExpression that);
     shared formal Result transformImport(Import that);
     shared formal Result transformImportAlias(ImportAlias that);
     shared formal Result transformImportElement(ImportElement that);

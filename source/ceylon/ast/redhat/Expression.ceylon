@@ -5,6 +5,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
         JFunctionArgument=FunctionArgument,
+        JIfExpression=IfExpression,
         JLetExpression=LetExpression,
         JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
@@ -25,6 +26,7 @@ shared Expression expressionToCeylon(JTerm term) {
     case (is JOperatorExpression) { return operationToCeylon(term); }
     case (is JFunctionArgument) { return functionExpressionToCeylon(term); }
     case (is JLetExpression) { return letExpressionToCeylon(term); }
+    case (is JIfExpression) { return ifElseExpressionToCeylon(term); }
     else {
         throw AssertionError("Unknown term type!");
     }

@@ -199,6 +199,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Condition ret = super.transformCondition(that));
         return ret;
     }
+    shared actual default ConditionalExpression transformConditionalExpression(ConditionalExpression that) {
+        assert (is ConditionalExpression ret = super.transformConditionalExpression(that));
+        return ret;
+    }
     shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
     shared actual default Continue transformContinue(Continue that)
@@ -363,6 +367,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformConditions(that.conditions), transformComprehensionClause(that.clause));
     shared actual default IfElse transformIfElse(IfElse that)
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
+    shared actual default IfElseExpression transformIfElseExpression(IfElseExpression that) {
+        DisjoiningExpression|IfElseExpression transformDisjoiningExpressionOrIfElseExpression(DisjoiningExpression|IfElseExpression that) {
+            switch (that)
+            case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
+            case (is IfElseExpression) { return transformIfElseExpression(that); }
+        }
+        return that.copy(transformConditions(that.conditions), transformDisjoiningExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpression(that.elseExpression));
+    }
     shared actual default Import transformImport(Import that)
             => that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements));
     shared actual default ImportAlias transformImportAlias(ImportAlias that) {

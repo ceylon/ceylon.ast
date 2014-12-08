@@ -27,30 +27,30 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport) {
     } else {
         "Must have a name"
         assert (exists quotedLiteral = moduleImport.quotedLiteral);
-        value token = quotedLiteral.mainToken;
-        value type = token.type;
-        if (type == string_literal) {
-            name = stringLiteralToCeylon(JStringLiteral(token));
-        } else if (type == char_literal) {
+        value nameToken = quotedLiteral.mainToken;
+        value nameTokenType = nameToken.type;
+        if (nameTokenType == string_literal) {
+            name = stringLiteralToCeylon(JStringLiteral(nameToken));
+        } else if (nameTokenType == char_literal) {
             // Old syntax, still supported by the compiler.
             // TODO should we just throw here?
-            token.type = string_literal; // hack
-            name = stringLiteralToCeylon(JStringLiteral(token));
+            nameToken.type = string_literal; // hack
+            name = stringLiteralToCeylon(JStringLiteral(nameToken));
         } else {
-            throw AssertionError("Unknown name token type ``type``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
+            throw AssertionError("Unknown name token type ``nameTokenType``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
         }
     }
     StringLiteral version;
-    value token = moduleImport.version.mainToken;
-    value type = token.type;
-    if (type == string_literal) {
-        version = stringLiteralToCeylon(JStringLiteral(token));
-    } else if (type == char_literal) {
+    value versionToken = moduleImport.version.mainToken;
+    value versionTokenType = versionToken.type;
+    if (versionTokenType == string_literal) {
+        version = stringLiteralToCeylon(JStringLiteral(versionToken));
+    } else if (versionTokenType == char_literal) {
         // TODO again, should we really accept this?
-        token.type = string_literal;
-        version = stringLiteralToCeylon(JStringLiteral(token));
+        versionToken.type = string_literal;
+        version = stringLiteralToCeylon(JStringLiteral(versionToken));
     } else {
-        throw AssertionError("Unknown version token type ``type``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
+        throw AssertionError("Unknown version token type ``versionTokenType``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
     }
     return ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null)));
 }

@@ -26,7 +26,12 @@ shared class Key<Type>(name)
     hash => id.hash;
 }
 
-"A [[Key]] with an explicitly provided scope, to avoid name collisions."
+"A [[Key]] with an explicitly provided scope, to avoid name collisions.
+ 
+ Usage example:
+ 
+     shared Key<Token[]> tokensKey
+             = ScopedKey<Token[]>(`class CeylonParser`, \"tokens\");"
 shared class ScopedKey<Type>(scope, name)
         extends Key<Type>("``scope.string``:::``name.string``")
         given Type satisfies Object {

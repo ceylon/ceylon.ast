@@ -1,6 +1,7 @@
 import ceylon.ast.core {
     DisjoiningExpression,
-    IfElseExpression
+    IfElseExpression,
+    LetExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,8 +14,8 @@ shared IfElseExpression ifElseExpressionToCeylon(JIfExpression ifElseExpression)
     assert (exists jThenExpression = ifElseExpression.ifClause.expression,
         exists jElseExpression = ifElseExpression.elseClause.expression);
     "Check precedence"
-    assert (is DisjoiningExpression thenExpression = expressionToCeylon(jThenExpression),
-        is DisjoiningExpression|IfElseExpression elseExpression = expressionToCeylon(jElseExpression));
+    assert (is DisjoiningExpression|IfElseExpression|LetExpression thenExpression = expressionToCeylon(jThenExpression),
+        is DisjoiningExpression|IfElseExpression|LetExpression elseExpression = expressionToCeylon(jElseExpression));
     return IfElseExpression(conditionsToCeylon(ifElseExpression.ifClause.conditionList), thenExpression, elseExpression);
 }
 

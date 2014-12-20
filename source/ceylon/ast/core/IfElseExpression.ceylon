@@ -1,10 +1,13 @@
 "An if/then/else conditional expression, that is,
  the keyword ‘`if`’, followed by a [[condition list|conditions]],
  the keyword ‘`then`’, followed by an [[expression|thenExpression]], and
- the keyword ‘`else`’, followed by an [[expression or another `if` expression|elseExpression]].
+ the keyword ‘`else`’, followed by another [[expression|elseExpression]].
  
- The `then` and `else` expressions are both parsed with a precedence just below the [[then|ThenOperation]] and [[else|ElseOperation]] operations,
+ The `then` and `else` expressions are both parsed with a precedence
+ just below the [[`then`|ThenOperation]] and [[`else`|ElseOperation]] operations,
  to avoid ambiguity with these.
+ Alternatively, they may be [[`if`/`then`/`else` expressions|IfElseExpression]]
+ or [[`let` expressions|LetExpression]].
  
  Examples (multi-line):
  
@@ -22,11 +25,11 @@ shared class IfElseExpression(conditions, thenExpression, elseExpression)
      to evaluate to the [[`then` expression|thenExpression]]."
     shared Conditions conditions;
     "The expression that is evaluated if the [[conditions]] are satisfied."
-    shared DisjoiningExpression thenExpression;
+    shared DisjoiningExpression|IfElseExpression|LetExpression thenExpression;
     "The expression that is evaluated if the [[conditions]] aren’t satisfied."
-    shared DisjoiningExpression|IfElseExpression elseExpression;
+    shared DisjoiningExpression|IfElseExpression|LetExpression elseExpression;
     
-    shared actual [Conditions, DisjoiningExpression, DisjoiningExpression|IfElseExpression] children = [conditions, thenExpression, elseExpression];
+    shared actual [Conditions, DisjoiningExpression|IfElseExpression|LetExpression, DisjoiningExpression|IfElseExpression|LetExpression] children = [conditions, thenExpression, elseExpression];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIfElseExpression(this);
@@ -42,7 +45,7 @@ shared class IfElseExpression(conditions, thenExpression, elseExpression)
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * (thenExpression.hash + 31 * elseExpression.hash));
     
-    shared IfElseExpression copy(Conditions conditions = this.conditions, DisjoiningExpression thenExpression = this.thenExpression, DisjoiningExpression|IfElseExpression elseExpression = this.elseExpression) {
+    shared IfElseExpression copy(Conditions conditions = this.conditions, DisjoiningExpression|IfElseExpression|LetExpression thenExpression = this.thenExpression, DisjoiningExpression|IfElseExpression|LetExpression elseExpression = this.elseExpression) {
         value ret = IfElseExpression(conditions, thenExpression, elseExpression);
         copyExtraInfoTo(ret);
         return ret;

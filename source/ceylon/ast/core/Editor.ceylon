@@ -368,12 +368,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default IfElse transformIfElse(IfElse that)
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default IfElseExpression transformIfElseExpression(IfElseExpression that) {
-        DisjoiningExpression|IfElseExpression transformDisjoiningExpressionOrIfElseExpression(DisjoiningExpression|IfElseExpression that) {
-            switch (that)
-            case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
-            case (is IfElseExpression) { return transformIfElseExpression(that); }
-        }
-        return that.copy(transformConditions(that.conditions), transformDisjoiningExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpression(that.elseExpression));
+        return that.copy(transformConditions(that.conditions), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.elseExpression));
     }
     shared actual default Import transformImport(Import that)
             => that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements));
@@ -459,7 +454,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default LetExpression transformLetExpression(LetExpression that)
-            => that.copy(transformLetValueList(that.letValues), transformExpression(that.expression));
+            => that.copy(transformLetValueList(that.letValues), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression));
     shared actual default LetValueList transformLetValueList(LetValueList that)
             => that.copy(that.letValues.collect(transformSpecifiedVariable));
     shared actual default Literal transformLiteral(Literal that) {
@@ -1020,5 +1015,11 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TypeList) { return transformTypeList(that); }
         case (is SpreadType) { return transformSpreadType(that); }
+    }
+    DisjoiningExpression|IfElseExpression|LetExpression transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(DisjoiningExpression|IfElseExpression|LetExpression that) {
+        switch (that)
+        case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
+        case (is IfElseExpression) { return transformIfElseExpression(that); }
+        case (is LetExpression) { return transformLetExpression(that); }
     }
 }

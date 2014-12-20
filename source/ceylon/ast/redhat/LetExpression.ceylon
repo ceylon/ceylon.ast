@@ -1,4 +1,6 @@
 import ceylon.ast.core {
+    DisjoiningExpression,
+    IfElseExpression,
     LetExpression,
     LetValueList,
     SpecifiedVariable,
@@ -37,7 +39,9 @@ shared LetExpression letExpressionToCeylon(JLetExpression letExpression) {
         });
     "Must have at least one `let` value"
     assert (nonempty letValues);
-    return LetExpression(LetValueList(letValues), expressionToCeylon(letClause.expression));
+    "Check precedence"
+    assert (is DisjoiningExpression|IfElseExpression|LetExpression expression = expressionToCeylon(letClause.expression));
+    return LetExpression(LetValueList(letValues), expression);
 }
 
 "Compiles the given [[code]] for a Let Expression

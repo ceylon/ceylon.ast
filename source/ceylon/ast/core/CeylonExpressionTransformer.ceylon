@@ -27,9 +27,9 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
         else { // case (is [Node+]) { – but Node and [Node+] are not disjoint, because Sequence is a sealed interface, not a class
             value origIndent = indent;
-            indent += indentLevel + indentLevel;
+            indent += indentLevel+indentLevel;
             value firstString = that.first.transform(this);
-            value multiLine = that.size > 1 || firstString.lines.longerThan(1);
+            value multiLine = that.size>1 || firstString.lines.longerThan(1);
             StringBuilder code = StringBuilder();
             code.append("[");
             if (multiLine) {
@@ -922,6 +922,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   `` indent + indentLevel ``isNonempty = true;
                   ``indent``}"
             else "VariadicType(``transformWithIndent(that.elementType)``)";
+    transformVariadicVariable(VariadicVariable that)
+            => that.type exists
+            then "VariadicVariable {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                  ``indent``}"
+            else "VariadicVariable(``transformWithIndent(that.name)``)";
     transformVoidModifier(VoidModifier that) => "VoidModifier()";
     transformWhile(While that)
             => "While {

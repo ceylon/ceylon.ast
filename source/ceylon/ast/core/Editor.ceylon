@@ -968,6 +968,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformVariadicType(that.type), transformLIdentifier(that.name), transformAnnotations(that.annotations));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
+    shared actual default VariadicVariable transformVariadicVariable(VariadicVariable that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformUnionType));
     shared actual default Variance transformVariance(Variance that) {
         assert (is Variance ret = super.transformVariance(that));
         return ret;

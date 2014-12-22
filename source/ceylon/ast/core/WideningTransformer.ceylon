@@ -302,6 +302,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformVariable(Variable that) => transformNode(that);
     shared actual default Result transformVariadicParameter(VariadicParameter that) => transformParameter(that);
     shared actual default Result transformVariadicType(VariadicType that) => transformTypeIsh(that);
+    shared actual default Result transformVariadicVariable(VariadicVariable that) => transformVariable(that);
     shared actual default Result transformVariance(Variance that) => transformModifier(that);
     shared actual default Result transformVoidModifier(VoidModifier that) => transformTypeModifier(that);
     shared actual default Result transformWhile(While that) => transformControlStructure(that);

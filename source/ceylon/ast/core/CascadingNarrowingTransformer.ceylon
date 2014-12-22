@@ -653,6 +653,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is TypedVariable) { return transformTypedVariable(that); }
         case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
         case (is UnspecifiedVariable) { return transformUnspecifiedVariable(that); }
+        case (is VariadicVariable) { return transformVariadicVariable(that); }
     }
     shared actual default Result transformVariance(Variance that) {
         switch (that)

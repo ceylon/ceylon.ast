@@ -3401,6 +3401,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    "The usage of [[VariadicVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformVariadicVariable(VariadicVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast VariadicVariable to a RedHat AST Variable");
+    }
+    
     shared actual JTypeVariance transformVariance(Variance that) {
         assert (is JTypeVariance ret = super.transformVariance(that));
         return ret;

@@ -309,6 +309,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
     transformVariable(Variable that) => visitVariable(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
+    transformVariadicVariable(VariadicVariable that) => visitVariadicVariable(that);
     transformVariance(Variance that) => visitVariance(that);
     transformVoidModifier(VoidModifier that) => visitVoidModifier(that);
     transformWhile(While that) => visitWhile(that);
@@ -611,6 +612,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
     shared default void visitVariable(Variable that) => super.transformVariable(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
+    shared default void visitVariadicVariable(VariadicVariable that) => super.transformVariadicVariable(that);
     shared default void visitVariance(Variance that) => super.transformVariance(that);
     shared default void visitVoidModifier(VoidModifier that) => super.transformVoidModifier(that);
     shared default void visitWhile(While that) => super.transformWhile(that);

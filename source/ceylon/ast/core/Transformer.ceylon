@@ -94,6 +94,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformElseClause(ElseClause that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
+    shared formal Result transformEntryPattern(EntryPattern that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformEqualOperation(EqualOperation that);
     shared formal Result transformEqualityOperation(EqualityOperation that);
@@ -214,6 +215,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformParameter(Parameter that);
     shared formal Result transformParameterReference(ParameterReference that);
     shared formal Result transformParameters(Parameters that);
+    shared formal Result transformPattern(Pattern that);
     shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
@@ -272,6 +274,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTryCatchFinally(TryCatchFinally that);
     shared formal Result transformTryClause(TryClause that);
     shared formal Result transformTuple(Tuple that);
+    shared formal Result transformTuplePattern(TuplePattern that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeAliasDefinition(TypeAliasDefinition that);
@@ -312,6 +315,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueSetterDefinition(ValueSetterDefinition that);
     shared formal Result transformValueSpecification(ValueSpecification that);
     shared formal Result transformVariable(Variable that);
+    shared formal Result transformVariablePattern(VariablePattern that);
     shared formal Result transformVariadicParameter(VariadicParameter that);
     shared formal Result transformVariadicType(VariadicType that);
     shared formal Result transformVariadicVariable(VariadicVariable that);

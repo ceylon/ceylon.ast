@@ -137,6 +137,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformParameter(Parameter that)
             => that.transform(this);
+    shared actual default Result transformPattern(Pattern that)
+            => that.transform(this);
     shared actual default Result transformPostfixOperation(PostfixOperation that)
             => that.transform(this);
     shared actual default Result transformPrefixOperation(PrefixOperation that)

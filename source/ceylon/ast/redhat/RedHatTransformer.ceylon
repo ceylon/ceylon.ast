@@ -139,6 +139,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIsOp=IsOp,
         JIterableType=IterableType,
         JKeyValueIterator=KeyValueIterator,
+        JKeyValuePattern=KeyValuePattern,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
         JLazySpecifierExpression=LazySpecifierExpression,
@@ -183,6 +184,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JParameter=Parameter,
         JParameterList=ParameterList,
         JParameterizedExpression=ParameterizedExpression,
+        JPattern=Pattern,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -242,6 +244,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTryCatchStatement=TryCatchStatement,
         JTryClause=TryClause,
         JTuple=Tuple,
+        JTuplePattern=TuplePattern,
         JTupleType=TupleType,
         JTypeAliasDeclaration=TypeAliasDeclaration,
         JTypeArgumentList=TypeArgumentList,
@@ -267,6 +270,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
         JVariable=Variable,
+        JVariablePattern=VariablePattern,
         JVoidModifier=VoidModifier,
         JWhileClause=WhileClause,
         JWhileStatement=WhileStatement,
@@ -511,6 +515,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             anno.visit(aliteralVisitor);
             ret.addAnnotation(anno);
         }
+        return ret;
+    }
+    
+    shared actual JPattern transformPattern(Pattern that) {
+        assert (is JPattern ret = super.transformPattern(that));
         return ret;
     }
     
@@ -1218,6 +1227,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JEntryOp ret = JEntryOp(tokens.token(that.operator, entry_op));
         ret.leftTerm = left;
         ret.rightTerm = transformAddingExpression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JKeyValuePattern transformEntryPattern(EntryPattern that) {
+        JKeyValuePattern ret = JKeyValuePattern(null);
+        ret.key = transformPattern(that.key);
+        ret.endToken = tokens.token("->", entry_op);
+        ret.\ivalue = transformPattern(that.item);
+        ret.endToken = null;
         return ret;
     }
     
@@ -2987,6 +3005,34 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTuplePattern transformTuplePattern(TuplePattern that) {
+        JTuplePattern ret = JTuplePattern(tokens.token("[", lbracket));
+        ret.addPattern(transformPattern(that.elementPatterns.first));
+        for (pattern in that.elementPatterns.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addPattern(transformPattern(pattern));
+        }
+        if (exists variadicElementPattern = that.variadicElementPattern) {
+            ret.endToken = tokens.token(",", comma);
+            value vp = JVariablePattern(null);
+            value v = JVariable(null);
+            JType t;
+            if (exists type = variadicElementPattern.type) {
+                t = transformType(type);
+            } else {
+                t = JValueModifier(null);
+            }
+            value st = JSequencedType(tokens.token("*", product_op));
+            st.type = t;
+            v.type = st;
+            v.identifier = transformLIdentifier(variadicElementPattern.name);
+            vp.variable = v;
+            ret.addPattern(vp);
+        }
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
+    
     shared actual JTupleType transformTupleType(TupleType that) {
         JTupleType ret = JTupleType(tokens.token("[", lbracket));
         value firstElementType = that.typeList.elements.first;
@@ -3377,6 +3423,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
      where a conversion at the level of individual variable nodes isn’t possible."
     shared actual Nothing transformVariable(Variable that) {
         throw AssertionError("Can’t transform a ceylon.ast Variable to a RedHat AST Variable");
+    }
+    
+    shared actual JVariablePattern transformVariablePattern(VariablePattern that) {
+        JVariablePattern ret = JVariablePattern(null);
+        value variable = that.variable;
+        value var = JVariable(null);
+        value type = variable.type;
+        switch (type)
+        case (is Type) { var.type = transformType(type); }
+        case (is ValueModifier) { var.type = transformValueModifier(type); }
+        case (null) { var.type = JValueModifier(null); }
+        var.identifier = transformLIdentifier(variable.name);
+        ret.variable = var;
+        return ret;
     }
     
     shared actual JValueParameterDeclaration transformVariadicParameter(VariadicParameter that) {

@@ -378,6 +378,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is DecQualifier) { return transformDecQualifier(that); }
         case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
         case (is LetValueList) { return transformLetValueList(that); }
+        case (is Pattern) { return transformPattern(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
@@ -390,6 +391,12 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is RequiredParameter) { return transformRequiredParameter(that); }
         case (is DefaultedParameter) { return transformDefaultedParameter(that); }
         case (is VariadicParameter) { return transformVariadicParameter(that); }
+    }
+    shared actual default Result transformPattern(Pattern that) {
+        switch (that)
+        case (is VariablePattern) { return transformVariablePattern(that); }
+        case (is TuplePattern) { return transformTuplePattern(that); }
+        case (is EntryPattern) { return transformEntryPattern(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)

@@ -269,6 +269,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
                 `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
+    transformEntryPattern(EntryPattern that)
+            => "EntryPattern {
+                `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
+                `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
+                ``indent``}";
     transformEntryType(EntryType that)
             => "EntryType {
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
@@ -778,6 +783,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``resources = ``transformWithIndent(that.resources)``;
                 ``indent``}";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
+    transformTuplePattern(TuplePattern that)
+            => that.variadicElementPattern exists
+            then "TuplePattern {
+                  `` indent + indentLevel ``elementPatterns = ``transformWithIndent(that.elementPatterns)``;
+                  `` indent + indentLevel ``variadicElementPattern = ``transformWithIndent(that.variadicElementPattern)``;
+                  ``indent``}"
+            else "TuplePattern(``transformWithIndent(that.elementPatterns)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     transformTypeAliasDefinition(TypeAliasDefinition that)
             => "TypeAliasDefinition {
@@ -909,6 +921,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
+    transformVariablePattern(VariablePattern that) => "VariablePattern(``transformWithIndent(that.variable)``)";
     transformVariadicParameter(VariadicParameter that)
             => "VariadicParameter {
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;

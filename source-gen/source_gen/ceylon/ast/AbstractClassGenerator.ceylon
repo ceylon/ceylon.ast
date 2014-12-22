@@ -132,7 +132,8 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         generateBackend();
         generateBackendTest();
         expandTransformer();
-        expandNarrowingTransformer();
+        expandCascadingNarrowingTransformer();
+        expandImmediateNarrowingTransformer();
         expandEditor();
         expandWideningTransformer();
         expandVisitor();

@@ -149,7 +149,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformIterable(Iterable that) => transformAtom(that);
     shared actual default Result transformIterableType(IterableType that) => transformPrimaryType(that);
     shared actual default Result transformKeySubscript(KeySubscript that) => transformSubscript(that);
-    shared actual default Result transformKeyValueIterator(KeyValueIterator that) => transformForIterator(that);
     shared actual default Result transformLIdentifier(LIdentifier that) => transformIdentifier(that);
     shared actual default Result transformLargeAsOperation(LargeAsOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLargerOperation(LargerOperation that) => transformComparisonOperation(that);
@@ -297,7 +296,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformValueDefinition(ValueDefinition that) => transformAnyValue(that);
     shared actual default Result transformValueExpression(ValueExpression that) => transformExpression(that);
     shared actual default Result transformValueGetterDefinition(ValueGetterDefinition that) => transformAnyValue(that);
-    shared actual default Result transformValueIterator(ValueIterator that) => transformForIterator(that);
     shared actual default Result transformValueModifier(ValueModifier that) => transformLocalModifier(that);
     shared actual default Result transformValueParameter(ValueParameter that) => transformRequiredParameter(that);
     shared actual default Result transformValueSetterDefinition(ValueSetterDefinition that) => transformDeclaration(that);

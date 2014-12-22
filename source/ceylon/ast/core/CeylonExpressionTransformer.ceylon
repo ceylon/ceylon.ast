@@ -311,6 +311,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``forClause = ``transformWithIndent(that.forClause)``;
                 `` indent + indentLevel ``failClause = ``transformWithIndent(that.failClause)``;
                 ``indent``}";
+    transformForIterator(ForIterator that)
+            => "ForIterator {
+                `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
+                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
+                ``indent``}";
     transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
     transformFunctionArgument(FunctionArgument that)
             => "FunctionArgument {
@@ -483,12 +488,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformKeySubscript(KeySubscript that) => "KeySubscript(``transformWithIndent(that.key)``)";
-    transformKeyValueIterator(KeyValueIterator that)
-            => "KeyValueIterator {
-                `` indent + indentLevel ``keyVariable = ``transformWithIndent(that.keyVariable)``;
-                `` indent + indentLevel ``valueVariable = ``transformWithIndent(that.valueVariable)``;
-                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
-                ``indent``}";
     transformLIdentifier(LIdentifier that)
             => that.usePrefix
             then "LIdentifier(\"``that.name``\", true)"
@@ -897,11 +896,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                ``indent``}";
-    transformValueIterator(ValueIterator that)
-            => "ValueIterator {
-                `` indent + indentLevel ``variable = ``transformWithIndent(that.variable)``;
-                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
     transformValueModifier(ValueModifier that) => "ValueModifier()";
     transformValueParameter(ValueParameter that)

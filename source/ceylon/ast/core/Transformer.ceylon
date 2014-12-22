@@ -160,7 +160,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformKeySubscript(KeySubscript that);
-    shared formal Result transformKeyValueIterator(KeyValueIterator that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
@@ -309,7 +308,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);
     shared formal Result transformValueGetterDefinition(ValueGetterDefinition that);
-    shared formal Result transformValueIterator(ValueIterator that);
     shared formal Result transformValueModifier(ValueModifier that);
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSetterDefinition(ValueSetterDefinition that);

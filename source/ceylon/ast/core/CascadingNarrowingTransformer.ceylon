@@ -221,11 +221,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is PrefixPostfixStatement) { return transformPrefixPostfixStatement(that); }
         case (is InvocationStatement) { return transformInvocationStatement(that); }
     }
-    shared actual default Result transformForIterator(ForIterator that) {
-        switch (that)
-        case (is ValueIterator) { return transformValueIterator(that); }
-        case (is KeyValueIterator) { return transformKeyValueIterator(that); }
-    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }

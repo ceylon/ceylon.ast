@@ -83,6 +83,7 @@ import ceylon.ast.core {
     IfClause,
     IfComprehensionClause,
     IfElse,
+    IfElseExpression,
     Import,
     ImportElements,
     ImportFunctionValueAlias,
@@ -220,8 +221,7 @@ import ceylon.ast.core {
     VariadicType,
     VoidModifier,
     While,
-    WithinOperation,
-    IfElseExpression
+    WithinOperation
 }
 
 "A compilation unit node containing every AST node that can be a child of a regular compilation unit

@@ -68,6 +68,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDefaultTypeArgument=DefaultTypeArgument,
+        JDestructure=Destructure,
         JDifferenceOp=DifferenceOp,
         JDirective=Directive,
         JDivideAssignOp=DivideAssignOp,
@@ -1262,7 +1263,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExistsCondition transformExistsCondition(ExistsCondition that) {
         JExistsCondition ret = JExistsCondition(tokens.token("exists", exists_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
+        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
     }
     
     shared actual JExists transformExistsOperation(ExistsOperation that) {
@@ -2208,7 +2209,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JNonemptyCondition transformNonemptyCondition(NonemptyCondition that) {
         JNonemptyCondition ret = JNonemptyCondition(tokens.token("nonempty", nonempty_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
+        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
     }
     
     shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
@@ -3537,33 +3538,49 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
     }
     
-    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedVariable|LIdentifier variable)
+    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedPattern|LIdentifier tested)
             given JCond satisfies JExistsOrNonemptyCondition {
-        JVariable var = JVariable(null);
-        switch (variable)
-        case (is SpecifiedVariable) {
-            value type = variable.type;
-            switch (type)
-            case (is Type) { var.type = transformType(type); }
-            case (is ValueModifier) { var.type = transformValueModifier(type); }
-            case (null) { var.type = JValueModifier(null); }
-            var.identifier = transformLIdentifier(variable.name);
-            var.specifierExpression = transformSpecifier(variable.specifier);
+        switch (tested)
+        case (is SpecifiedPattern) {
+            // letVariable
+            JDestructure|JVariable statement;
+            switch (pattern = tested.pattern)
+            case (is VariablePattern) {
+                value v = pattern.variable;
+                value variable = JVariable(null);
+                value type = v.type;
+                switch (type)
+                case (is Type) { variable.type = transformType(type); }
+                case (is ValueModifier) { variable.type = transformValueModifier(type); }
+                case (null) { variable.type = JValueModifier(null); }
+                variable.identifier = transformLIdentifier(v.name);
+                statement = variable;
+            }
+            else {
+                value d = JDestructure(null);
+                d.pattern = transformPattern(pattern);
+                statement = d;
+            }
+            switch (statement)
+            case (is JDestructure) { statement.specifierExpression = transformSpecifier(tested.specifier); }
+            case (is JVariable) { statement.specifierExpression = transformSpecifier(tested.specifier); }
+            ret.variable = statement;
         }
         case (is LIdentifier) {
-            var.identifier = transformLIdentifier(variable);
-            // the parser does lots of stuff here (impliedVariable rule), I assume the compiler needs it?
-            var.type = JSyntheticVariable(null);
+            // impliedVariable
+            JVariable v = JVariable(null);
+            v.type = JSyntheticVariable(null);
+            v.identifier = transformLIdentifier(tested);
             value se = JSpecifierExpression(null);
             value e = JExpression(null);
             value bme = JBaseMemberExpression(null);
-            bme.identifier = var.identifier;
+            bme.identifier = v.identifier;
             bme.typeArguments = JInferredTypeArguments(null);
             e.term = bme;
             se.expression = e;
-            var.specifierExpression = se;
+            v.specifierExpression = se;
+            ret.variable = v;
         }
-        ret.variable = var;
         return ret;
     }
     

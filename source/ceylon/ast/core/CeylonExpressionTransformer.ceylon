@@ -284,7 +284,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
-    transformExistsCondition(ExistsCondition that) => "ExistsCondition(``transformWithIndent(that.variable)``)";
+    transformExistsCondition(ExistsCondition that) => "ExistsCondition(``transformWithIndent(that.tested)``)";
     transformExistsOperation(ExistsOperation that) => "ExistsOperation(``transformWithIndent(that.operand)``)";
     transformExponentiationOperation(ExponentiationOperation that)
             => "ExponentiationOperation {
@@ -574,7 +574,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 then "NamedArguments(``transformWithIndent(that.namedArguments)``)"
                 else "NamedArguments()");
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.operand)``)";
-    transformNonemptyCondition(NonemptyCondition that) => "NonemptyCondition(``transformWithIndent(that.variable)``)";
+    transformNonemptyCondition(NonemptyCondition that) => "NonemptyCondition(``transformWithIndent(that.tested)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)
             => "NotEqualOperation {

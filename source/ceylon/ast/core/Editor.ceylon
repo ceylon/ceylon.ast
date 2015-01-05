@@ -288,7 +288,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ExistsCondition transformExistsCondition(ExistsCondition that)
-            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default ExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
@@ -554,7 +554,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default NegationOperation transformNegationOperation(NegationOperation that)
             => that.copy(transformExponentiatingExpression(that.operand));
     shared actual default NonemptyCondition transformNonemptyCondition(NonemptyCondition that)
-            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
@@ -997,9 +997,9 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is LazySpecifier) { return transformLazySpecifier(that); }
         case (is Block) { return transformBlock(that); }
     }
-    SpecifiedVariable|LIdentifier transformSpecifiedVariableOrLIdentifier(SpecifiedVariable|LIdentifier that) {
+    SpecifiedPattern|LIdentifier transformSpecifiedPatternOrLIdentifier(SpecifiedPattern|LIdentifier that) {
         switch (that)
-        case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+        case (is SpecifiedPattern) { return transformSpecifiedPattern(that); }
         case (is LIdentifier) { return transformLIdentifier(that); }
     }
     Statement|Declaration transformStatementOrDeclaration(Statement|Declaration that) {

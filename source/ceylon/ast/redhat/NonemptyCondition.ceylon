@@ -1,36 +1,16 @@
 import ceylon.ast.core {
-    NonemptyCondition,
-    SpecifiedVariable,
-    Type,
-    ValueModifier
+    NonemptyCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JNonemptyCondition=NonemptyCondition,
-        JStaticType=StaticType,
-        JSyntheticVariable=SyntheticVariable,
-        JType=Type,
-        JValueModifier=ValueModifier
+        JNonemptyCondition=NonemptyCondition
     }
 }
 
 "Converts a RedHat AST [[NonemptyCondition|JNonemptyCondition]] to a `ceylon.ast` [[NonemptyCondition]]."
 shared NonemptyCondition nonemptyConditionToCeylon(JNonemptyCondition nonemptyCondition) {
-    value variable = nonemptyCondition.variable;
-    JType? jType = variable.type;
-    if (jType is JSyntheticVariable) {
-        // impliedVariable
-        return NonemptyCondition(lIdentifierToCeylon(variable.identifier));
-    } else {
-        // specifiedVariable
-        Type|ValueModifier? type;
-        assert (is JStaticType|JValueModifier? jType);
-        switch (jType)
-        case (is JStaticType) { type = typeToCeylon(jType); }
-        case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType); }
-        case (null) { type = null; }
-        return NonemptyCondition(SpecifiedVariable(lIdentifierToCeylon(variable.identifier), specifierToCeylon(variable.specifierExpression), type));
-    }
+    assert (is NonemptyCondition ret = existsOrNonemptyConditionToCeylon(nonemptyCondition));
+    return ret;
 }
 
 "Compiles the given [[code]] for a Nonempty Condition

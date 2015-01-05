@@ -1,10 +1,9 @@
 import ceylon.ast.core {
     LIdentifier,
     NonemptyCondition,
-    SpecifiedVariable,
-    Specifier,
-    Type,
-    ValueModifier
+    Pattern,
+    SpecifiedPattern,
+    Specifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -19,19 +18,17 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object nonemptyCondition satisfies ConcreteTest<NonemptyCondition,JNonemptyCondition> {
     
-    String->NonemptyCondition constructV(String->LIdentifier name, String->Specifier specifier, <String->Type|ValueModifier>? type = null)
-            => "nonempty `` type?.key else "" `` ``name.key`` ``specifier.key``"->NonemptyCondition(SpecifiedVariable(name.item, specifier.item, type?.item));
+    String->NonemptyCondition constructP(String->Pattern pattern, String->Specifier specifier)
+            => "nonempty ``pattern.key`` = ``specifier.key``"->NonemptyCondition(SpecifiedPattern(pattern.item, specifier.item));
     
     String->NonemptyCondition constructI(String->LIdentifier variable)
             => "nonempty ``variable.key``"->NonemptyCondition(variable.item);
     
     shared String->NonemptyCondition nonemptyCollectionCondition = constructI(identifier.collectionLIdentifier);
-    shared String->NonemptyCondition nonemptyArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier, tupleType.stringPlusTupleType);
-    shared String->NonemptyCondition nonemptyValueArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier, valueModifier.valueModifier);
-    shared String->NonemptyCondition nonemptyUntypedArgsSpecifyCondition = constructV(identifier.argsLIdentifier, specifier.processArgumentsSequenceSpecifier);
+    shared String->NonemptyCondition nonemptyFirstRestSpecifyCondition = constructP(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     
     compile = compileNonemptyCondition;
     fromCeylon = RedHatTransformer.transformNonemptyCondition;
     toCeylon = nonemptyConditionToCeylon;
-    codes = [nonemptyCollectionCondition, nonemptyArgsSpecifyCondition, nonemptyValueArgsSpecifyCondition, nonemptyUntypedArgsSpecifyCondition];
+    codes = [nonemptyCollectionCondition, nonemptyFirstRestSpecifyCondition];
 }

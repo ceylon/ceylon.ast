@@ -67,6 +67,7 @@ import ceylon.ast.core {
     ForClause,
     ForComprehensionClause,
     ForFail,
+    ForIterator,
     FullPackageName,
     FunctionArgument,
     FunctionDec,
@@ -338,8 +339,8 @@ shared CompilationUnit completeCompilationUnit
                                     };
                                     negated = false;
                                 },
-                                ExistsCondition(SpecifiedVariable {
-                                        name = LIdentifier("arg2");
+                                ExistsCondition(SpecifiedPattern {
+                                        pattern = VariablePattern(UnspecifiedVariable(LIdentifier("arg2")));
                                         specifier = Specifier(ElementOrSubrangeExpression {
                                                 primary = QualifiedExpression {
                                                     receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1")));
@@ -348,7 +349,6 @@ shared CompilationUnit completeCompilationUnit
                                                 };
                                                 subscript = SpanToSubscript(IntegerLiteral("65536"));
                                             });
-                                        type = null;
                                     }),
                                 NonemptyCondition(LIdentifier("arg2")),
                                 BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
@@ -531,9 +531,11 @@ shared CompilationUnit completeCompilationUnit
                     },
                     ForFail {
                         forClause = ForClause {
-                            iterator = KeyValueIterator {
-                                keyVariable = UnspecifiedVariable(LIdentifier("k"));
-                                valueVariable = UnspecifiedVariable(LIdentifier("v"));
+                            iterator = ForIterator {
+                                pattern = EntryPattern {
+                                    key = VariablePattern(UnspecifiedVariable(LIdentifier("k")));
+                                    item = VariablePattern(UnspecifiedVariable(LIdentifier("v")));
+                                };
                                 iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
                             };
                             block = Block([Continue()]);
@@ -546,8 +548,8 @@ shared CompilationUnit completeCompilationUnit
                         definition = Specifier(Iterable(ArgumentList {
                                     listedArguments = [];
                                     sequenceArgument = Comprehension(ForComprehensionClause {
-                                            iterator = ValueIterator {
-                                                variable = UnspecifiedVariable(LIdentifier("v"));
+                                            iterator = ForIterator {
+                                                pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("v")))]);
                                                 iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs")));
                                             };
                                             clause = IfComprehensionClause {

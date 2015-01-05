@@ -249,6 +249,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformSpanToSubscript(SpanToSubscript that) => visitSpanToSubscript(that);
     transformSpecification(Specification that) => visitSpecification(that);
     transformSpecifiedArgument(SpecifiedArgument that) => visitSpecifiedArgument(that);
+    transformSpecifiedPattern(SpecifiedPattern that) => visitSpecifiedPattern(that);
     transformSpecifiedVariable(SpecifiedVariable that) => visitSpecifiedVariable(that);
     transformSpecifier(Specifier that) => visitSpecifier(that);
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
@@ -554,6 +555,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitSpanToSubscript(SpanToSubscript that) => super.transformSpanToSubscript(that);
     shared default void visitSpecification(Specification that) => super.transformSpecification(that);
     shared default void visitSpecifiedArgument(SpecifiedArgument that) => super.transformSpecifiedArgument(that);
+    shared default void visitSpecifiedPattern(SpecifiedPattern that) => super.transformSpecifiedPattern(that);
     shared default void visitSpecifiedVariable(SpecifiedVariable that) => super.transformSpecifiedVariable(that);
     shared default void visitSpecifier(Specifier that) => super.transformSpecifier(that);
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);

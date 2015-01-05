@@ -168,6 +168,7 @@ import ceylon.ast.core {
     SpanSubscript,
     SpanToSubscript,
     SpecifiedArgument,
+    SpecifiedPattern,
     SpecifiedVariable,
     Specifier,
     SpreadArgument,

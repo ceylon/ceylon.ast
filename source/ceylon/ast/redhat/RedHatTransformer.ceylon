@@ -2803,6 +2803,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
     }
     
+    "The RedHat AST has no direct equivalent of [[SpecifiedPattern]];
+     this method throws."
+    shared actual Nothing transformSpecifiedPattern(SpecifiedPattern that) {
+        throw Exception("SpecifiedPattern has no RedHat AST equivalent!");
+    }
+    
     "The usage of [[SpecifiedVariable]] in `ceylon.ast` differs significantly
      from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
      where a conversion at the level of individual variable nodes isn’t possible."

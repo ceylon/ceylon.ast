@@ -718,6 +718,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformSpanToSubscript(SpanToSubscript that) => "SpanToSubscript(``transformWithIndent(that.to)``)";
     transformSpecifiedArgument(SpecifiedArgument that) => "SpecifiedArgument(``transformWithIndent(that.specification)``)";
+    transformSpecifiedPattern(SpecifiedPattern that)
+            => "SpecifiedPattern {
+                `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                ``indent``}";
     transformSpecifiedVariable(SpecifiedVariable that)
             => "SpecifiedVariable {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

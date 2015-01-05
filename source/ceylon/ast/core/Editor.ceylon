@@ -631,6 +631,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is IntersectingExpression ret = super.transformIntersectingExpression(that));
         return ret;
     }
+    shared actual default SpecifiedPattern transformSpecifiedPattern(SpecifiedPattern that)
+            => that.copy(transformPattern(that.pattern), transformSpecifier(that.specifier));
     shared actual default TuplePattern transformTuplePattern(TuplePattern that)
             => that.copy(that.elementPatterns.collect(transformPattern), nullsafeInvoke(that.variadicElementPattern, transformVariadicVariable));
     shared actual default UnioningExpression transformUnioningExpression(UnioningExpression that) {

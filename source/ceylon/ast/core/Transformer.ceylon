@@ -252,6 +252,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSpanToSubscript(SpanToSubscript that);
     shared formal Result transformSpecification(Specification that);
     shared formal Result transformSpecifiedArgument(SpecifiedArgument that);
+    shared formal Result transformSpecifiedPattern(SpecifiedPattern that);
     shared formal Result transformSpecifiedVariable(SpecifiedVariable that);
     shared formal Result transformSpecifier(Specifier that);
     shared formal Result transformSpreadArgument(SpreadArgument that);

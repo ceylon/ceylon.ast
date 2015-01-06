@@ -3,21 +3,14 @@ import ceylon.ast.core {
     ExistsOrNonemptyCondition,
     LIdentifier,
     NonemptyCondition,
-    SpecifiedPattern,
-    Type,
-    UnspecifiedVariable,
-    ValueModifier,
-    VariablePattern
+    SpecifiedPattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JDestructure=Destructure,
         JExistsCondition=ExistsCondition,
         JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
         JNonemptyCondition=NonemptyCondition,
-        JStaticType=StaticType,
         JSyntheticVariable=SyntheticVariable,
-        JValueModifier=ValueModifier,
         JVariable=Variable
     }
 }
@@ -36,20 +29,7 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
     } else {
         // letVariable
         // Either a variable or a pattern wrapped in a synthetic Destructure.
-        assert (is JVariable|JDestructure jVariable = existsOrNonemptyCondition.variable);
-        switch (jVariable)
-        case (is JVariable) {
-            Type|ValueModifier? type;
-            assert (is JStaticType|JValueModifier? jType = jVariable.type);
-            switch (jType)
-            case (is JStaticType) { type = typeToCeylon(jType); }
-            case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType); }
-            case (null) { type = null; }
-            tested = SpecifiedPattern(VariablePattern(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier), type)), specifierToCeylon(jVariable.specifierExpression));
-        }
-        case (is JDestructure) {
-            tested = SpecifiedPattern(patternToCeylon(jVariable.pattern), specifierToCeylon(jVariable.specifierExpression));
-        }
+        tested = specifiedPatternToCeylon(existsOrNonemptyCondition.variable);
     }
     switch (existsOrNonemptyCondition)
     case (is JExistsCondition) { return ExistsCondition(tested); }

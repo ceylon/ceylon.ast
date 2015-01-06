@@ -463,9 +463,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default LetExpression transformLetExpression(LetExpression that)
-            => that.copy(transformLetValueList(that.letValues), transformExpression(that.expression));
-    shared actual default LetValueList transformLetValueList(LetValueList that)
-            => that.copy(that.letValues.collect(transformSpecifiedVariable));
+            => that.copy(transformPatternList(that.patterns), transformExpression(that.expression));
     shared actual default Literal transformLiteral(Literal that) {
         assert (is Literal ret = super.transformLiteral(that));
         return ret;
@@ -605,6 +603,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Pattern ret = super.transformPattern(that));
         return ret;
     }
+    shared actual default PatternList transformPatternList(PatternList that)
+            => that.copy(that.patterns.collect(transformSpecifiedPattern));
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)

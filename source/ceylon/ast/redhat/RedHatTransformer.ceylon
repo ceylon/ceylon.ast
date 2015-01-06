@@ -2001,22 +2001,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JLetExpression ret = JLetExpression(null);
         JLetClause letClause = JLetClause(tokens.token("let", letType));
         letClause.endToken = tokens.token("(", lparen);
-        letClause.addVariable(helpTransformSpecifiedVariable(that.letValues.letValues.first));
-        for (letValue in that.letValues.letValues.rest) {
+        letClause.addVariable(helpTransformSpecifiedPattern(that.patterns.patterns.first));
+        for (pattern in that.patterns.patterns.rest) {
             letClause.endToken = tokens.token(",", comma);
-            letClause.addVariable(helpTransformSpecifiedVariable(letValue));
+            letClause.addVariable(helpTransformSpecifiedPattern(pattern));
         }
         letClause.endToken = tokens.token(")", rparen);
         letClause.expression = wrapTerm(transformExpression(that.expression));
         letClause.endToken = null;
         ret.letClause = letClause;
         return ret;
-    }
-    
-    "The RedHat AST has no direct equivalent of [[LetValueList]];
-     this method throws."
-    shared actual Nothing transformLetValueList(LetValueList that) {
-        throw Exception("LetValueList has no RedHat AST equivalent!");
     }
     
     shared actual JLiteral transformLiteral(Literal that) {
@@ -2391,6 +2385,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JInitializerParameter ret = JInitializerParameter(null);
         ret.identifier = transformLIdentifier(that.name);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[PatternList]];
+     this method throws."
+    shared actual Nothing transformPatternList(PatternList that) {
+        throw Exception("PatternList has no RedHat AST equivalent!");
     }
     
     "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
@@ -3543,28 +3543,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         switch (tested)
         case (is SpecifiedPattern) {
             // letVariable
-            JDestructure|JVariable statement;
-            switch (pattern = tested.pattern)
-            case (is VariablePattern) {
-                value v = pattern.variable;
-                value variable = JVariable(null);
-                value type = v.type;
-                switch (type)
-                case (is Type) { variable.type = transformType(type); }
-                case (is ValueModifier) { variable.type = transformValueModifier(type); }
-                case (null) { variable.type = JValueModifier(null); }
-                variable.identifier = transformLIdentifier(v.name);
-                statement = variable;
-            }
-            else {
-                value d = JDestructure(null);
-                d.pattern = transformPattern(pattern);
-                statement = d;
-            }
-            switch (statement)
-            case (is JDestructure) { statement.specifierExpression = transformSpecifier(tested.specifier); }
-            case (is JVariable) { statement.specifierExpression = transformSpecifier(tested.specifier); }
-            ret.variable = statement;
+            ret.variable = helpTransformSpecifiedPattern(tested);
         }
         case (is LIdentifier) {
             // impliedVariable
@@ -3606,6 +3585,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         var.identifier = transformLIdentifier(resource.name);
         var.specifierExpression = transformSpecifier(resource.specifier);
         return var;
+    }
+    
+    JDestructure|JVariable helpTransformSpecifiedPattern(SpecifiedPattern specifiedPattern) {
+        // letVariable
+        JDestructure|JVariable statement;
+        switch (pattern = specifiedPattern.pattern)
+        case (is VariablePattern) {
+            value v = pattern.variable;
+            value variable = JVariable(null);
+            value type = v.type;
+            switch (type)
+            case (is Type) { variable.type = transformType(type); }
+            case (is ValueModifier) { variable.type = transformValueModifier(type); }
+            case (null) { variable.type = JValueModifier(null); }
+            variable.identifier = transformLIdentifier(v.name);
+            statement = variable;
+        }
+        else {
+            value d = JDestructure(null);
+            d.pattern = transformPattern(pattern);
+            statement = d;
+        }
+        switch (statement)
+        case (is JDestructure) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
+        case (is JVariable) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
+        return statement;
     }
     
     JExpression wrapTerm(JTerm term) {

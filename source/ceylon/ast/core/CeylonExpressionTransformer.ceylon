@@ -500,10 +500,9 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformLetExpression(LetExpression that)
             => "LetExpression {
-                `` indent + indentLevel ``letValues = ``transformWithIndent(that.letValues)``;
+                `` indent + indentLevel ``patterns = ``transformWithIndent(that.patterns)``;
                 `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
                 ``indent``}";
-    transformLetValueList(LetValueList that) => "LetValueList(``transformWithIndent(that.letValues)``)";
     transformMatchCase(MatchCase that) => "MatchCase(``transformWithIndent(that.expressions)``)";
     transformMeasureSubscript(MeasureSubscript that)
             => "MeasureSubscript {
@@ -639,6 +638,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => that.parameters nonempty
             then "Parameters(``transformWithIndent(that.parameters)``)"
             else "Parameters()";
+    transformPatternList(PatternList that) => "PatternList(``transformWithIndent(that.patterns)``)";
     transformPositionalArguments(PositionalArguments that) => "PositionalArguments(``transformWithIndent(that.argumentList)``)";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";

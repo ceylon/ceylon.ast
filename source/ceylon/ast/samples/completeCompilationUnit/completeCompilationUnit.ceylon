@@ -115,7 +115,6 @@ import ceylon.ast.core {
     LazySpecification,
     LazySpecifier,
     LetExpression,
-    LetValueList,
     LIdentifier,
     MatchCase,
     MeasureOperation,
@@ -144,6 +143,7 @@ import ceylon.ast.core {
     PackageDec,
     ParameterReference,
     Parameters,
+    PatternList,
     PositionalArguments,
     PostfixDecrementOperation,
     PostfixIncrementOperation,
@@ -555,11 +555,10 @@ shared CompilationUnit completeCompilationUnit
                                             clause = IfComprehensionClause {
                                                 conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
                                                 clause = ExpressionComprehensionClause(LetExpression {
-                                                        letValues = LetValueList([
-                                                                SpecifiedVariable {
-                                                                    name = LIdentifier("w");
+                                                        patterns = PatternList([
+                                                                SpecifiedPattern {
+                                                                    pattern = VariablePattern(UnspecifiedVariable(LIdentifier("w")));
                                                                     specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
-                                                                    type = null;
                                                                 }
                                                             ]);
                                                         expression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("w")));

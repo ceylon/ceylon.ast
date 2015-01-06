@@ -372,9 +372,9 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Subscript) { return transformSubscript(that); }
         case (is DecQualifier) { return transformDecQualifier(that); }
         case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
-        case (is LetValueList) { return transformLetValueList(that); }
         case (is Pattern) { return transformPattern(that); }
         case (is SpecifiedPattern) { return transformSpecifiedPattern(that); }
+        case (is PatternList) { return transformPatternList(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

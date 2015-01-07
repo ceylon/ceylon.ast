@@ -1645,7 +1645,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             assert (exists c = conditions.get(0));
             JIdentifier? id;
             JType? t;
-            if (is JExistsOrNonemptyCondition c, exists v = c.variable) {
+            if (is JExistsOrNonemptyCondition c, is JVariable v = c.variable) {
                 t = v.type;
                 id = v.identifier;
             } else if (is JIsCondition c, exists v = c.variable) {

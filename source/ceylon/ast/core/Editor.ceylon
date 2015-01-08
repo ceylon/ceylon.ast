@@ -239,6 +239,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformType(that.type));
     shared actual default DefaultedValueParameter transformDefaultedValueParameter(DefaultedValueParameter that)
             => that.copy(transformValueParameter(that.parameter), transformSpecifier(that.specifier));
+    shared actual default Destructure transformDestructure(Destructure that)
+            => that.copy(transformTuplePatternOrEntryPattern(that.pattern), transformSpecifier(that.specifier), transformValueModifier(that.valueModifier));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy(transformAddingExpression(that.leftOperand), transformScalingExpression(that.rightOperand));
     shared actual default Directive transformDirective(Directive that) {
@@ -1034,5 +1036,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TypeList) { return transformTypeList(that); }
         case (is SpreadType) { return transformSpreadType(that); }
+    }
+    TuplePattern|EntryPattern transformTuplePatternOrEntryPattern(TuplePattern|EntryPattern that) {
+        switch (that)
+        case (is TuplePattern) { return transformTuplePattern(that); }
+        case (is EntryPattern) { return transformEntryPattern(that); }
     }
 }

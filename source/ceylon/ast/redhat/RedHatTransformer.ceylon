@@ -1133,6 +1133,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JDestructure transformDestructure(Destructure that) {
+        value vm = transformValueModifier(that.valueModifier);
+        JDestructure ret = JDestructure(null);
+        ret.type = vm;
+        ret.pattern = transformPattern(that.pattern);
+        ret.specifierExpression = transformSpecifier(that.specifier);
+        return ret;
+    }
+    
     shared actual JDifferenceOp transformDifferenceOperation(DifferenceOperation that) {
         JTerm left = transformAddingExpression(that.leftOperand);
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));

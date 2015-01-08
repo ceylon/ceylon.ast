@@ -82,6 +82,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedParameterReference(DefaultedParameterReference that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDefaultedValueParameter(DefaultedValueParameter that);
+    shared formal Result transformDestructure(Destructure that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformDirective(Directive that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);

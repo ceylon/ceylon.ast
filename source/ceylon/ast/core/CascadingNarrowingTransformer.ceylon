@@ -572,6 +572,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Assertion) { return transformAssertion(that); }
         case (is Directive) { return transformDirective(that); }
         case (is ControlStructure) { return transformControlStructure(that); }
+        case (is Destructure) { return transformDestructure(that); }
     }
     shared actual default Result transformSubscript(Subscript that) {
         switch (that)

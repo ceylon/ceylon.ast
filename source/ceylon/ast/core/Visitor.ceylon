@@ -80,6 +80,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformDefaultedParameterReference(DefaultedParameterReference that) => visitDefaultedParameterReference(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformDefaultedValueParameter(DefaultedValueParameter that) => visitDefaultedValueParameter(that);
+    transformDestructure(Destructure that) => visitDestructure(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
     transformDirective(Directive that) => visitDirective(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
@@ -386,6 +387,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitDefaultedParameterReference(DefaultedParameterReference that) => super.transformDefaultedParameterReference(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDefaultedValueParameter(DefaultedValueParameter that) => super.transformDefaultedValueParameter(that);
+    shared default void visitDestructure(Destructure that) => super.transformDestructure(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitDirective(Directive that) => super.transformDirective(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);

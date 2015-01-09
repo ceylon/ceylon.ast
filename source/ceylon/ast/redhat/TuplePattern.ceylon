@@ -8,6 +8,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSequencedType=SequencedType,
         JStaticType=StaticType,
         JTuplePattern=TuplePattern,
+        JValueModifier=ValueModifier,
         JVariablePattern=VariablePattern
     }
 }
@@ -23,13 +24,14 @@ shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern) {
     if (is JVariablePattern lastPattern, lastPattern.variable.type is JSequencedType) {
         // variadic
         UnionType? variadicType;
-        if (exists jType = lastPattern.variable.type) {
-            assert (is JSequencedType jType,
-                is JStaticType jElementType = jType.type);
-            assert (is UnionType t = typeToCeylon(jElementType));
-            variadicType = t;
-        } else {
+        assert (is JSequencedType jType = lastPattern.variable.type);
+        if (is JValueModifier jElementType = jType.type, !jElementType.token exists) {
+            // synthetic value modifier
             variadicType = null;
+        } else {
+            assert (is JStaticType jElementType = jType.type,
+                is UnionType t = typeToCeylon(jElementType));
+            variadicType = t;
         }
         value variadicElementPattern = VariadicVariable(lIdentifierToCeylon(lastPattern.variable.identifier), variadicType);
         assert (nonempty elementPatterns = patterns.reversed.rest.reversed.collect(patternToCeylon));

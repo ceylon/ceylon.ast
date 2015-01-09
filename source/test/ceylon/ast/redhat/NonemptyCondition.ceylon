@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object nonemptyCondition satisfies ConcreteTest<NonemptyCondition,JNonemptyCondition> {
     
     String->NonemptyCondition constructP(String->Pattern pattern, String->Specifier specifier)
-            => "nonempty ``pattern.key`` = ``specifier.key``"->NonemptyCondition(SpecifiedPattern(pattern.item, specifier.item));
+            => "nonempty ``pattern.key`` ``specifier.key``"->NonemptyCondition(SpecifiedPattern(pattern.item, specifier.item));
     
     String->NonemptyCondition constructI(String->LIdentifier variable)
             => "nonempty ``variable.key``"->NonemptyCondition(variable.item);

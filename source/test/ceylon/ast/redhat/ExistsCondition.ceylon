@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object existsCondition satisfies ConcreteTest<ExistsCondition,JExistsCondition> {
     
     String->ExistsCondition constructP(String->Pattern pattern, String->Specifier specifier)
-            => "exists ``pattern.key`` = ``specifier.key``"->ExistsCondition(SpecifiedPattern(pattern.item, specifier.item));
+            => "exists ``pattern.key`` ``specifier.key``"->ExistsCondition(SpecifiedPattern(pattern.item, specifier.item));
     
     String->ExistsCondition constructI(String->LIdentifier variable)
             => "exists ``variable.key``"->ExistsCondition(variable.item);

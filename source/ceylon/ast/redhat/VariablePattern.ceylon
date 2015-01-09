@@ -31,7 +31,8 @@ shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern)
  into a [[VariablePattern]] using the Ceylon compiler
  (more specifically, the rule for a `variablePattern`)."
 shared VariablePattern? compileVariablePattern(String code) {
-    if (exists jVariablePattern = createParser(code).variablePattern()) {
+    if (exists jVariablePattern = createParser(code + ",").variablePattern()) {
+        // the parser needs that comma sometimes
         return variablePatternToCeylon(jVariablePattern);
     } else {
         return null;

@@ -23,7 +23,8 @@ shared Pattern patternToCeylon(JPattern pattern) {
  into a [[Pattern]] using the Ceylon compiler
  (more specifically, the rule for a `pattern`)."
 shared Pattern? compilePattern(String code) {
-    if (exists jPattern = createParser(code).pattern()) {
+    if (exists jPattern = createParser(code + ",").pattern()) {
+        // the parser needs that comma for some patterns
         return patternToCeylon(jPattern);
     } else {
         return null;

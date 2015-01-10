@@ -239,6 +239,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformType(that.type));
     shared actual default DefaultedValueParameter transformDefaultedValueParameter(DefaultedValueParameter that)
             => that.copy(transformValueParameter(that.parameter), transformSpecifier(that.specifier));
+    shared actual default Destructure transformDestructure(Destructure that)
+            => that.copy(transformTuplePatternOrEntryPattern(that.pattern), transformSpecifier(that.specifier), transformValueModifier(that.valueModifier));
     shared actual default DifferenceOperation transformDifferenceOperation(DifferenceOperation that)
             => that.copy(transformAddingExpression(that.leftOperand), transformScalingExpression(that.rightOperand));
     shared actual default Directive transformDirective(Directive that) {
@@ -271,6 +273,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformThenElseExpression(that.leftOperand), transformDisjoiningExpression(that.rightOperand));
     shared actual default EntryOperation transformEntryOperation(EntryOperation that)
             => that.copy(transformAddingExpression(that.leftOperand), transformAddingExpression(that.rightOperand));
+    shared actual default EntryPattern transformEntryPattern(EntryPattern that) {
+        VariablePattern|TuplePattern transformVariablePatternOrTuplePattern(VariablePattern|TuplePattern that) {
+            switch (that)
+            case (is VariablePattern) { return transformVariablePattern(that); }
+            case (is TuplePattern) { return transformTuplePattern(that); }
+        }
+        return that.copy(transformVariablePatternOrTuplePattern(that.key), transformVariablePatternOrTuplePattern(that.item));
+    }
     shared actual default EntryType transformEntryType(EntryType that)
             => that.copy(transformMainType(that.key), transformMainType(that.item));
     shared actual default EqualOperation transformEqualOperation(EqualOperation that)
@@ -280,7 +290,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ExistsCondition transformExistsCondition(ExistsCondition that)
-            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default ExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
@@ -313,10 +323,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformForIterator(that.iterator), transformComprehensionClause(that.clause));
     shared actual default ForFail transformForFail(ForFail that)
             => that.copy(transformForClause(that.forClause), nullsafeInvoke(that.failClause, transformFailClause));
-    shared actual default ForIterator transformForIterator(ForIterator that) {
-        assert (is ForIterator ret = super.transformForIterator(that));
-        return ret;
-    }
+    shared actual default ForIterator transformForIterator(ForIterator that)
+            => that.copy(transformPattern(that.pattern), transformExpression(that.iterated));
     shared actual default FullPackageName transformFullPackageName(FullPackageName that)
             => that.copy([for (component in that.components) transformLIdentifier(component)]);
     shared actual default FunctionArgument transformFunctionArgument(FunctionArgument that)
@@ -446,8 +454,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default KeySubscript transformKeySubscript(KeySubscript that)
             => that.copy(transformAddingExpression(that.key));
-    shared actual default KeyValueIterator transformKeyValueIterator(KeyValueIterator that)
-            => that.copy(transformUnspecifiedVariable(that.keyVariable), transformUnspecifiedVariable(that.valueVariable), transformExpression(that.iterated));
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
             => that.copy(transformExistsNonemptyExpression(that.leftOperand), transformExistsNonemptyExpression(that.rightOperand));
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)
@@ -459,9 +465,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default LetExpression transformLetExpression(LetExpression that)
-            => that.copy(transformLetValueList(that.letValues), transformExpression(that.expression));
-    shared actual default LetValueList transformLetValueList(LetValueList that)
-            => that.copy(that.letValues.collect(transformSpecifiedVariable));
+            => that.copy(transformPatternList(that.patterns), transformExpression(that.expression));
     shared actual default Literal transformLiteral(Literal that) {
         assert (is Literal ret = super.transformLiteral(that));
         return ret;
@@ -550,7 +554,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default NegationOperation transformNegationOperation(NegationOperation that)
             => that.copy(transformExponentiatingExpression(that.operand));
     shared actual default NonemptyCondition transformNonemptyCondition(NonemptyCondition that)
-            => that.copy(transformSpecifiedVariableOrLIdentifier(that.variable));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)
@@ -597,6 +601,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name));
     shared actual default Parameters transformParameters(Parameters that)
             => that.copy(that.parameters.collect(transformParameter));
+    shared actual default Pattern transformPattern(Pattern that) {
+        assert (is Pattern ret = super.transformPattern(that));
+        return ret;
+    }
+    shared actual default PatternList transformPatternList(PatternList that)
+            => that.copy(that.patterns.collect(transformSpecifiedPattern));
     shared actual default PositionalArguments transformPositionalArguments(PositionalArguments that)
             => that.copy(transformArgumentList(that.argumentList));
     shared actual default PostfixDecrementOperation transformPostfixDecrementOperation(PostfixDecrementOperation that)
@@ -623,6 +633,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is IntersectingExpression ret = super.transformIntersectingExpression(that));
         return ret;
     }
+    shared actual default SpecifiedPattern transformSpecifiedPattern(SpecifiedPattern that)
+            => that.copy(transformPattern(that.pattern), transformSpecifier(that.specifier));
+    shared actual default TuplePattern transformTuplePattern(TuplePattern that)
+            => that.copy(that.elementPatterns.collect(transformPattern), nullsafeInvoke(that.variadicElementPattern, transformVariadicVariable));
     shared actual default UnioningExpression transformUnioningExpression(UnioningExpression that) {
         assert (is UnioningExpression ret = super.transformUnioningExpression(that));
         return ret;
@@ -938,8 +952,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default ValueGetterDefinition transformValueGetterDefinition(ValueGetterDefinition that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformBlock(that.definition), transformAnnotations(that.annotations));
-    shared actual default ValueIterator transformValueIterator(ValueIterator that)
-            => that.copy(transformUnspecifiedVariable(that.variable), transformExpression(that.iterated));
     shared actual default ValueModifier transformValueModifier(ValueModifier that)
             => that.copy();
     shared actual default ValueParameter transformValueParameter(ValueParameter that) {
@@ -964,10 +976,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Variable ret = super.transformVariable(that));
         return ret;
     }
+    shared actual default VariablePattern transformVariablePattern(VariablePattern that)
+            => that.copy(transformUnspecifiedVariable(that.variable));
     shared actual default VariadicParameter transformVariadicParameter(VariadicParameter that)
             => that.copy(transformVariadicType(that.type), transformLIdentifier(that.name), transformAnnotations(that.annotations));
     shared actual default VariadicType transformVariadicType(VariadicType that)
             => that.copy(transformMainType(that.elementType));
+    shared actual default VariadicVariable transformVariadicVariable(VariadicVariable that)
+            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.type, transformUnionType));
     shared actual default Variance transformVariance(Variance that) {
         assert (is Variance ret = super.transformVariance(that));
         return ret;
@@ -983,9 +999,9 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is LazySpecifier) { return transformLazySpecifier(that); }
         case (is Block) { return transformBlock(that); }
     }
-    SpecifiedVariable|LIdentifier transformSpecifiedVariableOrLIdentifier(SpecifiedVariable|LIdentifier that) {
+    SpecifiedPattern|LIdentifier transformSpecifiedPatternOrLIdentifier(SpecifiedPattern|LIdentifier that) {
         switch (that)
-        case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
+        case (is SpecifiedPattern) { return transformSpecifiedPattern(that); }
         case (is LIdentifier) { return transformLIdentifier(that); }
     }
     Statement|Declaration transformStatementOrDeclaration(Statement|Declaration that) {
@@ -1020,5 +1036,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TypeList) { return transformTypeList(that); }
         case (is SpreadType) { return transformSpreadType(that); }
+    }
+    TuplePattern|EntryPattern transformTuplePatternOrEntryPattern(TuplePattern|EntryPattern that) {
+        switch (that)
+        case (is TuplePattern) { return transformTuplePattern(that); }
+        case (is EntryPattern) { return transformEntryPattern(that); }
     }
 }

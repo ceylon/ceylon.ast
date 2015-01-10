@@ -68,6 +68,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDefaultTypeArgument=DefaultTypeArgument,
+        JDestructure=Destructure,
         JDifferenceOp=DifferenceOp,
         JDirective=Directive,
         JDivideAssignOp=DivideAssignOp,
@@ -138,7 +139,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIsCondition=IsCondition,
         JIsOp=IsOp,
         JIterableType=IterableType,
-        JKeyValueIterator=KeyValueIterator,
+        JKeyValuePattern=KeyValuePattern,
         JLargeAsOp=LargeAsOp,
         JLargerOp=LargerOp,
         JLazySpecifierExpression=LazySpecifierExpression,
@@ -183,6 +184,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JParameter=Parameter,
         JParameterList=ParameterList,
         JParameterizedExpression=ParameterizedExpression,
+        JPattern=Pattern,
+        JPatternIterator=PatternIterator,
         JPositionalArgumentList=PositionalArgumentList,
         JPositiveOp=PositiveOp,
         JPostfixDecrementOp=PostfixDecrementOp,
@@ -242,6 +245,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JTryCatchStatement=TryCatchStatement,
         JTryClause=TryClause,
         JTuple=Tuple,
+        JTuplePattern=TuplePattern,
         JTupleType=TupleType,
         JTypeAliasDeclaration=TypeAliasDeclaration,
         JTypeArgumentList=TypeArgumentList,
@@ -262,11 +266,12 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JUnionAssignOp=UnionAssignOp,
         JUnionOp=UnionOp,
         JUnionType=UnionType,
-        JValueLiteral=ValueLiteral,
         JValueIterator=ValueIterator,
+        JValueLiteral=ValueLiteral,
         JValueModifier=ValueModifier,
         JValueParameterDeclaration=ValueParameterDeclaration,
         JVariable=Variable,
+        JVariablePattern=VariablePattern,
         JVoidModifier=VoidModifier,
         JWhileClause=WhileClause,
         JWhileStatement=WhileStatement,
@@ -511,6 +516,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             anno.visit(aliteralVisitor);
             ret.addAnnotation(anno);
         }
+        return ret;
+    }
+    
+    shared actual JPattern transformPattern(Pattern that) {
+        assert (is JPattern ret = super.transformPattern(that));
         return ret;
     }
     
@@ -1123,6 +1133,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JDestructure transformDestructure(Destructure that) {
+        value vm = transformValueModifier(that.valueModifier);
+        JDestructure ret = JDestructure(null);
+        ret.type = vm;
+        ret.pattern = transformPattern(that.pattern);
+        ret.specifierExpression = transformSpecifier(that.specifier);
+        return ret;
+    }
+    
     shared actual JDifferenceOp transformDifferenceOperation(DifferenceOperation that) {
         JTerm left = transformAddingExpression(that.leftOperand);
         JDifferenceOp ret = JDifferenceOp(tokens.token(that.operator, difference_op));
@@ -1221,6 +1240,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JKeyValuePattern transformEntryPattern(EntryPattern that) {
+        JKeyValuePattern ret = JKeyValuePattern(null);
+        ret.key = transformPattern(that.key);
+        ret.endToken = tokens.token("->", entry_op);
+        ret.\ivalue = transformPattern(that.item);
+        ret.endToken = null;
+        return ret;
+    }
+    
     shared actual JEntryType transformEntryType(EntryType that) {
         JEntryType ret = JEntryType(null);
         ret.keyType = transformMainType(that.key);
@@ -1244,7 +1272,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExistsCondition transformExistsCondition(ExistsCondition that) {
         JExistsCondition ret = JExistsCondition(tokens.token("exists", exists_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
+        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
     }
     
     shared actual JExists transformExistsOperation(ExistsOperation that) {
@@ -1330,7 +1358,35 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JForIterator transformForIterator(ForIterator that) {
-        assert (is JForIterator ret = super.transformForIterator(that));
+        JForIterator ret;
+        switch (pattern = that.pattern)
+        case (is VariablePattern) {
+            // Use ValueIterator instead of PatternIterator with VariablePattern
+            value vi = JValueIterator(tokens.token("(", lparen));
+            JVariable variable = JVariable(null);
+            switch (type = pattern.variable.type)
+            case (is Type) {
+                variable.type = transformType(type);
+            }
+            case (is ValueModifier) {
+                variable.type = transformValueModifier(type);
+            }
+            else {
+                variable.type = JValueModifier(null);
+            }
+            variable.identifier = transformLIdentifier(pattern.variable.name);
+            vi.variable = variable;
+            ret = vi;
+        }
+        else {
+            value pi = JPatternIterator(tokens.token("(", lparen));
+            pi.pattern = transformPattern(pattern);
+            ret = pi;
+        }
+        JSpecifierExpression containment = JSpecifierExpression(tokens.token("in", in_op));
+        containment.expression = wrapTerm(transformExpression(that.iterated));
+        ret.specifierExpression = containment;
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     
@@ -1598,7 +1654,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             assert (exists c = conditions.get(0));
             JIdentifier? id;
             JType? t;
-            if (is JExistsOrNonemptyCondition c, exists v = c.variable) {
+            if (is JExistsOrNonemptyCondition c, is JVariable v = c.variable) {
                 t = v.type;
                 id = v.identifier;
             } else if (is JIsCondition c, exists v = c.variable) {
@@ -1907,34 +1963,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JKeyValueIterator transformKeyValueIterator(KeyValueIterator that) {
-        JKeyValueIterator ret = JKeyValueIterator(tokens.token("(", lparen));
-        value keyVariable = that.keyVariable;
-        value keyVar = JVariable(null);
-        value keyType = keyVariable.type;
-        switch (keyType)
-        case (is Type) { keyVar.type = transformType(keyType); }
-        case (is ValueModifier) { keyVar.type = transformValueModifier(keyType); }
-        case (null) { keyVar.type = JValueModifier(null); }
-        keyVar.identifier = transformLIdentifier(keyVariable.name);
-        ret.keyVariable = keyVar;
-        tokens.token("->", entry_op);
-        value valueVariable = that.valueVariable;
-        value valueVar = JVariable(null);
-        value valueType = valueVariable.type;
-        switch (valueType)
-        case (is Type) { valueVar.type = transformType(valueType); }
-        case (is ValueModifier) { valueVar.type = transformValueModifier(valueType); }
-        case (null) { valueVar.type = JValueModifier(null); }
-        valueVar.identifier = transformLIdentifier(valueVariable.name);
-        ret.valueVariable = valueVar;
-        value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
-        jSpecifierExpression.expression = wrapTerm(transformExpression(that.iterated));
-        ret.specifierExpression = jSpecifierExpression;
-        ret.endToken = tokens.token(")", rparen);
-        return ret;
-    }
-    
     shared actual JLargeAsOp transformLargeAsOperation(LargeAsOperation that) {
         JTerm left = transformExistsNonemptyExpression(that.leftOperand);
         JLargeAsOp ret = JLargeAsOp(tokens.token(that.operator, large_as_op));
@@ -1982,22 +2010,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JLetExpression ret = JLetExpression(null);
         JLetClause letClause = JLetClause(tokens.token("let", letType));
         letClause.endToken = tokens.token("(", lparen);
-        letClause.addVariable(helpTransformSpecifiedVariable(that.letValues.letValues.first));
-        for (letValue in that.letValues.letValues.rest) {
+        letClause.addVariable(helpTransformSpecifiedPattern(that.patterns.patterns.first));
+        for (pattern in that.patterns.patterns.rest) {
             letClause.endToken = tokens.token(",", comma);
-            letClause.addVariable(helpTransformSpecifiedVariable(letValue));
+            letClause.addVariable(helpTransformSpecifiedPattern(pattern));
         }
         letClause.endToken = tokens.token(")", rparen);
         letClause.expression = wrapTerm(transformExpression(that.expression));
         letClause.endToken = null;
         ret.letClause = letClause;
         return ret;
-    }
-    
-    "The RedHat AST has no direct equivalent of [[LetValueList]];
-     this method throws."
-    shared actual Nothing transformLetValueList(LetValueList that) {
-        throw Exception("LetValueList has no RedHat AST equivalent!");
     }
     
     shared actual JLiteral transformLiteral(Literal that) {
@@ -2190,7 +2212,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JNonemptyCondition transformNonemptyCondition(NonemptyCondition that) {
         JNonemptyCondition ret = JNonemptyCondition(tokens.token("nonempty", nonempty_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.variable);
+        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
     }
     
     shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
@@ -2372,6 +2394,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JInitializerParameter ret = JInitializerParameter(null);
         ret.identifier = transformLIdentifier(that.name);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[PatternList]];
+     this method throws."
+    shared actual Nothing transformPatternList(PatternList that) {
+        throw Exception("PatternList has no RedHat AST equivalent!");
     }
     
     "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
@@ -2785,6 +2813,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
     }
     
+    "The RedHat AST has no direct equivalent of [[SpecifiedPattern]];
+     this method throws."
+    shared actual Nothing transformSpecifiedPattern(SpecifiedPattern that) {
+        throw Exception("SpecifiedPattern has no RedHat AST equivalent!");
+    }
+    
     "The usage of [[SpecifiedVariable]] in `ceylon.ast` differs significantly
      from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
      where a conversion at the level of individual variable nodes isn’t possible."
@@ -2982,6 +3016,34 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTuple ret = JTuple(tokens.token("[", lbracket));
         if (that.argumentList.children nonempty) {
             ret.sequencedArgument = transformArgumentList(that.argumentList);
+        }
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
+    
+    shared actual JTuplePattern transformTuplePattern(TuplePattern that) {
+        JTuplePattern ret = JTuplePattern(tokens.token("[", lbracket));
+        ret.addPattern(transformPattern(that.elementPatterns.first));
+        for (pattern in that.elementPatterns.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addPattern(transformPattern(pattern));
+        }
+        if (exists variadicElementPattern = that.variadicElementPattern) {
+            ret.endToken = tokens.token(",", comma);
+            value vp = JVariablePattern(null);
+            value v = JVariable(null);
+            JType t;
+            if (exists type = variadicElementPattern.type) {
+                t = transformType(type);
+            } else {
+                t = JValueModifier(null);
+            }
+            value st = JSequencedType(tokens.token("*", product_op));
+            st.type = t;
+            v.type = st;
+            v.identifier = transformLIdentifier(variadicElementPattern.name);
+            vp.variable = v;
+            ret.addPattern(vp);
         }
         ret.endToken = tokens.token("]", rbracket);
         return ret;
@@ -3313,24 +3375,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JValueIterator transformValueIterator(ValueIterator that) {
-        JValueIterator ret = JValueIterator(tokens.token("(", lparen));
-        value variable = that.variable;
-        value var = JVariable(null);
-        value type = variable.type;
-        switch (type)
-        case (is Type) { var.type = transformType(type); }
-        case (is ValueModifier) { var.type = transformValueModifier(type); }
-        case (null) { var.type = JValueModifier(null); }
-        var.identifier = transformLIdentifier(variable.name);
-        ret.variable = var;
-        value jSpecifierExpression = JSpecifierExpression(tokens.token("in", in_op));
-        jSpecifierExpression.expression = wrapTerm(transformExpression(that.iterated));
-        ret.specifierExpression = jSpecifierExpression;
-        ret.endToken = tokens.token(")", rparen);
-        return ret;
-    }
-    
     shared actual JValueModifier transformValueModifier(ValueModifier that) {
         JValueModifier ret = JValueModifier(tokens.token(that.text, value_modifier));
         return ret;
@@ -3379,6 +3423,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         throw AssertionError("Can’t transform a ceylon.ast Variable to a RedHat AST Variable");
     }
     
+    shared actual JVariablePattern transformVariablePattern(VariablePattern that) {
+        JVariablePattern ret = JVariablePattern(null);
+        value variable = that.variable;
+        value var = JVariable(null);
+        value type = variable.type;
+        switch (type)
+        case (is Type) { var.type = transformType(type); }
+        case (is ValueModifier) { var.type = transformValueModifier(type); }
+        case (null) { var.type = JValueModifier(null); }
+        var.identifier = transformLIdentifier(variable.name);
+        ret.variable = var;
+        return ret;
+    }
+    
     shared actual JValueParameterDeclaration transformVariadicParameter(VariadicParameter that) {
         JValueParameterDeclaration ret = JValueParameterDeclaration(null);
         JAttributeDeclaration dec = JAttributeDeclaration(null);
@@ -3399,6 +3457,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
         ret.atLeastOne = that.isNonempty;
         return ret;
+    }
+    
+    "The usage of [[VariadicVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformVariadicVariable(VariadicVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast VariadicVariable to a RedHat AST Variable");
     }
     
     shared actual JTypeVariance transformVariance(Variance that) {
@@ -3482,33 +3547,28 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
     }
     
-    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedVariable|LIdentifier variable)
+    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedPattern|LIdentifier tested)
             given JCond satisfies JExistsOrNonemptyCondition {
-        JVariable var = JVariable(null);
-        switch (variable)
-        case (is SpecifiedVariable) {
-            value type = variable.type;
-            switch (type)
-            case (is Type) { var.type = transformType(type); }
-            case (is ValueModifier) { var.type = transformValueModifier(type); }
-            case (null) { var.type = JValueModifier(null); }
-            var.identifier = transformLIdentifier(variable.name);
-            var.specifierExpression = transformSpecifier(variable.specifier);
+        switch (tested)
+        case (is SpecifiedPattern) {
+            // letVariable
+            ret.variable = helpTransformSpecifiedPattern(tested);
         }
         case (is LIdentifier) {
-            var.identifier = transformLIdentifier(variable);
-            // the parser does lots of stuff here (impliedVariable rule), I assume the compiler needs it?
-            var.type = JSyntheticVariable(null);
+            // impliedVariable
+            JVariable v = JVariable(null);
+            v.type = JSyntheticVariable(null);
+            v.identifier = transformLIdentifier(tested);
             value se = JSpecifierExpression(null);
             value e = JExpression(null);
             value bme = JBaseMemberExpression(null);
-            bme.identifier = var.identifier;
+            bme.identifier = v.identifier;
             bme.typeArguments = JInferredTypeArguments(null);
             e.term = bme;
             se.expression = e;
-            var.specifierExpression = se;
+            v.specifierExpression = se;
+            ret.variable = v;
         }
-        ret.variable = var;
         return ret;
     }
     
@@ -3534,6 +3594,32 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         var.identifier = transformLIdentifier(resource.name);
         var.specifierExpression = transformSpecifier(resource.specifier);
         return var;
+    }
+    
+    JDestructure|JVariable helpTransformSpecifiedPattern(SpecifiedPattern specifiedPattern) {
+        // letVariable
+        JDestructure|JVariable statement;
+        switch (pattern = specifiedPattern.pattern)
+        case (is VariablePattern) {
+            value v = pattern.variable;
+            value variable = JVariable(null);
+            value type = v.type;
+            switch (type)
+            case (is Type) { variable.type = transformType(type); }
+            case (is ValueModifier) { variable.type = transformValueModifier(type); }
+            case (null) { variable.type = JValueModifier(null); }
+            variable.identifier = transformLIdentifier(v.name);
+            statement = variable;
+        }
+        else {
+            value d = JDestructure(null);
+            d.pattern = transformPattern(pattern);
+            statement = d;
+        }
+        switch (statement)
+        case (is JDestructure) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
+        case (is JVariable) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
+        return statement;
     }
     
     JExpression wrapTerm(JTerm term) {

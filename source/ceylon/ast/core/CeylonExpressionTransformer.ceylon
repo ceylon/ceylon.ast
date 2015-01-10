@@ -27,9 +27,9 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
         }
         else { // case (is [Node+]) { – but Node and [Node+] are not disjoint, because Sequence is a sealed interface, not a class
             value origIndent = indent;
-            indent += indentLevel + indentLevel;
+            indent += indentLevel+indentLevel;
             value firstString = that.first.transform(this);
-            value multiLine = that.size > 1 || firstString.lines.longerThan(1);
+            value multiLine = that.size>1 || firstString.lines.longerThan(1);
             StringBuilder code = StringBuilder();
             code.append("[");
             if (multiLine) {
@@ -224,6 +224,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``parameter = ``transformWithIndent(that.parameter)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
+    transformDestructure(Destructure that)
+            => "Destructure {
+                `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                `` indent + indentLevel ``valueModifier = ``transformWithIndent(that.valueModifier)``;
+                ``indent``}";
     transformDifferenceOperation(DifferenceOperation that)
             => "DifferenceOperation {
                 `` indent + indentLevel ``minuend = ``transformWithIndent(that.minuend)``;
@@ -269,6 +275,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
                 `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
                 ``indent``}";
+    transformEntryPattern(EntryPattern that)
+            => "EntryPattern {
+                `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
+                `` indent + indentLevel ``item = ``transformWithIndent(that.item)``;
+                ``indent``}";
     transformEntryType(EntryType that)
             => "EntryType {
                 `` indent + indentLevel ``key = ``transformWithIndent(that.key)``;
@@ -279,7 +290,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;
                 `` indent + indentLevel ``rightOperand = ``transformWithIndent(that.rightOperand)``;
                 ``indent``}";
-    transformExistsCondition(ExistsCondition that) => "ExistsCondition(``transformWithIndent(that.variable)``)";
+    transformExistsCondition(ExistsCondition that) => "ExistsCondition(``transformWithIndent(that.tested)``)";
     transformExistsOperation(ExistsOperation that) => "ExistsOperation(``transformWithIndent(that.operand)``)";
     transformExponentiationOperation(ExponentiationOperation that)
             => "ExponentiationOperation {
@@ -305,6 +316,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "ForFail {
                 `` indent + indentLevel ``forClause = ``transformWithIndent(that.forClause)``;
                 `` indent + indentLevel ``failClause = ``transformWithIndent(that.failClause)``;
+                ``indent``}";
+    transformForIterator(ForIterator that)
+            => "ForIterator {
+                `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
+                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
                 ``indent``}";
     transformFullPackageName(FullPackageName that) => "FullPackageName(``transformWithIndent(that.components)``)";
     transformFunctionArgument(FunctionArgument that)
@@ -478,12 +494,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformIterable(Iterable that) => "Iterable(``transformWithIndent(that.argumentList)``)";
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformKeySubscript(KeySubscript that) => "KeySubscript(``transformWithIndent(that.key)``)";
-    transformKeyValueIterator(KeyValueIterator that)
-            => "KeyValueIterator {
-                `` indent + indentLevel ``keyVariable = ``transformWithIndent(that.keyVariable)``;
-                `` indent + indentLevel ``valueVariable = ``transformWithIndent(that.valueVariable)``;
-                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
-                ``indent``}";
     transformLIdentifier(LIdentifier that)
             => that.usePrefix
             then "LIdentifier(\"``that.name``\", true)"
@@ -496,10 +506,9 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformLetExpression(LetExpression that)
             => "LetExpression {
-                `` indent + indentLevel ``letValues = ``transformWithIndent(that.letValues)``;
+                `` indent + indentLevel ``patterns = ``transformWithIndent(that.patterns)``;
                 `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
                 ``indent``}";
-    transformLetValueList(LetValueList that) => "LetValueList(``transformWithIndent(that.letValues)``)";
     transformMatchCase(MatchCase that) => "MatchCase(``transformWithIndent(that.expressions)``)";
     transformMeasureSubscript(MeasureSubscript that)
             => "MeasureSubscript {
@@ -570,7 +579,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 then "NamedArguments(``transformWithIndent(that.namedArguments)``)"
                 else "NamedArguments()");
     transformNegationOperation(NegationOperation that) => "NegationOperation(``transformWithIndent(that.operand)``)";
-    transformNonemptyCondition(NonemptyCondition that) => "NonemptyCondition(``transformWithIndent(that.variable)``)";
+    transformNonemptyCondition(NonemptyCondition that) => "NonemptyCondition(``transformWithIndent(that.tested)``)";
     transformNonemptyOperation(NonemptyOperation that) => "NonemptyOperation(``transformWithIndent(that.operand)``)";
     transformNotEqualOperation(NotEqualOperation that)
             => "NotEqualOperation {
@@ -635,6 +644,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => that.parameters nonempty
             then "Parameters(``transformWithIndent(that.parameters)``)"
             else "Parameters()";
+    transformPatternList(PatternList that) => "PatternList(``transformWithIndent(that.patterns)``)";
     transformPositionalArguments(PositionalArguments that) => "PositionalArguments(``transformWithIndent(that.argumentList)``)";
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => "PostfixDecrementOperation(``transformWithIndent(that.operand)``)";
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => "PostfixIncrementOperation(``transformWithIndent(that.operand)``)";
@@ -714,6 +724,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformSpanToSubscript(SpanToSubscript that) => "SpanToSubscript(``transformWithIndent(that.to)``)";
     transformSpecifiedArgument(SpecifiedArgument that) => "SpecifiedArgument(``transformWithIndent(that.specification)``)";
+    transformSpecifiedPattern(SpecifiedPattern that)
+            => "SpecifiedPattern {
+                `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
+                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                ``indent``}";
     transformSpecifiedVariable(SpecifiedVariable that)
             => "SpecifiedVariable {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -778,6 +793,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``resources = ``transformWithIndent(that.resources)``;
                 ``indent``}";
     transformTuple(Tuple that) => "Tuple(``transformWithIndent(that.argumentList)``)";
+    transformTuplePattern(TuplePattern that)
+            => that.variadicElementPattern exists
+            then "TuplePattern {
+                  `` indent + indentLevel ``elementPatterns = ``transformWithIndent(that.elementPatterns)``;
+                  `` indent + indentLevel ``variadicElementPattern = ``transformWithIndent(that.variadicElementPattern)``;
+                  ``indent``}"
+            else "TuplePattern(``transformWithIndent(that.elementPatterns)``)";
     transformTupleType(TupleType that) => "TupleType(``transformWithIndent(that.typeList)``)";
     transformTypeAliasDefinition(TypeAliasDefinition that)
             => "TypeAliasDefinition {
@@ -886,11 +908,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``definition = ``transformWithIndent(that.definition)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
-    transformValueIterator(ValueIterator that)
-            => "ValueIterator {
-                `` indent + indentLevel ``variable = ``transformWithIndent(that.variable)``;
-                `` indent + indentLevel ``iterated = ``transformWithIndent(that.iterated)``;
-                ``indent``}";
     transformValueModifier(ValueModifier that) => "ValueModifier()";
     transformValueParameter(ValueParameter that)
             => "ValueParameter {
@@ -909,6 +926,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
+    transformVariablePattern(VariablePattern that) => "VariablePattern(``transformWithIndent(that.variable)``)";
     transformVariadicParameter(VariadicParameter that)
             => "VariadicParameter {
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
@@ -922,6 +940,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   `` indent + indentLevel ``isNonempty = true;
                   ``indent``}"
             else "VariadicType(``transformWithIndent(that.elementType)``)";
+    transformVariadicVariable(VariadicVariable that)
+            => that.type exists
+            then "VariadicVariable {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``type = ``transformWithIndent(that.type)``;
+                  ``indent``}"
+            else "VariadicVariable(``transformWithIndent(that.name)``)";
     transformVoidModifier(VoidModifier that) => "VoidModifier()";
     transformWhile(While that)
             => "While {

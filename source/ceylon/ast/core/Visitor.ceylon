@@ -80,6 +80,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformDefaultedParameterReference(DefaultedParameterReference that) => visitDefaultedParameterReference(that);
     transformDefaultedType(DefaultedType that) => visitDefaultedType(that);
     transformDefaultedValueParameter(DefaultedValueParameter that) => visitDefaultedValueParameter(that);
+    transformDestructure(Destructure that) => visitDestructure(that);
     transformDifferenceOperation(DifferenceOperation that) => visitDifferenceOperation(that);
     transformDirective(Directive that) => visitDirective(that);
     transformDivideAssignmentOperation(DivideAssignmentOperation that) => visitDivideAssignmentOperation(that);
@@ -92,6 +93,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformElseClause(ElseClause that) => visitElseClause(that);
     transformElseOperation(ElseOperation that) => visitElseOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
+    transformEntryPattern(EntryPattern that) => visitEntryPattern(that);
     transformEntryType(EntryType that) => visitEntryType(that);
     transformEqualOperation(EqualOperation that) => visitEqualOperation(that);
     transformEqualityOperation(EqualityOperation that) => visitEqualityOperation(that);
@@ -157,14 +159,12 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformIterable(Iterable that) => visitIterable(that);
     transformIterableType(IterableType that) => visitIterableType(that);
     transformKeySubscript(KeySubscript that) => visitKeySubscript(that);
-    transformKeyValueIterator(KeyValueIterator that) => visitKeyValueIterator(that);
     transformLIdentifier(LIdentifier that) => visitLIdentifier(that);
     transformLargeAsOperation(LargeAsOperation that) => visitLargeAsOperation(that);
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
     transformLazySpecification(LazySpecification that) => visitLazySpecification(that);
     transformLazySpecifier(LazySpecifier that) => visitLazySpecifier(that);
     transformLetExpression(LetExpression that) => visitLetExpression(that);
-    transformLetValueList(LetValueList that) => visitLetValueList(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformLocalModifier(LocalModifier that) => visitLocalModifier(that);
     transformLogicalAssignmentOperation(LogicalAssignmentOperation that) => visitLogicalAssignmentOperation(that);
@@ -212,6 +212,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformParameter(Parameter that) => visitParameter(that);
     transformParameterReference(ParameterReference that) => visitParameterReference(that);
     transformParameters(Parameters that) => visitParameters(that);
+    transformPattern(Pattern that) => visitPattern(that);
+    transformPatternList(PatternList that) => visitPatternList(that);
     transformPositionalArguments(PositionalArguments that) => visitPositionalArguments(that);
     transformPostfixDecrementOperation(PostfixDecrementOperation that) => visitPostfixDecrementOperation(that);
     transformPostfixIncrementOperation(PostfixIncrementOperation that) => visitPostfixIncrementOperation(that);
@@ -248,6 +250,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformSpanToSubscript(SpanToSubscript that) => visitSpanToSubscript(that);
     transformSpecification(Specification that) => visitSpecification(that);
     transformSpecifiedArgument(SpecifiedArgument that) => visitSpecifiedArgument(that);
+    transformSpecifiedPattern(SpecifiedPattern that) => visitSpecifiedPattern(that);
     transformSpecifiedVariable(SpecifiedVariable that) => visitSpecifiedVariable(that);
     transformSpecifier(Specifier that) => visitSpecifier(that);
     transformSpreadArgument(SpreadArgument that) => visitSpreadArgument(that);
@@ -269,6 +272,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformTryCatchFinally(TryCatchFinally that) => visitTryCatchFinally(that);
     transformTryClause(TryClause that) => visitTryClause(that);
     transformTuple(Tuple that) => visitTuple(that);
+    transformTuplePattern(TuplePattern that) => visitTuplePattern(that);
     transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
     transformTypeAliasDefinition(TypeAliasDefinition that) => visitTypeAliasDefinition(that);
@@ -302,13 +306,14 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformValueDefinition(ValueDefinition that) => visitValueDefinition(that);
     transformValueExpression(ValueExpression that) => visitValueExpression(that);
     transformValueGetterDefinition(ValueGetterDefinition that) => visitValueGetterDefinition(that);
-    transformValueIterator(ValueIterator that) => visitValueIterator(that);
     transformValueModifier(ValueModifier that) => visitValueModifier(that);
     transformValueParameter(ValueParameter that) => visitValueParameter(that);
     transformValueSetterDefinition(ValueSetterDefinition that) => visitValueSetterDefinition(that);
     transformValueSpecification(ValueSpecification that) => visitValueSpecification(that);
     transformVariable(Variable that) => visitVariable(that);
+    transformVariablePattern(VariablePattern that) => visitVariablePattern(that);
     transformVariadicParameter(VariadicParameter that) => visitVariadicParameter(that);
+    transformVariadicVariable(VariadicVariable that) => visitVariadicVariable(that);
     transformVariance(Variance that) => visitVariance(that);
     transformVoidModifier(VoidModifier that) => visitVoidModifier(that);
     transformWhile(While that) => visitWhile(that);
@@ -382,6 +387,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitDefaultedParameterReference(DefaultedParameterReference that) => super.transformDefaultedParameterReference(that);
     shared default void visitDefaultedType(DefaultedType that) => super.transformDefaultedType(that);
     shared default void visitDefaultedValueParameter(DefaultedValueParameter that) => super.transformDefaultedValueParameter(that);
+    shared default void visitDestructure(Destructure that) => super.transformDestructure(that);
     shared default void visitDifferenceOperation(DifferenceOperation that) => super.transformDifferenceOperation(that);
     shared default void visitDirective(Directive that) => super.transformDirective(that);
     shared default void visitDivideAssignmentOperation(DivideAssignmentOperation that) => super.transformDivideAssignmentOperation(that);
@@ -394,6 +400,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitElseClause(ElseClause that) => super.transformElseClause(that);
     shared default void visitElseOperation(ElseOperation that) => super.transformElseOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);
+    shared default void visitEntryPattern(EntryPattern that) => super.transformEntryPattern(that);
     shared default void visitEntryType(EntryType that) => super.transformEntryType(that);
     shared default void visitEqualityOperation(EqualityOperation that) => super.transformEqualityOperation(that);
     shared default void visitEqualOperation(EqualOperation that) => super.transformEqualOperation(that);
@@ -459,14 +466,12 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitIterable(Iterable that) => super.transformIterable(that);
     shared default void visitIterableType(IterableType that) => super.transformIterableType(that);
     shared default void visitKeySubscript(KeySubscript that) => super.transformKeySubscript(that);
-    shared default void visitKeyValueIterator(KeyValueIterator that) => super.transformKeyValueIterator(that);
     shared default void visitLargeAsOperation(LargeAsOperation that) => super.transformLargeAsOperation(that);
     shared default void visitLargerOperation(LargerOperation that) => super.transformLargerOperation(that);
     shared default void visitLazySpecification(LazySpecification that) => super.transformLazySpecification(that);
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
     shared default void visitLetExpression(LetExpression that) => super.transformLetExpression(that);
-    shared default void visitLetValueList(LetValueList that) => super.transformLetValueList(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitLocalModifier(LocalModifier that) => super.transformLocalModifier(that);
     shared default void visitLogicalAssignmentOperation(LogicalAssignmentOperation that) => super.transformLogicalAssignmentOperation(that);
@@ -514,6 +519,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitParameter(Parameter that) => super.transformParameter(that);
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
     shared default void visitParameters(Parameters that) => super.transformParameters(that);
+    shared default void visitPattern(Pattern that) => super.transformPattern(that);
+    shared default void visitPatternList(PatternList that) => super.transformPatternList(that);
     shared default void visitPositionalArguments(PositionalArguments that) => super.transformPositionalArguments(that);
     shared default void visitPostfixDecrementOperation(PostfixDecrementOperation that) => super.transformPostfixDecrementOperation(that);
     shared default void visitPostfixIncrementOperation(PostfixIncrementOperation that) => super.transformPostfixIncrementOperation(that);
@@ -550,6 +557,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitSpanToSubscript(SpanToSubscript that) => super.transformSpanToSubscript(that);
     shared default void visitSpecification(Specification that) => super.transformSpecification(that);
     shared default void visitSpecifiedArgument(SpecifiedArgument that) => super.transformSpecifiedArgument(that);
+    shared default void visitSpecifiedPattern(SpecifiedPattern that) => super.transformSpecifiedPattern(that);
     shared default void visitSpecifiedVariable(SpecifiedVariable that) => super.transformSpecifiedVariable(that);
     shared default void visitSpecifier(Specifier that) => super.transformSpecifier(that);
     shared default void visitSpreadArgument(SpreadArgument that) => super.transformSpreadArgument(that);
@@ -571,6 +579,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitTryCatchFinally(TryCatchFinally that) => super.transformTryCatchFinally(that);
     shared default void visitTryClause(TryClause that) => super.transformTryClause(that);
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
+    shared default void visitTuplePattern(TuplePattern that) => super.transformTuplePattern(that);
     shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitTypeAliasDefinition(TypeAliasDefinition that) => super.transformTypeAliasDefinition(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
@@ -604,13 +613,14 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitValueDefinition(ValueDefinition that) => super.transformValueDefinition(that);
     shared default void visitValueExpression(ValueExpression that) => super.transformValueExpression(that);
     shared default void visitValueGetterDefinition(ValueGetterDefinition that) => super.transformValueGetterDefinition(that);
-    shared default void visitValueIterator(ValueIterator that) => super.transformValueIterator(that);
     shared default void visitValueModifier(ValueModifier that) => super.transformValueModifier(that);
     shared default void visitValueParameter(ValueParameter that) => super.transformValueParameter(that);
     shared default void visitValueSetterDefinition(ValueSetterDefinition that) => super.transformValueSetterDefinition(that);
     shared default void visitValueSpecification(ValueSpecification that) => super.transformValueSpecification(that);
     shared default void visitVariable(Variable that) => super.transformVariable(that);
+    shared default void visitVariablePattern(VariablePattern that) => super.transformVariablePattern(that);
     shared default void visitVariadicParameter(VariadicParameter that) => super.transformVariadicParameter(that);
+    shared default void visitVariadicVariable(VariadicVariable that) => super.transformVariadicVariable(that);
     shared default void visitVariance(Variance that) => super.transformVariance(that);
     shared default void visitVoidModifier(VoidModifier that) => super.transformVoidModifier(that);
     shared default void visitWhile(While that) => super.transformWhile(that);

@@ -1,20 +1,32 @@
 import ceylon.ast.core {
-    ForIterator
+    ForIterator,
+    Pattern,
+    VariablePattern,
+    UnspecifiedVariable
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JForIterator=ForIterator,
-        JKeyValueIterator=KeyValueIterator,
+        JPatternIterator=PatternIterator,
+        JStaticType=StaticType,
         JValueIterator=ValueIterator
     }
 }
 
 "Converts a RedHat AST [[ForIterator|JForIterator]] to a `ceylon.ast` [[ForIterator]]."
 shared ForIterator forIteratorToCeylon(JForIterator forIterator) {
-    assert (is JValueIterator|JKeyValueIterator forIterator);
+    assert (is JValueIterator|JPatternIterator forIterator);
+    Pattern pattern;
     switch (forIterator)
-    case (is JValueIterator) { return valueIteratorToCeylon(forIterator); }
-    case (is JKeyValueIterator) { return keyValueIteratorToCeylon(forIterator); }
+    case (is JValueIterator) {
+        pattern = VariablePattern(UnspecifiedVariable(
+                lIdentifierToCeylon(forIterator.variable.identifier),
+                if (is JStaticType jType = forIterator.variable.type) then typeToCeylon(jType) else null));
+    }
+    case (is JPatternIterator) {
+        pattern = patternToCeylon(forIterator.pattern);
+    }
+    return ForIterator(pattern, expressionToCeylon(forIterator.specifierExpression.expression));
 }
 
 "Compiles the given [[code]] for a For Iterator

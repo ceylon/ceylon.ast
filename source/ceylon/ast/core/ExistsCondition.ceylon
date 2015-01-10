@@ -1,33 +1,34 @@
 "An existence condition, that is,
- the keyword ‘`exists`’, followed by either an (optionally typed) specified variable or an (untyped) member name.
+ the keyword ‘`exists`’, followed by either
+ a specified pattern or a member name referencing an existing value.
  
  Examples:
  
      exists name
      exists firstItem = first?.item"
-shared class ExistsCondition(variable)
+shared class ExistsCondition(tested)
         extends ExistsOrNonemptyCondition() {
     
-    shared actual SpecifiedVariable|MemberName variable;
+    shared actual SpecifiedPattern|MemberName tested;
     
-    shared actual [SpecifiedVariable|LIdentifier] children = [variable];
+    shared actual [SpecifiedPattern|LIdentifier] children = [tested];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExistsCondition(this);
     
     shared actual Boolean equals(Object that) {
         if (is ExistsCondition that) {
-            return variable == that.variable;
+            return tested == that.tested;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * variable.hash;
+            => 31 * tested.hash;
     
-    shared ExistsCondition copy(SpecifiedVariable|MemberName variable = this.variable) {
-        value ret = ExistsCondition(variable);
+    shared ExistsCondition copy(SpecifiedPattern|MemberName tested = this.tested) {
+        value ret = ExistsCondition(tested);
         copyExtraInfoTo(ret);
         return ret;
     }

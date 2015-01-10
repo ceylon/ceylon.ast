@@ -1,33 +1,34 @@
 "A nonemptiness condition, that is,
- the keyword ‘`nonempty`’, followed by either an (optionally typed) specified variable or an (untyped) member name.
+ the keyword ‘`nonempty`’, followed by either
+ a specified pattern or a member name referencing an existing value.
  
  Examples:
  
      nonempty employees
      nonempty persons = people.sequence()"
-shared class NonemptyCondition(variable)
+shared class NonemptyCondition(tested)
         extends ExistsOrNonemptyCondition() {
     
-    shared actual SpecifiedVariable|MemberName variable;
+    shared actual SpecifiedPattern|MemberName tested;
     
-    shared actual [SpecifiedVariable|LIdentifier] children = [variable];
+    shared actual [SpecifiedPattern|LIdentifier] children = [tested];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNonemptyCondition(this);
     
     shared actual Boolean equals(Object that) {
         if (is NonemptyCondition that) {
-            return variable == that.variable;
+            return tested == that.tested;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * variable.hash;
+            => 31 * tested.hash;
     
-    shared NonemptyCondition copy(SpecifiedVariable|MemberName variable = this.variable) {
-        value ret = NonemptyCondition(variable);
+    shared NonemptyCondition copy(SpecifiedPattern|MemberName tested = this.tested) {
+        value ret = NonemptyCondition(tested);
         copyExtraInfoTo(ret);
         return ret;
     }

@@ -53,6 +53,7 @@ import ceylon.ast.core {
     ElseClause,
     ElseOperation,
     EntryOperation,
+    EntryPattern,
     EntryType,
     EqualOperation,
     ExistsCondition,
@@ -66,6 +67,7 @@ import ceylon.ast.core {
     ForClause,
     ForComprehensionClause,
     ForFail,
+    ForIterator,
     FullPackageName,
     FunctionArgument,
     FunctionDec,
@@ -82,6 +84,7 @@ import ceylon.ast.core {
     IfClause,
     IfComprehensionClause,
     IfElse,
+    IfElseExpression,
     Import,
     ImportElements,
     ImportFunctionValueAlias,
@@ -107,13 +110,11 @@ import ceylon.ast.core {
     Iterable,
     IterableType,
     KeySubscript,
-    KeyValueIterator,
     LargeAsOperation,
     LargerOperation,
     LazySpecification,
     LazySpecifier,
     LetExpression,
-    LetValueList,
     LIdentifier,
     MatchCase,
     MeasureOperation,
@@ -142,6 +143,7 @@ import ceylon.ast.core {
     PackageDec,
     ParameterReference,
     Parameters,
+    PatternList,
     PositionalArguments,
     PostfixDecrementOperation,
     PostfixIncrementOperation,
@@ -168,6 +170,7 @@ import ceylon.ast.core {
     SpanSubscript,
     SpanToSubscript,
     SpecifiedArgument,
+    SpecifiedPattern,
     SpecifiedVariable,
     Specifier,
     SpreadArgument,
@@ -187,6 +190,7 @@ import ceylon.ast.core {
     TryCatchFinally,
     TryClause,
     Tuple,
+    TuplePattern,
     TupleType,
     TypeAliasDefinition,
     TypeArgument,
@@ -209,17 +213,16 @@ import ceylon.ast.core {
     ValueDeclaration,
     ValueDefinition,
     ValueGetterDefinition,
-    ValueIterator,
     ValueModifier,
     ValueParameter,
     ValueSetterDefinition,
     ValueSpecification,
+    VariablePattern,
     VariadicParameter,
     VariadicType,
     VoidModifier,
     While,
-    WithinOperation,
-    IfElseExpression
+    WithinOperation
 }
 
 "A compilation unit node containing every AST node that can be a child of a regular compilation unit
@@ -336,8 +339,8 @@ shared CompilationUnit completeCompilationUnit
                                     };
                                     negated = false;
                                 },
-                                ExistsCondition(SpecifiedVariable {
-                                        name = LIdentifier("arg2");
+                                ExistsCondition(SpecifiedPattern {
+                                        pattern = VariablePattern(UnspecifiedVariable(LIdentifier("arg2")));
                                         specifier = Specifier(ElementOrSubrangeExpression {
                                                 primary = QualifiedExpression {
                                                     receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1")));
@@ -346,7 +349,6 @@ shared CompilationUnit completeCompilationUnit
                                                 };
                                                 subscript = SpanToSubscript(IntegerLiteral("65536"));
                                             });
-                                        type = null;
                                     }),
                                 NonemptyCondition(LIdentifier("arg2")),
                                 BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
@@ -529,9 +531,11 @@ shared CompilationUnit completeCompilationUnit
                     },
                     ForFail {
                         forClause = ForClause {
-                            iterator = KeyValueIterator {
-                                keyVariable = UnspecifiedVariable(LIdentifier("k"));
-                                valueVariable = UnspecifiedVariable(LIdentifier("v"));
+                            iterator = ForIterator {
+                                pattern = EntryPattern {
+                                    key = VariablePattern(UnspecifiedVariable(LIdentifier("k")));
+                                    item = VariablePattern(UnspecifiedVariable(LIdentifier("v")));
+                                };
                                 iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
                             };
                             block = Block([Continue()]);
@@ -544,18 +548,17 @@ shared CompilationUnit completeCompilationUnit
                         definition = Specifier(Iterable(ArgumentList {
                                     listedArguments = [];
                                     sequenceArgument = Comprehension(ForComprehensionClause {
-                                            iterator = ValueIterator {
-                                                variable = UnspecifiedVariable(LIdentifier("v"));
+                                            iterator = ForIterator {
+                                                pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("v")))]);
                                                 iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs")));
                                             };
                                             clause = IfComprehensionClause {
                                                 conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
                                                 clause = ExpressionComprehensionClause(LetExpression {
-                                                        letValues = LetValueList([
-                                                                SpecifiedVariable {
-                                                                    name = LIdentifier("w");
+                                                        patterns = PatternList([
+                                                                SpecifiedPattern {
+                                                                    pattern = VariablePattern(UnspecifiedVariable(LIdentifier("w")));
                                                                     specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
-                                                                    type = null;
                                                                 }
                                                             ]);
                                                         expression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("w")));

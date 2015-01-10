@@ -19,7 +19,7 @@ shared object forComprehensionClause satisfies ConcreteTest<ForComprehensionClau
     String->ForComprehensionClause construct(String->ForIterator iterator, String->ComprehensionClause clause)
             => "for ``iterator.key`` ``clause.key``"->ForComprehensionClause(iterator.item, clause.item);
     
-    shared String->ForComprehensionClause forPersonInPeopleComprehensionClause = construct(valueIterator.personInPeopleIterator, ifComprehensionClause.ifTrueCommaAAndBThenIComprehensionClause);
+    shared String->ForComprehensionClause forPersonInPeopleComprehensionClause = construct(forIterator.variableIterator, ifComprehensionClause.ifTrueCommaAAndBThenIComprehensionClause);
     // TODO better tests
     
     compile = compileForComprehensionClause;

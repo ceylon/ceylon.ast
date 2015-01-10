@@ -19,7 +19,7 @@ shared object forClause satisfies ConcreteTest<ForClause,JForClause> {
     String->ForClause construct(String->ForIterator iterator, String->Block block)
             => "for``iterator.key````block.key``"->ForClause(iterator.item, block.item);
     
-    shared String->ForClause printPersonNameInPeopleForClause = construct(valueIterator.personInPeopleIterator, block.printPersonNameBlock);
+    shared String->ForClause printPersonNameInPeopleForClause = construct(forIterator.variableIterator, block.printPersonNameBlock);
     
     compile = compileForClause;
     fromCeylon = RedHatTransformer.transformForClause;

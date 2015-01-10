@@ -7,7 +7,7 @@
      firstEmployee = employees.first
      Integer|Float num"
 shared abstract class Variable()
-        of TypedVariable | SpecifiedVariable | UnspecifiedVariable
+        of TypedVariable | SpecifiedVariable | UnspecifiedVariable | VariadicVariable
         extends Node() {
     
     "The name of the variable."

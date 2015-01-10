@@ -1,36 +1,16 @@
 import ceylon.ast.core {
-    ExistsCondition,
-    Type,
-    SpecifiedVariable,
-    ValueModifier
+    ExistsCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JExistsCondition=ExistsCondition,
-        JStaticType=StaticType,
-        JSyntheticVariable=SyntheticVariable,
-        JType=Type,
-        JValueModifier=ValueModifier
+        JExistsCondition=ExistsCondition
     }
 }
 
 "Converts a RedHat AST [[ExistsCondition|JExistsCondition]] to a `ceylon.ast` [[ExistsCondition]]."
 shared ExistsCondition existsConditionToCeylon(JExistsCondition existsCondition) {
-    value variable = existsCondition.variable;
-    JType? jType = variable.type;
-    if (jType is JSyntheticVariable) {
-        // impliedVariable
-        return ExistsCondition(lIdentifierToCeylon(variable.identifier));
-    } else {
-        // specifiedVariable
-        Type|ValueModifier? type;
-        assert (is JStaticType|JValueModifier? jType);
-        switch (jType)
-        case (is JStaticType) { type = typeToCeylon(jType); }
-        case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType); }
-        case (null) { type = null; }
-        return ExistsCondition(SpecifiedVariable(lIdentifierToCeylon(variable.identifier), specifierToCeylon(variable.specifierExpression), type));
-    }
+    assert (is ExistsCondition ret = existsOrNonemptyConditionToCeylon(existsCondition));
+    return ret;
 }
 
 "Compiles the given [[code]] for an Exists Condition

@@ -221,11 +221,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is PrefixPostfixStatement) { return transformPrefixPostfixStatement(that); }
         case (is InvocationStatement) { return transformInvocationStatement(that); }
     }
-    shared actual default Result transformForIterator(ForIterator that) {
-        switch (that)
-        case (is ValueIterator) { return transformValueIterator(that); }
-        case (is KeyValueIterator) { return transformKeyValueIterator(that); }
-    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }
@@ -377,7 +372,9 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Subscript) { return transformSubscript(that); }
         case (is DecQualifier) { return transformDecQualifier(that); }
         case (is AnyMemberOperator) { return transformAnyMemberOperator(that); }
-        case (is LetValueList) { return transformLetValueList(that); }
+        case (is Pattern) { return transformPattern(that); }
+        case (is SpecifiedPattern) { return transformSpecifiedPattern(that); }
+        case (is PatternList) { return transformPatternList(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
@@ -390,6 +387,12 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is RequiredParameter) { return transformRequiredParameter(that); }
         case (is DefaultedParameter) { return transformDefaultedParameter(that); }
         case (is VariadicParameter) { return transformVariadicParameter(that); }
+    }
+    shared actual default Result transformPattern(Pattern that) {
+        switch (that)
+        case (is VariablePattern) { return transformVariablePattern(that); }
+        case (is TuplePattern) { return transformTuplePattern(that); }
+        case (is EntryPattern) { return transformEntryPattern(that); }
     }
     shared actual default Result transformPostfixOperation(PostfixOperation that) {
         switch (that)
@@ -569,6 +572,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Assertion) { return transformAssertion(that); }
         case (is Directive) { return transformDirective(that); }
         case (is ControlStructure) { return transformControlStructure(that); }
+        case (is Destructure) { return transformDestructure(that); }
     }
     shared actual default Result transformSubscript(Subscript that) {
         switch (that)
@@ -653,6 +657,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is TypedVariable) { return transformTypedVariable(that); }
         case (is SpecifiedVariable) { return transformSpecifiedVariable(that); }
         case (is UnspecifiedVariable) { return transformUnspecifiedVariable(that); }
+        case (is VariadicVariable) { return transformVariadicVariable(that); }
     }
     shared actual default Result transformVariance(Variance that) {
         switch (that)

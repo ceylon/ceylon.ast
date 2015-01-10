@@ -82,6 +82,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformDefaultedParameterReference(DefaultedParameterReference that);
     shared formal Result transformDefaultedType(DefaultedType that);
     shared formal Result transformDefaultedValueParameter(DefaultedValueParameter that);
+    shared formal Result transformDestructure(Destructure that);
     shared formal Result transformDifferenceOperation(DifferenceOperation that);
     shared formal Result transformDirective(Directive that);
     shared formal Result transformDivideAssignmentOperation(DivideAssignmentOperation that);
@@ -94,6 +95,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformElseClause(ElseClause that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);
+    shared formal Result transformEntryPattern(EntryPattern that);
     shared formal Result transformEntryType(EntryType that);
     shared formal Result transformEqualOperation(EqualOperation that);
     shared formal Result transformEqualityOperation(EqualityOperation that);
@@ -159,14 +161,12 @@ shared interface Transformer<out Result> {
     shared formal Result transformIterable(Iterable that);
     shared formal Result transformIterableType(IterableType that);
     shared formal Result transformKeySubscript(KeySubscript that);
-    shared formal Result transformKeyValueIterator(KeyValueIterator that);
     shared formal Result transformLIdentifier(LIdentifier that);
     shared formal Result transformLargeAsOperation(LargeAsOperation that);
     shared formal Result transformLargerOperation(LargerOperation that);
     shared formal Result transformLazySpecification(LazySpecification that);
     shared formal Result transformLazySpecifier(LazySpecifier that);
     shared formal Result transformLetExpression(LetExpression that);
-    shared formal Result transformLetValueList(LetValueList that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformLocalModifier(LocalModifier that);
     shared formal Result transformLogicalAssignmentOperation(LogicalAssignmentOperation that);
@@ -214,6 +214,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformParameter(Parameter that);
     shared formal Result transformParameterReference(ParameterReference that);
     shared formal Result transformParameters(Parameters that);
+    shared formal Result transformPattern(Pattern that);
+    shared formal Result transformPatternList(PatternList that);
     shared formal Result transformPositionalArguments(PositionalArguments that);
     shared formal Result transformPostfixDecrementOperation(PostfixDecrementOperation that);
     shared formal Result transformPostfixIncrementOperation(PostfixIncrementOperation that);
@@ -251,6 +253,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSpanToSubscript(SpanToSubscript that);
     shared formal Result transformSpecification(Specification that);
     shared formal Result transformSpecifiedArgument(SpecifiedArgument that);
+    shared formal Result transformSpecifiedPattern(SpecifiedPattern that);
     shared formal Result transformSpecifiedVariable(SpecifiedVariable that);
     shared formal Result transformSpecifier(Specifier that);
     shared formal Result transformSpreadArgument(SpreadArgument that);
@@ -272,6 +275,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformTryCatchFinally(TryCatchFinally that);
     shared formal Result transformTryClause(TryClause that);
     shared formal Result transformTuple(Tuple that);
+    shared formal Result transformTuplePattern(TuplePattern that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeAliasDefinition(TypeAliasDefinition that);
@@ -306,14 +310,15 @@ shared interface Transformer<out Result> {
     shared formal Result transformValueDefinition(ValueDefinition that);
     shared formal Result transformValueExpression(ValueExpression that);
     shared formal Result transformValueGetterDefinition(ValueGetterDefinition that);
-    shared formal Result transformValueIterator(ValueIterator that);
     shared formal Result transformValueModifier(ValueModifier that);
     shared formal Result transformValueParameter(ValueParameter that);
     shared formal Result transformValueSetterDefinition(ValueSetterDefinition that);
     shared formal Result transformValueSpecification(ValueSpecification that);
     shared formal Result transformVariable(Variable that);
+    shared formal Result transformVariablePattern(VariablePattern that);
     shared formal Result transformVariadicParameter(VariadicParameter that);
     shared formal Result transformVariadicType(VariadicType that);
+    shared formal Result transformVariadicVariable(VariadicVariable that);
     shared formal Result transformVariance(Variance that);
     shared formal Result transformVoidModifier(VoidModifier that);
     shared formal Result transformWhile(While that);

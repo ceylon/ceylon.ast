@@ -2,6 +2,12 @@
  the keyword ‘`let`’, followed by a [[list of patterns|patterns]]
  and an [[expression]] that can involve these patterns’ variables.
  
+ The expression is parsed with a precedence
+ just below the [[`then`|ThenOperation]] and [[`else`|ElseOperation]] operations,
+ to avoid ambiguity with these.
+ Alternatively, it may be an [[`if`/`then`/`else` expression|IfElseExpression]]
+ or a [[`let` expression|LetExpression]].
+ 
  Examples:
  
      let ([x,y] = loc, dist = sqrt(x^2 + y^2)) [x / dist, y / dist]
@@ -12,9 +18,9 @@ shared class LetExpression(patterns, expression)
     "The patterns that the `let` expression introduces."
     shared PatternList patterns;
     "The expression."
-    shared Expression expression;
+    shared DisjoiningExpression|IfElseExpression|LetExpression expression;
     
-    shared actual [PatternList, Expression] children = [patterns, expression];
+    shared actual [PatternList, DisjoiningExpression|IfElseExpression|LetExpression] children = [patterns, expression];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLetExpression(this);
@@ -30,7 +36,7 @@ shared class LetExpression(patterns, expression)
     shared actual Integer hash
             => 31 * (patterns.hash + 31 * expression.hash);
     
-    shared LetExpression copy(PatternList patterns = this.patterns, Expression expression = this.expression) {
+    shared LetExpression copy(PatternList patterns = this.patterns, DisjoiningExpression|IfElseExpression|LetExpression expression = this.expression) {
         value ret = LetExpression(patterns, expression);
         copyExtraInfoTo(ret);
         return ret;

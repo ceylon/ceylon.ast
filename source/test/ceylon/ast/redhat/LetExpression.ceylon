@@ -1,5 +1,6 @@
 import ceylon.ast.core {
-    Expression,
+    DisjoiningExpression,
+    IfElseExpression,
     LetExpression,
     LIdentifier,
     PatternList,
@@ -20,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object letExpression satisfies ConcreteTest<LetExpression,JLetExpression> {
     
-    String->LetExpression construct([<String->SpecifiedPattern>+] patterns, String->Expression expression)
+    String->LetExpression construct([<String->SpecifiedPattern>+] patterns, String->DisjoiningExpression|IfElseExpression|LetExpression expression)
             => "let (``",".join(patterns*.key)``) ``expression.key``"->LetExpression(PatternList(patterns*.item), expression.item);
     
     shared String->LetExpression distLetExpression = construct(["dist=1"->SpecifiedPattern(VariablePattern(UnspecifiedVariable(LIdentifier("dist"))), specifier.oneSpecifier.item)], baseExpression.iExpression);
@@ -29,9 +30,10 @@ shared object letExpression satisfies ConcreteTest<LetExpression,JLetExpression>
             "b=0"->SpecifiedPattern(VariablePattern(UnspecifiedVariable(LIdentifier("b"))), specifier._0Specifier.item),
             "c=1"->SpecifiedPattern(VariablePattern(UnspecifiedVariable(LIdentifier("c"))), specifier.oneSpecifier.item)],
         sumOperation.aTimesBPlusCExpression);
+    shared String->LetExpression letIfExpression => construct(["a=1"->SpecifiedPattern(VariablePattern(UnspecifiedVariable(LIdentifier("a"))), specifier.oneSpecifier.item)],ifElseExpression.ifThenAElseBExpression);
     
     compile = compileLetExpression;
     fromCeylon = RedHatTransformer.transformLetExpression;
     toCeylon = letExpressionToCeylon;
-    codes = [distLetExpression, abcLetExpression];
+    codes => [distLetExpression, abcLetExpression, letIfExpression];
 }

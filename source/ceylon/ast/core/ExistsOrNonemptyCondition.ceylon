@@ -12,6 +12,11 @@ shared abstract class ExistsOrNonemptyCondition()
     
     "The value reference or pattern specification being tested."
     shared formal SpecifiedPattern|LIdentifier tested;
+    "Whether the condition is negated or not.
+     
+     If the condition is negated, the ‘`exists`’/‘`nonempty`’ keyword
+     is prefixed by a negation operator ‘`!`’."
+    shared formal Boolean negated;
     
     shared actual formal [SpecifiedPattern|LIdentifier] children;
 }

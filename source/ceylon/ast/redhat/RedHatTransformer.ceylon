@@ -1272,7 +1272,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExistsCondition transformExistsCondition(ExistsCondition that) {
         JExistsCondition ret = JExistsCondition(tokens.token("exists", exists_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
+        return helpTransformExistsOrNonemptyCondition(ret, that);
     }
     
     shared actual JExists transformExistsOperation(ExistsOperation that) {
@@ -2212,7 +2212,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JNonemptyCondition transformNonemptyCondition(NonemptyCondition that) {
         JNonemptyCondition ret = JNonemptyCondition(tokens.token("nonempty", nonempty_op));
-        return helpTransformExistsOrNonemptyCondition(ret, that.tested);
+        return helpTransformExistsOrNonemptyCondition(ret, that);
     }
     
     shared actual JNonempty transformNonemptyOperation(NonemptyOperation that) {
@@ -3547,8 +3547,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
     }
     
-    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, SpecifiedPattern|LIdentifier tested)
+    JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, ExistsOrNonemptyCondition that)
             given JCond satisfies JExistsOrNonemptyCondition {
+        value tested = that.tested;
         switch (tested)
         case (is SpecifiedPattern) {
             // letVariable
@@ -3569,6 +3570,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             v.specifierExpression = se;
             ret.variable = v;
         }
+        ret.not = that.negated;
         return ret;
     }
     

@@ -15,7 +15,6 @@ shared class IsCondition(variable, negated = false)
      
      If the condition is negated, the ‘`is`’ keyword
      is prefixed by a negation operator ‘`!`’."
-    // TODO is there a way to represent this through nodes? booleans can’t be children and are generally inconvenient
     shared Boolean negated;
     
     shared actual [TypedVariable] children = [variable];

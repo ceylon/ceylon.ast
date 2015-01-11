@@ -18,13 +18,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object existsCondition satisfies ConcreteTest<ExistsCondition,JExistsCondition> {
     
-    String->ExistsCondition constructP(String->Pattern pattern, String->Specifier specifier)
-            => "exists ``pattern.key`` ``specifier.key``"->ExistsCondition(SpecifiedPattern(pattern.item, specifier.item));
+    String->ExistsCondition constructP(String->Pattern pattern, String->Specifier specifier, Boolean negated = false)
+            => "`` negated then "!" else "" ``exists ``pattern.key`` ``specifier.key``"->ExistsCondition(SpecifiedPattern(pattern.item, specifier.item), negated);
     
-    String->ExistsCondition constructI(String->LIdentifier variable)
-            => "exists ``variable.key``"->ExistsCondition(variable.item);
+    String->ExistsCondition constructI(String->LIdentifier variable, Boolean negated = false)
+            => "`` negated then "!" else "" ``exists ``variable.key``"->ExistsCondition(variable.item, negated);
     
-    shared String->ExistsCondition existsCeylonCondition = constructI(identifier.ceylonLIdentifier);
+    shared String->ExistsCondition negatedExistsCeylonCondition = constructI(identifier.ceylonLIdentifier, true);
     shared String->ExistsCondition existsFirstSpecifyCondition = constructP(variablePattern.firstVariablePattern, specifier.processArgumentsFirstSpecifier);
     shared String->ExistsCondition existsFirstRestSpecifyCondition = constructP(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     shared String->ExistsCondition existsEntryPatternSpecifyCondition = constructP(entryPattern.eToStringLineEntryPattern, specifier._0Specifier);
@@ -32,5 +32,5 @@ shared object existsCondition satisfies ConcreteTest<ExistsCondition,JExistsCond
     compile = compileExistsCondition;
     fromCeylon = RedHatTransformer.transformExistsCondition;
     toCeylon = existsConditionToCeylon;
-    codes = [existsCeylonCondition, existsFirstSpecifyCondition, existsFirstRestSpecifyCondition, existsEntryPatternSpecifyCondition];
+    codes = [negatedExistsCeylonCondition, existsFirstSpecifyCondition, existsFirstRestSpecifyCondition, existsEntryPatternSpecifyCondition];
 }

@@ -32,8 +32,8 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
         tested = specifiedPatternToCeylon(existsOrNonemptyCondition.variable);
     }
     switch (existsOrNonemptyCondition)
-    case (is JExistsCondition) { return ExistsCondition(tested); }
-    case (is JNonemptyCondition) { return NonemptyCondition(tested); }
+    case (is JExistsCondition) { return ExistsCondition(tested, existsOrNonemptyCondition.not); }
+    case (is JNonemptyCondition) { return NonemptyCondition(tested, existsOrNonemptyCondition.not); }
     else { throw AssertionError("Unknown kind of EXistsOrNonemptyCondition"); }
 }
 

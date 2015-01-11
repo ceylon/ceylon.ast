@@ -331,14 +331,11 @@ shared CompilationUnit completeCompilationUnit
                     },
                     Assertion {
                         conditions = Conditions([
-                                IsCondition {
-                                    variable = TypedVariable {
+                                IsCondition(TypedVariable {
                                         name = LIdentifier("arg1");
                                         type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
                                         specifier = null;
-                                    };
-                                    negated = false;
-                                },
+                                    }),
                                 ExistsCondition(SpecifiedPattern {
                                         pattern = VariablePattern(UnspecifiedVariable(LIdentifier("arg2")));
                                         specifier = Specifier(ElementOrSubrangeExpression {

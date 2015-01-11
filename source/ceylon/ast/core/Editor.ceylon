@@ -290,7 +290,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ExistsCondition transformExistsCondition(ExistsCondition that)
-            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested), that.negated);
     shared actual default ExistsOperation transformExistsOperation(ExistsOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default ExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
@@ -549,7 +549,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default NegationOperation transformNegationOperation(NegationOperation that)
             => that.copy(transformExponentiatingExpression(that.operand));
     shared actual default NonemptyCondition transformNonemptyCondition(NonemptyCondition that)
-            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested));
+            => that.copy(transformSpecifiedPatternOrLIdentifier(that.tested), that.negated);
     shared actual default NonemptyOperation transformNonemptyOperation(NonemptyOperation that)
             => that.copy(transformSpanningExpression(that.operand));
     shared actual default NotEqualOperation transformNotEqualOperation(NotEqualOperation that)

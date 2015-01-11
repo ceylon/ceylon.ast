@@ -18,17 +18,17 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object nonemptyCondition satisfies ConcreteTest<NonemptyCondition,JNonemptyCondition> {
     
-    String->NonemptyCondition constructP(String->Pattern pattern, String->Specifier specifier)
-            => "nonempty ``pattern.key`` ``specifier.key``"->NonemptyCondition(SpecifiedPattern(pattern.item, specifier.item));
+    String->NonemptyCondition constructP(String->Pattern pattern, String->Specifier specifier, Boolean negated = false)
+            => "`` negated then "!" else "" ``nonempty ``pattern.key`` ``specifier.key``"->NonemptyCondition(SpecifiedPattern(pattern.item, specifier.item), negated);
     
-    String->NonemptyCondition constructI(String->LIdentifier variable)
-            => "nonempty ``variable.key``"->NonemptyCondition(variable.item);
+    String->NonemptyCondition constructI(String->LIdentifier variable, Boolean negated = false)
+            => "`` negated then "!" else "" ``nonempty ``variable.key``"->NonemptyCondition(variable.item, negated);
     
-    shared String->NonemptyCondition nonemptyCollectionCondition = constructI(identifier.collectionLIdentifier);
+    shared String->NonemptyCondition negatedNonemptyCollectionCondition = constructI(identifier.collectionLIdentifier, true);
     shared String->NonemptyCondition nonemptyFirstRestSpecifyCondition = constructP(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     
     compile = compileNonemptyCondition;
     fromCeylon = RedHatTransformer.transformNonemptyCondition;
     toCeylon = nonemptyConditionToCeylon;
-    codes = [nonemptyCollectionCondition, nonemptyFirstRestSpecifyCondition];
+    codes = [negatedNonemptyCollectionCondition, nonemptyFirstRestSpecifyCondition];
 }

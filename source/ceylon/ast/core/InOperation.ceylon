@@ -4,7 +4,7 @@
  
  Examples:
  
-     digit in (0..9 by 2)
+     digit in (0..9).by(2)
      user in authorizedUsers
      input in { \"yes\", \"no\" }
  

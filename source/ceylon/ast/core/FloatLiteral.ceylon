@@ -14,7 +14,7 @@ shared class FloatLiteral(text) extends Literal(text) {
         throw AssertionError("text must not be empty");
     }
     case ('+' | '-') {
-        throw AssertionError("text must not include sign; use the unary prefix operators."); // TODO which ones? add their names when they’re implemented
+        throw AssertionError("text must not include sign; wrap in NegationOperation (-) or IdentityOperation (+) instead.");
     }
     else {
         throw AssertionError("Unexpected first character '`` text.first else "" ``' of text, expected digit");

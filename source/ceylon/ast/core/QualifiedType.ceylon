@@ -12,7 +12,7 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     shared SimpleType|GroupedType qualifyingType;
     shared actual TypeNameWithTypeArguments nameAndArgs;
     
-    shared actual [TypeNameWithTypeArguments, SimpleType|GroupedType] children = [nameAndArgs, qualifyingType];
+    shared actual [SimpleType|GroupedType, TypeNameWithTypeArguments] children = [qualifyingType, nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedType(this);

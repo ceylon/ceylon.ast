@@ -39,5 +39,5 @@ shared abstract class AnyFunction()
      [[type parameters|typeParameters]], if any."
     shared formal TypeConstraint[] typeConstraints;
     
-    shared actual formal [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint|Block|LazySpecifier*] children;
+    shared actual formal [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|Parameters|TypeConstraint|Block|LazySpecifier*] children;
 }

@@ -30,8 +30,8 @@ shared class FunctionDefinition(name, type, parameterLists, definition, typePara
     shared actual TypeConstraint[] typeConstraints;
     shared actual Annotations annotations;
     
-    shared actual [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|TypeConstraint|Block*] children
-            = [annotations, type, name, *concatenate(emptyOrSingleton(typeParameters), typeConstraints, [definition])];
+    shared actual [Annotations, Type|FunctionModifier|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|Parameters|TypeConstraint|Block*] children
+            = [annotations, type, name, *concatenate(emptyOrSingleton(typeParameters), parameterLists, typeConstraints, [definition])];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformFunctionDefinition(this);

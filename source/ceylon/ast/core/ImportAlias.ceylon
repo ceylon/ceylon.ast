@@ -1,12 +1,11 @@
 "An import alias, that is, an identifier followed by an “equals” character.
  
- (Not to be confused with an alias *declaration* like `alias TypeName => UIdentifier;`.)
+ (Not to be confused with an [[alias *declaration*|TypeAliasDefinition]] like `alias TypeName => UIdentifier;`.)
  
  Examples:
  
      JString=
      sysout="
-// TODO doclink to alias declarations
 shared abstract class ImportAlias()
         of ImportTypeAlias | ImportFunctionValueAlias
         extends Node() {

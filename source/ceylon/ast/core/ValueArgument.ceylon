@@ -34,7 +34,7 @@ shared class ValueArgument(name, type, definition)
      even if the definition is a [[LazySpecifier]] or a [[Block]]."
     shared AnySpecifier|Block definition;
     
-    shared actual [LIdentifier, Type|ValueModifier|DynamicModifier, AnySpecifier|Block] children = [name, type, definition];
+    shared actual [Type|ValueModifier|DynamicModifier, LIdentifier, AnySpecifier|Block] children = [type, name, definition];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueArgument(this);

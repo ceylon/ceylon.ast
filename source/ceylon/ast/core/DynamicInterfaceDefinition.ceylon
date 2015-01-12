@@ -48,7 +48,6 @@ shared class DynamicInterfaceDefinition(name, body, caseTypes = null, satisfiedT
         emptyOrSingleton(typeParameters),
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(satisfiedTypes),
-        emptyOrSingleton(typeParameters),
         typeConstraints,
         [body]
     );

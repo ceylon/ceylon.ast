@@ -24,7 +24,7 @@ shared class StringTemplate(literals, expressions)
     "There must be exactly one more string literal than there are expressions"
     assert (literals.size == expressions.size + 1);
     
-    assert (nonempty children_ = concatenate([literals.first], *zipPairs(literals.rest, expressions)));
+    assert (nonempty children_ = concatenate([literals.first], *zipPairs(expressions, literals.rest)));
     shared actual [<StringLiteral|Expression>+] children = children_;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)

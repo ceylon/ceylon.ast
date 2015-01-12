@@ -18,7 +18,7 @@ shared class ValueSetterDefinition(name, definition, annotations = Annotations()
     "The annotations of the setter."
     shared actual Annotations annotations;
     
-    shared actual [LIdentifier, Block|LazySpecifier, Annotations] children = [name, definition, annotations];
+    shared actual [Annotations, LIdentifier, Block|LazySpecifier] children = [annotations, name, definition];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueSetterDefinition(this);

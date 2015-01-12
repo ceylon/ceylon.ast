@@ -16,7 +16,7 @@ shared class WithinOperation(operand, lowerBound, upperBound)
     "The upper bound against which the [[operand]] is tested."
     shared Bound upperBound;
     
-    shared actual [Bound, Bound] children = [lowerBound, upperBound];
+    shared actual [Bound, ExistsNonemptyExpression, Bound] children = [lowerBound, operand, upperBound];
     
     shared actual Nothing operator {
         throw AssertionError("The “within” operation doesn’t have one operator!");

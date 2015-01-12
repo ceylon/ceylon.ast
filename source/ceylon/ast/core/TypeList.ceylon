@@ -11,7 +11,7 @@ shared class TypeList(elements, variadic = null)
     "The trailing variadic type, if any."
     shared VariadicType? variadic;
     
-    shared actual <VariadicType|Type|DefaultedType>[] children = concatenate(emptyOrSingleton(variadic), elements);
+    shared actual <VariadicType|Type|DefaultedType>[] children = concatenate(elements, emptyOrSingleton(variadic));
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeList(this);

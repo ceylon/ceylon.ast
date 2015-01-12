@@ -14,7 +14,12 @@ shared class TypeArgument(type, variance = null)
     "The variance of the type, if any."
     shared Variance? variance;
     
-    shared actual [Type, Variance=] children = [type, *emptyOrSingleton(variance)];
+    shared actual [Type]|[Variance, Type] children;
+    if (exists variance) {
+        children = [variance, type];
+    } else {
+        children = [type];
+    }
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeArgument(this);

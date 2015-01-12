@@ -20,7 +20,7 @@ shared class Destructure(pattern, specifier, valueModifier = ValueModifier())
     "The ‘`value`’ modifier."
     shared ValueModifier valueModifier;
     
-    shared actual [TuplePattern|EntryPattern, Specifier, ValueModifier] children = [pattern, specifier, valueModifier];
+    shared actual [ValueModifier, TuplePattern|EntryPattern, Specifier] children = [valueModifier, pattern, specifier];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDestructure(this);

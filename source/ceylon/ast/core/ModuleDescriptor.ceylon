@@ -33,7 +33,7 @@ shared class ModuleDescriptor(name, version, body = ModuleBody(), annotations = 
      - [[by]]"
     shared Annotations annotations;
     
-    shared actual [FullPackageName, StringLiteral, ModuleBody, Annotations] children = [name, version, body, annotations];
+    shared actual [Annotations, FullPackageName, StringLiteral, ModuleBody] children = [annotations, name, version, body];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleDescriptor(this);

@@ -6,7 +6,8 @@
    Examples (multi-line):
    
        if (is Box<Type> that)
-           this.content == that.content
+           then this.content == that.content
+           else false
    
        switch (first.age <=> second.age)
        case (smaller) "younger"

@@ -2,7 +2,7 @@
    
    Logically, a class body is divided into two sections:
    * An initializer section, mixing statements and declarations, and
-   * a declaration section, containing only statements.
+   * a declaration section, containing only declarations.
    
    There is, however, no syntactical separation between these,
    so syntactically a class body looks exactly like a [[Block]].
@@ -14,6 +14,7 @@
            shared formal Float y;
            shared actual default Float distance(Point other) => ((x-other.x)^2 + (y-other.y)^2)^0.5;
        }
+   
        {
            if (token != secret) {
                throw AssertionError("You may not instantiate this class!");

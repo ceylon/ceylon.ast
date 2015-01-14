@@ -61,6 +61,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JComprehensionClause=ComprehensionClause,
         JCondition=Condition,
         JConditionList=ConditionList,
+        JConstructor=Constructor,
         JContinue=Continue,
         JControlStatement=ControlStatement,
         JDeclaration=Declaration,
@@ -68,6 +69,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDefaultTypeArgument=DefaultTypeArgument,
+        JDelegatedConstructor=DelegatedConstructor,
         JDestructure=Destructure,
         JDifferenceOp=DifferenceOp,
         JDirective=Directive,
@@ -341,6 +343,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         member_op=\iMEMBER_OP,
         moduleType=\iMODULE,
         multiply_specify=\iMULTIPLY_SPECIFY,
+        newType=\iNEW,
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
         not_op=\iNOT_OP,
@@ -1062,6 +1065,23 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.addCondition(transformCondition(condition));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JConstructor transformConstructorDefinition(ConstructorDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JConstructor ret = JConstructor(tokens.token("new", newType));
+        ret.annotationList = annotationList;
+        ret.identifier = transformUIdentifier(that.name);
+        ret.parameterList = transformParameters(that.parameters);
+        if (exists extendedType = that.extendedType) {
+            value jET = transformExtendedType(extendedType);
+            value delegatedConstructor = JDelegatedConstructor(jET.mainToken);
+            delegatedConstructor.type = jET.type;
+            delegatedConstructor.invocationExpression = jET.invocationExpression;
+            ret.delegatedConstructor = delegatedConstructor;
+        }
+        ret.block = transformBlock(that.block);
         return ret;
     }
     

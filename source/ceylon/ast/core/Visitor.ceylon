@@ -70,6 +70,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformCondition(Condition that) => visitCondition(that);
     transformConditionalExpression(ConditionalExpression that) => visitConditionalExpression(that);
     transformConditions(Conditions that) => visitConditions(that);
+    transformConstructorDefinition(ConstructorDefinition that) => visitConstructorDefinition(that);
     transformContinue(Continue that) => visitContinue(that);
     transformControlStructure(ControlStructure that) => visitControlStructure(that);
     transformDec(Dec that) => visitDec(that);
@@ -377,6 +378,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitConditionalExpression(ConditionalExpression that) => super.transformConditionalExpression(that);
     shared default void visitConditions(Conditions that) => super.transformConditions(that);
+    shared default void visitConstructorDefinition(ConstructorDefinition that) => super.transformConstructorDefinition(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
     shared default void visitDec(Dec that) => super.transformDec(that);

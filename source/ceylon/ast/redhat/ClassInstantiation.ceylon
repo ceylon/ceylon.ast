@@ -19,7 +19,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] to a `ceylon.ast` [[ClassInstantiation]].
  
- This is only an internal helper function for [[extendedTypeToCeylon]] and [[classSpecifierToCeylon]],
+ This is only an internal helper function for [[extendedTypeToCeylon]],
+ [[classSpecifierToCeylon]] and [[constructorDefinitionToCeylon]],
  as the RedHat AST has no direct equivalent of [[ClassInstantiation]]."
 ClassInstantiation classInstantiationToCeylon(JSimpleType type, JInvocationExpression invocationExpression) {
     assert (invocationExpression.primary is JExtendedTypeExpression); // we can’t actually do anything with it, as JExtendedTypeExpression has no getExtendedType()

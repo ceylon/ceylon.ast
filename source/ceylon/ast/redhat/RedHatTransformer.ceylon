@@ -519,11 +519,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JPattern transformPattern(Pattern that) {
-        assert (is JPattern ret = super.transformPattern(that));
-        return ret;
-    }
-    
     shared actual JSpecifiedArgument transformAnonymousArgument(AnonymousArgument that) {
         JSpecifiedArgument ret = JSpecifiedArgument(null);
         value specifierExpression = JSpecifierExpression(null);
@@ -2393,6 +2388,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JInitializerParameter transformParameterReference(ParameterReference that) {
         JInitializerParameter ret = JInitializerParameter(null);
         ret.identifier = transformLIdentifier(that.name);
+        return ret;
+    }
+    
+    shared actual JPattern transformPattern(Pattern that) {
+        assert (is JPattern ret = super.transformPattern(that));
         return ret;
     }
     

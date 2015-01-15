@@ -61,6 +61,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCondition(Condition that) => transformNode(that);
     shared actual default Result transformConditionalExpression(ConditionalExpression that) => transformExpression(that);
     shared actual default Result transformConditions(Conditions that) => transformNode(that);
+    shared actual default Result transformConstructorDec(ConstructorDec that) => transformDec(that);
     shared actual default Result transformConstructorDefinition(ConstructorDefinition that) => transformDeclaration(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformControlStructure(ControlStructure that) => transformStatement(that);

@@ -174,6 +174,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         switch (that)
         case (is TypeDec) { return transformTypeDec(that); }
         case (is MemberDec) { return transformMemberDec(that); }
+        case (is ConstructorDec) { return transformConstructorDec(that); }
         case (is PackageDec) { return transformPackageDec(that); }
         case (is ModuleDec) { return transformModuleDec(that); }
     }

@@ -72,6 +72,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCondition(Condition that);
     shared formal Result transformConditionalExpression(ConditionalExpression that);
     shared formal Result transformConditions(Conditions that);
+    shared formal Result transformConstructorDec(ConstructorDec that);
     shared formal Result transformConstructorDefinition(ConstructorDefinition that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformControlStructure(ControlStructure that);

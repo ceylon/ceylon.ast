@@ -205,6 +205,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
+    shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
+            => that.copy(transformUIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that)
             => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
     shared actual default Continue transformContinue(Continue that)

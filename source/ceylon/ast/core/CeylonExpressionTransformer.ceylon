@@ -206,6 +206,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformComprehension(Comprehension that) => "Comprehension(``transformWithIndent(that.clause)``)";
     transformConditions(Conditions that) => "Conditions(``transformWithIndent(that.conditions)``)";
+    transformConstructorDec(ConstructorDec that)
+            => "ConstructorDec {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                ``indent``}";
     transformConstructorDefinition(ConstructorDefinition that)
             => "ConstructorDefinition {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;

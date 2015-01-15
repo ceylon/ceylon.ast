@@ -166,6 +166,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNamedArgument=NamedArgument,
         JNamedArgumentList=NamedArgumentList,
         JNegativeOp=NegativeOp,
+        JNewLiteral=NewLiteral,
         JNonempty=Nonempty,
         JNonemptyCondition=NonemptyCondition,
         JNotEqualOp=NotEqualOp,
@@ -1065,6 +1066,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.addCondition(transformCondition(condition));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
+        // in the RedHat backend, a NewLiteral just wraps any type
+        JNewLiteral ret = JNewLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token("new", newType);
+        "Object constructors not supported" // nor meaningful, in fact
+        assert (is JStaticType jQualifier = helpTransformDecQualifier(that.qualifier));
+        JQualifiedType jType = JQualifiedType(tokens.token(".", member_op));
+        jType.identifier = transformUIdentifier(that.name);
+        jType.outerType = jQualifier;
+        ret.type = jType;
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     

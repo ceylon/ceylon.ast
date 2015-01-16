@@ -3,7 +3,8 @@
  Examples:
  
      extends Node()
-     extends super.Entry<Key, Item>(key, item)"
+     extends super.Entry<Key, Item>(key, item)
+     extends HomogenousCoordinates.Cartesian(x, y, z, 1.0)"
 shared class ExtendedType(instantiation)
         extends Node() {
     

@@ -168,7 +168,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
             => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
-            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformSuper));
+            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformTypeNameWithTypeArgumentsOrSuper));
     shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {
         assert (is ClassOrInterface ret = super.transformClassOrInterface(that));
         return ret;
@@ -1046,5 +1046,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TuplePattern) { return transformTuplePattern(that); }
         case (is EntryPattern) { return transformEntryPattern(that); }
+    }
+    TypeNameWithTypeArguments|Super transformTypeNameWithTypeArgumentsOrSuper(TypeNameWithTypeArguments|Super that) {
+        switch (that)
+        case (is TypeNameWithTypeArguments) { return transformTypeNameWithTypeArguments(that); }
+        case (is Super) { return transformSuper(that); }
     }
 }

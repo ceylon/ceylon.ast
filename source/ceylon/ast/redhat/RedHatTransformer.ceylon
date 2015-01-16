@@ -3537,13 +3537,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
      This is a helper function for those conversions."
     [JSimpleType, JInvocationExpression] helpTransformClassInstantiation(ClassInstantiation that) {
         JSimpleType type;
-        if (that.qualifier exists) {
+        switch (qualifier = that.qualifier)
+        case (is TypeNameWithTypeArguments) {
+            JBaseType bt = JBaseType(null);
+            bt.identifier = transformUIdentifier(qualifier.name);
+            if (exists typeArgs = qualifier.typeArguments) {
+                bt.typeArgumentList = transformTypeArguments(typeArgs);
+            }
+            tokens.token(".", member_op);
+            JQualifiedType qt = JQualifiedType(null);
+            qt.outerType = bt;
+            type = qt;
+        }
+        case (is Super) {
             JQualifiedType qt = JQualifiedType(null);
             JSuperType st = JSuperType(tokens.token("super", superType));
             tokens.token(".", member_op);
             qt.outerType = st;
             type = qt;
-        } else {
+        }
+        case (null) {
             type = JBaseType(null);
         }
         type.identifier = transformUIdentifier(that.name.name);

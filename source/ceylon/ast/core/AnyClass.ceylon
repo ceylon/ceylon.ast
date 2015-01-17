@@ -14,8 +14,11 @@ shared abstract class AnyClass()
         of ClassDefinition | ClassAliasDefinition
         extends ClassOrInterface() {
     
-    "The parameters of the class."
-    shared formal Parameters parameters;
+    "The parameters of the class, if present.
+     
+     A [[ClassDefinition]] may omit the parameters,
+     defining one or more [[constructors|ConstructorDefinition]] instead."
+    shared formal Parameters? parameters;
     "The extended type of the class, if present."
     shared formal ExtendedType? extendedType;
 }

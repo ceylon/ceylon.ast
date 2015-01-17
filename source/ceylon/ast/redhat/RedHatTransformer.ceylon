@@ -937,7 +937,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         if (exists typeParameters = that.typeParameters) {
             ret.typeParameterList = transformTypeParameters(typeParameters);
         }
-        ret.parameterList = transformParameters(that.parameters);
+        if (exists parameters = that.parameters) {
+            ret.parameterList = transformParameters(parameters);
+        }
         if (exists caseTypes = that.caseTypes) {
             ret.caseTypes = transformCaseTypes(caseTypes);
         }

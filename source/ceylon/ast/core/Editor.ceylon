@@ -166,7 +166,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ClassDec transformClassDec(ClassDec that)
             => that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
-            => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.parameters, transformParameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
             => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformTypeNameWithTypeArgumentsOrSuper));
     shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {

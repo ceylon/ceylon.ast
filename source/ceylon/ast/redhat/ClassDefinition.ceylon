@@ -15,7 +15,13 @@ import ceylon.interop.java {
 shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition)
         => ClassDefinition {
     name = uIdentifierToCeylon(classDefinition.identifier);
-    parameters = parametersToCeylon(classDefinition.parameterList);
+    value parameters {
+        if (exists jParameterList = classDefinition.parameterList) {
+            return parametersToCeylon(jParameterList);
+        } else {
+            return null;
+        }
+    }
     body = classBodyToCeylon(classDefinition.classBody);
     value caseTypes {
         if (exists jCaseTypes = classDefinition.caseTypes) {

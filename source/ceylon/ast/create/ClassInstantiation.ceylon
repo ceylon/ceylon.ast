@@ -21,7 +21,7 @@ import ceylon.ast.core {
 // TODO perhaps we should just not share this function?
 shared ClassInstantiation classInstantiation(name, qualifier = null, arguments = {}) {
     IdentifierIsh|TypeNameWithTypeArguments name;
-    Super? qualifier;
+    Super|IdentifierIsh|TypeNameWithTypeArguments? qualifier;
     {PositionalArgumentIsh*} arguments;
     
     TypeNameWithTypeArguments tna;
@@ -29,5 +29,12 @@ shared ClassInstantiation classInstantiation(name, qualifier = null, arguments =
     case (is IdentifierIsh) { tna = TypeNameWithTypeArguments(uidentifier(name)); }
     case (is TypeNameWithTypeArguments) { tna = name; }
     
-    return ClassInstantiation(tna, positionalArguments(*arguments), qualifier);
+    Super|TypeNameWithTypeArguments? q;
+    switch (qualifier)
+    case (is IdentifierIsh) { q = TypeNameWithTypeArguments(uidentifier(qualifier)); }
+    case (is TypeNameWithTypeArguments) { q = qualifier; }
+    case (is Super) { q = qualifier; }
+    case (null) { q = null; }
+    
+    return ClassInstantiation(tna, positionalArguments(*arguments), q);
 }

@@ -10,6 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
         JModuleLiteral=ModuleLiteral,
+        JNewLiteral=NewLiteral,
         JPackageLiteral=PackageLiteral,
         JTypeLiteral=TypeLiteral,
         JTypeParameterLiteral=TypeParameterLiteral,
@@ -19,9 +20,12 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[MetaLiteral|JMetaLiteral]] to a `ceylon.ast` [[Dec]]."
 shared Dec decToCeylon(JMetaLiteral dec) {
-    assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral dec);
+    assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JNewLiteral|JModuleLiteral|JPackageLiteral dec);
     switch (dec)
-    case (is JTypeLiteral) { return typeDecToCeylon(dec); }
+    case (is JTypeLiteral) {
+        if (is JNewLiteral dec) { return constructorDecToCeylon(dec); }
+        else { return typeDecToCeylon(dec); }
+    }
     case (is JMemberLiteral) { return memberDecToCeylon(dec); }
     case (is JPackageLiteral) { return packageDecToCeylon(dec); }
     case (is JModuleLiteral) { return moduleDecToCeylon(dec); }

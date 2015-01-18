@@ -58,7 +58,7 @@ shared ClassDefinition classDefinition(
     annotations = Annotations()) {
     
     IdentifierIsh name;
-    Parameters|{Parameter*} parameters;
+    Parameters|{Parameter*}? parameters;
     {Declaration|Statement*} body;
     {CaseTypeIsh*}|CaseTypes? caseTypes;
     ExtendedType? extendedType;
@@ -70,7 +70,7 @@ shared ClassDefinition classDefinition(
     return ClassDefinition {
         name = uidentifier(name);
         body = classBody(body);
-        parameters = parameters_internal(parameters);
+        parameters = optionalParameters_internal(parameters);
         caseTypes = caseTypes_internal(caseTypes);
         extendedType = extendedType;
         satisfiedTypes = satisfiedTypes_internal(satisfiedTypes);

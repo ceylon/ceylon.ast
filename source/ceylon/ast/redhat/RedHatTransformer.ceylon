@@ -61,6 +61,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JComprehensionClause=ComprehensionClause,
         JCondition=Condition,
         JConditionList=ConditionList,
+        JConstructor=Constructor,
         JContinue=Continue,
         JControlStatement=ControlStatement,
         JDeclaration=Declaration,
@@ -68,6 +69,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JDefaultedType=DefaultedType,
         JDefaultOp=DefaultOp,
         JDefaultTypeArgument=DefaultTypeArgument,
+        JDelegatedConstructor=DelegatedConstructor,
         JDestructure=Destructure,
         JDifferenceOp=DifferenceOp,
         JDirective=Directive,
@@ -164,6 +166,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNamedArgument=NamedArgument,
         JNamedArgumentList=NamedArgumentList,
         JNegativeOp=NegativeOp,
+        JNewLiteral=NewLiteral,
         JNonempty=Nonempty,
         JNonemptyCondition=NonemptyCondition,
         JNotEqualOp=NotEqualOp,
@@ -341,6 +344,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         member_op=\iMEMBER_OP,
         moduleType=\iMODULE,
         multiply_specify=\iMULTIPLY_SPECIFY,
+        newType=\iNEW,
         nonempty_op=\iNONEMPTY,
         not_equal_op=\iNOT_EQUAL_OP,
         not_op=\iNOT_OP,
@@ -928,7 +932,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         if (exists typeParameters = that.typeParameters) {
             ret.typeParameterList = transformTypeParameters(typeParameters);
         }
-        ret.parameterList = transformParameters(that.parameters);
+        if (exists parameters = that.parameters) {
+            ret.parameterList = transformParameters(parameters);
+        }
         if (exists caseTypes = that.caseTypes) {
             ret.caseTypes = transformCaseTypes(caseTypes);
         }
@@ -1057,6 +1063,37 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.addCondition(transformCondition(condition));
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
+        // in the RedHat backend, a NewLiteral just wraps any type
+        JNewLiteral ret = JNewLiteral(tokens.token("`", backtick));
+        ret.endToken = tokens.token("new", newType);
+        "Object constructors not supported" // nor meaningful, in fact
+        assert (is JStaticType jQualifier = helpTransformDecQualifier(that.qualifier));
+        JQualifiedType jType = JQualifiedType(tokens.token(".", member_op));
+        jType.identifier = transformUIdentifier(that.name);
+        jType.outerType = jQualifier;
+        ret.type = jType;
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JConstructor transformConstructorDefinition(ConstructorDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JConstructor ret = JConstructor(tokens.token("new", newType));
+        ret.annotationList = annotationList;
+        ret.identifier = transformUIdentifier(that.name);
+        ret.parameterList = transformParameters(that.parameters);
+        if (exists extendedType = that.extendedType) {
+            value jET = transformExtendedType(extendedType);
+            value delegatedConstructor = JDelegatedConstructor(jET.mainToken);
+            delegatedConstructor.type = jET.type;
+            delegatedConstructor.invocationExpression = jET.invocationExpression;
+            ret.delegatedConstructor = delegatedConstructor;
+        }
+        ret.block = transformBlock(that.block);
         return ret;
     }
     
@@ -3502,13 +3539,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
      This is a helper function for those conversions."
     [JSimpleType, JInvocationExpression] helpTransformClassInstantiation(ClassInstantiation that) {
         JSimpleType type;
-        if (that.qualifier exists) {
+        switch (qualifier = that.qualifier)
+        case (is TypeNameWithTypeArguments) {
+            JBaseType bt = JBaseType(null);
+            bt.identifier = transformUIdentifier(qualifier.name);
+            if (exists typeArgs = qualifier.typeArguments) {
+                bt.typeArgumentList = transformTypeArguments(typeArgs);
+            }
+            tokens.token(".", member_op);
+            JQualifiedType qt = JQualifiedType(null);
+            qt.outerType = bt;
+            type = qt;
+        }
+        case (is Super) {
             JQualifiedType qt = JQualifiedType(null);
             JSuperType st = JSuperType(tokens.token("super", superType));
             tokens.token(".", member_op);
             qt.outerType = st;
             type = qt;
-        } else {
+        }
+        case (null) {
             type = JBaseType(null);
         }
         type.identifier = transformUIdentifier(that.name.name);

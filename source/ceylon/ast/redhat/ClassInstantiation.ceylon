@@ -19,7 +19,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] to a `ceylon.ast` [[ClassInstantiation]].
  
- This is only an internal helper function for [[extendedTypeToCeylon]] and [[classSpecifierToCeylon]],
+ This is only an internal helper function for [[extendedTypeToCeylon]],
+ [[classSpecifierToCeylon]] and [[constructorDefinitionToCeylon]],
  as the RedHat AST has no direct equivalent of [[ClassInstantiation]]."
 ClassInstantiation classInstantiationToCeylon(JSimpleType type, JInvocationExpression invocationExpression) {
     assert (invocationExpression.primary is JExtendedTypeExpression); // we can’t actually do anything with it, as JExtendedTypeExpression has no getExtendedType()
@@ -39,11 +40,23 @@ ClassInstantiation classInstantiationToCeylon(JSimpleType type, JInvocationExpre
         };
     }
     case (is JQualifiedType) {
-        assert (type.outerType is JSuperType);
+        TypeNameWithTypeArguments|Super qualifier;
+        switch (ot = type.outerType)
+        case (is JBaseType) {
+            TypeArguments? outerTypeArguments;
+            if (exists jTypeArguments = type.typeArgumentList) {
+                outerTypeArguments = typeArgumentsToCeylon(jTypeArguments);
+            } else {
+                outerTypeArguments = null;
+            }
+            qualifier = TypeNameWithTypeArguments(uIdentifierToCeylon(ot.identifier), outerTypeArguments);
+        }
+        case (is JSuperType) { qualifier = Super(); }
+        else { throw AssertionError("Unknown qualifier for class instantiation"); }
         return ClassInstantiation {
             name = typeNameWithTypeArguments;
             arguments = positionalArgumentsToCeylon(invocationExpression.positionalArgumentList);
-            qualifier = Super();
+            qualifier = qualifier;
         };
     }
 }

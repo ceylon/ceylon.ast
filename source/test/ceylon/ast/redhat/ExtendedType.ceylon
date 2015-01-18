@@ -3,7 +3,8 @@ import ceylon.ast.core {
     ExtendedType,
     TypeNameWithTypeArguments,
     PositionalArguments,
-    Super
+    Super,
+    UIdentifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -21,7 +22,7 @@ import ceylon.ast.create {
 
 shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
     
-    String->ExtendedType construct(String->TypeNameWithTypeArguments name, String->PositionalArguments arguments, <String->Super>? qualifier = null)
+    String->ExtendedType construct(String->TypeNameWithTypeArguments name, String->PositionalArguments arguments, <String->TypeNameWithTypeArguments|Super>? qualifier = null)
             => "extends `` qualifier exists then "`` qualifier?.key else "" ``." else "" ````name.key````arguments.key``"->ExtendedType(ClassInstantiation(name.item, arguments.item, qualifier?.item));
     
     shared String->ExtendedType extendsNull = construct("Null"->baseType("Null").nameAndArgs, positionalArguments.emptyPositionalArguments);
@@ -31,6 +32,12 @@ shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
         name = "Entry<Key,Item>"->baseType("Entry", "Key", "Item").nameAndArgs;
         arguments = positionalArguments.keyItemPositionArguments;
     };
+    shared String->ExtendedType extendsHomCoordCart
+            = construct {
+        qualifier = "HomogenousCoordinates"->TypeNameWithTypeArguments(UIdentifier("HomogenousCoordinates"));
+        name = "Cartesian"->TypeNameWithTypeArguments(UIdentifier("Cartesian"));
+        arguments = positionalArguments.abcPositionalArguments;
+    };
     
     // not tested directly, but used by other tests
     shared String->ExtendedType extendsAnything = construct("Anything"->baseType("Anything").nameAndArgs, positionalArguments.emptyPositionalArguments);
@@ -38,5 +45,5 @@ shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
     compile = compileExtendedType;
     fromCeylon = RedHatTransformer.transformExtendedType;
     toCeylon = extendedTypeToCeylon;
-    codes = [extendsNull, extendsSuperEntry];
+    codes = [extendsNull, extendsSuperEntry, extendsHomCoordCart];
 }

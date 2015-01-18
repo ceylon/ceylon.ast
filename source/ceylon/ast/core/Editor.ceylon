@@ -166,9 +166,9 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ClassDec transformClassDec(ClassDec that)
             => that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
-            => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
+            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.parameters, transformParameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
-            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformSuper));
+            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformTypeNameWithTypeArgumentsOrSuper));
     shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {
         assert (is ClassOrInterface ret = super.transformClassOrInterface(that));
         return ret;
@@ -205,6 +205,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
+    shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
+            => that.copy(transformUIdentifier(that.name), transformDecQualifier(that.qualifier));
+    shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that)
+            => that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
     shared actual default ControlStructure transformControlStructure(ControlStructure that) {
@@ -1042,5 +1046,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TuplePattern) { return transformTuplePattern(that); }
         case (is EntryPattern) { return transformEntryPattern(that); }
+    }
+    TypeNameWithTypeArguments|Super transformTypeNameWithTypeArgumentsOrSuper(TypeNameWithTypeArguments|Super that) {
+        switch (that)
+        case (is TypeNameWithTypeArguments) { return transformTypeNameWithTypeArguments(that); }
+        case (is Super) { return transformSuper(that); }
     }
 }

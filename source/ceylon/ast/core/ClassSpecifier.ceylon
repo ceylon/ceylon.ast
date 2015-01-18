@@ -4,7 +4,8 @@
  Examples:
  
      => String(characters)
-     => Entry<String,Item>(name, item)"
+     => Entry<String,Item>(name, item)
+     => HomogenousCoordinates.Cartesian(x, y, z, 1.0)"
 shared class ClassSpecifier(instantiation)
         extends Node() {
     

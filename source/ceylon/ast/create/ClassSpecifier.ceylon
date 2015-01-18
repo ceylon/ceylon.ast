@@ -16,7 +16,7 @@ import ceylon.ast.core {
        }"""
 shared ClassSpecifier classSpecifier(name, qualifier = null, arguments = {}) {
     IdentifierIsh|TypeNameWithTypeArguments name;
-    Super? qualifier;
+    Super|IdentifierIsh|TypeNameWithTypeArguments? qualifier;
     {PositionalArgumentIsh*} arguments;
     
     return ClassSpecifier(classInstantiation(name, qualifier, arguments));

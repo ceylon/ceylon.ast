@@ -16,7 +16,7 @@ import ceylon.ast.core {
        }"""
 shared ExtendedType extendedType(name, qualifier = null, arguments = {}) {
     IdentifierIsh|TypeNameWithTypeArguments name;
-    Super? qualifier;
+    Super|IdentifierIsh|TypeNameWithTypeArguments? qualifier;
     {PositionalArgumentIsh*} arguments;
     
     return ExtendedType(classInstantiation(name, qualifier, arguments));

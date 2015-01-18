@@ -5,7 +5,7 @@
    - the ‘`class`’ keyword,
    - the [[name]],
    - the [[type parameters|typeParameters]], if present,
-   - the [[parameters]],
+   - the [[parameters]], if present,
    - the [[case types|caseTypes]], if present,
    - the [[extended type|extendedType]], if present,
    - the [[satisfied types|satisfiedTypes]], if present,
@@ -35,7 +35,7 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
     "The name of the class."
     shared actual UIdentifier name;
     "The parameters of the class."
-    shared actual Parameters parameters;
+    shared actual Parameters? parameters;
     "The body of the class."
     shared ClassBody body;
     "The case types of the class."
@@ -56,7 +56,7 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
         [annotations],
         [name],
         emptyOrSingleton(typeParameters),
-        [parameters],
+        emptyOrSingleton(parameters),
         emptyOrSingleton(caseTypes),
         emptyOrSingleton(extendedType),
         emptyOrSingleton(satisfiedTypes),
@@ -69,21 +69,45 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
     
     shared actual Boolean equals(Object that) {
         if (is ClassDefinition that) {
-            if (exists caseTypes) {
-                if (exists caseTypes_ = that.caseTypes) {
-                    if (exists extendedType) {
-                        if (exists extendedType_ = that.extendedType) {
-                            if (exists satisfiedTypes) {
-                                if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return caseTypes == caseTypes_ && extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+            if (exists parameters) {
+                if (exists parameters_ = that.parameters) {
+                    if (exists caseTypes) {
+                        if (exists caseTypes_ = that.caseTypes) {
+                            if (exists extendedType) {
+                                if (exists extendedType_ = that.extendedType) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return caseTypes == caseTypes_ && extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -92,16 +116,40 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                                     return false;
                                 }
                             } else {
-                                if (!(that.satisfiedTypes exists)) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                if (!(that.extendedType exists)) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -114,18 +162,42 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                             return false;
                         }
                     } else {
-                        if (!(that.extendedType exists)) {
-                            if (exists satisfiedTypes) {
-                                if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                        if (!(that.caseTypes exists)) {
+                            if (exists extendedType) {
+                                if (exists extendedType_ = that.extendedType) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -134,16 +206,40 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                                     return false;
                                 }
                             } else {
-                                if (!(that.satisfiedTypes exists)) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                if (!(that.extendedType exists)) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -160,20 +256,44 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                     return false;
                 }
             } else {
-                if (!(that.caseTypes exists)) {
-                    if (exists extendedType) {
-                        if (exists extendedType_ = that.extendedType) {
-                            if (exists satisfiedTypes) {
-                                if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                if (!(that.parameters exists)) {
+                    if (exists caseTypes) {
+                        if (exists caseTypes_ = that.caseTypes) {
+                            if (exists extendedType) {
+                                if (exists extendedType_ = that.extendedType) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return caseTypes == caseTypes_ && extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -182,16 +302,40 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                                     return false;
                                 }
                             } else {
-                                if (!(that.satisfiedTypes exists)) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                if (!(that.extendedType exists)) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -204,18 +348,42 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                             return false;
                         }
                     } else {
-                        if (!(that.extendedType exists)) {
-                            if (exists satisfiedTypes) {
-                                if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                        if (!(that.caseTypes exists)) {
+                            if (exists extendedType) {
+                                if (exists extendedType_ = that.extendedType) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -224,16 +392,40 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
                                     return false;
                                 }
                             } else {
-                                if (!(that.satisfiedTypes exists)) {
-                                    if (exists typeParameters) {
-                                        if (exists typeParameters_ = that.typeParameters) {
-                                            return typeParameters == typeParameters_ && name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                if (!(that.extendedType exists)) {
+                                    if (exists satisfiedTypes) {
+                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
                                     } else {
-                                        if (!(that.typeParameters exists)) {
-                                            return name == that.name && parameters == that.parameters && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                        if (!(that.satisfiedTypes exists)) {
+                                            if (exists typeParameters) {
+                                                if (exists typeParameters_ = that.typeParameters) {
+                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            } else {
+                                                if (!(that.typeParameters exists)) {
+                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                                                } else {
+                                                    return false;
+                                                }
+                                            }
                                         } else {
                                             return false;
                                         }
@@ -256,9 +448,9 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (parameters.hash + 31 * (body.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))))));
+            => 31 * (name.hash + 31 * ((parameters?.hash else 0) + 31 * (body.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))))));
     
-    shared ClassDefinition copy(UIdentifier name = this.name, Parameters parameters = this.parameters, ClassBody body = this.body, CaseTypes? caseTypes = this.caseTypes, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
+    shared ClassDefinition copy(UIdentifier name = this.name, Parameters? parameters = this.parameters, ClassBody body = this.body, CaseTypes? caseTypes = this.caseTypes, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = ClassDefinition(name, parameters, body, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations);
         copyExtraInfoTo(ret);
         return ret;

@@ -23,8 +23,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object classDefinition satisfies ConcreteTest<ClassDefinition,JClassDefinition> {
     
-    String->ClassDefinition construct(String->UIdentifier name, String->Parameters parameters, String->ClassBody body, <String->CaseTypes>? caseTypes = null, <String->ExtendedType>? extendedType = null, <String->SatisfiedTypes>? satisfiedTypes = null, <String->TypeParameters>? typeParameters = null, <String->TypeConstraint>[] typeConstraints = [], String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` class ``name.key`` `` typeParameters?.key else "" `` ``parameters.key`` `` caseTypes?.key else "" `` `` extendedType?.key else "" `` `` satisfiedTypes?.key else "" `` ``" ".join(typeConstraints*.key)`` ``body.key``"->ClassDefinition(name.item, parameters.item, body.item, caseTypes?.item, extendedType?.item, satisfiedTypes?.item, typeParameters?.item, typeConstraints*.item, annotations.item);
+    String->ClassDefinition construct(String->UIdentifier name, <String->Parameters>? parameters, String->ClassBody body, <String->CaseTypes>? caseTypes = null, <String->ExtendedType>? extendedType = null, <String->SatisfiedTypes>? satisfiedTypes = null, <String->TypeParameters>? typeParameters = null, <String->TypeConstraint>[] typeConstraints = [], String->Annotations annotations = package.annotations.emptyAnnotations)
+            => "``annotations.key`` class ``name.key`` `` typeParameters?.key else "" `` `` parameters?.key else "" `` `` caseTypes?.key else "" `` `` extendedType?.key else "" `` `` satisfiedTypes?.key else "" `` ``" ".join(typeConstraints*.key)`` ``body.key``"->ClassDefinition(name.item, parameters?.item, body.item, caseTypes?.item, extendedType?.item, satisfiedTypes?.item, typeParameters?.item, typeConstraints*.item, annotations.item);
     
     shared String->ClassDefinition nullClassDefinition = construct {
         name = identifier.nullUIdentifier;

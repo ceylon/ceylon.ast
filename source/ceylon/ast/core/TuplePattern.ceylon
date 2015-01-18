@@ -3,6 +3,10 @@
  including optionally a trailing [[variadic|variadicElementPattern]] one,
  separated by commas and enclosed in brackets.
  
+ (There must be at least one total pattern, i. e.,
+ the [[element patterns|elementPatterns]] may only be empty
+ if the [[variadic element pattern|variadicElementPattern]] is present.)
+ 
  Examples:
  
      [x, y, z]
@@ -15,9 +19,12 @@ shared class TuplePattern(elementPatterns, variadicElementPattern = null)
      
      (Does not include the [[variadic pattern|variadicElementPattern]]
      if it’s present.)"
-    shared [Pattern+] elementPatterns;
+    shared [Pattern*] elementPatterns;
     "The trailing variadic element pattern, if present."
     shared VariadicVariable? variadicElementPattern;
+    
+    "Must have at least one pattern"
+    assert (elementPatterns nonempty || variadicElementPattern exists);
     
     shared actual <Pattern|VariadicVariable>[] children
             = concatenate(elementPatterns, emptyOrSingleton(variadicElementPattern));
@@ -48,7 +55,7 @@ shared class TuplePattern(elementPatterns, variadicElementPattern = null)
     shared actual Integer hash
             => 31 * (elementPatterns.hash + 31 * (variadicElementPattern?.hash else 0));
     
-    shared TuplePattern copy([Pattern+] elementPatterns = this.elementPatterns, VariadicVariable? variadicElementPattern = this.variadicElementPattern) {
+    shared TuplePattern copy([Pattern*] elementPatterns = this.elementPatterns, VariadicVariable? variadicElementPattern = this.variadicElementPattern) {
         value ret = TuplePattern(elementPatterns, variadicElementPattern);
         copyExtraInfoTo(ret);
         return ret;

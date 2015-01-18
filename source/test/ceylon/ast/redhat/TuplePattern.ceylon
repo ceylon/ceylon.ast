@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
     
-    String->TuplePattern construct([<String->Pattern>+] elementPatterns, [String->LIdentifier, <String->UnionType>?]? variadicElementPattern = null) {
+    String->TuplePattern construct([<String->Pattern>*] elementPatterns, [String->LIdentifier, <String->UnionType>?]? variadicElementPattern = null) {
         if (exists variadicElementPattern) {
             String varCode;
             VariadicVariable varNode;
@@ -30,7 +30,11 @@ shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
                 varCode = "*" + nameCode;
                 varNode = VariadicVariable(nameNode);
             }
-            return "[``", ".join(elementPatterns*.key)``, ``varCode``]"->TuplePattern(elementPatterns*.item, varNode);
+            if (nonempty elementPatterns) {
+                return "[``", ".join(elementPatterns*.key)``, ``varCode``]"->TuplePattern(elementPatterns*.item, varNode);
+            } else {
+                return "[``varCode``]"->TuplePattern([], varNode);
+            }
         } else {
             return "[``", ".join(elementPatterns*.key)``]"->TuplePattern(elementPatterns*.item);
         }
@@ -38,9 +42,10 @@ shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
     
     shared String->TuplePattern eStringLineTuplePattern = construct([variablePattern.eVariablePattern, variablePattern.stringLineVariablePattern]);
     shared String->TuplePattern firstRestTuplePattern = construct([variablePattern.firstVariablePattern], [identifier.restLIdentifier, null]);
+    shared String->TuplePattern eTuplePattern = construct([], [identifier.eLIdentifier, null]);
     
     compile = compileTuplePattern;
     fromCeylon = RedHatTransformer.transformTuplePattern;
     toCeylon = tuplePatternToCeylon;
-    codes = [eStringLineTuplePattern];
+    codes = [eStringLineTuplePattern, firstRestTuplePattern, eTuplePattern];
 }

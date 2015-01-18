@@ -3060,13 +3060,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JTuplePattern transformTuplePattern(TuplePattern that) {
         JTuplePattern ret = JTuplePattern(tokens.token("[", lbracket));
-        ret.addPattern(transformPattern(that.elementPatterns.first));
-        for (pattern in that.elementPatterns.rest) {
-            ret.endToken = tokens.token(",", comma);
-            ret.addPattern(transformPattern(pattern));
+        if (nonempty elementPatterns = that.elementPatterns) {
+            ret.addPattern(transformPattern(elementPatterns.first));
+            for (pattern in elementPatterns.rest) {
+                ret.endToken = tokens.token(",", comma);
+                ret.addPattern(transformPattern(pattern));
+            }
         }
         if (exists variadicElementPattern = that.variadicElementPattern) {
-            ret.endToken = tokens.token(",", comma);
+            if (that.elementPatterns nonempty) {
+                ret.endToken = tokens.token(",", comma);
+            }
             value vp = JVariablePattern(null);
             value v = JVariable(null);
             JType t;

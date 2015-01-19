@@ -9,8 +9,17 @@
 shared class SwitchClause(switched)
         extends Node() {
     
-    "The `switch` expression or variable definition."
+    "The `switch` expression or variable definition.
+     
+     (This may not be an [[AssignOperation]] with a [[BaseExpression]]
+     as [[target|AssignOperation.target]], since that would be ambiguous
+     with a [[SpecifiedVariable]].)"
     shared Expression|SpecifiedVariable switched;
+    
+    if (is AssignOperation switched, switched.target is BaseExpression) {
+        throw AssertionError("Switched expression may not be assignment to base expression,
+                              switch on SpecifiedVariable instead".normalized);
+    }
     
     shared actual [Expression|SpecifiedVariable] children = [switched];
     

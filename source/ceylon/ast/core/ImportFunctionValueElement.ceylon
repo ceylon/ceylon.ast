@@ -1,6 +1,7 @@
 "A single function or value import element, that is,
  the name of an imported function or value,
- optionally preceded by a [[type alias|importAlias]].
+ optionally preceded by a [[type alias|importAlias]],
+ and (for `object` imports) optionally followed by [[nested imports|nestedImports]].
  
  Examples:
  
@@ -13,12 +14,13 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
     shared actual MemberName name;
     "The visible name of the imported function or value."
     shared actual ImportFunctionValueAlias? importAlias;
-    "The nested imports of the imported element. **Unspecified!**
+    "The nested imports of the imported element.
      
-     This is not blessed by the specification, and only supported by the compiler
-     for interoperation with Java: it allows you to import members
-     of a class with a lowercase name without explicitly “uppercase-ing”
-     that name (via `\\I`). See [ceylon/ceylon-spec#323](https://github.com/ceylon/ceylon-spec/issues/323)."
+     The language specification only allows this for imports of `object`s.
+     The compiler, however, also supports it for interoperation with Java:
+     It allows you to import members of a class with a lowercase name
+     without explicitly “uppercase-ing” that name (via `\\I`).
+     See [ceylon/ceylon-spec#323](https://github.com/ceylon/ceylon-spec/issues/323)."
     shared actual ImportElements? nestedImports;
     
     // TODO use more precise type when backend bug is fixed

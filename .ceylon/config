@@ -2,7 +2,7 @@
 [compiler]
 source=source
 source=source-gen
-suppresswarnings=ceylonNamespace
+suppresswarning=ceylonNamespace
 
 [defaults]
 encoding=UTF-8

@@ -4,7 +4,7 @@
  
      Comparison comparing(Element left, Element right)
      void onSuccess()"
-shared class CallableParameter(type, name, parameterLists, annotations)
+shared class CallableParameter(type, name, parameterLists, annotations = Annotations())
         extends RequiredParameter() {
     
     "The annotations of the parameter."

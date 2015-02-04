@@ -5,7 +5,7 @@
        Element+ elements
        String* messages
        "The indexes" Integer+ indexes"""
-shared class VariadicParameter(type, name, annotations)
+shared class VariadicParameter(type, name, annotations = Annotations())
         extends Parameter() {
     
     "The annotations of the parameter."

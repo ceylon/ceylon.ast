@@ -3,24 +3,27 @@ import ceylon.ast.core {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JIfExpression=IfExpression
+        JIfExpression=IfExpression,
+        JSwitchExpression=SwitchExpression
     }
 }
 
-"Converts a RedHat AST [[IfExpression|JIfExpression]] to a `ceylon.ast` [[ConditionalExpression]]."
-shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression conditionalExpression) {
+"Converts a RedHat AST [[IfExpression|JIfExpression]] or [[SwitchExpression|JSwitchExpression]] to a `ceylon.ast` [[ConditionalExpression]]."
+shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitchExpression conditionalExpression) {
     switch (conditionalExpression)
     case (is JIfExpression) { return ifElseExpressionToCeylon(conditionalExpression); }
-    // TODO switch expressions
+    case (is JSwitchExpression) { return switchCaseElseExpressionToCeylon(conditionalExpression); }
 }
 
 "Compiles the given [[code]] for an Any Specifier
  into a [[ConditionalExpression]] using the Ceylon compiler
- (more specifically, the rule for a `conditionalExpression`)."
+ (more specifically, the rule for an `ifExpression` or a `switchExpression`)."
 shared ConditionalExpression? compileConditionalExpression(String code) {
-    if (exists jConditionalExpression = createParser(code).conditionalExpression()) {
-        assert (is JIfExpression jConditionalExpression);
-        return conditionalExpressionToCeylon(jConditionalExpression);
+    // the grammar rule conditionalExpression yields ifExpression|let, not ifExpression|switchExpression
+    if (exists jIfExpression = createParser(code).ifExpression()) {
+        return conditionalExpressionToCeylon(jIfExpression);
+    } else if (exists jSwitchExpression = createParser(code).switchExpression()) {
+        return conditionalExpressionToCeylon(jSwitchExpression);
     } else {
         return null;
     }

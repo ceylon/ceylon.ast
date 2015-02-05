@@ -20,6 +20,7 @@ import ceylon.ast.core {
     CallableParameter,
     CallableType,
     CaseClause,
+    CaseExpression,
     CaseTypes,
     CatchClause,
     CharacterLiteral,
@@ -182,6 +183,7 @@ import ceylon.ast.core {
     SumOperation,
     Super,
     SwitchCaseElse,
+    SwitchCaseElseExpression,
     SwitchCases,
     SwitchClause,
     ThenOperation,
@@ -864,6 +866,20 @@ shared CompilationUnit completeCompilationUnit
                                                 thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseThenExpression")));
                                                 elseExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseExpression")));
                                             };
+                                        },
+                                        SwitchCaseElseExpression {
+                                            clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("seq"))));
+                                            caseExpressions = [
+                                                CaseExpression {
+                                                    caseItem = MatchCase([BaseExpression(MemberNameWithTypeArguments(LIdentifier("null")))]);
+                                                    expression = StringLiteral("""null""");
+                                                },
+                                                CaseExpression {
+                                                    caseItem = IsCase(TupleType(TypeList([])));
+                                                    expression = StringLiteral("""empty""");
+                                                }
+                                            ];
+                                            elseExpression = StringLiteral("""nonempty""");
                                         }
                                     ])));
                         annotations = Annotations();

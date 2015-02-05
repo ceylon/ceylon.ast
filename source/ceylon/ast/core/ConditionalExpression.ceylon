@@ -14,6 +14,6 @@
        case (equal) "of the same age as"
        case (larger) "older than""""
 shared abstract class ConditionalExpression()
-        of IfElseExpression
+        of IfElseExpression | SwitchCaseElseExpression
         extends Expression() {
 }

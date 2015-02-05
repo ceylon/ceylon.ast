@@ -238,6 +238,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSuperType=SuperType,
         JSwitchCaseList=SwitchCaseList,
         JSwitchClause=SwitchClause,
+        JSwitchExpression=SwitchExpression,
         JSwitchStatement=SwitchStatement,
         JSwitched=Switched,
         JSyntheticVariable=SyntheticVariable,
@@ -805,6 +806,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[CaseExpression]];
+     this method throws."
+    shared actual Nothing transformCaseExpression(CaseExpression that) {
+        throw AssertionError("CaseExpression has no RedHat AST equivalent!");
+    }
+    
     shared actual JCaseItem transformCaseItem(CaseItem that) {
         assert (is JCaseItem ret = super.transformCaseItem(that));
         return ret;
@@ -1050,8 +1057,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JIfExpression transformConditionalExpression(ConditionalExpression that) {
-        assert (is JIfExpression ret = super.transformConditionalExpression(that));
+    shared actual JIfExpression|JSwitchExpression transformConditionalExpression(ConditionalExpression that) {
+        assert (is JIfExpression|JSwitchExpression ret = super.transformConditionalExpression(that));
         return ret;
     }
     
@@ -2939,40 +2946,24 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JSwitchStatement ret = JSwitchStatement(null);
         ret.switchClause = transformSwitchClause(that.clause);
         ret.switchCaseList = transformSwitchCases(that.cases);
-        // the parser now adds synthetic variables to all ‘is’ cases and the else case.
-        // this is mostly copied from the grammar.
-        JIdentifier? id;
-        if (is JBaseMemberExpression ex = ret.switchClause.switched.expression?.term) {
-            id = ex.identifier;
-        } else if (exists var = ret.switchClause.switched.variable) {
-            id = var.identifier;
-        } else {
-            id = null;
+        helpAddSwitchVariables(ret.switchClause, ret.switchCaseList);
+        return ret;
+    }
+    
+    shared actual JSwitchExpression transformSwitchCaseElseExpression(SwitchCaseElseExpression that) {
+        JSwitchExpression ret = JSwitchExpression(null);
+        ret.switchClause = transformSwitchClause(that.clause);
+        value scl = JSwitchCaseList(null);
+        for (caseExpression in that.caseExpressions) {
+            scl.addCaseClause(helpTransformCaseExpression(caseExpression));
         }
-        if (exists id) {
-            JVariable makeVariable() {
-                value v = JVariable(null);
-                v.type = JSyntheticVariable(null);
-                v.identifier = id;
-                value se = JSpecifierExpression(null);
-                value e = JExpression(null);
-                value bme = JBaseMemberExpression(null);
-                bme.identifier = id;
-                bme.typeArguments = JInferredTypeArguments(null);
-                e.term = bme;
-                se.expression = e;
-                v.specifierExpression = se;
-                return v;
-            }
-            for (cc in CeylonIterable(ret.switchCaseList.caseClauses)) {
-                if (is JIsCase ic = cc.caseItem) {
-                    ic.variable = makeVariable();
-                }
-            }
-            if (exists ec = ret.switchCaseList.elseClause) {
-                ec.variable = makeVariable();
-            }
+        if (exists elseExpression = that.elseExpression) {
+            value ec = JElseClause(tokens.token("else", else_clause));
+            ec.expression = wrapTerm(transformExpression(elseExpression));
+            scl.elseClause = ec;
         }
+        ret.switchCaseList = scl;
+        helpAddSwitchVariables(ret.switchClause, ret.switchCaseList);
         return ret;
     }
     
@@ -3676,6 +3667,53 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         case (is JDestructure) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
         case (is JVariable) { statement.specifierExpression = transformSpecifier(specifiedPattern.specifier); }
         return statement;
+    }
+    
+    JCaseClause helpTransformCaseExpression(CaseExpression caseExpression) {
+        JCaseClause ret = JCaseClause(tokens.token("case", case_clause));
+        tokens.token("(", lparen);
+        ret.caseItem = transformCaseItem(caseExpression.caseItem);
+        ret.caseItem.endToken = tokens.token(")", rparen);
+        ret.expression = wrapTerm(transformExpression(caseExpression.expression));
+        return ret;
+    }
+    
+    "The parser adds synthetic variables to all ‘is’ cases and the else case.
+     This is mostly copied from the grammar."
+    see (`function transformSwitchCaseElse`, `function transformSwitchCaseElseExpression`)
+    void helpAddSwitchVariables(JSwitchClause switchClause, JSwitchCaseList switchCaseList) {
+        JIdentifier? id;
+        if (is JBaseMemberExpression ex = switchClause.switched.expression?.term) {
+            id = ex.identifier;
+        } else if (exists var = switchClause.switched.variable) {
+            id = var.identifier;
+        } else {
+            id = null;
+        }
+        if (exists id) {
+            JVariable makeVariable() {
+                value v = JVariable(null);
+                v.type = JSyntheticVariable(null);
+                v.identifier = id;
+                value se = JSpecifierExpression(null);
+                value e = JExpression(null);
+                value bme = JBaseMemberExpression(null);
+                bme.identifier = id;
+                bme.typeArguments = JInferredTypeArguments(null);
+                e.term = bme;
+                se.expression = e;
+                v.specifierExpression = se;
+                return v;
+            }
+            for (cc in CeylonIterable(switchCaseList.caseClauses)) {
+                if (is JIsCase ic = cc.caseItem) {
+                    ic.variable = makeVariable();
+                }
+            }
+            if (exists ec = switchCaseList.elseClause) {
+                ec.variable = makeVariable();
+            }
+        }
     }
     
     JExpression wrapTerm(JTerm term) {

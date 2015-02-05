@@ -39,6 +39,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCaseClause(CaseClause that) => transformNode(that);
+    shared actual default Result transformCaseExpression(CaseExpression that) => transformNode(that);
     shared actual default Result transformCaseItem(CaseItem that) => transformNode(that);
     shared actual default Result transformCaseTypes(CaseTypes that) => transformNode(that);
     shared actual default Result transformCatchClause(CatchClause that) => transformNode(that);
@@ -257,6 +258,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformSumOperation(SumOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformSuper(Super that) => transformSelfReference(that);
     shared actual default Result transformSwitchCaseElse(SwitchCaseElse that) => transformControlStructure(that);
+    shared actual default Result transformSwitchCaseElseExpression(SwitchCaseElseExpression that) => transformConditionalExpression(that);
     shared actual default Result transformSwitchCases(SwitchCases that) => transformNode(that);
     shared actual default Result transformSwitchClause(SwitchClause that) => transformNode(that);
     shared actual default Result transformThenOperation(ThenOperation that) => transformBinaryOperation(that);

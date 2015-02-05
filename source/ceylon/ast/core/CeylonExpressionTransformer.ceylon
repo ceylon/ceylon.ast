@@ -137,6 +137,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
                 `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
                 ``indent``}";
+    transformCaseExpression(CaseExpression that)
+            => "CaseExpression {
+                `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
+                ``indent``}";
     transformCaseTypes(CaseTypes that) => "CaseTypes(``transformWithIndent(that.caseTypes)``)";
     transformCatchClause(CatchClause that)
             => "CatchClause {
@@ -791,6 +796,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "SwitchCaseElse {
                 `` indent + indentLevel ``clause = ``transformWithIndent(that.clause)``;
                 `` indent + indentLevel ``cases = ``transformWithIndent(that.cases)``;
+                ``indent``}";
+    transformSwitchCaseElseExpression(SwitchCaseElseExpression that)
+            => "SwitchCaseElseExpression {
+                `` indent + indentLevel ``clause = ``transformWithIndent(that.clause)``;
+                `` indent + indentLevel ``caseExpressions = ``transformWithIndent(that.caseExpressions)``;
+                `` indent + indentLevel ``elseExpression = ``transformWithIndent(that.elseExpression)``;
                 ``indent``}";
     transformSwitchCases(SwitchCases that)
             => "SwitchCases {

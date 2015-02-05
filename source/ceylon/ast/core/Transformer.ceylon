@@ -50,6 +50,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCallableParameter(CallableParameter that);
     shared formal Result transformCallableType(CallableType that);
     shared formal Result transformCaseClause(CaseClause that);
+    shared formal Result transformCaseExpression(CaseExpression that);
     shared formal Result transformCaseItem(CaseItem that);
     shared formal Result transformCaseTypes(CaseTypes that);
     shared formal Result transformCatchClause(CatchClause that);
@@ -269,6 +270,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformSumOperation(SumOperation that);
     shared formal Result transformSuper(Super that);
     shared formal Result transformSwitchCaseElse(SwitchCaseElse that);
+    shared formal Result transformSwitchCaseElseExpression(SwitchCaseElseExpression that);
     shared formal Result transformSwitchCases(SwitchCases that);
     shared formal Result transformSwitchClause(SwitchClause that);
     shared formal Result transformThenOperation(ThenOperation that);

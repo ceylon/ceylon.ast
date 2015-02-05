@@ -48,6 +48,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformCallableParameter(CallableParameter that) => visitCallableParameter(that);
     transformCallableType(CallableType that) => visitCallableType(that);
     transformCaseClause(CaseClause that) => visitCaseClause(that);
+    transformCaseExpression(CaseExpression that) => visitCaseExpression(that);
     transformCaseItem(CaseItem that) => visitCaseItem(that);
     transformCaseTypes(CaseTypes that) => visitCaseTypes(that);
     transformCatchClause(CatchClause that) => visitCatchClause(that);
@@ -266,6 +267,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformSumOperation(SumOperation that) => visitSumOperation(that);
     transformSuper(Super that) => visitSuper(that);
     transformSwitchCaseElse(SwitchCaseElse that) => visitSwitchCaseElse(that);
+    transformSwitchCaseElseExpression(SwitchCaseElseExpression that) => visitSwitchCaseElseExpression(that);
     transformSwitchCases(SwitchCases that) => visitSwitchCases(that);
     transformSwitchClause(SwitchClause that) => visitSwitchClause(that);
     transformThenOperation(ThenOperation that) => visitThenOperation(that);
@@ -357,6 +359,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitCallableParameter(CallableParameter that) => super.transformCallableParameter(that);
     shared default void visitCallableType(CallableType that) => super.transformCallableType(that);
     shared default void visitCaseClause(CaseClause that) => super.transformCaseClause(that);
+    shared default void visitCaseExpression(CaseExpression that) => super.transformCaseExpression(that);
     shared default void visitCaseItem(CaseItem that) => super.transformCaseItem(that);
     shared default void visitCaseTypes(CaseTypes that) => super.transformCaseTypes(that);
     shared default void visitCatchClause(CatchClause that) => super.transformCatchClause(that);
@@ -575,6 +578,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitSumOperation(SumOperation that) => super.transformSumOperation(that);
     shared default void visitSuper(Super that) => super.transformSuper(that);
     shared default void visitSwitchCaseElse(SwitchCaseElse that) => super.transformSwitchCaseElse(that);
+    shared default void visitSwitchCaseElseExpression(SwitchCaseElseExpression that) => super.transformSwitchCaseElseExpression(that);
     shared default void visitSwitchCases(SwitchCases that) => super.transformSwitchCases(that);
     shared default void visitSwitchClause(SwitchClause that) => super.transformSwitchClause(that);
     shared default void visitThenOperation(ThenOperation that) => super.transformThenOperation(that);

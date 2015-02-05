@@ -9,6 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLetExpression=LetExpression,
         JOperatorExpression=OperatorExpression,
         JPrimary=Primary,
+        JSwitchExpression=SwitchExpression,
         JTerm=Term
     }
 }
@@ -26,7 +27,7 @@ shared Expression expressionToCeylon(JTerm term) {
     case (is JOperatorExpression) { return operationToCeylon(term); }
     case (is JFunctionArgument) { return functionExpressionToCeylon(term); }
     case (is JLetExpression) { return letExpressionToCeylon(term); }
-    case (is JIfExpression) { return ifElseExpressionToCeylon(term); }
+    case (is JIfExpression|JSwitchExpression) { return conditionalExpressionToCeylon(term); }
     else {
         throw AssertionError("Unknown term type!");
     }

@@ -143,6 +143,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformPrimaryType(that.returnType), transformTypeListOrSpreadType(that.argumentTypes));
     shared actual default CaseClause transformCaseClause(CaseClause that)
             => that.copy(transformCaseItem(that.caseItem), transformBlock(that.block));
+    shared actual default CaseExpression transformCaseExpression(CaseExpression that)
+            => that.copy(transformCaseItem(that.caseItem), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression));
     shared actual default CaseItem transformCaseItem(CaseItem that) {
         assert (is CaseItem ret = super.transformCaseItem(that));
         return ret;
@@ -634,6 +636,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default SpecifiedPattern transformSpecifiedPattern(SpecifiedPattern that)
             => that.copy(transformPattern(that.pattern), transformSpecifier(that.specifier));
+    shared actual default SwitchCaseElseExpression transformSwitchCaseElseExpression(SwitchCaseElseExpression that)
+            => that.copy(transformSwitchClause(that.clause), that.caseExpressions.collect(transformCaseExpression), nullsafeInvoke(that.elseExpression, transformDisjoiningExpressionOrIfElseExpressionOrLetExpression));
     shared actual default TuplePattern transformTuplePattern(TuplePattern that)
             => that.copy(that.elementPatterns.collect(transformPattern), nullsafeInvoke(that.variadicElementPattern, transformVariadicVariable));
     shared actual default UnioningExpression transformUnioningExpression(UnioningExpression that) {

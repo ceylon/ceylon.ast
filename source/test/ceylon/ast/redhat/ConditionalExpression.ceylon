@@ -8,14 +8,15 @@ import ceylon.ast.redhat {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JIfExpression=IfExpression
+        JIfExpression=IfExpression,
+        JSwitchExpression=SwitchExpression
     }
 }
 
-shared object conditionalExpression satisfies AbstractTest<ConditionalExpression,JIfExpression> {
+shared object conditionalExpression satisfies AbstractTest<ConditionalExpression,JIfExpression|JSwitchExpression> {
     compile = compileConditionalExpression;
     fromCeylon = RedHatTransformer.transformConditionalExpression;
     toCeylon = conditionalExpressionToCeylon;
     
-    tests = [ifElseExpression];
+    tests = [ifElseExpression, switchCaseElseExpression];
 }

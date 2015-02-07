@@ -19,7 +19,7 @@ shared class ImportTypeElement(name, importAlias = null, nestedImports = null)
     shared actual ImportElements? nestedImports;
     
     // TODO use more precise type when backend bug is fixed
-    //shared actual [ImportTypeAlias, Identifier, ImportElements=]|[Identifier, ImportElements=] children;
+    //shared actual [ImportTypeAlias, UIdentifier, ImportElements=]|[UIdentifier, ImportElements=] children;
     shared actual Node[] children;
     if (exists importAlias) {
         if (exists nestedImports) {

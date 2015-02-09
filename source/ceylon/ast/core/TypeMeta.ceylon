@@ -7,7 +7,7 @@
 shared class TypeMeta(type)
         extends Meta() {
     
-    // TODO document!
+    "The type."
     shared Type type;
     
     shared actual [Type] children = [type];

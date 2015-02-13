@@ -16,12 +16,7 @@ shared abstract class ImportElement()
     shared formal Identifier name;
     "The visible name of the imported element."
     shared formal ImportAlias? importAlias;
-    "The nested imported elements, if present.
-     
-     (The specification only blesses these for
-     [[type import elements|ImportTypeElement]],
-     and you only very rarely need them for
-     [[function or value import elements|ImportFunctionValueElement]].)"
+    "The nested imported elements, if present."
     shared formal ImportElements? nestedImports;
     
     // TODO use more precise type when backend bug is fixed

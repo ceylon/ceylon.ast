@@ -5,23 +5,36 @@
  
      string => counter.string;
      visitIdentifier(Identifier that) => names.put((names[that.name] else 0) + 1);"
-shared class LazySpecification(name, specifier, parameterLists = [])
+shared class LazySpecification(name, specifier, parameterLists = [], qualifier = null)
         extends Specification() {
     
     shared actual LIdentifier name;
     shared actual LazySpecifier specifier;
     "The parameter lists, if any."
     shared Parameters[] parameterLists;
+    shared actual This? qualifier;
     
-    shared actual [LIdentifier, <Parameters|LazySpecifier>*] children
-            = [name, *concatenate(parameterLists, [specifier])];
+    shared actual [LIdentifier, <Parameters|LazySpecifier|This>*] children
+            = [name, *concatenate(parameterLists, [specifier], emptyOrSingleton(qualifier))];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLazySpecification(this);
     
     shared actual Boolean equals(Object that) {
         if (is LazySpecification that) {
-            return name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
+            if (exists qualifier) {
+                if (exists qualifier_ = that.qualifier) {
+                    return qualifier == qualifier_ && name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
+                } else {
+                    return false;
+                }
+            } else {
+                if (!(that.qualifier exists)) {
+                    return name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
+                } else {
+                    return false;
+                }
+            }
         } else {
             return false;
         }
@@ -30,8 +43,8 @@ shared class LazySpecification(name, specifier, parameterLists = [])
     shared actual Integer hash
             => 31 * (name.hash + 31 * (specifier.hash + 31 * parameterLists.hash));
     
-    shared LazySpecification copy(LIdentifier name = this.name, LazySpecifier specifier = this.specifier, Parameters[] parameterLists = this.parameterLists) {
-        value ret = LazySpecification(name, specifier, parameterLists);
+    shared LazySpecification copy(LIdentifier name = this.name, LazySpecifier specifier = this.specifier, Parameters[] parameterLists = this.parameterLists, This? qualifier = this.qualifier) {
+        value ret = LazySpecification(name, specifier, parameterLists, qualifier);
         copyExtraInfoTo(ret);
         return ret;
     }

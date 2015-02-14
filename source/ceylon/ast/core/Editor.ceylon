@@ -462,7 +462,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default LIdentifier transformLIdentifier(LIdentifier that)
             => that.copy();
     shared actual default LazySpecification transformLazySpecification(LazySpecification that)
-            => that.copy(transformLIdentifier(that.name), transformLazySpecifier(that.specifier), that.parameterLists.collect(transformParameters));
+            => that.copy(transformLIdentifier(that.name), transformLazySpecifier(that.specifier), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.qualifier, transformThis));
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
     shared actual default LetExpression transformLetExpression(LetExpression that)
@@ -974,7 +974,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return that.copy(transformLIdentifier(that.name), transformBlockOrLazySpecifier(that.definition), transformAnnotations(that.annotations));
     }
     shared actual default ValueSpecification transformValueSpecification(ValueSpecification that)
-            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier));
+            => that.copy(transformLIdentifier(that.name), transformSpecifier(that.specifier), nullsafeInvoke(that.qualifier, transformThis));
     shared actual default Variable transformVariable(Variable that) {
         assert (is Variable ret = super.transformVariable(that));
         return ret;

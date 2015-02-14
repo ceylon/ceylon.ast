@@ -7,8 +7,13 @@
 shared class SpecifiedArgument(specification)
         extends NamedArgument() {
     
-    "The specification of the argument."
+    "The specification of the argument.
+     
+     (Must not be qualified, i. e., [[Specification.qualifier]] must be [[null]].)"
     shared Specification specification;
+    
+    "Specification must not be qualified"
+    assert (!specification.qualifier exists);
     
     shared actual [Specification] children = [specification];
     

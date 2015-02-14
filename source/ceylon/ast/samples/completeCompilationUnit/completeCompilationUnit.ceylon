@@ -587,7 +587,6 @@ shared CompilationUnit completeCompilationUnit
                                     SpecifiedArgument(LazySpecification {
                                             name = LIdentifier("lazySpecifiedArgument");
                                             specifier = LazySpecifier(IntegerLiteral("0"));
-                                            parameterLists = [];
                                         }),
                                     ValueArgument {
                                         name = LIdentifier("valueArgument");

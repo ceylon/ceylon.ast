@@ -525,11 +525,18 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             then "LIdentifier(\"``that.name``\", true)"
             else "LIdentifier(\"``that.name``\")";
     transformLazySpecification(LazySpecification that)
-            => "LazySpecification {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
-                `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
-                ``indent``}";
+            =>
+            !that.parameterLists nonempty && !that.qualifier exists
+            then "LazySpecification {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                  ``indent``}"
+            else "LazySpecification {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                  `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}";
     transformLetExpression(LetExpression that)
             => "LetExpression {
                 `` indent + indentLevel ``patterns = ``transformWithIndent(that.patterns)``;

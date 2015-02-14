@@ -2020,7 +2020,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JSpecifierStatement transformLazySpecification(LazySpecification that) {
         JSpecifierStatement ret = JSpecifierStatement(null);
-        value nameBME = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        JPrimary nameBME;
+        if (exists qualifier = that.qualifier) {
+            nameBME = transformQualifiedExpression(QualifiedExpression(qualifier, MemberNameWithTypeArguments(that.name)));
+        } else {
+            nameBME = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        }
         if (nonempty parameterLists = that.parameterLists) {
             JParameterizedExpression pe = JParameterizedExpression(null);
             pe.primary = nameBME;
@@ -3441,7 +3446,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JSpecifierStatement transformValueSpecification(ValueSpecification that) {
-        JTerm baseMemberExpression = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        JTerm baseMemberExpression;
+        if (exists qualifier = that.qualifier) {
+            baseMemberExpression = transformQualifiedExpression(QualifiedExpression(qualifier, MemberNameWithTypeArguments(that.name)));
+        } else {
+            baseMemberExpression = transformBaseExpression(BaseExpression(MemberNameWithTypeArguments(that.name)));
+        }
         JSpecifierStatement ret = JSpecifierStatement(null);
         ret.baseMemberExpression = baseMemberExpression;
         ret.specifierExpression = transformSpecifier(that.specifier);

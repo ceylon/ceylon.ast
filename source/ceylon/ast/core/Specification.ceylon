@@ -12,4 +12,6 @@ shared abstract class Specification()
     shared formal LIdentifier name;
     "The specifier."
     shared formal AnySpecifier specifier;
+    "The qualifying ‘`this`’ keyword, if present."
+    shared formal This? qualifier;
 }

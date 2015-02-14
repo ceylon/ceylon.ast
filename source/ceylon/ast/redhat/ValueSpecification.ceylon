@@ -1,11 +1,15 @@
 import ceylon.ast.core {
-    BaseExpression,
-    MemberNameWithTypeArguments,
+    LIdentifier,
+    This,
     ValueSpecification
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JSpecifierStatement=SpecifierStatement
+        JBaseMemberExpression=BaseMemberExpression,
+        JMemberOp=MemberOp,
+        JQualifiedMemberExpression=QualifiedMemberExpression,
+        JSpecifierStatement=SpecifierStatement,
+        JThis=This
     }
 }
 
@@ -15,9 +19,22 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  are also represented via `SpecifierStatement` (e. g. `void(String s) => print(s);`) are not converted."
 throws (`class AssertionError`, "If the [[valueSpecification]] isn’t a simple specification")
 shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSpecification) {
-    assert (is BaseExpression base = expressionToCeylon(valueSpecification.baseMemberExpression),
-        is MemberNameWithTypeArguments mnta = base.nameAndArgs);
-    return ValueSpecification(mnta.name, specifierToCeylon(valueSpecification.specifierExpression));
+    "Only value may be specified"
+    assert (is JBaseMemberExpression|JQualifiedMemberExpression baseMemberExpression = valueSpecification.baseMemberExpression);
+    LIdentifier name;
+    This? qualifier;
+    switch (baseMemberExpression)
+    case (is JBaseMemberExpression) {
+        name = lIdentifierToCeylon(baseMemberExpression.identifier);
+        qualifier = null;
+    }
+    case (is JQualifiedMemberExpression) {
+        "Specification may only be qualified with `this` qualifier"
+        assert (baseMemberExpression.primary is JThis && baseMemberExpression.memberOperator is JMemberOp);
+        name = lIdentifierToCeylon(baseMemberExpression.identifier);
+        qualifier = This();
+    }
+    return ValueSpecification(name, specifierToCeylon(valueSpecification.specifierExpression), qualifier);
 }
 
 "Compiles the given [[code]] for a Value Specification

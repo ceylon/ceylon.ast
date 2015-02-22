@@ -26,6 +26,16 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
         StringLiteral("!")
     );
     
+    // not tested directly, but used by other tests
+    shared String->StringTemplate xyStringTemplate
+            = """"(``x``|``y``)""""->createStringTemplate(
+        StringLiteral("("),
+        baseExpression.xExpression.item,
+        StringLiteral("|"),
+        baseExpression.yExpression.item,
+        StringLiteral(")")
+    );
+    
     compile = compileStringTemplate;
     fromCeylon = RedHatTransformer.transformStringTemplate;
     toCeylon = stringTemplateToCeylon;

@@ -50,6 +50,14 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression personExpression = construct("person");
     shared String->BaseExpression lockExpression = construct("lock");
     shared String->BaseExpression countExpression = construct("count");
+    shared String->BaseExpression xExpression = construct("x");
+    shared String->BaseExpression yExpression = construct("y");
+    shared String->BaseExpression rExpression = construct("r");
+    shared String->BaseExpression phiExpression = construct("\{MATHEMATICAL ITALIC SMALL PHI}");
+    shared String->BaseExpression sqrtExpression = construct("sqrt");
+    shared String->BaseExpression atan2Expression = construct("atan2");
+    shared String->BaseExpression sinExpression = construct("sin");
+    shared String->BaseExpression cosExpression = construct("cos");
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

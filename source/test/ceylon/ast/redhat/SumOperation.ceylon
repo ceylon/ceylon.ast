@@ -26,6 +26,7 @@ shared object sumOperation satisfies ConcreteTest<SumOperation,JSumOp> {
     """`"Hello, " + (name else "World") + "!"`"""
     shared String->SumOperation helloPlusNameElseWorldPlusBangExpression = construct(helloPlusNameElseWorldExpression, stringLiteral.bangStringLiteral);
     shared String->SumOperation onePlusInterestRateExpression = construct(integerLiteral.oneIntegerLiteral, baseExpression.interestRateExpression);
+    shared String->SumOperation xySquaredSumExpression = construct(exponentiationOperation.xSquaredOperation, exponentiationOperation.ySquaredOperation);
     
     compile = compileSumOperation;
     fromCeylon = RedHatTransformer.transformSumOperation;

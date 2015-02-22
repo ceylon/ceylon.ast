@@ -20,9 +20,18 @@ shared object classBody satisfies ConcreteTest<ClassBody,JClassBody> {
             => "{``"".join(content*.key)``}"->ClassBody(content*.item);
     
     shared String->ClassBody emptyClassBody = construct([]);
+    shared String->ClassBody pointClassBody = construct([
+            valueDeclaration.sharedFloatXDeclaration,
+            valueDeclaration.sharedFloatYDeclaration,
+            valueDeclaration.sharedFloatRDeclaration,
+            valueDeclaration.sharedFloatPhiDeclaration,
+            constructorDefinition.cartesianConstructorDefinition,
+            constructorDefinition.polarConstructorDefinition,
+            valueDefinition.stringDefinition
+        ]);
     
     compile = compileClassBody;
     fromCeylon = RedHatTransformer.transformClassBody;
     toCeylon = classBodyToCeylon;
-    codes = [emptyClassBody];
+    codes = [emptyClassBody, pointClassBody];
 }

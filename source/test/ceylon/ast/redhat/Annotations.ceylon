@@ -24,6 +24,7 @@ shared object annotations satisfies ConcreteTest<Annotations,JAnnotationList> {
     
     // not tested directly, but used by other tests
     shared String->Annotations sharedAnnotations = construct(null, [annotation.sharedAnnotation]);
+    shared String->Annotations sharedActualAnnotations = construct(null, [annotation.sharedAnnotation, annotation.actualAnnotation]);
     
     compile = compileAnnotations;
     fromCeylon = RedHatTransformer.transformAnnotations;

@@ -64,7 +64,14 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->UIdentifier peopleByNameUIdentifier = constructU("PeopleByName");
     shared String->LIdentifier lineLIdentifier = constructL("line");
     shared String->LIdentifier restLIdentifier = constructL("rest");
+    shared String->UIdentifier cartesianUIdentifier = constructU("Cartesian");
     shared String->UIdentifier polarUIdentifier = constructU("Polar");
+    shared String->UIdentifier pointUIdentifier = constructU("Point");
+    shared String->LIdentifier xLIdentifier = constructL("x");
+    shared String->LIdentifier yLIdentifier = constructL("y");
+    shared String->LIdentifier rLIdentifier = constructL("r");
+    shared String->LIdentifier phiLIdentifier = constructL("\{MATHEMATICAL ITALIC SMALL PHI}");
+    shared String->LIdentifier actualLIdentifier = constructL("actual");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

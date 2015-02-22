@@ -26,6 +26,14 @@ shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     shared String->Specifier _0Specifier = construct(integerLiteral._0IntegerLiteral);
     shared String->Specifier processArgumentsFirstSpecifier = construct(qualifiedExpression.processArgumentsFirstExpression);
     shared String->Specifier processArgumentsSequenceSpecifier = construct(invocation.processArgumentsSequenceInvocation);
+    shared String->Specifier xSpecifier = construct(baseExpression.xExpression);
+    shared String->Specifier ySpecifier = construct(baseExpression.yExpression);
+    shared String->Specifier rSpecifier = construct(baseExpression.rExpression);
+    shared String->Specifier phiSpecifier = construct(baseExpression.phiExpression);
+    shared String->Specifier sqrtSpecifier = construct(invocation.sqrtInvocation);
+    shared String->Specifier atan2Specifier = construct(invocation.atan2Invocation);
+    shared String->Specifier rTimesCosSpecifier = construct(productOperation.rTimesCosExpression);
+    shared String->Specifier rTimesSinSpecifier = construct(productOperation.rTimesSinExpression);
     
     compile = compileSpecifier;
     fromCeylon = RedHatTransformer.transformSpecifier;

@@ -23,6 +23,7 @@ shared object lazySpecifier satisfies ConcreteTest<LazySpecifier,JLazySpecifierE
     
     // not tested directly, but used by other tests
     shared String->LazySpecifier assignLazySpecifier = construct(assignOperation.textAssignExpression);
+    shared String->LazySpecifier xyStringSpecifier = construct(stringTemplate.xyStringTemplate);
     
     compile = compileLazySpecifier;
     fromCeylon = RedHatTransformer.transformLazySpecifier;

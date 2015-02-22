@@ -20,6 +20,12 @@ shared object parameterReference satisfies ConcreteTest<ParameterReference,JInit
     
     shared String->ParameterReference lidParameterReference = construct(identifier.lidLIdentifier);
     
+    // not tested directly, but used by other tests
+    shared String->ParameterReference xParameterReference = construct(identifier.xLIdentifier);
+    shared String->ParameterReference yParameterReference = construct(identifier.yLIdentifier);
+    shared String->ParameterReference rParameterReference = construct(identifier.rLIdentifier);
+    shared String->ParameterReference phiParameterReference = construct(identifier.phiLIdentifier);
+    
     compile = compileParameterReference;
     fromCeylon = RedHatTransformer.transformParameterReference;
     toCeylon = parameterReferenceToCeylon;

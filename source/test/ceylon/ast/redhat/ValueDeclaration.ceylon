@@ -26,6 +26,16 @@ shared object valueDeclaration satisfies ConcreteTest<ValueDeclaration,JAttribut
     shared String->ValueDeclaration annotatedByValueDeclaration = construct(identifier.byLIdentifier, unionType.stringOrIntegerOrFloatUnionType, annotations.helloSharedByLucasAnnotations);
     shared String->ValueDeclaration variadicValueDeclaration = construct(identifier.lidLIdentifier, variadicType.iterableOfStringPlusType, annotations.emptyAnnotations);
     
+    // not tested directly, but used by other tests
+    shared String->ValueDeclaration floatXDeclaration = construct(identifier.xLIdentifier, baseType.floatType, annotations.emptyAnnotations);
+    shared String->ValueDeclaration floatYDeclaration = construct(identifier.yLIdentifier, baseType.floatType, annotations.emptyAnnotations);
+    shared String->ValueDeclaration floatRDeclaration = construct(identifier.rLIdentifier, baseType.floatType, annotations.emptyAnnotations);
+    shared String->ValueDeclaration floatPhiDeclaration = construct(identifier.phiLIdentifier, baseType.floatType, annotations.emptyAnnotations);
+    shared String->ValueDeclaration sharedFloatXDeclaration = construct(identifier.xLIdentifier, baseType.floatType, annotations.sharedAnnotations);
+    shared String->ValueDeclaration sharedFloatYDeclaration = construct(identifier.yLIdentifier, baseType.floatType, annotations.sharedAnnotations);
+    shared String->ValueDeclaration sharedFloatRDeclaration = construct(identifier.rLIdentifier, baseType.floatType, annotations.sharedAnnotations);
+    shared String->ValueDeclaration sharedFloatPhiDeclaration = construct(identifier.phiLIdentifier, baseType.floatType, annotations.sharedAnnotations);
+    
     compile = compileValueDeclaration;
     fromCeylon = RedHatTransformer.transformValueDeclaration;
     toCeylon = valueDeclarationToCeylon;

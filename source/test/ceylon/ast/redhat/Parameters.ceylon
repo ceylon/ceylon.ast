@@ -27,6 +27,8 @@ shared object parameters satisfies ConcreteTest<Parameters,JParameterList> {
     // not tested directly, but used by other tests
     shared String->Parameters charactersParameters = construct([variadicParameter.charactersVariadicParameter]);
     shared String->Parameters thatParameters = construct([valueParameter.objectThatParameter]);
+    shared String->Parameters xyParameters = construct([parameterReference.xParameterReference, parameterReference.yParameterReference]);
+    shared String->Parameters rphiParameters = construct([parameterReference.rParameterReference, parameterReference.phiParameterReference]);
     
     compile = compileParameters;
     fromCeylon = RedHatTransformer.transformParameters;

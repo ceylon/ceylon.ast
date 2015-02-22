@@ -21,6 +21,10 @@ shared object exponentiationOperation satisfies ConcreteTest<ExponentiationOpera
     
     shared String->ExponentiationOperation _1138Pow1Operation = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
+    // not tested directly, but used in other tests
+    shared String->ExponentiationOperation xSquaredOperation = construct(baseExpression.xExpression, integerLiteral._2IntegerLiteral);
+    shared String->ExponentiationOperation ySquaredOperation = construct(baseExpression.yExpression, integerLiteral._2IntegerLiteral);
+    
     compile = compileExponentiationOperation;
     fromCeylon = RedHatTransformer.transformExponentiationOperation;
     toCeylon = exponentiationOperationToCeylon;

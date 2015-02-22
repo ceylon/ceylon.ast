@@ -23,10 +23,11 @@ shared object constructorDefinition satisfies ConcreteTest<ConstructorDefinition
             => "``annotations.key`` new ``name.key````parameters.key`` `` extendedType?.key else "" `` ``block.key``"->ConstructorDefinition(name.item, parameters.item, block.item, extendedType?.item, annotations.item);
     
     shared String->ConstructorDefinition constructorDefinition = construct(identifier.typeNameUIdentifier, parameters.notEmptyParameters, block.printPersonNameBlock, extendedType.extendsSuperEntry, annotations.sharedAnnotations);
-    // TODO better tests
+    shared String->ConstructorDefinition cartesianConstructorDefinition = construct(identifier.cartesianUIdentifier, parameters.xyParameters, block.cartesianConstructorBlock, null, annotations.sharedAnnotations);
+    shared String->ConstructorDefinition polarConstructorDefinition = construct(identifier.polarUIdentifier, parameters.rphiParameters, block.polarConstructorBlock, null, annotations.sharedAnnotations);
     
     compile = compileConstructorDefinition;
     fromCeylon = RedHatTransformer.transformConstructorDefinition;
     toCeylon = constructorDefinitionToCeylon;
-    codes = [constructorDefinition];
+    codes = [constructorDefinition, cartesianConstructorDefinition, polarConstructorDefinition];
 }

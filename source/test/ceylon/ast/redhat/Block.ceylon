@@ -23,6 +23,24 @@ shared object block satisfies ConcreteTest<Block,JBlock> {
     shared String->Block printHelloWorldBlock = construct(invocationStatement.printHelloWorldStatement);
     shared String->Block printPersonNameBlock = construct(invocationStatement.printPersonNameStatement);
     
+    // not tested directly, but used by other tests
+    shared String->Block cartesianConstructorBlock = construct(
+        valueDeclaration.floatXDeclaration,
+        valueDeclaration.floatYDeclaration,
+        valueSpecification.thisXSpecifyX,
+        valueSpecification.thisYSpecifyY,
+        valueSpecification.thisRSpecifySqrt,
+        valueSpecification.thisPhiSpecifyAtan2
+    );
+    shared String->Block polarConstructorBlock = construct(
+        valueDeclaration.floatRDeclaration,
+        valueDeclaration.floatPhiDeclaration,
+        valueSpecification.thisXSpecifyProduct,
+        valueSpecification.thisYSpecifyProduct,
+        valueSpecification.thisRSpecifyR,
+        valueSpecification.thisPhiSpecifyPhi
+    );
+    
     compile = compileBlock;
     fromCeylon = RedHatTransformer.transformBlock;
     toCeylon = blockToCeylon;

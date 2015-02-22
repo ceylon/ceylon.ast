@@ -18,10 +18,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object valueSpecification satisfies ConcreteTest<ValueSpecification,JSpecifierStatement> {
     
     String->ValueSpecification construct(String->LIdentifier name, String->Specifier specifier, <String->This>? qualifier = null)
-            => "``(if (exists qualifier) then "``qualifier.key``." else "")````name.key````specifier.key``"->ValueSpecification(name.item, specifier.item, qualifier?.item);
+            => "``(if (exists qualifier) then "``qualifier.key``." else "")````name.key````specifier.key``;"->ValueSpecification(name.item, specifier.item, qualifier?.item);
+    
+    // helper
+    String->This thisQualifier = "this"->This();
     
     shared String->ValueSpecification sizeSpecify0 = construct("size"->LIdentifier("size"), specifier._0Specifier);
-    shared String->ValueSpecification thisSizeSpecify0 = construct("size"->LIdentifier("size"), specifier._0Specifier, "this"->This());
+    shared String->ValueSpecification thisSizeSpecify0 = construct("size"->LIdentifier("size"), specifier._0Specifier, thisQualifier);
+    
+    // not tested directly, but used in other tests
+    shared String->ValueSpecification thisXSpecifyX = construct(identifier.xLIdentifier, specifier.xSpecifier, thisQualifier);
+    shared String->ValueSpecification thisYSpecifyY = construct(identifier.yLIdentifier, specifier.ySpecifier, thisQualifier);
+    shared String->ValueSpecification thisRSpecifySqrt = construct(identifier.rLIdentifier, specifier.sqrtSpecifier, thisQualifier);
+    shared String->ValueSpecification thisPhiSpecifyAtan2 = construct(identifier.phiLIdentifier, specifier.atan2Specifier, thisQualifier);
+    shared String->ValueSpecification thisXSpecifyProduct = construct(identifier.xLIdentifier, specifier.rTimesCosSpecifier, thisQualifier);
+    shared String->ValueSpecification thisYSpecifyProduct = construct(identifier.yLIdentifier, specifier.rTimesSinSpecifier, thisQualifier);
+    shared String->ValueSpecification thisRSpecifyR = construct(identifier.rLIdentifier, specifier.rSpecifier, thisQualifier);
+    shared String->ValueSpecification thisPhiSpecifyPhi = construct(identifier.phiLIdentifier, specifier.phiSpecifier, thisQualifier);
     
     compile = compileValueSpecification;
     fromCeylon = RedHatTransformer.transformValueSpecification;

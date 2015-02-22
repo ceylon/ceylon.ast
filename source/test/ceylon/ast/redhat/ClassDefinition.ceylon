@@ -34,8 +34,15 @@ shared object classDefinition satisfies ConcreteTest<ClassDefinition,JClassDefin
         extendedType = extendedType.extendsAnything;
     };
     
+    shared String->ClassDefinition pointClassDefinition = construct {
+        name = identifier.pointUIdentifier;
+        parameters = null; // two explicit constructors
+        body = classBody.pointClassBody;
+        annotations = annotations.sharedAnnotations;
+    };
+    
     compile = compileClassDefinition;
     fromCeylon = RedHatTransformer.transformClassDefinition;
     toCeylon = classDefinitionToCeylon;
-    codes = [nullClassDefinition];
+    codes = [nullClassDefinition, pointClassDefinition];
 }

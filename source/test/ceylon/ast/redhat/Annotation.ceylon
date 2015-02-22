@@ -27,6 +27,9 @@ shared object annotation satisfies ConcreteTest<Annotation,JAnnotation> {
     shared String->Annotation sharedAnnotation = construct(identifier.sharedLIdentifier, null);
     shared String->Annotation byLucasAnnotation = construct(identifier.byLIdentifier, positionalArguments.lucasPositionalArguments);
     
+    // not tested directly, but used by other tests
+    shared String->Annotation actualAnnotation = construct(identifier.actualLIdentifier, null);
+    
     test
     shared void testHelper() {
         assertEquals(helper("shared"), sharedAnnotation.item);

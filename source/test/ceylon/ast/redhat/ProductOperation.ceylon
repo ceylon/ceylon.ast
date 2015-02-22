@@ -22,6 +22,10 @@ shared object productOperation satisfies ConcreteTest<ProductOperation,JProductO
     shared String->ProductOperation aTimesBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     shared String->ProductOperation intTimesFloatExpression = construct(integerLiteral._1138IntegerLiteral, floatLiteral.oPointOFortyTwoKFloatLiteral);
     
+    // not tested directly, but used in other tests
+    shared String->ProductOperation rTimesCosExpression => construct(baseExpression.rExpression, invocation.cosPhiInvocation);
+    shared String->ProductOperation rTimesSinExpression => construct(baseExpression.rExpression, invocation.sinPhiInvocation);
+    
     compile = compileProductOperation;
     fromCeylon = RedHatTransformer.transformProductOperation;
     toCeylon = productOperationToCeylon;

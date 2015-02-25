@@ -137,6 +137,23 @@ class ConcreteClassGenerator(
         }
     }
     
+    String makeNewEquals([<String->String>+] params) {
+        {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
+        {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));
+        return "``"\n".join { for (type->name in optionalParams) "if (exists ``name``) {
+                                                                      if (exists ``name``_ = that.``name``) {
+                                                                          if (``name`` != ``name``_) {
+                                                                              return false;
+                                                                          }
+                                                                      } else {
+                                                                          return false;
+                                                                      }
+                                                                  } else if (that.``name`` exists) {
+                                                                      return false;
+                                                                  }" }``
+                return `` requiredParams.empty then "true" else " && ".join { for (type->name in requiredParams) "``name`` == that.``name``" } ``;".trimLeading('\n'.equals);
+    }
+    
     String makeHash([<String->String>+] params) {
         value ownHash = params.first.key.endsWith("?") then "(``params.first.item``?.hash else 0)" else "``params.first.item``.hash";
         if (nonempty rest = params.rest) {

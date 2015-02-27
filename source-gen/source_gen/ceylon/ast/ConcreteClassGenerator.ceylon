@@ -1,7 +1,8 @@
 import ceylon.file {
     Nil,
     parsePath,
-    File
+    File,
+    Directory
 }
 import ceylon.collection {
     ArrayList
@@ -293,5 +294,115 @@ class ConcreteClassGenerator(
         expandRedHatTransformer();
         expandEditor();
         expandCeylonExpressionTransformer();
+    }
+}
+
+"Returns
+ 
+ - the parameters,
+ - the class name,
+ - everything up to the `shared actual Boolean equals` method (including the signature line), and
+ - everything after that method (including the line with `equals`’ closing brace),
+ 
+ or [[null]] if the class is `abstract`."
+[<String->String>[],String,String,String]? analyzeExistingClass(File file) {
+    try (r = file.Reader("UTF-8")) {
+        StringBuilder beforeEquals = StringBuilder();
+        StringBuilder afterEquals = StringBuilder();
+        String nextLine() {
+            assert (exists line = r.readLine());
+            beforeEquals.append(line);
+            beforeEquals.appendNewline();
+            return line;
+        }
+        // skip documentation
+        variable String line = nextLine();
+        while ((line[0] else 'x') in { '"', ' ' }) {
+            line = nextLine();
+        }
+        while (!line.startsWith("shared ")) {
+            assert (line.startsWith("see "));
+            line = nextLine();
+        }
+        value classLine = line;
+        assert (classLine.startsWith("shared "));
+        if (classLine.startsWith("shared abstract ") || classLine.startsWith("shared alias") || classLine.startsWith("shared interface")) {
+            return null;
+        }
+        assert (exists className = classLine["shared class ".size...].split('('.equals).first);
+        // skip everything until equals method
+        while (line != "    shared actual Boolean equals(Object that) {") {
+            try {
+                line = nextLine();
+            } catch (AssertionError e) {
+                // no equals method
+                return null;
+            }
+        }
+        // skip everything until first return
+        while (!(line).contains(" return ")) {
+            line = r.readLine() else ""; // no nextLine(), discard this part
+        }
+        value conditionLine = line;
+        value condition = conditionLine.trimmed["return ".size...].trimTrailing(';'.equals);
+        <String->String>[] parameters;
+        if (condition.startsWith("that is ")) {
+            parameters = [];
+        } else {
+            assert (nonempty params = condition.split('&'.equals).map {
+                    <String->String>? collecting(variable String element) {
+                        element = element.trimmed;
+                        if (element.empty) {
+                            return null;
+                        }
+                        value parts = element.split()*.trimmed;
+                        assert (exists thisName = parts.first);
+                        assert (exists thatName = parts.last);
+                        if (thatName.endsWith("_")) {
+                            return "<Unknown>?"->thisName;
+                        } else {
+                            return "<Unknown>"->thisName;
+                        }
+                    }
+                }.coalesced.sequence());
+            parameters = params;
+        }
+        // discard rest of equals method
+        variable String? restEqualsLine = r.readLine();
+        while ((restEqualsLine else "") != "    }") {
+            restEqualsLine = r.readLine();
+        }
+        // read rest of file
+        afterEquals.append(restEqualsLine else "");
+        afterEquals.appendNewline();
+        while (exists restLine = r.readLine()) {
+            afterEquals.append(restLine);
+            afterEquals.appendNewline();
+        }
+        return [parameters, className, beforeEquals.string, afterEquals.string];
+    }
+}
+
+shared void rewrite79() {
+    value ignored = { "Identifier", "SelfReference", "Node" }.map((name) => "``name``.ceylon");
+    assert (is Directory source = parsePath("source/ceylon/ast/core").resource);
+    for (file in source.files("*.ceylon").filter((file) => (file.name.first?.uppercase else false) && !file.name in ignored)) {
+        if (exists [parameters, name, beforeEquals, afterEquals] = analyzeExistingClass(file)) {
+            try (w = file.Overwriter("UTF-8")) {
+                w.write(beforeEquals);
+                if (nonempty parameters) {
+                    w.writeLine(
+                        "        if (is ``name`` that) {
+                         ``"\n".join(ConcreteClassGenerator("T", "S", [], "").makeNewEquals(parameters).lines.collect("            ".plus))``
+                                 } else {
+                                     return false;
+                                 }");
+                } else {
+                    w.writeLine(
+                        "        return that is ``name``;");
+                }
+                w.write(afterEquals);
+            }
+        }
     }
 }

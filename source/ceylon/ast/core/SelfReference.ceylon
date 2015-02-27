@@ -5,7 +5,7 @@
  their AST nodes are actually really boring and completely stateless.
  In order to save some memory, you can reuse [[thisInstance]], [[superInstance]],
  [[outerInstance]] and [[packageInstance]] instead of creating new instances every time."
-abstract shared class SelfReference()
+shared abstract class SelfReference()
         of This | Super | Outer | Package
         extends Atom() {
     shared formal SelfReference copy();

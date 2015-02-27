@@ -41,17 +41,16 @@ shared class IfElse(ifClause, elseClause)
         if (is IfElse that) {
             if (exists elseClause) {
                 if (exists elseClause_ = that.elseClause) {
-                    return elseClause == elseClause_ && ifClause == that.ifClause;
+                    if (elseClause != elseClause_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.elseClause exists)) {
-                    return ifClause == that.ifClause;
-                } else {
-                    return false;
-                }
+            } else if (that.elseClause exists) {
+                return false;
             }
+            return ifClause == that.ifClause;
         } else {
             return false;
         }

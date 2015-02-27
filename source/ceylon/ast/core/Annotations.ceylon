@@ -33,17 +33,16 @@ shared class Annotations(anonymousAnnotation = null, annotations = [])
         if (is Annotations that) {
             if (exists anonymousAnnotation) {
                 if (exists anonymousAnnotation_ = that.anonymousAnnotation) {
-                    return anonymousAnnotation == anonymousAnnotation_ && annotations == that.annotations;
+                    if (anonymousAnnotation != anonymousAnnotation_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.anonymousAnnotation exists)) {
-                    return annotations == that.annotations;
-                } else {
-                    return false;
-                }
+            } else if (that.anonymousAnnotation exists) {
+                return false;
             }
+            return annotations == that.annotations;
         } else {
             return false;
         }

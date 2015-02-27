@@ -24,17 +24,16 @@ shared class LazySpecification(name, specifier, parameterLists = [], qualifier =
         if (is LazySpecification that) {
             if (exists qualifier) {
                 if (exists qualifier_ = that.qualifier) {
-                    return qualifier == qualifier_ && name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
+                    if (qualifier != qualifier_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.qualifier exists)) {
-                    return name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
-                } else {
-                    return false;
-                }
+            } else if (that.qualifier exists) {
+                return false;
             }
+            return name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
         } else {
             return false;
         }

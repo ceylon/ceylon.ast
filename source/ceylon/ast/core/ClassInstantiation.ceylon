@@ -40,17 +40,16 @@ shared class ClassInstantiation(name, arguments, qualifier = null)
         if (is ClassInstantiation that) {
             if (exists qualifier) {
                 if (exists qualifier_ = that.qualifier) {
-                    return qualifier == qualifier_ && name == that.name && arguments == that.arguments;
+                    if (qualifier != qualifier_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.qualifier exists)) {
-                    return name == that.name && arguments == that.arguments;
-                } else {
-                    return false;
-                }
+            } else if (that.qualifier exists) {
+                return false;
             }
+            return name == that.name && arguments == that.arguments;
         } else {
             return false;
         }

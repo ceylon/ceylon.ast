@@ -32,17 +32,16 @@ shared class FunctionExpression(parameterLists, definition, type = null)
         if (is FunctionExpression that) {
             if (exists type) {
                 if (exists type_ = that.type) {
-                    return type == type_ && parameterLists == that.parameterLists && definition == that.definition;
+                    if (type != type_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.type exists)) {
-                    return parameterLists == that.parameterLists && definition == that.definition;
-                } else {
-                    return false;
-                }
+            } else if (that.type exists) {
+                return false;
             }
+            return parameterLists == that.parameterLists && definition == that.definition;
         } else {
             return false;
         }

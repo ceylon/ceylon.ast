@@ -14,13 +14,16 @@ shared class IterableType(variadicType)
         if (is IterableType that) {
             if (exists variadicType) {
                 if (exists variadicType_ = that.variadicType) {
-                    return variadicType == variadicType_;
+                    if (variadicType != variadicType_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                return !(that.variadicType exists);
+            } else if (that.variadicType exists) {
+                return false;
             }
+            return true;
         } else {
             return false;
         }

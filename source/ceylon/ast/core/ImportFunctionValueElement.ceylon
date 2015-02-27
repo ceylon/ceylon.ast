@@ -47,41 +47,27 @@ shared class ImportFunctionValueElement(name, importAlias = null, nestedImports 
         if (is ImportFunctionValueElement that) {
             if (exists importAlias) {
                 if (exists importAlias_ = that.importAlias) {
-                    if (exists nestedImports) {
-                        if (exists nestedImports_ = that.nestedImports) {
-                            return importAlias == importAlias_ && nestedImports == nestedImports_ && name == that.name;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.nestedImports exists)) {
-                            return name == that.name;
-                        } else {
-                            return false;
-                        }
+                    if (importAlias != importAlias_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.importAlias exists)) {
-                    if (exists nestedImports) {
-                        if (exists nestedImports_ = that.nestedImports) {
-                            return nestedImports == nestedImports_ && name == that.name;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.nestedImports exists)) {
-                            return name == that.name;
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.importAlias exists) {
+                return false;
             }
+            if (exists nestedImports) {
+                if (exists nestedImports_ = that.nestedImports) {
+                    if (nestedImports != nestedImports_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.nestedImports exists) {
+                return false;
+            }
+            return name == that.name;
         } else {
             return false;
         }

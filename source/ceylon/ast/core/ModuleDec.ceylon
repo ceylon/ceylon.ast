@@ -25,17 +25,16 @@ shared class ModuleDec(moduleName)
         if (is ModuleDec that) {
             if (exists moduleName) {
                 if (exists moduleName_ = that.moduleName) {
-                    return moduleName == moduleName_;
+                    if (moduleName != moduleName_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.moduleName exists)) {
-                    return true;
-                } else {
-                    return false;
-                }
+            } else if (that.moduleName exists) {
+                return false;
             }
+            return true;
         } else {
             return false;
         }

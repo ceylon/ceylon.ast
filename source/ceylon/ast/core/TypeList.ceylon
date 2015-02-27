@@ -20,13 +20,16 @@ shared class TypeList(elements, variadic = null)
         if (is TypeList that) {
             if (exists variadic) {
                 if (exists variadic_ = that.variadic) {
-                    return variadic == variadic_ && elements == that.elements;
+                    if (variadic != variadic_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                return !(that.variadic exists) && elements == that.elements;
+            } else if (that.variadic exists) {
+                return false;
             }
+            return elements == that.elements;
         } else {
             return false;
         }

@@ -28,17 +28,16 @@ shared class SpecifiedVariable(name, specifier, type = null)
         if (is SpecifiedVariable that) {
             if (exists type) {
                 if (exists type_ = that.type) {
-                    return type == type_ && name == that.name && specifier == that.specifier;
+                    if (type != type_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.type exists)) {
-                    return name == that.name && specifier == that.specifier;
-                } else {
-                    return false;
-                }
+            } else if (that.type exists) {
+                return false;
             }
+            return name == that.name && specifier == that.specifier;
         } else {
             return false;
         }

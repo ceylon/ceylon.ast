@@ -18,19 +18,18 @@ shared class ValueSpecification(name, specifier, qualifier = null)
     
     shared actual Boolean equals(Object that) {
         if (is ValueSpecification that) {
-            if (exists qualifier) { 
+            if (exists qualifier) {
                 if (exists qualifier_ = that.qualifier) {
-                    return qualifier == qualifier_ && name == that.name && specifier == that.specifier;
+                    if (qualifier != qualifier_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.qualifier exists)) {
-                    return name == that.name && specifier == that.specifier;
-                } else {
-                    return false;
-                }
+            } else if (that.qualifier exists) {
+                return false;
             }
+            return name == that.name && specifier == that.specifier;
         } else {
             return false;
         }

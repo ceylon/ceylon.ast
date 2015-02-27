@@ -29,41 +29,27 @@ shared class InterfaceDec(name, qualifier = null)
         if (is InterfaceDec that) {
             if (exists qualifier) {
                 if (exists qualifier_ = that.qualifier) {
-                    if (exists name) {
-                        if (exists name_ = that.name) {
-                            return qualifier == qualifier_ && name == name_;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.name exists)) {
-                            return qualifier == qualifier_;
-                        } else {
-                            return false;
-                        }
+                    if (qualifier != qualifier_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.qualifier exists)) {
-                    if (exists name) {
-                        if (exists name_ = that.name) {
-                            return name == name_;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.name exists)) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.qualifier exists) {
+                return false;
             }
+            if (exists name) {
+                if (exists name_ = that.name) {
+                    if (name != name_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.name exists) {
+                return false;
+            }
+            return true;
         } else {
             return false;
         }

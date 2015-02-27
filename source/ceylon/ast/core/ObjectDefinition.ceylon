@@ -52,41 +52,27 @@ shared class ObjectDefinition(name, body, extendedType = null, satisfiedTypes = 
         if (is ObjectDefinition that) {
             if (exists extendedType) {
                 if (exists extendedType_ = that.extendedType) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && name == that.name && body == that.body && annotations == that.annotations;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            return name == that.name && body == that.body && annotations == that.annotations;
-                        } else {
-                            return false;
-                        }
+                    if (extendedType != extendedType_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.extendedType exists)) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            return satisfiedTypes == satisfiedTypes_ && name == that.name && body == that.body && annotations == that.annotations;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            return name == that.name && body == that.body && annotations == that.annotations;
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.extendedType exists) {
+                return false;
             }
+            if (exists satisfiedTypes) {
+                if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                    if (satisfiedTypes != satisfiedTypes_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.satisfiedTypes exists) {
+                return false;
+            }
+            return name == that.name && body == that.body && annotations == that.annotations;
         } else {
             return false;
         }

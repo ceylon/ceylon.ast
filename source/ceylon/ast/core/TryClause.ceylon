@@ -35,17 +35,16 @@ shared class TryClause(block, resources = null)
         if (is TryClause that) {
             if (exists resources) {
                 if (exists resources_ = that.resources) {
-                    return resources == resources_ && block == that.block;
+                    if (resources != resources_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.resources exists)) {
-                    return block == that.block;
-                } else {
-                    return false;
-                }
+            } else if (that.resources exists) {
+                return false;
             }
+            return block == that.block;
         } else {
             return false;
         }

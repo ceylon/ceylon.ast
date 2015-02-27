@@ -30,17 +30,16 @@ shared class UnspecifiedVariable(name, type = null)
         if (is UnspecifiedVariable that) {
             if (exists type) {
                 if (exists type_ = that.type) {
-                    return type == type_ && name == that.name;
+                    if (type != type_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.type exists)) {
-                    return name == that.name;
-                } else {
-                    return false;
-                }
+            } else if (that.type exists) {
+                return false;
             }
+            return name == that.name;
         } else {
             return false;
         }

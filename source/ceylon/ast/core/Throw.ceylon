@@ -16,7 +16,7 @@ shared class Throw(result = null)
         if (is Throw that) {
             if (exists result) {
                 if (exists result_ = that.result) {
-                    return result == result_ && true;
+                    return result == result_;
                 } else {
                     return false;
                 }

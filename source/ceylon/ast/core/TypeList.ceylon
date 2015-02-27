@@ -19,8 +19,8 @@ shared class TypeList(elements, variadic = null)
     shared actual Boolean equals(Object that) {
         if (is TypeList that) {
             if (exists variadic) {
-                if (exists var = that.variadic) {
-                    return variadic == var && elements == that.elements;
+                if (exists variadic_ = that.variadic) {
+                    return variadic == variadic_ && elements == that.elements;
                 } else {
                     return false;
                 }

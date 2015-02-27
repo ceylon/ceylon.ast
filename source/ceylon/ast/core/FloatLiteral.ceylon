@@ -28,9 +28,9 @@ shared class FloatLiteral(text) extends Literal(text) {
     "Float literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same [[float]] values but different representations
      (grouping, magnitude, leading and/or trailing zeroes, and/or radix differ) are considered different."
-    shared actual Boolean equals(Object other) {
-        if (is FloatLiteral other) {
-            return text == other.text;
+    shared actual Boolean equals(Object that) {
+        if (is FloatLiteral that) {
+            return text == that.text;
         } else {
             return false;
         }

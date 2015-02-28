@@ -80,7 +80,7 @@ class ConcreteClassGenerator(
                 assert (nonempty seq = sortedParams.sequence());
                 w.writeLine(
                     "        if (is ``type`` that) {
-                     ``"\n".join(makeNewEquals(seq).lines.collect("            ".plus))``
+                     ``"\n".join(makeEquals(seq).lines.collect("            ".plus))``
                              } else {
                                  return false;
                              }");
@@ -109,7 +109,7 @@ class ConcreteClassGenerator(
         }
     }
     
-    String makeNewEquals([<String->String>+] params) {
+    String makeEquals([<String->String>+] params) {
         {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
         {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));
         return "``"\n".join { for (type->name in optionalParams) "if (exists ``name``) {

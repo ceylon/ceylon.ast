@@ -40,17 +40,16 @@ shared class FunctionDefinition(name, type, parameterLists, definition, typePara
         if (is FunctionDefinition that) {
             if (exists typeParameters) {
                 if (exists typeParameters_ = that.typeParameters) {
-                    return typeParameters == typeParameters_ && name == that.name && type == that.type && parameterLists == that.parameterLists && definition == that.definition && typeConstraints == that.typeConstraints && annotations == that.annotations;
+                    if (typeParameters != typeParameters_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.typeParameters exists)) {
-                    return name == that.name && type == that.type && parameterLists == that.parameterLists && definition == that.definition && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                } else {
-                    return false;
-                }
+            } else if (that.typeParameters exists) {
+                return false;
             }
+            return name == that.name && type == that.type && parameterLists == that.parameterLists && definition == that.definition && typeConstraints == that.typeConstraints && annotations == that.annotations;
         } else {
             return false;
         }

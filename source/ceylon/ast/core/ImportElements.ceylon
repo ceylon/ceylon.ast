@@ -33,17 +33,16 @@ shared class ImportElements(elements = [], wildcard = null)
         if (is ImportElements that) {
             if (exists wildcard) {
                 if (exists wildcard_ = that.wildcard) {
-                    return wildcard == wildcard_ && elements == that.elements;
+                    if (wildcard != wildcard_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.wildcard exists)) {
-                    return elements == that.elements;
-                } else {
-                    return false;
-                }
+            } else if (that.wildcard exists) {
+                return false;
             }
+            return elements == that.elements;
         } else {
             return false;
         }

@@ -1,7 +1,8 @@
 import ceylon.file {
     Nil,
     parsePath,
-    File
+    File,
+    Directory
 }
 import ceylon.collection {
     ArrayList
@@ -109,32 +110,20 @@ class ConcreteClassGenerator(
     }
     
     String makeEquals([<String->String>+] params) {
-        if (params.first.key.endsWith("?")) {
-            // optional type, gets tricky
-            value optionalParam = params.first.item;
-            String inner;
-            if (nonempty rest = params.rest) {
-                inner = "\n".join(makeEquals(rest).lines.collect("        ".plus));
-            } else {
-                inner = "        return true;";
-            }
-            return "if (exists ``optionalParam``) {
-                        if (exists ``optionalParam``_ = that.``optionalParam``) {
-                    ``inner.replaceFirst("return ", "return ``optionalParam`` == ``optionalParam``_ && ")``
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.``optionalParam`` exists)) {
-                    ``inner``
-                        } else {
-                            return false;
-                        }
-                    }";
-        } else {
-            // no more optional types
-            return "return " + " && ".join { for (param in params) "``param.item`` == that.``param.item``" } + ";";
-        }
+        {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
+        {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));
+        return "``"\n".join { for (type->name in optionalParams) "if (exists ``name``) {
+                                                                      if (exists ``name``_ = that.``name``) {
+                                                                          if (``name`` != ``name``_) {
+                                                                              return false;
+                                                                          }
+                                                                      } else {
+                                                                          return false;
+                                                                      }
+                                                                  } else if (that.``name`` exists) {
+                                                                      return false;
+                                                                  }" }``
+                return `` requiredParams.empty then "true" else " && ".join { for (type->name in requiredParams) "``name`` == that.``name``" } ``;".trimLeading('\n'.equals);
     }
     
     String makeHash([<String->String>+] params) {

@@ -26,17 +26,16 @@ shared class Annotation(name, arguments = null)
         if (is Annotation that) {
             if (exists arguments) {
                 if (exists arguments_ = that.arguments) {
-                    return arguments == arguments_ && name == that.name;
+                    if (arguments != arguments_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.arguments exists)) {
-                    return name == that.name;
-                } else {
-                    return false;
-                }
+            } else if (that.arguments exists) {
+                return false;
             }
+            return name == that.name;
         } else {
             return false;
         }

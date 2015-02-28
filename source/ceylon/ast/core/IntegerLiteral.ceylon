@@ -29,9 +29,9 @@ shared class IntegerLiteral(text) extends Literal(text) {
     "Integer literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same [[integer]] values but different representations
      (grouping, magnitude, leading zeroes, and/or radix differ) are considered different."
-    shared actual Boolean equals(Object other) {
-        if (is IntegerLiteral other) {
-            return text == other.text;
+    shared actual Boolean equals(Object that) {
+        if (is IntegerLiteral that) {
+            return text == that.text;
         } else {
             return false;
         }

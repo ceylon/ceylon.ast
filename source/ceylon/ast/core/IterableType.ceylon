@@ -13,14 +13,17 @@ shared class IterableType(variadicType)
     shared actual Boolean equals(Object that) {
         if (is IterableType that) {
             if (exists variadicType) {
-                if (exists varType = that.variadicType) {
-                    return variadicType == varType;
+                if (exists variadicType_ = that.variadicType) {
+                    if (variadicType != variadicType_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                return !(that.variadicType exists);
+            } else if (that.variadicType exists) {
+                return false;
             }
+            return true;
         } else {
             return false;
         }

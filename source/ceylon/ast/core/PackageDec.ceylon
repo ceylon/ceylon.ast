@@ -25,17 +25,16 @@ shared class PackageDec(packageName)
         if (is PackageDec that) {
             if (exists packageName) {
                 if (exists packageName_ = that.packageName) {
-                    return packageName == packageName_;
+                    if (packageName != packageName_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.packageName exists)) {
-                    return true;
-                } else {
-                    return false;
-                }
+            } else if (that.packageName exists) {
+                return false;
             }
+            return true;
         } else {
             return false;
         }

@@ -20,17 +20,16 @@ shared class TypedVariable(name, type, specifier = null)
         if (is TypedVariable that) {
             if (exists specifier) {
                 if (exists specifier_ = that.specifier) {
-                    return specifier == specifier_ && name == that.name && type == that.type;
+                    if (specifier != specifier_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.specifier exists)) {
-                    return name == that.name && type == that.type;
-                } else {
-                    return false;
-                }
+            } else if (that.specifier exists) {
+                return false;
             }
+            return name == that.name && type == that.type;
         } else {
             return false;
         }

@@ -45,17 +45,16 @@ shared class TryCatchFinally(tryClause, catchClauses = [], finallyClause = null)
         if (is TryCatchFinally that) {
             if (exists finallyClause) {
                 if (exists finallyClause_ = that.finallyClause) {
-                    return finallyClause == finallyClause_ && tryClause == that.tryClause && catchClauses == that.catchClauses;
+                    if (finallyClause != finallyClause_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.finallyClause exists)) {
-                    return tryClause == that.tryClause && catchClauses == that.catchClauses;
-                } else {
-                    return false;
-                }
+            } else if (that.finallyClause exists) {
+                return false;
             }
+            return tryClause == that.tryClause && catchClauses == that.catchClauses;
         } else {
             return false;
         }

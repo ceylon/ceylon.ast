@@ -16,17 +16,16 @@ shared class Return(result = null)
         if (is Return that) {
             if (exists result) {
                 if (exists result_ = that.result) {
-                    return result == result_ && true;
+                    if (result != result_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.result exists)) {
-                    return true;
-                } else {
-                    return false;
-                }
+            } else if (that.result exists) {
+                return false;
             }
+            return true;
         } else {
             return false;
         }

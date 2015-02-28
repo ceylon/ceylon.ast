@@ -32,17 +32,16 @@ shared class ForFail(forClause, failClause = null)
         if (is ForFail that) {
             if (exists failClause) {
                 if (exists failClause_ = that.failClause) {
-                    return failClause == failClause_ && forClause == that.forClause;
+                    if (failClause != failClause_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.failClause exists)) {
-                    return forClause == that.forClause;
-                } else {
-                    return false;
-                }
+            } else if (that.failClause exists) {
+                return false;
             }
+            return forClause == that.forClause;
         } else {
             return false;
         }

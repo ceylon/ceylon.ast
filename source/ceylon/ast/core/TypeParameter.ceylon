@@ -36,41 +36,27 @@ shared class TypeParameter(parameterName, variance = null, defaultArgument = nul
         if (is TypeParameter that) {
             if (exists variance) {
                 if (exists variance_ = that.variance) {
-                    if (exists defaultArgument) {
-                        if (exists defaultArgument_ = that.defaultArgument) {
-                            return variance == variance_ && defaultArgument == defaultArgument_ && parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.defaultArgument exists)) {
-                            return parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
+                    if (variance != variance_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.variance exists)) {
-                    if (exists defaultArgument) {
-                        if (exists defaultArgument_ = that.defaultArgument) {
-                            return defaultArgument == defaultArgument_ && parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.defaultArgument exists)) {
-                            return parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.variance exists) {
+                return false;
             }
+            if (exists defaultArgument) {
+                if (exists defaultArgument_ = that.defaultArgument) {
+                    if (defaultArgument != defaultArgument_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.defaultArgument exists) {
+                return false;
+            }
+            return parameterName == that.parameterName;
         } else {
             return false;
         }

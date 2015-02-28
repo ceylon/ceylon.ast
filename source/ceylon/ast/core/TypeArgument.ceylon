@@ -28,17 +28,16 @@ shared class TypeArgument(type, variance = null)
         if (is TypeArgument that) {
             if (exists variance) {
                 if (exists variance_ = that.variance) {
-                    return variance == variance_ && type == that.type;
+                    if (variance != variance_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.variance exists)) {
-                    return type == that.type;
-                } else {
-                    return false;
-                }
+            } else if (that.variance exists) {
+                return false;
             }
+            return type == that.type;
         } else {
             return false;
         }

@@ -69,379 +69,62 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
     
     shared actual Boolean equals(Object that) {
         if (is ClassDefinition that) {
+            if (exists caseTypes) {
+                if (exists caseTypes_ = that.caseTypes) {
+                    if (caseTypes != caseTypes_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.caseTypes exists) {
+                return false;
+            }
+            if (exists extendedType) {
+                if (exists extendedType_ = that.extendedType) {
+                    if (extendedType != extendedType_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.extendedType exists) {
+                return false;
+            }
+            if (exists satisfiedTypes) {
+                if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                    if (satisfiedTypes != satisfiedTypes_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.satisfiedTypes exists) {
+                return false;
+            }
+            if (exists typeParameters) {
+                if (exists typeParameters_ = that.typeParameters) {
+                    if (typeParameters != typeParameters_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.typeParameters exists) {
+                return false;
+            }
             if (exists parameters) {
                 if (exists parameters_ = that.parameters) {
-                    if (exists caseTypes) {
-                        if (exists caseTypes_ = that.caseTypes) {
-                            if (exists extendedType) {
-                                if (exists extendedType_ = that.extendedType) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return caseTypes == caseTypes_ && extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.extendedType exists)) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.caseTypes exists)) {
-                            if (exists extendedType) {
-                                if (exists extendedType_ = that.extendedType) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.extendedType exists)) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && parameters == parameters_ && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
+                    if (parameters != parameters_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.parameters exists)) {
-                    if (exists caseTypes) {
-                        if (exists caseTypes_ = that.caseTypes) {
-                            if (exists extendedType) {
-                                if (exists extendedType_ = that.extendedType) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return caseTypes == caseTypes_ && extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.extendedType exists)) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.caseTypes exists)) {
-                            if (exists extendedType) {
-                                if (exists extendedType_ = that.extendedType) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return extendedType == extendedType_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.extendedType exists)) {
-                                    if (exists satisfiedTypes) {
-                                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    } else {
-                                        if (!(that.satisfiedTypes exists)) {
-                                            if (exists typeParameters) {
-                                                if (exists typeParameters_ = that.typeParameters) {
-                                                    return typeParameters == typeParameters_ && name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            } else {
-                                                if (!(that.typeParameters exists)) {
-                                                    return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                                } else {
-                                                    return false;
-                                                }
-                                            }
-                                        } else {
-                                            return false;
-                                        }
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.parameters exists) {
+                return false;
             }
+            return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
         } else {
             return false;
         }

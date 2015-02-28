@@ -11,7 +11,9 @@ import ceylon.ast.redhat {
 }
 import ceylon.test {
     assertEquals,
-    test
+    assertNotEquals,
+    test,
+    ignore
 }
 
 void assertNodesEquals(Node actual, Node expected, String? message = null) {
@@ -64,6 +66,19 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
     }
 }
 
+void testEquality<CeylonAstType>(CeylonAstType+ nodes)
+        given CeylonAstType satisfies Node {
+    for (i->x in nodes.indexed) {
+        for (j->y in nodes.indexed) {
+            if (i == j) {
+                assertEquals(x, y);
+            } else {
+                assertNotEquals(x, y);
+            }
+        }
+    }
+}
+
 // needed for variance – ConcreteTest’s type params
 // must be invariant, but we need them 'out' for
 // use in AbstractTest
@@ -97,6 +112,10 @@ shared interface ConversionTest<CeylonAstType,RedHatType>
     
     test
     shared void conversion() => testConversion(fromCeylon, toCeylon, *nodes);
+    
+    test
+    ignore("Not useful during regular development")
+    shared void equality() => testEquality(*nodes);
 }
 
 shared interface ConcreteTest<CeylonAstType,RedHatType>

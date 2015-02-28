@@ -30,17 +30,16 @@ shared class SwitchCaseElseExpression(clause, caseExpressions, elseExpression)
         if (is SwitchCaseElseExpression that) {
             if (exists elseExpression) {
                 if (exists elseExpression_ = that.elseExpression) {
-                    return elseExpression == elseExpression_ && clause == that.clause && caseExpressions == that.caseExpressions;
+                    if (elseExpression != elseExpression_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.elseExpression exists)) {
-                    return clause == that.clause && caseExpressions == that.caseExpressions;
-                } else {
-                    return false;
-                }
+            } else if (that.elseExpression exists) {
+                return false;
             }
+            return clause == that.clause && caseExpressions == that.caseExpressions;
         } else {
             return false;
         }

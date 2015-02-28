@@ -26,17 +26,16 @@ shared class ArgumentList(listedArguments = [], sequenceArgument = null)
         if (is ArgumentList that) {
             if (exists sequenceArgument) {
                 if (exists sequenceArgument_ = that.sequenceArgument) {
-                    return sequenceArgument == sequenceArgument_ && listedArguments == that.listedArguments;
+                    if (sequenceArgument != sequenceArgument_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.sequenceArgument exists)) {
-                    return listedArguments == that.listedArguments;
-                } else {
-                    return false;
-                }
+            } else if (that.sequenceArgument exists) {
+                return false;
             }
+            return listedArguments == that.listedArguments;
         } else {
             return false;
         }

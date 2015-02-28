@@ -57,89 +57,38 @@ shared class InterfaceAliasDefinition(name, specifier, caseTypes = null, satisfi
         if (is InterfaceAliasDefinition that) {
             if (exists caseTypes) {
                 if (exists caseTypes_ = that.caseTypes) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            if (exists typeParameters) {
-                                if (exists typeParameters_ = that.typeParameters) {
-                                    return caseTypes == caseTypes_ && satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.typeParameters exists)) {
-                                    return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            if (exists typeParameters) {
-                                if (exists typeParameters_ = that.typeParameters) {
-                                    return typeParameters == typeParameters_ && name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.typeParameters exists)) {
-                                    return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
+                    if (caseTypes != caseTypes_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.caseTypes exists)) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            if (exists typeParameters) {
-                                if (exists typeParameters_ = that.typeParameters) {
-                                    return satisfiedTypes == satisfiedTypes_ && typeParameters == typeParameters_ && name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.typeParameters exists)) {
-                                    return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            if (exists typeParameters) {
-                                if (exists typeParameters_ = that.typeParameters) {
-                                    return typeParameters == typeParameters_ && name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            } else {
-                                if (!(that.typeParameters exists)) {
-                                    return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
-                                } else {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.caseTypes exists) {
+                return false;
             }
+            if (exists satisfiedTypes) {
+                if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                    if (satisfiedTypes != satisfiedTypes_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.satisfiedTypes exists) {
+                return false;
+            }
+            if (exists typeParameters) {
+                if (exists typeParameters_ = that.typeParameters) {
+                    if (typeParameters != typeParameters_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.typeParameters exists) {
+                return false;
+            }
+            return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
         } else {
             return false;
         }

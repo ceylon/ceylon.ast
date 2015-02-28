@@ -29,17 +29,16 @@ shared class SwitchCases(caseClauses, elseCaseClause = null)
         if (is SwitchCases that) {
             if (exists elseCaseClause) {
                 if (exists elseCaseClause_ = that.elseCaseClause) {
-                    return elseCaseClause == elseCaseClause_ && caseClauses == that.caseClauses;
+                    if (elseCaseClause != elseCaseClause_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.elseCaseClause exists)) {
-                    return caseClauses == that.caseClauses;
-                } else {
-                    return false;
-                }
+            } else if (that.elseCaseClause exists) {
+                return false;
             }
+            return caseClauses == that.caseClauses;
         } else {
             return false;
         }

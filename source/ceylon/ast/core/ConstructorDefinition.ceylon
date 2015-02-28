@@ -56,17 +56,16 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
         if (is ConstructorDefinition that) {
             if (exists extendedType) {
                 if (exists extendedType_ = that.extendedType) {
-                    return extendedType == extendedType_ && name == that.name && parameters == that.parameters && block == that.block && annotations == that.annotations;
+                    if (extendedType != extendedType_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.extendedType exists)) {
-                    return name == that.name && parameters == that.parameters && block == that.block && annotations == that.annotations;
-                } else {
-                    return false;
-                }
+            } else if (that.extendedType exists) {
+                return false;
             }
+            return name == that.name && parameters == that.parameters && block == that.block && annotations == that.annotations;
         } else {
             return false;
         }

@@ -39,41 +39,27 @@ shared class TypeConstraint(parameterName, caseTypes = null, satisfiedTypes = nu
         if (is TypeConstraint that) {
             if (exists caseTypes) {
                 if (exists caseTypes_ = that.caseTypes) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            return caseTypes == caseTypes_ && satisfiedTypes == satisfiedTypes_ && parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            return parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
+                    if (caseTypes != caseTypes_) {
+                        return false;
                     }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.caseTypes exists)) {
-                    if (exists satisfiedTypes) {
-                        if (exists satisfiedTypes_ = that.satisfiedTypes) {
-                            return satisfiedTypes == satisfiedTypes_ && parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.satisfiedTypes exists)) {
-                            return parameterName == that.parameterName;
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
+            } else if (that.caseTypes exists) {
+                return false;
             }
+            if (exists satisfiedTypes) {
+                if (exists satisfiedTypes_ = that.satisfiedTypes) {
+                    if (satisfiedTypes != satisfiedTypes_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.satisfiedTypes exists) {
+                return false;
+            }
+            return parameterName == that.parameterName;
         } else {
             return false;
         }

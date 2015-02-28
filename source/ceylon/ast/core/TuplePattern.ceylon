@@ -36,17 +36,16 @@ shared class TuplePattern(elementPatterns, variadicElementPattern = null)
         if (is TuplePattern that) {
             if (exists variadicElementPattern) {
                 if (exists variadicElementPattern_ = that.variadicElementPattern) {
-                    return variadicElementPattern == variadicElementPattern_ && elementPatterns == that.elementPatterns;
+                    if (variadicElementPattern != variadicElementPattern_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                if (!(that.variadicElementPattern exists)) {
-                    return elementPatterns == that.elementPatterns;
-                } else {
-                    return false;
-                }
+            } else if (that.variadicElementPattern exists) {
+                return false;
             }
+            return elementPatterns == that.elementPatterns;
         } else {
             return false;
         }

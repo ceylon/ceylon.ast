@@ -15,13 +15,16 @@ shared class TypeNameWithTypeArguments(name, typeArguments = null)
         if (is TypeNameWithTypeArguments that) {
             if (exists typeArguments) {
                 if (exists typeArguments_ = that.typeArguments) {
-                    return name == that.name && typeArguments == typeArguments_;
+                    if (typeArguments != typeArguments_) {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                return !(that.typeArguments exists) && name == that.name;
+            } else if (that.typeArguments exists) {
+                return false;
             }
+            return name == that.name;
         } else {
             return false;
         }

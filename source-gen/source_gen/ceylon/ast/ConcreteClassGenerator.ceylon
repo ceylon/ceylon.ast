@@ -109,35 +109,6 @@ class ConcreteClassGenerator(
         }
     }
     
-    String makeOldEquals([<String->String>+] params) {
-        if (params.first.key.endsWith("?")) {
-            // optional type, gets tricky
-            value optionalParam = params.first.item;
-            String inner;
-            if (nonempty rest = params.rest) {
-                inner = "\n".join(makeOldEquals(rest).lines.collect("        ".plus));
-            } else {
-                inner = "        return true;";
-            }
-            return "if (exists ``optionalParam``) {
-                        if (exists ``optionalParam``_ = that.``optionalParam``) {
-                    ``inner.replaceFirst("return ", "return ``optionalParam`` == ``optionalParam``_ && ")``
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        if (!(that.``optionalParam`` exists)) {
-                    ``inner``
-                        } else {
-                            return false;
-                        }
-                    }";
-        } else {
-            // no more optional types
-            return "return " + " && ".join { for (param in params) "``param.item`` == that.``param.item``" } + ";";
-        }
-    }
-    
     String makeNewEquals([<String->String>+] params) {
         {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
         {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));

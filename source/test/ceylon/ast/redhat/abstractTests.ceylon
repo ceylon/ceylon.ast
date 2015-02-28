@@ -12,7 +12,8 @@ import ceylon.ast.redhat {
 import ceylon.test {
     assertEquals,
     assertNotEquals,
-    test
+    test,
+    ignore
 }
 
 void assertNodesEquals(Node actual, Node expected, String? message = null) {
@@ -113,6 +114,7 @@ shared interface ConversionTest<CeylonAstType,RedHatType>
     shared void conversion() => testConversion(fromCeylon, toCeylon, *nodes);
     
     test
+    ignore("Not useful during regular development")
     shared void equality() => testEquality(*nodes);
 }
 

@@ -80,7 +80,7 @@ class ConcreteClassGenerator(
                 assert (nonempty seq = sortedParams.sequence());
                 w.writeLine(
                     "        if (is ``type`` that) {
-                     ``"\n".join(makeOldEquals(seq).lines.collect("            ".plus))``
+                     ``"\n".join(makeNewEquals(seq).lines.collect("            ".plus))``
                              } else {
                                  return false;
                              }");

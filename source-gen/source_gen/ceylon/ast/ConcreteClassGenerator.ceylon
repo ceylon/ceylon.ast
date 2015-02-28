@@ -138,7 +138,7 @@ class ConcreteClassGenerator(
         }
     }
     
-    shared String makeNewEquals([<String->String>+] params) {
+    String makeNewEquals([<String->String>+] params) {
         {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
         {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));
         return "``"\n".join { for (type->name in optionalParams) "if (exists ``name``) {

@@ -6,6 +6,7 @@
      Integer length
      Boolean(Element) selecting
      shared Address privateAddress"
+see (`class DefaultedValueParameter`)
 shared class ValueParameter(type, name, annotations = Annotations())
         extends RequiredParameter() {
     

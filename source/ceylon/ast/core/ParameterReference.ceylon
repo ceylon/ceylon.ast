@@ -8,6 +8,7 @@
  
      comparing
      name"
+see (`class DefaultedParameterReference`)
 shared class ParameterReference(name)
         extends RequiredParameter() {
     

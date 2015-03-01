@@ -4,6 +4,7 @@
  
      Float weight(Item item) => item.cost
      void log(String message) => process.writeErrorLine(message);"
+see (`class CallableParameter`)
 shared class DefaultedCallableParameter(parameter, specifier)
         extends DefaultedParameter() {
     

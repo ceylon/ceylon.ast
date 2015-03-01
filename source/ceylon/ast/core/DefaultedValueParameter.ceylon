@@ -4,6 +4,7 @@
  
      Integer length = text.size
      Boolean discounted = false"
+see (`class ValueParameter`)
 shared class DefaultedValueParameter(parameter, specifier)
         extends DefaultedParameter() {
     

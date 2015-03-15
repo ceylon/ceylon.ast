@@ -2416,6 +2416,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    "The RedHat AST has no direct equivalent of [[PackageQualifier]];
+     this method throws."
+    shared actual Nothing transformPackageQualifier(PackageQualifier that) {
+        throw AssertionError("PackageQualifier has no RedHat AST equivalent!");
+    }
+    
     shared actual JParameter transformParameter(Parameter that) {
         assert (is JParameter ret = super.transformParameter(that));
         return ret;

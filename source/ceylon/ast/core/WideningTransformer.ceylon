@@ -202,6 +202,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformPackageCompilationUnit(PackageCompilationUnit that) => transformAnyCompilationUnit(that);
     shared actual default Result transformPackageDec(PackageDec that) => transformDec(that);
     shared actual default Result transformPackageDescriptor(PackageDescriptor that) => transformNode(that);
+    shared actual default Result transformPackageQualifier(PackageQualifier that) => transformTypeIsh(that);
     shared actual default Result transformParameter(Parameter that) => transformNode(that);
     shared actual default Result transformParameterReference(ParameterReference that) => transformRequiredParameter(that);
     shared actual default Result transformParameters(Parameters that) => transformNode(that);

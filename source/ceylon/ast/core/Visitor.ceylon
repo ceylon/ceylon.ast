@@ -212,6 +212,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformPackageCompilationUnit(PackageCompilationUnit that) => visitPackageCompilationUnit(that);
     transformPackageDec(PackageDec that) => visitPackageDec(that);
     transformPackageDescriptor(PackageDescriptor that) => visitPackageDescriptor(that);
+    transformPackageQualifier(PackageQualifier that) => visitPackageQualifier(that);
     transformParameter(Parameter that) => visitParameter(that);
     transformParameterReference(ParameterReference that) => visitParameterReference(that);
     transformParameters(Parameters that) => visitParameters(that);
@@ -523,6 +524,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitPackageDec(PackageDec that) => super.transformPackageDec(that);
     shared default void visitPackageDescriptor(PackageDescriptor that) => super.transformPackageDescriptor(that);
     shared default void visitPackage(Package that) => super.transformPackage(that);
+    shared default void visitPackageQualifier(PackageQualifier that) => super.transformPackageQualifier(that);
     shared default void visitParameter(Parameter that) => super.transformParameter(that);
     shared default void visitParameterReference(ParameterReference that) => super.transformParameterReference(that);
     shared default void visitParameters(Parameters that) => super.transformParameters(that);

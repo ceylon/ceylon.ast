@@ -214,6 +214,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformPackageCompilationUnit(PackageCompilationUnit that);
     shared formal Result transformPackageDec(PackageDec that);
     shared formal Result transformPackageDescriptor(PackageDescriptor that);
+    shared formal Result transformPackageQualifier(PackageQualifier that);
     shared formal Result transformParameter(Parameter that);
     shared formal Result transformParameterReference(ParameterReference that);
     shared formal Result transformParameters(Parameters that);

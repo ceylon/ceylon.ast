@@ -594,6 +594,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(nullsafeInvoke(that.packageName, transformFullPackageName));
     shared actual default PackageDescriptor transformPackageDescriptor(PackageDescriptor that)
             => that.copy(transformFullPackageName(that.name), transformAnnotations(that.annotations));
+    shared actual default PackageQualifier transformPackageQualifier(PackageQualifier that)
+            => that.copy();
     shared actual default Parameter transformParameter(Parameter that) {
         assert (is Parameter ret = super.transformParameter(that));
         return ret;

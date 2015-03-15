@@ -610,6 +610,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is SpreadType) { return transformSpreadType(that); }
         case (is TypeArgument) { return transformTypeArgument(that); }
         case (is TypeArguments) { return transformTypeArguments(that); }
+        case (is PackageQualifier) { return transformPackageQualifier(that); }
     }
     shared actual default Result transformTypeModifier(TypeModifier that) {
         switch (that)

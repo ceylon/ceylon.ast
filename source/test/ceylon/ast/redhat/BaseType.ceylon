@@ -1,11 +1,12 @@
 import ceylon.ast.core {
     BaseType,
-    UIdentifier,
+    OutModifier,
+    PackageQualifier,
     Type,
     TypeArgument,
+    TypeArguments,
     TypeNameWithTypeArguments,
-    OutModifier,
-    TypeArguments
+    UIdentifier
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -20,11 +21,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     
-    String->BaseType construct(String name, [<String->Type>+]? args = null) {
+    String->BaseType construct(String name, [<String->Type>+]? args = null, Boolean qualified = false) {
         if (exists args) {
-            return "``name``<``",".join(args.collect(Entry<String,Type>.key))``>"->BaseType(TypeNameWithTypeArguments(UIdentifier(name), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))));
+            return "`` qualified then "package." else "" ````name``<``",".join(args.collect(Entry<String,Type>.key))``>"->BaseType(TypeNameWithTypeArguments(UIdentifier(name), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))), qualified then PackageQualifier());
         } else {
-            return name->BaseType(TypeNameWithTypeArguments(UIdentifier(name)));
+            return ((qualified then "package." else "") + name)->BaseType(TypeNameWithTypeArguments(UIdentifier(name)), qualified then PackageQualifier());
         }
     }
     
@@ -39,6 +40,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
                     }
                 ]);
         });
+    shared String->BaseType packageObjectType = construct { "Object"; qualified = true; };
     
     // not tested directly, but used by other tests
     shared String->BaseType anythingType = construct("Anything");
@@ -59,5 +61,5 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     compile = compileBaseType;
     fromCeylon = RedHatTransformer.transformBaseType;
     toCeylon = baseTypeToCeylon;
-    codes = [stringType, iterableOfStringType, listOfOutObjectType];
+    codes = [stringType, iterableOfStringType, listOfOutObjectType, packageObjectType];
 }

@@ -714,7 +714,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JBaseType transformBaseType(BaseType that) {
-        JBaseType ret = JBaseType(null);
+        JBaseType ret;
+        if (that.qualifier exists) {
+            ret = JBaseType(tokens.token("package", packageType));
+            ret.packageQualified = true;
+            ret.endToken = tokens.token(".", member_op);
+            ret.endToken = null;
+        } else {
+            ret = JBaseType(null);
+        }
         ret.identifier = transformUIdentifier(that.nameAndArgs.name);
         if (exists typeArguments = that.nameAndArgs.typeArguments) {
             ret.typeArgumentList = transformTypeArguments(typeArguments);

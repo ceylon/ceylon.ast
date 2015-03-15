@@ -1,6 +1,7 @@
 import ceylon.ast.core {
-    TypeArguments,
     BaseType,
+    PackageQualifier,
+    TypeArguments,
     TypeNameWithTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -17,18 +18,18 @@ shared BaseType baseTypeToCeylon(JBaseType baseType) {
     } else {
         typeArguments = null;
     }
-    return BaseType(TypeNameWithTypeArguments(uIdentifierToCeylon(baseType.identifier), typeArguments));
+    return BaseType {
+        nameAndArgs = TypeNameWithTypeArguments(uIdentifierToCeylon(baseType.identifier), typeArguments);
+        qualifier = baseType.packageQualified then PackageQualifier();
+    };
 }
 
 "Compiles the given [[code]] for a Base Type
  into a [[BaseType]] using the Ceylon compiler
- (more specifically, the rule for a `typeNameWithArguments`)."
+ (more specifically, the rule for a `baseType`)."
 shared BaseType? compileBaseType(String code) {
-    if (exists jTypeNameWithArguments = createParser(code).typeNameWithArguments()) {
-        JBaseType baseType = JBaseType(null);
-        baseType.identifier = jTypeNameWithArguments.identifier;
-        baseType.typeArgumentList = jTypeNameWithArguments.typeArgumentList;
-        return baseTypeToCeylon(baseType);
+    if (is JBaseType jBaseType = createParser(code).baseType()) {
+        return baseTypeToCeylon(jBaseType);
     } else {
         return null;
     }

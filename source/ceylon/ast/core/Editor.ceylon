@@ -112,7 +112,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default BaseMeta transformBaseMeta(BaseMeta that)
             => that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseType transformBaseType(BaseType that)
-            => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs));
+            => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.qualifier, transformPackageQualifier));
     shared actual default BinaryOperation transformBinaryOperation(BinaryOperation that) {
         assert (is BinaryOperation ret = super.transformBinaryOperation(that));
         return ret;

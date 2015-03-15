@@ -24,7 +24,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
         assert (is Nil n = parsePath(filename).resource);
         File file = n.createFile();
         try (w = file.Appender("UTF-8")) {
-            if (exists firstLine = docLines.first) {
+            if (!docLines.first.empty) {
                 String quotes;
                 String spaces;
                 if (documentation.contains('"') || documentation.contains("""``""")) {
@@ -35,7 +35,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                     spaces = " ";
                 }
                 w.write(quotes);
-                w.write(firstLine);
+                w.write(docLines.first);
                 for (line in docLines.rest) {
                     w.writeLine();
                     w.write(spaces);

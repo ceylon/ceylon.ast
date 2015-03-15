@@ -781,7 +781,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformStringLiteral(StringLiteral that)
             => that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.longerThan(1)
             then "StringLiteral(
-                  `` indent + indentLevel ``\"\"\"`` that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.first else "" ````"".join(that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.rest.collect(("\n" + " ".repeat(indent.size + indentLevel.size + "\"\"\"".size)).plus))``\"\"\"`` that.isVerbatim then ", true" else "" ``)"
+                  `` indent + indentLevel ``\"\"\"`` that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.first ````"".join(that.text.split { '\n'.equals; groupSeparators = false; discardSeparators = true; }.rest.collect(("\n" + " ".repeat(indent.size + indentLevel.size + "\"\"\"".size)).plus))``\"\"\"`` that.isVerbatim then ", true" else "" ``)"
             else "StringLiteral(\"\"\"``that.text``\"\"\"`` that.isVerbatim then ", true" else "" ``)";
     transformStringTemplate(StringTemplate that)
             => "StringTemplate {

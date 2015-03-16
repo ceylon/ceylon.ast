@@ -17,14 +17,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object valueDec satisfies ConcreteTest<ValueDec,JValueLiteral> {
     
-    String->ValueDec construct(String->LIdentifier name, <String->DecQualifier>? qualifier = null) {
+    String->ValueDec construct(String->LIdentifier name, String->DecQualifier qualifier = ""->DecQualifier()) {
         String qualification;
-        if (exists qualifier) {
+        if (qualifier.item.children nonempty) {
             qualification = qualifier.key + ".";
         } else {
             qualification = "";
         }
-        return "` value ``qualification````name.key`` `"->ValueDec(name.item, qualifier?.item);
+        return "` value ``qualification````name.key`` `"->ValueDec(name.item, qualifier.item);
     }
     
     shared String->ValueDec nullValueDec = construct(identifier.nullLIdentifier);

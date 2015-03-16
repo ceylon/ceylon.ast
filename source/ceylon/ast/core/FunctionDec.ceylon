@@ -1,16 +1,16 @@
 "A function reference expression, that is,
- the [[name]] of a function or method, optionally qualified by a [[qualifier]] (separated from it by a member operator ‘`.`’),
+ the [[name]] of a function or method, qualified by a (possibly empty) [[qualifier]] (separated from it by a member operator ‘`.`’),
  prefixed by the member keyword `function` and surrounded by backticks.
  
  Examples:
  
      `function concatenate`
      `function Iterable.chain`"
-shared class FunctionDec(name, qualifier = null)
+shared class FunctionDec(name, qualifier = DecQualifier())
         extends MemberDec() {
     
     shared actual LIdentifier name;
-    shared actual DecQualifier? qualifier;
+    shared actual DecQualifier qualifier;
     
     keyword = "function";
     
@@ -21,27 +21,16 @@ shared class FunctionDec(name, qualifier = null)
     
     shared actual Boolean equals(Object that) {
         if (is FunctionDec that) {
-            if (exists qualifier) {
-                if (exists qualifier_ = that.qualifier) {
-                    if (qualifier != qualifier_) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (that.qualifier exists) {
-                return false;
-            }
-            return name == that.name;
+            return name == that.name && qualifier == that.qualifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (qualifier?.hash else 0));
+            => 31 * (name.hash + 31 * qualifier.hash);
     
-    shared FunctionDec copy(LIdentifier name = this.name, DecQualifier? qualifier = this.qualifier) {
+    shared FunctionDec copy(LIdentifier name = this.name, DecQualifier qualifier = this.qualifier) {
         value ret = FunctionDec(name, qualifier);
         copyExtraInfoTo(ret);
         return ret;

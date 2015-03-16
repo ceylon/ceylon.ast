@@ -1,17 +1,22 @@
 import ceylon.ast.core {
-    GivenDec
+    DecQualifier,
+    GivenDec,
+    PackageQualifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType,
+        JQualifiedType=QualifiedType,
         JTypeParameterLiteral=TypeParameterLiteral
     }
 }
 
 "Converts a RedHat AST [[TypeParameterLiteral|JTypeParameterLiteral]] to a `ceylon.ast` [[GivenDec]]."
 shared GivenDec givenDecToCeylon(JTypeParameterLiteral givenDec) {
-    assert (is JBaseType type = givenDec.type);
-    return GivenDec(uIdentifierToCeylon(type.identifier));
+    assert (is JBaseType|JQualifiedType jType = givenDec.type);
+    switch (jType)
+    case (is JBaseType) { return GivenDec(uIdentifierToCeylon(jType.identifier), DecQualifier([], jType.packageQualified then PackageQualifier())); }
+    case (is JQualifiedType) { return GivenDec(uIdentifierToCeylon(jType.identifier), decQualifierToCeylon(jType.outerType)); }
 }
 
 "Compiles the given [[code]] for a Given Dec

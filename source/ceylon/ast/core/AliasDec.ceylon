@@ -6,11 +6,11 @@
  
      `alias TypeName`
      `alias A.B.C"
-shared class AliasDec(name, qualifier = null)
+shared class AliasDec(name, qualifier = DecQualifier())
         extends TypeDec() {
     
     shared actual UIdentifier name;
-    shared actual DecQualifier? qualifier;
+    shared actual DecQualifier qualifier;
     
     keyword = "alias";
     
@@ -21,27 +21,16 @@ shared class AliasDec(name, qualifier = null)
     
     shared actual Boolean equals(Object that) {
         if (is AliasDec that) {
-            if (exists qualifier) {
-                if (exists qualifier_ = that.qualifier) {
-                    if (qualifier != qualifier_) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (that.qualifier exists) {
-                return false;
-            }
-            return name == that.name;
+            return name == that.name && qualifier == that.qualifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (qualifier?.hash else 0));
+            => 31 * (name.hash + 31 * qualifier.hash);
     
-    shared AliasDec copy(UIdentifier name = this.name, DecQualifier? qualifier = this.qualifier) {
+    shared AliasDec copy(UIdentifier name = this.name, DecQualifier qualifier = this.qualifier) {
         value ret = AliasDec(name, qualifier);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,5 +1,7 @@
 import ceylon.ast.core {
-    AliasDec
+    AliasDec,
+    DecQualifier,
+    PackageQualifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec) {
     assert (is JBaseType|JQualifiedType jType = aliasDec.type);
     switch (jType)
-    case (is JBaseType) { return AliasDec(uIdentifierToCeylon(jType.identifier)); }
+    case (is JBaseType) { return AliasDec(uIdentifierToCeylon(jType.identifier), DecQualifier([], jType.packageQualified then PackageQualifier())); }
     case (is JQualifiedType) { return AliasDec(uIdentifierToCeylon(jType.identifier), decQualifierToCeylon(jType.outerType)); }
 }
 

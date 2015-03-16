@@ -10,11 +10,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ValueLiteral|JValueLiteral]] to a `ceylon.ast` [[ValueDec]]."
 shared ValueDec valueDecToCeylon(JValueLiteral valueDec) {
-    DecQualifier? qualifier;
-    if (exists jQualifier = valueDec.type else valueDec.objectExpression) {
+    DecQualifier qualifier;
+    if (exists jQualifier = valueDec.type) {
         qualifier = decQualifierToCeylon(jQualifier);
     } else {
-        qualifier = null;
+        qualifier = DecQualifier();
     }
     return ValueDec(lIdentifierToCeylon(valueDec.identifier), qualifier);
 }

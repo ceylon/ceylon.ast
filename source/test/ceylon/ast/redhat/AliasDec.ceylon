@@ -16,14 +16,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object aliasDec satisfies ConcreteTest<AliasDec,JAliasLiteral> {
     
-    String->AliasDec construct(String->UIdentifier name, <String->DecQualifier>? qualifier = null) {
+    String->AliasDec construct(String->UIdentifier name, String->DecQualifier qualifier = ""->DecQualifier()) {
         String qualification;
-        if (exists qualifier) {
+        if (qualifier.item.children nonempty) {
             qualification = qualifier.key + ".";
         } else {
             qualification = "";
         }
-        return "` alias ``qualification````name.key`` `"->AliasDec(name.item, qualifier?.item);
+        return "` alias ``qualification````name.key`` `"->AliasDec(name.item, qualifier.item);
     }
     
     shared String->AliasDec typeNameAliasDec = construct(identifier.typeNameUIdentifier);

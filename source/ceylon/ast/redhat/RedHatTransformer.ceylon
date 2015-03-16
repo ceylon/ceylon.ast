@@ -447,19 +447,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JAliasLiteral transformAliasDec(AliasDec that) {
-        JAliasLiteral ret = JAliasLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JAliasLiteral ret = JAliasLiteral(null);
         ret.endToken = tokens.token(that.keyword, aliasType);
-        if (exists qualifier = that.qualifier) {
-            "Qualifier can’t yet be an object!"
-            // https://github.com/ceylon/ceylon-spec/issues/1076
-            assert (is [UIdentifier+] components = qualifier.components);
-            assert (nonempty newComponents = concatenate(components, [that.name]));
-            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
-            ret.type = type;
-        } else {
-            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([that.name])));
-            ret.type = type;
-        }
+        ret.type = helpTransformDecQualifier(DecQualifier(that.qualifier.components.withTrailing(that.name), that.qualifier.packageQualifier));
+        ret.endToken = null;
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -908,33 +901,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JClassLiteral transformClassDec(ClassDec that) {
-        JClassLiteral ret = JClassLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JClassLiteral ret = JClassLiteral(null);
         ret.endToken = tokens.token(that.keyword, class_definition);
-        value name = that.name;
-        switch (name)
-        case (is LIdentifier) {
-            "Member references can’t be qualified yet!"
-            // https://github.com/ceylon/ceylon-spec/issues/1076
-            assert (!that.qualifier exists);
-            assert (is JBaseMemberExpression bme = helpTransformDecQualifier(DecQualifier([name])));
-            ret.objectExpression = bme;
+        if (exists name = that.name) {
+            assert (exists qualifier = that.qualifier);
+            ret.type = helpTransformDecQualifier(DecQualifier(qualifier.components.withTrailing(name), qualifier.packageQualifier));
+            ret.endToken = null;
         }
-        case (is UIdentifier) {
-            if (exists qualifier = that.qualifier) {
-                "Qualifier can’t yet be an object!"
-                // https://github.com/ceylon/ceylon-spec/issues/1076
-                assert (is [UIdentifier+] components = qualifier.components);
-                assert (nonempty newComponents = concatenate(components, [name]));
-                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
-                ret.type = type;
-            } else {
-                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([name])));
-                ret.type = type;
-            }
-        }
-        case (null) {
-            // reference to current class, do nothing
-        }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -1082,15 +1057,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
-        // in the RedHat backend, a NewLiteral just wraps any type
-        JNewLiteral ret = JNewLiteral(tokens.token("`", backtick));
-        ret.endToken = tokens.token("new", newType);
-        "Object constructors not supported" // nor meaningful, in fact
-        assert (is JStaticType jQualifier = helpTransformDecQualifier(that.qualifier));
-        JQualifiedType jType = JQualifiedType(tokens.token(".", member_op));
-        jType.identifier = transformUIdentifier(that.name);
-        jType.outerType = jQualifier;
-        ret.type = jType;
+        value bt = tokens.token("`", backtick);
+        JNewLiteral ret = JNewLiteral(null);
+        ret.endToken = tokens.token(that.keyword, newType);
+        ret.type = helpTransformDecQualifier(DecQualifier(that.qualifier.components.withTrailing(that.name), that.qualifier.packageQualifier));
+        ret.endToken = null;
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -1470,9 +1442,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JFunctionLiteral transformFunctionDec(FunctionDec that) {
-        JFunctionLiteral ret = JFunctionLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JFunctionLiteral ret = JFunctionLiteral(null);
         ret.endToken = tokens.token(that.keyword, function_modifier);
         helpTransformMemberDec(that, ret);
+        ret.token = bt;
         return ret;
     }
     
@@ -1622,9 +1596,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JTypeParameterLiteral transformGivenDec(GivenDec that) {
-        JTypeParameterLiteral ret = JTypeParameterLiteral(tokens.token("`", backtick));
-        ret.endToken = tokens.token("given", type_constraint);
-        ret.type = transformBaseType(BaseType(TypeNameWithTypeArguments(that.name)));
+        value bt = tokens.token("`", backtick);
+        JTypeParameterLiteral ret = JTypeParameterLiteral(null);
+        ret.endToken = tokens.token(that.keyword, type_constraint);
+        ret.type = helpTransformDecQualifier(DecQualifier(that.qualifier.components.withTrailing(that.name), that.qualifier.packageQualifier));
+        ret.endToken = null;
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -1847,24 +1824,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JInterfaceLiteral transformInterfaceDec(InterfaceDec that) {
-        JInterfaceLiteral ret = JInterfaceLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JInterfaceLiteral ret = JInterfaceLiteral(null);
         ret.endToken = tokens.token(that.keyword, interface_definition);
-        if (exists qualifier = that.qualifier) {
-            "Qualifier can’t yet be an object!"
-            // https://github.com/ceylon/ceylon-spec/issues/1076
-            assert (is [UIdentifier+] components = qualifier.components);
-            assert (exists name = that.name);
-            assert (nonempty newComponents = concatenate(components, [name]));
-            assert (is JStaticType type = helpTransformDecQualifier(DecQualifier(newComponents)));
-            ret.type = type;
-        } else {
-            if (exists name = that.name) {
-                assert (is JStaticType type = helpTransformDecQualifier(DecQualifier([name])));
-                ret.type = type;
-            } else {
-                // reference to current interface, do nothing
-            }
+        if (exists name = that.name) {
+            assert (exists qualifier = that.qualifier);
+            ret.type = helpTransformDecQualifier(DecQualifier(qualifier.components.withTrailing(name), qualifier.packageQualifier));
+            ret.endToken = null;
         }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -2178,11 +2146,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JModuleLiteral transformModuleDec(ModuleDec that) {
-        JModuleLiteral ret = JModuleLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JModuleLiteral ret = JModuleLiteral(null);
         ret.endToken = tokens.token("module", moduleType);
         if (exists moduleName = that.moduleName) {
             ret.importPath = transformFullPackageName(moduleName);
         }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -2406,11 +2376,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JPackageLiteral transformPackageDec(PackageDec that) {
-        JPackageLiteral ret = JPackageLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JPackageLiteral ret = JPackageLiteral(null);
         ret.endToken = tokens.token("package", packageType);
         if (exists packageName = that.packageName) {
             ret.importPath = transformFullPackageName(packageName);
         }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -3351,9 +3323,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JValueLiteral transformValueDec(ValueDec that) {
-        JValueLiteral ret = JValueLiteral(tokens.token("`", backtick));
-        ret.endToken = tokens.token(that.keyword, object_definition);
+        value bt = tokens.token("`", backtick);
+        JValueLiteral ret = JValueLiteral(null);
+        ret.endToken = tokens.token(that.keyword, value_modifier);
         helpTransformMemberDec(that, ret);
+        ret.token = bt;
         return ret;
     }
     
@@ -3592,28 +3566,27 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return [type, ie];
     }
     
-    JStaticType|JBaseMemberExpression helpTransformDecQualifier(DecQualifier that) {
-        value components = that.components;
-        switch (components)
-        case (is [UIdentifier+]) {
-            /*
-              the grammar just reuses the type rule – see also
-              https://github.com/ceylon/ceylon-spec/issues/1058 –
-              so we transform it into a base or qualified type and then
-              likewise reuse transformType
-             */
-            variable SimpleType type = BaseType(TypeNameWithTypeArguments(components.first));
-            for (component in components.rest) {
-                type = QualifiedType(type, TypeNameWithTypeArguments(component));
-            }
-            return transformType(type);
+    JSimpleType helpTransformDecQualifier(DecQualifier that) {
+        "Should be called with the name as added component"
+        assert (nonempty components = that.components);
+        variable JSimpleType ret;
+        if (that.packageQualifier exists) {
+            JBaseType bt = JBaseType(tokens.token("package", packageType));
+            bt.packageQualified = true;
+            bt.endToken = tokens.token(".", member_op);
+            ret = bt;
+        } else {
+            ret = JBaseType(null);
         }
-        case (is [LIdentifier]) {
-            value bme = JBaseMemberExpression(null);
-            bme.identifier = transformLIdentifier(components[0]);
-            bme.typeArguments = JInferredTypeArguments(null);
-            return bme;
+        ret.identifier = transformIdentifier(components.first);
+        ret.endToken = null;
+        for (identifier in that.components.rest) {
+            JQualifiedType qt = JQualifiedType(tokens.token(".", member_op));
+            qt.identifier = transformIdentifier(identifier);
+            qt.outerType = ret;
+            ret = qt;
         }
+        return ret;
     }
     
     JCond helpTransformExistsOrNonemptyCondition<JCond>(JCond ret, ExistsOrNonemptyCondition that)
@@ -3644,12 +3617,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     void helpTransformMemberDec(MemberDec that, JMemberLiteral ret) {
-        if (exists qualifier = that.qualifier) {
-            value jQualifier = helpTransformDecQualifier(qualifier);
-            switch (jQualifier)
-            case (is JStaticType) { ret.type = jQualifier; }
-            case (is JBaseMemberExpression) { ret.objectExpression = jQualifier; }
-            ret.endToken = tokens.token(".", member_op);
+        if (that.qualifier.components nonempty) {
+            ret.type = helpTransformDecQualifier(that.qualifier);
+            tokens.token(".", member_op);
+        } else if (that.qualifier.packageQualifier exists) {
+            ret.packageQualified = true;
+            tokens.token("package", packageType);
+            tokens.token(".", member_op);
         }
         ret.identifier = transformLIdentifier(that.name);
         ret.endToken = tokens.token("`", backtick);

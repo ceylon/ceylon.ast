@@ -1,39 +1,24 @@
 import ceylon.ast.core {
     DecQualifier,
-    UIdentifier
+    PackageQualifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JBaseMemberExpression=BaseMemberExpression,
-        JIdentifier=Identifier,
+        JBaseType=BaseType,
         JQualifiedType=QualifiedType,
         JStaticType=StaticType
-    },
-    Visitor
-}
-import ceylon.collection {
-    LinkedList
+    }
 }
 
-"Converts a RedHat AST [[StaticType|JStaticType]] or [[BaseMemberExpression|JBaseMemberExpression]]
- to a `ceylon.ast` [[DecQualifier]]."
-DecQualifier decQualifierToCeylon(JStaticType|JBaseMemberExpression decQualifier) {
+"Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[DecQualifier]]."
+DecQualifier decQualifierToCeylon(JStaticType decQualifier) {
+    assert (is JBaseType|JQualifiedType decQualifier);
     switch (decQualifier)
-    case (is JStaticType) {
-        value components = LinkedList<UIdentifier>();
-        object visitor extends Visitor() {
-            shared actual void visit(JIdentifier that)
-                    => components.add(uIdentifierToCeylon(that));
-            shared actual void visit(JQualifiedType that) {
-                that.outerType.visit(this);
-                that.identifier.visit(this);
-            }
-        }
-        decQualifier.visit(visitor);
-        assert (nonempty c = components.sequence());
-        return DecQualifier(c);
+    case (is JBaseType) {
+        return DecQualifier([identifierToCeylon(decQualifier.identifier)], decQualifier.packageQualified then PackageQualifier());
     }
-    case (is JBaseMemberExpression) {
-        return DecQualifier([lIdentifierToCeylon(decQualifier.identifier)]);
+    case (is JQualifiedType) {
+        value nested = decQualifierToCeylon(decQualifier.outerType);
+        return DecQualifier(nested.components.withTrailing(identifierToCeylon(decQualifier.identifier)), nested.packageQualifier);
     }
 }

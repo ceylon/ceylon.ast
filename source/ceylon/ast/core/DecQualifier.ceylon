@@ -1,35 +1,42 @@
 "A qualifier for a [[Dec]], that is,
- either a period-separated sequence of one or more [[type names|UIdentifier]],
- or exactly one [[member name|LIdentifier]].
+ a period-separated sequence of [[identifiers|components]],
+ possibly itself qualified by a [[‘`package`’ qualifier|packageQualifier]].
+ 
+ (The qualifier may also be completely empty.)
  
  Examples:
  
      process
-     Entry"
-shared class DecQualifier(components)
+     Entry
+     package.Object"
+shared class DecQualifier(components = [], packageQualifier = null)
         extends Node() {
     
     "The components of the qualifier."
-    /*
-     Note: this is [UIdentifier+]|[LIdentifier]
-     rather than   [UIdentifier+]|LIdentifier
-     because I think that the spec will later
-     allow literals of the form `value a.b.c.d`
-     to reference members of toplevel objects.
-     When that happens, this will change to
-     [Identifier+].
-     
-     See https://github.com/ceylon/ceylon-spec/issues/1013. 
-     */
-    shared [UIdentifier+]|[LIdentifier] components;
+    shared [Identifier*] components;
     
-    shared actual [UIdentifier+]|[LIdentifier] children = components;
+    "The ‘`package`’ qualifier, if present."
+    shared PackageQualifier? packageQualifier;
+    
+    shared actual [PackageQualifier,Identifier*]|[Identifier*] children
+            = if (exists packageQualifier) then [packageQualifier, *components] else components;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDecQualifier(this);
     
     shared actual Boolean equals(Object that) {
         if (is DecQualifier that) {
+            if (exists packageQualifier) {
+                if (exists packageQualifier_ = that.packageQualifier) {
+                    if (packageQualifier != packageQualifier_) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (that.packageQualifier exists) {
+                return false;
+            }
             return components == that.components;
         } else {
             return false;
@@ -37,10 +44,10 @@ shared class DecQualifier(components)
     }
     
     shared actual Integer hash
-            => 31 * components.hash;
+            => 31 * (components.hash + (packageQualifier?.hash else 0));
     
-    shared DecQualifier copy([UIdentifier+]|[LIdentifier] components = this.components) {
-        value ret = DecQualifier(components);
+    shared DecQualifier copy([Identifier*] components = this.components, PackageQualifier? packageQualifier = this.packageQualifier) {
+        value ret = DecQualifier(components, packageQualifier);
         copyExtraInfoTo(ret);
         return ret;
     }

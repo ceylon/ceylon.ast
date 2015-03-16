@@ -26,7 +26,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand));
     shared actual default AliasDec transformAliasDec(AliasDec that)
-            => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+            => that.copy(transformUIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
             => that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand));
     shared actual default AndOperation transformAndOperation(AndOperation that)
@@ -221,14 +221,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Dec ret = super.transformDec(that));
         return ret;
     }
-    shared actual default DecQualifier transformDecQualifier(DecQualifier that) {
-        [UIdentifier+]|[LIdentifier] transformUIdentifiersOrLIdentifier([UIdentifier+]|[LIdentifier] that) {
-            switch (that)
-            case (is [UIdentifier+]) { return that.collect(transformUIdentifier); }
-            case (is [LIdentifier]) { return [transformLIdentifier(that[0])]; }
-        }
-        return that.copy(transformUIdentifiersOrLIdentifier(that.components));
-    }
+    shared actual default DecQualifier transformDecQualifier(DecQualifier that)
+            => that.copy(that.components.collect(transformIdentifier), nullsafeInvoke(that.packageQualifier, transformPackageQualifier));
     shared actual default Declaration transformDeclaration(Declaration that) {
         assert (is Declaration ret = super.transformDeclaration(that));
         return ret;
@@ -336,7 +330,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default FunctionArgument transformFunctionArgument(FunctionArgument that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifierOrBlock(that.definition));
     shared actual default FunctionDec transformFunctionDec(FunctionDec that)
-            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+            => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
         Type|DynamicModifier|VoidModifier transformTypeOrDynamicModifierOrVoidModifier(Type|DynamicModifier|VoidModifier that) {
             switch (that)
@@ -362,7 +356,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default FunctionShortcutDefinition transformFunctionShortcutDefinition(FunctionShortcutDefinition that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifier(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default GivenDec transformGivenDec(GivenDec that)
-            => that.copy(transformUIdentifier(that.name));
+            => that.copy(transformUIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default GroupedExpression transformGroupedExpression(GroupedExpression that)
             => that.copy(transformExpression(that.innerExpression));
     shared actual default GroupedType transformGroupedType(GroupedType that)
@@ -938,7 +932,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifierOrBlock(that.definition));
     }
     shared actual default ValueDec transformValueDec(ValueDec that)
-            => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.qualifier, transformDecQualifier));
+            => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {
         Type|VariadicType|DynamicModifier transformTypeOrVariadicTypeOrDynamicModifier(Type|VariadicType|DynamicModifier that) {
             switch (that)

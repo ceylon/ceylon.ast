@@ -4,12 +4,15 @@
  or empty for the current interface,
  prefixed by the type keyword `interface` and surrounded by backticks.
  
+ The [[qualifier]] may only be null if the [[name]] is also null.
+ If the name exists, the qualifier must exist as well (but may of course be empty).
+ 
  Examples:
  
      `interface Iterable`
      `interface A.B.C`
      `interface`"
-shared class InterfaceDec(name, qualifier = null)
+shared class InterfaceDec(name, qualifier = DecQualifier())
         extends TypeDec() {
     
     shared actual UIdentifier? name;
@@ -17,8 +20,8 @@ shared class InterfaceDec(name, qualifier = null)
     
     keyword = "interface";
     
-    "If the qualifier exists, the name must exist as well"
-    assert (!qualifier exists || name exists);
+    "Qualifier must exist iff name exists"
+    assert (qualifier exists == name exists);
     
     shared actual <DecQualifier|Identifier>[] children = concatenate(emptyOrSingleton(qualifier), emptyOrSingleton(name));
     

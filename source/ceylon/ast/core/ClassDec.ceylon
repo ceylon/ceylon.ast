@@ -1,6 +1,6 @@
 "A class reference expression, that is,
  the [[name]] of a class or anonymous class,
- optionally qualified by a [[qualifier]] (separated from it by a member operator ‘`.`’),
+ qualified by a (possibly empty) [[qualifier]] (separated from it by a member operator ‘`.`’),
  or empty for the current class,
  prefixed by the type keyword `class` and surrounded by backticks.
  
@@ -13,12 +13,15 @@
  `dec1` refers to the anonymous class of the `null` object, while
  `dec2` refers to the only instance of that class, the `null` object itself.
  
+ The [[qualifier]] may only be null if the [[name]] is also null.
+ If the name exists, the qualifier must exist as well (but may of course be empty).
+ 
  Examples:
  
      `class String`
      `class A.B.C`
      `class`"
-shared class ClassDec(name, qualifier = null)
+shared class ClassDec(name, qualifier = DecQualifier())
         extends TypeDec() {
     
     shared actual Identifier? name;
@@ -26,8 +29,8 @@ shared class ClassDec(name, qualifier = null)
     
     keyword = "class";
     
-    "If the qualifier exists, the name must exist as well"
-    assert (!qualifier exists || name exists);
+    "Qualifier must exist iff name exists"
+    assert (qualifier exists == name exists);
     
     shared actual <DecQualifier|Identifier>[] children = concatenate(emptyOrSingleton(qualifier), emptyOrSingleton(name));
     

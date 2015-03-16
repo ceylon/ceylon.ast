@@ -10,11 +10,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[FunctionDec|JFunctionLiteral]] to a `ceylon.ast` [[FunctionDec]]."
 shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec) {
-    DecQualifier? qualifier;
-    if (exists jQualifier = functionDec.type else functionDec.objectExpression) {
+    DecQualifier qualifier;
+    if (exists jQualifier = functionDec.type) {
         qualifier = decQualifierToCeylon(jQualifier);
     } else {
-        qualifier = null;
+        qualifier = DecQualifier();
     }
     return FunctionDec(lIdentifierToCeylon(functionDec.identifier), qualifier);
 }

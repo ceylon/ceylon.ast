@@ -9,7 +9,7 @@ shared abstract class MemberDec()
         extends Dec() {
     
     "The qualifier of the dec, if present."
-    shared formal DecQualifier? qualifier;
+    shared formal DecQualifier qualifier;
     "The name of the declaration."
     shared formal LIdentifier name;
     

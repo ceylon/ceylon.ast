@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    DecQualifier,
     GivenDec,
     UIdentifier
 }
@@ -14,11 +15,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object givenDec satisfies ConcreteTest<GivenDec,JTypeParameterLiteral> {
-    shared String->GivenDec keyGivenDec = "`given Key`"->GivenDec(UIdentifier("Key"));
-    shared String->GivenDec lowercaseKeyGivenDec = "`given \\Ikey`"->GivenDec(UIdentifier("key", true));
+    
+    String->GivenDec construct(String->UIdentifier name, String->DecQualifier qualifier = ""->DecQualifier()) {
+        String qualification;
+        if (qualifier.item.children nonempty) {
+            qualification = qualifier.key + ".";
+        } else {
+            qualification = "";
+        }
+        return "` given ``qualification````name.key`` `"->GivenDec(name.item, qualifier.item);
+    }
+    
+    shared String->GivenDec keyGivenDec = construct(identifier.keyUIdentifier);
     
     compile = compileGivenDec;
     fromCeylon = RedHatTransformer.transformGivenDec;
     toCeylon = givenDecToCeylon;
-    codes = [keyGivenDec, lowercaseKeyGivenDec];
+    codes = [keyGivenDec];
 }

@@ -1,16 +1,16 @@
 "A value reference expression, that is,
- the [[name]] of a value, optionally qualified by a [[qualifier]] (separated from it by a member operator ‘`.`’),
+ the [[name]] of a value, qualified by a (possibly empty) [[qualifier]] (separated from it by a member operator ‘`.`’),
  prefixed by the member keyword `value` and surrounded by backticks.
  
  Examples:
  
      `value null`
      `value Iterable.first`"
-shared class ValueDec(name, qualifier = null)
+shared class ValueDec(name, qualifier = DecQualifier())
         extends MemberDec() {
     
     shared actual LIdentifier name;
-    shared actual DecQualifier? qualifier;
+    shared actual DecQualifier qualifier;
     
     keyword = "value";
     
@@ -21,27 +21,16 @@ shared class ValueDec(name, qualifier = null)
     
     shared actual Boolean equals(Object that) {
         if (is ValueDec that) {
-            if (exists qualifier) {
-                if (exists qualifier_ = that.qualifier) {
-                    if (qualifier != qualifier_) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (that.qualifier exists) {
-                return false;
-            }
-            return name == that.name;
+            return name == that.name && that.qualifier == qualifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (qualifier?.hash else 0));
+            => 31 * (name.hash + 31 * qualifier.hash);
     
-    shared ValueDec copy(LIdentifier name = this.name, DecQualifier? qualifier = this.qualifier) {
+    shared ValueDec copy(LIdentifier name = this.name, DecQualifier qualifier = this.qualifier) {
         value ret = ValueDec(name, qualifier);
         copyExtraInfoTo(ret);
         return ret;

@@ -16,9 +16,9 @@ shared OptionalType optionalTypeToCeylon(JOptionalType optionalType) {
 
 "Compiles the given [[code]] for an Optional Type
  into an [[OptionalType]] using the Ceylon compiler
- (more specifically, the rule for an `abbreviatedType`)."
+ (more specifically, the rule for an `primaryType`)."
 shared OptionalType? compileOptionalType(String code) {
-    if (is JOptionalType jOptionalType = createParser(code).abbreviatedType()) {
+    if (is JOptionalType jOptionalType = createParser(code).primaryType()) {
         return optionalTypeToCeylon(jOptionalType);
     } else {
         return null;

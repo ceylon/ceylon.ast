@@ -16,9 +16,9 @@ shared SequentialType sequentialTypeToCeylon(JSequenceType sequentialType) {
 
 "Compiles the given [[code]] for a Sequential Type
  into a [[SequentialType]] using the Ceylon compiler
- (more specifically, the rule for an `abbreviatedType`)."
+ (more specifically, the rule for an `primaryType`)."
 shared SequentialType? compileSequentialType(String code) {
-    if (is JSequenceType jSequenceType = createParser(code).abbreviatedType()) {
+    if (is JSequenceType jSequenceType = createParser(code).primaryType()) {
         return sequentialTypeToCeylon(jSequenceType);
     } else {
         return null;

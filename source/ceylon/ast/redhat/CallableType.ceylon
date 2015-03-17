@@ -52,9 +52,9 @@ shared CallableType callableTypeToCeylon(JFunctionType callableType) {
 
 "Compiles the given [[code]] for a Callable Type
  into a [[CallableType]] using the Ceylon compiler
- (more specifically, the rule for an `abbrevatedType`)."
+ (more specifically, the rule for an `primaryType`)."
 shared CallableType? compileCallableType(String code) {
-    if (is JFunctionType jFunctionType = createParser(code).abbreviatedType()) {
+    if (is JFunctionType jFunctionType = createParser(code).primaryType()) {
         return callableTypeToCeylon(jFunctionType);
     } else {
         return null;

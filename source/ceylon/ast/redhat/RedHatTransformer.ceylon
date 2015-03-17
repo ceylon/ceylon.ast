@@ -697,11 +697,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JMemberLiteral transformBaseMeta(BaseMeta that) {
-        JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JMemberLiteral ret = JMemberLiteral(null);
+        if (that.packageQualifier exists) {
+            ret.token = tokens.token("package", packageType);
+            ret.endToken = tokens.token(".", member_op);
+            ret.endToken = null;
+            ret.packageQualified = true;
+        }
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
         if (exists typeArguments = that.nameAndArgs.typeArguments) {
             ret.typeArgumentList = transformTypeArguments(typeArguments);
         }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -2103,20 +2111,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JMemberLiteral transformMemberMeta(MemberMeta that) {
-        JMemberLiteral ret = JMemberLiteral(tokens.token("`", backtick));
-        value qualifier = transformMetaQualifier(that.qualifier);
-        switch (qualifier)
-        case (is JStaticType) { ret.type = qualifier; }
-        case (is JIdentifier) {
-            ret.objectExpression = JBaseMemberExpression(null);
-            ret.objectExpression.identifier = qualifier;
-            ret.objectExpression.typeArguments = JInferredTypeArguments(null);
-        }
+        value bt = tokens.token("`", backtick);
+        JMemberLiteral ret = JMemberLiteral(null);
+        ret.type = transformPrimaryType(that.qualifier);
         ret.endToken = tokens.token(".", member_op);
+        ret.endToken = null;
         ret.identifier = transformIdentifier(that.nameAndArgs.name);
         if (exists typeArguments = that.nameAndArgs.typeArguments) {
             ret.typeArgumentList = transformTypeArguments(typeArguments);
         }
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }
@@ -2132,11 +2136,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JMetaLiteral transformMeta(Meta that) {
         assert (is JMetaLiteral ret = super.transformMeta(that));
-        return ret;
-    }
-    
-    shared actual JStaticType|JIdentifier transformMetaQualifier(MetaQualifier that) {
-        assert (is JStaticType|JIdentifier ret = super.transformMetaQualifier(that));
         return ret;
     }
     
@@ -3243,8 +3242,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     shared actual JTypeLiteral transformTypeMeta(TypeMeta that) {
-        JTypeLiteral ret = JTypeLiteral(tokens.token("`", backtick));
+        value bt = tokens.token("`", backtick);
+        JTypeLiteral ret = JTypeLiteral(null);
         ret.type = transformType(that.type);
+        ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
         return ret;
     }

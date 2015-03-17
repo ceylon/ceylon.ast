@@ -288,12 +288,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is BaseMeta) { return transformBaseMeta(that); }
         case (is MemberMeta) { return transformMemberMeta(that); }
     }
-    shared actual default Result transformMetaQualifier(MetaQualifier that) {
-        switch (that)
-        case (is SimpleType) { return transformSimpleType(that); }
-        case (is GroupedType) { return transformGroupedType(that); }
-        case (is MemberName) { return transformLIdentifier(that); }
-    }
     shared actual default Result transformModifier(Modifier that) {
         switch (that)
         case (is VoidModifier) { return transformVoidModifier(that); }

@@ -115,7 +115,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformAssignmentStatement(AssignmentStatement that) => "AssignmentStatement(``transformWithIndent(that.expression)``)";
     transformBaseExpression(BaseExpression that) => "BaseExpression(``transformWithIndent(that.nameAndArgs)``)";
-    transformBaseMeta(BaseMeta that) => "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
+    transformBaseMeta(BaseMeta that)
+            => that.packageQualifier exists
+            then "BaseMeta(``transformWithIndent(that.nameAndArgs)``, ``transformWithIndent(that.packageQualifier)``)"
+            else "BaseMeta(``transformWithIndent(that.nameAndArgs)``)";
     transformBaseType(BaseType that)
             => that.qualifier exists
             then "BaseType(``transformWithIndent(that.nameAndArgs)``, ``transformWithIndent(that.qualifier)``)"

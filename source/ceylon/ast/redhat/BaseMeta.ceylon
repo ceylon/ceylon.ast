@@ -2,6 +2,7 @@ import ceylon.ast.core {
     BaseMeta,
     MemberName,
     MemberNameWithTypeArguments,
+    PackageQualifier,
     TypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -15,8 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[BaseMeta]]."
 shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta) {
     "Must be unqualified"
-    assert (!baseMeta.type exists,
-        !baseMeta.objectExpression exists);
+    assert (!baseMeta.type exists);
     "Must not be a reference expression"
     assert (!baseMeta is JFunctionLiteral|JValueLiteral); // reference expressions are subtypes of meta expressions. ew
     assert (is MemberName name = identifierToCeylon(baseMeta.identifier));
@@ -26,7 +26,7 @@ shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta) {
     } else {
         typeArguments = null;
     }
-    return BaseMeta(MemberNameWithTypeArguments(name, typeArguments));
+    return BaseMeta(MemberNameWithTypeArguments(name, typeArguments), baseMeta.packageQualified then PackageQualifier());
 }
 
 "Compiles the given [[code]] for a Base Meta
@@ -35,7 +35,6 @@ shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta) {
 shared BaseMeta? compileBaseMeta(String code) {
     if (is JMemberLiteral jMetaLiteral = createParser(code).metaLiteral(),
         !jMetaLiteral.type exists,
-        !jMetaLiteral.objectExpression exists,
         !jMetaLiteral is JFunctionLiteral|JValueLiteral) {
         return baseMetaToCeylon(jMetaLiteral);
     } else {

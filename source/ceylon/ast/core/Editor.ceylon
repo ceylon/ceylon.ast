@@ -110,7 +110,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default BaseExpression transformBaseExpression(BaseExpression that)
             => that.copy(transformNameWithTypeArguments(that.nameAndArgs));
     shared actual default BaseMeta transformBaseMeta(BaseMeta that)
-            => that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs));
+            => that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.packageQualifier, transformPackageQualifier));
     shared actual default BaseType transformBaseType(BaseType that)
             => that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.qualifier, transformPackageQualifier));
     shared actual default BinaryOperation transformBinaryOperation(BinaryOperation that) {
@@ -501,17 +501,13 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default MemberMeta transformMemberMeta(MemberMeta that)
-            => that.copy(transformMetaQualifier(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
+            => that.copy(transformPrimaryType(that.qualifier), transformMemberNameWithTypeArguments(that.nameAndArgs));
     shared actual default MemberNameWithTypeArguments transformMemberNameWithTypeArguments(MemberNameWithTypeArguments that)
             => that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.typeArguments, transformTypeArguments));
     shared actual default MemberOperator transformMemberOperator(MemberOperator that)
             => that.copy();
     shared actual default Meta transformMeta(Meta that) {
         assert (is Meta ret = super.transformMeta(that));
-        return ret;
-    }
-    shared actual default MetaQualifier transformMetaQualifier(MetaQualifier that) {
-        assert (is MetaQualifier ret = super.transformMetaQualifier(that));
         return ret;
     }
     shared actual default Modifier transformModifier(Modifier that) {

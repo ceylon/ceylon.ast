@@ -117,8 +117,6 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformMeta(Meta that)
             => that.transform(this);
-    shared actual default Result transformMetaQualifier(MetaQualifier that)
-            => that.transform(this);
     shared actual default Result transformModifier(Modifier that)
             => that.transform(this);
     shared actual default Result transformMultiplyingExpression(MultiplyingExpression that)

@@ -4,6 +4,7 @@ import ceylon.ast.core {
     MemberMeta,
     MemberNameWithTypeArguments,
     OptionalType,
+    PrimaryType,
     TypeArgument,
     TypeArguments,
     TypeNameWithTypeArguments,
@@ -21,16 +22,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
-    shared String->MemberMeta personSayMemberMeta = "`person.say`"->MemberMeta(LIdentifier("person"), MemberNameWithTypeArguments(LIdentifier("say")));
-    shared String->MemberMeta systemMillisecondsMemberMeta = "`system.milliseconds`"->MemberMeta(LIdentifier("system"), MemberNameWithTypeArguments(LIdentifier("milliseconds")));
+    
+    String->MemberMeta construct(String->PrimaryType qualifier, <String->LIdentifier>|<String->MemberNameWithTypeArguments> nameAndArgs) {
+        MemberNameWithTypeArguments actualNameAndArgs;
+        switch (nameAndArgsItem = nameAndArgs.item)
+        case (is LIdentifier) { actualNameAndArgs = MemberNameWithTypeArguments(nameAndArgsItem); }
+        case (is MemberNameWithTypeArguments) { actualNameAndArgs = nameAndArgsItem; }
+        return "` ``qualifier.key``.``nameAndArgs.key`` `"->MemberMeta(qualifier.item, actualNameAndArgs);
+    }
+    
+    shared String->MemberMeta personSayMemberMeta = construct(baseType.personObjectType, identifier.sayLIdentifier);
+    shared String->MemberMeta systemMillisecondsMemberMeta = construct(baseType.systemObjectType, identifier.millisecondsLIdentifier);
     shared String->MemberMeta iterableOfStringCollectOfIntegerOptionalMemberMeta
-            = "`Iterable<String>.collect<Integer?>`"->MemberMeta {
-        qualifier = baseType.iterableOfStringType.item;
-        nameAndArgs = MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))]));
-    };
+            = construct(baseType.iterableOfStringType, "collect<Integer?>"->MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))])));
+    shared String->MemberMeta packageObjectEqualsMeta = construct(baseType.objectPackageQualifiedType, identifier.equalsLIdentifier);
     
     compile = compileMemberMeta;
     fromCeylon = RedHatTransformer.transformMemberMeta;
     toCeylon = memberMetaToCeylon;
-    codes = [personSayMemberMeta, systemMillisecondsMemberMeta, iterableOfStringCollectOfIntegerOptionalMemberMeta];
+    codes = [personSayMemberMeta, systemMillisecondsMemberMeta, iterableOfStringCollectOfIntegerOptionalMemberMeta, packageObjectEqualsMeta];
 }

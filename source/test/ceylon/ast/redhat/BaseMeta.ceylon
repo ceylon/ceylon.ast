@@ -3,6 +3,7 @@ import ceylon.ast.core {
     BaseType,
     LIdentifier,
     MemberNameWithTypeArguments,
+    PackageQualifier,
     TypeArgument,
     TypeArguments,
     TypeNameWithTypeArguments,
@@ -20,11 +21,13 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object baseMeta satisfies ConcreteTest<BaseMeta,JMemberLiteral> {
+    
     shared String->BaseMeta sumOfFloatBaseMeta = "`sum<Float>`"->BaseMeta(MemberNameWithTypeArguments(LIdentifier("sum"), TypeArguments([TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))))])));
     shared String->BaseMeta systemBaseMeta = "`system`"->BaseMeta(MemberNameWithTypeArguments(LIdentifier("system"), null));
+    shared String->BaseMeta packageVersionMeta = "`package.version`"->BaseMeta(MemberNameWithTypeArguments(LIdentifier("version"), null), PackageQualifier());
     
     compile = compileBaseMeta;
     fromCeylon = RedHatTransformer.transformBaseMeta;
     toCeylon = baseMetaToCeylon;
-    codes = [sumOfFloatBaseMeta, systemBaseMeta];
+    codes = [sumOfFloatBaseMeta, systemBaseMeta, packageVersionMeta];
 }

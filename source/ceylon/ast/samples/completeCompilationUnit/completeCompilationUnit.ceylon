@@ -364,7 +364,7 @@ shared CompilationUnit completeCompilationUnit
                                                 ])),
                                         BaseMeta(MemberNameWithTypeArguments(LIdentifier("process"))),
                                         MemberMeta {
-                                            qualifier = LIdentifier("process");
+                                            qualifier = BaseType(TypeNameWithTypeArguments(UIdentifier("process", true)));
                                             nameAndArgs = MemberNameWithTypeArguments(LIdentifier("arguments"));
                                         }
                                     ])));

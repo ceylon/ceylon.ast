@@ -20,9 +20,10 @@ shared object typeMeta satisfies ConcreteTest<TypeMeta,JTypeLiteral> {
     
     shared String->TypeMeta integerFloatDefaultedStringStarTupleTypeTypeMeta = construct(tupleType.integerFloatDefaultedStringStarTupleType);
     shared String->TypeMeta stringToIterableOfStringEntryTypeTypeMeta = construct(entryType.stringToIterableOfStringEntryType);
+    shared String->TypeMeta packageObjectMeta = construct(baseType.objectPackageQualifiedType);
     
     compile = compileTypeMeta;
     fromCeylon = RedHatTransformer.transformTypeMeta;
     toCeylon = typeMetaToCeylon;
-    codes = [integerFloatDefaultedStringStarTupleTypeTypeMeta, stringToIterableOfStringEntryTypeTypeMeta];
+    codes = [integerFloatDefaultedStringStarTupleTypeTypeMeta, stringToIterableOfStringEntryTypeTypeMeta, packageObjectMeta];
 }

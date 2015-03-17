@@ -73,6 +73,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier phiLIdentifier = constructL("\{MATHEMATICAL ITALIC SMALL PHI}");
     shared String->LIdentifier actualLIdentifier = constructL("actual");
     shared String->UIdentifier keyUIdentifier = constructU("Key");
+    shared String->LIdentifier sayLIdentifier = constructL("say");
+    shared String->LIdentifier millisecondsLIdentifier = constructL("milliseconds");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

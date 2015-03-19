@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Constructor|JConstructor]] to a `ceylon.ast` [[ConstructorDefinition]]."
 shared ConstructorDefinition constructorDefinitionToCeylon(JConstructor constructorDefinition)
         => ConstructorDefinition {
-    name = uIdentifierToCeylon(constructorDefinition.identifier);
+    name = if (exists id = constructorDefinition.identifier) then uIdentifierToCeylon(id) else null;
     parameters = parametersToCeylon(constructorDefinition.parameterList);
     block = blockToCeylon(constructorDefinition.block);
     value extendedType {

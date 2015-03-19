@@ -21,8 +21,8 @@ shared abstract class Declaration()
         of TypeDeclaration | TypedDeclaration | ObjectDefinition | ValueSetterDefinition | ConstructorDefinition
         extends Node() {
     
-    "The name of the declared program element."
-    shared formal Identifier name;
+    "The name of the declared program element, if present."
+    shared formal Identifier? name;
     "The annotations on the declaration."
     shared formal Annotations annotations;
 }

@@ -19,9 +19,7 @@ shared class TryClause(block, resources = null)
     "The resources, if present."
     shared Resources? resources;
     
-    //shared actual [Resources, Block]|[Block] children;
-    // TODO use the above more accurate type when backend bug is fixed
-    shared actual Node[] children;
+    shared actual [Resources, Block]|[Block] children;
     if (exists resources) {
         children = [resources, block];
     } else {

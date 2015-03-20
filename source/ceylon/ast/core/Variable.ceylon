@@ -19,7 +19,5 @@ shared abstract class Variable()
     "The definition of the variable, if present."
     shared formal Specifier? specifier;
     
-    //shared actual formal [Type|ValueModifier, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
-    // TODO use above more precise type when backend bug is fixed
-    shared actual formal Node[] children;
+    shared actual formal [Type|ValueModifier, LIdentifier, Specifier=]|[LIdentifier, Specifier=] children;
 }

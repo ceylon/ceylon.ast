@@ -19,7 +19,5 @@ shared abstract class ImportElement()
     "The nested imported elements, if present."
     shared formal ImportElements? nestedImports;
     
-    // TODO use more precise type when backend bug is fixed
-    //shared actual formal [ImportAlias, Identifier, ImportElements=]|[Identifier, ImportElements=] children;
-    shared actual formal Node[] children;
+    shared actual formal [ImportAlias, Identifier, ImportElements=]|[Identifier, ImportElements=] children;
 }

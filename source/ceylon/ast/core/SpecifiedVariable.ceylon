@@ -12,9 +12,7 @@ shared class SpecifiedVariable(name, specifier, type = null)
     shared actual Specifier specifier;
     shared actual Type|ValueModifier? type;
     
-    //shared actual [Type|ValueModifier, LIdentifier, Specifier]|[LIdentifier, Specifier] children;
-    // TODO use above more precise type when backend bug is fixed
-    shared actual Node[] children;
+    shared actual [Type|ValueModifier, LIdentifier, Specifier]|[LIdentifier, Specifier] children;
     if (exists type) {
         children = [type, name, specifier];
     } else {

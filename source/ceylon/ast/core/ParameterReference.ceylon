@@ -1,8 +1,16 @@
-"The name of a parameter declared in the body of the function or class.
+"The name of a parameter, without type information.
  
- This is frequently used for class parameters,
- where having the documentation in the parameter list
- would clutter the parameter list.
+ There are two possible interpretations of such a parameter:
+ 
+ 1. The parameter is later declared in the body of the function or class.
+    This is frequently used for class parameters,
+    where having the documentation in the parameter list
+    would clutter the parameter list.
+ 2. The type of the parameter is inferred.
+    This is only legal for anonymous functions,
+    and intended for small one-line arguments to functions
+    like [[ceylon.language::Iterable.map]] or [[ceylon.language::Iterable.filter]]
+    (with a [[LazySpecifier]] rather than a [[Block]]).
  
  Examples:
  

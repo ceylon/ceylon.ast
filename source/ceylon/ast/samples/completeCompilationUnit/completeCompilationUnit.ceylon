@@ -315,6 +315,23 @@ shared CompilationUnit completeCompilationUnit
                     }
                 ]);
             body = ClassBody([
+                    ConstructorDefinition {
+                        name = UIdentifier("Bool");
+                        parameters = Parameters();
+                        block = Block([
+                                ValueDefinition {
+                                    name = LIdentifier("self");
+                                    type = ValueModifier();
+                                    definition = Specifier(ConstructorDec {
+                                            name = UIdentifier("Bool");
+                                            qualifier = DecQualifier([UIdentifier("MyBoolean")], PackageQualifier());
+                                        });
+                                    annotations = Annotations();
+                                }
+                            ]);
+                        extendedType = null;
+                        annotations = Annotations();
+                    },
                     TryCatchFinally {
                         tryClause = TryClause {
                             block = Block([Throw()]);

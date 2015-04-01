@@ -255,7 +255,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => "Destructure {
                 `` indent + indentLevel ``pattern = ``transformWithIndent(that.pattern)``;
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
-                `` indent + indentLevel ``valueModifier = ``transformWithIndent(that.valueModifier)``;
                 ``indent``}";
     transformDifferenceOperation(DifferenceOperation that)
             => "DifferenceOperation {

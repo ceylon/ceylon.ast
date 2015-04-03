@@ -905,6 +905,10 @@ shared CompilationUnit completeCompilationUnit
                                         }
                                     ])));
                         annotations = Annotations();
+                    },
+                    Destructure {
+                        pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("destructure")))]);
+                        specifier = Specifier(IntegerLiteral("1"));
                     }
                 ]);
             caseTypes = CaseTypes([

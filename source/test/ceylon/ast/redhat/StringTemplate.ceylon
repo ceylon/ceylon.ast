@@ -25,6 +25,12 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
         ElseOperation(qualifiedExpression.processArgumentsFirstExpression.item, StringLiteral("World")),
         StringLiteral("!")
     );
+    shared String->StringTemplate ifElseExpressionStringTemplate
+            = "\"\`\```ifElseExpression.ifThenIfElseLetExpression.key``\`\`\""->createStringTemplate(
+        StringLiteral(""),
+        ifElseExpression.ifThenIfElseLetExpression.item,
+        StringLiteral("")
+    );
     
     // not tested directly, but used by other tests
     shared String->StringTemplate xyStringTemplate
@@ -39,5 +45,5 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
     compile = compileStringTemplate;
     fromCeylon = RedHatTransformer.transformStringTemplate;
     toCeylon = stringTemplateToCeylon;
-    codes = [helloNameElseWorldStringTemplate];
+    codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate];
 }

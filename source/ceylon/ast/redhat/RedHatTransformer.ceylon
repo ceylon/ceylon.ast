@@ -2894,10 +2894,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         variable value exprNext = exprIt.next();
         while (!litNext is Finished) {
             assert (is StringLiteral litCur = litNext);
-            assert (is ValueExpression exprCur = exprNext);
+            assert (is Expression exprCur = exprNext);
             litNext = litIt.next();
             exprNext = exprIt.next();
-            ret.addExpression(wrapTerm(transformValueExpression(exprCur)));
+            ret.addExpression(wrapTerm(transformExpression(exprCur)));
             if (litNext is Finished) {
                 // last part, litCur needs to become a string_end
                 ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\"", string_end)));

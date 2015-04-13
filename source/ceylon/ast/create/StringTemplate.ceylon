@@ -1,7 +1,7 @@
 import ceylon.ast.core {
+    Expression,
     StringLiteral,
-    StringTemplate,
-    ValueExpression
+    StringTemplate
 }
 import ceylon.collection {
     LinkedList,
@@ -15,15 +15,15 @@ import ceylon.collection {
  in exactly the order in which they appear in the string template
  (rather than separated into two sequences, as in [[StringLiteral]]),
  at the cost of some type safety."
-shared StringTemplate stringTemplate(StringLiteral|ValueExpression+ parts) {
+shared StringTemplate stringTemplate(StringLiteral|Expression+ parts) {
     value it = parts.iterator();
     variable value elem = it.next();
     MutableList<StringLiteral> literals = LinkedList<StringLiteral>();
-    MutableList<ValueExpression> expressions = LinkedList<ValueExpression>();
+    MutableList<Expression> expressions = LinkedList<Expression>();
     assert (is StringLiteral first = elem);
     literals.add(first);
     while (!((elem = it.next()) is Finished)) {
-        assert (is ValueExpression expression = elem);
+        assert (is Expression expression = elem);
         expressions.add(expression);
         assert (is StringLiteral literal = it.next());
         literals.add(literal);

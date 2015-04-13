@@ -19,7 +19,7 @@ shared class StringTemplate(literals, expressions)
     "The string literals of the string template, in order of appearance."
     shared [StringLiteral+] literals;
     "The expressions in the string template, in order of appearance."
-    shared [ValueExpression+] expressions;
+    shared [Expression+] expressions;
     
     "There must be exactly one more string literal than there are expressions"
     assert (literals.size == expressions.size + 1);
@@ -41,7 +41,7 @@ shared class StringTemplate(literals, expressions)
     shared actual Integer hash
             => 31 * (literals.hash + 31 * expressions.hash);
     
-    shared StringTemplate copy([StringLiteral+] literals = this.literals, [ValueExpression+] expressions = this.expressions) {
+    shared StringTemplate copy([StringLiteral+] literals = this.literals, [Expression+] expressions = this.expressions) {
         value ret = StringTemplate(literals, expressions);
         copyExtraInfoTo(ret);
         return ret;

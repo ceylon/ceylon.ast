@@ -33,7 +33,7 @@ shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate) {
                     throw AssertionError("Unexpected token type in string template");
                 }
             }));
-    assert (nonempty expressions = CeylonIterable(stringTemplate.expressions).collect(valueExpressionToCeylon));
+    assert (nonempty expressions = CeylonIterable(stringTemplate.expressions).collect(expressionToCeylon));
     return StringTemplate(literals, expressions);
 }
 

@@ -799,7 +799,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default StringLiteral transformStringLiteral(StringLiteral that)
             => that.copy();
     shared actual default StringTemplate transformStringTemplate(StringTemplate that)
-            => that.copy(that.literals.collect(transformStringLiteral), that.expressions.collect(transformValueExpression));
+            => that.copy(that.literals.collect(transformStringLiteral), that.expressions.collect(transformExpression));
     shared actual default Subscript transformSubscript(Subscript that) {
         assert (is Subscript ret = super.transformSubscript(that));
         return ret;

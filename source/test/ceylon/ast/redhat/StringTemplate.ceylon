@@ -31,6 +31,14 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
         ifElseExpression.ifThenIfElseLetExpression.item,
         StringLiteral("")
     );
+    shared String->StringTemplate emptyPartsStringTemplate
+            = """"``0````0``""""->createStringTemplate(
+        StringLiteral(""),
+        integerLiteral._0IntegerLiteral.item,
+        StringLiteral(""),
+        integerLiteral._0IntegerLiteral.item,
+        StringLiteral("")
+    );
     
     // not tested directly, but used by other tests
     shared String->StringTemplate xyStringTemplate
@@ -45,5 +53,5 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
     compile = compileStringTemplate;
     fromCeylon = RedHatTransformer.transformStringTemplate;
     toCeylon = stringTemplateToCeylon;
-    codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate];
+    codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate, emptyPartsStringTemplate];
 }

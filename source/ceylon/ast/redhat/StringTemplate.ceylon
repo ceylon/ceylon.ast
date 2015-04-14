@@ -24,11 +24,11 @@ shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate) {
     assert (nonempty literals = CeylonIterable(stringTemplate.stringLiterals).collect((JStringLiteral element) {
                 value type = element.mainToken.type;
                 if (type == string_start) {
-                    return StringLiteral(element.text.size == 3 then "" else element.text[1 .. element.text.size - 3]);
+                    return StringLiteral(element.text[1 : element.text.size - 3]);
                 } else if (type == string_mid) {
-                    return StringLiteral(element.text.size == 4 then "" else element.text[2 .. element.text.size - 3]);
+                    return StringLiteral(element.text[2 : element.text.size - 4]);
                 } else if (type == string_end) {
-                    return StringLiteral(element.text.size == 3 then "" else element.text[2 .. element.text.size - 2]);
+                    return StringLiteral(element.text[2 : element.text.size - 3]);
                 } else {
                     throw AssertionError("Unexpected token type in string template");
                 }

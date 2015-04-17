@@ -125,7 +125,6 @@ import ceylon.ast.core {
     MeasureSubscript,
     MemberMeta,
     MemberNameWithTypeArguments,
-    MemberOperator,
     ModuleDec,
     MultiplyAssignmentOperation,
     NamedArguments,

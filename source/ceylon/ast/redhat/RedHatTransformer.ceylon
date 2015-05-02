@@ -2972,7 +2972,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JSwitchClause transformSwitchClause(SwitchClause that) {
         JSwitchClause ret = JSwitchClause(tokens.token("switch", switch_clause));
-        tokens.token("(", lparen);
+        ret.endToken = tokens.token("(", lparen);
         ret.switched = JSwitched(null);
         switch (switched = that.switched)
         case (is Expression) { ret.switched.expression = wrapTerm(transformExpression(switched)); }
@@ -2987,7 +2987,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             var.specifierExpression = transformSpecifier(switched.specifier);
             ret.switched.variable = var;
         }
-        tokens.token(")", rparen);
+        ret.endToken = tokens.token(")", rparen);
         return ret;
     }
     

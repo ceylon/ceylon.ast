@@ -22,7 +22,7 @@ import ceylon.interop.java {
  which include [[InferredTypeArguments|JInferredTypeArguments]];
  use [[anyTypeArgumentsToCeylon]] for that.)"
 shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments) {
-    assert (nonempty args = CeylonIterable(typeArguments.types).collect((JType jType) {
+    return TypeArguments(CeylonIterable(typeArguments.types).collect((JType jType) {
                 assert (is JStaticType jType);
                 value type = typeToCeylon(jType);
                 Variance? variance;
@@ -33,7 +33,6 @@ shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments) {
                 }
                 return TypeArgument(type, variance);
             }));
-    return TypeArguments(args);
 }
 
 "Converts RedHat AST [[TypeArguments|JTypeArguments]] to `ceylon.ast` [[TypeArguments]] or [[null]].

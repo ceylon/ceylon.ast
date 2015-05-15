@@ -3150,10 +3150,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JTypeArgumentList transformTypeArguments(TypeArguments that) {
         JTypeArgumentList ret = JTypeArgumentList(tokens.token("<", smaller_op));
-        ret.addType(transformTypeArgument(that.typeArguments.first));
-        for (typeArgument in that.typeArguments.rest) {
-            ret.endToken = tokens.token(",", comma);
-            ret.addType(transformTypeArgument(typeArgument));
+        if (exists firstTA = that.typeArguments.first) {
+            ret.addType(transformTypeArgument(firstTA));
+            for (typeArgument in that.typeArguments.rest) {
+                ret.endToken = tokens.token(",", comma);
+                ret.addType(transformTypeArgument(typeArgument));
+            }
         }
         ret.endToken = tokens.token(">", larger_op);
         return ret;

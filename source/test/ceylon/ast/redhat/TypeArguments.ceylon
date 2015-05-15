@@ -16,14 +16,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object typeArguments satisfies ConcreteTest<TypeArguments,JTypeArgumentList> {
     
-    String->TypeArguments construct(<String->Type>+ typeArguments)
+    String->TypeArguments construct(<String->Type>* typeArguments)
             => "<``",".join(typeArguments*.key)``>"->TypeArguments(typeArguments*.item.collect(TypeArgument));
     
     shared String->TypeArguments stringTypeArguments = construct(baseType.stringType);
     shared String->TypeArguments integerNothingTypeArguments = construct(baseType.integerType, baseType.nothingType);
+    shared String->TypeArguments emptyTypeArguments = construct();
     
     compile = compileTypeArguments;
     fromCeylon = RedHatTransformer.transformTypeArguments;
     toCeylon = typeArgumentsToCeylon;
-    codes = [stringTypeArguments];
+    codes = [stringTypeArguments, integerNothingTypeArguments, emptyTypeArguments];
 }

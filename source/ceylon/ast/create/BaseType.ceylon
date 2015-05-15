@@ -9,8 +9,12 @@ import ceylon.ast.core {
 """A utility function to create a [[BaseType]] directly from a string,
    without having to use [[TypeNameWithTypeArguments]] (a rather verbose name).
    
-   (The type arguments will all be invariant; if you want to use use-site variance,
-   you have to construct the [[TypeArgument]] objects yourself.)
+   This function is not suitable in all cases; if the following restrictions affect you,
+   you should instead use the regular constructors:
+   
+   - the type arguments will all be invariant, use-site variance is unavailable
+   - empty [[typeArguments]] mean the absence of a type argument list;
+     an empty but present [[type argument list|TypeArguments]] is unavailable
    
    Usage examples:
    

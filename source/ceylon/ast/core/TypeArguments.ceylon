@@ -1,19 +1,17 @@
-"A nonempty comma-separated list of type arguments, enclosed in angle brackets.
+"A comma-separated list of type arguments, enclosed in angle brackets.
  
  Examples:
  
      <String,Nothing>
-     <out Element>"
+     <out Element>
+     <>"
 shared class TypeArguments(typeArguments)
         extends TypeIsh() {
     
-    "The type arguments.
-     
-     (The restriction that the arguments must be nonempty
-     might be lifted in [ceylon-spec#791](https://github.com/ceylon/ceylon-spec/issues/791).)"
-    shared [TypeArgument+] typeArguments;
+    "The type arguments."
+    shared [TypeArgument*] typeArguments;
     
-    shared actual [TypeArgument+] children = typeArguments;
+    shared actual [TypeArgument*] children = typeArguments;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeArguments(this);
@@ -29,7 +27,7 @@ shared class TypeArguments(typeArguments)
     shared actual Integer hash
             => 31 * typeArguments.hash;
     
-    shared TypeArguments copy([TypeArgument+] typeArguments = this.typeArguments) {
+    shared TypeArguments copy([TypeArgument*] typeArguments = this.typeArguments) {
         value ret = TypeArguments(typeArguments);
         copyExtraInfoTo(ret);
         return ret;

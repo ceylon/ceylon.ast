@@ -44,7 +44,7 @@ import ceylon.interop.java {
 import com.redhat.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
-import com.redhat.ceylon.compiler.typechecker.analyzer {
+import com.redhat.ceylon.model.typechecker.util {
     ModuleManager
 }
 
@@ -163,11 +163,12 @@ shared void powerOfTwo() {
     
     TypeChecker tc = TypeCheckerBuilder().typeChecker;
     value context = tc.context;
-    value moduleManager = ModuleManager(context);
-    moduleManager.initCoreModules();
-    value turingMachinePU = PhasedUnit(turingMachineFile, srcDir, turingMachineRH, moduleManager.currentPackage, moduleManager, context, null);
-    value goodDriverPU = PhasedUnit(goodDriverFile, srcDir, goodDriverRH, moduleManager.currentPackage, moduleManager, context, null);
-    value badDriverPU = PhasedUnit(badDriverFile, srcDir, badDriverRH, moduleManager.currentPackage, moduleManager, context, null);
+    value moduleManager = ModuleManager();
+    moduleManager.initCoreModules(context.modules);
+    value pkg = context.modules.defaultModule.allVisiblePackages.get(0);
+    value turingMachinePU = PhasedUnit(turingMachineFile, srcDir, turingMachineRH, pkg, moduleManager, null, context, null);
+    value goodDriverPU = PhasedUnit(goodDriverFile, srcDir, goodDriverRH, pkg, moduleManager, null, context, null);
+    value badDriverPU = PhasedUnit(badDriverFile, srcDir, badDriverRH, pkg, moduleManager, null, context, null);
     tc.phasedUnits.addPhasedUnit(turingMachineFile, turingMachinePU);
     tc.phasedUnits.addPhasedUnit(goodDriverFile, goodDriverPU);
     tc.phasedUnits.addPhasedUnit(badDriverFile, badDriverPU);

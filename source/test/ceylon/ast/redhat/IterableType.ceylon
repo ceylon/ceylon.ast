@@ -20,7 +20,6 @@ shared object iterableType satisfies ConcreteTest<IterableType,JIterableType> {
     
     shared String->IterableType stringStarIterableType = construct(variadicType.stringStarType);
     shared String->IterableType iterableOfStringPlusIterableType = construct(variadicType.iterableOfStringPlusType);
-    shared String->IterableType emptyIterableType = "{}"->IterableType(null);
     
     // not tested directly, but used by other tests
     shared String->IterableType characterStarIterableType = construct(variadicType.characterStarType);
@@ -28,5 +27,5 @@ shared object iterableType satisfies ConcreteTest<IterableType,JIterableType> {
     compile = compileIterableType;
     fromCeylon = RedHatTransformer.transformIterableType;
     toCeylon = iterableTypeToCeylon;
-    codes = [stringStarIterableType, iterableOfStringPlusIterableType, emptyIterableType];
+    codes = [stringStarIterableType, iterableOfStringPlusIterableType];
 }

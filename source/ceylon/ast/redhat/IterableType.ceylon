@@ -10,12 +10,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[IterableType|JIterableType]] to a `ceylon.ast` [[IterableType]]."
 shared IterableType iterableTypeToCeylon(JIterableType iterableType) {
-    if (exists elemType = iterableType.elementType) {
-        assert (is VariadicType varType = typeIshToCeylon(elemType));
-        return IterableType(varType);
-    } else {
-        return IterableType(null);
-    }
+    assert (exists elemType = iterableType.elementType, is VariadicType varType = typeIshToCeylon(elemType));
+    return IterableType(varType);
 }
 
 "Compiles the given [[code]] for an Iterable Type

@@ -1975,9 +1975,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JIterableType transformIterableType(IterableType that) {
         JIterableType ret = JIterableType(tokens.token("{", lbrace));
-        if (exists varType = that.variadicType) {
-            ret.elementType = transformVariadicType(varType);
-        }
+        ret.elementType = transformVariadicType(that.variadicType);
         ret.endToken = tokens.token("}", rbrace);
         return ret;
     }

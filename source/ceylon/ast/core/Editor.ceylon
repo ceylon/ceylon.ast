@@ -436,13 +436,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformType(that.type));
     shared actual default IsCondition transformIsCondition(IsCondition that)
             => that.copy(transformTypedVariable(that.variable), that.negated);
-    shared actual default IterableType transformIterableType(IterableType that) {
-        if (exists variadicType = that.variadicType) {
-            return that.copy(transformVariadicType(variadicType));
-        } else {
-            return that.copy(null);
-        }
-    }
+    shared actual default IterableType transformIterableType(IterableType that)
+            => that.copy(transformVariadicType(that.variadicType));
     shared actual default IsOperation transformIsOperation(IsOperation that)
             => that.copy(transformExistsNonemptyExpression(that.operand), transformType(that.type));
     shared actual default Iterable transformIterable(Iterable that)

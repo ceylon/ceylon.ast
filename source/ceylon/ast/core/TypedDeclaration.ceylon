@@ -11,6 +11,8 @@ shared abstract class TypedDeclaration()
         of AnyValue | AnyFunction
         extends Declaration() {
     
+    "The name of the declaration."
+    shared actual formal MemberName name;
     "The type of the declaration, or a
      modifier indicating type inference."
     shared formal Type|VariadicType|TypeModifier type;

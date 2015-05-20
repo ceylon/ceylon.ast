@@ -138,6 +138,7 @@ shared void powerOfTwo() {
         shared actual InputStream? inputStream => null;
         shared actual String name => "turingMachine.ceylon";
         shared actual String path => "synthetic/turingMachine.ceylon";
+        shared actual Integer compareTo(VirtualFile other) => 0;
     }
     object goodDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
@@ -145,6 +146,7 @@ shared void powerOfTwo() {
         shared actual InputStream? inputStream => null;
         shared actual String name => "goodDriver.ceylon";
         shared actual String path => "synthetic/goodDriver.ceylon";
+        shared actual Integer compareTo(VirtualFile other) => 0;
     }
     object badDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
@@ -152,6 +154,7 @@ shared void powerOfTwo() {
         shared actual InputStream? inputStream => null;
         shared actual String name => "badDriver.ceylon";
         shared actual String path => "synthetic/badDriver.ceylon";
+        shared actual Integer compareTo(VirtualFile other) => 0;
     }
     object srcDir satisfies VirtualFile {
         shared actual List<VirtualFile>? children => JavaList<VirtualFile>([turingMachineFile, goodDriverFile, badDriverFile]);
@@ -159,6 +162,7 @@ shared void powerOfTwo() {
         shared actual InputStream? inputStream => null;
         shared actual String name => "synthetic";
         shared actual String path => "synthetic";
+        shared actual Integer compareTo(VirtualFile other) => 0;
     }
     
     TypeChecker tc = TypeCheckerBuilder().typeChecker;

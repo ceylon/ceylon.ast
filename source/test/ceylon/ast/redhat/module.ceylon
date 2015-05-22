@@ -54,6 +54,7 @@
    ~~~"""
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
+native ("jvm")
 module test.ceylon.ast.redhat "1.1.1" {
     shared import ceylon.test "1.1.1";
     shared import ceylon.ast.redhat "1.1.1";

@@ -1,5 +1,6 @@
 "“Big picture” tests for [[`ceylon.ast`|module ceylon.ast.core]],
  using the [[samples|module ceylon.ast.samples]]."
+native ("jvm")
 module test.ceylon.ast.samples "1.1.1" {
     shared import ceylon.test "1.1.1";
     import ceylon.ast.core "1.1.1";

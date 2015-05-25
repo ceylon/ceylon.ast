@@ -14,6 +14,20 @@ import ceylon.ast.samples.completeCompilationUnit {
 }
 
 "Tests that [[CeylonExpressionTransformer]] returns a valid expression."
+native
+test
+shared void testCeylonExpressionTransformer();
+
+native ("js")
+test
+shared void testCeylonExpressionTransformer() {
+    // weak test: test only that it doesn’t crash
+    completeCompilationUnit.transform(CeylonExpressionTransformer());
+    // TODO: should eventually be possible on JS backend as well;
+    // see ceylon/ceylon-sdk#239
+}
+
+native ("jvm")
 test
 shared void testCeylonExpressionTransformer() {
     assert (is File completeCUFile = parsePath("source/ceylon/ast/samples/completeCompilationUnit/completeCompilationUnit.ceylon").resource);

@@ -215,7 +215,7 @@ shared void powerOfTwo() {
         };
         // the expected err line is ~1800 chars long, we’re not going to compare that :D
         assert (errSb.string.startsWith("error [specified expression must be assignable to declared type of 'accept':"));
-        assert (errSb.string.contains("is not assignable to 'Accept']"));
+        assert (errSb.string.contains("is not assignable to 'Accept'"));
     } finally {
         System.setOut(sysOut);
         System.setErr(sysErr);

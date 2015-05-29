@@ -27,61 +27,47 @@
     
     <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
     
-    <moduleset id="modules.source.core">
+    <moduleset id="modules.source.ceylon">
         <module name="ceylon.ast.core"/> 
-    </moduleset>
-    
-    <moduleset id="modules.source.create">
         <module name="ceylon.ast.create"/> 
-    </moduleset>
-    
-    <moduleset id="modules.source.redhat">
-        <module name="ceylon.ast.redhat"/> 
-    </moduleset>
-    
-    <moduleset id="modules.source.samples">
         <module name="ceylon.ast.samples"/> 
     </moduleset>
-    
-    <moduleset id="modules.source">
-        <moduleset refid="modules.source.core"/>
-        <moduleset refid="modules.source.create"/>
-        <moduleset refid="modules.source.redhat"/>
-        <moduleset refid="modules.source.samples"/>
+    <moduleset id="modules.source.jvm">
+        <moduleset refid="modules.source.ceylon"/> 
+        <module name="ceylon.ast.redhat"/> 
+    </moduleset>
+    <moduleset id="modules.source.js">
+        <moduleset refid="modules.source.ceylon"/> 
+    </moduleset>
+    <moduleset id="modules.source.all">
+        <moduleset refid="modules.source.jvm"/> 
+        <moduleset refid="modules.source.js"/> 
     </moduleset>
     
-    <moduleset id="modules.js">
-        <moduleset refid="modules.source.core"/>
-        <moduleset refid="modules.source.create"/>
-        <moduleset refid="modules.source.samples"/>
-    </moduleset>
-    
-    <moduleset id="modules.test.core">
+    <moduleset id="modules.test.ceylon">
         <module name="test.ceylon.ast.core"/> 
-    </moduleset>
-    
-    <moduleset id="modules.test.create">
         <module name="test.ceylon.ast.create"/> 
     </moduleset>
-    
-    <moduleset id="modules.test.redhat">
+    <moduleset id="modules.test.jvm">
+        <moduleset refid="modules.test.ceylon"/>
         <module name="test.ceylon.ast.redhat"/> 
-    </moduleset>
-    
-    <moduleset id="modules.test.samples">
         <module name="test.ceylon.ast.samples"/> 
     </moduleset>
-    
-    <moduleset id="modules.test">
-        <moduleset refid="modules.test.core"/>
-        <moduleset refid="modules.test.create"/>
-        <moduleset refid="modules.test.redhat"/>
-        <moduleset refid="modules.test.samples"/>
+    <moduleset id="modules.test.js">
+        <moduleset refid="modules.test.ceylon"/>
     </moduleset>
     
-    <moduleset id="modules.all">
-        <moduleset refid="modules.source"/>
-        <moduleset refid="modules.test"/>
+    <moduleset id="modules.all.ceylon">
+        <moduleset refid="modules.source.ceylon"/>
+        <moduleset refid="modules.test.ceylon"/>
+    </moduleset>
+    <moduleset id="modules.all.jvm">
+        <moduleset refid="modules.source.jvm"/>
+        <moduleset refid="modules.test.jvm"/>
+    </moduleset>
+    <moduleset id="modules.all.js">
+        <moduleset refid="modules.source.js"/>
+        <moduleset refid="modules.test.js"/>
     </moduleset>
     
     <moduleset id="modules.source-gen">
@@ -93,127 +79,72 @@
         <delete dir="${out.repo}"/>
     </target>
 
-    <target name="compile-core"
-            description="Compiles the Ceylon AST core module">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.source.core"/>
-        </ceylon-compile>
-    </target>
-
-    <target name="compile-create" depends="compile-core"
-            description="Compiles the Ceylon AST creation utilities module">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.source.create"/>
-        </ceylon-compile>
-    </target>
-
-    <target name="compile-redhat" depends="compile-core"
-            description="Compiles the Ceylon AST RedHat backend module">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.source.redhat"/>
-        </ceylon-compile>
-    </target>
-
-    <target name="compile-samples" depends="compile-core,compile-create"
-            description="Compiles the Ceylon AST samples module">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.source.samples"/>
-        </ceylon-compile>
-    </target>
-
-    <target name="compile-source"
-            description="Compiles the Ceylon AST modules">
-         <!-- not depends="compile-core,compile-redhat,compile-samples" because it's faster to compile in one go -->
+    <target name="compile-source-jvm"
+            description="Compiles the Ceylon AST modules for the JVM backend">
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
             out="${out.repo}"
             pack200="true"> 
-            <moduleset refid="modules.source"/>
+            <moduleset refid="modules.source.jvm"/>
         </ceylon-compile>
     </target>
 
-    <target name="compile-test-core" depends="compile-core"
-            description="Compiles the Ceylon AST core test module">
-        <ceylon-compile executable="${ceylon.executable}"
+    <target name="compile-source-js"
+            description="Compiles the Ceylon AST modules for the JS backend">
+        <ceylon-compile-js executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.test.core"/>
-        </ceylon-compile>
+            out="${out.repo}"> 
+            <moduleset refid="modules.source.js"/>
+        </ceylon-compile-js>
     </target>
-
-    <target name="compile-test-create" depends="compile-create"
-            description="Compiles the Ceylon AST creation utilities test module">
+    
+    <target name="compile-test-jvm" depends="compile-source-jvm"
+        description="Compiles the Ceylon AST test modules for the JVM backend">
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
             out="${out.repo}"
             pack200="true">
-            <moduleset refid="modules.test.core"/>
-        </ceylon-compile>
-    </target>
-
-    <target name="compile-test-redhat" depends="compile-redhat,compile-test-create"
-            description="Compiles the Ceylon AST RedHat backend test module">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.test.redhat"/>
+            <moduleset refid="modules.test.jvm"/>
         </ceylon-compile>
     </target>
     
-    <target name="compile-test-samples" depends="compile-samples"
-            description="Compiles the Ceylon AST samples test module">
+    <target name="compile-test-js" depends="compile-source-js"
+        description="Compiles the Ceylon AST test modules for the JS backend">
+        <ceylon-compile-js executable="${ceylon.executable}"
+            verbose="${ceylon.verbosity}"
+            encoding="UTF-8"
+            out="${out.repo}"
+            pack200="true">
+            <moduleset refid="modules.test.js"/>
+        </ceylon-compile-js>
+    </target>
+    
+    <target name="compile-jvm"
+        description="Compiles all the Ceylon AST modules for the JVM backend">
         <ceylon-compile executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
             out="${out.repo}"
             pack200="true">
-            <moduleset refid="modules.test.samples"/>
+            <moduleset refid="modules.all.jvm"/>
         </ceylon-compile>
     </target>
     
-    <target name="compile-test" depends="compile-source"
-        description="Compiles the Ceylon AST test modules">
-        <ceylon-compile executable="${ceylon.executable}"
+    <target name="compile-js"
+        description="Compiles all the Ceylon AST modules for the JS backend">
+        <ceylon-compile-js executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.test"/>
-        </ceylon-compile>
+            out="${out.repo}">
+            <moduleset refid="modules.all.js"/>
+        </ceylon-compile-js>
     </target>
     
-    <target name="compile"
-        description="Compiles all the Ceylon AST modules">
-        <ceylon-compile executable="${ceylon.executable}"
-            verbose="${ceylon.verbosity}"
-            encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
-            <moduleset refid="modules.all"/>
-        </ceylon-compile>
-    </target>
+    <target name="compile" depends="compile-jvm,compile-js"
+        description="Compiles all the Ceylon AST modules"/>
     
     <target name="compile-source-gen"
         description="Compiles the Ceylon AST source-gen module">
@@ -227,52 +158,33 @@
         </ceylon-compile>
     </target>
     
-    <target name="csg"
-        description="A shortcut for compile-source-gen"
-        depends="compile-source-gen"/>
+    <target name="csg" depends="compile-source-gen"
+        description="A shortcut for compile-source-gen"/>
     
-    <target name="test-core" depends="compile-test-core"
-        description="Tests the Ceylon AST core">
+    <target name="test-jvm" depends="compile-jvm"
+        description="Tests all the Ceylon AST modules for the JVM backend">
         <ceylon-test>
-            <moduleset refid="modules.test.core"/>
+            <moduleset refid="modules.test.jvm"/>
         </ceylon-test>
     </target>
+
+    <target name="test-js" depends="compile-js"
+        description="Tests all the Ceylon AST modules for the JS backend">
+        <ceylon-test-js>
+            <moduleset refid="modules.test.js"/>
+        </ceylon-test-js>
+    </target>
+
+    <target name="test" depends="test-jvm,test-js"
+        description="Test all the Ceylon AST modules"/>
     
-    <target name="test-create" depends="compile-test-create"
-        description="Tests the Ceylon AST creation utilities">
-        <ceylon-test>
-            <moduleset refid="modules.test.create"/>
-        </ceylon-test>
-    </target>
-        
-    <target name="test-redhat" depends="compile-test-redhat"
-        description="Tests the Ceylon AST RedHat backend">
-        <ceylon-test>
-            <moduleset refid="modules.test.redhat"/>
-        </ceylon-test>
-    </target>
-
-    <target name="test-samples" depends="compile-test-samples"
-        description="Tests the Ceylon AST samples">
-        <ceylon-test>
-            <moduleset refid="modules.test.samples"/>
-        </ceylon-test>
-    </target>
-
-    <target name="test" depends="compile"
-        description="Tests all of the Ceylon AST project">
-        <ceylon-test>
-            <moduleset refid="modules.test"/>
-        </ceylon-test>
-    </target>
-
     <target name="doc" 
             description="Documents the Ceylon AST modules">
         <ceylon-doc executable="${ceylon.executable}"
             includesourcecode="true"
             nomtimecheck="true"
             encoding="UTF-8">
-            <moduleset refid="modules.source"/>
+            <moduleset refid="modules.source.all"/>
             <linkset>
                 <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
             </linkset>
@@ -280,14 +192,26 @@
         
     </target>
 
-    <target name="publish" depends="compile-source"
-            description="Copies the Ceylon AST modules to the user's repository">
+    <target name="publish-jvm" depends="compile-source-jvm"
+        description="Copies the Ceylon AST modules for the JVM backend to the user's repository">
         <copy todir="${ceylon.repo.dir}" overwrite="true">
             <fileset dir="${out.repo}">
                 <include name="ceylon/ast/**"/>
             </fileset>
         </copy>
     </target>
+
+    <target name="publish-js" depends="compile-source-js"
+        description="Copies the Ceylon AST modules for the JS backend to the user's repository">
+        <copy todir="${ceylon.repo.dir}" overwrite="true">
+            <fileset dir="${out.repo}">
+                <include name="ceylon/ast/**"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="publish" depends="publish-jvm,publish-js"
+        description="Copies the Ceylon AST modules to the user's repository"/>
 
     <target name="publish-herd">
         <fail message="Please specify a target Herd upload repo url with -Dherd.repo=..." unless="herd.repo"/>
@@ -300,7 +224,7 @@
             user="${herd.user}"
             pass="${herd.pass}"
             encoding="UTF-8">
-            <moduleset refid="modules.source"/>
+            <moduleset refid="modules.source.jvm"/>
         </ceylon-compile>
         
         <ceylon-compile-js executable="${ceylon.executable}"
@@ -309,7 +233,7 @@
             user="${herd.user}"
             pass="${herd.pass}"
             encoding="UTF-8">
-            <moduleset refid="modules.js"/>
+            <moduleset refid="modules.source.js"/>
         </ceylon-compile-js>
         
         <ceylon-doc executable="${ceylon.executable}"
@@ -319,7 +243,7 @@
             user="${herd.user}"
             pass="${herd.pass}"
             encoding="UTF-8">
-            <moduleset refid="modules.source"/>
+            <moduleset refid="modules.source.all"/>
             <linkset>
                 <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
             </linkset>
@@ -364,7 +288,7 @@
         </delete>
     </target>
 
-    <target name="coverage-test" depends="compile"
+    <target name="coverage-test" depends="compile-jvm"
             description="Runs the tests with JaCoCo attached">
         <fail message="JaCoCo agent not found; try running ‘ant coverage-install’.">
             <condition>

@@ -1,12 +1,16 @@
 import ceylon.ast.core {
     Annotations,
     CallableParameter,
+    DynamicModifier,
+    FunctionModifier,
     Type,
     VoidModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
+        JDynamicModifier=DynamicModifier,
         JFunctionalParameterDeclaration=FunctionalParameterDeclaration,
+        JFunctionModifier=FunctionModifier,
         JMethodDeclaration=MethodDeclaration,
         JStaticType=StaticType,
         JVoidModifier=VoidModifier
@@ -19,11 +23,13 @@ import ceylon.interop.java {
 "Converts a RedHat AST [[FunctionalParameterDeclaration|JFunctionalParameterDeclaration]] to a `ceylon.ast` [[CallableParameter]]."
 shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclaration callableParameter) {
     assert (is JMethodDeclaration dec = callableParameter.typedDeclaration);
-    assert (is JStaticType|JVoidModifier jType = dec.type);
-    Type|VoidModifier type;
+    assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = dec.type);
+    Type|VoidModifier|FunctionModifier|DynamicModifier type;
     switch (jType)
     case (is JStaticType) { type = typeToCeylon(jType); }
     case (is JVoidModifier) { type = voidModifierToCeylon(jType); }
+    case (is JFunctionModifier) { type = functionModifierToCeylon(jType); }
+    case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType); }
     assert (nonempty parameterLists = CeylonIterable(dec.parameterLists).collect(parametersToCeylon));
     return CallableParameter {
         type;

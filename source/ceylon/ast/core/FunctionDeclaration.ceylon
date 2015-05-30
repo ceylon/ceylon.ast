@@ -22,9 +22,11 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters = nu
      
      This can be:
      - a [[Type]],
-     - a [[‘`void`’ modifier|VoidModifier]] for a function that does not return a value, or
+     - a [[‘`void`’ modifier|VoidModifier]] for a function that does not return a value,
+     - a [[‘`function`’ modifier|FunctionModifier]] for a function with inferred return type
+       (which is illegal for declarations without definition, but not a syntactic restriction), or
      - a [[‘`dynamic`’ modifier|DynamicModifier]] for a dynamically typed function."
-    shared actual Type|DynamicModifier|VoidModifier type;
+    shared actual Type|VoidModifier|FunctionModifier|DynamicModifier type;
     shared actual [Parameters+] parameterLists;
     shared actual TypeParameters? typeParameters;
     shared actual TypeConstraint[] typeConstraints;
@@ -32,7 +34,7 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters = nu
     "A function declaration has no definition."
     shared actual Null definition = null;
     
-    shared actual [Annotations, Type|DynamicModifier|VoidModifier, LIdentifier, TypeParameters|Parameters|TypeConstraint*] children
+    shared actual [Annotations, Type|VoidModifier|FunctionModifier|DynamicModifier, LIdentifier, TypeParameters|Parameters|TypeConstraint*] children
             = [annotations, type, name, *concatenate(emptyOrSingleton(typeParameters), parameterLists, typeConstraints)];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -60,7 +62,7 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters = nu
     shared actual Integer hash
             => 31 * (name.hash + 31 * (type.hash + 31 * (parameterLists.hash + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash)))));
     
-    shared FunctionDeclaration copy(MemberName name = this.name, Type|DynamicModifier|VoidModifier type = this.type, [Parameters+] parameterLists = this.parameterLists, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
+    shared FunctionDeclaration copy(MemberName name = this.name, Type|VoidModifier|FunctionModifier|DynamicModifier type = this.type, [Parameters+] parameterLists = this.parameterLists, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = FunctionDeclaration(name, type, parameterLists, typeParameters, typeConstraints, annotations);
         copyExtraInfoTo(ret);
         return ret;

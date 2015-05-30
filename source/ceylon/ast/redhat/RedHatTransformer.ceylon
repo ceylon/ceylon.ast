@@ -774,8 +774,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         dec.annotationList = transformAnnotations(that.annotations);
         value type = that.type;
         switch (type)
-        case (is Type) { dec.type = transformType(type); }
-        case (is VoidModifier) { dec.type = transformVoidModifier(type); }
+        case (is Type) {
+            dec.type = transformType(type);
+        }
+        case (is VoidModifier) {
+            dec.type = transformVoidModifier(type);
+        }
+        case (is FunctionModifier) {
+            dec.type = transformFunctionModifier(type);
+        }
+        case (is DynamicModifier) {
+            dec.type = transformDynamicModifier(type);
+        }
         dec.identifier = transformLIdentifier(that.name);
         for (parameters in that.parameterLists) {
             dec.addParameterList(transformParameters(parameters));
@@ -1462,7 +1472,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JMethodDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
         value annotationList = transformAnnotations(that.annotations);
-        JStaticType|JVoidModifier|JDynamicModifier jType;
+        JStaticType|JVoidModifier|JFunctionModifier|JDynamicModifier jType;
         JMethodDeclaration ret;
         value type = that.type;
         switch (type)
@@ -1472,6 +1482,10 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
         case (is VoidModifier) {
             jType = transformVoidModifier(type);
+            ret = JMethodDeclaration(jType.mainToken);
+        }
+        case (is FunctionModifier) {
+            jType = transformFunctionModifier(type);
             ret = JMethodDeclaration(jType.mainToken);
         }
         case (is DynamicModifier) {

@@ -131,14 +131,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Break transformBreak(Break that)
             => that.copy();
-    shared actual default CallableParameter transformCallableParameter(CallableParameter that) {
-        Type|VoidModifier transformTypeOrVoidModifier(Type|VoidModifier that) {
-            switch (that)
-            case (is Type) { return transformType(that); }
-            case (is VoidModifier) { return transformVoidModifier(that); }
-        }
-        return that.copy(transformTypeOrVoidModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters), transformAnnotations(that.annotations));
-    }
+    shared actual default CallableParameter transformCallableParameter(CallableParameter that)
+            => that.copy(transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters), transformAnnotations(that.annotations));
     shared actual default CallableType transformCallableType(CallableType that)
             => that.copy(transformPrimaryType(that.returnType), transformTypeListOrSpreadType(that.argumentTypes));
     shared actual default CaseClause transformCaseClause(CaseClause that)
@@ -331,15 +325,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformLazySpecifierOrBlock(that.definition));
     shared actual default FunctionDec transformFunctionDec(FunctionDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
-    shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that) {
-        Type|DynamicModifier|VoidModifier transformTypeOrDynamicModifierOrVoidModifier(Type|DynamicModifier|VoidModifier that) {
-            switch (that)
-            case (is Type) { return transformType(that); }
-            case (is DynamicModifier) { return transformDynamicModifier(that); }
-            case (is VoidModifier) { return transformVoidModifier(that); }
-        }
-        return that.copy(transformLIdentifier(that.name), transformTypeOrDynamicModifierOrVoidModifier(that.type), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    }
+    shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default FunctionDefinition transformFunctionDefinition(FunctionDefinition that) {
         return that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformBlock(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     }

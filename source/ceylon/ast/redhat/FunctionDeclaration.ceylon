@@ -5,6 +5,7 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JDynamicModifier=DynamicModifier,
+        JFunctionModifier=FunctionModifier,
         JMethodDeclaration=MethodDeclaration,
         JStaticType=StaticType,
         JVoidModifier=VoidModifier
@@ -21,10 +22,11 @@ shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functi
     return FunctionDeclaration {
         name = lIdentifierToCeylon(functionDeclaration.identifier);
         value type {
-            assert (is JStaticType|JVoidModifier|JDynamicModifier jType = functionDeclaration.type);
+            assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDeclaration.type);
             switch (jType)
             case (is JStaticType) { return typeToCeylon(jType); }
             case (is JVoidModifier) { return voidModifierToCeylon(jType); }
+            case (is JFunctionModifier) { return functionModifierToCeylon(jType); }
             case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
         }
         value parameterLists {

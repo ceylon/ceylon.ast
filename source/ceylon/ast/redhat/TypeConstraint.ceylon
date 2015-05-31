@@ -11,8 +11,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[TypeConstraint|JTypeConstraint]] to a `ceylon.ast` [[TypeConstraint]]."
 shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint) {
-    "Type parameters with possible instantiation not supported"
-    assert (!typeConstraint.parameterList exists);
     "Lower bound type constraint not supported"
     assert (!typeConstraint.abstractedType exists);
     CaseTypes? caseTypes;
@@ -39,7 +37,6 @@ shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint) {
  (more specifically, the rule for a `typeConstraint`)."
 shared TypeConstraint? compileTypeConstraint(String code) {
     if (exists jTypeConstraint = createParser(code).typeConstraint(),
-        !jTypeConstraint.parameterList exists,
         !jTypeConstraint.abstractedType exists) {
         return typeConstraintToCeylon(jTypeConstraint);
     } else {

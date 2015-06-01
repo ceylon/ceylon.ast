@@ -66,6 +66,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType retType = construct("Ret");
     shared String->BaseType argsType = construct("Args");
     shared String->BaseType systemObjectType = constructO("system");
+    shared String->BaseType booleanType = construct("Boolean");
     
     compile = compileBaseType;
     fromCeylon = RedHatTransformer.transformBaseType;

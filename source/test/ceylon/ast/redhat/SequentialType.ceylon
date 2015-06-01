@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    IntegerLiteral,
     PrimaryType,
     SequentialType
 }
@@ -15,14 +16,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object sequentialType satisfies ConcreteTest<SequentialType,JSequenceType> {
     
-    String->SequentialType construct(String->PrimaryType elem)
-            => "``elem.key``[]"->SequentialType(elem.item);
+    String->SequentialType construct(String->PrimaryType elem, <String->IntegerLiteral>? length = null)
+            => "``elem.key``[`` length?.key else "" ``]"->SequentialType(elem.item, length?.item);
     
     shared String->SequentialType stringSequentialType = construct(baseType.stringType);
     shared String->SequentialType iterableOfStringSequentialType = construct(baseType.iterableOfStringType);
+    shared String->SequentialType byteSequentialType = construct(baseType.booleanType, integerLiteral._8IntegerLiteral);
     
     compile = compileSequentialType;
     fromCeylon = RedHatTransformer.transformSequentialType;
     toCeylon = sequentialTypeToCeylon;
-    codes = [stringSequentialType, iterableOfStringSequentialType];
+    codes = [stringSequentialType, iterableOfStringSequentialType, byteSequentialType];
 }

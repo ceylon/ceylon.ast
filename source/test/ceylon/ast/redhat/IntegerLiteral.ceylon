@@ -26,6 +26,7 @@ shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiter
     shared String->IntegerLiteral oneIntegerLiteral = construct("1");
     shared String->IntegerLiteral _0IntegerLiteral = construct("0");
     shared String->IntegerLiteral _2IntegerLiteral = construct("2");
+    shared String->IntegerLiteral _8IntegerLiteral = construct("8");
     
     compile = compileIntegerLiteral;
     fromCeylon = RedHatTransformer.transformIntegerLiteral;

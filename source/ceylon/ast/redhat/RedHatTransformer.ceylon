@@ -2776,6 +2776,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JSequenceType ret = JSequenceType(null);
         ret.elementType = transformPrimaryType(that.elementType);
         ret.endToken = tokens.token("[", lbracket); // unreachable, but we need to have it in the token stream
+        if (exists length = that.length) {
+            ret.length = transformIntegerLiteral(length);
+        }
         ret.endToken = tokens.token("]", rbracket);
         return ret;
     }

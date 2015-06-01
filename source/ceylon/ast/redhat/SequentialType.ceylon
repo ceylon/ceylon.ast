@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SequenceType|JSequenceType]] to a `ceylon.ast` [[SequentialType]]."
 shared SequentialType sequentialTypeToCeylon(JSequenceType sequentialType) {
     assert (is PrimaryType element = typeToCeylon(sequentialType.elementType));
-    return SequentialType(element);
+    return SequentialType(element, if (exists jLength = sequentialType.length) then integerLiteralToCeylon(jLength) else null);
 }
 
 "Compiles the given [[code]] for a Sequential Type

@@ -6,7 +6,7 @@
 shared abstract class TypeIsh()
         of Type | NameWithTypeArguments | VariadicType | DefaultedType | TypeList | SpreadType | TypeArgument | TypeArguments | PackageQualifier
         extends Node() {
-    shared actual formal <TypeIsh|Identifier|Variance>[] children;
+    shared actual formal <TypeIsh|Identifier|Variance|IntegerLiteral>[] children;
 }
 
 "Representation of a type."
@@ -14,7 +14,7 @@ shared abstract class Type()
         of MainType | EntryType
         extends TypeIsh() {
     
-    shared actual formal TypeIsh[] children;
+    shared actual formal <TypeIsh|IntegerLiteral>[] children;
     
     "Tests for equality of two type nodes.
      

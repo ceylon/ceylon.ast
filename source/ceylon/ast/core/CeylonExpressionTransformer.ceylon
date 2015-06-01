@@ -754,7 +754,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``factor = ``transformWithIndent(that.factor)``;
                 `` indent + indentLevel ``scalable = ``transformWithIndent(that.scalable)``;
                 ``indent``}";
-    transformSequentialType(SequentialType that) => "SequentialType(``transformWithIndent(that.elementType)``)";
+    transformSequentialType(SequentialType that)
+            => that.length exists
+            then "SequentialType(``transformWithIndent(that.elementType)``, ``transformWithIndent(that.length)``)"
+            else "SequentialType(``transformWithIndent(that.elementType)``)";
     transformSmallAsOperation(SmallAsOperation that)
             => "SmallAsOperation {
                 `` indent + indentLevel ``leftOperand = ``transformWithIndent(that.leftOperand)``;

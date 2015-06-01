@@ -733,7 +733,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default SequentialType transformSequentialType(SequentialType that)
-            => that.copy(transformPrimaryType(that.elementType));
+            => that.copy(transformPrimaryType(that.elementType), nullsafeInvoke(that.length, transformIntegerLiteral));
     shared actual default SetAssignmentOperation transformSetAssignmentOperation(SetAssignmentOperation that) {
         assert (is SetAssignmentOperation ret = super.transformSetAssignmentOperation(that));
         return ret;

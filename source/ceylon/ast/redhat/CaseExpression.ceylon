@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CaseClause|JCaseClause]] to a `ceylon.ast` [[CaseExpression]]."
-CaseExpression caseExpressionToCeylon(JCaseClause caseExpression)
+shared CaseExpression caseExpressionToCeylon(JCaseClause caseExpression)
         => CaseExpression {
     caseItem = caseItemToCeylon(caseExpression.caseItem);
     value expression {

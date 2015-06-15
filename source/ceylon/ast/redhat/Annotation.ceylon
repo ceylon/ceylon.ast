@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     Annotation,
-    Arguments
+    Arguments,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAnnotation=Annotation,
         JBaseMemberExpression=BaseMemberExpression,
@@ -11,23 +13,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Annotation|JAnnotation]] to a `ceylon.ast` [[Annotation]]."
-shared Annotation annotationToCeylon(JAnnotation annotation) {
+shared Annotation annotationToCeylon(JAnnotation annotation, Anything(JNode,Node) update = noop) {
     // Note: JAnnotation is a subclass of JInvocationExpression
     assert (is JBaseMemberExpression bme = annotation.primary);
     "Must not have type arguments"
     assert (bme.typeArguments is JInferredTypeArguments?);
-    value name = aIdentifierToCeylon(bme.identifier);
+    value name = aIdentifierToCeylon(bme.identifier, update);
     Arguments? arguments;
     if (exists positionalArgs = annotation.positionalArgumentList) {
         if (positionalArgs.mainToken exists) {
             // it’s a real argument list
-            arguments = positionalArgumentsToCeylon(positionalArgs);
+            arguments = positionalArgumentsToCeylon(positionalArgs, update);
         } else {
             // faked argument list
             arguments = null;
         }
     } else if (exists namedArgs = annotation.namedArgumentList) {
-        arguments = namedArgumentsToCeylon(namedArgs);
+        arguments = namedArgumentsToCeylon(namedArgs, update);
     } else {
         /*
          Note: The RedHat compiler never produces this
@@ -37,15 +39,17 @@ shared Annotation annotationToCeylon(JAnnotation annotation) {
          */
         arguments = null;
     }
-    return Annotation(name, arguments);
+    value result = Annotation(name, arguments);
+    update(annotation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Annotation
  into an [[Annotation]] using the Ceylon compiler
  (more specifically, the rule for an `annotation`)."
-shared Annotation? compileAnnotation(String code) {
+shared Annotation? compileAnnotation(String code, Anything(JNode,Node) update = noop) {
     if (exists jAnnotation = createParser(code).annotation()) {
-        return annotationToCeylon(jAnnotation);
+        return annotationToCeylon(jAnnotation, update);
     } else {
         return null;
     }

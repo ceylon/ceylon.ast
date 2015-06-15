@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     Specifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JLazySpecifierExpression=LazySpecifierExpression,
         JSpecifierExpression=SpecifierExpression
@@ -14,20 +16,22 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  which in the RedHat AST ([[LazySpecifierExpression|JLazySpecifierExpression]]) are a
  subclass of regular specifier expressions, are not converted and throw an [[AssertionError]]."
 throws (`class AssertionError`, "If [[specifier]] is a [[LazySpecifierExpression|JLazySpecifierExpression]]")
-shared Specifier specifierToCeylon(JSpecifierExpression specifier) {
+shared Specifier specifierToCeylon(JSpecifierExpression specifier, Anything(JNode,Node) update = noop) {
     "Must be a “wrapper” Expression, not a grouping Expression"
     assert (!specifier.expression.mainToken exists);
     "Must be a regular specifier"
     assert (!specifier is JLazySpecifierExpression);
-    return Specifier(expressionToCeylon(specifier.expression.term));
+    value result = Specifier(expressionToCeylon(specifier.expression.term, update));
+    update(specifier, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Specifier
  into a [[Specifier]] using the Ceylon compiler
  (more specifically, the rule for a `specifier`)."
-shared Specifier? compileSpecifier(String code) {
+shared Specifier? compileSpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jSpecifier = createParser(code).specifier()) {
-        return specifierToCeylon(jSpecifier);
+        return specifierToCeylon(jSpecifier, update);
     } else {
         return null;
     }

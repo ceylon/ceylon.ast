@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     Primary
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAliasLiteral=AliasLiteral,
         JInterfaceLiteral=InterfaceLiteral,
@@ -25,29 +27,29 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Primary|JPrimary]] to a `ceylon.ast` [[Primary]]."
-shared Primary primaryToCeylon(JPrimary primary) {
+shared Primary primaryToCeylon(JPrimary primary, Anything(JNode,Node) update = noop) {
     switch (primary)
     case (is JAtom) {
         if (is JExpression primary, !primary.mainToken exists) {
             // a JTerm wrapped in a JExpression
-            assert (is Primary ret = expressionToCeylon(primary.term));
+            assert (is Primary ret = expressionToCeylon(primary.term, update));
             return ret;
         }
-        return atomToCeylon(primary);
+        return atomToCeylon(primary, update);
     }
-    case (is JBaseMemberOrTypeExpression) { return baseExpressionToCeylon(primary); }
-    case (is JQualifiedMemberOrTypeExpression) { return qualifiedExpressionToCeylon(primary); }
-    case (is JInvocationExpression) { return invocationToCeylon(primary); }
-    case (is JIndexExpression) { return elementOrSubrangeExpressionToCeylon(primary); }
+    case (is JBaseMemberOrTypeExpression) { return baseExpressionToCeylon(primary, update); }
+    case (is JQualifiedMemberOrTypeExpression) { return qualifiedExpressionToCeylon(primary, update); }
+    case (is JInvocationExpression) { return invocationToCeylon(primary, update); }
+    case (is JIndexExpression) { return elementOrSubrangeExpressionToCeylon(primary, update); }
     case (is JMetaLiteral) {
         // the type test is a bit complicated because the dec types are subtypes of the meta types
         if (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JNewLiteral|JValueLiteral|JFunctionLiteral|JModuleLiteral|JPackageLiteral primary) {
-            return decToCeylon(primary);
+            return decToCeylon(primary, update);
         } else {
-            return metaToCeylon(primary);
+            return metaToCeylon(primary, update);
         }
     }
-    case (is JObjectExpression) { return objectExpressionToCeylon(primary); }
+    case (is JObjectExpression) { return objectExpressionToCeylon(primary, update); }
     else {
         throw AssertionError("Unknown primary type, or not a primary");
     }
@@ -56,9 +58,9 @@ shared Primary primaryToCeylon(JPrimary primary) {
 "Compiles the given [[code]] for a Primary
  into a [[Primary]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared Primary? compilePrimary(String code) {
+shared Primary? compilePrimary(String code, Anything(JNode,Node) update = noop) {
     if (exists jPrimary = createParser(code).primary()) {
-        return primaryToCeylon(jPrimary);
+        return primaryToCeylon(jPrimary, update);
     } else {
         return null;
     }

@@ -1,27 +1,32 @@
 import ceylon.ast.core {
+    Node,
     PackageDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JPackageLiteral=PackageLiteral
     }
 }
 
 "Converts a RedHat AST [[PackageLiteral|JPackageLiteral]] to a `ceylon.ast` [[PackageDec]]."
-shared PackageDec packageDecToCeylon(JPackageLiteral packageDec) {
+shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode,Node) update = noop) {
+    PackageDec result;
     if (exists importPath = packageDec.importPath) {
-        return PackageDec(fullPackageNameToCeylon(importPath));
+        result = PackageDec(fullPackageNameToCeylon(importPath, update));
     } else {
-        return PackageDec(null);
+        result = PackageDec(null);
     }
+    update(packageDec, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Package Dec
  into a [[PackageDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared PackageDec? compilePackageDec(String code) {
+shared PackageDec? compilePackageDec(String code, Anything(JNode,Node) update = noop) {
     if (is JPackageLiteral jMetaLiteral = createParser(code).metaLiteral()) {
-        return packageDecToCeylon(jMetaLiteral);
+        return packageDecToCeylon(jMetaLiteral, update);
     } else {
         return null;
     }

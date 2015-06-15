@@ -2,10 +2,12 @@ import ceylon.ast.core {
     ExistsCondition,
     ExistsOrNonemptyCondition,
     LIdentifier,
+    Node,
     NonemptyCondition,
     SpecifiedPattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JExistsCondition=ExistsCondition,
         JExistsOrNonemptyCondition=ExistsOrNonemptyCondition,
@@ -16,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ExistsOrNonemptyCondition|JExistsOrNonemptyCondition]] to a `ceylon.ast` [[ExistsOrNonemptyCondition]]."
-shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNonemptyCondition existsOrNonemptyCondition) {
+shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNonemptyCondition existsOrNonemptyCondition, Anything(JNode,Node) update = noop) {
     /*
      The conversion is almost identical for both kinds of condition,
      so we do it here instead of delegating to {exists,nonempty}ConditionToCeylon by typecast.
@@ -25,11 +27,11 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
     if (is JVariable jVariable = existsOrNonemptyCondition.variable, jVariable.type is JSyntheticVariable) {
         // impliedVariable
         // The parser adds lots of synthetic stuff to these, even a specifier expression. Ignore all that.
-        tested = lIdentifierToCeylon(jVariable.identifier);
+        tested = lIdentifierToCeylon(jVariable.identifier, update);
     } else {
         // letVariable
         // Either a variable or a pattern wrapped in a synthetic Destructure.
-        tested = specifiedPatternToCeylon(existsOrNonemptyCondition.variable);
+        tested = specifiedPatternToCeylon(existsOrNonemptyCondition.variable, update);
     }
     switch (existsOrNonemptyCondition)
     case (is JExistsCondition) { return ExistsCondition(tested, existsOrNonemptyCondition.not); }
@@ -40,9 +42,9 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
 "Compiles the given [[code]] for an Exists Or Nonempty Condition
  into an [[ExistsOrNonemptyCondition]] using the Ceylon compiler
  (more specifically, the rule for an `condition`)."
-shared ExistsOrNonemptyCondition? compileExistsOrNonemptyCondition(String code) {
+shared ExistsOrNonemptyCondition? compileExistsOrNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
     if (is JExistsOrNonemptyCondition jCondition = createParser(code).condition()) {
-        return existsOrNonemptyConditionToCeylon(jCondition);
+        return existsOrNonemptyConditionToCeylon(jCondition, update);
     } else {
         return null;
     }

@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     Statement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAssertion=Assertion,
         JControlStatement=ControlStatement,
@@ -19,24 +21,24 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  is the supertype of [[Declaration|com.redhat.ceylon.compiler.typechecker.tree::Tree.Declaration]]
  and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
-shared Statement statementToCeylon(JExecutableStatement statement) {
+shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNode,Node) update = noop) {
     assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement|JDestructure statement);
     switch (statement)
-    case (is JSpecifierStatement) { return specificationToCeylon(statement); }
-    case (is JExpressionStatement) { return expressionStatementToCeylon(statement); }
-    case (is JAssertion) { return assertionToCeylon(statement); }
-    case (is JDirective) { return directiveToCeylon(statement); }
-    case (is JControlStatement) { return controlStructureToCeylon(statement); }
-    case (is JDestructure) { return destructureToCeylon(statement); }
+    case (is JSpecifierStatement) { return specificationToCeylon(statement, update); }
+    case (is JExpressionStatement) { return expressionStatementToCeylon(statement, update); }
+    case (is JAssertion) { return assertionToCeylon(statement, update); }
+    case (is JDirective) { return directiveToCeylon(statement, update); }
+    case (is JControlStatement) { return controlStructureToCeylon(statement, update); }
+    case (is JDestructure) { return destructureToCeylon(statement, update); }
 }
 
 "Compiles the given [[code]] for a Statement
  into a [[Statement]] using the Ceylon compiler
  (more specifically, the rule for a `declarationOrStatement`)."
-shared Statement? compileStatement(String code) {
+shared Statement? compileStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExecutableStatement jDeclarationOrStatement = createParser(code).declarationOrStatement()) {
         // declaration() doesn’t include assertions
-        return statementToCeylon(jDeclarationOrStatement);
+        return statementToCeylon(jDeclarationOrStatement, update);
     } else {
         return null;
     }

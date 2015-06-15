@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    EqualityOperation
+    EqualityOperation,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JEqualOp=EqualOp,
         JEqualityOp=EqualityOp,
@@ -11,20 +13,20 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[EqualityOp|JEqualityOp]] or [[IdenticalOp|JIdenticalOp]] to a `ceylon.ast` [[EqualityOperation]]."
-shared EqualityOperation equalityOperationToCeylon(JEqualityOp|JIdenticalOp equalityOperation) {
+shared EqualityOperation equalityOperationToCeylon(JEqualityOp|JIdenticalOp equalityOperation, Anything(JNode,Node) update = noop) {
     assert (is JEqualOp|JNotEqualOp|JIdenticalOp equalityOperation);
     switch (equalityOperation)
-    case (is JEqualOp) { return equalOperationToCeylon(equalityOperation); }
-    case (is JNotEqualOp) { return notEqualOperationToCeylon(equalityOperation); }
-    case (is JIdenticalOp) { return identicalOperationToCeylon(equalityOperation); }
+    case (is JEqualOp) { return equalOperationToCeylon(equalityOperation, update); }
+    case (is JNotEqualOp) { return notEqualOperationToCeylon(equalityOperation, update); }
+    case (is JIdenticalOp) { return identicalOperationToCeylon(equalityOperation, update); }
 }
 
 "Compiles the given [[code]] for an Equality Operation
  into an [[EqualityOperation]] using the Ceylon compiler
  (more specifically, the rule for an `equalityExpression`)."
-shared EqualityOperation? compileEqualityOperation(String code) {
+shared EqualityOperation? compileEqualityOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JEqualityOp|JIdenticalOp jEqualityExpression = createParser(code).equalityExpression()) {
-        return equalityOperationToCeylon(jEqualityExpression);
+        return equalityOperationToCeylon(jEqualityExpression, update);
     } else {
         return null;
     }

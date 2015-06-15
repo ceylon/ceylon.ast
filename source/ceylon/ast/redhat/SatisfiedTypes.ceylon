@@ -1,8 +1,10 @@
 import ceylon.ast.core {
+    Node,
     PrimaryType,
     SatisfiedTypes
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JSatisfiedTypes=SatisfiedTypes,
         JStaticType=StaticType
@@ -13,22 +15,24 @@ import ceylon.interop.java {
 }
 
 "Converts RedHat AST [[SatisfiedTypes|JSatisfiedTypes]] to `ceylon.ast` [[SatisfiedTypes]]."
-shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes) {
+shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes, Anything(JNode,Node) update = noop) {
     assert (nonempty types = CeylonIterable(satisfiedTypes.types).collect {
             PrimaryType collecting(JStaticType element) {
-                assert (is PrimaryType ret = typeToCeylon(element));
+                assert (is PrimaryType ret = typeToCeylon(element, update));
                 return ret;
             }
         });
-    return SatisfiedTypes(types);
+    value result = SatisfiedTypes(types);
+    update(satisfiedTypes, result);
+    return result;
 }
 
 "Compiles the given [[code]] for Satisfied Types
  into [[SatisfiedTypes]] using the Ceylon compiler
  (more specifically, the rule for `satisfiedTypes`)."
-shared SatisfiedTypes? compileSatisfiedTypes(String code) {
+shared SatisfiedTypes? compileSatisfiedTypes(String code, Anything(JNode,Node) update = noop) {
     if (exists jSatisfiedTypes = createParser(code).satisfiedTypes()) {
-        return satisfiedTypesToCeylon(jSatisfiedTypes);
+        return satisfiedTypesToCeylon(jSatisfiedTypes, update);
     } else {
         return null;
     }

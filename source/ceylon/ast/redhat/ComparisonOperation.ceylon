@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    ComparisonOperation
+    ComparisonOperation,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JComparisonOp=ComparisonOp,
         JLargeAsOp=LargeAsOp,
@@ -12,21 +14,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ComparisonOp|JComparisonOp]] to a `ceylon.ast` [[ComparisonOperation]]."
-shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonOperation) {
+shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonOperation, Anything(JNode,Node) update = noop) {
     assert (is JLargerOp|JSmallerOp|JLargeAsOp|JSmallAsOp comparisonOperation);
     switch (comparisonOperation)
-    case (is JLargerOp) { return largerOperationToCeylon(comparisonOperation); }
-    case (is JSmallerOp) { return smallerOperationToCeylon(comparisonOperation); }
-    case (is JLargeAsOp) { return largeAsOperationToCeylon(comparisonOperation); }
-    case (is JSmallAsOp) { return smallAsOperationToCeylon(comparisonOperation); }
+    case (is JLargerOp) { return largerOperationToCeylon(comparisonOperation, update); }
+    case (is JSmallerOp) { return smallerOperationToCeylon(comparisonOperation, update); }
+    case (is JLargeAsOp) { return largeAsOperationToCeylon(comparisonOperation, update); }
+    case (is JSmallAsOp) { return smallAsOperationToCeylon(comparisonOperation, update); }
 }
 
 "Compiles the given [[code]] for a Comparison Operation
  into a [[ComparisonOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared ComparisonOperation? compileComparisonOperation(String code) {
+shared ComparisonOperation? compileComparisonOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JComparisonOp jComparisonExpression = createParser(code).comparisonExpression()) {
-        return comparisonOperationToCeylon(jComparisonExpression);
+        return comparisonOperationToCeylon(jComparisonExpression, update);
     } else {
         return null;
     }

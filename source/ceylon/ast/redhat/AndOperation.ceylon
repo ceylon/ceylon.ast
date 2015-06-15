@@ -1,28 +1,32 @@
 import ceylon.ast.core {
     AndOperation,
     NegatingExpression,
-    ConjoiningExpression
+    ConjoiningExpression,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAndOp=AndOp
     }
 }
 
 "Converts a RedHat AST [[AndOp|JAndOp]] to a `ceylon.ast` [[AndOperation]]."
-shared AndOperation andOperationToCeylon(JAndOp andOperation) {
+shared AndOperation andOperationToCeylon(JAndOp andOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ConjoiningExpression left = expressionToCeylon(andOperation.leftTerm),
-        is NegatingExpression right = expressionToCeylon(andOperation.rightTerm));
-    return AndOperation(left, right);
+    assert (is ConjoiningExpression left = expressionToCeylon(andOperation.leftTerm, update),
+        is NegatingExpression right = expressionToCeylon(andOperation.rightTerm, update));
+    value result = AndOperation(left, right);
+    update(andOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an And Operation
  into an [[AndOperation]] using the Ceylon compiler
  (more specifically, the rule for an `conjunctionExpression`)."
-shared AndOperation? compileAndOperation(String code) {
+shared AndOperation? compileAndOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JAndOp jConjunctionExpression = createParser(code).conjunctionExpression()) {
-        return andOperationToCeylon(jConjunctionExpression);
+        return andOperationToCeylon(jConjunctionExpression, update);
     } else {
         return null;
     }

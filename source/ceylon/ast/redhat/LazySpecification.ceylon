@@ -1,10 +1,12 @@
 import ceylon.ast.core {
     LazySpecification,
     LIdentifier,
+    Node,
     Parameters,
     This
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JBaseMemberExpression=BaseMemberExpression,
         JLazySpecifierExpression=LazySpecifierExpression,
@@ -23,7 +25,7 @@ import ceylon.interop.java {
  
  Only lazy specification statements are converted by this function; for non-lazy specification statements,
  use [[valueSpecificationToCeylon]]."
-shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpecification) {
+shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpecification, Anything(JNode,Node) update = noop) {
     "Only function or value may be specified"
     assert (is JBaseMemberExpression|JParameterizedExpression|JQualifiedMemberExpression baseMemberExpression = lazySpecification.baseMemberExpression);
     LIdentifier name;
@@ -31,7 +33,7 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
     This? qualifier;
     switch (baseMemberExpression)
     case (is JBaseMemberExpression) {
-        name = lIdentifierToCeylon(baseMemberExpression.identifier);
+        name = lIdentifierToCeylon(baseMemberExpression.identifier, update);
         parameterLists = [];
         qualifier = null;
     }
@@ -45,28 +47,30 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
         } else {
             qualifier = null;
         }
-        name = lIdentifierToCeylon(primary.identifier);
-        parameterLists = CeylonIterable(baseMemberExpression.parameterLists).collect(parametersToCeylon);
+        name = lIdentifierToCeylon(primary.identifier, update);
+        parameterLists = CeylonIterable(baseMemberExpression.parameterLists).collect(propagateUpdate(parametersToCeylon, update));
     }
     case (is JQualifiedMemberExpression) {
         "Specification may only be qualified with `this` qualifier"
         assert (baseMemberExpression.primary is JThis && baseMemberExpression.memberOperator is JMemberOp);
-        name = lIdentifierToCeylon(baseMemberExpression.identifier);
+        name = lIdentifierToCeylon(baseMemberExpression.identifier, update);
         parameterLists = [];
         qualifier = This();
     }
     "Lazy specification must happen with lazy specifier"
     assert (is JLazySpecifierExpression specifierExpression = lazySpecification.specifierExpression);
-    return LazySpecification(name, lazySpecifierToCeylon(specifierExpression), parameterLists, qualifier);
+    value result = LazySpecification(name, lazySpecifierToCeylon(specifierExpression, update), parameterLists, qualifier);
+    update(lazySpecification, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Lazy Specification
  into a [[LazySpecification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared LazySpecification? compileLazySpecification(String code) {
+shared LazySpecification? compileLazySpecification(String code, Anything(JNode,Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.specifierExpression is JLazySpecifierExpression) {
-        return lazySpecificationToCeylon(jExpressionOrSpecificationStatement);
+        return lazySpecificationToCeylon(jExpressionOrSpecificationStatement, update);
     } else {
         return null;
     }

@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     Pattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JKeyValuePattern=KeyValuePattern,
         JPattern=Pattern,
@@ -11,21 +13,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Pattern|JPattern]] to a `ceylon.ast` [[Pattern]]."
-shared Pattern patternToCeylon(JPattern pattern) {
+shared Pattern patternToCeylon(JPattern pattern, Anything(JNode,Node) update = noop) {
     assert (is JVariablePattern|JTuplePattern|JKeyValuePattern pattern);
     switch (pattern)
-    case (is JVariablePattern) { return variablePatternToCeylon(pattern); }
-    case (is JTuplePattern) { return tuplePatternToCeylon(pattern); }
-    case (is JKeyValuePattern) { return entryPatternToCeylon(pattern); }
+    case (is JVariablePattern) { return variablePatternToCeylon(pattern, update); }
+    case (is JTuplePattern) { return tuplePatternToCeylon(pattern, update); }
+    case (is JKeyValuePattern) { return entryPatternToCeylon(pattern, update); }
 }
 
 "Compiles the given [[code]] for a Pattern
  into a [[Pattern]] using the Ceylon compiler
  (more specifically, the rule for a `pattern`)."
-shared Pattern? compilePattern(String code) {
+shared Pattern? compilePattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jPattern = createParser(code + ",").pattern()) {
         // the parser needs that comma for some patterns
-        return patternToCeylon(jPattern);
+        return patternToCeylon(jPattern, update);
     } else {
         return null;
     }

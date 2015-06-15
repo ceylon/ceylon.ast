@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     StringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JStringLiteral=StringLiteral
     }
@@ -52,41 +54,47 @@ String stripStringLiteral(CommonToken token, Boolean isVerbatim) {
 "Converts a RedHat AST [[StringLiteral|JStringLiteral]] to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `STRING_LITERAL` nor `VERBATIM_STRING`
                                  nor `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
-shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral) {
+shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode,Node) update = noop) {
+    StringLiteral result;
     assert (is CommonToken token = stringLiteral.mainToken);
     if (token.type == verbatim_string_literal || token.type == averbatim_string) {
         // verbatim
-        return StringLiteral(stripStringLiteral(token, true), true);
+        result = StringLiteral(stripStringLiteral(token, true), true);
     } else if (token.type == string_literal || token.type == astring_literal) {
         // regular
-        return StringLiteral(stripStringLiteral(token, false), false);
+        result = StringLiteral(stripStringLiteral(token, false), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }
+    update(stringLiteral, result);
+    return result;
 }
 
 "Converts a RedHat AST [[StringLiteral|JStringLiteral]] with annotation token type
  (`ASTRING_LITERAL` or `AVERBATIM_STRING`) to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
-shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral) {
+shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode,Node) update = noop) {
     assert (is CommonToken token = stringLiteral.mainToken);
+    StringLiteral result;
     if (token.type == averbatim_string) {
         // verbatim
-        return StringLiteral(stripStringLiteral(token, true), true);
+        result = StringLiteral(stripStringLiteral(token, true), true);
     } else if (token.type == astring_literal) {
         // regular
-        return StringLiteral(stripStringLiteral(token, false), false);
+        result = StringLiteral(stripStringLiteral(token, false), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }
+    update(stringLiteral, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a String Literal
  into a [[StringLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `stringLiteral`)."
-shared StringLiteral? compileStringLiteral(String code) {
+shared StringLiteral? compileStringLiteral(String code, Anything(JNode,Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
-        return stringLiteralToCeylon(jStringLiteral);
+        return stringLiteralToCeylon(jStringLiteral, update);
     } else {
         return null;
     }

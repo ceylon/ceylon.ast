@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    ConditionalExpression
+    ConditionalExpression,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JIfExpression=IfExpression,
         JSwitchExpression=SwitchExpression
@@ -9,21 +11,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IfExpression|JIfExpression]] or [[SwitchExpression|JSwitchExpression]] to a `ceylon.ast` [[ConditionalExpression]]."
-shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitchExpression conditionalExpression) {
+shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitchExpression conditionalExpression, Anything(JNode,Node) update = noop) {
     switch (conditionalExpression)
-    case (is JIfExpression) { return ifElseExpressionToCeylon(conditionalExpression); }
-    case (is JSwitchExpression) { return switchCaseElseExpressionToCeylon(conditionalExpression); }
+    case (is JIfExpression) { return ifElseExpressionToCeylon(conditionalExpression, update); }
+    case (is JSwitchExpression) { return switchCaseElseExpressionToCeylon(conditionalExpression, update); }
 }
 
 "Compiles the given [[code]] for an Any Specifier
  into a [[ConditionalExpression]] using the Ceylon compiler
  (more specifically, the rule for an `ifExpression` or a `switchExpression`)."
-shared ConditionalExpression? compileConditionalExpression(String code) {
+shared ConditionalExpression? compileConditionalExpression(String code, Anything(JNode,Node) update = noop) {
     // the grammar rule conditionalExpression yields ifExpression|let, not ifExpression|switchExpression
     if (exists jIfExpression = createParser(code).ifExpression()) {
-        return conditionalExpressionToCeylon(jIfExpression);
+        return conditionalExpressionToCeylon(jIfExpression, update);
     } else if (exists jSwitchExpression = createParser(code).switchExpression()) {
-        return conditionalExpressionToCeylon(jSwitchExpression);
+        return conditionalExpressionToCeylon(jSwitchExpression, update);
     } else {
         return null;
     }

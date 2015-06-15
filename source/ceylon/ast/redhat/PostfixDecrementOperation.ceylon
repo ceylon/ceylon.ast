@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     PostfixDecrementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JPostfixDecrementOp=PostfixDecrementOp,
         JPrimary=Primary
@@ -9,18 +11,20 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[PostfixDecrementOp|JPostfixDecrementOp]] to a `ceylon.ast` [[PostfixDecrementOperation]]."
-shared PostfixDecrementOperation postfixDecrementOperationToCeylon(JPostfixDecrementOp postfixDecrementOperation) {
+shared PostfixDecrementOperation postfixDecrementOperationToCeylon(JPostfixDecrementOp postfixDecrementOperation, Anything(JNode,Node) update = noop) {
     assert (is JPrimary jPrimary = postfixDecrementOperation.term);
-    return PostfixDecrementOperation(primaryToCeylon(jPrimary));
+    value result = PostfixDecrementOperation(primaryToCeylon(jPrimary, update));
+    update(postfixDecrementOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Postfix Decrement Operation
  into a [[PostfixDecrementOperation]] using the Ceylon compiler
  (more specifically, the rule for a `postfixIncrementDecrementExpression`)."
-shared PostfixDecrementOperation? compilePostfixDecrementOperation(String code) {
+shared PostfixDecrementOperation? compilePostfixDecrementOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPostfixDecrementOp jPostfixDecrementOp = createParser(code).postfixIncrementDecrementExpression(),
         jPostfixDecrementOp.term is JPrimary) {
-        return postfixDecrementOperationToCeylon(jPostfixDecrementOp);
+        return postfixDecrementOperationToCeylon(jPostfixDecrementOp, update);
     } else {
         return null;
     }

@@ -1,9 +1,11 @@
 import ceylon.ast.core {
+    Node,
     TuplePattern,
     UnionType,
     VariadicVariable
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JSequencedType=SequencedType,
         JStaticType=StaticType,
@@ -17,10 +19,11 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TuplePattern|JTuplePattern]] to a `ceylon.ast` [[TuplePattern]]."
-shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern) {
+shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JNode,Node) update = noop) {
     value patterns = CeylonIterable(tuplePattern.patterns).sequence();
     "Empty tuple pattern not allowed"
     assert (exists lastPattern = patterns.last);
+    TuplePattern result;
     if (is JVariablePattern lastPattern, lastPattern.variable.type is JSequencedType) {
         // variadic
         UnionType? variadicType;
@@ -30,25 +33,27 @@ shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern) {
             variadicType = null;
         } else {
             assert (is JStaticType jElementType = jType.type,
-                is UnionType t = typeToCeylon(jElementType));
+                is UnionType t = typeToCeylon(jElementType, update));
             variadicType = t;
         }
-        value variadicElementPattern = VariadicVariable(lIdentifierToCeylon(lastPattern.variable.identifier), variadicType);
-        value elementPatterns = patterns.reversed.rest.reversed.collect(patternToCeylon);
-        return TuplePattern(elementPatterns, variadicElementPattern);
+        value variadicElementPattern = VariadicVariable(lIdentifierToCeylon(lastPattern.variable.identifier, update), variadicType);
+        value elementPatterns = patterns.reversed.rest.reversed.collect(propagateUpdate(patternToCeylon, update));
+        result = TuplePattern(elementPatterns, variadicElementPattern);
     } else {
         // all normal patterns
-        assert (nonempty elementPatterns = patterns.collect(patternToCeylon));
-        return TuplePattern(elementPatterns);
+        assert (nonempty elementPatterns = patterns.collect(propagateUpdate(patternToCeylon, update)));
+        result = TuplePattern(elementPatterns);
     }
+    update(tuplePattern, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Tuple Pattern
  into a [[TuplePattern]] using the Ceylon compiler
  (more specifically, the rule for a `tuplePattern`)."
-shared TuplePattern? compileTuplePattern(String code) {
+shared TuplePattern? compileTuplePattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jTuplePattern = createParser(code).tuplePattern()) {
-        return tuplePatternToCeylon(jTuplePattern);
+        return tuplePatternToCeylon(jTuplePattern, update);
     } else {
         return null;
     }

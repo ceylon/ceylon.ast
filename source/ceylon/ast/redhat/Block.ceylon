@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Block
+    Block,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JBlock=Block
     }
@@ -11,16 +13,18 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[Block|JBlock]] to a `ceylon.ast` [[Block]]."
-shared Block blockToCeylon(JBlock block) {
-    return Block(CeylonIterable(block.statements).collect(declarationOrStatementToCeylon));
+shared Block blockToCeylon(JBlock block, Anything(JNode,Node) update = noop) {
+    value result = Block(CeylonIterable(block.statements).collect(propagateUpdate(declarationOrStatementToCeylon, update)));
+    update(block, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Block
  into a [[Block]] using the Ceylon compiler
  (more specifically, the rule for a `block`)."
-shared Block? compileBlock(String code) {
+shared Block? compileBlock(String code, Anything(JNode,Node) update = noop) {
     if (exists jBlock = createParser(code).block()) {
-        return blockToCeylon(jBlock);
+        return blockToCeylon(jBlock, update);
     } else {
         return null;
     }

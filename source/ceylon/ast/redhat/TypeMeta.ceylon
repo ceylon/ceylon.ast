@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     TypeMeta
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAliasLiteral=AliasLiteral,
         JClassLiteral=ClassLiteral,
@@ -12,19 +14,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypeLiteral|JTypeLiteral]] to a `ceylon.ast` [[TypeMeta]]."
-shared TypeMeta typeMetaToCeylon(JTypeLiteral typeMeta) {
+shared TypeMeta typeMetaToCeylon(JTypeLiteral typeMeta, Anything(JNode,Node) update = noop) {
     "Must not be a reference expression"
     assert (!typeMeta is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral);
-    return TypeMeta(typeToCeylon(typeMeta.type));
+    value result = TypeMeta(typeToCeylon(typeMeta.type, update));
+    update(typeMeta, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Type Meta
  into a [[TypeMeta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared TypeMeta? compileTypeMeta(String code) {
+shared TypeMeta? compileTypeMeta(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeLiteral jMetaLiteral = createParser(code).metaLiteral(),
         !jMetaLiteral is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral) {
-        return typeMetaToCeylon(jMetaLiteral);
+        return typeMetaToCeylon(jMetaLiteral, update);
     } else {
         return null;
     }

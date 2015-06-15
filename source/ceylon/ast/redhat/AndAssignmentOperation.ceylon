@@ -1,28 +1,32 @@
 import ceylon.ast.core {
     AndAssignmentOperation,
-    ThenElseExpression,
-    AssigningExpression
+    AssigningExpression,
+    Node,
+    ThenElseExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAndAssignOp=AndAssignOp
     }
 }
 
 "Converts a RedHat AST [[AndAssignOp|JAndAssignOp]] to a `ceylon.ast` [[AndAssignmentOperation]]."
-shared AndAssignmentOperation andAssignmentOperationToCeylon(JAndAssignOp andAssignmentOperation) {
+shared AndAssignmentOperation andAssignmentOperationToCeylon(JAndAssignOp andAssignmentOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ThenElseExpression left = expressionToCeylon(andAssignmentOperation.leftTerm),
-        is AssigningExpression right = expressionToCeylon(andAssignmentOperation.rightTerm));
-    return AndAssignmentOperation(left, right);
+    assert (is ThenElseExpression left = expressionToCeylon(andAssignmentOperation.leftTerm, update),
+        is AssigningExpression right = expressionToCeylon(andAssignmentOperation.rightTerm, update));
+    value result = AndAssignmentOperation(left, right);
+    update(andAssignmentOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an And Assignment Operation
  into an [[AndAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared AndAssignmentOperation? compileAndAssignmentOperation(String code) {
+shared AndAssignmentOperation? compileAndAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JAndAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
-        return andAssignmentOperationToCeylon(jAssignmentExpression);
+        return andAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {
         return null;
     }

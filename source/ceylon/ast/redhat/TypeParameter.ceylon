@@ -1,37 +1,41 @@
 import ceylon.ast.core {
+    Node,
     Type,
     TypeParameter,
     Variance
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JTypeParameterDeclaration=TypeParameterDeclaration
     }
 }
 
 "Converts a RedHat AST [[TypeParameterDeclaration|JTypeParameterDeclaration]] to a `ceylon.ast` [[TypeParameter]]."
-shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParameter) {
+shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParameter, Anything(JNode,Node) update = noop) {
     Variance? variance;
     if (exists jVariance = typeParameter.typeVariance) {
-        variance = varianceToCeylon(jVariance);
+        variance = varianceToCeylon(jVariance, update);
     } else {
         variance = null;
     }
     Type? defaultArgument;
     if (exists jDefaultArgument = typeParameter.typeSpecifier) {
-        defaultArgument = typeToCeylon(jDefaultArgument.type);
+        defaultArgument = typeToCeylon(jDefaultArgument.type, update);
     } else {
         defaultArgument = null;
     }
-    return TypeParameter(uIdentifierToCeylon(typeParameter.identifier), variance, defaultArgument);
+    value result = TypeParameter(uIdentifierToCeylon(typeParameter.identifier, update), variance, defaultArgument);
+    update(typeParameter, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Type Parameter
  into a [[TypeParameter]] using the Ceylon compiler
  (more specifically, the rule for a `typeParameter`)."
-shared TypeParameter? compileTypeParameter(String code) {
+shared TypeParameter? compileTypeParameter(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeParameter = createParser(code).typeParameter()) {
-        return typeParameterToCeylon(jTypeParameter);
+        return typeParameterToCeylon(jTypeParameter, update);
     } else {
         return null;
     }

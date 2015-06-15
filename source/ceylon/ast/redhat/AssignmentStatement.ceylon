@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    AssignmentStatement
+    AssignmentStatement,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAssignmentOp=AssignmentOp,
         JExpressionStatement=ExpressionStatement
@@ -9,18 +11,20 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ExpressionStatement|JExpressionStatement]] to a `ceylon.ast` [[AssignmentStatement]]."
-shared AssignmentStatement assignmentStatementToCeylon(JExpressionStatement assignmentStatement) {
+shared AssignmentStatement assignmentStatementToCeylon(JExpressionStatement assignmentStatement, Anything(JNode,Node) update = noop) {
     assert (is JAssignmentOp expression = assignmentStatement.expression.term);
-    return AssignmentStatement(assignmentOperationToCeylon(expression));
+    value result = AssignmentStatement(assignmentOperationToCeylon(expression, update));
+    update(assignmentStatement, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Assignment Statement
  into an [[AssignmentStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared AssignmentStatement? compileAssignmentStatement(String code) {
+shared AssignmentStatement? compileAssignmentStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.expression.term is JAssignmentOp) {
-        return assignmentStatementToCeylon(jExpressionOrSpecificationStatement);
+        return assignmentStatementToCeylon(jExpressionOrSpecificationStatement, update);
     } else {
         return null;
     }

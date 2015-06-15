@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Bound
+    Bound,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JBound=Bound,
         JClosedBound=ClosedBound,
@@ -10,9 +12,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Bound|JBound]] to a `ceylon.ast` [[Bound]]."
-shared Bound boundToCeylon(JBound bound) {
+shared Bound boundToCeylon(JBound bound, Anything(JNode,Node) update = noop) {
     assert (is JOpenBound|JClosedBound bound);
     switch (bound)
-    case (is JOpenBound) { return openBoundToCeylon(bound); }
-    case (is JClosedBound) { return closedBoundToCeylon(bound); }
+    case (is JOpenBound) { return openBoundToCeylon(bound, update); }
+    case (is JClosedBound) { return closedBoundToCeylon(bound, update); }
 }

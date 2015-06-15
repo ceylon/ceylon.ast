@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Dec
+    Dec,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAliasLiteral=AliasLiteral,
         JClassLiteral=ClassLiteral,
@@ -19,24 +21,24 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[MetaLiteral|JMetaLiteral]] to a `ceylon.ast` [[Dec]]."
-shared Dec decToCeylon(JMetaLiteral dec) {
+shared Dec decToCeylon(JMetaLiteral dec, Anything(JNode,Node) update = noop) {
     assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral|JValueLiteral|JFunctionLiteral|JNewLiteral|JModuleLiteral|JPackageLiteral dec);
     switch (dec)
     case (is JTypeLiteral) {
-        if (is JNewLiteral dec) { return constructorDecToCeylon(dec); }
-        else { return typeDecToCeylon(dec); }
+        if (is JNewLiteral dec) { return constructorDecToCeylon(dec, update); }
+        else { return typeDecToCeylon(dec, update); }
     }
-    case (is JMemberLiteral) { return memberDecToCeylon(dec); }
-    case (is JPackageLiteral) { return packageDecToCeylon(dec); }
-    case (is JModuleLiteral) { return moduleDecToCeylon(dec); }
+    case (is JMemberLiteral) { return memberDecToCeylon(dec, update); }
+    case (is JPackageLiteral) { return packageDecToCeylon(dec, update); }
+    case (is JModuleLiteral) { return moduleDecToCeylon(dec, update); }
 }
 
 "Compiles the given [[code]] for a Dec
  into a [[Dec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared Dec? compileDec(String code) {
+shared Dec? compileDec(String code, Anything(JNode,Node) update = noop) {
     if (exists jMetaLiteral = createParser(code).metaLiteral()) {
-        return decToCeylon(jMetaLiteral);
+        return decToCeylon(jMetaLiteral, update);
     } else {
         return null;
     }

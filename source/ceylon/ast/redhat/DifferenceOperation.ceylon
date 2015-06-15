@@ -1,28 +1,32 @@
 import ceylon.ast.core {
+    AddingExpression,
     DifferenceOperation,
-    ScalingExpression,
-    AddingExpression
+    Node,
+    ScalingExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JDifferenceOp=DifferenceOp
     }
 }
 
 "Converts a RedHat AST [[DifferenceOp|JDifferenceOp]] to a `ceylon.ast` [[DifferenceOperation]]."
-shared DifferenceOperation differenceOperationToCeylon(JDifferenceOp differenceOperation) {
+shared DifferenceOperation differenceOperationToCeylon(JDifferenceOp differenceOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is AddingExpression left = expressionToCeylon(differenceOperation.leftTerm),
-        is ScalingExpression right = expressionToCeylon(differenceOperation.rightTerm));
-    return DifferenceOperation(left, right);
+    assert (is AddingExpression left = expressionToCeylon(differenceOperation.leftTerm, update),
+        is ScalingExpression right = expressionToCeylon(differenceOperation.rightTerm, update));
+    value result = DifferenceOperation(left, right);
+    update(differenceOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Difference Operation
  into a [[DifferenceOperation]] using the Ceylon compiler
  (more specifically, the rule for an `additiveExpression`)."
-shared DifferenceOperation? compileDifferenceOperation(String code) {
+shared DifferenceOperation? compileDifferenceOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JDifferenceOp jAdditiveExpression = createParser(code).additiveExpression()) {
-        return differenceOperationToCeylon(jAdditiveExpression);
+        return differenceOperationToCeylon(jAdditiveExpression, update);
     } else {
         return null;
     }

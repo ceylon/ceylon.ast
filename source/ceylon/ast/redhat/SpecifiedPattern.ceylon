@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    Node,
     SpecifiedPattern,
     Type,
     UnspecifiedVariable,
@@ -6,6 +7,7 @@ import ceylon.ast.core {
     VariablePattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JDestructure=Destructure,
         JStaticType=StaticType,
@@ -22,21 +24,24 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  This is a purely internal helper function for some constructs
  that represent a pattern + specification via a [[Statement|JStatement]]:
  see [[existsOrNonemptyConditionToCeylon]] and [[letExpressionToCeylon]]."
-SpecifiedPattern specifiedPatternToCeylon(JStatement statement) {
+SpecifiedPattern specifiedPatternToCeylon(JStatement statement, Anything(JNode,Node) update) {
     // letVariable
     // Either a variable or a pattern wrapped in a synthetic Destructure.
     assert (is JVariable|JDestructure jVariable = statement);
+    SpecifiedPattern result;
     switch (jVariable)
     case (is JVariable) {
         Type|ValueModifier? type;
         assert (is JStaticType|JValueModifier? jType = jVariable.type);
         switch (jType)
-        case (is JStaticType) { type = typeToCeylon(jType); }
-        case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType); }
+        case (is JStaticType) { type = typeToCeylon(jType, update); }
+        case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType, update); }
         case (null) { type = null; }
-        return SpecifiedPattern(VariablePattern(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier), type)), specifierToCeylon(jVariable.specifierExpression));
+        result = SpecifiedPattern(VariablePattern(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type)), specifierToCeylon(jVariable.specifierExpression, update));
     }
     case (is JDestructure) {
-        return SpecifiedPattern(patternToCeylon(jVariable.pattern), specifierToCeylon(jVariable.specifierExpression));
+        result = SpecifiedPattern(patternToCeylon(jVariable.pattern, update), specifierToCeylon(jVariable.specifierExpression, update));
     }
+    update(statement, result);
+    return result;
 }

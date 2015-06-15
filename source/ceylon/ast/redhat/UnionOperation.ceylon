@@ -1,28 +1,32 @@
 import ceylon.ast.core {
     IntersectingExpression,
+    Node,
     UnioningExpression,
     UnionOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JUnionOp=UnionOp
     }
 }
 
 "Converts a RedHat AST [[UnionOp|JUnionOp]] to a `ceylon.ast` [[UnionOperation]]."
-shared UnionOperation unionOperationToCeylon(JUnionOp unionOperation) {
+shared UnionOperation unionOperationToCeylon(JUnionOp unionOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is UnioningExpression left = expressionToCeylon(unionOperation.leftTerm),
-        is IntersectingExpression right = expressionToCeylon(unionOperation.rightTerm));
-    return UnionOperation(left, right);
+    assert (is UnioningExpression left = expressionToCeylon(unionOperation.leftTerm, update),
+        is IntersectingExpression right = expressionToCeylon(unionOperation.rightTerm, update));
+    value result = UnionOperation(left, right);
+    update(unionOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Union Operation
  into an [[UnionOperation]] using the Ceylon compiler
  (more specifically, the rule for a `unionExpression`)."
-shared UnionOperation? compileUnionOperation(String code) {
+shared UnionOperation? compileUnionOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JUnionOp jUnionExpression = createParser(code).unionExpression()) {
-        return unionOperationToCeylon(jUnionExpression);
+        return unionOperationToCeylon(jUnionExpression, update);
     } else {
         return null;
     }

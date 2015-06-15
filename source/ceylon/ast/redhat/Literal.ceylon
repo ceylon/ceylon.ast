@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     Literal,
+    Node,
     StringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JLiteral=Literal,
         JStringLiteral=StringLiteral,
@@ -25,13 +27,13 @@ import com.redhat.ceylon.compiler.typechecker.parser {
  (A [[QuotedLiteral|JQuotedLiteral]] – a string surrounded by single or double quotes –
  is always converted to a [[StringLiteral]].)"
 throws (`class AssertionError`, "If the token type is wrong.")
-shared Literal literalToCeylon(JLiteral literal) {
+shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = noop) {
     assert (is JStringLiteral|JCharacterLiteral|JIntegerLiteral|JFloatLiteral|JQuotedLiteral literal);
     switch (literal)
-    case (is JStringLiteral) { return stringLiteralToCeylon(literal); }
-    case (is JCharacterLiteral) { return characterLiteralToCeylon(literal); }
-    case (is JIntegerLiteral) { return integerLiteralToCeylon(literal); }
-    case (is JFloatLiteral) { return floatLiteralToCeylon(literal); }
+    case (is JStringLiteral) { return stringLiteralToCeylon(literal, update); }
+    case (is JCharacterLiteral) { return characterLiteralToCeylon(literal, update); }
+    case (is JIntegerLiteral) { return integerLiteralToCeylon(literal, update); }
+    case (is JFloatLiteral) { return floatLiteralToCeylon(literal, update); }
     case (is JQuotedLiteral) {
         // used for module versions: the grammar allows single and double quotes
         value type = literal.mainToken.type;
@@ -47,11 +49,11 @@ shared Literal literalToCeylon(JLiteral literal) {
 "Compiles the given [[code]] for a Literal
  into a [[Literal]] using the Ceylon compiler
  (more specifically, the rules for a `stringLiteral` and a `nonstringLiteral`)."
-shared Literal? compileLiteral(String code) {
+shared Literal? compileLiteral(String code, Anything(JNode,Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
-        return stringLiteralToCeylon(jStringLiteral);
+        return stringLiteralToCeylon(jStringLiteral, update);
     } else if (exists jLiteral = createParser(code).nonstringLiteral()) {
-        return literalToCeylon(jLiteral);
+        return literalToCeylon(jLiteral, update);
     } else {
         return null;
     }

@@ -1,23 +1,27 @@
 import ceylon.ast.core {
-    ExtendedType
+    ExtendedType,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JExtendedType=ExtendedType
     }
 }
 
 "Converts a RedHat AST [[ExtendedType|JExtendedType]] to a `ceylon.ast` [[ExtendedType]]."
-shared ExtendedType extendedTypeToCeylon(JExtendedType extendedType) {
-    return ExtendedType(classInstantiationToCeylon(extendedType.type, extendedType.invocationExpression));
+shared ExtendedType extendedTypeToCeylon(JExtendedType extendedType, Anything(JNode,Node) update = noop) {
+    value result = ExtendedType(classInstantiationToCeylon(extendedType.type, extendedType.invocationExpression, update));
+    update(extendedType, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Extended Type
  into an [[ExtendedType]] using the Ceylon compiler
  (more specifically, the rule for an `extendedType`)."
-shared ExtendedType? compileExtendedType(String code) {
+shared ExtendedType? compileExtendedType(String code, Anything(JNode,Node) update = noop) {
     if (exists jExtendedType = createParser(code).extendedType()) {
-        return extendedTypeToCeylon(jExtendedType);
+        return extendedTypeToCeylon(jExtendedType, update);
     } else {
         return null;
     }

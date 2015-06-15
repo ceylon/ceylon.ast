@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    IsCase
+    IsCase,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JIsCase=IsCase,
         JStaticType=StaticType
@@ -9,17 +11,19 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IsCase|JIsCase]] to a `ceylon.ast` [[IsCase]]."
-shared IsCase isCaseToCeylon(JIsCase isCase) {
+shared IsCase isCaseToCeylon(JIsCase isCase, Anything(JNode,Node) update = noop) {
     assert (is JStaticType jType = isCase.type);
-    return IsCase(typeToCeylon(jType));
+    value result = IsCase(typeToCeylon(jType, update));
+    update(isCase, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Is Case
  into an [[IsCase]] using the Ceylon compiler
  (more specifically, the rule for an `isCaseCondition`)."
-shared IsCase? compileIsCase(String code) {
+shared IsCase? compileIsCase(String code, Anything(JNode,Node) update = noop) {
     if (exists jIsCaseCondition = createParser(code).isCaseCondition()) {
-        return isCaseToCeylon(jIsCaseCondition);
+        return isCaseToCeylon(jIsCaseCondition, update);
     } else {
         return null;
     }

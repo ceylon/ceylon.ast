@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     PositionalArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JPositionalArgumentList=PositionalArgumentList,
         JSequencedArgument=SequencedArgument
@@ -9,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[PositionalArgumentList|JPositionalArgumentList]] to a `ceylon.ast` [[PositionalArguments]]."
-shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList positionalArguments) {
+shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList positionalArguments, Anything(JNode,Node) update = noop) {
     /*
      I think the following excerpt from Ceylon.g explains the situation best:
      
@@ -27,15 +29,17 @@ shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList p
      
      And remember, all that is “really nasty” in the first place :)
      */
-    return PositionalArguments(argumentListToCeylon(sequencedArgument));
+    value result = PositionalArguments(argumentListToCeylon(sequencedArgument, update));
+    update(positionalArguments, result);
+    return result;
 }
 
 "Compiles the given [[code]] for Positional Arguments
  into [[PositionalArguments]] using the Ceylon compiler
  (more specifically, the rule for `positionalArguments`)."
-shared PositionalArguments? compilePositionalArguments(String code) {
+shared PositionalArguments? compilePositionalArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jPositionalArguments = createParser(code).positionalArguments()) {
-        return positionalArgumentsToCeylon(jPositionalArguments);
+        return positionalArgumentsToCeylon(jPositionalArguments, update);
     } else {
         return null;
     }

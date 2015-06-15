@@ -1,37 +1,41 @@
 import ceylon.ast.core {
     ExtendedType,
+    Node,
     ObjectArgument,
     SatisfiedTypes
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JObjectArgument=ObjectArgument
     }
 }
 
 "Converts a RedHat AST [[ObjectArgument|JObjectArgument]] to a `ceylon.ast` [[ObjectArgument]]."
-shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument) {
+shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument, Anything(JNode,Node) update = noop) {
     ExtendedType? extendedType;
     if (exists jExtendedType = objectArgument.extendedType) {
-        extendedType = extendedTypeToCeylon(jExtendedType);
+        extendedType = extendedTypeToCeylon(jExtendedType, update);
     } else {
         extendedType = null;
     }
     SatisfiedTypes? satisfiedTypes;
     if (exists jSatisfiedTypes = objectArgument.satisfiedTypes) {
-        satisfiedTypes = satisfiedTypesToCeylon(jSatisfiedTypes);
+        satisfiedTypes = satisfiedTypesToCeylon(jSatisfiedTypes, update);
     } else {
         satisfiedTypes = null;
     }
-    return ObjectArgument(lIdentifierToCeylon(objectArgument.identifier), classBodyToCeylon(objectArgument.classBody), extendedType, satisfiedTypes);
+    value result = ObjectArgument(lIdentifierToCeylon(objectArgument.identifier, update), classBodyToCeylon(objectArgument.classBody, update), extendedType, satisfiedTypes);
+    update(objectArgument, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Object Argument
  into an [[ObjectArgument]] using the Ceylon compiler
  (more specifically, the rule for an `objectArgument`)."
-shared ObjectArgument? compileObjectArgument(String code) {
+shared ObjectArgument? compileObjectArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jObjectArgument = createParser(code).objectArgument()) {
-        return objectArgumentToCeylon(jObjectArgument);
+        return objectArgumentToCeylon(jObjectArgument, update);
     } else {
         return null;
     }

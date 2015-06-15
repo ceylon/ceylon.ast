@@ -1,25 +1,29 @@
 import ceylon.ast.core {
     IdentityOperation,
-    ExponentiatingExpression
+    ExponentiatingExpression,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JPositiveOp=PositiveOp
     }
 }
 
 "Converts a RedHat AST [[PositiveOp|JPositiveOp]] to a `ceylon.ast` [[IdentityOperation]]."
-shared IdentityOperation identityOperationToCeylon(JPositiveOp identityOperation) {
-    assert (is ExponentiatingExpression operand = expressionToCeylon(identityOperation.term));
-    return IdentityOperation(operand);
+shared IdentityOperation identityOperationToCeylon(JPositiveOp identityOperation, Anything(JNode,Node) update = noop) {
+    assert (is ExponentiatingExpression operand = expressionToCeylon(identityOperation.term, update));
+    value result = IdentityOperation(operand);
+    update(identityOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Identity Operation
  into an [[IdentityOperation]] using the Ceylon compiler
  (more specifically, the rule for an `negationComplementExpression`)."
-shared IdentityOperation? compileIdentityOperation(String code) {
+shared IdentityOperation? compileIdentityOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPositiveOp jNegationComplementExpression = createParser(code).negationComplementExpression()) {
-        return identityOperationToCeylon(jNegationComplementExpression);
+        return identityOperationToCeylon(jNegationComplementExpression, update);
     } else {
         return null;
     }

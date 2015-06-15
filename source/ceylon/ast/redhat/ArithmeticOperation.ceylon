@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    ArithmeticOperation
+    ArithmeticOperation,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JArithmeticOp=ArithmeticOp,
         JDifferenceOp=DifferenceOp,
@@ -14,23 +16,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ArithmeticOp|JArithmeticOp]] to a `ceylon.ast` [[ArithmeticOperation]]."
-shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticOperation) {
+shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticOperation, Anything(JNode,Node) update = noop) {
     assert (is JPowerOp|JProductOp|JQuotientOp|JRemainderOp|JSumOp|JDifferenceOp arithmeticOperation);
     switch (arithmeticOperation)
-    case (is JPowerOp) { return exponentiationOperationToCeylon(arithmeticOperation); }
-    case (is JProductOp) { return productOperationToCeylon(arithmeticOperation); }
-    case (is JQuotientOp) { return quotientOperationToCeylon(arithmeticOperation); }
-    case (is JRemainderOp) { return remainderOperationToCeylon(arithmeticOperation); }
-    case (is JSumOp) { return sumOperationToCeylon(arithmeticOperation); }
-    case (is JDifferenceOp) { return differenceOperationToCeylon(arithmeticOperation); }
+    case (is JPowerOp) { return exponentiationOperationToCeylon(arithmeticOperation, update); }
+    case (is JProductOp) { return productOperationToCeylon(arithmeticOperation, update); }
+    case (is JQuotientOp) { return quotientOperationToCeylon(arithmeticOperation, update); }
+    case (is JRemainderOp) { return remainderOperationToCeylon(arithmeticOperation, update); }
+    case (is JSumOp) { return sumOperationToCeylon(arithmeticOperation, update); }
+    case (is JDifferenceOp) { return differenceOperationToCeylon(arithmeticOperation, update); }
 }
 
 "Compiles the given [[code]] for an Arithmetic Operation
  into an [[ArithmeticOperation]] using the Ceylon compiler
  (more specifically, the rule for an `additiveExpression`)."
-shared ArithmeticOperation? compileArithmeticOperation(String code) {
+shared ArithmeticOperation? compileArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JArithmeticOp jArithmeticOp = createParser(code).additiveExpression()) {
-        return arithmeticOperationToCeylon(jArithmeticOp);
+        return arithmeticOperationToCeylon(jArithmeticOp, update);
     } else {
         return null;
     }

@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Meta
+    Meta,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JMemberLiteral=MemberLiteral,
         JMetaLiteral=MetaLiteral,
@@ -10,15 +12,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[MetaLiteral|JMetaLiteral]] to a `ceylon.ast` [[Meta]]."
-shared Meta metaToCeylon(JMetaLiteral metaLiteral) {
+shared Meta metaToCeylon(JMetaLiteral metaLiteral, Anything(JNode,Node) update = noop) {
     assert (is JTypeLiteral|JMemberLiteral metaLiteral);
     switch (metaLiteral)
-    case (is JTypeLiteral) { return typeMetaToCeylon(metaLiteral); }
+    case (is JTypeLiteral) { return typeMetaToCeylon(metaLiteral, update); }
     case (is JMemberLiteral) {
         if (metaLiteral.type exists) {
-            return memberMetaToCeylon(metaLiteral);
+            return memberMetaToCeylon(metaLiteral, update);
         } else {
-            return baseMetaToCeylon(metaLiteral);
+            return baseMetaToCeylon(metaLiteral, update);
         }
     }
 }
@@ -26,9 +28,9 @@ shared Meta metaToCeylon(JMetaLiteral metaLiteral) {
 "Compiles the given [[code]] for a Meta
  into a [[Meta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared Meta? compileMeta(String code) {
+shared Meta? compileMeta(String code, Anything(JNode,Node) update = noop) {
     if (exists jMetaLiteral = createParser(code).metaLiteral()) {
-        return metaToCeylon(jMetaLiteral);
+        return metaToCeylon(jMetaLiteral, update);
     } else {
         return null;
     }

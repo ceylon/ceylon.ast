@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     Annotations,
-    FunctionDeclaration
+    FunctionDeclaration,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier,
         JFunctionModifier=FunctionModifier,
@@ -16,54 +18,56 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDeclaration|JMethodDeclaration]] to a `ceylon.ast` [[FunctionDeclaration]]."
-shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functionDeclaration) {
+shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functionDeclaration, Anything(JNode,Node) update = noop) {
     "Must not have a specification"
     assert (!functionDeclaration.specifierExpression exists);
-    return FunctionDeclaration {
-        name = lIdentifierToCeylon(functionDeclaration.identifier);
+    value result = FunctionDeclaration {
+        name = lIdentifierToCeylon(functionDeclaration.identifier, update);
         value type {
             assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDeclaration.type);
             switch (jType)
-            case (is JStaticType) { return typeToCeylon(jType); }
-            case (is JVoidModifier) { return voidModifierToCeylon(jType); }
-            case (is JFunctionModifier) { return functionModifierToCeylon(jType); }
-            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
+            case (is JStaticType) { return typeToCeylon(jType, update); }
+            case (is JVoidModifier) { return voidModifierToCeylon(jType, update); }
+            case (is JFunctionModifier) { return functionModifierToCeylon(jType, update); }
+            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType, update); }
         }
         value parameterLists {
-            assert (nonempty parameterLists = CeylonIterable(functionDeclaration.parameterLists).collect(parametersToCeylon));
+            assert (nonempty parameterLists = CeylonIterable(functionDeclaration.parameterLists).collect(propagateUpdate(parametersToCeylon, update)));
             return parameterLists;
         }
         value typeParameters {
             if (exists jTypeParameterList = functionDeclaration.typeParameterList) {
-                return typeParametersToCeylon(jTypeParameterList);
+                return typeParametersToCeylon(jTypeParameterList, update);
             } else {
                 return null;
             }
         }
         value typeConstraints {
             if (exists jTypeConstraintList = functionDeclaration.typeConstraintList) {
-                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(propagateUpdate(typeConstraintToCeylon, update));
             } else {
                 return [];
             }
         }
         value annotations {
             if (exists jAnnotationList = functionDeclaration.annotationList) {
-                return annotationsToCeylon(jAnnotationList);
+                return annotationsToCeylon(jAnnotationList, update);
             } else {
                 return Annotations();
             }
         }
     };
+    update(functionDeclaration, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Function Declaration
  into a [[FunctionDeclaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionDeclaration? compileFunctionDeclaration(String code) {
+shared FunctionDeclaration? compileFunctionDeclaration(String code, Anything(JNode,Node) update = noop) {
     if (is JMethodDeclaration jDeclaration = createParser(code).declaration(),
         !jDeclaration.specifierExpression exists) {
-        return functionDeclarationToCeylon(jDeclaration);
+        return functionDeclarationToCeylon(jDeclaration, update);
     } else {
         return null;
     }

@@ -1,8 +1,10 @@
 import ceylon.ast.core {
+    Node,
     StringLiteral,
     StringTemplate
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JStringLiteral=StringLiteral,
         JStringTemplate=StringTemplate
@@ -20,7 +22,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[StringTemplate|JStringTemplate]] to a `ceylon.ast` [[StringTemplate]]."
-shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate) {
+shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Anything(JNode,Node) update = noop) {
     assert (nonempty literals = CeylonIterable(stringTemplate.stringLiterals).collect((JStringLiteral element) {
                 value type = element.mainToken.type;
                 if (type == string_start) {
@@ -33,16 +35,18 @@ shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate) {
                     throw AssertionError("Unexpected token type in string template");
                 }
             }));
-    assert (nonempty expressions = CeylonIterable(stringTemplate.expressions).collect(expressionToCeylon));
-    return StringTemplate(literals, expressions);
+    assert (nonempty expressions = CeylonIterable(stringTemplate.expressions).collect(propagateUpdate(expressionToCeylon, update)));
+    value result = StringTemplate(literals, expressions);
+    update(stringTemplate, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a String Template
  into a [[StringTemplate]] using the Ceylon compiler
  (more specifically, the rule for a `stringExpression`)."
-shared StringTemplate? compileStringTemplate(String code) {
+shared StringTemplate? compileStringTemplate(String code, Anything(JNode,Node) update = noop) {
     if (is JStringTemplate jStringExpression = createParser(code).stringExpression()) {
-        return stringTemplateToCeylon(jStringExpression);
+        return stringTemplateToCeylon(jStringExpression, update);
     } else {
         return null;
     }

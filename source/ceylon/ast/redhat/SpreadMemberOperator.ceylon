@@ -1,22 +1,27 @@
 import ceylon.ast.core {
+    Node,
     SpreadMemberOperator
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JSpreadOp=SpreadOp
     }
 }
 
 "Converts a RedHat AST [[SpreadOp|JSpreadOp]] to a `ceylon.ast` [[SpreadMemberOperator]]."
-shared SpreadMemberOperator spreadMemberOperatorToCeylon(JSpreadOp spreadMemberOperator)
-        => SpreadMemberOperator();
+shared SpreadMemberOperator spreadMemberOperatorToCeylon(JSpreadOp spreadMemberOperator, Anything(JNode,Node) update = noop) {
+    value result = SpreadMemberOperator();
+    update(spreadMemberOperator, result);
+    return result;
+}
 
 "Compiles the given [[code]] for a Spread Member Operator
  into a [[SpreadMemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared SpreadMemberOperator? compileSpreadMemberOperator(String code) {
+shared SpreadMemberOperator? compileSpreadMemberOperator(String code, Anything(JNode,Node) update = noop) {
     if (is JSpreadOp jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
-        return spreadMemberOperatorToCeylon(jMemberSelectionOperator);
+        return spreadMemberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {
         return null;
     }

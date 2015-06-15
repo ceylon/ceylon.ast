@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     FunctionDefinition,
-    Annotations
+    Annotations,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier,
         JFunctionModifier=FunctionModifier,
@@ -16,51 +18,54 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDefinition|JMethodDefinition]] to a `ceylon.ast` [[FunctionDefinition]]."
-shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition)
-        => FunctionDefinition {
-    name = lIdentifierToCeylon(functionDefinition.identifier);
-    value type {
-        assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDefinition.type);
-        switch (jType)
-        case (is JStaticType) { return typeToCeylon(jType); }
-        case (is JVoidModifier) { return voidModifierToCeylon(jType); }
-        case (is JFunctionModifier) { return functionModifierToCeylon(jType); }
-        case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
-    }
-    value parameterLists {
-        assert (nonempty parameterLists = CeylonIterable(functionDefinition.parameterLists).collect(parametersToCeylon));
-        return parameterLists;
-    }
-    definition = blockToCeylon(functionDefinition.block);
-    value typeParameters {
-        if (exists jTypeParameterList = functionDefinition.typeParameterList) {
-            return typeParametersToCeylon(jTypeParameterList);
-        } else {
-            return null;
+shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition, Anything(JNode,Node) update = noop) {
+    value result = FunctionDefinition {
+        name = lIdentifierToCeylon(functionDefinition.identifier, update);
+        value type {
+            assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionDefinition.type);
+            switch (jType)
+            case (is JStaticType) { return typeToCeylon(jType, update); }
+            case (is JVoidModifier) { return voidModifierToCeylon(jType, update); }
+            case (is JFunctionModifier) { return functionModifierToCeylon(jType, update); }
+            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType, update); }
         }
-    }
-    value typeConstraints {
-        if (exists jTypeConstraintList = functionDefinition.typeConstraintList) {
-            return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
-        } else {
-            return [];
+        value parameterLists {
+            assert (nonempty parameterLists = CeylonIterable(functionDefinition.parameterLists).collect(propagateUpdate(parametersToCeylon, update)));
+            return parameterLists;
         }
-    }
-    value annotations {
-        if (exists jAnnotationList = functionDefinition.annotationList) {
-            return annotationsToCeylon(jAnnotationList);
-        } else {
-            return Annotations();
+        definition = blockToCeylon(functionDefinition.block, update);
+        value typeParameters {
+            if (exists jTypeParameterList = functionDefinition.typeParameterList) {
+                return typeParametersToCeylon(jTypeParameterList, update);
+            } else {
+                return null;
+            }
         }
-    }
-};
+        value typeConstraints {
+            if (exists jTypeConstraintList = functionDefinition.typeConstraintList) {
+                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(propagateUpdate(typeConstraintToCeylon, update));
+            } else {
+                return [];
+            }
+        }
+        value annotations {
+            if (exists jAnnotationList = functionDefinition.annotationList) {
+                return annotationsToCeylon(jAnnotationList, update);
+            } else {
+                return Annotations();
+            }
+        }
+    };
+    update(functionDefinition, result);
+    return result;
+}
 
 "Compiles the given [[code]] for a Function Definition
  into a [[FunctionDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionDefinition? compileFunctionDefinition(String code) {
+shared FunctionDefinition? compileFunctionDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JMethodDefinition jDeclaration = createParser(code).declaration()) {
-        return functionDefinitionToCeylon(jDeclaration);
+        return functionDefinitionToCeylon(jDeclaration, update);
     } else {
         return null;
     }

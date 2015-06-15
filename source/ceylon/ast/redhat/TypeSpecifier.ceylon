@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     TypeSpecifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JTypeSpecifier=TypeSpecifier
     }
@@ -13,20 +15,22 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[TypeSpecifier|JTypeSpecifier]] to a `ceylon.ast` [[TypeSpecifier]]."
-shared TypeSpecifier typeSpecifierToCeylon(JTypeSpecifier typeSpecifier) {
+shared TypeSpecifier typeSpecifierToCeylon(JTypeSpecifier typeSpecifier, Anything(JNode,Node) update = noop) {
     "Must be specified with computation operator"
     assert (typeSpecifier.mainToken.type == compute);
-    return TypeSpecifier(typeToCeylon(typeSpecifier.type));
+    value result = TypeSpecifier(typeToCeylon(typeSpecifier.type, update));
+    update(typeSpecifier, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Type Specifier
  into a [[TypeSpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `typeSpecifier`)."
-shared TypeSpecifier? compileTypeSpecifier(String code) {
+shared TypeSpecifier? compileTypeSpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeSpecifier = createParser(code).typeSpecifier(),
         // the parser also allows type specifiers with a specification operator `=`, check for that
         jTypeSpecifier.mainToken.type == compute) {
-        return typeSpecifierToCeylon(jTypeSpecifier);
+        return typeSpecifierToCeylon(jTypeSpecifier, update);
     } else {
         return null;
     }

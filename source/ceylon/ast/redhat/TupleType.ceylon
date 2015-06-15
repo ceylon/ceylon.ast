@@ -1,11 +1,13 @@
 import ceylon.ast.core {
     DefaultedType,
+    Node,
     TupleType,
     Type,
     TypeList,
     VariadicType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JTupleType=TupleType
     }
@@ -15,10 +17,10 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TupleType|JTupleType]] to a `ceylon.ast` [[TupleType]]."
-shared TupleType tupleTypeToCeylon(JTupleType tupleType) {
+shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) update = noop) {
     variable VariadicType? variadicType = null;
     <Type|DefaultedType>[] elementTypes = CeylonIterable(tupleType.elementTypes).collect((Tree.Type jtype) {
-            value typeIsh = typeIshToCeylon(jtype);
+            value typeIsh = typeIshToCeylon(jtype, update);
             if (is VariadicType typeIsh) {
                 "Can’t have multiple variadic types"
                 assert (!(variadicType exists));
@@ -34,15 +36,17 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType) {
             assert (exists element);
             return element;
         }).sequence();
-    return TupleType(TypeList(elementTypes, variadicType));
+    value result = TupleType(TypeList(elementTypes, variadicType));
+    update(tupleType, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Tuple Type
  into a [[TupleType]] using the Ceylon compiler
  (more specifically, the rule for a `tupleType`)."
-shared TupleType? compileTupleType(String code) {
+shared TupleType? compileTupleType(String code, Anything(JNode,Node) update = noop) {
     if (exists jTupleType = createParser(code).tupleType()) {
-        return tupleTypeToCeylon(jTupleType);
+        return tupleTypeToCeylon(jTupleType, update);
     } else {
         return null;
     }

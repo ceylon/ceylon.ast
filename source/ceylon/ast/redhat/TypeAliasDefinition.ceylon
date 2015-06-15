@@ -1,9 +1,11 @@
 import ceylon.ast.core {
+    Node,
     TypeAliasDefinition,
     TypeConstraint,
     TypeParameters
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JTypeAliasDeclaration=TypeAliasDeclaration
     }
@@ -13,34 +15,36 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TypeAliasDeclaration|JTypeAliasDeclaration]] to a `ceylon.ast` [[TypeAliasDefinition]]."
-shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typeAliasDefinition) {
+shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typeAliasDefinition, Anything(JNode,Node) update = noop) {
     TypeParameters? typeParameters;
     if (exists jTypeParameterList = typeAliasDefinition.typeParameterList) {
-        typeParameters = typeParametersToCeylon(jTypeParameterList);
+        typeParameters = typeParametersToCeylon(jTypeParameterList, update);
     } else {
         typeParameters = null;
     }
     TypeConstraint[] typeConstraints;
     if (exists jTypeConstraintList = typeAliasDefinition.typeConstraintList) {
-        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+        typeConstraints = CeylonIterable(jTypeConstraintList.typeConstraints).collect(propagateUpdate(typeConstraintToCeylon, update));
     } else {
         typeConstraints = [];
     }
-    return TypeAliasDefinition {
-        name = uIdentifierToCeylon(typeAliasDefinition.identifier);
-        specifier = typeSpecifierToCeylon(typeAliasDefinition.typeSpecifier);
+    value result = TypeAliasDefinition {
+        name = uIdentifierToCeylon(typeAliasDefinition.identifier, update);
+        specifier = typeSpecifierToCeylon(typeAliasDefinition.typeSpecifier, update);
         typeParameters = typeParameters;
         typeConstraints = typeConstraints;
-        annotations = annotationsToCeylon(typeAliasDefinition.annotationList);
+        annotations = annotationsToCeylon(typeAliasDefinition.annotationList, update);
     };
+    update(typeAliasDefinition, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Type Alias Definition
  into a [[TypeAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared TypeAliasDefinition? compileTypeAliasDefinition(String code) {
+shared TypeAliasDefinition? compileTypeAliasDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeAliasDeclaration jTypeAliasDefinition = createParser(code).declaration()) {
-        return typeAliasDefinitionToCeylon(jTypeAliasDefinition);
+        return typeAliasDefinitionToCeylon(jTypeAliasDefinition, update);
     } else {
         return null;
     }

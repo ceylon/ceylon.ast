@@ -1,30 +1,34 @@
 import ceylon.ast.core {
     FailClause,
-    ForFail
+    ForFail,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JForStatement=ForStatement
     }
 }
 
 "Converts a RedHat AST [[ForStatement|JForStatement]] to a `ceylon.ast` [[ForFail]]."
-shared ForFail forFailToCeylon(JForStatement forFail) {
+shared ForFail forFailToCeylon(JForStatement forFail, Anything(JNode,Node) update = noop) {
     FailClause? failClause;
     if (exists jElseClause = forFail.elseClause) {
-        failClause = failClauseToCeylon(jElseClause);
+        failClause = failClauseToCeylon(jElseClause, update);
     } else {
         failClause = null;
     }
-    return ForFail(forClauseToCeylon(forFail.forClause), failClause);
+    value result = ForFail(forClauseToCeylon(forFail.forClause, update), failClause);
+    update(forFail, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a ‘`for`’ loop
  into a [[ForFail]] using the Ceylon compiler
  (more specifically, the rule for a `forElse`)."
-shared ForFail? compileForFail(String code) {
+shared ForFail? compileForFail(String code, Anything(JNode,Node) update = noop) {
     if (exists jForElse = createParser(code).forElse()) {
-        return forFailToCeylon(jForElse);
+        return forFailToCeylon(jForElse, update);
     } else {
         return null;
     }

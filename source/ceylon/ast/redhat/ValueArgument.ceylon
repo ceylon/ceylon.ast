@@ -1,8 +1,10 @@
 import ceylon.ast.core {
+    Node,
     Specifier,
     ValueArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAttributeArgument=AttributeArgument,
         JDynamicModifier=DynamicModifier,
@@ -18,21 +20,21 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[AttributeArgument|JAttributeArgument]] to a `ceylon.ast` [[ValueArgument]]."
-shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument) {
-    return ValueArgument {
-        name = lIdentifierToCeylon(valueArgument.identifier);
+shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Anything(JNode,Node) update = noop) {
+    value result = ValueArgument {
+        name = lIdentifierToCeylon(valueArgument.identifier, update);
         value type {
             assert (is JStaticType|JValueModifier|JDynamicModifier jType = valueArgument.type);
             switch (jType)
-            case (is JStaticType) { return typeToCeylon(jType); }
-            case (is JValueModifier) { return valueModifierToCeylon(jType); }
-            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType); }
+            case (is JStaticType) { return typeToCeylon(jType, update); }
+            case (is JValueModifier) { return valueModifierToCeylon(jType, update); }
+            case (is JDynamicModifier) { return dynamicModifierToCeylon(jType, update); }
         }
         value definition {
             if (exists jBlock = valueArgument.block) {
                 "Value argument can’t have both a block and a specifier"
                 assert (!valueArgument.specifierExpression exists);
-                return blockToCeylon(jBlock);
+                return blockToCeylon(jBlock, update);
             } else {
                 "Value argument must have either a specifier expression or a block"
                 assert (exists jSpecifierExpression = valueArgument.specifierExpression);
@@ -45,22 +47,24 @@ shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument) {
                      the token type. We need to work around that, and write our own
                      eager specifier conversion.
                      */
-                    return Specifier(expressionToCeylon(jSpecifierExpression.expression));
+                    return Specifier(expressionToCeylon(jSpecifierExpression.expression, update));
                 } else {
                     assert (is JLazySpecifierExpression jSpecifierExpression);
-                    return lazySpecifierToCeylon(jSpecifierExpression);
+                    return lazySpecifierToCeylon(jSpecifierExpression, update);
                 }
             }
         }
     };
+    update(valueArgument, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Value Argument
  into a [[ValueArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared ValueArgument? compileValueArgument(String code) {
+shared ValueArgument? compileValueArgument(String code, Anything(JNode,Node) update = noop) {
     if (is JAttributeArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
-        return valueArgumentToCeylon(jNamedArgumentDeclaration);
+        return valueArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {
         return null;
     }

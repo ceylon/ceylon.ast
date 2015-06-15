@@ -1,10 +1,12 @@
 import ceylon.ast.core {
     CatchClause,
+    Node,
     Type,
     UnspecifiedVariable,
     ValueModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JCatchClause=CatchClause,
         JStaticType=StaticType,
@@ -13,27 +15,29 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CatchClause|JCatchClause]] to a `ceylon.ast` [[CatchClause]]."
-shared CatchClause catchClauseToCeylon(JCatchClause catchClause) {
+shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,Node) update = noop) {
     Type|ValueModifier? type;
     value jVariable = catchClause.catchVariable.variable;
     value jType = jVariable.type;
     if (is JStaticType jType) {
-        type = typeToCeylon(jType);
+        type = typeToCeylon(jType, update);
     } else {
         assert (is JValueModifier jType);
         // The parser creates a ValueModifier with null token if the type is missing completely
-        type = jType.mainToken exists then valueModifierToCeylon(jType) else null;
+        type = jType.mainToken exists then valueModifierToCeylon(jType, update) else null;
     }
-    return CatchClause(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier), type), blockToCeylon(catchClause.block));
+    value result = CatchClause(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type), blockToCeylon(catchClause.block, update));
+    update(catchClause, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Catch Clause
  into a [[CatchClause]] using the Ceylon compiler
  (more specifically, the rule for a `catchBlock`)."
-shared CatchClause? compileCatchClause(String code) {
+shared CatchClause? compileCatchClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jCatchBlock = createParser(code).catchBlock(),
         jCatchBlock.catchVariable exists) { // it’s optional in the grammar
-        return catchClauseToCeylon(jCatchBlock);
+        return catchClauseToCeylon(jCatchBlock, update);
     } else {
         return null;
     }

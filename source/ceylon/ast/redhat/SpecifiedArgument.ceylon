@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    Node,
     SpecifiedArgument,
     ValueSpecification,
     LazySpecifier,
@@ -7,6 +8,7 @@ import ceylon.ast.core {
     ValueArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JFunctionModifier=FunctionModifier,
         JNamedArgument=NamedArgument,
@@ -26,39 +28,42 @@ import com.redhat.ceylon.compiler.typechecker.tree {
    
    are instead parsed as [[AttributeArguments|Tree.AttributeArgument]] / [[FunctionArguments|Tree.FunctionArgument]]
    with a synthetic ‘`function`’ / ‘`value`’ modifier (`null` token)."""
-shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument) {
+shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument, Anything(JNode,Node) update = noop) {
+    SpecifiedArgument result;
     if (is JSpecifiedArgument specifiedArgument) {
-        return SpecifiedArgument(ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier), specifierToCeylon(specifiedArgument.specifierExpression)));
+        result = SpecifiedArgument(ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier, update), specifierToCeylon(specifiedArgument.specifierExpression, update)));
     } else {
         assert (is JTypedArgument specifiedArgument, exists type = specifiedArgument.type, !type.mainToken exists);
         if (type is JFunctionModifier) {
-            assert (is FunctionArgument functionArgument = inlineDefinitionArgumentToCeylon(specifiedArgument));
+            assert (is FunctionArgument functionArgument = inlineDefinitionArgumentToCeylon(specifiedArgument, update));
             assert (is LazySpecifier definition = functionArgument.definition);
-            return SpecifiedArgument(LazySpecification {
+            result = SpecifiedArgument(LazySpecification {
                     name = functionArgument.name;
                     parameterLists = functionArgument.parameterLists;
                     specifier = definition;
                 });
         } else {
             assert (type is JValueModifier);
-            assert (is ValueArgument valueArgument = inlineDefinitionArgumentToCeylon(specifiedArgument));
+            assert (is ValueArgument valueArgument = inlineDefinitionArgumentToCeylon(specifiedArgument, update));
             assert (is LazySpecifier definition = valueArgument.definition);
-            return SpecifiedArgument(LazySpecification {
+            result = SpecifiedArgument(LazySpecification {
                     name = valueArgument.name;
                     parameterLists = [];
                     specifier = definition;
                 });
         }
     }
+    update(specifiedArgument, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Specified Argument
  into a [[SpecifiedArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgument`)."
-shared SpecifiedArgument? compileSpecifiedArgument(String code) {
+shared SpecifiedArgument? compileSpecifiedArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jNamedArgument = createParser(code).namedArgument()) {
         try {
-            return specifiedArgumentToCeylon(jNamedArgument);
+            return specifiedArgumentToCeylon(jNamedArgument, update);
         } catch (AssertionError e) {
             return null;
         }

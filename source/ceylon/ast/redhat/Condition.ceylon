@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Condition
+    Condition,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JBooleanCondition=BooleanCondition,
         JCondition=Condition,
@@ -11,21 +13,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Condition|JCondition]] to a `ceylon.ast` [[Condition]]."
-shared Condition conditionToCeylon(JCondition condition) {
+shared Condition conditionToCeylon(JCondition condition, Anything(JNode,Node) update = noop) {
     assert (is JBooleanCondition|JIsCondition|JExistsOrNonemptyCondition condition);
     switch (condition)
-    case (is JBooleanCondition) { return booleanConditionToCeylon(condition); }
-    case (is JIsCondition) { return isConditionToCeylon(condition); }
-    case (is JExistsOrNonemptyCondition) { return existsOrNonemptyConditionToCeylon(condition); }
+    case (is JBooleanCondition) { return booleanConditionToCeylon(condition, update); }
+    case (is JIsCondition) { return isConditionToCeylon(condition, update); }
+    case (is JExistsOrNonemptyCondition) { return existsOrNonemptyConditionToCeylon(condition, update); }
 }
 
 "Compiles the given [[code]] for a Condition
  into a [[Condition]] using the Ceylon compiler
  (more specifically, the rule for a `condition`)."
-shared Condition? compileCondition(String code) {
+shared Condition? compileCondition(String code, Anything(JNode,Node) update = noop) {
     if (exists jCondition = createParser(code + ",").condition()) {
         // the parser needs that comma for some conditions
-        return conditionToCeylon(jCondition);
+        return conditionToCeylon(jCondition, update);
     } else {
         return null;
     }

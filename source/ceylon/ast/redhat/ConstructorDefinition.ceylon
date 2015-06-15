@@ -1,35 +1,40 @@
 import ceylon.ast.core {
     ConstructorDefinition,
-    ExtendedType
+    ExtendedType,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JConstructor=Constructor
     }
 }
 
 "Converts a RedHat AST [[Constructor|JConstructor]] to a `ceylon.ast` [[ConstructorDefinition]]."
-shared ConstructorDefinition constructorDefinitionToCeylon(JConstructor constructorDefinition)
-        => ConstructorDefinition {
-    name = if (exists id = constructorDefinition.identifier) then uIdentifierToCeylon(id) else null;
-    parameters = parametersToCeylon(constructorDefinition.parameterList);
-    block = blockToCeylon(constructorDefinition.block);
-    value extendedType {
-        if (exists jExtendedType = constructorDefinition.delegatedConstructor) {
-            return ExtendedType(classInstantiationToCeylon(jExtendedType.type, jExtendedType.invocationExpression));
-        } else {
-            return null;
+shared ConstructorDefinition constructorDefinitionToCeylon(JConstructor constructorDefinition, Anything(JNode,Node) update = noop) {
+    value result = ConstructorDefinition {
+        name = if (exists id = constructorDefinition.identifier) then uIdentifierToCeylon(id, update) else null;
+        parameters = parametersToCeylon(constructorDefinition.parameterList, update);
+        block = blockToCeylon(constructorDefinition.block, update);
+        value extendedType {
+            if (exists jExtendedType = constructorDefinition.delegatedConstructor) {
+                return ExtendedType(classInstantiationToCeylon(jExtendedType.type, jExtendedType.invocationExpression, update));
+            } else {
+                return null;
+            }
         }
-    }
-    annotations = annotationsToCeylon(constructorDefinition.annotationList);
-};
+        annotations = annotationsToCeylon(constructorDefinition.annotationList, update);
+    };
+    update(constructorDefinition, result);
+    return result;
+}
 
 "Compiles the given [[code]] for a Constructor Definition
  into a [[ConstructorDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ConstructorDefinition? compileConstructorDefinition(String code) {
+shared ConstructorDefinition? compileConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JConstructor jConstructorDefinition = createParser(code).declaration()) {
-        return constructorDefinitionToCeylon(jConstructorDefinition);
+        return constructorDefinitionToCeylon(jConstructorDefinition, update);
     } else {
         return null;
     }

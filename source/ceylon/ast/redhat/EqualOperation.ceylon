@@ -1,27 +1,31 @@
 import ceylon.ast.core {
     EqualOperation,
-    ComparingExpression
+    ComparingExpression,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JEqualOp=EqualOp
     }
 }
 
 "Converts a RedHat AST [[EqualOp|JEqualOp]] to a `ceylon.ast` [[EqualOperation]]."
-shared EqualOperation equalOperationToCeylon(JEqualOp equalOperation) {
+shared EqualOperation equalOperationToCeylon(JEqualOp equalOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ComparingExpression left = expressionToCeylon(equalOperation.leftTerm),
-        is ComparingExpression right = expressionToCeylon(equalOperation.rightTerm));
-    return EqualOperation(left, right);
+    assert (is ComparingExpression left = expressionToCeylon(equalOperation.leftTerm, update),
+        is ComparingExpression right = expressionToCeylon(equalOperation.rightTerm, update));
+    value result = EqualOperation(left, right);
+    update(equalOperation, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Equal Operation
  into an [[EqualOperation]] using the Ceylon compiler
  (more specifically, the rule for an `equalityExpression`)."
-shared EqualOperation? compileEqualOperation(String code) {
+shared EqualOperation? compileEqualOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JEqualOp jEqualityExpression = createParser(code).equalityExpression()) {
-        return equalOperationToCeylon(jEqualityExpression);
+        return equalOperationToCeylon(jEqualityExpression, update);
     } else {
         return null;
     }

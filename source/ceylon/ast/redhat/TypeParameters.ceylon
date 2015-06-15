@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     TypeParameters
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JTypeParameterList=TypeParameterList
     }
@@ -11,17 +13,19 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TypeParameterList|JTypeParameterList]] to `ceylon.ast` [[TypeParameters]]."
-shared TypeParameters typeParametersToCeylon(JTypeParameterList typeParameters) {
-    assert (nonempty params = CeylonIterable(typeParameters.typeParameterDeclarations).collect(typeParameterToCeylon));
-    return TypeParameters(params);
+shared TypeParameters typeParametersToCeylon(JTypeParameterList typeParameters, Anything(JNode,Node) update = noop) {
+    assert (nonempty params = CeylonIterable(typeParameters.typeParameterDeclarations).collect(propagateUpdate(typeParameterToCeylon, update)));
+    value result = TypeParameters(params);
+    update(typeParameters, result);
+    return result;
 }
 
 "Compiles the given [[code]] for Type Parameters
  into [[TypeParameters]] using the Ceylon compiler
  (more specifically, the rule for `typeParameters`)."
-shared TypeParameters? compileTypeParameters(String code) {
+shared TypeParameters? compileTypeParameters(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeParameters = createParser(code).typeParameters()) {
-        return typeParametersToCeylon(jTypeParameters);
+        return typeParametersToCeylon(jTypeParameters, update);
     } else {
         return null;
     }

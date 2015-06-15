@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     Annotations,
-    InterfaceAliasDefinition
+    InterfaceAliasDefinition,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JInterfaceDeclaration=InterfaceDeclaration
     }
@@ -12,54 +14,56 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[InterfaceDeclaration|JInterfaceDeclaration]] to a `ceylon.ast` [[InterfaceAliasDefinition]]."
-shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDeclaration interfaceAliasDefinition) {
-    return InterfaceAliasDefinition {
-        name = uIdentifierToCeylon(interfaceAliasDefinition.identifier);
-        specifier = typeSpecifierToCeylon(interfaceAliasDefinition.typeSpecifier);
+shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDeclaration interfaceAliasDefinition, Anything(JNode,Node) update = noop) {
+    value result = InterfaceAliasDefinition {
+        name = uIdentifierToCeylon(interfaceAliasDefinition.identifier, update);
+        specifier = typeSpecifierToCeylon(interfaceAliasDefinition.typeSpecifier, update);
         value caseTypes {
             if (exists jCaseTypes = interfaceAliasDefinition.caseTypes) {
-                return caseTypesToCeylon(jCaseTypes);
+                return caseTypesToCeylon(jCaseTypes, update);
             } else {
                 return null;
             }
         }
         value satisfiedTypes {
             if (exists jSatisfiedTypes = interfaceAliasDefinition.satisfiedTypes) {
-                return satisfiedTypesToCeylon(jSatisfiedTypes);
+                return satisfiedTypesToCeylon(jSatisfiedTypes, update);
             } else {
                 return null;
             }
         }
         value typeParameters {
             if (exists jTypeParameterList = interfaceAliasDefinition.typeParameterList) {
-                return typeParametersToCeylon(jTypeParameterList);
+                return typeParametersToCeylon(jTypeParameterList, update);
             } else {
                 return null;
             }
         }
         value typeConstraints {
             if (exists jTypeConstraintList = interfaceAliasDefinition.typeConstraintList) {
-                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(typeConstraintToCeylon);
+                return CeylonIterable(jTypeConstraintList.typeConstraints).collect(propagateUpdate(typeConstraintToCeylon, update));
             } else {
                 return [];
             }
         }
         value annotations {
             if (exists jAnnotations = interfaceAliasDefinition.annotationList) {
-                return annotationsToCeylon(jAnnotations);
+                return annotationsToCeylon(jAnnotations, update);
             } else {
                 return Annotations();
             }
         }
     };
+    update(interfaceAliasDefinition, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Interface Alias Definition
  into an [[InterfaceAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared InterfaceAliasDefinition? compileInterfaceAliasDefinition(String code) {
+shared InterfaceAliasDefinition? compileInterfaceAliasDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceDeclaration jInterfaceAliasDefinition = createParser(code).declaration()) {
-        return interfaceAliasDefinitionToCeylon(jInterfaceAliasDefinition);
+        return interfaceAliasDefinitionToCeylon(jInterfaceAliasDefinition, update);
     } else {
         return null;
     }

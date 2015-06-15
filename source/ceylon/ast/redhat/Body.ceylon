@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Body
+    Body,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JBlock=Block,
         JBody=Body,
@@ -11,12 +13,12 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Body|JBody]] to a `ceylon.ast` [[Body]]."
-shared Body bodyToCeylon(JBody body) {
+shared Body bodyToCeylon(JBody body, Anything(JNode,Node) update = noop) {
     assert (is JBlock|JClassBody|JInterfaceBody body);
     switch (body)
-    case (is JBlock) { return blockToCeylon(body); }
-    case (is JClassBody) { return classBodyToCeylon(body); }
-    case (is JInterfaceBody) { return interfaceBodyToCeylon(body); }
+    case (is JBlock) { return blockToCeylon(body, update); }
+    case (is JClassBody) { return classBodyToCeylon(body, update); }
+    case (is JInterfaceBody) { return interfaceBodyToCeylon(body, update); }
 }
 
 /*

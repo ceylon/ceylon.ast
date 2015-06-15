@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     Resources
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JResourceList=ResourceList
     }
@@ -11,17 +13,19 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[Resources|JResourceList]] to `ceylon.ast` [[Resources]]."
-shared Resources resourcesToCeylon(JResourceList resources) {
-    assert (nonempty res = CeylonIterable(resources.resources).collect(resourceToCeylon));
-    return Resources(res);
+shared Resources resourcesToCeylon(JResourceList resources, Anything(JNode,Node) update = noop) {
+    assert (nonempty res = CeylonIterable(resources.resources).collect(propagateUpdate(resourceToCeylon, update)));
+    value result = Resources(res);
+    update(resources, result);
+    return result;
 }
 
 "Compiles the given [[code]] for Resources
  into [[Resources]] using the Ceylon compiler
  (more specifically, the rule for `resources`)."
-shared Resources? compileResources(String code) {
+shared Resources? compileResources(String code, Anything(JNode,Node) update = noop) {
     if (exists jResources = createParser(code).resources()) {
-        return resourcesToCeylon(jResources);
+        return resourcesToCeylon(jResources, update);
     } else {
         return null;
     }

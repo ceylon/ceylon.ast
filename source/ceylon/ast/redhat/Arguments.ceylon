@@ -1,8 +1,10 @@
 import ceylon.ast.core {
-    Arguments
+    Arguments,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     MissingToken,
+    JNode=Node,
     Tree {
         JArgumentList=ArgumentList,
         JNamedArgumentList=NamedArgumentList,
@@ -11,23 +13,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ArgumentList|JArgumentList]] to a `ceylon.ast` [[Arguments]]."
-shared Arguments argumentsToCeylon(JArgumentList arguments) {
+shared Arguments argumentsToCeylon(JArgumentList arguments, Anything(JNode,Node) update = noop) {
     assert (is JPositionalArgumentList|JNamedArgumentList arguments);
     switch (arguments)
-    case (is JPositionalArgumentList) { return positionalArgumentsToCeylon(arguments); }
-    case (is JNamedArgumentList) { return namedArgumentsToCeylon(arguments); }
+    case (is JPositionalArgumentList) { return positionalArgumentsToCeylon(arguments, update); }
+    case (is JNamedArgumentList) { return namedArgumentsToCeylon(arguments, update); }
 }
 
 "Compiles the given [[code]] for Arguments
  into [[Arguments]] using the Ceylon compiler
  (more specifically, the rule for `namedArguments` and `positionalArguments`)."
-shared Arguments? compileArguments(String code) {
+shared Arguments? compileArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jPositionalArguments = createParser(code).positionalArguments(),
         !jPositionalArguments.mainToken is MissingToken) { // by black magic, the parser parses {} as a positional argument list with missing main token, containing an empty iterable.
-        return argumentsToCeylon(jPositionalArguments);
+        return argumentsToCeylon(jPositionalArguments, update);
     } else if (exists jNamedArguments = createParser(code).namedArguments(),
         !jNamedArguments.mainToken is MissingToken) { // same here
-        return argumentsToCeylon(jNamedArguments);
+        return argumentsToCeylon(jNamedArguments, update);
     } else {
         return null;
     }

@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     VariadicParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JValueParameterDeclaration=ValueParameterDeclaration,
         JSequencedType=SequencedType
@@ -9,21 +11,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ValueParameterDeclaration|JValueParameterDeclaration]] to a `ceylon.ast` [[VariadicParameter]]."
-shared VariadicParameter variadicParameterToCeylon(JValueParameterDeclaration variadicParameter) {
+shared VariadicParameter variadicParameterToCeylon(JValueParameterDeclaration variadicParameter, Anything(JNode,Node) update = noop) {
     "Must be variadic"
     assert (is JSequencedType type = variadicParameter.typedDeclaration.type);
-    return VariadicParameter(
-        variadicTypeToCeylon(type),
-        lIdentifierToCeylon(variadicParameter.typedDeclaration.identifier),
-        annotationsToCeylon(variadicParameter.typedDeclaration.annotationList));
+    value result = VariadicParameter(
+        variadicTypeToCeylon(type, update),
+        lIdentifierToCeylon(variadicParameter.typedDeclaration.identifier, update),
+        annotationsToCeylon(variadicParameter.typedDeclaration.annotationList, update));
+    update(variadicParameter, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Variadic Parameter
  into a [[VariadicParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared VariadicParameter? compileVariadicParameter(String code) {
+shared VariadicParameter? compileVariadicParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JValueParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef()) {
-        return variadicParameterToCeylon(jParameterDeclarationOrRef);
+        return variadicParameterToCeylon(jParameterDeclarationOrRef, update);
     } else {
         return null;
     }

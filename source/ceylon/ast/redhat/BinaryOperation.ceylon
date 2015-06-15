@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    BinaryOperation
+    BinaryOperation,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JArithmeticOp=ArithmeticOp,
         JAssignmentOp=AssignmentOp,
@@ -23,31 +25,31 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[BinaryOperatorExpression|JBinaryOperatorExpression]] to a `ceylon.ast` [[BinaryOperation]]."
-shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation) {
+shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation, Anything(JNode,Node) update = noop) {
     assert (is JArithmeticOp|JBitwiseOp|JScaleOp|JRangeOp|JSegmentOp|JEntryOp|JInOp|JComparisonOp|JCompareOp|JEqualityOp|JIdenticalOp|JLogicalOp|JThenOp|JDefaultOp|JAssignmentOp binaryOperation);
     switch (binaryOperation)
-    case (is JArithmeticOp) { return arithmeticOperationToCeylon(binaryOperation); }
-    case (is JBitwiseOp) { return setOperationToCeylon(binaryOperation); }
-    case (is JScaleOp) { return scaleOperationToCeylon(binaryOperation); }
-    case (is JRangeOp) { return spanOperationToCeylon(binaryOperation); }
-    case (is JSegmentOp) { return measureOperationToCeylon(binaryOperation); }
-    case (is JEntryOp) { return entryOperationToCeylon(binaryOperation); }
-    case (is JInOp) { return inOperationToCeylon(binaryOperation); }
-    case (is JComparisonOp) { return comparisonOperationToCeylon(binaryOperation); }
-    case (is JCompareOp) { return compareOperationToCeylon(binaryOperation); }
-    case (is JEqualityOp|JIdenticalOp) { return equalityOperationToCeylon(binaryOperation); }
-    case (is JLogicalOp) { return logicalOperationToCeylon(binaryOperation); }
-    case (is JThenOp) { return thenOperationToCeylon(binaryOperation); }
-    case (is JDefaultOp) { return elseOperationToCeylon(binaryOperation); }
-    case (is JAssignmentOp) { return assignmentOperationToCeylon(binaryOperation); }
+    case (is JArithmeticOp) { return arithmeticOperationToCeylon(binaryOperation, update); }
+    case (is JBitwiseOp) { return setOperationToCeylon(binaryOperation, update); }
+    case (is JScaleOp) { return scaleOperationToCeylon(binaryOperation, update); }
+    case (is JRangeOp) { return spanOperationToCeylon(binaryOperation, update); }
+    case (is JSegmentOp) { return measureOperationToCeylon(binaryOperation, update); }
+    case (is JEntryOp) { return entryOperationToCeylon(binaryOperation, update); }
+    case (is JInOp) { return inOperationToCeylon(binaryOperation, update); }
+    case (is JComparisonOp) { return comparisonOperationToCeylon(binaryOperation, update); }
+    case (is JCompareOp) { return compareOperationToCeylon(binaryOperation, update); }
+    case (is JEqualityOp|JIdenticalOp) { return equalityOperationToCeylon(binaryOperation, update); }
+    case (is JLogicalOp) { return logicalOperationToCeylon(binaryOperation, update); }
+    case (is JThenOp) { return thenOperationToCeylon(binaryOperation, update); }
+    case (is JDefaultOp) { return elseOperationToCeylon(binaryOperation, update); }
+    case (is JAssignmentOp) { return assignmentOperationToCeylon(binaryOperation, update); }
 }
 
 "Compiles the given [[code]] for a Binary Operation
  into a [[BinaryOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared BinaryOperation? compileBinaryOperation(String code) {
+shared BinaryOperation? compileBinaryOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JBinaryOperatorExpression jBinaryOperation = createParser(code).assignmentExpression()) {
-        return binaryOperationToCeylon(jBinaryOperation);
+        return binaryOperationToCeylon(jBinaryOperation, update);
     } else {
         return null;
     }

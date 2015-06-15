@@ -1,26 +1,30 @@
 import ceylon.ast.core {
-    FailClause
+    FailClause,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JElseClause=ElseClause
     }
 }
 
 "Converts a RedHat AST [[ElseClause|JElseClause]] to a `ceylon.ast` [[FailClause]]."
-shared FailClause failClauseToCeylon(JElseClause failClause) {
+shared FailClause failClauseToCeylon(JElseClause failClause, Anything(JNode,Node) update = noop) {
     assert (exists jBlock = failClause.block);
     "Must not be an “anonymous” block (as generated for an else-if clause)."
     assert (jBlock.mainToken exists);
-    return FailClause(blockToCeylon(jBlock));
+    value result = FailClause(blockToCeylon(jBlock, update));
+    update(failClause, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Fail Clause
  into a [[FailClause]] using the Ceylon compiler
  (more specifically, the rule for a `failBlock`)."
-shared FailClause? compileFailClause(String code) {
+shared FailClause? compileFailClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jFailBlock = createParser(code).failBlock()) {
-        return failClauseToCeylon(jFailBlock);
+        return failClauseToCeylon(jFailBlock, update);
     } else {
         return null;
     }

@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    ImportElements
+    ImportElements,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JImportMemberOrTypeList=ImportMemberOrTypeList
     }
@@ -11,19 +13,21 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ImportMemberOrTypeList|JImportMemberOrTypeList]] to a `ceylon.ast` [[ImportElements]]."
-shared ImportElements importElementsToCeylon(JImportMemberOrTypeList importElements) {
-    return ImportElements {
-        elements = CeylonIterable(importElements.importMemberOrTypes).collect(importElementToCeylon);
-        wildcard = importElements.importWildcard exists then importWildcardToCeylon(importElements.importWildcard);
+shared ImportElements importElementsToCeylon(JImportMemberOrTypeList importElements, Anything(JNode,Node) update = noop) {
+    value result = ImportElements {
+        elements = CeylonIterable(importElements.importMemberOrTypes).collect(propagateUpdate(importElementToCeylon, update));
+        wildcard = importElements.importWildcard exists then importWildcardToCeylon(importElements.importWildcard, update);
     };
+    update(importElements, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Import Elements
  into an [[ImportElements]] using the Ceylon compiler
  (more specifically, the rule for an `importElementList`)."
-shared ImportElements? compileImportElements(String code) {
+shared ImportElements? compileImportElements(String code, Anything(JNode,Node) update = noop) {
     if (exists jImportElementList = createParser(code).importElementList()) {
-        return importElementsToCeylon(jImportElementList);
+        return importElementsToCeylon(jImportElementList, update);
     } else {
         return null;
     }

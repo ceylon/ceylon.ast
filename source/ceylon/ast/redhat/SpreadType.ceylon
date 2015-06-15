@@ -1,7 +1,9 @@
 import ceylon.ast.core {
+    Node,
     SpreadType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JSpreadType=SpreadType,
         JStaticType=StaticType
@@ -9,19 +11,21 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SpreadType|JSpreadType]] to a `ceylon.ast` [[SpreadType]]."
-shared SpreadType spreadTypeToCeylon(JSpreadType spreadType) {
+shared SpreadType spreadTypeToCeylon(JSpreadType spreadType, Anything(JNode,Node) update = noop) {
     "Must be an actual type"
     assert (is JStaticType jType = spreadType.type);
-    return SpreadType(typeToCeylon(jType));
+    value result = SpreadType(typeToCeylon(jType, update));
+    update(spreadType, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Spread Type
  into a [[SpreadType]] using the Ceylon compiler
  (more specifically, the rule for a `spreadType`)."
-shared SpreadType? compileSpreadType(String code) {
+shared SpreadType? compileSpreadType(String code, Anything(JNode,Node) update = noop) {
     if (exists jSpreadType = createParser(code).spreadType()) {
         assert (is JSpreadType jSpreadType);
-        return spreadTypeToCeylon(jSpreadType);
+        return spreadTypeToCeylon(jSpreadType, update);
     } else {
         return null;
     }

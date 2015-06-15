@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    ClassBody
+    ClassBody,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JClassBody=ClassBody
     }
@@ -11,16 +13,18 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ClassBody|JClassBody]] to a `ceylon.ast` [[ClassBody]]."
-shared ClassBody classBodyToCeylon(JClassBody classBody) {
-    return ClassBody(CeylonIterable(classBody.statements).collect(declarationOrStatementToCeylon));
+shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode,Node) update = noop) {
+    value result = ClassBody(CeylonIterable(classBody.statements).collect(propagateUpdate(declarationOrStatementToCeylon, update)));
+    update(classBody, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a Class Body
  into a [[ClassBody]] using the Ceylon compiler
  (more specifically, the rule for a `classBody`)."
-shared ClassBody? compileClassBody(String code) {
+shared ClassBody? compileClassBody(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassBody = createParser(code).classBody()) {
-        return classBodyToCeylon(jClassBody);
+        return classBodyToCeylon(jClassBody, update);
     } else {
         return null;
     }

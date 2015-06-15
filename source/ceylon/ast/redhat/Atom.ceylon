@@ -1,7 +1,9 @@
 import ceylon.ast.core {
-    Atom
+    Atom,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JAtom=Atom,
         JDynamic=Dynamic,
@@ -17,23 +19,23 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Atom|JAtom]] to a `ceylon.ast` [[Atom]]."
-shared Atom atomToCeylon(JAtom atom) {
+shared Atom atomToCeylon(JAtom atom, Anything(JNode,Node) update = noop) {
     switch (atom)
     case (is JExpression) {
         if (atom.mainToken exists) {
-            return groupedExpressionToCeylon(atom);
+            return groupedExpressionToCeylon(atom, update);
         } else {
             // a JTerm wrapped in a JExpression
-            assert (is Atom ret = expressionToCeylon(atom.term));
+            assert (is Atom ret = expressionToCeylon(atom.term, update));
             return ret;
         }
     }
-    case (is JLiteral) { return literalToCeylon(atom); }
-    case (is JStringTemplate) { return stringTemplateToCeylon(atom); }
-    case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom); }
-    case (is JSequenceEnumeration) { return iterableToCeylon(atom); }
-    case (is JTuple) { return tupleToCeylon(atom); }
-    case (is JDynamic) { return dynamicValueToCeylon(atom); }
+    case (is JLiteral) { return literalToCeylon(atom, update); }
+    case (is JStringTemplate) { return stringTemplateToCeylon(atom, update); }
+    case (is JSelfExpression|JOuter|JPackage) { return selfReferenceToCeylon(atom, update); }
+    case (is JSequenceEnumeration) { return iterableToCeylon(atom, update); }
+    case (is JTuple) { return tupleToCeylon(atom, update); }
+    case (is JDynamic) { return dynamicValueToCeylon(atom, update); }
     else {
         throw AssertionError("Unknown atom type");
     }
@@ -42,9 +44,9 @@ shared Atom atomToCeylon(JAtom atom) {
 "Compiles the given [[code]] for an Atom
  into an [[Atom]] using the Ceylon compiler
  (more specifically, the rule for a `base`)."
-shared Atom? compileAtom(String code) {
+shared Atom? compileAtom(String code, Anything(JNode,Node) update = noop) {
     if (is JAtom jAtom = createParser(code).base()) {
-        return atomToCeylon(jAtom);
+        return atomToCeylon(jAtom, update);
     } else {
         return null;
     }

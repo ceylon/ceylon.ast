@@ -1,8 +1,10 @@
 import ceylon.ast.core {
     ArgumentList,
-    NamedArguments
+    NamedArguments,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JNamedArgumentList=NamedArgumentList
     }
@@ -12,22 +14,24 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[NamedArgumentList|JNamedArgumentList]] to a `ceylon.ast` [[NamedArguments]]."
-shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments) {
+shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, Anything(JNode,Node) update = noop) {
     ArgumentList iterableArguments;
     if (exists sequencedArgument = namedArguments.sequencedArgument) {
-        iterableArguments = argumentListToCeylon(sequencedArgument);
+        iterableArguments = argumentListToCeylon(sequencedArgument, update);
     } else {
         iterableArguments = ArgumentList();
     }
-    return NamedArguments(CeylonIterable(namedArguments.namedArguments).collect(namedArgumentToCeylon), iterableArguments);
+    value result = NamedArguments(CeylonIterable(namedArguments.namedArguments).collect(propagateUpdate(namedArgumentToCeylon, update)), iterableArguments);
+    update(namedArguments, result);
+    return result;
 }
 
 "Compiles the given [[code]] for Named Arguments
  into [[NamedArguments]] using the Ceylon compiler
  (more specifically, the rule for `namedArguments`)."
-shared NamedArguments? compileNamedArguments(String code) {
+shared NamedArguments? compileNamedArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jNamedArguments = createParser(code).namedArguments()) {
-        return namedArgumentsToCeylon(jNamedArguments);
+        return namedArgumentsToCeylon(jNamedArguments, update);
     } else {
         return null;
     }

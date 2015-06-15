@@ -1,0 +1,182 @@
+#!/bin/bash
+
+# Update a ceylon.ast.redhat conversion function for ceylon/ceylon.ast#87
+# (https://github.com/ceylon/ceylon.ast/issues/87).
+# 
+# This tool runs in two phases:
+# First, do _almost_ all the updating,
+# except that the update argument is not defaulted.
+# The default argument (`= noop`) is added in the second phase.
+# You are intended to fix all errors in between phases;
+# the default argument being absent is intended to help you catch
+# all instances where the update function was not propagated properly.
+
+# TODO we also need to update all toCeylon calls!!
+# we should probably first generate a version without default arg,
+# to find cases which we missed
+
+usage() {
+    echo "Usage: $0 PHASE FILE" >&2
+}
+
+if [[ $# != 2 ]]; then
+    usage
+    exit 1
+fi
+
+phase=$1
+file=$2
+
+case $phase in
+    1)
+        # rest of the script:
+        # outside of case to avoid indentation
+        ;;
+    2)
+        sed -f - -i $file << 'EOF'
+s/Anything(JNode,Node) update)/Anything(JNode,Node) update = noop)/
+EOF
+        exit 0
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
+esac
+
+#sed() {
+#    echo "running sed with $@" >&2
+#    tee /dev/stderr | command sed "$@"
+#    echo "---" >&2
+#}
+
+# We need to add imports for
+# 
+# - Node (ceylon.ast.core)
+# - JNode=Node (com.redhat.ceylon.compiler.typechecker.tree)
+# 
+# For JNode, we can insert it above the start
+# of the Tree import (all other JX=X imports are within Tree).
+# For Node, we’d like to preserve alphabetical ordering
+# of imports. This is done by `i`nserting the import line
+# before a match to some import that would come after Node,
+# in the range of lines up to the first such match.
+# (The range ensures that we only insert before the first such match,
+# not all of them.)
+#
+# If the import already exists, this duplicates it,
+# but we can fix that manually afterwards.
+
+sed -f - -i $file << 'EOF'
+
+/^import ceylon.ast.core {$/,/^}$/ {
+    # ensure that imports before Node have trailing comma
+    /^    \([A-M]\|N[a-n]\|No[a-c]\).*[^,]$/ s/$/,/
+    # add Node import:
+    0,/^    \(No[e-z]\|N[p-z]\|[O-Z]\)\|^}$/ {
+        # with comma before other import
+        /^    \(No[e-z]\|N[p-z]\|[O-Z]\)/ i\
+\    Node,
+        # without comma before closing brace
+        /^}$/ i\
+\    Node
+    }
+}
+
+/^import com.redhat.ceylon.compiler.typechecker.tree {$/,/^}$/ {
+    /^    Tree {/ i\
+\    JNode=Node,
+}
+
+EOF
+
+# Add the update parameter
+
+# xToCeylon functions
+sed -f - -i $file << 'EOF'
+/^shared .*ToCeylon(.* .*)/ s/)/, Anything(JNode,Node) update)/
+EOF
+# compileX functions
+sed -f - -i $file << 'EOF'
+/^shared .* compile.*(String code)/ s/)/, Anything(JNode,Node) update)/
+EOF
+
+# Extract the jNode parameter name
+
+jNode=$(sed -f - $file << 'EOF'
+s/^shared .*ToCeylon(.* \(.*\), Anything(JNode,Node) update).*$/\1/
+t found # branch to `found` if last `s` matched
+d # otherwise, if last `s` didn’t match: delete line
+: found
+q
+EOF
+);
+if [[ -z $jNode ]]; then
+    echo "$0: error: node name not found" >&2
+    exit 1
+fi
+
+# Check for shortcut function definition
+
+if grep -A1 '^shared .*ToCeylon' $file | grep -q '        =>'; then
+    # Shortcut function definition:
+    # Rewrite into regular function definition
+    # (needs to be indented one more level)
+
+    # Append opening brace to function header
+    sed '/^shared .*ToCeylon/ s/$/ {/' -i $file
+    # Fix return
+    sed -f - -i $file << 'EOF'
+/^shared .*ToCeylon/,/^};$/ {
+    s/^        =>/    return/
+}
+EOF
+    # Fix indentation
+    sed -f - -i $file << 'EOF'
+/^shared .*ToCeylon/,/^};$/ {
+    /^    return/ !s/^    /        /
+}
+EOF
+    # Add missing closing brace:
+    # indent `};`, append function closing brace
+    sed -f - -i $file << 'EOF'
+/^shared .*ToCeylon/,/^};$/ {
+    /^};$/ {
+        s/^/    /
+        a\
+}
+    }
+}
+EOF
+fi
+
+# Now we are guaranteed to have a function with a proper block.
+# We don’t want to rewrite all of these, though;
+# the functions for abstract node types only delegate to other toCeylon()s,
+# where the update is already done.
+# In these cases, which we can detect since they switch
+# on the jNode, we don’t need to add updating code.
+if ! grep -q "switch ($jNode)" $file; then
+    # Assign the returned value to a temporary variable,
+    # update() the variable, and return it.
+    sed -f - -i $file << EOF
+
+/^shared .*ToCeylon/,/^}$/ {
+    s/^    return/    value result =/
+    /^}$/ i\
+\    update($jNode, result);\n\
+\    return result;
+}
+
+EOF
+    
+fi
+
+# And finally, propagate the update function to all sub-ToCeylon()s.
+# We correctly handle all cases with no nested parentheses
+# in the ToCeylon argument; the others can be fixed manually.
+sed -f - -i $file << 'EOF'
+/^shared .*ToCeylon/ !{
+    s/\(ToCeylon([^(]*\))/\1, update)/
+}
+EOF

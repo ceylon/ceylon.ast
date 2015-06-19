@@ -1,6 +1,9 @@
 import ceylon.ast.core {
+    Identifier,
+    Key,
     Node,
-    Identifier
+    ScopedKey,
+    Visitor
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node
@@ -14,6 +17,18 @@ import ceylon.test {
     assertNotEquals,
     test,
     ignore
+}
+
+
+Key<JNode> originalNodeKey = ScopedKey<JNode>(`module`, "originalNode");
+void storeOriginalNode(JNode originalNode, Node newNode)
+        => newNode.put(originalNodeKey, originalNode);
+object checkOriginalNodePresence satisfies Visitor {
+    shared actual void visitNode(Node node) {
+        "Original node must be present"
+        assert (node.get(originalNodeKey) exists);
+        node.visitChildren(this);
+    }
 }
 
 void assertNodesEquals(Node actual, Node expected, String? message = null) {
@@ -34,7 +49,7 @@ void assertNodesEquals(Node actual, Node expected, String? message = null) {
 
 void doTest<CeylonAstType,RedHatType>(
     CeylonAstType? compile(String code),
-    RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node),
+    RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon,
     <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
@@ -42,15 +57,17 @@ void doTest<CeylonAstType,RedHatType>(
     testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
 }
 
-void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType toCeylon(RedHatType node), CeylonAstType+ nodes)
+void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon, CeylonAstType+ nodes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     for (node in nodes) {
+        value converted = toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node), storeOriginalNode);
         assertNodesEquals {
-            actual = toCeylon(fromCeylon(RedHatTransformer(SimpleTokenFactory()))(node));
+            actual = converted;
             expected = node;
             message = "Double conversion";
         };
+        converted.visit(checkOriginalNodePresence);
     }
 }
 
@@ -63,6 +80,7 @@ void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String
             expected = node;
             message = "Compile ‘``code``’";
         };
+        compiled.visit(checkOriginalNodePresence);
     }
 }
 
@@ -96,7 +114,7 @@ shared interface CompilationTest<out CeylonAstType>
         satisfies CodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node {
     
-    shared formal CeylonAstType? compile(String code);
+    shared formal CeylonAstType? compile(String code, Anything(JNode,Node) update = noop);
     
     test
     shared void compilation() => testCompilation(compile, *codes);
@@ -108,7 +126,7 @@ shared interface ConversionTest<CeylonAstType,RedHatType>
         given RedHatType satisfies JNode {
     
     shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
-    shared formal CeylonAstType toCeylon(RedHatType node);
+    shared formal CeylonAstType toCeylon(RedHatType node, Anything(JNode,Node) update = noop);
     
     test
     shared void conversion() => testConversion(fromCeylon, toCeylon, *nodes);

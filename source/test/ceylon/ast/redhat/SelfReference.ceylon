@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    Node,
     SelfReference,
     This,
     Super,
@@ -19,6 +20,7 @@ import ceylon.ast.redhat {
     packageToCeylon
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
+    JNode=Node,
     Tree {
         JSelfExpression=SelfExpression,
         JThis=This,
@@ -57,10 +59,14 @@ shared object \ipackage satisfies ConcreteTest<Package,JPackage> {
     codes = [packagePackage];
 }
 
-shared object selfReference satisfies AbstractTest<SelfReference,JSelfExpression|JOuter|JPackage> {
+shared object selfReference satisfies AbstractTest<SelfReference,JNode/*JSelfExpression|JOuter|JPackage*/> {
     compile = compileSelfReference;
     fromCeylon = RedHatTransformer.transformSelfReference;
-    toCeylon = selfReferenceToCeylon;
+    //toCeylon = selfReferenceToCeylon;
+    shared actual SelfReference toCeylon(JNode jNode, Anything(JNode,Node) update) {
+        assert (is JSelfExpression|JOuter|JPackage jNode);
+        return selfReferenceToCeylon(jNode, update);
+    }
     
     tests = [\ithis, \isuper, \iouter, \ipackage];
 }

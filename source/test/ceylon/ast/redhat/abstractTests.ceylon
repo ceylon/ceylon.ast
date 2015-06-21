@@ -48,7 +48,7 @@ void assertNodesEquals(Node actual, Node expected, String? message = null) {
 }
 
 void doTest<CeylonAstType,RedHatType>(
-    CeylonAstType? compile(String code),
+    CeylonAstType?(String,Anything(JNode,Node)=) compile,
     RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon,
     <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node
@@ -71,10 +71,10 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
     }
 }
 
-void testCompilation<CeylonAstType>(CeylonAstType? compile(String code), <String->CeylonAstType>+ codes)
+void testCompilation<CeylonAstType>(CeylonAstType?(String,Anything(JNode,Node)=) compile, <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node {
     for (code->node in codes) {
-        assert (exists compiled = compile(code));
+        assert (exists compiled = compile(code, storeOriginalNode));
         assertNodesEquals {
             actual = compiled;
             expected = node;

@@ -3463,6 +3463,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JSpecifierStatement ret = JSpecifierStatement(null);
         ret.baseMemberExpression = baseMemberExpression;
         ret.specifierExpression = transformSpecifier(that.specifier);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

@@ -331,6 +331,14 @@ shared CompilationUnit completeCompilationUnit
                         extendedType = null;
                         annotations = Annotations();
                     },
+                    ValueSpecification {
+                        name = LIdentifier("eagerString");
+                        specifier = Specifier(StringLiteral("""Bool"""));
+                    },
+                    LazySpecification {
+                        name = LIdentifier("lazyString");
+                        specifier = LazySpecifier(StringLiteral("""Bool"""));
+                    },
                     TryCatchFinally {
                         tryClause = TryClause {
                             block = Block([Throw()]);

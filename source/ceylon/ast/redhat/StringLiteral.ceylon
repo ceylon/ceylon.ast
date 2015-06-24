@@ -36,7 +36,7 @@ String stripStringLiteral(CommonToken token, Boolean isVerbatim) {
     value quoteLength = isVerbatim then 3 else 1;
     Integer toStrip = token.charPositionInLine + quoteLength;
     StringBuilder ret = StringBuilder();
-    value text = token.text[quoteLength .. token.text.size - (quoteLength + 1)];
+    value text = token.text[quoteLength : token.text.size - 2 * quoteLength];
     value lines = text.lines;
     if (exists firstLine = lines.first) {
         ret.append(firstLine);

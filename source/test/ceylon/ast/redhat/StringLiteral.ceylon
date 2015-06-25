@@ -19,6 +19,7 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     
     shared String->StringLiteral capitalCStringLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->StringLiteral namedCapitalCStringLiteral = construct("\\{LATIN CAPITAL LETTER C}");
+    shared String->StringLiteral emptyStringLiteral = construct("");
     
     // not tested directly, but used by other tests
     shared String->StringLiteral helloStringLiteral = construct("Hello, ");
@@ -31,5 +32,5 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     compile = compileStringLiteral;
     fromCeylon = RedHatTransformer.transformStringLiteral;
     toCeylon = stringLiteralToCeylon;
-    codes = [capitalCStringLiteral, namedCapitalCStringLiteral];
+    codes = [capitalCStringLiteral, namedCapitalCStringLiteral, emptyStringLiteral];
 }

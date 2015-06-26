@@ -14,12 +14,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral> {
     
-    String->StringLiteral construct(String text)
-            => "\"``text``\""->StringLiteral(text);
+    String->StringLiteral construct(String text, Boolean verbatim = false)
+            => let (quotes = verbatim then "\"\"\"" else "\"") (quotes + text + quotes)->StringLiteral(text, verbatim);
     
     shared String->StringLiteral capitalCStringLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->StringLiteral namedCapitalCStringLiteral = construct("\\{LATIN CAPITAL LETTER C}");
     shared String->StringLiteral emptyStringLiteral = construct("");
+    shared String->StringLiteral verbatimStringLiteral = construct("verbatim", true);
+    shared String->StringLiteral quoteStringLiteral = construct("""\"""", false);
+    shared String->StringLiteral quoteVerbatimStringLiteral = construct(""""""", true);
+    shared String->StringLiteral emptyVerbatimStringLiteral = construct("", true);
     
     // not tested directly, but used by other tests
     shared String->StringLiteral helloStringLiteral = construct("Hello, ");
@@ -32,5 +36,5 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     compile = compileStringLiteral;
     fromCeylon = RedHatTransformer.transformStringLiteral;
     toCeylon = stringLiteralToCeylon;
-    codes = [capitalCStringLiteral, namedCapitalCStringLiteral, emptyStringLiteral];
+    codes = [capitalCStringLiteral, namedCapitalCStringLiteral, emptyStringLiteral, verbatimStringLiteral, quoteStringLiteral, quoteVerbatimStringLiteral, emptyVerbatimStringLiteral];
 }

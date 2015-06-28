@@ -15,7 +15,7 @@ shared ConstructorDec constructorDecToCeylon(JNewLiteral constructorDec, Anythin
     assert (is JQualifiedType jType = constructorDec.type,
         !jType.typeArgumentList exists);
     value qualifier = decQualifierToCeylon(jType.outerType, update);
-    value name = uIdentifierToCeylon(jType.identifier, update);
+    value name = lIdentifierToCeylon(jType.identifier, update);
     value result = ConstructorDec(name, qualifier);
     update(constructorDec, result);
     return result;

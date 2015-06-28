@@ -27,7 +27,7 @@ shared ConstructorDefinition constructorDefinition(
     Annotations annotations;
     
     return ConstructorDefinition {
-        name = uidentifier(name);
+        name = lidentifier(name);
         block = package.block(block);
         parameters = parameters_internal(parameters);
         extendedType = extendedType;

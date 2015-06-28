@@ -31,7 +31,7 @@ test
 shared void constructorDefinition() {
     assertEquals {
         actual = createConstructorDefinition {
-            name = "MyConstructor";
+            name = "myConstructor";
             parameters = {
                 ValueParameter {
                     annotations = createAnnotations { "shared", "actual" };
@@ -51,7 +51,7 @@ shared void constructorDefinition() {
             };
         };
         expected = ConstructorDefinition {
-            name = UIdentifier("MyConstructor");
+            name = LIdentifier("myConstructor");
             parameters = Parameters([
                     ValueParameter {
                         annotations = createAnnotations { "shared", "actual" };

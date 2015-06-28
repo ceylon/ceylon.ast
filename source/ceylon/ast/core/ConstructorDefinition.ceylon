@@ -11,7 +11,7 @@
  Examples (multi-line):
  
      // 2D point
-     shared new Polar(r, φ) {
+     shared new polar(r, φ) {
          Float r;
          Float φ;
          this.x = r * cos(φ);
@@ -21,8 +21,8 @@
      }
  
      // 3D location in homogenous coordinates
-     shared new Cartesian(Float x, Float y, Float z)
-             extends super.Cartesian(x, y, z, 1.0) {}
+     shared new cartesian(Float x, Float y, Float z)
+             extends super.cartesian(x, y, z, 1.0) {}
      
      // default constructor
      shared new(String name, Date|String dateOfBirth) {
@@ -38,7 +38,7 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     "The name of the constructor, if present.
      
      The name can also be absent, in which case this is the _default constructor_."
-    shared actual UIdentifier? name;
+    shared actual LIdentifier? name;
     "The parameters of the constructor."
     shared Parameters parameters;
     "The block of the constructor."
@@ -48,7 +48,7 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     "The annotations of the constructor."
     shared actual Annotations annotations;
     
-    shared actual <Annotations|UIdentifier|Parameters|ExtendedType|Block>[] children
+    shared actual <Annotations|LIdentifier|Parameters|ExtendedType|Block>[] children
             = concatenate(
         [annotations],
         emptyOrSingleton(name),
@@ -93,7 +93,7 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     shared actual Integer hash
             => 31 * ((name?.hash else 0) + 31 * (parameters.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31 * annotations.hash))));
     
-    shared ConstructorDefinition copy(UIdentifier? name = this.name, Parameters parameters = this.parameters, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
+    shared ConstructorDefinition copy(LIdentifier? name = this.name, Parameters parameters = this.parameters, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
         value ret = ConstructorDefinition(name, parameters, block, extendedType, annotations);
         copyExtraInfoTo(ret);
         return ret;

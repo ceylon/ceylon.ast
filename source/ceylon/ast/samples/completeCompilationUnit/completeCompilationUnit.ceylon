@@ -315,14 +315,14 @@ shared CompilationUnit completeCompilationUnit
                 ]);
             body = ClassBody([
                     ConstructorDefinition {
-                        name = UIdentifier("Bool");
+                        name = LIdentifier("bool");
                         parameters = Parameters();
                         block = Block([
                                 ValueDefinition {
                                     name = LIdentifier("self");
                                     type = ValueModifier();
                                     definition = Specifier(ConstructorDec {
-                                            name = UIdentifier("Bool");
+                                            name = LIdentifier("bool");
                                             qualifier = DecQualifier([UIdentifier("MyBoolean")], PackageQualifier());
                                         });
                                     annotations = Annotations();

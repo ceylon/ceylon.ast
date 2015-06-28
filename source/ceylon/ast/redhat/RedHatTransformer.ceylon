@@ -1090,7 +1090,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JConstructor ret = JConstructor(tokens.token("new", newType));
         ret.annotationList = annotationList;
         if (exists name = that.name) {
-            ret.identifier = transformUIdentifier(name);
+            ret.identifier = transformLIdentifier(name);
         }
         ret.parameterList = transformParameters(that.parameters);
         if (exists extendedType = that.extendedType) {

@@ -8,6 +8,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JValueModifier=ValueModifier
     }
 }
+import org.antlr.runtime {
+    ANTLRStringStream,
+    CommonTokenStream,
+    Token
+}
+import com.redhat.ceylon.compiler.typechecker.parser {
+    CeylonLexer {
+        valueType=\iVALUE_MODIFIER
+    }
+}
 
 "Converts a RedHat AST [[ValueModifier|JValueModifier]] to a `ceylon.ast` [[ValueModifier]]."
 shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anything(JNode,Node) update = noop) {
@@ -17,7 +27,17 @@ shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anythin
 }
 
 "Compiles the given [[code]] for a Value Modifier
- into a [[ValueModifier]]."
+ into a [[ValueModifier]] using the Ceylon compiler
+ (more specifically, the lexer)."
 shared ValueModifier? compileValueModifier(String code, Anything(JNode,Node) update = noop) {
-    return code.trimmed == "value" then ValueModifier();
+    value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
+    Token? token = stream.\iLT(1);
+    if (exists token, token.type == valueType) {
+        value jValueModifier = JValueModifier(token);
+        value result = ValueModifier();
+        update(jValueModifier, result);
+        return result;
+    } else {
+        return null;
+    }
 }

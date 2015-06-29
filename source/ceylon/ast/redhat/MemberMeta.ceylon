@@ -24,12 +24,16 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta, Anything(JNode,N
             assert (is PrimaryType type = typeToCeylon(jQualifier, update));
             return type;
         }
-        nameAndArgs = MemberNameWithTypeArguments {
-            name = lIdentifierToCeylon(memberMeta.identifier, update);
-            typeArguments = if (exists jTypeArguments = memberMeta.typeArgumentList)
-            then typeArgumentsToCeylon(jTypeArguments, update)
-            else null;
-        };
+        value nameAndArgs {
+            value result = MemberNameWithTypeArguments {
+                name = lIdentifierToCeylon(memberMeta.identifier, update);
+                typeArguments = if (exists jTypeArguments = memberMeta.typeArgumentList)
+                then typeArgumentsToCeylon(jTypeArguments, update)
+                else null;
+            };
+            update(memberMeta, result);
+            return result;
+        }
     };
     update(memberMeta, result);
     return result;

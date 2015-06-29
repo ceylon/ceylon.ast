@@ -18,7 +18,9 @@ shared ConstructorDefinition constructorDefinitionToCeylon(JConstructor construc
         block = blockToCeylon(constructorDefinition.block, update);
         value extendedType {
             if (exists jExtendedType = constructorDefinition.delegatedConstructor) {
-                return ExtendedType(classInstantiationToCeylon(jExtendedType.type, jExtendedType.invocationExpression, update));
+                value result = ExtendedType(classInstantiationToCeylon(jExtendedType.type, jExtendedType.invocationExpression, update));
+                update(jExtendedType, result);
+                return result;
             } else {
                 return null;
             }

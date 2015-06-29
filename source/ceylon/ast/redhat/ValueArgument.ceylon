@@ -47,7 +47,9 @@ shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Any
                      the token type. We need to work around that, and write our own
                      eager specifier conversion.
                      */
-                    return Specifier(expressionToCeylon(jSpecifierExpression.expression, update));
+                    value result = Specifier(expressionToCeylon(jSpecifierExpression.expression, update));
+                    update(jSpecifierExpression, result);
+                    return result;
                 } else {
                     assert (is JLazySpecifierExpression jSpecifierExpression);
                     return lazySpecifierToCeylon(jSpecifierExpression, update);

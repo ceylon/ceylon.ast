@@ -29,12 +29,16 @@ shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDe
     case (is JStaticType) { type = typeToCeylon(jType, update); }
     case (is JDynamicModifier) { type = dynamicModifierToCeylon(jType, update); }
     value result = DefaultedValueParameter {
-        parameter = ValueParameter(
-            type,
-            lIdentifierToCeylon(dec.identifier, update),
-            dec.annotationList exists
-                    then annotationsToCeylon(dec.annotationList, update)
-                    else Annotations());
+        value parameter {
+            value result = ValueParameter(
+                type,
+                lIdentifierToCeylon(dec.identifier, update),
+                dec.annotationList exists
+                        then annotationsToCeylon(dec.annotationList, update)
+                        else Annotations());
+            update(defaultedValueParameter, result);
+            return result;
+        }
         specifier = specifierToCeylon(specifier, update);
     };
     update(defaultedValueParameter, result);

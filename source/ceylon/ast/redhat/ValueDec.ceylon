@@ -17,6 +17,7 @@ shared ValueDec valueDecToCeylon(JValueLiteral valueDec, Anything(JNode,Node) up
         qualifier = decQualifierToCeylon(jQualifier, update);
     } else {
         qualifier = DecQualifier();
+        update(valueDec, qualifier);
     }
     value result = ValueDec(lIdentifierToCeylon(valueDec.identifier, update), qualifier);
     update(valueDec, result);

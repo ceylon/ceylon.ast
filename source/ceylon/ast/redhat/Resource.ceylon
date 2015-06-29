@@ -33,7 +33,9 @@ shared Resource resourceToCeylon(JResource resource, Anything(JNode,Node) update
                 type = null;
             }
         }
-        result = Resource(SpecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), specifierToCeylon(jSpecifierExpression, update), type));
+        value variable = SpecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), specifierToCeylon(jSpecifierExpression, update), type);
+        update(jVariable, variable);
+        result = Resource(variable);
     } else {
         "Resource must have either a variable or an expression"
         assert (exists jExpression = resource.expression);

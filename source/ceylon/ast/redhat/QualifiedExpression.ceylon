@@ -23,6 +23,7 @@ shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExp
     switch (name)
     case (is LIdentifier) { nta = MemberNameWithTypeArguments(name, ta); }
     case (is UIdentifier) { nta = TypeNameWithTypeArguments(name, ta); }
+    update(qualifiedMemberOrTypeExpression, nta);
     value result = QualifiedExpression(primaryToCeylon(qualifiedMemberOrTypeExpression.primary, update), nta, anyMemberOperatorToCeylon(qualifiedMemberOrTypeExpression.memberOperator, update));
     update(qualifiedMemberOrTypeExpression, result);
     return result;

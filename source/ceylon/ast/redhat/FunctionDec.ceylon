@@ -17,6 +17,7 @@ shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec, Anything(JN
         qualifier = decQualifierToCeylon(jQualifier, update);
     } else {
         qualifier = DecQualifier();
+        update(functionDec, qualifier);
     }
     value result = FunctionDec(lIdentifierToCeylon(functionDec.identifier, update), qualifier);
     update(functionDec, result);

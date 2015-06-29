@@ -14,7 +14,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared DefaultedParameterReference defaultedParameterReferenceToCeylon(JInitializerParameter defaultedParameterReference, Anything(JNode,Node) update = noop) {
     "Must be defaulted"
     assert (exists specifier = defaultedParameterReference.specifierExpression);
-    value result = DefaultedParameterReference(ParameterReference(lIdentifierToCeylon(defaultedParameterReference.identifier, update)), specifierToCeylon(specifier, update));
+    value parameterReference = ParameterReference(lIdentifierToCeylon(defaultedParameterReference.identifier, update));
+    update(defaultedParameterReference, parameterReference);
+    value result = DefaultedParameterReference(parameterReference, specifierToCeylon(specifier, update));
     update(defaultedParameterReference, result);
     return result;
 }

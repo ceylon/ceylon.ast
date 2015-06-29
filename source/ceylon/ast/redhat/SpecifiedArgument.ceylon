@@ -31,26 +31,32 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument, Anything(JNode,Node) update = noop) {
     SpecifiedArgument result;
     if (is JSpecifiedArgument specifiedArgument) {
-        result = SpecifiedArgument(ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier, update), specifierToCeylon(specifiedArgument.specifierExpression, update)));
+        value valueSpecification = ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier, update), specifierToCeylon(specifiedArgument.specifierExpression, update));
+        update(specifiedArgument, valueSpecification);
+        result = SpecifiedArgument(valueSpecification);
     } else {
         assert (is JTypedArgument specifiedArgument, exists type = specifiedArgument.type, !type.mainToken exists);
         if (type is JFunctionModifier) {
             assert (is FunctionArgument functionArgument = inlineDefinitionArgumentToCeylon(specifiedArgument, update));
             assert (is LazySpecifier definition = functionArgument.definition);
-            result = SpecifiedArgument(LazySpecification {
-                    name = functionArgument.name;
-                    parameterLists = functionArgument.parameterLists;
-                    specifier = definition;
-                });
+            value lazySpecification = LazySpecification {
+                name = functionArgument.name;
+                parameterLists = functionArgument.parameterLists;
+                specifier = definition;
+            };
+            update(specifiedArgument, lazySpecification);
+            result = SpecifiedArgument(lazySpecification);
         } else {
             assert (type is JValueModifier);
             assert (is ValueArgument valueArgument = inlineDefinitionArgumentToCeylon(specifiedArgument, update));
             assert (is LazySpecifier definition = valueArgument.definition);
-            result = SpecifiedArgument(LazySpecification {
-                    name = valueArgument.name;
-                    parameterLists = [];
-                    specifier = definition;
-                });
+            value lazySpecification = LazySpecification {
+                name = valueArgument.name;
+                parameterLists = [];
+                specifier = definition;
+            };
+            update(specifiedArgument, lazySpecification);
+            result = SpecifiedArgument(lazySpecification);
         }
     }
     update(specifiedArgument, result);

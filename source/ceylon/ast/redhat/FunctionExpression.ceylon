@@ -28,6 +28,7 @@ shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionE
         "Can’t have both a specifier and a block"
         assert (!functionExpression.block exists);
         definition = LazySpecifier(expressionToCeylon(jExpression, update));
+        update(jExpression, definition);
     } else {
         "Must have either a specifier or a block"
         assert (exists jBlock = functionExpression.block);

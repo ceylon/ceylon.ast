@@ -33,10 +33,13 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
         // Either a variable or a pattern wrapped in a synthetic Destructure.
         tested = specifiedPatternToCeylon(existsOrNonemptyCondition.variable, update);
     }
+    ExistsOrNonemptyCondition result;
     switch (existsOrNonemptyCondition)
-    case (is JExistsCondition) { return ExistsCondition(tested, existsOrNonemptyCondition.not); }
-    case (is JNonemptyCondition) { return NonemptyCondition(tested, existsOrNonemptyCondition.not); }
+    case (is JExistsCondition) { result = ExistsCondition(tested, existsOrNonemptyCondition.not); }
+    case (is JNonemptyCondition) { result = NonemptyCondition(tested, existsOrNonemptyCondition.not); }
     else { throw AssertionError("Unknown kind of EXistsOrNonemptyCondition"); }
+    update(existsOrNonemptyCondition, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Exists Or Nonempty Condition

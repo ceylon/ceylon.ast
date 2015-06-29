@@ -19,7 +19,19 @@ shared ClassDec classDecToCeylon(JClassLiteral classDec, Anything(JNode,Node) up
     if (exists jType = classDec.type) {
         assert (is JBaseType|JQualifiedType jType);
         switch (jType)
-        case (is JBaseType) { result = ClassDec(uIdentifierToCeylon(jType.identifier, update), DecQualifier([], jType.packageQualified then PackageQualifier())); }
+        case (is JBaseType) {
+            PackageQualifier? packageQualifier;
+            if (jType.packageQualified) {
+                value pq = PackageQualifier();
+                update(jType, pq);
+                packageQualifier = pq;
+            } else {
+                packageQualifier = null;
+            }
+            value decQualifier = DecQualifier([], packageQualifier);
+            update(jType, decQualifier);
+            result = ClassDec(uIdentifierToCeylon(jType.identifier, update), decQualifier);
+        }
         case (is JQualifiedType) { result = ClassDec(uIdentifierToCeylon(jType.identifier, update), decQualifierToCeylon(jType.outerType, update)); }
     } else {
         result = ClassDec(null, null);

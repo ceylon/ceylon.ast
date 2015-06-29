@@ -8,6 +8,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JVoidModifier=VoidModifier
     }
 }
+import org.antlr.runtime {
+    ANTLRStringStream,
+    CommonTokenStream,
+    Token
+}
+import com.redhat.ceylon.compiler.typechecker.parser {
+    CeylonLexer {
+        voidType=\iVOID_MODIFIER
+    }
+}
 
 "Converts a RedHat AST [[VoidModifier|JVoidModifier]] to a `ceylon.ast` [[VoidModifier]]."
 shared VoidModifier voidModifierToCeylon(JVoidModifier voidModifier, Anything(JNode,Node) update = noop) {
@@ -17,7 +27,17 @@ shared VoidModifier voidModifierToCeylon(JVoidModifier voidModifier, Anything(JN
 }
 
 "Compiles the given [[code]] for a Void Modifier
- into a [[VoidModifier]]."
+ into a [[VoidModifier]] using the Ceylon compiler
+ (more specifically, the lexer)."
 shared VoidModifier? compileVoidModifier(String code, Anything(JNode,Node) update = noop) {
-    return code.trimmed == "void" then VoidModifier();
+    value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
+    Token? token = stream.\iLT(1);
+    if (exists token, token.type == voidType) {
+        value jVoidModifier = JVoidModifier(token);
+        value result = VoidModifier();
+        update(jVoidModifier, result);
+        return result;
+    } else {
+        return null;
+    }
 }

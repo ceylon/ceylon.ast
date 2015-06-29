@@ -26,7 +26,9 @@ shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern,
         // The parser creates a ValueModifier with null token if the type is missing completely
         type = jType.mainToken exists then valueModifierToCeylon(jType, update) else null;
     }
-    value result = VariablePattern(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type));
+    value variable = UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type);
+    update(jVariable, variable);
+    value result = VariablePattern(variable);
     update(variablePattern, result);
     return result;
 }

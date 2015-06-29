@@ -21,14 +21,19 @@ shared ForIterator forIteratorToCeylon(JForIterator forIterator, Anything(JNode,
     Pattern pattern;
     switch (forIterator)
     case (is JValueIterator) {
-        pattern = VariablePattern(UnspecifiedVariable(
-                lIdentifierToCeylon(forIterator.variable.identifier, update),
-                if (is JStaticType jType = forIterator.variable.type) then typeToCeylon(jType, update) else null));
+        value variable = UnspecifiedVariable(
+            lIdentifierToCeylon(forIterator.variable.identifier, update),
+            if (is JStaticType jType = forIterator.variable.type) then typeToCeylon(jType, update) else null);
+        update(forIterator.variable, variable);
+        pattern = VariablePattern(variable);
+        update(forIterator.variable, pattern);
     }
     case (is JPatternIterator) {
         pattern = patternToCeylon(forIterator.pattern, update);
     }
-    return ForIterator(pattern, expressionToCeylon(forIterator.specifierExpression.expression, update));
+    value result = ForIterator(pattern, expressionToCeylon(forIterator.specifierExpression.expression, update));
+    update(forIterator, result);
+    return result;
 }
 
 "Compiles the given [[code]] for a For Iterator

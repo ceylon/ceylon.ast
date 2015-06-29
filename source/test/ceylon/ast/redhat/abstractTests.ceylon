@@ -18,6 +18,9 @@ import ceylon.test {
     test,
     ignore
 }
+import ceylon.language.meta {
+    type
+}
 
 
 Key<JNode> originalNodeKey = ScopedKey<JNode>(`module`, "originalNode");
@@ -25,8 +28,9 @@ void storeOriginalNode(JNode originalNode, Node newNode)
         => newNode.put(originalNodeKey, originalNode);
 object checkOriginalNodePresence satisfies Visitor {
     shared actual void visitNode(Node node) {
-        "Original node must be present"
-        assert (node.get(originalNodeKey) exists);
+        if (!node.get(originalNodeKey) exists) {
+            throw AssertionError("Node ``type(node).declaration.name`` is missing original node");
+        }
         node.visitChildren(this);
     }
 }

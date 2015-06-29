@@ -23,7 +23,9 @@ shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anythin
     assert (nonempty letValues);
     "Check precedence"
     assert (is DisjoiningExpression|IfElseExpression|LetExpression expression = expressionToCeylon(letClause.expression, update));
-    value result = LetExpression(PatternList(letValues), expression);
+    value patternList = PatternList(letValues);
+    update(letClause, patternList);
+    value result = LetExpression(patternList, expression);
     update(letExpression, result);
     return result;
 }

@@ -37,7 +37,11 @@ SpecifiedPattern specifiedPatternToCeylon(JStatement statement, Anything(JNode,N
         case (is JStaticType) { type = typeToCeylon(jType, update); }
         case (is JValueModifier) { type = jType.mainToken exists then valueModifierToCeylon(jType, update); }
         case (null) { type = null; }
-        result = SpecifiedPattern(VariablePattern(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type)), specifierToCeylon(jVariable.specifierExpression, update));
+        value variable = UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type);
+        update(jVariable, variable);
+        value pattern = VariablePattern(variable);
+        update(jVariable, pattern);
+        result = SpecifiedPattern(pattern, specifierToCeylon(jVariable.specifierExpression, update));
     }
     case (is JDestructure) {
         result = SpecifiedPattern(patternToCeylon(jVariable.pattern, update), specifierToCeylon(jVariable.specifierExpression, update));

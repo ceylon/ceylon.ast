@@ -25,15 +25,18 @@ import ceylon.interop.java {
 shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Anything(JNode,Node) update = noop) {
     assert (nonempty literals = CeylonIterable(stringTemplate.stringLiterals).collect((JStringLiteral element) {
                 value type = element.mainToken.type;
+                StringLiteral result;
                 if (type == string_start) {
-                    return StringLiteral(element.text[1 : element.text.size - 3]);
+                    result = StringLiteral(element.text[1 : element.text.size - 3]);
                 } else if (type == string_mid) {
-                    return StringLiteral(element.text[2 : element.text.size - 4]);
+                    result = StringLiteral(element.text[2 : element.text.size - 4]);
                 } else if (type == string_end) {
-                    return StringLiteral(element.text[2 : element.text.size - 3]);
+                    result = StringLiteral(element.text[2 : element.text.size - 3]);
                 } else {
                     throw AssertionError("Unexpected token type in string template");
                 }
+                update(element, result);
+                return result;
             }));
     assert (nonempty expressions = CeylonIterable(stringTemplate.expressions).collect(propagateUpdate(expressionToCeylon, update)));
     value result = StringTemplate(literals, expressions);

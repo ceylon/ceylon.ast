@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    DynamicModifier,
     DynamicValue,
     Node
 }
@@ -12,7 +13,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[Dynamic|JDynamic]] to a `ceylon.ast` [[DynamicValue]]."
 shared DynamicValue dynamicValueToCeylon(JDynamic dynamicValue, Anything(JNode,Node) update = noop) {
     value namedArgumentList = namedArgumentsToCeylon(dynamicValue.namedArgumentList, update);
-    value result = DynamicValue(namedArgumentList.namedArguments, namedArgumentList.iterableArgument);
+    value dynamicModifier = DynamicModifier();
+    update(dynamicValue, dynamicModifier);
+    value result = DynamicValue(namedArgumentList.namedArguments, namedArgumentList.iterableArgument, dynamicModifier);
     update(dynamicValue, result);
     return result;
 }

@@ -47,6 +47,7 @@ shared CallableType callableTypeToCeylon(JFunctionType callableType, Anything(JN
                 return element;
             });
         argumentTypes = TypeList(argumentTypesSeq, variadicType);
+        update(callableType, argumentTypes);
     }
     assert (is PrimaryType returnType = typeToCeylon(callableType.returnType, update));
     value result = CallableType(returnType, argumentTypes);

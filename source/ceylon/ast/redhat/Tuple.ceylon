@@ -16,7 +16,9 @@ shared Tuple tupleToCeylon(JTuple tuple, Anything(JNode,Node) update = noop) {
     if (exists args = tuple.sequencedArgument) {
         result = Tuple(argumentListToCeylon(args, update));
     } else {
-        result = Tuple(ArgumentList());
+        value argumentList = ArgumentList();
+        update(tuple, argumentList);
+        result = Tuple(argumentList);
     }
     update(tuple, result);
     return result;

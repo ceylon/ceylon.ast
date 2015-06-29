@@ -31,14 +31,18 @@ shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctional
     case (is JVoidModifier) { type = voidModifierToCeylon(jType, update); }
     assert (nonempty parameterLists = CeylonIterable(dec.parameterLists).collect(propagateUpdate(parametersToCeylon, update)));
     value result = DefaultedCallableParameter {
-        parameter = CallableParameter {
-            type;
-            lIdentifierToCeylon(dec.identifier, update);
-            parameterLists;
-            dec.annotationList exists
-                    then annotationsToCeylon(dec.annotationList, update)
-                    else Annotations();
-        };
+        value parameter {
+            value result = CallableParameter {
+                type;
+                lIdentifierToCeylon(dec.identifier, update);
+                parameterLists;
+                dec.annotationList exists
+                        then annotationsToCeylon(dec.annotationList, update)
+                        else Annotations();
+            };
+            update(defaultedCallableParameter, result);
+            return result;
+        }
         specifier = lazySpecifierToCeylon(specifier, update);
     };
     update(defaultedCallableParameter, result);

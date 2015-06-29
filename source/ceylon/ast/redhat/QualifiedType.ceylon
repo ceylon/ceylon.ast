@@ -29,7 +29,9 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType, Anythin
     case (is JBaseType) { qualifyingType = baseTypeToCeylon(jQualifyingType, update); }
     case (is JGroupedType) { qualifyingType = groupedTypeToCeylon(jQualifyingType, update); }
     case (is JQualifiedType) { qualifyingType = qualifiedTypeToCeylon(jQualifyingType, update); }
-    value result = QualifiedType(qualifyingType, TypeNameWithTypeArguments(uIdentifierToCeylon(qualifiedType.identifier, update), typeArguments));
+    value tnta = TypeNameWithTypeArguments(uIdentifierToCeylon(qualifiedType.identifier, update), typeArguments);
+    update(qualifiedType, tnta);
+    value result = QualifiedType(qualifyingType, tnta);
     update(qualifiedType, result);
     return result;
 }

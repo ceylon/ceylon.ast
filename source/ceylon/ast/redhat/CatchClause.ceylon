@@ -26,7 +26,9 @@ shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,
         // The parser creates a ValueModifier with null token if the type is missing completely
         type = jType.mainToken exists then valueModifierToCeylon(jType, update) else null;
     }
-    value result = CatchClause(UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type), blockToCeylon(catchClause.block, update));
+    value variable = UnspecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), type);
+    update(jVariable, variable);
+    value result = CatchClause(variable, blockToCeylon(catchClause.block, update));
     update(catchClause, result);
     return result;
 }

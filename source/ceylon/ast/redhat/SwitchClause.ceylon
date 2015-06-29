@@ -39,6 +39,7 @@ shared SwitchClause switchClauseToCeylon(JSwitchClause switchClause, Anything(JN
             }
         }
         switched = SpecifiedVariable(lIdentifierToCeylon(jVariable.identifier, update), specifierToCeylon(jSpecifierExpression, update), type);
+        update(jVariable, switched);
     }
     value result = SwitchClause(switched);
     update(switchClause, result);

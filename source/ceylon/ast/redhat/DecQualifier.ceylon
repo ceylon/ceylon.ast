@@ -18,7 +18,15 @@ DecQualifier decQualifierToCeylon(JStaticType decQualifier, Anything(JNode,Node)
     DecQualifier result;
     switch (decQualifier)
     case (is JBaseType) {
-        result = DecQualifier([identifierToCeylon(decQualifier.identifier, update)], decQualifier.packageQualified then PackageQualifier());
+        PackageQualifier? packageQualifier;
+        if (decQualifier.packageQualified) {
+            value pq = PackageQualifier();
+            update(decQualifier, pq);
+            packageQualifier = pq;
+        } else {
+            packageQualifier = null;
+        }
+        result = DecQualifier([identifierToCeylon(decQualifier.identifier, update)], packageQualifier);
     }
     case (is JQualifiedType) {
         value nested = decQualifierToCeylon(decQualifier.outerType, update);

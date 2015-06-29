@@ -32,9 +32,9 @@ shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSp
     }
     case (is JQualifiedMemberExpression) {
         "Specification may only be qualified with `this` qualifier"
-        assert (baseMemberExpression.primary is JThis && baseMemberExpression.memberOperator is JMemberOp);
+        assert (is JThis jThis = baseMemberExpression.primary, baseMemberExpression.memberOperator is JMemberOp);
         name = lIdentifierToCeylon(baseMemberExpression.identifier, update);
-        qualifier = This();
+        qualifier = thisToCeylon(jThis, update);
     }
     value result = ValueSpecification(name, specifierToCeylon(valueSpecification.specifierExpression, update), qualifier);
     update(valueSpecification, result);

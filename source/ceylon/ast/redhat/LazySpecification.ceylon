@@ -42,8 +42,8 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
         assert (is JBaseMemberExpression|JQualifiedMemberExpression primary = baseMemberExpression.primary);
         if (is JQualifiedMemberExpression primary) {
             "Specification may only be qualified with `this` qualifier"
-            assert (primary.primary is JThis && primary.memberOperator is JMemberOp);
-            qualifier = This();
+            assert (is JThis jThis = primary.primary, primary.memberOperator is JMemberOp);
+            qualifier = thisToCeylon(jThis, update);
         } else {
             qualifier = null;
         }
@@ -52,10 +52,10 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
     }
     case (is JQualifiedMemberExpression) {
         "Specification may only be qualified with `this` qualifier"
-        assert (baseMemberExpression.primary is JThis && baseMemberExpression.memberOperator is JMemberOp);
+        assert (is JThis jThis = baseMemberExpression.primary, baseMemberExpression.memberOperator is JMemberOp);
         name = lIdentifierToCeylon(baseMemberExpression.identifier, update);
         parameterLists = [];
-        qualifier = This();
+        qualifier = thisToCeylon(jThis, update);
     }
     "Lazy specification must happen with lazy specifier"
     assert (is JLazySpecifierExpression specifierExpression = lazySpecification.specifierExpression);

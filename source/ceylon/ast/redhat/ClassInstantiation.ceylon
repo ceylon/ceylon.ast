@@ -33,6 +33,7 @@ ClassInstantiation classInstantiationToCeylon(JSimpleType type, JInvocationExpre
         typeArguments = null;
     }
     value typeNameWithTypeArguments = TypeNameWithTypeArguments(uIdentifierToCeylon(type.identifier, update), typeArguments);
+    update(type, typeNameWithTypeArguments);
     assert (is JBaseType|JQualifiedType type);
     ClassInstantiation result;
     switch (type)
@@ -56,6 +57,7 @@ ClassInstantiation classInstantiationToCeylon(JSimpleType type, JInvocationExpre
         }
         case (is JSuperType) { qualifier = Super(); }
         else { throw AssertionError("Unknown qualifier for class instantiation"); }
+        update(type.outerType, qualifier);
         result = ClassInstantiation {
             name = typeNameWithTypeArguments;
             arguments = positionalArgumentsToCeylon(invocationExpression.positionalArgumentList, update);

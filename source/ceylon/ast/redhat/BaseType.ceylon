@@ -21,8 +21,20 @@ shared BaseType baseTypeToCeylon(JBaseType baseType, Anything(JNode,Node) update
         typeArguments = null;
     }
     value result = BaseType {
-        nameAndArgs = TypeNameWithTypeArguments(uIdentifierToCeylon(baseType.identifier, update), typeArguments);
-        qualifier = baseType.packageQualified then PackageQualifier();
+        value nameAndArgs {
+            value result = TypeNameWithTypeArguments(uIdentifierToCeylon(baseType.identifier, update), typeArguments);
+            update(baseType, result);
+            return result;
+        }
+        value qualifier {
+            if (baseType.packageQualified) {
+                value pq = PackageQualifier();
+                update(baseType, pq);
+                return pq;
+            } else {
+                return null;
+            }
+        }
     };
     update(baseType, result);
     return result;

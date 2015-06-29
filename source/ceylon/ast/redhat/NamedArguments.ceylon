@@ -20,6 +20,7 @@ shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, 
         iterableArguments = argumentListToCeylon(sequencedArgument, update);
     } else {
         iterableArguments = ArgumentList();
+        update(namedArguments, iterableArguments);
     }
     value result = NamedArguments(CeylonIterable(namedArguments.namedArguments).collect(propagateUpdate(namedArgumentToCeylon, update)), iterableArguments);
     update(namedArguments, result);

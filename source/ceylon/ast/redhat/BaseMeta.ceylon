@@ -28,7 +28,17 @@ shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta, Anything(JNode,Node) u
     } else {
         typeArguments = null;
     }
-    value result = BaseMeta(MemberNameWithTypeArguments(name, typeArguments), baseMeta.packageQualified then PackageQualifier());
+    value mnta = MemberNameWithTypeArguments(name, typeArguments);
+    update(baseMeta, mnta);
+    PackageQualifier? packageQualifier;
+    if (baseMeta.packageQualified) {
+        value pq = PackageQualifier();
+        update(baseMeta, pq);
+        packageQualifier = pq;
+    } else {
+        packageQualifier = null;
+    }
+    value result = BaseMeta(mnta, packageQualifier);
     update(baseMeta, result);
     return result;
 }

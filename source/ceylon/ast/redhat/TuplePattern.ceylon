@@ -37,6 +37,7 @@ shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JN
             variadicType = t;
         }
         value variadicElementPattern = VariadicVariable(lIdentifierToCeylon(lastPattern.variable.identifier, update), variadicType);
+        update(lastPattern.variable, variadicElementPattern);
         value elementPatterns = patterns.reversed.rest.reversed.collect(propagateUpdate(patternToCeylon, update));
         result = TuplePattern(elementPatterns, variadicElementPattern);
     } else {

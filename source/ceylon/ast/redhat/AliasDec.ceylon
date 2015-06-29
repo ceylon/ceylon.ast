@@ -16,9 +16,26 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[AliasLiteral|JAliasLiteral]] to a `ceylon.ast` [[AliasDec]]."
 shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec, Anything(JNode,Node) update = noop) {
     assert (is JBaseType|JQualifiedType jType = aliasDec.type);
+    AliasDec result;
     switch (jType)
-    case (is JBaseType) { return AliasDec(uIdentifierToCeylon(jType.identifier, update), DecQualifier([], jType.packageQualified then PackageQualifier())); }
-    case (is JQualifiedType) { return AliasDec(uIdentifierToCeylon(jType.identifier, update), decQualifierToCeylon(jType.outerType, update)); }
+    case (is JBaseType) {
+        PackageQualifier? packageQualifier;
+        if (jType.packageQualified) {
+            value pq = PackageQualifier();
+            packageQualifier = pq;
+            update(aliasDec, pq);
+        } else {
+            packageQualifier = null;
+        }
+        value qualifier = DecQualifier([], packageQualifier);
+        update(aliasDec, qualifier);
+        result = AliasDec(uIdentifierToCeylon(jType.identifier, update), qualifier);
+    }
+    case (is JQualifiedType) {
+        result = AliasDec(uIdentifierToCeylon(jType.identifier, update), decQualifierToCeylon(jType.outerType, update));
+    }
+    update(aliasDec, result);
+    return result;
 }
 
 "Compiles the given [[code]] for an Alias Dec

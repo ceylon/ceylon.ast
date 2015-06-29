@@ -16,7 +16,9 @@ shared Iterable iterableToCeylon(JSequenceEnumeration iterable, Anything(JNode,N
     if (exists args = iterable.sequencedArgument) {
         result = Iterable(argumentListToCeylon(args, update));
     } else {
-        result = Iterable(ArgumentList());
+        value argumentList = ArgumentList();
+        update(iterable, argumentList);
+        result = Iterable(argumentList);
     }
     update(iterable, result);
     return result;

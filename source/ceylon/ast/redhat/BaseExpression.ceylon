@@ -28,6 +28,7 @@ shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMem
     switch (name)
     case (is LIdentifier) { nta = MemberNameWithTypeArguments(name, ta); }
     case (is UIdentifier) { nta = TypeNameWithTypeArguments(name, ta); }
+    update(baseMemberOrTypeExpression, nta);
     value result = BaseExpression(nta);
     update(baseMemberOrTypeExpression, result);
     return result;

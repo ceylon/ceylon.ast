@@ -17,11 +17,15 @@ shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode,
     value jVariable = isCondition.variable;
     value jSpecifierExpression = jVariable.specifierExpression;
     value result = IsCondition {
-        variable = TypedVariable {
-            name = lIdentifierToCeylon(jVariable.identifier, update);
-            type = typeToCeylon(jType, update);
-            specifier = jSpecifierExpression.mainToken exists then specifierToCeylon(jSpecifierExpression, update);
-        };
+        value variable {
+            value result = TypedVariable {
+                name = lIdentifierToCeylon(jVariable.identifier, update);
+                type = typeToCeylon(jType, update);
+                specifier = jSpecifierExpression.mainToken exists then specifierToCeylon(jSpecifierExpression, update);
+            };
+            update(jVariable, result);
+            return result;
+        }
         negated = isCondition.not;
     };
     update(isCondition, result);

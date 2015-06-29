@@ -36,7 +36,9 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) up
             assert (exists element);
             return element;
         }).sequence();
-    value result = TupleType(TypeList(elementTypes, variadicType));
+    value typeList = TypeList(elementTypes, variadicType);
+    update(tupleType, typeList);
+    value result = TupleType(typeList);
     update(tupleType, result);
     return result;
 }

@@ -8,6 +8,16 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JFunctionModifier=FunctionModifier
     }
 }
+import org.antlr.runtime {
+    ANTLRStringStream,
+    CommonTokenStream,
+    Token
+}
+import com.redhat.ceylon.compiler.typechecker.parser {
+    CeylonLexer {
+        functionType=\iFUNCTION_MODIFIER
+    }
+}
 
 "Converts a RedHat AST [[FunctionModifier|JFunctionModifier]] to a `ceylon.ast` [[FunctionModifier]]."
 shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModifier, Anything(JNode,Node) update = noop) {
@@ -18,7 +28,16 @@ shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModif
 
 "Compiles the given [[code]] for a Function Modifier
  into a [[FunctionModifier]] using the Ceylon compiler
- (more specifically, the rule for a `functionModifier`)."
+ (more specifically, the lexer)."
 shared FunctionModifier? compileFunctionModifier(String code, Anything(JNode,Node) update = noop) {
-    return code.trimmed == "function" then FunctionModifier();
+    value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
+    Token? token = stream.\iLT(1);
+    if (exists token, token.type == functionType) {
+        value jFunctionModifier = JFunctionModifier(token);
+        value result = FunctionModifier();
+        update(jFunctionModifier, result);
+        return result;
+    } else {
+        return null;
+    }
 }

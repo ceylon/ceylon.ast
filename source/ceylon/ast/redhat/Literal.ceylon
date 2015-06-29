@@ -37,12 +37,15 @@ shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = n
     case (is JQuotedLiteral) {
         // used for module versions: the grammar allows single and double quotes
         value type = literal.mainToken.type;
+        StringLiteral result;
         if (type == verbatim_string_literal) {
-            return StringLiteral(literal.text[3 .. literal.text.size - 4], true);
+            result = StringLiteral(literal.text[3 .. literal.text.size - 4], true);
         } else {
             assert (type == string_literal || type == character_literal);
-            return StringLiteral(literal.text[1 .. literal.text.size - 2], false);
+            result = StringLiteral(literal.text[1 .. literal.text.size - 2], false);
         }
+        update(literal, result);
+        return result;
     }
 }
 

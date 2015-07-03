@@ -1,5 +1,4 @@
 import ceylon.ast.core {
-    Node,
     TypeModifier
 }
 import ceylon.ast.redhat {
@@ -8,7 +7,6 @@ import ceylon.ast.redhat {
     compileTypeModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
-    JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier,
         JLocalModifier=LocalModifier,
@@ -16,14 +14,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     }
 }
 
-shared object typeModifier satisfies AbstractTest<TypeModifier,JNode/*JLocalModifier|JVoidModifier|JDynamicModifier*/> {
+shared object typeModifier satisfies AbstractTest<TypeModifier,JLocalModifier|JVoidModifier|JDynamicModifier> {
     compile = compileTypeModifier;
     fromCeylon = RedHatTransformer.transformTypeModifier;
-    //toCeylon = typeModifierToCeylon;
-    shared actual TypeModifier toCeylon(JNode jNode, Anything(JNode,Node) update) {
-        assert (is JLocalModifier|JVoidModifier|JDynamicModifier jNode);
-        return typeModifierToCeylon(jNode, update);
-    }
+    toCeylon = typeModifierToCeylon;
     
     tests = [localModifier, voidModifier, dynamicModifier];
 }

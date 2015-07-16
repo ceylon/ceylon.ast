@@ -4,11 +4,7 @@ import ceylon.ast.core {
     This,
     Super,
     Outer,
-    Package,
-    thisInstance,
-    superInstance,
-    outerInstance,
-    packageInstance
+    Package
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,

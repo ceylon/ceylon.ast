@@ -1,8 +1,8 @@
 import ceylon.ast.core {
-    thisInstance,
     ArgumentList,
     PositionalArguments,
-    SpreadArgument
+    SpreadArgument,
+    This
 }
 import ceylon.ast.create {
     createBaseExpression=baseExpression,
@@ -20,7 +20,7 @@ shared void positionalArguments() {
         expected = PositionalArguments(ArgumentList());
     };
     assertEquals {
-        actual = createPositionalArguments(thisInstance, SpreadArgument(createBaseExpression("others")));
-        expected = PositionalArguments(ArgumentList([thisInstance], SpreadArgument(createBaseExpression("others"))));
+        actual = createPositionalArguments(This(), SpreadArgument(createBaseExpression("others")));
+        expected = PositionalArguments(ArgumentList([This()], SpreadArgument(createBaseExpression("others"))));
     };
 }

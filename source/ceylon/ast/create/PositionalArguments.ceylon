@@ -3,7 +3,8 @@ import ceylon.ast.core {
     Comprehension,
     Expression,
     PositionalArguments,
-    SpreadArgument
+    SpreadArgument,
+    This
 }
 
 shared alias PositionalArgumentIsh => Expression|SpreadArgument|Comprehension;
@@ -16,7 +17,7 @@ shared alias PositionalArgumentIsh => Expression|SpreadArgument|Comprehension;
    Usage examples:
    
        positionalArguments()
-       positionalArguments(thisInstance, SpreadArgument(baseExpression("others")))"""
+       positionalArguments(This(), SpreadArgument(baseExpression("others")))"""
 shared PositionalArguments positionalArguments(PositionalArgumentIsh* arguments) {
     Expression assertIsExpression(PositionalArgumentIsh argument) {
         "Intermediate argument must be expression"

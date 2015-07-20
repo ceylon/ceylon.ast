@@ -12,7 +12,9 @@ import ceylon.interop.java {
     CeylonIterable
 }
 
-"Converts a RedHat AST [[CompilationUnit|JCompilationUnit]] to a `ceylon.ast` [[CompilationUnit]]."
+"Converts a RedHat AST [[CompilationUnit|JCompilationUnit]] to a `ceylon.ast` [[CompilationUnit]].
+ 
+ Note: This only converts regular compilation units. For arbitrary compilation units, see [[anyCompilationUnitToCeylon]]."
 throws (`class AssertionError`, "If the compilation unit contains package or module descriptors")
 shared CompilationUnit compilationUnitToCeylon(JCompilationUnit compilationUnit, Anything(JNode,Node) update = noop) {
     "Must not have package or module descriptors"

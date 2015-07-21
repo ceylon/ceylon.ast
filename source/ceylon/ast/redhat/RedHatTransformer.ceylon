@@ -438,6 +438,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformAddingExpression(AddingExpression that) {
+        assert (is JTerm ret = super.transformAddingExpression(that));
+        return ret;
+    }
+    
     "Transforms a [[LIdentifier]] to a RedHat AST [[Identifier|JIdentifier]]
      with token type `AIDENTIFIER` (“annotation identifier”)."
     shared JIdentifier transformAIdentifier(LIdentifier that) {
@@ -656,11 +661,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JAssignOp transformAssignOperation(AssignOperation that) {
-        JTerm left = transformThenElseExpression(that.leftOperand);
-        JAssignOp ret = JAssignOp(tokens.token(that.operator, specify));
-        ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+    shared actual JTerm transformAssigningExpression(AssigningExpression that) {
+        assert (is JTerm ret = super.transformAssigningExpression(that));
         return ret;
     }
     
@@ -673,6 +675,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JExpressionStatement ret = JExpressionStatement(null);
         ret.expression = wrapTerm(transformAssignmentOperation(that.expression));
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JAssignOp transformAssignOperation(AssignOperation that) {
+        JTerm left = transformThenElseExpression(that.leftOperand);
+        JAssignOp ret = JAssignOp(tokens.token(that.operator, specify));
+        ret.leftTerm = left;
+        ret.rightTerm = transformAssigningExpression(that.rightOperand);
         return ret;
     }
     
@@ -878,16 +888,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JCharacterLiteral transformCharacterLiteral(CharacterLiteral that)
             => JCharacterLiteral(tokens.token("'``that.text``'", character_literal));
     
-    shared actual JClassBody transformClassBody(ClassBody that) {
-        JClassBody ret = JClassBody(tokens.token("{", lbrace));
-        for (element in that.content) {
-            assert (is JStatement jStatement = element.transform(this));
-            ret.addStatement(jStatement);
-        }
-        ret.endToken = tokens.token("}", rbrace);
-        return ret;
-    }
-    
     shared actual JClassDeclaration transformClassAliasDefinition(ClassAliasDefinition that) {
         value annotationList = transformAnnotations(that.annotations);
         JClassDeclaration ret = JClassDeclaration(tokens.token("class", class_definition));
@@ -915,6 +915,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
         ret.classSpecifier = transformClassSpecifier(that.specifier);
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JClassBody transformClassBody(ClassBody that) {
+        JClassBody ret = JClassBody(tokens.token("{", lbrace));
+        for (element in that.content) {
+            assert (is JStatement jStatement = element.transform(this));
+            ret.addStatement(jStatement);
+        }
+        ret.endToken = tokens.token("}", rbrace);
         return ret;
     }
     
@@ -1007,6 +1017,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformComparingExpression(ComparingExpression that) {
+        assert (is JTerm ret = super.transformComparingExpression(that));
+        return ret;
+    }
+    
     shared actual JComparisonOp transformComparisonOperation(ComparisonOperation that) {
         assert (is JComparisonOp ret = super.transformComparisonOperation(that));
         return ret;
@@ -1074,6 +1089,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformConjoiningExpression(ConjoiningExpression that) {
+        assert (is JTerm ret = super.transformConjoiningExpression(that));
+        return ret;
+    }
+    
     shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
         value bt = tokens.token("`", backtick);
         JNewLiteral ret = JNewLiteral(null);
@@ -1120,15 +1140,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JDeclaration transformDeclaration(Declaration that) {
+        assert (is JDeclaration ret = super.transformDeclaration(that));
+        return ret;
+    }
+    
     "The RedHat AST has no direct equivalent of [[DecQualifier]];
      this method throws."
     shared actual Nothing transformDecQualifier(DecQualifier that) {
         throw AssertionError("DecQualifier has no RedHat AST equivalent!");
-    }
-    
-    shared actual JDeclaration transformDeclaration(Declaration that) {
-        assert (is JDeclaration ret = super.transformDeclaration(that));
-        return ret;
     }
     
     shared actual JFunctionalParameterDeclaration transformDefaultedCallableParameter(DefaultedCallableParameter that) {
@@ -1155,12 +1175,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JDefaultedType ret = JDefaultedType(null);
         ret.type = transformType(that.type);
         ret.endToken = tokens.token("=", specify);
-        return ret;
-    }
-    
-    shared actual JSpreadType transformSpreadType(SpreadType that) {
-        JSpreadType ret = JSpreadType(tokens.token("*", product_op));
-        ret.type = transformType(that.type);
         return ret;
     }
     
@@ -1191,6 +1205,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JDirective transformDirective(Directive that) {
         assert (is JDirective ret = super.transformDirective(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformDisjoiningExpression(DisjoiningExpression that) {
+        assert (is JTerm ret = super.transformDisjoiningExpression(that));
         return ret;
     }
     
@@ -1296,6 +1315,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JEqualityOp|JIdenticalOp transformEqualityOperation(EqualityOperation that) {
+        assert (is JEqualityOp|JIdenticalOp ret = super.transformEqualityOperation(that));
+        return ret;
+    }
+    
     shared actual JEqualOp transformEqualOperation(EqualOperation that) {
         JTerm left = transformComparingExpression(that.leftOperand);
         JEqualOp ret = JEqualOp(tokens.token(that.operator, equal_op));
@@ -1304,14 +1328,19 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JEqualityOp|JIdenticalOp transformEqualityOperation(EqualityOperation that) {
-        assert (is JEqualityOp|JIdenticalOp ret = super.transformEqualityOperation(that));
+    shared actual JTerm transformEquatingExpression(EquatingExpression that) {
+        assert (is JTerm ret = super.transformEquatingExpression(that));
         return ret;
     }
     
     shared actual JExistsCondition transformExistsCondition(ExistsCondition that) {
         JExistsCondition ret = JExistsCondition(tokens.token("exists", exists_op));
         return helpTransformExistsOrNonemptyCondition(ret, that);
+    }
+    
+    shared actual JTerm transformExistsNonemptyExpression(ExistsNonemptyExpression that) {
+        assert (is JTerm ret = super.transformExistsNonemptyExpression(that));
+        return ret;
     }
     
     shared actual JExists transformExistsOperation(ExistsOperation that) {
@@ -1323,6 +1352,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExistsOrNonemptyCondition transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) {
         assert (is JExistsOrNonemptyCondition ret = super.transformExistsOrNonemptyCondition(that));
+        return ret;
+    }
+    
+    shared actual JTerm transformExponentiatingExpression(ExponentiatingExpression that) {
+        assert (is JTerm ret = super.transformExponentiatingExpression(that));
         return ret;
     }
     
@@ -1644,16 +1678,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JIdentifier transformIdentifier(Identifier that) {
-        assert (is JIdentifier ret = super.transformIdentifier(that));
-        return ret;
-    }
-    
     shared actual JIdenticalOp transformIdenticalOperation(IdenticalOperation that) {
         JTerm left = transformComparingExpression(that.leftOperand);
         JIdenticalOp ret = JIdenticalOp(tokens.token(that.operator, identical_op));
         ret.leftTerm = left;
         ret.rightTerm = transformComparingExpression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JIdentifier transformIdentifier(Identifier that) {
+        assert (is JIdentifier ret = super.transformIdentifier(that));
         return ret;
     }
     
@@ -1838,29 +1872,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JIntegerLiteral transformIntegerLiteral(IntegerLiteral that)
             => JIntegerLiteral(tokens.token(that.text, integer_literal));
     
-    shared actual JInterfaceBody transformInterfaceBody(InterfaceBody that) {
-        JInterfaceBody ret = JInterfaceBody(tokens.token("{", lbrace));
-        for (declaration in that.content) {
-            ret.addStatement(transformDeclaration(declaration));
-        }
-        ret.endToken = tokens.token("}", rbrace);
-        return ret;
-    }
-    
-    shared actual JInterfaceLiteral transformInterfaceDec(InterfaceDec that) {
-        value bt = tokens.token("`", backtick);
-        JInterfaceLiteral ret = JInterfaceLiteral(null);
-        ret.endToken = tokens.token(that.keyword, interface_definition);
-        if (exists name = that.name) {
-            assert (exists qualifier = that.qualifier);
-            ret.type = helpTransformDecQualifier(DecQualifier(qualifier.components.withTrailing(name), qualifier.packageQualifier));
-            ret.endToken = null;
-        }
-        ret.token = bt;
-        ret.endToken = tokens.token("`", backtick);
-        return ret;
-    }
-    
     shared actual JInterfaceDeclaration transformInterfaceAliasDefinition(InterfaceAliasDefinition that) {
         value annotations = transformAnnotations(that.annotations);
         JInterfaceDeclaration ret = JInterfaceDeclaration(tokens.token("interface", interface_definition));
@@ -1887,6 +1898,29 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JInterfaceBody transformInterfaceBody(InterfaceBody that) {
+        JInterfaceBody ret = JInterfaceBody(tokens.token("{", lbrace));
+        for (declaration in that.content) {
+            ret.addStatement(transformDeclaration(declaration));
+        }
+        ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JInterfaceLiteral transformInterfaceDec(InterfaceDec that) {
+        value bt = tokens.token("`", backtick);
+        JInterfaceLiteral ret = JInterfaceLiteral(null);
+        ret.endToken = tokens.token(that.keyword, interface_definition);
+        if (exists name = that.name) {
+            assert (exists qualifier = that.qualifier);
+            ret.type = helpTransformDecQualifier(DecQualifier(qualifier.components.withTrailing(name), qualifier.packageQualifier));
+            ret.endToken = null;
+        }
+        ret.token = bt;
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
     shared actual JInterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)
             => transformAnyInterfaceDefinition(that);
     
@@ -1895,6 +1929,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JIntersectAssignOp ret = JIntersectAssignOp(tokens.token(that.operator, intersect_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JTerm transformIntersectingExpression(IntersectingExpression that) {
+        assert (is JTerm ret = super.transformIntersectingExpression(that));
         return ret;
     }
     
@@ -1913,6 +1952,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             tokens.token("&", intersection_op);
             ret.addStaticType(transformPrimaryType(elementType));
         }
+        return ret;
+    }
+    
+    shared actual JTerm transformInvertingExpression(InvertingExpression that) {
+        assert (is JTerm ret = super.transformInvertingExpression(that));
         return ret;
     }
     
@@ -2045,9 +2089,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JIdentifier transformLIdentifier(LIdentifier that)
-            => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
-    
     shared actual JLetExpression transformLetExpression(LetExpression that) {
         JLetExpression ret = JLetExpression(null);
         JLetClause letClause = JLetClause(tokens.token("let", letType));
@@ -2063,6 +2104,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.letClause = letClause;
         return ret;
     }
+    
+    shared actual JIdentifier transformLIdentifier(LIdentifier that)
+            => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
@@ -2158,18 +2202,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JModuleLiteral transformModuleDec(ModuleDec that) {
-        value bt = tokens.token("`", backtick);
-        JModuleLiteral ret = JModuleLiteral(null);
-        ret.endToken = tokens.token("module", moduleType);
-        if (exists moduleName = that.moduleName) {
-            ret.importPath = transformFullPackageName(moduleName);
-        }
-        ret.token = bt;
-        ret.endToken = tokens.token("`", backtick);
-        return ret;
-    }
-    
     shared actual JImportModuleList transformModuleBody(ModuleBody that) {
         JImportModuleList ret = JImportModuleList(tokens.token("{", lbrace));
         for (moduleImport in that.moduleImports) {
@@ -2188,6 +2220,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.importList = imports;
         ret.addModuleDescriptor(transformModuleDescriptor(that.moduleDescriptor));
         tokens.token("", eof);
+        return ret;
+    }
+    
+    shared actual JModuleLiteral transformModuleDec(ModuleDec that) {
+        value bt = tokens.token("`", backtick);
+        JModuleLiteral ret = JModuleLiteral(null);
+        ret.endToken = tokens.token("module", moduleType);
+        if (exists moduleName = that.moduleName) {
+            ret.importPath = transformFullPackageName(moduleName);
+        }
+        ret.token = bt;
+        ret.endToken = tokens.token("`", backtick);
         return ret;
     }
     
@@ -2222,6 +2266,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformMultiplyingExpression(MultiplyingExpression that) {
+        assert (is JTerm ret = super.transformMultiplyingExpression(that));
+        return ret;
+    }
+    
     shared actual JNamedArgument transformNamedArgument(NamedArgument that) {
         assert (is JNamedArgument ret = super.transformNamedArgument(that));
         return ret;
@@ -2236,6 +2285,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.sequencedArgument = transformArgumentList(that.iterableArgument);
         }
         ret.endToken = tokens.token("}", rbrace);
+        return ret;
+    }
+    
+    shared actual JTerm transformNegatingExpression(NegatingExpression that) {
+        assert (is JTerm ret = super.transformNegatingExpression(that));
         return ret;
     }
     
@@ -2365,13 +2419,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JOuter transformOuter(Outer that)
+            => JOuter(tokens.token("outer", outerType));
+    
     shared actual JTypeVariance transformOutModifier(OutModifier that) {
         JTypeVariance ret = JTypeVariance(tokens.token(that.text, outType));
         return ret;
     }
-    
-    shared actual JOuter transformOuter(Outer that)
-            => JOuter(tokens.token("outer", outerType));
     
     shared actual JPackage transformPackage(Package that)
             => JPackage(tokens.token("package", packageType));
@@ -2420,6 +2474,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JInitializerParameter transformParameterReference(ParameterReference that) {
+        JInitializerParameter ret = JInitializerParameter(null);
+        ret.identifier = transformLIdentifier(that.name);
+        return ret;
+    }
+    
     shared actual JParameterList transformParameters(Parameters that) {
         JParameterList ret = JParameterList(tokens.token("(", lparen));
         if (nonempty parameters = that.parameters) {
@@ -2430,12 +2490,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.parameters.add(transformParameter(parameter));
         }
         ret.endToken = tokens.token(")", rparen);
-        return ret;
-    }
-    
-    shared actual JInitializerParameter transformParameterReference(ParameterReference that) {
-        JInitializerParameter ret = JInitializerParameter(null);
-        ret.identifier = transformLIdentifier(that.name);
         return ret;
     }
     
@@ -2491,91 +2545,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JTerm transformPrePostfixingExpression(PrePostfixingExpression that) {
-        assert (is JTerm ret = super.transformPrePostfixingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformExponentiatingExpression(ExponentiatingExpression that) {
-        assert (is JTerm ret = super.transformExponentiatingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformInvertingExpression(InvertingExpression that) {
-        assert (is JTerm ret = super.transformInvertingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformIntersectingExpression(IntersectingExpression that) {
-        assert (is JTerm ret = super.transformIntersectingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformUnioningExpression(UnioningExpression that) {
-        assert (is JTerm ret = super.transformUnioningExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformMultiplyingExpression(MultiplyingExpression that) {
-        assert (is JTerm ret = super.transformMultiplyingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformScalingExpression(ScalingExpression that) {
-        assert (is JTerm ret = super.transformScalingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformAddingExpression(AddingExpression that) {
-        assert (is JTerm ret = super.transformAddingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformSpanningExpression(SpanningExpression that) {
-        assert (is JTerm ret = super.transformSpanningExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformExistsNonemptyExpression(ExistsNonemptyExpression that) {
-        assert (is JTerm ret = super.transformExistsNonemptyExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformComparingExpression(ComparingExpression that) {
-        assert (is JTerm ret = super.transformComparingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformEquatingExpression(EquatingExpression that) {
-        assert (is JTerm ret = super.transformEquatingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformNegatingExpression(NegatingExpression that) {
-        assert (is JTerm ret = super.transformNegatingExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformConjoiningExpression(ConjoiningExpression that) {
-        assert (is JTerm ret = super.transformConjoiningExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformDisjoiningExpression(DisjoiningExpression that) {
-        assert (is JTerm ret = super.transformDisjoiningExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformThenElseExpression(ThenElseExpression that) {
-        assert (is JTerm ret = super.transformThenElseExpression(that));
-        return ret;
-    }
-    
-    shared actual JTerm transformAssigningExpression(AssigningExpression that) {
-        assert (is JTerm ret = super.transformAssigningExpression(that));
-        return ret;
-    }
-    
     shared actual JDecrementOp transformPrefixDecrementOperation(PrefixDecrementOperation that) {
         JDecrementOp ret = JDecrementOp(tokens.token(that.operator, decrement_op));
         ret.term = transformPrimary(that.operand);
@@ -2600,6 +2569,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         case (is PrefixOperation) { ret.expression = wrapTerm(transformPrefixOperation(expression)); }
         case (is PostfixOperation) { ret.expression = wrapTerm(transformPostfixOperation(expression)); }
         ret.endToken = tokens.token(";", semicolon);
+        return ret;
+    }
+    
+    shared actual JTerm transformPrePostfixingExpression(PrePostfixingExpression that) {
+        assert (is JTerm ret = super.transformPrePostfixingExpression(that));
         return ret;
     }
     
@@ -2736,8 +2710,34 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformScalingExpression(ScalingExpression that) {
+        assert (is JTerm ret = super.transformScalingExpression(that));
+        return ret;
+    }
+    
+    shared actual JSelfExpression|JOuter|JPackage transformSelfReference(SelfReference that) {
+        assert (is JSelfExpression|JOuter|JPackage ret = super.transformSelfReference(that));
+        return ret;
+    }
+    
+    shared actual JSequenceType transformSequentialType(SequentialType that) {
+        JSequenceType ret = JSequenceType(null);
+        ret.elementType = transformPrimaryType(that.elementType);
+        ret.endToken = tokens.token("[", lbracket); // unreachable, but we need to have it in the token stream
+        if (exists length = that.length) {
+            ret.length = transformIntegerLiteral(length);
+        }
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
+    
     shared actual JBitwiseAssignmentOp transformSetAssignmentOperation(SetAssignmentOperation that) {
         assert (is JBitwiseAssignmentOp ret = super.transformSetAssignmentOperation(that));
+        return ret;
+    }
+    
+    shared actual JBitwiseOp transformSetOperation(SetOperation that) {
+        assert (is JBitwiseOp ret = super.transformSetOperation(that));
         return ret;
     }
     
@@ -2762,36 +2762,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JStringLiteral transformStringLiteral(StringLiteral that) {
-        value quotes = that.isVerbatim then "\"\"\"" else "\"";
-        return JStringLiteral(tokens.token(quotes + padStringLiteral(that.text, quotes.size) + quotes, that.isVerbatim then verbatim_string_literal else string_literal));
-    }
-    
-    shared actual JSelfExpression|JOuter|JPackage transformSelfReference(SelfReference that) {
-        assert (is JSelfExpression|JOuter|JPackage ret = super.transformSelfReference(that));
-        return ret;
-    }
-    
-    shared actual JSequenceType transformSequentialType(SequentialType that) {
-        JSequenceType ret = JSequenceType(null);
-        ret.elementType = transformPrimaryType(that.elementType);
-        ret.endToken = tokens.token("[", lbracket); // unreachable, but we need to have it in the token stream
-        if (exists length = that.length) {
-            ret.length = transformIntegerLiteral(length);
-        }
-        ret.endToken = tokens.token("]", rbracket);
-        return ret;
-    }
-    
-    shared actual JBitwiseOp transformSetOperation(SetOperation that) {
-        assert (is JBitwiseOp ret = super.transformSetOperation(that));
-        return ret;
-    }
-    
     shared actual JElementRange transformSpanFromSubscript(SpanFromSubscript that) {
         JElementRange ret = JElementRange(null);
         ret.lowerBound = wrapTerm(transformExpression(that.from));
         tokens.token("...", ellipsis);
+        return ret;
+    }
+    
+    shared actual JTerm transformSpanningExpression(SpanningExpression that) {
+        assert (is JTerm ret = super.transformSpanningExpression(that));
         return ret;
     }
     
@@ -2894,9 +2873,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JSpreadOp transformSpreadMemberOperator(SpreadMemberOperator that)
             => JSpreadOp(tokens.token(that.text, spread_op)); // yes, spread_op, not spread_member_op – the * operator is a product_op!
     
+    shared actual JSpreadType transformSpreadType(SpreadType that) {
+        JSpreadType ret = JSpreadType(tokens.token("*", product_op));
+        ret.type = transformType(that.type);
+        return ret;
+    }
+    
     shared actual JExecutableStatement transformStatement(Statement that) {
         assert (is JExecutableStatement ret = super.transformStatement(that));
         return ret;
+    }
+    
+    shared actual JStringLiteral transformStringLiteral(StringLiteral that) {
+        value quotes = that.isVerbatim then "\"\"\"" else "\"";
+        return JStringLiteral(tokens.token(quotes + padStringLiteral(that.text, quotes.size) + quotes, that.isVerbatim then verbatim_string_literal else string_literal));
     }
     
     shared actual JStringTemplate transformStringTemplate(StringTemplate that) {
@@ -3003,6 +2993,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.switched.variable = var;
         }
         ret.endToken = tokens.token(")", rparen);
+        return ret;
+    }
+    
+    shared actual JTerm transformThenElseExpression(ThenElseExpression that) {
+        assert (is JTerm ret = super.transformThenElseExpression(that));
         return ret;
     }
     
@@ -3117,18 +3112,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JTypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
-        assert (is JTypedDeclaration ret = super.transformTypedDeclaration(that));
-        return ret;
-    }
-    
-    "The usage of [[TypedVariable]] in `ceylon.ast` differs significantly
-     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
-     where a conversion at the level of individual variable nodes isn’t possible."
-    shared actual Nothing transformTypedVariable(TypedVariable that) {
-        throw AssertionError("Can’t transform a ceylon.ast TypedVariable to a RedHat AST Variable");
-    }
-    
     shared actual JTypeAliasDeclaration transformTypeAliasDefinition(TypeAliasDefinition that) {
         value annotations = transformAnnotations(that.annotations);
         JTypeAliasDeclaration ret = JTypeAliasDeclaration(tokens.token("alias", aliasType));
@@ -3188,9 +3171,26 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTypedDeclaration transformTypedDeclaration(TypedDeclaration that) {
+        assert (is JTypedDeclaration ret = super.transformTypedDeclaration(that));
+        return ret;
+    }
+    
+    shared actual JTypeLiteral transformTypeDec(TypeDec that) {
+        assert (is JTypeLiteral ret = super.transformTypeDec(that));
+        return ret;
+    }
+    
     shared actual JTypeDeclaration transformTypeDeclaration(TypeDeclaration that) {
         assert (is JTypeDeclaration ret = super.transformTypeDeclaration(that));
         return ret;
+    }
+    
+    "The usage of [[TypedVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformTypedVariable(TypedVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast TypedVariable to a RedHat AST Variable");
     }
     
     shared actual JType transformTypeIsh(TypeIsh that) {
@@ -3202,6 +3202,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
      this method throws."
     shared actual Nothing transformTypeList(TypeList that) {
         throw Exception("TypeList has no RedHat AST equivalent!");
+    }
+    
+    shared actual JTypeLiteral transformTypeMeta(TypeMeta that) {
+        value bt = tokens.token("`", backtick);
+        JTypeLiteral ret = JTypeLiteral(null);
+        ret.type = transformType(that.type);
+        ret.token = bt;
+        ret.endToken = tokens.token("`", backtick);
+        return ret;
+    }
+    
+    shared actual JLocalModifier|JVoidModifier|JDynamicModifier transformTypeModifier(TypeModifier that) {
+        assert (is JLocalModifier|JVoidModifier|JDynamicModifier ret = super.transformTypeModifier(that));
+        return ret;
     }
     
     "The RedHat AST has no direct equivalent of [[TypeNameWithTypeArguments]];
@@ -3244,36 +3258,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JIdentifier transformUIdentifier(UIdentifier that)
             => JIdentifier(tokens.token(that.name, uidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
     
-    shared actual JStaticType transformUnionableType(UnionableType that) {
-        assert (is JStaticType ret = super.transformUnionableType(that));
-        return ret;
-    }
-    
-    "The usage of [[UnspecifiedVariable]] in `ceylon.ast` differs significantly
-     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
-     where a conversion at the level of individual variable nodes isn’t possible."
-    shared actual Nothing transformUnspecifiedVariable(UnspecifiedVariable that) {
-        throw AssertionError("Can’t transform a ceylon.ast UnspecifiedVariable to a RedHat AST Variable");
-    }
-    
-    shared actual JTypeLiteral transformTypeDec(TypeDec that) {
-        assert (is JTypeLiteral ret = super.transformTypeDec(that));
-        return ret;
-    }
-    shared actual JTypeLiteral transformTypeMeta(TypeMeta that) {
-        value bt = tokens.token("`", backtick);
-        JTypeLiteral ret = JTypeLiteral(null);
-        ret.type = transformType(that.type);
-        ret.token = bt;
-        ret.endToken = tokens.token("`", backtick);
-        return ret;
-    }
-    
-    shared actual JLocalModifier|JVoidModifier|JDynamicModifier transformTypeModifier(TypeModifier that) {
-        assert (is JLocalModifier|JVoidModifier|JDynamicModifier ret = super.transformTypeModifier(that));
-        return ret;
-    }
-    
     shared actual JNegativeOp|JPositiveOp transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
         assert (is JNegativeOp|JPositiveOp ret = super.transformUnaryArithmeticOperation(that));
         return ret;
@@ -3293,11 +3277,21 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JStaticType transformUnionableType(UnionableType that) {
+        assert (is JStaticType ret = super.transformUnionableType(that));
+        return ret;
+    }
+    
     shared actual JUnionAssignOp transformUnionAssignmentOperation(UnionAssignmentOperation that) {
         JTerm left = transformThenElseExpression(that.leftOperand);
         JUnionAssignOp ret = JUnionAssignOp(tokens.token(that.operator, union_specify));
         ret.leftTerm = left;
         ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        return ret;
+    }
+    
+    shared actual JTerm transformUnioningExpression(UnioningExpression that) {
+        assert (is JTerm ret = super.transformUnioningExpression(that));
         return ret;
     }
     
@@ -3322,6 +3316,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             case (is IntersectionType) { ret.addStaticType(transformIntersectionType(elementType)); }
         }
         return ret;
+    }
+    
+    "The usage of [[UnspecifiedVariable]] in `ceylon.ast` differs significantly
+     from the usage of [[Variable|JVariable]] in the RedHat AST, to the point
+     where a conversion at the level of individual variable nodes isn’t possible."
+    shared actual Nothing transformUnspecifiedVariable(UnspecifiedVariable that) {
+        throw AssertionError("Can’t transform a ceylon.ast UnspecifiedVariable to a RedHat AST Variable");
     }
     
     shared actual JAttributeArgument transformValueArgument(ValueArgument that) {

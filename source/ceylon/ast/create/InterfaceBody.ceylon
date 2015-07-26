@@ -2,6 +2,7 @@ import ceylon.ast.core {
     Body,
     Declaration,
     InterfaceBody,
+    Specification,
     Statement
 }
 
@@ -15,9 +16,9 @@ shared InterfaceBody interfaceBody(BodyIsh content) {
         return content;
     } else {
         return InterfaceBody(content.collect {
-                Declaration collecting(Declaration|Statement element) {
+                Declaration|Specification collecting(Declaration|Statement element) {
                     "Interface body cannot contain statements"
-                    assert (is Declaration element);
+                    assert (is Declaration|Specification element);
                     return element;
                 }
             });

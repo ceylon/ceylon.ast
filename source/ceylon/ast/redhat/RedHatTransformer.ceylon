@@ -1901,7 +1901,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JInterfaceBody transformInterfaceBody(InterfaceBody that) {
         JInterfaceBody ret = JInterfaceBody(tokens.token("{", lbrace));
         for (declaration in that.content) {
-            ret.addStatement(transformDeclaration(declaration));
+            assert (is JStatement jStatement = declaration.transform(this));
+            ret.addStatement(jStatement);
         }
         ret.endToken = tokens.token("}", rbrace);
         return ret;

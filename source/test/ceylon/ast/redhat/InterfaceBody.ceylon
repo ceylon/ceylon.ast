@@ -1,6 +1,7 @@
 import ceylon.ast.core {
     Declaration,
-    InterfaceBody
+    InterfaceBody,
+    Specification
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,13 +16,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object interfaceBody satisfies ConcreteTest<InterfaceBody,JInterfaceBody> {
     
-    String->InterfaceBody construct(<String->Declaration>[] content)
+    String->InterfaceBody construct(<String->Declaration|Specification>[] content)
             => "{``"".join(content*.key)``}"->InterfaceBody(content*.item);
     
     shared String->InterfaceBody emptyInterfaceBody = construct([]);
+    shared String->InterfaceBody nonemptyInterfaceBody = construct([functionDeclaration.nonemptyFunctionDeclaration, lazySpecification.stringLazySpecification]);
     
     compile = compileInterfaceBody;
     fromCeylon = RedHatTransformer.transformInterfaceBody;
     toCeylon = interfaceBodyToCeylon;
-    codes = [emptyInterfaceBody];
+    codes = [emptyInterfaceBody, nonemptyInterfaceBody];
 }

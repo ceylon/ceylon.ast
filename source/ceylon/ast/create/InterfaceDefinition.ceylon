@@ -4,6 +4,7 @@ import ceylon.ast.core {
     Declaration,
     InterfaceDefinition,
     SatisfiedTypes,
+    Specification,
     TypeConstraint,
     TypeParameters
 }
@@ -41,7 +42,7 @@ shared InterfaceDefinition interfaceDefinition(
     annotations = Annotations()) {
     
     IdentifierIsh name;
-    {Declaration*} body;
+    {Declaration|Specification*} body;
     {CaseTypeIsh*}|CaseTypes? caseTypes;
     {PrimaryTypeIsh*}|SatisfiedTypes? satisfiedTypes;
     {TypeParameterIsh*}|TypeParameters? typeParameters;

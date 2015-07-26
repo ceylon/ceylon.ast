@@ -1,13 +1,15 @@
 import ceylon.ast.core {
     InterfaceBody,
     Declaration,
-    Node
+    Node,
+    Specification
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JDeclaration=Declaration,
         JInterfaceBody=InterfaceBody,
+        JSpecifierStatement=SpecifierStatement,
         JStatement=Statement
     }
 }
@@ -18,9 +20,11 @@ import ceylon.interop.java {
 "Converts a RedHat AST [[InterfaceBody|JInterfaceBody]] to a `ceylon.ast` [[InterfaceBody]]."
 shared InterfaceBody interfaceBodyToCeylon(JInterfaceBody interfaceBody, Anything(JNode,Node) update = noop) {
     value result = InterfaceBody(CeylonIterable(interfaceBody.statements).collect {
-            Declaration collecting(JStatement statement) {
-                assert (is JDeclaration statement);
-                return declarationToCeylon(statement, update);
+            Declaration|Specification collecting(JStatement statement) {
+                assert (is JDeclaration|JSpecifierStatement statement);
+                switch (statement)
+                case (is JDeclaration) { return declarationToCeylon(statement, update); }
+                case (is JSpecifierStatement) { return specificationToCeylon(statement, update); }
             }
         });
     update(interfaceBody, result);

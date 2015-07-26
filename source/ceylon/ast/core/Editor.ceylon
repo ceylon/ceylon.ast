@@ -403,8 +403,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy();
     shared actual default InterfaceAliasDefinition transformInterfaceAliasDefinition(InterfaceAliasDefinition that)
             => that.copy(transformUIdentifier(that.name), transformTypeSpecifier(that.specifier), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
-            => that.copy(that.content.collect(transformDeclaration));
+    shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that) {
+        Declaration|Specification transformDeclarationOrSpecification(Declaration|Specification that) {
+            switch (that)
+            case (is Declaration) { return transformDeclaration(that); }
+            case (is Specification) { return transformSpecification(that); }
+        }
+        return that.copy(that.content.collect(transformDeclarationOrSpecification));
+    }
     shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)
             => that.copy(nullsafeInvoke(that.name, transformUIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default InterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)

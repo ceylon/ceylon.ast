@@ -45,12 +45,13 @@ shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments, Anyt
  
  Returns
  - `typeArgumentsToCeylon(typeArguments, update)` for a proper [[TypeArgumentList|JTypeArgumentList]],
- - `null` for [[InferredTypeArguments|JInferredTypeArguments]]."
-shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments typeArguments, Anything(JNode,Node) update = noop) {
-    assert (is JTypeArgumentList|JInferredTypeArguments typeArguments);
+ - `null` for [[InferredTypeArguments|JInferredTypeArguments]] or [[null]]."
+shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments? typeArguments, Anything(JNode,Node) update = noop) {
+    assert (is JTypeArgumentList|JInferredTypeArguments? typeArguments);
     switch (typeArguments)
     case (is JTypeArgumentList) { return typeArgumentsToCeylon(typeArguments, update); }
     case (is JInferredTypeArguments) { return null; }
+    case (null) { return null; }
 }
 
 "Compiles the given [[code]] for Type Arguments

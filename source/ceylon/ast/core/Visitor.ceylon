@@ -71,6 +71,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformCondition(Condition that) => visitCondition(that);
     transformConditionalExpression(ConditionalExpression that) => visitConditionalExpression(that);
     transformConditions(Conditions that) => visitConditions(that);
+    transformConstruction(Construction that) => visitConstruction(that);
     transformConstructorDec(ConstructorDec that) => visitConstructorDec(that);
     transformConstructorDefinition(ConstructorDefinition that) => visitConstructorDefinition(that);
     transformContinue(Continue that) => visitContinue(that);
@@ -108,6 +109,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => visitExpressionComprehensionClause(that);
     transformExpressionStatement(ExpressionStatement that) => visitExpressionStatement(that);
     transformExtendedType(ExtendedType that) => visitExtendedType(that);
+    transformExtension(Extension that) => visitExtension(that);
+    transformExtensionOrConstruction(ExtensionOrConstruction that) => visitExtensionOrConstruction(that);
     transformFailClause(FailClause that) => visitFailClause(that);
     transformFinallyClause(FinallyClause that) => visitFinallyClause(that);
     transformFloatLiteral(FloatLiteral that) => visitFloatLiteral(that);
@@ -383,6 +386,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitCondition(Condition that) => super.transformCondition(that);
     shared default void visitConditionalExpression(ConditionalExpression that) => super.transformConditionalExpression(that);
     shared default void visitConditions(Conditions that) => super.transformConditions(that);
+    shared default void visitConstruction(Construction that) => super.transformConstruction(that);
     shared default void visitConstructorDec(ConstructorDec that) => super.transformConstructorDec(that);
     shared default void visitConstructorDefinition(ConstructorDefinition that) => super.transformConstructorDefinition(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
@@ -420,6 +424,8 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitExpression(Expression that) => super.transformExpression(that);
     shared default void visitExpressionStatement(ExpressionStatement that) => super.transformExpressionStatement(that);
     shared default void visitExtendedType(ExtendedType that) => super.transformExtendedType(that);
+    shared default void visitExtension(Extension that) => super.transformExtension(that);
+    shared default void visitExtensionOrConstruction(ExtensionOrConstruction that) => super.transformExtensionOrConstruction(that);
     shared default void visitFailClause(FailClause that) => super.transformFailClause(that);
     shared default void visitFinallyClause(FinallyClause that) => super.transformFinallyClause(that);
     shared default void visitFloatLiteral(FloatLiteral that) => super.transformFloatLiteral(that);

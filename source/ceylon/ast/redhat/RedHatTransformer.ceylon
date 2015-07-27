@@ -1094,6 +1094,39 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JInvocationExpression transformConstruction(Construction that) {
+        JSimpleType jst;
+        switch (qualifier = that.qualifier)
+        case (is BaseType) {
+            value ot = transformBaseType(qualifier);
+            value qt = JQualifiedType(null);
+            qt.outerType = ot;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (is Super) {
+            value st = JSuperType(tokens.token("super", superType));
+            value qt = JQualifiedType(null);
+            qt.outerType = st;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (null) {
+            value bt = JBaseType(null);
+            jst = bt;
+        }
+        jst.identifier = transformLIdentifier(that.nameAndArgs.name);
+        if (exists typeArgs = that.nameAndArgs.typeArguments) {
+            jst.typeArgumentList = transformTypeArguments(typeArgs);
+        }
+        value ete = JExtendedTypeExpression(null);
+        ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+        value ie = JInvocationExpression(null);
+        ie.primary = ete;
+        ie.positionalArgumentList = transformPositionalArguments(that.arguments);
+        return ie;
+    }
+    
     shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
         value bt = tokens.token("`", backtick);
         JNewLiteral ret = JNewLiteral(null);
@@ -1389,6 +1422,47 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value tuple = helpTransformClassInstantiation(that.instantiation);
         ret.type = tuple[0];
         ret.invocationExpression = tuple[1];
+        return ret;
+    }
+    
+    shared actual JInvocationExpression|JSimpleType transformExtension(Extension that) {
+        JSimpleType jst;
+        switch (qualifier = that.qualifier)
+        case (is PackageQualifier) {
+            value bt = JBaseType(tokens.token("package", packageType));
+            bt.packageQualified = true;
+            bt.endToken = tokens.token(".", member_op);
+            jst = bt;
+        }
+        case (is Super) {
+            value st = JSuperType(tokens.token("super", superType));
+            value qt = JQualifiedType(null);
+            qt.outerType = st;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (null) {
+            value bt = JBaseType(null);
+            jst = bt;
+        }
+        jst.identifier = transformUIdentifier(that.nameAndArgs.name);
+        if (exists typeArgs = that.nameAndArgs.typeArguments) {
+            jst.typeArgumentList = transformTypeArguments(typeArgs);
+        }
+        if (exists arguments = that.arguments) {
+            value ete = JExtendedTypeExpression(null);
+            ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+            value ie = JInvocationExpression(null);
+            ie.primary = ete;
+            ie.positionalArgumentList = transformPositionalArguments(arguments);
+            return ie;
+        } else {
+            return jst;
+        }
+    }
+    
+    shared actual JInvocationExpression|JSimpleType transformExtensionOrConstruction(ExtensionOrConstruction that) {
+        assert (is JInvocationExpression|JSimpleType ret = super.transformExtensionOrConstruction(that));
         return ret;
     }
     

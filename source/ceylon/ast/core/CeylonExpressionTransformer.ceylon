@@ -217,6 +217,17 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformComprehension(Comprehension that) => "Comprehension(``transformWithIndent(that.clause)``)";
     transformConditions(Conditions that) => "Conditions(``transformWithIndent(that.conditions)``)";
+    transformConstruction(Construction that)
+            => that.qualifier exists
+            then "Construction {
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "Construction {
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                  ``indent``}";
     transformConstructorDec(ConstructorDec that)
             => "ConstructorDec {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
@@ -331,6 +342,17 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => "ExpressionComprehensionClause(``transformWithIndent(that.expression)``)";
     transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
+    transformExtension(Extension that)
+            => that.qualifier exists
+            then "Extension {
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                  `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
+                  ``indent``}"
+            else "Extension {
+                  `` indent + indentLevel ``nameAndArgs = ``transformWithIndent(that.nameAndArgs)``;
+                  `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
+                  ``indent``}";
     transformFailClause(FailClause that) => "FailClause(``transformWithIndent(that.block)``)";
     transformFinallyClause(FinallyClause that) => "FinallyClause(``transformWithIndent(that.block)``)";
     transformFloatLiteral(FloatLiteral that) => "FloatLiteral(\"``that.text``\")";

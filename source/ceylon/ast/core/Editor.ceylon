@@ -201,6 +201,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
+    shared actual default Construction transformConstruction(Construction that) {
+        BaseType|Super transformBaseTypeOrSuper(BaseType|Super that) {
+            switch (that)
+            case (is BaseType) { return transformBaseType(that); }
+            case (is Super) { return transformSuper(that); }
+        }
+        return that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformBaseTypeOrSuper));
+    }
     shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that)
@@ -305,6 +313,18 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default ExtendedType transformExtendedType(ExtendedType that)
             => that.copy(transformClassInstantiation(that.instantiation));
+    shared actual default Extension transformExtension(Extension that) {
+        PackageQualifier|Super transformPackageQualifierOrSuper(PackageQualifier|Super that) { 
+            switch (that)
+            case (is PackageQualifier) { return transformPackageQualifier(that); }
+            case (is Super) { return transformSuper(that); }
+        }
+        return that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.arguments, transformPositionalArguments), nullsafeInvoke(that.qualifier, transformPackageQualifierOrSuper));
+    }
+    shared actual default ExtensionOrConstruction transformExtensionOrConstruction(ExtensionOrConstruction that) {
+        assert (is ExtensionOrConstruction ret = super.transformExtensionOrConstruction(that));
+        return ret;
+    }
     shared actual default FailClause transformFailClause(FailClause that)
             => that.copy(transformBlock(that.block));
     shared actual default FinallyClause transformFinallyClause(FinallyClause that)

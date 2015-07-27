@@ -73,6 +73,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformCondition(Condition that);
     shared formal Result transformConditionalExpression(ConditionalExpression that);
     shared formal Result transformConditions(Conditions that);
+    shared formal Result transformConstruction(Construction that);
     shared formal Result transformConstructorDec(ConstructorDec that);
     shared formal Result transformConstructorDefinition(ConstructorDefinition that);
     shared formal Result transformContinue(Continue that);
@@ -110,6 +111,8 @@ shared interface Transformer<out Result> {
     shared formal Result transformExpressionComprehensionClause(ExpressionComprehensionClause that);
     shared formal Result transformExpressionStatement(ExpressionStatement that);
     shared formal Result transformExtendedType(ExtendedType that);
+    shared formal Result transformExtension(Extension that);
+    shared formal Result transformExtensionOrConstruction(ExtensionOrConstruction that);
     shared formal Result transformFailClause(FailClause that);
     shared formal Result transformFinallyClause(FinallyClause that);
     shared formal Result transformFloatLiteral(FloatLiteral that);

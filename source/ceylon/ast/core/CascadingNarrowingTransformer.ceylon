@@ -224,6 +224,11 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is PrefixPostfixStatement) { return transformPrefixPostfixStatement(that); }
         case (is InvocationStatement) { return transformInvocationStatement(that); }
     }
+    shared actual default Result transformExtensionOrConstruction(ExtensionOrConstruction that) {
+        switch (that)
+        case (is Extension) { return transformExtension(that); }
+        case (is Construction) { return transformConstruction(that); }
+    }
     shared actual default Result transformIdentifier(Identifier that) {
         switch (that)
         case (is LIdentifier) { return transformLIdentifier(that); }
@@ -373,6 +378,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is SpecifiedPattern) { return transformSpecifiedPattern(that); }
         case (is PatternList) { return transformPatternList(that); }
         case (is CaseExpression) { return transformCaseExpression(that); }
+        case (is ExtensionOrConstruction) { return transformExtensionOrConstruction(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)

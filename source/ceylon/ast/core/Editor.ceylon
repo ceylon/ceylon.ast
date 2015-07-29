@@ -163,14 +163,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.parameters, transformParameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
-            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformTypeNameWithTypeArgumentsOrSuper));
     shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {
         assert (is ClassOrInterface ret = super.transformClassOrInterface(that));
         return ret;
     }
     shared actual default ClassSpecifier transformClassSpecifier(ClassSpecifier that)
-            => that.copy(transformClassInstantiation(that.instantiation));
+            => that.copy(transformExtensionOrConstruction(that.target));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
             => that.copy(transformExistsNonemptyExpression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
@@ -201,6 +199,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Conditions transformConditions(Conditions that)
             => that.copy(that.conditions.collect(transformCondition));
+    shared actual default Construction transformConstruction(Construction that) {
+        BaseType|Super transformBaseTypeOrSuper(BaseType|Super that) {
+            switch (that)
+            case (is BaseType) { return transformBaseType(that); }
+            case (is Super) { return transformSuper(that); }
+        }
+        return that.copy(transformMemberNameWithTypeArguments(that.nameAndArgs), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformBaseTypeOrSuper));
+    }
     shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that)
@@ -304,7 +310,19 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ExtendedType transformExtendedType(ExtendedType that)
-            => that.copy(transformClassInstantiation(that.instantiation));
+            => that.copy(transformExtensionOrConstruction(that.target));
+    shared actual default Extension transformExtension(Extension that) {
+        PackageQualifier|Super transformPackageQualifierOrSuper(PackageQualifier|Super that) { 
+            switch (that)
+            case (is PackageQualifier) { return transformPackageQualifier(that); }
+            case (is Super) { return transformSuper(that); }
+        }
+        return that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.arguments, transformPositionalArguments), nullsafeInvoke(that.qualifier, transformPackageQualifierOrSuper));
+    }
+    shared actual default ExtensionOrConstruction transformExtensionOrConstruction(ExtensionOrConstruction that) {
+        assert (is ExtensionOrConstruction ret = super.transformExtensionOrConstruction(that));
+        return ret;
+    }
     shared actual default FailClause transformFailClause(FailClause that)
             => that.copy(transformBlock(that.block));
     shared actual default FinallyClause transformFinallyClause(FinallyClause that)

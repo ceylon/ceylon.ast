@@ -973,12 +973,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    "The RedHat AST has no direct equivalent of [[ClassInstantiation]];
-     this method throws."
-    shared actual Nothing transformClassInstantiation(ClassInstantiation that) {
-        throw AssertionError("ClassInstantiation has no RedHat AST equivalent!");
-    }
-    
     shared actual JClassOrInterface transformClassOrInterface(ClassOrInterface that) {
         assert (is JClassOrInterface ret = super.transformClassOrInterface(that));
         return ret;
@@ -986,9 +980,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JClassSpecifier transformClassSpecifier(ClassSpecifier that) {
         JClassSpecifier ret = JClassSpecifier(tokens.token("=>", compute));
-        value tuple = helpTransformClassInstantiation(that.instantiation);
-        ret.type = tuple[0];
-        ret.invocationExpression = tuple[1];
+        value [type,invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        ret.type = type;
+        ret.invocationExpression = invocationExpression;
         return ret;
     }
     
@@ -1092,6 +1086,39 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     shared actual JTerm transformConjoiningExpression(ConjoiningExpression that) {
         assert (is JTerm ret = super.transformConjoiningExpression(that));
         return ret;
+    }
+    
+    shared actual JInvocationExpression transformConstruction(Construction that) {
+        JSimpleType jst;
+        switch (qualifier = that.qualifier)
+        case (is BaseType) {
+            value ot = transformBaseType(qualifier);
+            value qt = JQualifiedType(null);
+            qt.outerType = ot;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (is Super) {
+            value st = JSuperType(tokens.token("super", superType));
+            value qt = JQualifiedType(null);
+            qt.outerType = st;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (null) {
+            value bt = JBaseType(null);
+            jst = bt;
+        }
+        jst.identifier = transformLIdentifier(that.nameAndArgs.name);
+        if (exists typeArgs = that.nameAndArgs.typeArguments) {
+            jst.typeArgumentList = transformTypeArguments(typeArgs);
+        }
+        value ete = JExtendedTypeExpression(null);
+        ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+        value ie = JInvocationExpression(null);
+        ie.primary = ete;
+        ie.positionalArgumentList = transformPositionalArguments(that.arguments);
+        return ie;
     }
     
     shared actual JNewLiteral transformConstructorDec(ConstructorDec that) {
@@ -1386,9 +1413,50 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExtendedType transformExtendedType(ExtendedType that) {
         JExtendedType ret = JExtendedType(tokens.token("extends", extendsType));
-        value tuple = helpTransformClassInstantiation(that.instantiation);
-        ret.type = tuple[0];
-        ret.invocationExpression = tuple[1];
+        value [type,invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        ret.type = type;
+        ret.invocationExpression = invocationExpression;
+        return ret;
+    }
+    
+    shared actual JInvocationExpression|JSimpleType transformExtension(Extension that) {
+        JSimpleType jst;
+        switch (qualifier = that.qualifier)
+        case (is PackageQualifier) {
+            value bt = JBaseType(tokens.token("package", packageType));
+            bt.packageQualified = true;
+            bt.endToken = tokens.token(".", member_op);
+            jst = bt;
+        }
+        case (is Super) {
+            value st = JSuperType(tokens.token("super", superType));
+            value qt = JQualifiedType(null);
+            qt.outerType = st;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
+        case (null) {
+            value bt = JBaseType(null);
+            jst = bt;
+        }
+        jst.identifier = transformUIdentifier(that.nameAndArgs.name);
+        if (exists typeArgs = that.nameAndArgs.typeArguments) {
+            jst.typeArgumentList = transformTypeArguments(typeArgs);
+        }
+        if (exists arguments = that.arguments) {
+            value ete = JExtendedTypeExpression(null);
+            ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+            value ie = JInvocationExpression(null);
+            ie.primary = ete;
+            ie.positionalArgumentList = transformPositionalArguments(arguments);
+            return ie;
+        } else {
+            return jst;
+        }
+    }
+    
+    shared actual JInvocationExpression|JSimpleType transformExtensionOrConstruction(ExtensionOrConstruction that) {
+        assert (is JInvocationExpression|JSimpleType ret = super.transformExtensionOrConstruction(that));
         return ret;
     }
     
@@ -3550,45 +3618,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    "The RedHat AST has no direct equivalent of [[ClassInstantiation]];
-     it’s partially inlined into `ExtendedType` and `ClassSpecifier`.
-     This is a helper function for those conversions."
-    [JSimpleType, JInvocationExpression] helpTransformClassInstantiation(ClassInstantiation that) {
-        JSimpleType type;
-        switch (qualifier = that.qualifier)
-        case (is TypeNameWithTypeArguments) {
-            JBaseType bt = JBaseType(null);
-            bt.identifier = transformUIdentifier(qualifier.name);
-            if (exists typeArgs = qualifier.typeArguments) {
-                bt.typeArgumentList = transformTypeArguments(typeArgs);
-            }
-            tokens.token(".", member_op);
-            JQualifiedType qt = JQualifiedType(null);
-            qt.outerType = bt;
-            type = qt;
-        }
-        case (is Super) {
-            JQualifiedType qt = JQualifiedType(null);
-            JSuperType st = JSuperType(tokens.token("super", superType));
-            tokens.token(".", member_op);
-            qt.outerType = st;
-            type = qt;
-        }
-        case (null) {
-            type = JBaseType(null);
-        }
-        type.identifier = transformUIdentifier(that.name.name);
-        if (exists typeArgs = that.name.typeArguments) {
-            type.typeArgumentList = transformTypeArguments(typeArgs);
-        }
-        JInvocationExpression ie = JInvocationExpression(null);
-        JExtendedTypeExpression ete = JExtendedTypeExpression(null);
-        ete.setExtendedType(type); // there’s no getter, so Ceylon doesn’t see it as a variable attribute
-        ie.primary = ete;
-        ie.positionalArgumentList = transformPositionalArguments(that.arguments);
-        return [type, ie];
-    }
-    
     JSimpleType helpTransformDecQualifier(DecQualifier that) {
         "Should be called with the name as added component"
         assert (nonempty components = that.components);
@@ -3697,6 +3726,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.caseItem.endToken = tokens.token(")", rparen);
         ret.expression = wrapTerm(transformExpression(caseExpression.expression));
         return ret;
+    }
+    
+    [JSimpleType?,JInvocationExpression?] helpTransformExtensionOrConstruction(ExtensionOrConstruction extensionOrConstruction) {
+        switch (transformed = transformExtensionOrConstruction(extensionOrConstruction))
+        case (is JType) { return [transformed, null]; }
+        case (is JInvocationExpression) {
+            assert (is JExtendedTypeExpression ete = transformed.primary);
+            return [ete.type, transformed];
+        }
     }
     
     "The parser adds synthetic variables to all ‘is’ cases and the else case.

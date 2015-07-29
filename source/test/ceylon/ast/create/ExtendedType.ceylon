@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ArgumentList,
-    ClassInstantiation,
     ExtendedType,
+    Extension,
     PositionalArguments,
     TypeNameWithTypeArguments,
     UIdentifier
@@ -19,7 +19,7 @@ test
 shared void extendedType() {
     assertEquals {
         actual = createExtendedType("Sup");
-        expected = ExtendedType(ClassInstantiation(TypeNameWithTypeArguments(UIdentifier("Sup")), PositionalArguments()));
+        expected = ExtendedType(Extension(TypeNameWithTypeArguments(UIdentifier("Sup")), PositionalArguments()));
         message = "Sup() extended type";
     };
     assertEquals {
@@ -28,8 +28,8 @@ shared void extendedType() {
             createBaseExpression("x"),
             createBaseExpression("y")
         };
-        expected = ExtendedType(ClassInstantiation {
-                name = TypeNameWithTypeArguments(UIdentifier("Point"));
+        expected = ExtendedType(Extension {
+                nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Point"));
                 arguments = PositionalArguments(ArgumentList([createBaseExpression("x"), createBaseExpression("y")]));
             });
         message = "Point(x, y) extended type";

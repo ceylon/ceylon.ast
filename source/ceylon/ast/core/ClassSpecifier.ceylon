@@ -1,35 +1,35 @@
 "A class specifier for a [[class alias|ClassAliasDefinition]],
- that is, a lazy specification operator ‘`=>`’ followed by a [[class instantiation|instantiation]].
+ that is, a lazy specification operator ‘`=>`’ followed by an [[extension or construction|target]].
  
  Examples:
  
      => String(characters)
      => Entry<String,Item>(name, item)
      => HomogenousCoordinates.Cartesian(x, y, z, 1.0)"
-shared class ClassSpecifier(instantiation)
+shared class ClassSpecifier(target)
         extends Node() {
     
-    "The instantiation of the specifying class."
-    shared ClassInstantiation instantiation;
+    "The extension or construction being delegated to."
+    shared ExtensionOrConstruction target;
     
-    shared actual [ClassInstantiation] children = [instantiation];
+    shared actual [ExtensionOrConstruction] children = [target];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassSpecifier(this);
     
     shared actual Boolean equals(Object that) {
         if (is ClassSpecifier that) {
-            return instantiation == that.instantiation;
+            return target == that.target;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * instantiation.hash;
+            => 31 * target.hash;
     
-    shared ClassSpecifier copy(ClassInstantiation instantiation = this.instantiation) {
-        value ret = ClassSpecifier(instantiation);
+    shared ClassSpecifier copy(ExtensionOrConstruction target = this.target) {
+        value ret = ClassSpecifier(target);
         copyExtraInfoTo(ret);
         return ret;
     }

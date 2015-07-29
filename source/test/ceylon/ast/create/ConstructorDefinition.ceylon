@@ -3,9 +3,9 @@ import ceylon.ast.core {
     Annotations,
     ArgumentList,
     Block,
-    ClassInstantiation,
     ConstructorDefinition,
     ExtendedType,
+    Extension,
     IntegerLiteral,
     LIdentifier,
     Parameters,
@@ -58,8 +58,8 @@ shared void constructorDefinition() {
                         type = createBaseType("String");
                         name = LIdentifier("string");
                     }]);
-            extendedType = ExtendedType(ClassInstantiation {
-                    name = TypeNameWithTypeArguments(UIdentifier("Super"));
+            extendedType = ExtendedType(Extension {
+                    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Super"));
                     arguments = PositionalArguments(ArgumentList([IntegerLiteral("1"), createBaseExpression("string")]));
                 });
             annotations = Annotations {

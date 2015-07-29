@@ -4,6 +4,7 @@ import ceylon.ast.core {
     CaseTypes,
     ClassBody,
     ClassDefinition,
+    Extension,
     IntegerLiteral,
     LIdentifier,
     Parameters,
@@ -14,7 +15,6 @@ import ceylon.ast.core {
     UIdentifier,
     ValueParameter,
     ExtendedType,
-    ClassInstantiation,
     TypeNameWithTypeArguments,
     PositionalArguments,
     ArgumentList
@@ -66,8 +66,8 @@ shared void classDefinition() {
                         name = LIdentifier("string");
                     }]);
             caseTypes = CaseTypes([createBaseType("CT1"), createBaseType("CT2")]);
-            extendedType = ExtendedType(ClassInstantiation {
-                    name = TypeNameWithTypeArguments(UIdentifier("Super"));
+            extendedType = ExtendedType(Extension {
+                    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Super"));
                     arguments = PositionalArguments(ArgumentList([IntegerLiteral("1"), createBaseExpression("string")]));
                 });
             satisfiedTypes = SatisfiedTypes([createBaseType("Identifiable")]);

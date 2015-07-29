@@ -28,7 +28,6 @@ import ceylon.ast.core {
     ClassBody,
     ClassDec,
     ClassDefinition,
-    ClassInstantiation,
     ClassSpecifier,
     ClosedBound,
     CompareOperation,
@@ -37,6 +36,7 @@ import ceylon.ast.core {
     ComplementOperation,
     Comprehension,
     Conditions,
+    Construction,
     ConstructorDec,
     ConstructorDefinition,
     Continue,
@@ -65,6 +65,7 @@ import ceylon.ast.core {
     ExponentiationOperation,
     ExpressionComprehensionClause,
     ExtendedType,
+    Extension,
     FailClause,
     FinallyClause,
     FloatLiteral,
@@ -874,10 +875,9 @@ shared CompilationUnit completeCompilationUnit
                         type = ValueModifier();
                         definition = Specifier(ObjectExpression {
                                 body = ClassBody([]);
-                                extendedType = ExtendedType(ClassInstantiation {
-                                        name = TypeNameWithTypeArguments(UIdentifier("Object"));
+                                extendedType = ExtendedType(Extension {
+                                        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Object"));
                                         arguments = PositionalArguments(ArgumentList([]));
-                                        qualifier = null;
                                     });
                                 satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))]);
                             });
@@ -922,10 +922,9 @@ shared CompilationUnit completeCompilationUnit
                     LIdentifier("myTrue"),
                     LIdentifier("myFalse")
                 ]);
-            extendedType = ExtendedType(ClassInstantiation {
-                    name = TypeNameWithTypeArguments(UIdentifier("Object"));
+            extendedType = ExtendedType(Construction {
+                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("cons"));
                     arguments = PositionalArguments(ArgumentList([]));
-                    qualifier = null;
                 });
             satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("MyObject")))]);
             typeParameters = null;
@@ -937,10 +936,9 @@ shared CompilationUnit completeCompilationUnit
         ClassAliasDefinition {
             name = UIdentifier("B");
             parameters = Parameters();
-            specifier = ClassSpecifier(ClassInstantiation {
-                    name = TypeNameWithTypeArguments(UIdentifier("MyBoolean"));
+            specifier = ClassSpecifier(Extension {
+                    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("MyBoolean"));
                     arguments = PositionalArguments(ArgumentList([]));
-                    qualifier = null;
                 });
             caseTypes = null;
             extendedType = null;

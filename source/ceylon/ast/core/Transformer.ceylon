@@ -59,7 +59,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformClassBody(ClassBody that);
     shared formal Result transformClassDec(ClassDec that);
     shared formal Result transformClassDefinition(ClassDefinition that);
-    shared formal Result transformClassInstantiation(ClassInstantiation that);
     shared formal Result transformClassOrInterface(ClassOrInterface that);
     shared formal Result transformClassSpecifier(ClassSpecifier that);
     shared formal Result transformClosedBound(ClosedBound that);

@@ -187,13 +187,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
-    transformClassInstantiation(ClassInstantiation that)
-            => "ClassInstantiation {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``arguments = ``transformWithIndent(that.arguments)``;
-                `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
-                ``indent``}";
-    transformClassSpecifier(ClassSpecifier that) => "ClassSpecifier(``transformWithIndent(that.instantiation)``)";
+    transformClassSpecifier(ClassSpecifier that) => "ClassSpecifier(``transformWithIndent(that.target)``)";
     transformClosedBound(ClosedBound that) => "ClosedBound(``transformWithIndent(that.endpoint)``)";
     transformCompareOperation(CompareOperation that)
             => "CompareOperation {
@@ -341,7 +335,7 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``exponent = ``transformWithIndent(that.exponent)``;
                 ``indent``}";
     transformExpressionComprehensionClause(ExpressionComprehensionClause that) => "ExpressionComprehensionClause(``transformWithIndent(that.expression)``)";
-    transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.instantiation)``)";
+    transformExtendedType(ExtendedType that) => "ExtendedType(``transformWithIndent(that.target)``)";
     transformExtension(Extension that)
             => that.qualifier exists
             then "Extension {

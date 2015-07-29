@@ -30,6 +30,11 @@ shared object extension satisfies ConcreteTest<Extension,JInvocationExpression|J
     shared String->Extension packageObjectOfStringExtension = construct("Object<String>"->TypeNameWithTypeArguments(UIdentifier("Object"), typeArguments.stringTypeArguments.item), positionalArguments.emptyPositionalArguments, "package."->PackageQualifier());
     shared String->Extension superInnerOfStringExtension = construct("Inner<String>"->TypeNameWithTypeArguments(UIdentifier("Inner"), typeArguments.stringTypeArguments.item), positionalArguments.emptyPositionalArguments, "super."->Super());
     
+    // not tested directly, but used by other tests
+    shared String->Extension extendsAnything = construct("Anything"->TypeNameWithTypeArguments(UIdentifier("Anything")), positionalArguments.emptyPositionalArguments, null);
+    shared String->Extension extendsNull = construct("Null"->TypeNameWithTypeArguments(UIdentifier("Null")), positionalArguments.emptyPositionalArguments, null);
+    shared String->Extension extendsStringCharacters = construct("String"->TypeNameWithTypeArguments(UIdentifier("String")), positionalArguments.spreadTextPositionalArguments, null);
+    
     compile = compileExtension;
     fromCeylon = RedHatTransformer.transformExtension;
     toCeylon = extensionToCeylon;

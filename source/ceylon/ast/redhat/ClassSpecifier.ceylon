@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ClassSpecifier|JClassSpecifier]] to a `ceylon.ast` [[ClassSpecifier]]."
 shared ClassSpecifier classSpecifierToCeylon(JClassSpecifier classSpecifier, Anything(JNode,Node) update = noop) {
-    value result = ClassSpecifier(classInstantiationToCeylon(classSpecifier.type, classSpecifier.invocationExpression, update));
+    value result = ClassSpecifier(extensionOrConstructionToCeylon(classSpecifier.invocationExpression else classSpecifier.type, update));
     update(classSpecifier, result);
     return result;
 }

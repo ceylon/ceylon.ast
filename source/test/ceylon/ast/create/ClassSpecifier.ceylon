@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ArgumentList,
-    ClassInstantiation,
     ClassSpecifier,
+    Extension,
     PositionalArguments,
     TypeNameWithTypeArguments,
     UIdentifier
@@ -19,7 +19,7 @@ test
 shared void classSpecifier() {
     assertEquals {
         actual = createClassSpecifier("Sup");
-        expected = ClassSpecifier(ClassInstantiation(TypeNameWithTypeArguments(UIdentifier("Sup")), PositionalArguments()));
+        expected = ClassSpecifier(Extension(TypeNameWithTypeArguments(UIdentifier("Sup")), PositionalArguments()));
         message = "Sup() class specifier";
     };
     assertEquals {
@@ -28,8 +28,8 @@ shared void classSpecifier() {
             createBaseExpression("y"),
             createBaseExpression("x")
         };
-        expected = ClassSpecifier(ClassInstantiation {
-                name = TypeNameWithTypeArguments(UIdentifier("Point"));
+        expected = ClassSpecifier(Extension {
+                nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Point"));
                 arguments = PositionalArguments(ArgumentList([createBaseExpression("y"), createBaseExpression("x")]));
             });
         message = "Point(y, x) class specifier";

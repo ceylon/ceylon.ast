@@ -57,7 +57,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformClassBody(ClassBody that) => visitClassBody(that);
     transformClassDec(ClassDec that) => visitClassDec(that);
     transformClassDefinition(ClassDefinition that) => visitClassDefinition(that);
-    transformClassInstantiation(ClassInstantiation that) => visitClassInstantiation(that);
     transformClassOrInterface(ClassOrInterface that) => visitClassOrInterface(that);
     transformClassSpecifier(ClassSpecifier that) => visitClassSpecifier(that);
     transformClosedBound(ClosedBound that) => visitClosedBound(that);
@@ -372,7 +371,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitClassBody(ClassBody that) => super.transformClassBody(that);
     shared default void visitClassDec(ClassDec that) => super.transformClassDec(that);
     shared default void visitClassDefinition(ClassDefinition that) => super.transformClassDefinition(that);
-    shared default void visitClassInstantiation(ClassInstantiation that) => super.transformClassInstantiation(that);
     shared default void visitClassOrInterface(ClassOrInterface that) => super.transformClassOrInterface(that);
     shared default void visitClassSpecifier(ClassSpecifier that) => super.transformClassSpecifier(that);
     shared default void visitClosedBound(ClosedBound that) => super.transformClosedBound(that);

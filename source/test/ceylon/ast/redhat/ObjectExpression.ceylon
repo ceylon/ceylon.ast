@@ -21,7 +21,7 @@ shared object objectExpression satisfies ConcreteTest<ObjectExpression,JObjectEx
             => "object `` extendedType?.key else "" `` `` satisfiedTypes?.key else "" `` ``body.key``"->ObjectExpression(body.item, extendedType?.item, satisfiedTypes?.item);
     
     shared String->ObjectExpression emptyObjectExpression = construct(classBody.emptyClassBody);
-    shared String->ObjectExpression inheritanceObjectExpression = construct(classBody.emptyClassBody, extendedType.extendsSuperEntry, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes);
+    shared String->ObjectExpression inheritanceObjectExpression = construct(classBody.emptyClassBody, extendedType.superInnerOfStringExtendedType, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes);
     
     compile = compileObjectExpression;
     fromCeylon = RedHatTransformer.transformObjectExpression;

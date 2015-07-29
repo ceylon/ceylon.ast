@@ -163,14 +163,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier));
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
             => that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.parameters, transformParameters), transformClassBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    shared actual default ClassInstantiation transformClassInstantiation(ClassInstantiation that)
-            => that.copy(transformTypeNameWithTypeArguments(that.name), transformPositionalArguments(that.arguments), nullsafeInvoke(that.qualifier, transformTypeNameWithTypeArgumentsOrSuper));
     shared actual default ClassOrInterface transformClassOrInterface(ClassOrInterface that) {
         assert (is ClassOrInterface ret = super.transformClassOrInterface(that));
         return ret;
     }
     shared actual default ClassSpecifier transformClassSpecifier(ClassSpecifier that)
-            => that.copy(transformClassInstantiation(that.instantiation));
+            => that.copy(transformExtensionOrConstruction(that.target));
     shared actual default ClosedBound transformClosedBound(ClosedBound that)
             => that.copy(transformExistsNonemptyExpression(that.endpoint));
     shared actual default CompareOperation transformCompareOperation(CompareOperation that)
@@ -312,7 +310,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ExtendedType transformExtendedType(ExtendedType that)
-            => that.copy(transformClassInstantiation(that.instantiation));
+            => that.copy(transformExtensionOrConstruction(that.target));
     shared actual default Extension transformExtension(Extension that) {
         PackageQualifier|Super transformPackageQualifierOrSuper(PackageQualifier|Super that) { 
             switch (that)

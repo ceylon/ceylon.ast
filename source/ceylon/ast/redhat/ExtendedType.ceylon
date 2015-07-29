@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ExtendedType|JExtendedType]] to a `ceylon.ast` [[ExtendedType]]."
 shared ExtendedType extendedTypeToCeylon(JExtendedType extendedType, Anything(JNode,Node) update = noop) {
-    value result = ExtendedType(classInstantiationToCeylon(extendedType.type, extendedType.invocationExpression, update));
+    value result = ExtendedType(extensionOrConstructionToCeylon(extendedType.invocationExpression else extendedType.type, update));
     update(extendedType, result);
     return result;
 }

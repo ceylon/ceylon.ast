@@ -1114,7 +1114,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             jst.typeArgumentList = transformTypeArguments(typeArgs);
         }
         value ete = JExtendedTypeExpression(null);
-        ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+        ete.type = jst;
         value ie = JInvocationExpression(null);
         ie.primary = ete;
         ie.positionalArgumentList = transformPositionalArguments(that.arguments);
@@ -1445,7 +1445,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         }
         if (exists arguments = that.arguments) {
             value ete = JExtendedTypeExpression(null);
-            ete.setExtendedType(jst); // Ceylon doesn’t read this as an attribute because for some reason it has setExtendedType() and getType()
+            ete.type = jst;
             value ie = JInvocationExpression(null);
             ie.primary = ete;
             ie.positionalArgumentList = transformPositionalArguments(arguments);

@@ -48,7 +48,7 @@ shared abstract class AnyCompilationUnit()
     shared formal ModuleDescriptor? moduleDescriptor;
     "The package descriptor in this compilation unit.
      
-     (This attribute is [[null]]0for non-[[package descriptor|PackageDescriptor]] compilation units.)"
+     (This attribute is [[null]] for non-[[package descriptor|PackageDescriptor]] compilation units.)"
     shared formal PackageDescriptor? packageDescriptor;
     
     shared actual formal <Import|Declaration|ModuleDescriptor|PackageDescriptor>[] children;

@@ -21,19 +21,30 @@ import ceylon.interop.java {
     CeylonIterable
 }
 
-"Converts a RedHat AST [[StringTemplate|JStringTemplate]] to a `ceylon.ast` [[StringTemplate]]."
+"Converts a RedHat AST [[StringTemplate|JStringTemplate]] to a `ceylon.ast` [[StringTemplate]].
+ 
+ Note: this function works regardless of whether the templates’ string literals still contain their quotes
+ (as produced by the parser) or not (stripped by `LiteralVisitor`, for example)."
 shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Anything(JNode,Node) update = noop) {
     assert (nonempty literals = CeylonIterable(stringTemplate.stringLiterals).collect((JStringLiteral element) {
                 value type = element.mainToken.type;
+                value text = element.text;
                 StringLiteral result;
-                if (type == string_start) {
-                    result = StringLiteral(element.text[1 : element.text.size - 3]);
-                } else if (type == string_mid) {
-                    result = StringLiteral(element.text[2 : element.text.size - 4]);
-                } else if (type == string_end) {
-                    result = StringLiteral(element.text[2 : element.text.size - 3]);
+                if (text.startsWith("\"") || text.startsWith("`") ||
+                    text.endsWith("\"") || text.endsWith("`")) {
+                    // we need to remove quotes, let’s find out how many
+                    if (type == string_start) {
+                        result = StringLiteral(element.text[1 : element.text.size - 3]);
+                    } else if (type == string_mid) {
+                        result = StringLiteral(element.text[2 : element.text.size - 4]);
+                    } else if (type == string_end) {
+                        result = StringLiteral(element.text[2 : element.text.size - 3]);
+                    } else {
+                        throw AssertionError("Unexpected token type in string template");
+                    }
                 } else {
-                    throw AssertionError("Unexpected token type in string template");
+                    // someone, e. g. LiteralVisitor, already removed the quotes
+                    result = StringLiteral(text);
                 }
                 update(element, result);
                 return result;

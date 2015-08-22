@@ -425,20 +425,16 @@ import org.antlr.runtime {
  `TokenSource` or `TokenStream`, for example.
  Note however that no whitespace tokens are generated,
  and thus simply concatenating all the tokens will not give
- you valid Ceylon code for the transformed node(s)."
-shared class RedHatTransformer(TokenFactory tokens, haveStringQuotes = true) satisfies ImmediateNarrowingTransformer<JNode> {
-    
-    "Determines whether string literals in the generated AST will have quotes in the text or not.
-     
-     The parser, by itself, produces string literals where the text includes the opening and closing quotes
-     (double quotation marks or double backticks).
-     However, the compiler strips these quotes away very early, in `LiteralVisitor`.
-     
-     If you intend to pass the generated AST to the compiler, but bypass `LiteralVisitor`, then choose [[false]].
-     If you intend to pass the generated AST to the compiler, including `LiteralVisitor`, then choose [[true]].
-     
-     The default value is [[true]], since `ceylon.ast` is in general very close to the grammar and parser."
-    Boolean haveStringQuotes;
+ you valid Ceylon code for the transformed node(s).
+ 
+ Also note that `RedHatTransformer` aims to produce an AST
+ just like the one created by the RedHat compiler grammar /
+ parser. If you intend to use it with other components of
+ the RedHat compiler, you probably need to pass it through
+ `LiteralVisitor` first in order to remove quotes from string
+ literals, interpolate escape sequences, interpret numeric
+ literals, etc."
+shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowingTransformer<JNode> {
     
     value isLowerBoundKey = ScopedKey<Boolean>(`class RedHatTransformer`, "isLowerBound");
     
@@ -2966,7 +2962,7 @@ shared class RedHatTransformer(TokenFactory tokens, haveStringQuotes = true) sat
     }
     
     shared actual JStringLiteral transformStringLiteral(StringLiteral that) {
-        value quotes = haveStringQuotes then (that.isVerbatim then "\"\"\"" else "\"") else "";
+        value quotes = that.isVerbatim then "\"\"\"" else "\"";
         return JStringLiteral(tokens.token(quotes + padStringLiteral(that.text, quotes.size) + quotes, that.isVerbatim then verbatim_string_literal else string_literal));
     }
     
@@ -2975,9 +2971,7 @@ shared class RedHatTransformer(TokenFactory tokens, haveStringQuotes = true) sat
         value litIt = that.literals.iterator();
         value exprIt = that.expressions.iterator();
         assert (is StringLiteral litFirst = litIt.next());
-        value dquote = haveStringQuotes then "\"" else "";
-        value dbacktick = haveStringQuotes then "\`\`" else "";
-        ret.addStringLiteral(JStringLiteral(tokens.token(dquote + padStringLiteral(litFirst.text, 1) + dbacktick, string_start)));
+        ret.addStringLiteral(JStringLiteral(tokens.token("\"" + padStringLiteral(litFirst.text, 1) + "\`\`", string_start)));
         variable value litNext = litIt.next();
         variable value exprNext = exprIt.next();
         while (!litNext is Finished) {
@@ -2988,11 +2982,11 @@ shared class RedHatTransformer(TokenFactory tokens, haveStringQuotes = true) sat
             ret.addExpression(wrapTerm(transformExpression(exprCur)));
             if (litNext is Finished) {
                 // last part, litCur needs to become a string_end
-                ret.addStringLiteral(JStringLiteral(tokens.token(dbacktick + padStringLiteral(litCur.text, 2) + dquote, string_end)));
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\"", string_end)));
                 break; // not strictly necessary, but we know that the loop condition will be false iff we entered this block, so why not
             } else {
                 // mid part, litCur needs to become a string_mid
-                ret.addStringLiteral(JStringLiteral(tokens.token(dbacktick + padStringLiteral(litCur.text, 2) + dbacktick, string_mid)));
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\`\`", string_mid)));
             }
         }
         return ret;

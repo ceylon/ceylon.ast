@@ -39,7 +39,17 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
         integerLiteral._0IntegerLiteral.item,
         StringLiteral("")
     );
-    
+    shared String->StringTemplate multilineStringTemplate
+            = """"Line 1
+                  Line ``2``
+                  Line 3""""->createStringTemplate(
+        StringLiteral("""Line 1
+                         Line """),
+        integerLiteral._2IntegerLiteral.item,
+        StringLiteral("""
+                         Line 3""")
+    );
+
     // not tested directly, but used by other tests
     shared String->StringTemplate xyStringTemplate
             = """"(``x``|``y``)""""->createStringTemplate(
@@ -53,5 +63,5 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
     compile = compileStringTemplate;
     fromCeylon = RedHatTransformer.transformStringTemplate;
     toCeylon = stringTemplateToCeylon;
-    codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate, emptyPartsStringTemplate];
+    codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate, emptyPartsStringTemplate, multilineStringTemplate];
 }

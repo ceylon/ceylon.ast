@@ -2982,11 +2982,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.addExpression(wrapTerm(transformExpression(exprCur)));
             if (litNext is Finished) {
                 // last part, litCur needs to become a string_end
-                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\"", string_end)));
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 1) + "\"", string_end)));
                 break; // not strictly necessary, but we know that the loop condition will be false iff we entered this block, so why not
             } else {
                 // mid part, litCur needs to become a string_mid
-                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 2) + "\`\`", string_mid)));
+                ret.addStringLiteral(JStringLiteral(tokens.token("\`\`" + padStringLiteral(litCur.text, 1) + "\`\`", string_mid)));
             }
         }
         return ret;

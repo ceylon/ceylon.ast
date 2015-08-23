@@ -13,6 +13,9 @@ import com.redhat.ceylon.compiler.typechecker.parser {
         astring_literal=\iASTRING_LITERAL,
         averbatim_string=\iAVERBATIM_STRING,
         string_literal=\iSTRING_LITERAL,
+        string_end=\iSTRING_END,
+        string_mid=\iSTRING_MID,
+        string_start=\iSTRING_START,
         verbatim_string_literal=\iVERBATIM_STRING
     }
 }
@@ -30,13 +33,44 @@ import org.antlr.runtime {
    is turned into
    
        Hello,
-       World"""
-String stripStringLiteral(CommonToken token, Boolean isVerbatim) {
-    // value isVerbatim = token.type == verbatim_string_literal || token.type == averbatim_string;
-    value quoteLength = isVerbatim then 3 else 1;
-    Integer toStrip = token.charPositionInLine + quoteLength;
+       World
+   
+   This function also detecs if the literal was already visited by
+   the RedHat compiler’s `LiteralVisitor`, and doesn’t do anything
+   in that case.
+   
+   [[column]] can be used to provide a different amount of space to strip;
+   this is necessary for string templates, where all parts are
+   aligned to the firts part’s column."""
+String stripStringLiteral(JStringLiteral literal, Integer? column = null) {
+    if (literal.text != literal.mainToken.text) {
+        // this already went through LiteralVisitor, nothing to do
+        return literal.text;
+    }
+    Integer startQuoteLength;
+    Integer stopQuoteLength;
+    value type = literal.mainToken.type;
+    if (type == string_literal || type == astring_literal) {
+        startQuoteLength = 1;
+        stopQuoteLength = 1;
+    } else if (type == verbatim_string_literal || type == averbatim_string) {
+        startQuoteLength = 3;
+        stopQuoteLength = 3;
+    } else if (type == string_start) {
+        startQuoteLength = 1;
+        stopQuoteLength = 2;
+    } else if (type == string_mid) {
+        startQuoteLength = 2;
+        stopQuoteLength = 2;
+    } else if (type == string_end) {
+        startQuoteLength = 2;
+        stopQuoteLength = 1;
+    } else {
+        throw AssertionError("Unknown token type ``type``");
+    }
+    value toStrip = column else literal.mainToken.charPositionInLine + startQuoteLength;
     StringBuilder ret = StringBuilder();
-    value text = token.text[quoteLength : token.text.size - 2 * quoteLength];
+    value text = literal.mainToken.text[startQuoteLength : literal.mainToken.text.size - startQuoteLength - stopQuoteLength];
     value lines = text.lines;
     if (exists firstLine = lines.first) {
         ret.append(firstLine);
@@ -59,10 +93,10 @@ shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral, Anythin
     assert (is CommonToken token = stringLiteral.mainToken);
     if (token.type == verbatim_string_literal || token.type == averbatim_string) {
         // verbatim
-        result = StringLiteral(stripStringLiteral(token, true), true);
+        result = StringLiteral(stripStringLiteral(stringLiteral), true);
     } else if (token.type == string_literal || token.type == astring_literal) {
         // regular
-        result = StringLiteral(stripStringLiteral(token, false), false);
+        result = StringLiteral(stripStringLiteral(stringLiteral), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }
@@ -78,10 +112,10 @@ shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anythi
     StringLiteral result;
     if (token.type == averbatim_string) {
         // verbatim
-        result = StringLiteral(stripStringLiteral(token, true), true);
+        result = StringLiteral(stripStringLiteral(stringLiteral), true);
     } else if (token.type == astring_literal) {
         // regular
-        result = StringLiteral(stripStringLiteral(token, false), false);
+        result = StringLiteral(stripStringLiteral(stringLiteral), false);
     } else {
         throw AssertionError("Unknown token type ``stringLiteral.mainToken.type``");
     }

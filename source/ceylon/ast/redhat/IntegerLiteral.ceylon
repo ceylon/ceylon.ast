@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 throws (`class AssertionError`, "If the token type is not `NATURAL_LITERAL`.")
 shared IntegerLiteral integerLiteralToCeylon(JIntegerLiteral integerLiteral, Anything(JNode,Node) update = noop) {
     assert (integerLiteral.mainToken.type == naturalLiteral);
-    value result = IntegerLiteral(integerLiteral.text);
+    value result = IntegerLiteral(integerLiteral.mainToken.text);
     update(integerLiteral, result);
     return result;
 }

@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 throws (`class AssertionError`, "If the token type is not `FLOAT_LITERAL`.")
 shared FloatLiteral floatLiteralToCeylon(JFloatLiteral floatLiteral, Anything(JNode,Node) update = noop) {
     assert (floatLiteral.mainToken.type == float_literal);
-    value result = FloatLiteral(floatLiteral.text);
+    value result = FloatLiteral(floatLiteral.mainToken.text);
     update(floatLiteral, result);
     return result;
 }

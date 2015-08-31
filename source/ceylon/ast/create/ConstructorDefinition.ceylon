@@ -12,7 +12,26 @@ import ceylon.ast.core {
    
    Usage example:
    
-       TODO"""
+       constructorDefinition {
+           name = "rgb";
+           parameters = {
+               ValueParameter {
+                   type = baseType("Integer");
+                   name = lidentifier("rgb");
+               }
+           };
+           annotations = annotations {
+               "Constructs a color, taking the red, green, and blue values
+                from the argument integer.";
+               "shared"
+           };
+           
+           ValueSpecification {
+               qualifier = This();
+               name = lidentifier("rgb");
+               specifier = Specifier(baseExpression("rgb"));
+           }
+       }"""
 shared ConstructorDefinition constructorDefinition(
     name,
     parameters = Parameters(),

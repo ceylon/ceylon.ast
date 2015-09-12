@@ -94,7 +94,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformExistsCondition(ExistsCondition that) => transformExistsOrNonemptyCondition(that);
     shared actual default Result transformExistsOperation(ExistsOperation that) => transformUnaryOperation(that);
     shared actual default Result transformExistsOrNonemptyCondition(ExistsOrNonemptyCondition that) => transformCondition(that);
-    shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformExponentiationOperation(ExponentiationOperation that) => transformArithmeticOperation(that);
     shared actual default Result transformExpression(Expression that) => transformNode(that);
     shared actual default Result transformExpressionComprehensionClause(ExpressionComprehensionClause that) => transformComprehensionClause(that);
     shared actual default Result transformExpressionStatement(ExpressionStatement that) => transformStatement(that);

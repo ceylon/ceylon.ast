@@ -1,4 +1,4 @@
-// grep -r '^shared class [[:alpha:]]*(' source/ceylon/ast/core/ | grep -v 'Editor\|Visitor\|Transformer' | sed 's|.*class \([[:alpha:]]*\)(.*|    \1,|' | sort | xclip
+// grep -r '^shared class [[:alpha:]]*(' source/ceylon/ast/core/ | sed 's|.*class \([[:alpha:]]*\)(.*|    \1,|' | grep -v 'Editor\|Visitor\|Transformer\|Module\(Operator\|Body\|CompilationUnit\|Descriptor\|Import\)\|Package\(CompilationUnit\|Descriptor\)\| MemberOperator' | sort | xclip
 import ceylon.ast.core {
     AddAssignmentOperation,
     AliasDec,

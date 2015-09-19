@@ -914,7 +914,10 @@ shared CompilationUnit completeCompilationUnit
                         annotations = Annotations();
                     },
                     Destructure {
-                        pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("destructure")))]);
+                        pattern = TuplePattern {
+                            elementPatterns = [VariablePattern(UnspecifiedVariable(LIdentifier("destructureFirst")))];
+                            variadicElementPattern = VariadicVariable(LIdentifier("destructureRest"));
+                        };
                         specifier = Specifier(IntegerLiteral("1"));
                     }
                 ]);

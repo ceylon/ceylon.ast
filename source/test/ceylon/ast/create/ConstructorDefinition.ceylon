@@ -34,7 +34,7 @@ shared void constructorDefinition() {
             name = "myConstructor";
             parameters = {
                 ValueParameter {
-                    annotations = createAnnotations { "shared", "actual" };
+                    annotations = createAnnotations { "shared" };
                     type = createBaseType("String");
                     name = LIdentifier("string");
                 }
@@ -54,7 +54,7 @@ shared void constructorDefinition() {
             name = LIdentifier("myConstructor");
             parameters = Parameters([
                     ValueParameter {
-                        annotations = createAnnotations { "shared", "actual" };
+                        annotations = createAnnotations { "shared" };
                         type = createBaseType("String");
                         name = LIdentifier("string");
                     }]);

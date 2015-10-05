@@ -6,6 +6,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JClassBody=ClassBody
+    },
+    CustomTree {
+      JGuardedVariable=GuardedVariable
     }
 }
 import ceylon.interop.java {
@@ -14,7 +17,7 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[ClassBody|JClassBody]] to a `ceylon.ast` [[ClassBody]]."
 shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode,Node) update = noop) {
-    value result = ClassBody(CeylonIterable(classBody.statements).collect(propagateUpdate(declarationOrStatementToCeylon, update)));
+    value result = ClassBody(CeylonIterable(classBody.statements).filter((d) => !d is JGuardedVariable).collect(propagateUpdate(declarationOrStatementToCeylon, update)));
     update(classBody, result);
     return result;
 }

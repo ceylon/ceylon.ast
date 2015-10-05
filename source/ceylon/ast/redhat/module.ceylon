@@ -33,8 +33,20 @@
                res.set(tokensKey, [orig.mainToken, orig.mainEndToken].coalesced);
            }
        };
+       // later
+       assert (exists tokens = cu.get(tokensKey));
    
-   The default is [[noop]], i. e., to do nothing."""
+   The default is [[noop]], i. e., to do nothing.
+   Another useful argument provided by this module is [[attachOriginalNode]],
+   which allows you to later retrieve the original node from [[originalNodeKey]]:
+   
+       value cu = compileCompilationUnit {
+           code;
+           update = attachOriginalNode;
+       };
+       // later
+       assert (exists orig = cu.get(originalNodeKey));
+       value tokens = [orig.mainToken, orig.mainEndToken].coalesced;"""
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 native ("jvm")

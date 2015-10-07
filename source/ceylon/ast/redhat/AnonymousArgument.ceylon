@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  does not convert those and will throw an exception instead!"
 shared AnonymousArgument anonymousArgumentToCeylon(JSpecifiedArgument anonymousArgument, Anything(JNode,Node) update = noop) {
     "Must be anonymous"
-    assert (!anonymousArgument.identifier exists,
+    assert (!anonymousArgument.identifier?.mainToken exists,
         !anonymousArgument.specifierExpression.mainToken exists);
     value result = AnonymousArgument(expressionToCeylon(anonymousArgument.specifierExpression.expression, update));
     update(anonymousArgument, result);

@@ -19,7 +19,7 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument, Anythin
     assert (is JSpecifiedArgument|JTypedArgument namedArgument);
     switch (namedArgument)
     case (is JSpecifiedArgument) {
-        if (!namedArgument.identifier exists) {
+        if (!namedArgument.identifier?.mainToken exists) {
             // anonymous argument
             return anonymousArgumentToCeylon(namedArgument, update);
         } else {

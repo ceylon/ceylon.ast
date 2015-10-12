@@ -28,7 +28,7 @@ shared class UnionType(children)
     shared actual Integer hash
             => 31 * children.hash;
     
-    shared UnionType copy([<IntersectionType|PrimaryType>+] children = this.children) {
+    shared UnionType copy([<IntersectionType|PrimaryType>+] children = this.children of [<IntersectionType|PrimaryType>+]) {
         value ret = UnionType(children);
         copyExtraInfoTo(ret);
         return ret;

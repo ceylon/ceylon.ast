@@ -28,7 +28,11 @@ shared class UnionType(children)
     shared actual Integer hash
             => 31 * children.hash;
     
-    shared UnionType copy([<IntersectionType|PrimaryType>+] children = this.children) {
+    "**Note**: The parameter [[children]] is only declared possibly-empty to work around a compiler bug
+     ([ceylon/ceylon-compiler#2179](https://github.com/ceylon/ceylon-compiler/issues/2179));
+     actual arguments must always be nonempty (`[<IntersectionType|PrimaryType>+]`)."
+    shared UnionType copy([<IntersectionType|PrimaryType>*] children = this.children) {
+        assert (nonempty children);
         value ret = UnionType(children);
         copyExtraInfoTo(ret);
         return ret;

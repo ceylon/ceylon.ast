@@ -134,6 +134,7 @@ shared void powerOfTwo() {
     
     object turingMachineFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
+        shared actual Boolean \iexists() => false;
         shared actual Boolean folder => false;
         shared actual InputStream? inputStream => null;
         shared actual String name => "turingMachine.ceylon";
@@ -142,6 +143,7 @@ shared void powerOfTwo() {
     }
     object goodDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
+        shared actual Boolean \iexists() => false;
         shared actual Boolean folder => false;
         shared actual InputStream? inputStream => null;
         shared actual String name => "goodDriver.ceylon";
@@ -150,6 +152,7 @@ shared void powerOfTwo() {
     }
     object badDriverFile satisfies VirtualFile {
         shared actual List<VirtualFile>? children => null;
+        shared actual Boolean \iexists() => false;
         shared actual Boolean folder => false;
         shared actual InputStream? inputStream => null;
         shared actual String name => "badDriver.ceylon";
@@ -158,6 +161,7 @@ shared void powerOfTwo() {
     }
     object srcDir satisfies VirtualFile {
         shared actual List<VirtualFile>? children => JavaList<VirtualFile>([turingMachineFile, goodDriverFile, badDriverFile]);
+        shared actual Boolean \iexists() => false;
         shared actual Boolean folder => true;
         shared actual InputStream? inputStream => null;
         shared actual String name => "synthetic";

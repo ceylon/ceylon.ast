@@ -1,27 +1,35 @@
-"An AST editor.
- There is one method per AST node; override the methods for which you need to change the AST,
- and leave the others untouched.
- 
- The default operation for “bottom“ node types’ methods is to copy the node, editing the children.
- (The default operation for non-“bottom” node types’ methods is inherited from [[NarrowingTransformer]],
- see there.)
- By itself, an [[Editor]] will not actually edit the AST –
- it’s only scaffolding that allows you to easily edit parts of the AST without having to bother with
- the deep nesting of the nodes.
- 
- For example:
- ~~~
- class PrefixEditor(String prefix) extends Editor() {
-     shared actual Identifier editIdentifier(Identifier that)
-             => that.copy { name = prefix + that.name; };
- }
- ~~~
- will prepend `prefix` to every [[Identifier]] in the AST.
- 
- Note that this deep copy of the AST can be expensive; if you know that you will not touch
- certain parts of the AST – for example, you only edit method names, and never instructions –
- you might want to override some methods to `return this` instead of a deep copy
- (in this example, override [[transformBody]])."
+"""An AST editor.
+   There is one method per AST node; override the methods for which you need to change the AST,
+   and leave the others untouched.
+   
+   The default operation for “bottom“ node types’ methods is to copy the node, editing the children.
+   (The default operation for non-“bottom” node types’ methods is inherited from [[NarrowingTransformer]],
+   see there.)
+   By itself, an [[Editor]] will not actually edit the AST –
+   it’s only scaffolding that allows you to easily edit parts of the AST without having to bother with
+   the deep nesting of the nodes.
+   
+   For example:
+   ~~~
+   class TraceFunctionEditor() satisfies Editor {
+       shared actual FunctionDefinition transformFunctionDefinition(FunctionDefinition that) {
+           value print = BaseExpression(MemberNameWithTypeArguments(LIdentifier("print")));
+           value enterArgs = PositionalArguments(ArgumentList([StringLiteral("enter ``that.name.name``")]));
+           value leaveArgs = PositionalArguments(ArgumentList([StringLiteral("leave ``that.name.name``")]));
+           value enter = InvocationStatement(Invocation(print.copy(), enterArgs));
+           value leave = InvocationStatement(Invocation(print.copy(), leaveArgs));
+           return that.copy {
+               definition = Block(concatenate([enter], that.definition.content, [leave]));
+           };
+       }
+   }
+   ~~~
+   will insert a print statement at the beginning and end of every function block in the AST.
+   
+   Note that this deep copy of the AST can be expensive; if you know that you will not touch
+   certain parts of the AST – for example, you only edit function bodies, and never individual instructions –
+   you might want to override some methods to `return this` instead of a deep copy
+   (in this example, override [[transformStatement]])."""
 shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand));

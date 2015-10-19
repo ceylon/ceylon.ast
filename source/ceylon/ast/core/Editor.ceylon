@@ -3,7 +3,7 @@
    and leave the others untouched.
    
    The default operation for “bottom“ node types’ methods is to copy the node, editing the children.
-   (The default operation for non-“bottom” node types’ methods is inherited from [[NarrowingTransformer]],
+   (The default operation for non-“bottom” node types’ methods is inherited from [[ImmediateNarrowingTransformer]],
    see there.)
    By itself, an [[Editor]] will not actually edit the AST –
    it’s only scaffolding that allows you to easily edit parts of the AST without having to bother with

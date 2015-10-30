@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     CaseClause,
-    ElseCaseClause,
+    ElseClause,
     SwitchCases
 }
 import ceylon.ast.redhat {
@@ -16,13 +16,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object switchCases satisfies ConcreteTest<SwitchCases,JSwitchCaseList> {
     
-    String->SwitchCases construct([<String->CaseClause>+] caseClauses, <String->ElseCaseClause>? elseCaseClause)
-            => "``"\n".join(caseClauses*.key)``\n`` elseCaseClause?.key else "" ``"->SwitchCases(caseClauses*.item, elseCaseClause?.item);
+    String->SwitchCases construct([<String->CaseClause>+] caseClauses, <String->ElseClause>? elseClause)
+            => "``"\n".join(caseClauses*.key)``\n`` elseClause?.key else "" ``"->SwitchCases(caseClauses*.item, elseClause?.item);
     
-    shared String->SwitchCases switchCases = construct([caseClause.caseIsStringClause, caseClause.caseNullPrintHelloWorldClause], elseCaseClause.elsePrintHelloWorldCaseClause);
+    shared String->SwitchCases switchCases = construct([caseClause.caseIsStringClause, caseClause.caseNullPrintHelloWorldClause], elseClause.elsePrintHelloWorldClause);
+    shared String->SwitchCases switchElseIfCases = construct([caseClause.caseIsStringClause, caseClause.caseNullPrintHelloWorldClause], elseClause.emptyElseIfClause);
     
     compile = compileSwitchCases;
     fromCeylon = RedHatTransformer.transformSwitchCases;
     toCeylon = switchCasesToCeylon;
-    codes = [switchCases];
+    codes = [switchCases, switchElseIfCases];
 }

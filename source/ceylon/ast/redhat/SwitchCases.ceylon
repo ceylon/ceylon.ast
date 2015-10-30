@@ -1,5 +1,5 @@
 import ceylon.ast.core {
-    ElseCaseClause,
+    ElseClause,
     Node,
     SwitchCases
 }
@@ -16,13 +16,13 @@ import ceylon.interop.java {
 "Converts a RedHat AST [[SwitchCaseList|JSwitchCaseList]] to a `ceylon.ast` [[SwitchCases]]."
 shared SwitchCases switchCasesToCeylon(JSwitchCaseList switchCases, Anything(JNode,Node) update = noop) {
     assert (nonempty caseClauses = CeylonIterable(switchCases.caseClauses).collect(propagateUpdate(caseClauseToCeylon, update)));
-    ElseCaseClause? elseCaseClause;
+    ElseClause? elseClause;
     if (exists jElseClause = switchCases.elseClause) {
-        elseCaseClause = elseCaseClauseToCeylon(jElseClause, update);
+        elseClause = elseClauseToCeylon(jElseClause, update);
     } else {
-        elseCaseClause = null;
+        elseClause = null;
     }
-    value result = SwitchCases(caseClauses, elseCaseClause);
+    value result = SwitchCases(caseClauses, elseClause);
     update(switchCases, result);
     return result;
 }

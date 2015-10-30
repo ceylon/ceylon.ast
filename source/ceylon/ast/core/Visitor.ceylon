@@ -92,7 +92,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformDynamicModifier(DynamicModifier that) => visitDynamicModifier(that);
     transformDynamicValue(DynamicValue that) => visitDynamicValue(that);
     transformElementOrSubrangeExpression(ElementOrSubrangeExpression that) => visitElementOrSubrangeExpression(that);
-    transformElseCaseClause(ElseCaseClause that) => visitElseCaseClause(that);
     transformElseClause(ElseClause that) => visitElseClause(that);
     transformElseOperation(ElseOperation that) => visitElseOperation(that);
     transformEntryOperation(EntryOperation that) => visitEntryOperation(that);
@@ -406,7 +405,6 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitDynamicModifier(DynamicModifier that) => super.transformDynamicModifier(that);
     shared default void visitDynamicValue(DynamicValue that) => super.transformDynamicValue(that);
     shared default void visitElementOrSubrangeExpression(ElementOrSubrangeExpression that) => super.transformElementOrSubrangeExpression(that);
-    shared default void visitElseCaseClause(ElseCaseClause that) => super.transformElseCaseClause(that);
     shared default void visitElseClause(ElseClause that) => super.transformElseClause(that);
     shared default void visitElseOperation(ElseOperation that) => super.transformElseOperation(that);
     shared default void visitEntryOperation(EntryOperation that) => super.transformEntryOperation(that);

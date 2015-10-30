@@ -1295,12 +1295,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JElseClause transformElseCaseClause(ElseCaseClause that) {
-        JElseClause ret = JElseClause(tokens.token("else", else_clause));
-        ret.block = transformBlock(that.block);
-        return ret;
-    }
-    
     shared actual JElseClause transformElseClause(ElseClause that) {
         JElseClause ret = JElseClause(tokens.token("else", else_clause));
         value child = that.child;
@@ -3046,8 +3040,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         for (caseClause in that.caseClauses) {
             ret.addCaseClause(transformCaseClause(caseClause));
         }
-        if (exists elseCaseClause = that.elseCaseClause) {
-            ret.elseClause = transformElseCaseClause(elseCaseClause);
+        if (exists elseClause = that.elseClause) {
+            ret.elseClause = transformElseClause(elseClause);
         }
         return ret;
     }

@@ -11,31 +11,31 @@
      else {
          return i % 2 == 1 && expensivePrimeTest(i);
      }"
-shared class SwitchCases(caseClauses, elseCaseClause = null)
+shared class SwitchCases(caseClauses, elseClause = null)
         extends Node() {
     
     "The `case` clauses."
     shared [CaseClause+] caseClauses;
     "The `else` clause, if present."
-    shared ElseCaseClause? elseCaseClause;
+    shared ElseClause? elseClause;
     
-    assert (nonempty children_ = concatenate(caseClauses, emptyOrSingleton(elseCaseClause)));
-    shared actual [<CaseClause|ElseCaseClause>+] children = children_;
+    assert (nonempty children_ = concatenate(caseClauses, emptyOrSingleton(elseClause)));
+    shared actual [<CaseClause|ElseClause>+] children = children_;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSwitchCases(this);
     
     shared actual Boolean equals(Object that) {
         if (is SwitchCases that) {
-            if (exists elseCaseClause) {
-                if (exists elseCaseClause_ = that.elseCaseClause) {
-                    if (elseCaseClause != elseCaseClause_) {
+            if (exists elseClause) {
+                if (exists elseClause_ = that.elseClause) {
+                    if (elseClause != elseClause_) {
                         return false;
                     }
                 } else {
                     return false;
                 }
-            } else if (that.elseCaseClause exists) {
+            } else if (that.elseClause exists) {
                 return false;
             }
             return caseClauses == that.caseClauses;
@@ -45,10 +45,10 @@ shared class SwitchCases(caseClauses, elseCaseClause = null)
     }
     
     shared actual Integer hash
-            => 31 * (caseClauses.hash + 31 * (elseCaseClause?.hash else 0));
+            => 31 * (caseClauses.hash + 31 * (elseClause?.hash else 0));
     
-    shared SwitchCases copy([CaseClause+] caseClauses = this.caseClauses, ElseCaseClause? elseCaseClause = this.elseCaseClause) {
-        value ret = SwitchCases(caseClauses, elseCaseClause);
+    shared SwitchCases copy([CaseClause+] caseClauses = this.caseClauses, ElseClause? elseClause = this.elseClause) {
+        value ret = SwitchCases(caseClauses, elseClause);
         copyExtraInfoTo(ret);
         return ret;
     }

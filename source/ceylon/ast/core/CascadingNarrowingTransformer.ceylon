@@ -353,7 +353,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is Resources) { return transformResources(that); }
         case (is TryClause) { return transformTryClause(that); }
         case (is CaseItem) { return transformCaseItem(that); }
-        case (is ElseCaseClause) { return transformElseCaseClause(that); }
         case (is CaseClause) { return transformCaseClause(that); }
         case (is SwitchCases) { return transformSwitchCases(that); }
         case (is SwitchClause) { return transformSwitchClause(that); }

@@ -94,7 +94,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformDynamicModifier(DynamicModifier that);
     shared formal Result transformDynamicValue(DynamicValue that);
     shared formal Result transformElementOrSubrangeExpression(ElementOrSubrangeExpression that);
-    shared formal Result transformElseCaseClause(ElseCaseClause that);
     shared formal Result transformElseClause(ElseClause that);
     shared formal Result transformElseOperation(ElseOperation that);
     shared formal Result transformEntryOperation(EntryOperation that);

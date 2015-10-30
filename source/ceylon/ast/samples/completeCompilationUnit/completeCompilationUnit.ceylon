@@ -53,7 +53,6 @@ import ceylon.ast.core {
     DynamicModifier,
     DynamicValue,
     ElementOrSubrangeExpression,
-    ElseCaseClause,
     ElseClause,
     ElseOperation,
     EntryOperation,
@@ -724,7 +723,7 @@ shared CompilationUnit completeCompilationUnit
                                     block = Block([]);
                                 }
                             ];
-                            elseCaseClause = ElseCaseClause(Block([]));
+                            elseClause = ElseClause(Block([]));
                         };
                     },
                     SwitchCaseElse {
@@ -744,7 +743,7 @@ shared CompilationUnit completeCompilationUnit
                                     block = Block([]);
                                 }
                             ];
-                            elseCaseClause = ElseCaseClause(Block([]));
+                            elseClause = ElseClause(Block([]));
                         };
                     },
                     DynamicBlock(Block([])),

@@ -267,8 +267,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(that.namedArguments.collect(transformNamedArgument), transformArgumentList(that.iterableArgument), transformDynamicModifier(that.modifier));
     shared actual default ElementOrSubrangeExpression transformElementOrSubrangeExpression(ElementOrSubrangeExpression that)
             => that.copy(transformPrimary(that.primary), transformSubscript(that.subscript));
-    shared actual default ElseCaseClause transformElseCaseClause(ElseCaseClause that)
-            => that.copy(transformBlock(that.block));
     shared actual default ElseClause transformElseClause(ElseClause that) {
         Block|IfElse transformBlockOrIfElse(Block|IfElse that) {
             switch (that)
@@ -827,7 +825,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default SwitchCaseElse transformSwitchCaseElse(SwitchCaseElse that)
             => that.copy(transformSwitchClause(that.clause), transformSwitchCases(that.cases));
     shared actual default SwitchCases transformSwitchCases(SwitchCases that)
-            => that.copy(that.caseClauses.collect(transformCaseClause), nullsafeInvoke(that.elseCaseClause, transformElseCaseClause));
+            => that.copy(that.caseClauses.collect(transformCaseClause), nullsafeInvoke(that.elseClause, transformElseClause));
     shared actual default SwitchClause transformSwitchClause(SwitchClause that)
             => that.copy(transformExpressionOrSpecifiedVariable(that.switched));
     shared actual default ThenOperation transformThenOperation(ThenOperation that)

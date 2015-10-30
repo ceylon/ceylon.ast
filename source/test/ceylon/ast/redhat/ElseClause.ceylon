@@ -21,9 +21,10 @@ shared object elseClause satisfies ConcreteTest<ElseClause,JElseClause> {
     
     shared String->ElseClause emptyElseClause => construct(block.emptyBlock);
     shared String->ElseClause emptyElseIfClause => construct(ifElse.emptyIf);
+    shared String->ElseClause elsePrintHelloWorldClause = construct(block.printHelloWorldBlock);
     
     compile = compileElseClause;
     fromCeylon = RedHatTransformer.transformElseClause;
     toCeylon = elseClauseToCeylon;
-    codes => [emptyElseClause, emptyElseIfClause];
+    codes => [emptyElseClause, emptyElseIfClause, elsePrintHelloWorldClause];
 }

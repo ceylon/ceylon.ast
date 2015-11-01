@@ -1,10 +1,5 @@
 "A *string literal* consists of a series of characters and/or,
- if it’s not [[verbatim|isVerbatim]], escape sequences.
- 
- Note: in contrast to [[IntegerLiteral]] and [[FloatLiteral]], the value of [[text]]
- isn’t verified, and there is no attribute to get the [[String]] value of the literal;
- getting that value requires unicode support (to parse '\\{CHARACTER NAME}') that isn’t
- available on all platforms."
+ if it’s not [[verbatim|isVerbatim]], escape sequences."
 shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     
     "The text of the string literal (without quotes)."

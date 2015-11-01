@@ -1,9 +1,4 @@
-"A *character literal* consists of a single character or an escape sequence.
- 
- Note: in contrast to [[IntegerLiteral]] and [[FloatLiteral]], the value of [[text]]
- isn’t verified, and there is no attribute to get the [[Character]] value of the literal;
- getting that value requires unicode support (to parse `\\{CHARACTER NAME}`) that isn’t
- available on all platforms."
+"A *character literal* consists of a single character or an escape sequence."
 shared class CharacterLiteral(text) extends Literal(text) {
     
     "The text of the character literal (without quotes),

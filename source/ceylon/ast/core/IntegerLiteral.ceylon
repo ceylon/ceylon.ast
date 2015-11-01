@@ -6,28 +6,17 @@ shared class IntegerLiteral(text) extends Literal(text) {
     
     "The text of the literal, including prefixes, magnitude, etc."
     shared actual String text;
-    shared Integer radix;
-    shared Integer integer;
     
-    // verify, parse
-    switch (text.first)
-    case ('$') { radix = 2; }
-    case ('#') { radix = 16; }
-    case ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9') { radix = 10; }
-    case (null) {
-        throw AssertionError("text must not be empty");
-    }
-    else {
-        throw AssertionError("Unexpected first character '`` text.first else "" ``' of text, expected '$', '#', or digit");
-    }
-    assert (exists _integer = parseInteger(radix == 10 then text else text.rest, radix));
-    integer = _integer;
+    assert (!text.empty,
+        text.every("$#0123456789abcdefABCDEFkMGTP_".contains),
+        text.rest.every("0123456789abcdefABCDEFkMGTP_".contains));
+    // TODO more precise parsing?
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIntegerLiteral(this);
     
     "Integer literals are considered equal iff their [[texts|text]] are equal.
-     Two literals with the same [[integer]] values but different representations
+     Two literals with the same integer values but different representations
      (grouping, magnitude, leading zeroes, and/or radix differ) are considered different."
     shared actual Boolean equals(Object that) {
         if (is IntegerLiteral that) {

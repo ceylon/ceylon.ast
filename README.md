@@ -20,7 +20,7 @@ or the [project](https://www.google-melange.com/gsoc/project/details/google/gsoc
 Contributions are of course welcome!
 
 License
-=======
+-------
 
 The content of this repository is released under the ASL v2.0 as provided in the LICENSE file that accompanied this code.
 

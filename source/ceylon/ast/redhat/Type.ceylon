@@ -30,8 +30,14 @@ shared Type typeToCeylon(JStaticType type, Anything(JNode,Node) update = noop) {
     switch (type)
     case (is JSimpleType) { return simpleTypeToCeylon(type, update); }
     case (is JOptionalType) { return optionalTypeToCeylon(type, update); }
-    case (is JSequenceType) { return sequentialTypeToCeylon(type, update); }
-    case (is JTupleType) { return tupleTypeToCeylon(type, update); }
+    case (is JSequenceType) {
+        if (type.length exists) {
+            return lengthTupleTypeToCeylon(type, update);
+        } else {
+            return sequentialTypeToCeylon(type, update);
+        }
+    }
+    case (is JTupleType) { return listTupleTypeToCeylon(type, update); }
     case (is JIterableType) { return iterableTypeToCeylon(type, update); }
     case (is JUnionType) { return unionTypeToCeylon(type, update); }
     case (is JIntersectionType) { return intersectionTypeToCeylon(type, update); }

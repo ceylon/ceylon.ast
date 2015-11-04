@@ -581,6 +581,11 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is KeySubscript) { return transformKeySubscript(that); }
         case (is RangeSubscript) { return transformRangeSubscript(that); }
     }
+    shared actual default Result transformTupleType(TupleType that) {
+        switch (that)
+        case (is ListTupleType) { return transformListTupleType(that); }
+        case (is LengthTupleType) { return transformLengthTupleType(that); }
+    }
     shared actual default Result transformType(Type that) {
         switch (that)
         case (is MainType) { return transformMainType(that); }

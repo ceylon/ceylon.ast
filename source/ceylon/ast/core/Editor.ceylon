@@ -471,6 +471,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name), transformLazySpecifier(that.specifier), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.qualifier, transformThis));
     shared actual default LazySpecifier transformLazySpecifier(LazySpecifier that)
             => that.copy(transformExpression(that.expression));
+    shared actual default LengthTupleType transformLengthTupleType(LengthTupleType that)
+            => that.copy(transformPrimaryType(that.elementType), transformIntegerLiteral(that.length));
     shared actual default LetExpression transformLetExpression(LetExpression that)
             => that.copy(transformPatternList(that.patterns), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression));
     shared actual default Literal transformLiteral(Literal that) {
@@ -644,6 +646,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformSwitchClause(that.clause), that.caseExpressions.collect(transformCaseExpression), nullsafeInvoke(that.elseExpression, transformDisjoiningExpressionOrIfElseExpressionOrLetExpression));
     shared actual default TuplePattern transformTuplePattern(TuplePattern that)
             => that.copy(that.elementPatterns.collect(transformPattern), nullsafeInvoke(that.variadicElementPattern, transformVariadicVariable));
+    shared actual default TupleType transformTupleType(TupleType that) {
+        assert (is TupleType ret = super.transformTupleType(that));
+        return ret;
+    }
     shared actual default UnioningExpression transformUnioningExpression(UnioningExpression that) {
         assert (is UnioningExpression ret = super.transformUnioningExpression(that));
         return ret;
@@ -840,7 +846,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformBlock(that.block), nullsafeInvoke(that.resources, transformResources));
     shared actual default Tuple transformTuple(Tuple that)
             => that.copy(transformArgumentList(that.argumentList));
-    shared actual default TupleType transformTupleType(TupleType that)
+    shared actual default ListTupleType transformListTupleType(ListTupleType that)
             => that.copy(transformTypeList(that.typeList));
     shared actual default Type transformType(Type that) {
         assert (is Type ret = super.transformType(that));

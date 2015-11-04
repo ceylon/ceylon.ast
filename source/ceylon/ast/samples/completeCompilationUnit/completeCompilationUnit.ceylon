@@ -197,7 +197,7 @@ import ceylon.ast.core {
     TryClause,
     Tuple,
     TuplePattern,
-    TupleType,
+    ListTupleType,
     TypeAliasDefinition,
     TypeArgument,
     TypeArguments,
@@ -903,7 +903,7 @@ shared CompilationUnit completeCompilationUnit
                                                     expression = StringLiteral("""null""");
                                                 },
                                                 CaseExpression {
-                                                    caseItem = IsCase(TupleType(TypeList([])));
+                                                    caseItem = IsCase(ListTupleType(TypeList([])));
                                                     expression = StringLiteral("""empty""");
                                                 }
                                             ];
@@ -1050,7 +1050,7 @@ shared CompilationUnit completeCompilationUnit
                     parameterName = UIdentifier("TParam2");
                     caseTypes = null;
                     satisfiedTypes = SatisfiedTypes([
-                            TupleType(TypeList([
+                            ListTupleType(TypeList([
                                         BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))),
                                         DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))))
                                     ])),

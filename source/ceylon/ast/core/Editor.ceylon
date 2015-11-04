@@ -840,7 +840,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformBlock(that.block), nullsafeInvoke(that.resources, transformResources));
     shared actual default Tuple transformTuple(Tuple that)
             => that.copy(transformArgumentList(that.argumentList));
-    shared actual default TupleType transformTupleType(TupleType that)
+    shared actual default ListTupleType transformListTupleType(ListTupleType that)
             => that.copy(transformTypeList(that.typeList));
     shared actual default Type transformType(Type that) {
         assert (is Type ret = super.transformType(that));

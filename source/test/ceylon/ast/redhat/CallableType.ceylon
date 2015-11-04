@@ -21,7 +21,7 @@ shared object callableType satisfies ConcreteTest<CallableType,JFunctionType> {
             => "``ret.key``(``args.key``)"->CallableType(ret.item, args.item);
     
     shared String->CallableType anythingFromEmptyCallableType = construct(baseType.anythingType, typeList.emptyTypeList);
-    shared String->CallableType floatStarTupleFromStringPlusCallableType = construct(tupleType.floatStarTupleType, typeList.stringPlusTypeList);
+    shared String->CallableType floatStarTupleFromStringPlusCallableType = construct(listTupleType.floatStarListTupleType, typeList.stringPlusTypeList);
     shared String->CallableType nothingFromIntegerFloatDefaultedStringStarCallableType = construct(baseType.nothingType, typeList.integerFloatDefaultedStringStarTypeList);
     shared String->CallableType retFromArgsCallableType = construct(baseType.retType, spreadType.argsSpreadType);
     

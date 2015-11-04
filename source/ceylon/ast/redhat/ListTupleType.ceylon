@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     DefaultedType,
     Node,
-    TupleType,
+    ListTupleType,
     Type,
     TypeList,
     VariadicType
@@ -16,8 +16,8 @@ import ceylon.interop.java {
     CeylonIterable
 }
 
-"Converts a RedHat AST [[TupleType|JTupleType]] to a `ceylon.ast` [[TupleType]]."
-shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) update = noop) {
+"Converts a RedHat AST [[TupleType|JTupleType]] to a `ceylon.ast` [[ListTupleType]]."
+shared ListTupleType listTupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) update = noop) {
     variable VariadicType? variadicType = null;
     <Type|DefaultedType>[] elementTypes = CeylonIterable(tupleType.elementTypes).collect((Tree.Type jtype) {
             value typeIsh = typeIshToCeylon(jtype, update);
@@ -38,17 +38,17 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) up
         }).sequence();
     value typeList = TypeList(elementTypes, variadicType);
     update(tupleType, typeList);
-    value result = TupleType(typeList);
+    value result = ListTupleType(typeList);
     update(tupleType, result);
     return result;
 }
 
 "Compiles the given [[code]] for a Tuple Type
- into a [[TupleType]] using the Ceylon compiler
+ into a [[ListTupleType]] using the Ceylon compiler
  (more specifically, the rule for a `tupleType`)."
-shared TupleType? compileTupleType(String code, Anything(JNode,Node) update = noop) {
+shared ListTupleType? compileListTupleType(String code, Anything(JNode,Node) update = noop) {
     if (exists jTupleType = createParser(code).tupleType()) {
-        return tupleTypeToCeylon(jTupleType, update);
+        return listTupleTypeToCeylon(jTupleType, update);
     } else {
         return null;
     }

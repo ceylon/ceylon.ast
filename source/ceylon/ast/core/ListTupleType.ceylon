@@ -5,7 +5,7 @@
      [String,Integer,Integer]
      [Float,Integer*]
      []"
-shared class TupleType(typeList)
+shared class ListTupleType(typeList)
         extends PrimaryType() {
     
     "The types of this tuple type."
@@ -14,10 +14,10 @@ shared class TupleType(typeList)
     shared actual [TypeList] children = [typeList];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformTupleType(this);
+            => transformer.transformListTupleType(this);
     
     shared actual Boolean equals(Object that) {
-        if (is TupleType that) {
+        if (is ListTupleType that) {
             return typeList == that.typeList;
         } else {
             return false;
@@ -27,8 +27,8 @@ shared class TupleType(typeList)
     shared actual Integer hash
             => 31 * typeList.hash;
     
-    shared TupleType copy(TypeList typeList = this.typeList) {
-        value ret = TupleType(typeList);
+    shared ListTupleType copy(TypeList typeList = this.typeList) {
+        value ret = ListTupleType(typeList);
         copyExtraInfoTo(ret);
         return ret;
     }

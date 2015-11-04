@@ -279,7 +279,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformTryClause(TryClause that) => visitTryClause(that);
     transformTuple(Tuple that) => visitTuple(that);
     transformTuplePattern(TuplePattern that) => visitTuplePattern(that);
-    transformTupleType(TupleType that) => visitTupleType(that);
+    transformListTupleType(ListTupleType that) => visitListTupleType(that);
     transformType(Type that) => visitType(that);
     transformTypeAliasDefinition(TypeAliasDefinition that) => visitTypeAliasDefinition(that);
     transformTypeArgument(TypeArgument that) => visitTypeArgument(that);
@@ -592,7 +592,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitTryClause(TryClause that) => super.transformTryClause(that);
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTuplePattern(TuplePattern that) => super.transformTuplePattern(that);
-    shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
+    shared default void visitListTupleType(ListTupleType that) => super.transformListTupleType(that);
     shared default void visitTypeAliasDefinition(TypeAliasDefinition that) => super.transformTypeAliasDefinition(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);

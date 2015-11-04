@@ -3154,7 +3154,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JTupleType transformTupleType(TupleType that) {
+    shared actual JTupleType transformListTupleType(ListTupleType that) {
         JTupleType ret = JTupleType(tokens.token("[", lbracket));
         value firstElementType = that.typeList.elements.first;
         if (exists firstElementType) {

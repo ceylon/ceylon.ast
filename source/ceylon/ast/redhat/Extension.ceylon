@@ -1,5 +1,4 @@
 import ceylon.ast.core {
-    BaseType,
     Extension,
     TypeNameWithTypeArguments,
     Node,

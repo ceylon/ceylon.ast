@@ -3,8 +3,7 @@ import ceylon.ast.core {
     Comprehension,
     Expression,
     PositionalArguments,
-    SpreadArgument,
-    This
+    SpreadArgument
 }
 
 shared alias PositionalArgumentIsh => Expression|SpreadArgument|Comprehension;

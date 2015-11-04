@@ -146,7 +146,7 @@
    It can be used to transform a `ceylon.ast` node to a RedHat AST node.
    This node can then, for example, be fed into the RedHat Ceylon compiler
    to compile it, or into the [[`ceylon.formatter`|module ceylon.formatter]]
-   to generate code for it ([[ceylon.formatter::format]] function).
+   to generate code for it (`format` function).
    
    ## `Editor`
    

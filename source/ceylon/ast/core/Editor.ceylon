@@ -1061,9 +1061,4 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is TuplePattern) { return transformTuplePattern(that); }
         case (is EntryPattern) { return transformEntryPattern(that); }
     }
-    TypeNameWithTypeArguments|Super transformTypeNameWithTypeArgumentsOrSuper(TypeNameWithTypeArguments|Super that) {
-        switch (that)
-        case (is TypeNameWithTypeArguments) { return transformTypeNameWithTypeArguments(that); }
-        case (is Super) { return transformSuper(that); }
-    }
 }

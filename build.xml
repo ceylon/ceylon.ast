@@ -186,7 +186,7 @@
             encoding="UTF-8">
             <moduleset refid="modules.source.all"/>
             <linkset>
-                <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
+                <link pattern="ceylon" url="http://modules.ceylon-lang.org/repo/1/"/>
             </linkset>
         </ceylon-doc>
         
@@ -245,7 +245,7 @@
             encoding="UTF-8">
             <moduleset refid="modules.source.all"/>
             <linkset>
-                <link pattern="ceylon" url="https://modules.ceylon-lang.org/repo/1/"/>
+                <link pattern="ceylon" url="http://modules.ceylon-lang.org/repo/1/"/>
             </linkset>
         </ceylon-doc>
         

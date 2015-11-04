@@ -4,7 +4,7 @@
  
  Includes:
  - sample ASTs to demonstrate how to create ASTs
-   (with [[ceylon.ast.create|module ceylon.ast.create]]),
+   (with [[`ceylon.ast.create`|module ceylon.ast.create]]),
  - sample [[ceylon.ast.core::Editor]]s
    to demonstrate how to edit ASTs, and
  - sample [[ceylon.ast.core::Visitor]]s

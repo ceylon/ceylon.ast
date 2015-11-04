@@ -21,7 +21,7 @@
    
        Anything(JNode,Node) update = noop
    
-   This function is invoked once for every [[Node]] created
+   This function is invoked once for every [[ceylon.ast.core::Node]] created
    with the original RedHat AST node (above aliased to `JNode`)
    and the new `ceylon.ast` Node as arguments.
    It can be used to copy information from the old AST to the new one, for example:

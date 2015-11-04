@@ -566,6 +566,11 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                   `` indent + indentLevel ``parameterLists = ``transformWithIndent(that.parameterLists)``;
                   `` indent + indentLevel ``qualifier = ``transformWithIndent(that.qualifier)``;
                   ``indent``}";
+    transformLengthTupleType(LengthTupleType that)
+            => "LengthTupleType {
+                `` indent + indentLevel ``elementType = ``transformWithIndent(that.elementType)``;
+                `` indent + indentLevel ``length = ``transformWithIndent(that.length)``;
+                ``indent``}";
     transformLetExpression(LetExpression that)
             => "LetExpression {
                 `` indent + indentLevel ``patterns = ``transformWithIndent(that.patterns)``;

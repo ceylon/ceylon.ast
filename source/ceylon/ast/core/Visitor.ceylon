@@ -168,6 +168,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformLargerOperation(LargerOperation that) => visitLargerOperation(that);
     transformLazySpecification(LazySpecification that) => visitLazySpecification(that);
     transformLazySpecifier(LazySpecifier that) => visitLazySpecifier(that);
+    transformLengthTupleType(LengthTupleType that) => visitLengthTupleType(that);
     transformLetExpression(LetExpression that) => visitLetExpression(that);
     transformLiteral(Literal that) => visitLiteral(that);
     transformLocalModifier(LocalModifier that) => visitLocalModifier(that);
@@ -280,6 +281,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformTuple(Tuple that) => visitTuple(that);
     transformTuplePattern(TuplePattern that) => visitTuplePattern(that);
     transformListTupleType(ListTupleType that) => visitListTupleType(that);
+    transformTupleType(TupleType that) => visitTupleType(that);
     transformType(Type that) => visitType(that);
     transformTypeAliasDefinition(TypeAliasDefinition that) => visitTypeAliasDefinition(that);
     transformTypeArgument(TypeArgument that) => visitTypeArgument(that);
@@ -481,6 +483,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitLazySpecification(LazySpecification that) => super.transformLazySpecification(that);
     shared default void visitLazySpecifier(LazySpecifier that) => super.transformLazySpecifier(that);
     shared default void visitLIdentifier(LIdentifier that) => super.transformLIdentifier(that);
+    shared default void visitLengthTupleType(LengthTupleType that) => super.transformLengthTupleType(that);
     shared default void visitLetExpression(LetExpression that) => super.transformLetExpression(that);
     shared default void visitLiteral(Literal that) => super.transformLiteral(that);
     shared default void visitLocalModifier(LocalModifier that) => super.transformLocalModifier(that);
@@ -593,6 +596,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitTuple(Tuple that) => super.transformTuple(that);
     shared default void visitTuplePattern(TuplePattern that) => super.transformTuplePattern(that);
     shared default void visitListTupleType(ListTupleType that) => super.transformListTupleType(that);
+    shared default void visitTupleType(TupleType that) => super.transformTupleType(that);
     shared default void visitTypeAliasDefinition(TypeAliasDefinition that) => super.transformTypeAliasDefinition(that);
     shared default void visitTypeArguments(TypeArguments that) => super.transformTypeArguments(that);
     shared default void visitTypeArgument(TypeArgument that) => super.transformTypeArgument(that);

@@ -520,7 +520,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is SimpleType) { return transformSimpleType(that); }
         case (is OptionalType) { return transformOptionalType(that); }
         case (is SequentialType) { return transformSequentialType(that); }
-        case (is ListTupleType) { return transformListTupleType(that); }
+        case (is TupleType) { return transformTupleType(that); }
         case (is IterableType) { return transformIterableType(that); }
         case (is GroupedType) { return transformGroupedType(that); }
         case (is CallableType) { return transformCallableType(that); }
@@ -580,6 +580,11 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         switch (that)
         case (is KeySubscript) { return transformKeySubscript(that); }
         case (is RangeSubscript) { return transformRangeSubscript(that); }
+    }
+    shared actual default Result transformTupleType(TupleType that) {
+        switch (that)
+        case (is ListTupleType) { return transformListTupleType(that); }
+        case (is LengthTupleType) { return transformLengthTupleType(that); }
     }
     shared actual default Result transformType(Type that) {
         switch (that)

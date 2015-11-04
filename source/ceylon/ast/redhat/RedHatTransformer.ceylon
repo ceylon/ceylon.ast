@@ -2160,6 +2160,15 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JSequenceType transformLengthTupleType(LengthTupleType that) {
+        JSequenceType ret = JSequenceType(null);
+        ret.elementType = transformPrimaryType(that.elementType);
+        ret.endToken = tokens.token("[", lbracket);
+        ret.length = transformIntegerLiteral(that.length);
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
+    
     shared actual JLetExpression transformLetExpression(LetExpression that) {
         JLetExpression ret = JLetExpression(null);
         JLetClause letClause = JLetClause(tokens.token("let", letType));
@@ -2178,6 +2187,30 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JIdentifier transformLIdentifier(LIdentifier that)
             => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+    
+    shared actual JTupleType transformListTupleType(ListTupleType that) {
+        JTupleType ret = JTupleType(tokens.token("[", lbracket));
+        value firstElementType = that.typeList.elements.first;
+        if (exists firstElementType) {
+            switch (firstElementType)
+            case (is Type) { ret.addElementType(transformType(firstElementType)); }
+            case (is DefaultedType) { ret.addElementType(transformDefaultedType(firstElementType)); }
+            for (elementType in that.typeList.elements.rest) {
+                ret.endToken = tokens.token(",", comma);
+                switch (elementType)
+                case (is Type) { ret.addElementType(transformType(elementType)); }
+                case (is DefaultedType) { ret.addElementType(transformDefaultedType(elementType)); }
+            }
+        }
+        if (exists var = that.typeList.variadic) {
+            if (that.typeList.elements nonempty) {
+                ret.endToken = tokens.token(",", comma);
+            }
+            ret.addElementType(transformVariadicType(var));
+        }
+        ret.endToken = tokens.token("]", rbracket);
+        return ret;
+    }
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
@@ -3154,27 +3187,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JTupleType transformListTupleType(ListTupleType that) {
-        JTupleType ret = JTupleType(tokens.token("[", lbracket));
-        value firstElementType = that.typeList.elements.first;
-        if (exists firstElementType) {
-            switch (firstElementType)
-            case (is Type) { ret.addElementType(transformType(firstElementType)); }
-            case (is DefaultedType) { ret.addElementType(transformDefaultedType(firstElementType)); }
-            for (elementType in that.typeList.elements.rest) {
-                ret.endToken = tokens.token(",", comma);
-                switch (elementType)
-                case (is Type) { ret.addElementType(transformType(elementType)); }
-                case (is DefaultedType) { ret.addElementType(transformDefaultedType(elementType)); }
-            }
-        }
-        if (exists var = that.typeList.variadic) {
-            if (that.typeList.elements nonempty) {
-                ret.endToken = tokens.token(",", comma);
-            }
-            ret.addElementType(transformVariadicType(var));
-        }
-        ret.endToken = tokens.token("]", rbracket);
+    shared actual JTupleType|JSequenceType transformTupleType(TupleType that) {
+        assert (is JTupleType|JSequenceType ret = super.transformTupleType(that));
         return ret;
     }
     

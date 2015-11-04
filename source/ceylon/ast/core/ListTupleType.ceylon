@@ -1,4 +1,5 @@
-"A tuple type.
+"A list-based tuple type (commonly just called a “tuple type”), that is,
+ a [[type list|typeList]] enclosed in brackets.
  
  Examples:
  
@@ -6,7 +7,7 @@
      [Float,Integer*]
      []"
 shared class ListTupleType(typeList)
-        extends PrimaryType() {
+        extends TupleType() {
     
     "The types of this tuple type."
     shared TypeList typeList;

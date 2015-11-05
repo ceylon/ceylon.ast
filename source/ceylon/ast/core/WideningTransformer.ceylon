@@ -159,7 +159,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformLargerOperation(LargerOperation that) => transformComparisonOperation(that);
     shared actual default Result transformLazySpecification(LazySpecification that) => transformSpecification(that);
     shared actual default Result transformLazySpecifier(LazySpecifier that) => transformAnySpecifier(that);
-    shared actual default Result transformLengthTupleType(LengthTupleType that) => transformTupleType(that);
     shared actual default Result transformLetExpression(LetExpression that) => transformExpression(that);
     shared actual default Result transformLiteral(Literal that) => transformAtom(that);
     shared actual default Result transformLocalModifier(LocalModifier that) => transformTypeModifier(that);
@@ -271,7 +270,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformTryClause(TryClause that) => transformNode(that);
     shared actual default Result transformTuple(Tuple that) => transformAtom(that);
     shared actual default Result transformTuplePattern(TuplePattern that) => transformPattern(that);
-    shared actual default Result transformListTupleType(ListTupleType that) => transformPrimaryType(that);
     shared actual default Result transformTupleType(TupleType that) => transformPrimaryType(that);
     shared actual default Result transformType(Type that) => transformTypeIsh(that);
     shared actual default Result transformTypeAliasDefinition(TypeAliasDefinition that) => transformTypeDeclaration(that);

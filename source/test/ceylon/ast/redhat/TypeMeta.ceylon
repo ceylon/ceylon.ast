@@ -18,12 +18,12 @@ shared object typeMeta satisfies ConcreteTest<TypeMeta,JTypeLiteral> {
     String->TypeMeta construct(String->Type t)
             => ("`" + t.key + "`")->TypeMeta(t.item);
     
-    shared String->TypeMeta integerFloatDefaultedStringStarListTupleTypeTypeMeta = construct(listTupleType.integerFloatDefaultedStringStarListTupleType);
+    shared String->TypeMeta integerFloatDefaultedStringStarTupleTypeTypeMeta = construct(tupleType.integerFloatDefaultedStringStarTupleType);
     shared String->TypeMeta stringToIterableOfStringEntryTypeTypeMeta = construct(entryType.stringToIterableOfStringEntryType);
     shared String->TypeMeta packageObjectMeta = construct(baseType.objectPackageQualifiedType);
     
     compile = compileTypeMeta;
     fromCeylon = RedHatTransformer.transformTypeMeta;
     toCeylon = typeMetaToCeylon;
-    codes = [integerFloatDefaultedStringStarListTupleTypeTypeMeta, stringToIterableOfStringEntryTypeTypeMeta, packageObjectMeta];
+    codes = [integerFloatDefaultedStringStarTupleTypeTypeMeta, stringToIterableOfStringEntryTypeTypeMeta, packageObjectMeta];
 }

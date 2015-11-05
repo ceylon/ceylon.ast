@@ -13,8 +13,8 @@ shared class CallableType(returnType, argumentTypes)
     "The argument types.
      
      This can be:
-     - a [[TypeList]], forming the [[`typeList`|ListTupleType.typeList]]
-       of the [[ListTupleType]] that’s the second type argument to `Callable`, or
+     - a [[TypeList]], forming the [[`typeList`|TupleType.typeList]]
+       of the [[TupleType]] that’s the second type argument to `Callable`, or
      - a [[SpreadType]], where the [[inner type|SpreadType.type]]
        is the second type argument to `Callable`."
     shared TypeList|SpreadType argumentTypes;

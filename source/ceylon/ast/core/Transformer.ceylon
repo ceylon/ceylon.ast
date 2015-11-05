@@ -170,7 +170,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformLargerOperation(LargerOperation that);
     shared formal Result transformLazySpecification(LazySpecification that);
     shared formal Result transformLazySpecifier(LazySpecifier that);
-    shared formal Result transformLengthTupleType(LengthTupleType that);
     shared formal Result transformLetExpression(LetExpression that);
     shared formal Result transformLiteral(Literal that);
     shared formal Result transformLocalModifier(LocalModifier that);
@@ -283,7 +282,6 @@ shared interface Transformer<out Result> {
     shared formal Result transformTryClause(TryClause that);
     shared formal Result transformTuple(Tuple that);
     shared formal Result transformTuplePattern(TuplePattern that);
-    shared formal Result transformListTupleType(ListTupleType that);
     shared formal Result transformTupleType(TupleType that);
     shared formal Result transformType(Type that);
     shared formal Result transformTypeAliasDefinition(TypeAliasDefinition that);

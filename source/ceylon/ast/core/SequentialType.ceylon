@@ -15,6 +15,10 @@ shared class SequentialType(elementType, length = null)
     "The element type."
     shared PrimaryType elementType;
     
+    "The length, if present.
+     
+     Note: per spec, this must be a decimal literal (not a binary or hexadecimal one),
+     but this is not enforced by `ceylon.ast`."
     shared IntegerLiteral? length;
     
     shared actual [PrimaryType, IntegerLiteral=] children;

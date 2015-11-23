@@ -13,21 +13,27 @@ shared class MatchCase(expressions)
      The tested expressions must all be known at compile time:
      - literals are always known at compile time;
      - the [[operand|NegationOperation.operand]] of a [[NegationOperation]] must be an [[IntegerLiteral]];
-     - a [[BaseExpression]] must refer to a toplevel value that satisfies `Identifiable|Null`.
+     - a [[BaseExpression]] must refer to a toplevel value that satisfies `Identifiable|Null`;
+     - a [[QualifiedExpression]] must refer to a toplevel value that satisfies `Identifiable|Null` (qualified with [[Package]]),
+       or to a value constructor of a toplevel class that satisfies `Identifiable`.
+       (The [[QualifiedExpression.receiverExpression]] must be a `BaseExpression|QualifiedExpression|Package`.)
      
      (A [[FloatLiteral]] is not permitted because due to rounding errors,
      exact comparison with a float literal value is rarely the correct thing to do.)"
-    shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression>+] expressions;
-    // TODO perhaps we need an alias for IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression
+    shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions;
     
     for (expression in expressions) {
         if (is NegationOperation expression) {
             "Negated operand in switch case item must be integer literal"
             assert (expression.operand is IntegerLiteral);
         }
+        if (is QualifiedExpression expression) {
+            "Base expression in switch case item must be package.toplevel or Class.valueConstructor"
+            assert (expression.receiverExpression is BaseExpression|QualifiedExpression|Package);
+        }
     }
     
-    shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression>+] children = expressions;
+    shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] children = expressions;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMatchCase(this);
@@ -43,7 +49,7 @@ shared class MatchCase(expressions)
     shared actual Integer hash
             => 31 * expressions.hash;
     
-    shared MatchCase copy([<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression>+] expressions = this.expressions) {
+    shared MatchCase copy([<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions = this.expressions) {
         value ret = MatchCase(expressions);
         copyExtraInfoTo(ret);
         return ret;

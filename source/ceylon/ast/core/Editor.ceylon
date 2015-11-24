@@ -494,15 +494,16 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default MatchCase transformMatchCase(MatchCase that) {
-        IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpression(IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression that) {
+        IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpression(IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression that) {
             switch (that)
             case (is IntegerLiteral) { return transformIntegerLiteral(that); }
             case (is CharacterLiteral) { return transformCharacterLiteral(that); }
             case (is StringLiteral) { return transformStringLiteral(that); }
             case (is NegationOperation) { return transformNegationOperation(that); }
             case (is BaseExpression) { return transformBaseExpression(that); }
+            case (is QualifiedExpression) { return transformQualifiedExpression(that); }
         }
-        return that.copy(that.expressions.collect(transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpression));
+        return that.copy(that.expressions.collect(transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpression));
     }
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => that.copy(transformAddingExpression(that.leftOperand), transformAddingExpression(that.rightOperand));

@@ -2,7 +2,8 @@ import ceylon.ast.core {
     AnyMemberOperator,
     NameWithTypeArguments,
     Primary,
-    QualifiedExpression
+    QualifiedExpression,
+    Package
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -42,6 +43,7 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
     shared String->QualifiedExpression processArgumentsSequenceQualifiedExpression = construct(processArgumentsExpression, "sequence");
     shared String->QualifiedExpression textIndexedQualifiedExpression = construct(baseExpression.textExpression, "indexed");
     shared String->QualifiedExpression personNameQualifiedExpression = construct(baseExpression.personExpression, "name");
+    shared String->QualifiedExpression packageNullExpression = construct("package"->Package(), "null");
     
     compile = compileQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;

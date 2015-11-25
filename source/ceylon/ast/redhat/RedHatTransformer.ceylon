@@ -2986,6 +2986,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JTerm transformStructureExpression(StructureExpression that) {
+        assert (is JTerm ret = super.transformStructureExpression(that));
+        return ret;
+    }
+    
     shared actual JElementOrRange transformSubscript(Subscript that) {
         assert (is JElementOrRange ret = super.transformSubscript(that));
         return ret;

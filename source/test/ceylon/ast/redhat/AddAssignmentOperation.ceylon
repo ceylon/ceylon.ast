@@ -20,9 +20,10 @@ shared object addAssignmentOperation satisfies ConcreteTest<AddAssignmentOperati
             => "``left.key``+=``right.key``"->AddAssignmentOperation(left.item, right.item);
     
     shared String->AddAssignmentOperation iAddAssignStepExpression = construct(baseExpression.iExpression, baseExpression.stepExpression);
+    shared String->AddAssignmentOperation iAddAssignIfExpression = construct(baseExpression.iExpression, ifElseExpression.ifThen1Else1Expression);
     
     compile = compileAddAssignmentOperation;
     fromCeylon = RedHatTransformer.transformAddAssignmentOperation;
     toCeylon = addAssignmentOperationToCeylon;
-    codes = [iAddAssignStepExpression];
+    codes = [iAddAssignStepExpression, iAddAssignIfExpression];
 }

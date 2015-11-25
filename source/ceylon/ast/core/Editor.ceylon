@@ -641,6 +641,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default SpecifiedPattern transformSpecifiedPattern(SpecifiedPattern that)
             => that.copy(transformPattern(that.pattern), transformSpecifier(that.specifier));
+    shared actual default StructureExpression transformStructureExpression(StructureExpression that) {
+        assert (is StructureExpression ret = super.transformStructureExpression(that));
+        return ret;
+    }
     shared actual default SwitchCaseElseExpression transformSwitchCaseElseExpression(SwitchCaseElseExpression that)
             => that.copy(transformSwitchClause(that.clause), that.caseExpressions.collect(transformCaseExpression), nullsafeInvoke(that.elseExpression, transformDisjoiningExpressionOrIfElseExpressionOrLetExpression));
     shared actual default TuplePattern transformTuplePattern(TuplePattern that)

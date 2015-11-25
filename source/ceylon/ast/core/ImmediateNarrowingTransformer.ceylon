@@ -167,6 +167,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformStatement(Statement that)
             => that.transform(this);
+    shared actual default Result transformStructureExpression(StructureExpression that)
+            => that.transform(this);
     shared actual default Result transformSubscript(Subscript that)
             => that.transform(this);
     shared actual default Result transformThenElseExpression(ThenElseExpression that)

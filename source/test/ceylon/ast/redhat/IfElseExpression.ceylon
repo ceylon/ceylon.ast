@@ -24,6 +24,9 @@ shared object ifElseExpression satisfies ConcreteTest<IfElseExpression,JIfExpres
     shared String->IfElseExpression ifThenLetElseIfExpression => construct(conditions.trueConditions, letExpression.distLetExpression, ifThenAElseBExpression);
     shared String->IfElseExpression ifThenIfElseLetExpression => construct(conditions.trueConditions, ifThenLetElseIfExpression, letExpression.letIfExpression);
     
+    // not tested directly, but used by other tests
+    shared String->IfElseExpression ifThen1Else1Expression = construct(conditions.trueConditions, integerLiteral.oneIntegerLiteral, integerLiteral.oneIntegerLiteral);
+    
     compile = compileIfElseExpression;
     fromCeylon = RedHatTransformer.transformIfElseExpression;
     toCeylon = ifElseExpressionToCeylon;

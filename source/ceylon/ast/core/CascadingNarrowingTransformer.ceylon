@@ -422,6 +422,13 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is InvertingExpression) { return transformInvertingExpression(that); }
         case (is IntersectionOperation) { return transformIntersectionOperation(that); }
     }
+    shared actual default Result transformStructureExpression(StructureExpression that) {
+        switch (that)
+        case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
+        case (is IfElseExpression) { return transformIfElseExpression(that); }
+        case (is SwitchCaseElseExpression) { return transformSwitchCaseElseExpression(that); }
+        case (is LetExpression) { return transformLetExpression(that); }
+    }
     shared actual default Result transformUnioningExpression(UnioningExpression that) {
         switch (that)
         case (is IntersectingExpression) { return transformIntersectingExpression(that); }
@@ -491,7 +498,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
     }
     shared actual default Result transformThenElseExpression(ThenElseExpression that) {
         switch (that)
-        case (is DisjoiningExpression) { return transformDisjoiningExpression(that); }
+        case (is StructureExpression) { return transformStructureExpression(that); }
         case (is ThenOperation) { return transformThenOperation(that); }
         case (is ElseOperation) { return transformElseOperation(that); }
     }

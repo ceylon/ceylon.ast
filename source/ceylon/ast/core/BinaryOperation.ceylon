@@ -15,9 +15,9 @@ shared abstract class BinaryOperation()
         extends Operation() {
     
     "The left operand."
-    shared formal ValueExpression leftOperand;
+    shared formal Expression leftOperand;
     "The right operand."
-    shared formal ValueExpression rightOperand;
+    shared formal Expression rightOperand;
     
-    shared actual formal [ValueExpression, ValueExpression] children;
+    shared actual formal [Expression, Expression] children;
 }

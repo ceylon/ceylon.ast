@@ -30,6 +30,7 @@ shared interface NarrowingTransformer<out Result>
     shared formal Result transformPrePostfixingExpression(PrePostfixingExpression that);
     shared formal Result transformScalingExpression(ScalingExpression that);
     shared formal Result transformSpanningExpression(SpanningExpression that);
+    shared formal Result transformStructureExpression(StructureExpression that);
     shared formal Result transformThenElseExpression(ThenElseExpression that);
     shared formal Result transformUnioningExpression(UnioningExpression that);
 }

@@ -144,7 +144,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformInterfaceDec(InterfaceDec that) => transformTypeDec(that);
     shared actual default Result transformInterfaceDefinition(InterfaceDefinition that) => transformAnyInterfaceDefinition(that);
     shared actual default Result transformIntersectAssignmentOperation(IntersectAssignmentOperation that) => transformSetAssignmentOperation(that);
-    shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformBinaryOperation(that);
+    shared actual default Result transformIntersectionOperation(IntersectionOperation that) => transformSetOperation(that);
     shared actual default Result transformIntersectionType(IntersectionType that) => transformUnionableType(that);
     shared actual default Result transformInvocation(Invocation that) => transformPrimary(that);
     shared actual default Result transformInvocationStatement(InvocationStatement that) => transformExpressionStatement(that);

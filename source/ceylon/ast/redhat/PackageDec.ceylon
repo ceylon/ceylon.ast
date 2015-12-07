@@ -12,9 +12,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[PackageLiteral|JPackageLiteral]] to a `ceylon.ast` [[PackageDec]]."
 shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode,Node) update = noop) {
     PackageDec result;
-    if (exists importPath = packageDec.importPath) {
+    if (exists importPath = packageDec.importPath, !importPath.identifiers.empty) {
         result = PackageDec(fullPackageNameToCeylon(importPath, update));
     } else {
+        // null importPath: `package`
+        // non-null but empty importPath: typechecked `package`
         result = PackageDec(null);
     }
     update(packageDec, result);

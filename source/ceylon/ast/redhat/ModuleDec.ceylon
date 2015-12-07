@@ -12,9 +12,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ModuleLiteral|JModuleLiteral]] to a `ceylon.ast` [[ModuleDec]]."
 shared ModuleDec moduleDecToCeylon(JModuleLiteral moduleDec, Anything(JNode,Node) update = noop) {
     ModuleDec result;
-    if (exists importPath = moduleDec.importPath) {
+    if (exists importPath = moduleDec.importPath, !importPath.identifiers.empty) {
         result = ModuleDec(fullPackageNameToCeylon(importPath, update));
     } else {
+        // null importPath: `module`
+        // non-null but empty importPath: typechecked `module`
         result = ModuleDec(null);
     }
     update(moduleDec, result);

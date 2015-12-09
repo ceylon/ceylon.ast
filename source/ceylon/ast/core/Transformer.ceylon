@@ -75,6 +75,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformConditions(Conditions that);
     shared formal Result transformConstruction(Construction that);
     shared formal Result transformConstructorDec(ConstructorDec that);
+    shared formal Result transformConstructorDefinition(ConstructorDefinition that);
     shared formal Result transformContinue(Continue that);
     shared formal Result transformControlStructure(ControlStructure that);
     shared formal Result transformDec(Dec that);
@@ -311,6 +312,7 @@ shared interface Transformer<out Result> {
     shared formal Result transformUnionableType(UnionableType that);
     shared formal Result transformUnspecifiedVariable(UnspecifiedVariable that);
     shared formal Result transformValueArgument(ValueArgument that);
+    shared formal Result transformValueConstructorDefinition(ValueConstructorDefinition that);
     shared formal Result transformValueDec(ValueDec that);
     shared formal Result transformValueDeclaration(ValueDeclaration that);
     shared formal Result transformValueDefinition(ValueDefinition that);

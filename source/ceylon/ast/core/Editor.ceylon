@@ -219,6 +219,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
+    shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that) {
+        assert (is ConstructorDefinition ret = super.transformConstructorDefinition(that));
+        return ret;
+    }
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
     shared actual default ControlStructure transformControlStructure(ControlStructure that) {
@@ -939,6 +943,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         }
         return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifierOrBlock(that.definition));
     }
+    shared actual default ValueConstructorDefinition transformValueConstructorDefinition(ValueConstructorDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
     shared actual default ValueDec transformValueDec(ValueDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {

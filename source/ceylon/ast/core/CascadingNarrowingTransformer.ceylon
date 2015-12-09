@@ -162,6 +162,11 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is IfElseExpression) { return transformIfElseExpression(that); }
         case (is SwitchCaseElseExpression) { return transformSwitchCaseElseExpression(that); }
     }
+    shared actual default Result transformConstructorDefinition(ConstructorDefinition that) {
+        switch (that)
+        case (is CallableConstructorDefinition) { return transformCallableConstructorDefinition(that); }
+        case (is ValueConstructorDefinition) { return transformValueConstructorDefinition(that); }
+    }
     shared actual default Result transformControlStructure(ControlStructure that) {
         switch (that)
         case (is IfElse) { return transformIfElse(that); }
@@ -185,7 +190,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is TypedDeclaration) { return transformTypedDeclaration(that); }
         case (is ObjectDefinition) { return transformObjectDefinition(that); }
         case (is ValueSetterDefinition) { return transformValueSetterDefinition(that); }
-        case (is CallableConstructorDefinition) { return transformCallableConstructorDefinition(that); }
+        case (is ConstructorDefinition) { return transformConstructorDefinition(that); }
     }
     shared actual default Result transformDefaultedParameter(DefaultedParameter that) {
         switch (that)

@@ -35,6 +35,10 @@ shared object valueSpecification satisfies ConcreteTest<ValueSpecification,JSpec
     shared String->ValueSpecification thisYSpecifyProduct = construct(identifier.yLIdentifier, specifier.rTimesSinSpecifier, thisQualifier);
     shared String->ValueSpecification thisRSpecifyR = construct(identifier.rLIdentifier, specifier.rSpecifier, thisQualifier);
     shared String->ValueSpecification thisPhiSpecifyPhi = construct(identifier.phiLIdentifier, specifier.phiSpecifier, thisQualifier);
+    shared String->ValueSpecification xSpecify0 = construct(identifier.xLIdentifier, specifier._0Specifier);
+    shared String->ValueSpecification ySpecify0 = construct(identifier.yLIdentifier, specifier._0Specifier);
+    shared String->ValueSpecification rSpecify0 = construct(identifier.rLIdentifier, specifier._0Specifier);
+    shared String->ValueSpecification phiSpecify0 = construct(identifier.phiLIdentifier, specifier._0Specifier);
     
     compile = compileValueSpecification;
     fromCeylon = RedHatTransformer.transformValueSpecification;

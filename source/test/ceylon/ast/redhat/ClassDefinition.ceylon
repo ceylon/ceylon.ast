@@ -36,7 +36,7 @@ shared object classDefinition satisfies ConcreteTest<ClassDefinition,JClassDefin
     
     shared String->ClassDefinition pointClassDefinition = construct {
         name = identifier.pointUIdentifier;
-        parameters = null; // two explicit constructors
+        parameters = null; // two explicit constructors, one value constructor
         body = classBody.pointClassBody;
         annotations = annotations.sharedAnnotations;
     };

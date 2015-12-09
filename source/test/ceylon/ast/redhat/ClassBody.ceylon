@@ -27,6 +27,7 @@ shared object classBody satisfies ConcreteTest<ClassBody,JClassBody> {
             valueDeclaration.sharedFloatPhiDeclaration,
             callableConstructorDefinition.cartesianConstructorDefinition,
             callableConstructorDefinition.polarConstructorDefinition,
+            valueConstructorDefinition.originValueConstructorDefinition,
             valueDefinition.stringDefinition
         ]);
     

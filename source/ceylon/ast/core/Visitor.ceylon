@@ -73,6 +73,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformConstruction(Construction that) => visitConstruction(that);
     transformConstructorDec(ConstructorDec that) => visitConstructorDec(that);
     transformCallableConstructorDefinition(CallableConstructorDefinition that) => visitCallableConstructorDefinition(that);
+    transformConstructorDefinition(ConstructorDefinition that) => visitConstructorDefinition(that);
     transformContinue(Continue that) => visitContinue(that);
     transformControlStructure(ControlStructure that) => visitControlStructure(that);
     transformDec(Dec that) => visitDec(that);
@@ -307,6 +308,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     transformUnionableType(UnionableType that) => visitUnionableType(that);
     transformUnspecifiedVariable(UnspecifiedVariable that) => visitUnspecifiedVariable(that);
     transformValueArgument(ValueArgument that) => visitValueArgument(that);
+    transformValueConstructorDefinition(ValueConstructorDefinition that) => visitValueConstructorDefinition(that);
     transformValueDec(ValueDec that) => visitValueDec(that);
     transformValueDeclaration(ValueDeclaration that) => visitValueDeclaration(that);
     transformValueDefinition(ValueDefinition that) => visitValueDefinition(that);
@@ -386,6 +388,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitConstruction(Construction that) => super.transformConstruction(that);
     shared default void visitConstructorDec(ConstructorDec that) => super.transformConstructorDec(that);
     shared default void visitCallableConstructorDefinition(CallableConstructorDefinition that) => super.transformCallableConstructorDefinition(that);
+    shared default void visitConstructorDefinition(ConstructorDefinition that) => super.transformConstructorDefinition(that);
     shared default void visitContinue(Continue that) => super.transformContinue(that);
     shared default void visitControlStructure(ControlStructure that) => super.transformControlStructure(that);
     shared default void visitDec(Dec that) => super.transformDec(that);
@@ -620,6 +623,7 @@ shared interface Visitor satisfies WideningTransformer<Anything> {
     shared default void visitUnionType(UnionType that) => super.transformUnionType(that);
     shared default void visitUnspecifiedVariable(UnspecifiedVariable that) => super.transformUnspecifiedVariable(that);
     shared default void visitValueArgument(ValueArgument that) => super.transformValueArgument(that);
+    shared default void visitValueConstructorDefinition(ValueConstructorDefinition that) => super.transformValueConstructorDefinition(that);
     shared default void visitValueDeclaration(ValueDeclaration that) => super.transformValueDeclaration(that);
     shared default void visitValueDec(ValueDec that) => super.transformValueDec(that);
     shared default void visitValueDefinition(ValueDefinition that) => super.transformValueDefinition(that);

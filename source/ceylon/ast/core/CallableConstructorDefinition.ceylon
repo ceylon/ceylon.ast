@@ -33,18 +33,18 @@
                    case (is String) parseDate(dateOfBirth);
      }"
 shared class CallableConstructorDefinition(name, parameters, block, extendedType = null, annotations = Annotations())
-        extends Declaration() {
+        extends ConstructorDefinition() {
     
     "The name of the constructor, if present.
      
      The name can also be absent, in which case this is the _default constructor_."
     shared actual LIdentifier? name;
     "The parameters of the constructor."
-    shared Parameters parameters;
+    shared actual Parameters parameters;
     "The block of the constructor."
-    shared Block block;
+    shared actual Block block;
     "The extended type of the constructor, if present."
-    shared ExtendedType? extendedType;
+    shared actual ExtendedType? extendedType;
     "The annotations of the constructor."
     shared actual Annotations annotations;
     

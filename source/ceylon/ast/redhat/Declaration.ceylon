@@ -8,6 +8,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAttributeSetterDefinition=AttributeSetterDefinition,
         JConstructor=Constructor,
         JDeclaration=Declaration,
+        JEnumerated=Enumerated,
         JMissingDeclaration=MissingDeclaration,
         JObjectDefinition=ObjectDefinition,
         JTypedDeclaration=TypedDeclaration,
@@ -18,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[Declaration|JDeclaration]] to a `ceylon.ast` [[Declaration]]."
 shared Declaration declarationToCeylon(JDeclaration declaration, Anything(JNode,Node) update = noop) {
-    assert (is JMissingDeclaration|JTypeDeclaration|JTypedDeclaration|JConstructor|JTypeParameterDeclaration declaration);
+    assert (is JMissingDeclaration|JTypeDeclaration|JTypedDeclaration|JConstructor|JEnumerated|JTypeParameterDeclaration declaration);
     switch (declaration)
     case (is JMissingDeclaration) {
         throw AssertionError("Can’t convert a missing declaration");
@@ -35,7 +36,7 @@ shared Declaration declarationToCeylon(JDeclaration declaration, Anything(JNode,
             return typedDeclarationToCeylon(declaration, update);
         }
     }
-    case (is JConstructor) { return callableConstructorDefinitionToCeylon(declaration, update); }
+    case (is JConstructor|JEnumerated) { return constructorDefinitionToCeylon(declaration, update); }
     case (is JTypeParameterDeclaration) {
         throw AssertionError("Can’t convert a type parameter declaration to a declaration");
     }

@@ -139,6 +139,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default Break transformBreak(Break that)
             => that.copy();
+    shared actual default CallableConstructorDefinition transformCallableConstructorDefinition(CallableConstructorDefinition that)
+            => that.copy(nullsafeInvoke(that.name, transformLIdentifier), transformParameters(that.parameters), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
     shared actual default CallableParameter transformCallableParameter(CallableParameter that)
             => that.copy(transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), transformLIdentifier(that.name), that.parameterLists.collect(transformParameters), transformAnnotations(that.annotations));
     shared actual default CallableType transformCallableType(CallableType that)
@@ -217,8 +219,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     }
     shared actual default ConstructorDec transformConstructorDec(ConstructorDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
-    shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that)
-            => that.copy(nullsafeInvoke(that.name, transformLIdentifier), transformParameters(that.parameters), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
+    shared actual default ConstructorDefinition transformConstructorDefinition(ConstructorDefinition that) {
+        assert (is ConstructorDefinition ret = super.transformConstructorDefinition(that));
+        return ret;
+    }
     shared actual default Continue transformContinue(Continue that)
             => that.copy();
     shared actual default ControlStructure transformControlStructure(ControlStructure that) {
@@ -944,6 +948,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         }
         return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifierOrBlock(that.definition));
     }
+    shared actual default ValueConstructorDefinition transformValueConstructorDefinition(ValueConstructorDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformBlock(that.block), nullsafeInvoke(that.extendedType, transformExtendedType), transformAnnotations(that.annotations));
     shared actual default ValueDec transformValueDec(ValueDec that)
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that) {

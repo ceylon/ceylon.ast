@@ -24,6 +24,7 @@ shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     
     // not tested directly, but used by other tests
     shared String->Specifier _0Specifier = construct(integerLiteral._0IntegerLiteral);
+    shared String->Specifier _00Specifier = construct(floatLiteral.oPointOFloatLiteral);
     shared String->Specifier processArgumentsFirstSpecifier = construct(qualifiedExpression.processArgumentsFirstExpression);
     shared String->Specifier processArgumentsSequenceSpecifier = construct(invocation.processArgumentsSequenceInvocation);
     shared String->Specifier xSpecifier = construct(baseExpression.xExpression);

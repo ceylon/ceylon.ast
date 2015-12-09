@@ -20,6 +20,9 @@ shared object floatLiteral satisfies ConcreteTest<FloatLiteral,JFloatLiteral> {
     shared String->FloatLiteral oPointOFortyTwoKFloatLiteral = construct("0.042k");
     shared String->FloatLiteral tenPointOneOhOneOhFloatLiteral = construct("10.1010");
     
+    // not tested directly, but used by other tests
+    shared String->FloatLiteral oPointOFloatLiteral = construct("0.0");
+    
     compile = compileFloatLiteral;
     fromCeylon = RedHatTransformer.transformFloatLiteral;
     toCeylon = floatLiteralToCeylon;

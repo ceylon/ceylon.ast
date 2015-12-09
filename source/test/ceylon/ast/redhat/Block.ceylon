@@ -40,6 +40,12 @@ shared object block satisfies ConcreteTest<Block,JBlock> {
         valueSpecification.thisRSpecifyR,
         valueSpecification.thisPhiSpecifyPhi
     );
+    shared String->Block originValueConstructorBlock = construct(
+        valueSpecification.xSpecify0,
+        valueSpecification.ySpecify0,
+        valueSpecification.rSpecify0,
+        valueSpecification.phiSpecify0
+    );
     
     compile = compileBlock;
     fromCeylon = RedHatTransformer.transformBlock;

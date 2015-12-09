@@ -63,6 +63,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformConjoiningExpression(ConjoiningExpression that)
             => that.transform(this);
+    shared actual default Result transformConstructorDefinition(ConstructorDefinition that)
+            => that.transform(this);
     shared actual default Result transformControlStructure(ControlStructure that)
             => that.transform(this);
     shared actual default Result transformDec(Dec that)

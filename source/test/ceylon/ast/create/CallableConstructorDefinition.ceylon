@@ -3,7 +3,7 @@ import ceylon.ast.core {
     Annotations,
     ArgumentList,
     Block,
-    ConstructorDefinition,
+    CallableConstructorDefinition,
     ExtendedType,
     Extension,
     IntegerLiteral,
@@ -19,7 +19,7 @@ import ceylon.ast.create {
     createAnnotations=annotations,
     createBaseExpression=baseExpression,
     createBaseType=baseType,
-    createConstructorDefinition=constructorDefinition,
+    createCallableConstructorDefinition=callableConstructorDefinition,
     createExtendedType=extendedType
 }
 import ceylon.test {
@@ -28,9 +28,9 @@ import ceylon.test {
 }
 
 test
-shared void constructorDefinition() {
+shared void callableConstructorDefinition() {
     assertEquals {
-        actual = createConstructorDefinition {
+        actual = createCallableConstructorDefinition {
             name = "myConstructor";
             parameters = {
                 ValueParameter {
@@ -50,7 +50,7 @@ shared void constructorDefinition() {
                 "shared"
             };
         };
-        expected = ConstructorDefinition {
+        expected = CallableConstructorDefinition {
             name = LIdentifier("myConstructor");
             parameters = Parameters([
                     ValueParameter {

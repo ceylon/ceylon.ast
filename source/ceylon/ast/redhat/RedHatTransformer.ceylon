@@ -786,6 +786,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JConstructor transformCallableConstructorDefinition(CallableConstructorDefinition that) {
+        value annotationList = transformAnnotations(that.annotations);
+        JConstructor ret = JConstructor(tokens.token("new", newType));
+        ret.annotationList = annotationList;
+        if (exists name = that.name) {
+            ret.identifier = transformLIdentifier(name);
+        }
+        ret.parameterList = transformParameters(that.parameters);
+        if (exists extendedType = that.extendedType) {
+            value jET = transformExtendedType(extendedType);
+            value delegatedConstructor = JDelegatedConstructor(jET.mainToken);
+            delegatedConstructor.type = jET.type;
+            delegatedConstructor.invocationExpression = jET.invocationExpression;
+            ret.delegatedConstructor = delegatedConstructor;
+        }
+        ret.block = transformBlock(that.block);
+        return ret;
+    }
+    
     shared actual JFunctionalParameterDeclaration transformCallableParameter(CallableParameter that) {
         JFunctionalParameterDeclaration ret = JFunctionalParameterDeclaration(null);
         JMethodDeclaration dec = JMethodDeclaration(null);
@@ -1137,25 +1156,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.endToken = null;
         ret.token = bt;
         ret.endToken = tokens.token("`", backtick);
-        return ret;
-    }
-    
-    shared actual JConstructor transformConstructorDefinition(ConstructorDefinition that) {
-        value annotationList = transformAnnotations(that.annotations);
-        JConstructor ret = JConstructor(tokens.token("new", newType));
-        ret.annotationList = annotationList;
-        if (exists name = that.name) {
-            ret.identifier = transformLIdentifier(name);
-        }
-        ret.parameterList = transformParameters(that.parameters);
-        if (exists extendedType = that.extendedType) {
-            value jET = transformExtendedType(extendedType);
-            value delegatedConstructor = JDelegatedConstructor(jET.mainToken);
-            delegatedConstructor.type = jET.type;
-            delegatedConstructor.invocationExpression = jET.invocationExpression;
-            ret.delegatedConstructor = delegatedConstructor;
-        }
-        ret.block = transformBlock(that.block);
         return ret;
     }
     

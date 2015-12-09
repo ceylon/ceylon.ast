@@ -35,7 +35,7 @@ shared Declaration declarationToCeylon(JDeclaration declaration, Anything(JNode,
             return typedDeclarationToCeylon(declaration, update);
         }
     }
-    case (is JConstructor) { return constructorDefinitionToCeylon(declaration, update); }
+    case (is JConstructor) { return callableConstructorDefinitionToCeylon(declaration, update); }
     case (is JTypeParameterDeclaration) {
         throw AssertionError("Can’t convert a type parameter declaration to a declaration");
     }

@@ -17,6 +17,7 @@ import ceylon.ast.core {
     Block,
     BooleanCondition,
     Break,
+    CallableConstructorDefinition,
     CallableParameter,
     CallableType,
     CaseClause,
@@ -38,7 +39,6 @@ import ceylon.ast.core {
     Conditions,
     Construction,
     ConstructorDec,
-    ConstructorDefinition,
     Continue,
     DecQualifier,
     DefaultedCallableParameter,
@@ -314,7 +314,7 @@ shared CompilationUnit completeCompilationUnit
                     }
                 ]);
             body = ClassBody([
-                    ConstructorDefinition {
+                    CallableConstructorDefinition {
                         name = LIdentifier("bool");
                         parameters = Parameters();
                         block = Block([

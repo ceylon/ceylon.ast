@@ -1,6 +1,6 @@
-"A constructor definition.
+"A callable constructor definition.
  
- A constructor definition has the following components:
+ A callable constructor definition has the following components:
  - [[annotations]],
  - the ‘`new`’ keyword,
  - the [[name]], if present,
@@ -32,7 +32,7 @@
                    case (is Date) dateOfBirth
                    case (is String) parseDate(dateOfBirth);
      }"
-shared class ConstructorDefinition(name, parameters, block, extendedType = null, annotations = Annotations())
+shared class CallableConstructorDefinition(name, parameters, block, extendedType = null, annotations = Annotations())
         extends Declaration() {
     
     "The name of the constructor, if present.
@@ -58,10 +58,10 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
-            => transformer.transformConstructorDefinition(this);
+            => transformer.transformCallableConstructorDefinition(this);
     
     shared actual Boolean equals(Object that) {
-        if (is ConstructorDefinition that) {
+        if (is CallableConstructorDefinition that) {
             if (exists extendedType) {
                 if (exists extendedType_ = that.extendedType) {
                     if (extendedType != extendedType_) {
@@ -93,8 +93,8 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     shared actual Integer hash
             => 31 * ((name?.hash else 0) + 31 * (parameters.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31 * annotations.hash))));
     
-    shared ConstructorDefinition copy(LIdentifier? name = this.name, Parameters parameters = this.parameters, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
-        value ret = ConstructorDefinition(name, parameters, block, extendedType, annotations);
+    shared CallableConstructorDefinition copy(LIdentifier? name = this.name, Parameters parameters = this.parameters, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
+        value ret = CallableConstructorDefinition(name, parameters, block, extendedType, annotations);
         copyExtraInfoTo(ret);
         return ret;
     }

@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     Annotations,
-    ConstructorDefinition,
+    CallableConstructorDefinition,
     Declaration,
     ExtendedType,
     Parameter,
@@ -8,11 +8,11 @@ import ceylon.ast.core {
     Statement
 }
 
-"""Creates a constructor definition.
+"""Creates a callable constructor definition.
    
    Usage example:
    
-       constructorDefinition {
+       callableConstructorDefinition {
            name = "rgb";
            parameters = {
                ValueParameter {
@@ -32,7 +32,7 @@ import ceylon.ast.core {
                specifier = Specifier(baseExpression("rgb"));
            }
        }"""
-shared ConstructorDefinition constructorDefinition(
+shared CallableConstructorDefinition callableConstructorDefinition(
     name,
     parameters = Parameters(),
     block = [],
@@ -45,7 +45,7 @@ shared ConstructorDefinition constructorDefinition(
     ExtendedType? extendedType;
     Annotations annotations;
     
-    return ConstructorDefinition {
+    return CallableConstructorDefinition {
         name = lidentifier(name);
         block = package.block(block);
         parameters = parameters_internal(parameters);

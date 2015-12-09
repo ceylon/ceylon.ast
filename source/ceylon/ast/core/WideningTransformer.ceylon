@@ -36,6 +36,7 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformBooleanCondition(BooleanCondition that) => transformCondition(that);
     shared actual default Result transformBound(Bound that) => transformNode(that);
     shared actual default Result transformBreak(Break that) => transformDirective(that);
+    shared actual default Result transformCallableConstructorDefinition(CallableConstructorDefinition that) => transformDeclaration(that);
     shared actual default Result transformCallableParameter(CallableParameter that) => transformRequiredParameter(that);
     shared actual default Result transformCallableType(CallableType that) => transformPrimaryType(that);
     shared actual default Result transformCaseClause(CaseClause that) => transformNode(that);
@@ -63,7 +64,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformConditions(Conditions that) => transformNode(that);
     shared actual default Result transformConstruction(Construction that) => transformExtensionOrConstruction(that);
     shared actual default Result transformConstructorDec(ConstructorDec that) => transformDec(that);
-    shared actual default Result transformConstructorDefinition(ConstructorDefinition that) => transformDeclaration(that);
     shared actual default Result transformContinue(Continue that) => transformDirective(that);
     shared actual default Result transformControlStructure(ControlStructure that) => transformStatement(that);
     shared actual default Result transformDec(Dec that) => transformPrimary(that);

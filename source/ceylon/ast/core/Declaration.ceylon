@@ -18,7 +18,7 @@
        shared actual String string => "``outer.string`` by ``step``";
        shared class Person(shared String name) { string => name; }"""
 shared abstract class Declaration()
-        of TypeDeclaration | TypedDeclaration | ObjectDefinition | ValueSetterDefinition | ConstructorDefinition
+        of TypeDeclaration | TypedDeclaration | ObjectDefinition | ValueSetterDefinition | CallableConstructorDefinition
         extends Node() {
     
     "The name of the declared program element, if present."

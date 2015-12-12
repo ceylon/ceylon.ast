@@ -123,7 +123,11 @@ shared abstract class Node()
     shared void visit(Visitor visitor) => transform(visitor);
     "Visit the children of this node with the given [[visitor]].
      Calls [[visit]] on each [[child node|children]]."
-    shared void visitChildren(Visitor visitor) => transformChildren(visitor);
+    shared void visitChildren(Visitor visitor) {
+        for (child in children) {
+            child.visit(visitor);
+        }
+    }
     
     "A developer-friendly string representing the instance.
      

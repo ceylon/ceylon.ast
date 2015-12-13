@@ -12,6 +12,9 @@ shared class Return(result = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformReturn(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitReturn(this);
+
     shared actual Boolean equals(Object that) {
         if (is Return that) {
             if (exists result) {

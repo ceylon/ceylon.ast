@@ -22,6 +22,9 @@ shared class ArgumentList(listedArguments = [], sequenceArgument = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformArgumentList(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitArgumentList(this);
+
     shared actual Boolean equals(Object that) {
         if (is ArgumentList that) {
             if (exists sequenceArgument) {

@@ -29,6 +29,9 @@ shared class NamedArguments(namedArguments = [], iterableArgument = ArgumentList
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNamedArguments(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitNamedArguments(this);
+
     shared actual Boolean equals(Object that) {
         if (is NamedArguments that) {
             return namedArguments == that.namedArguments && iterableArgument == that.iterableArgument;

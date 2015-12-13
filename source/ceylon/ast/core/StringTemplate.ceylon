@@ -30,6 +30,9 @@ shared class StringTemplate(literals, expressions)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformStringTemplate(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitStringTemplate(this);
+
     shared actual Boolean equals(Object that) {
         if (is StringTemplate that) {
             return literals == that.literals && expressions == that.expressions;

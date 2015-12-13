@@ -72,6 +72,9 @@ shared class LIdentifier(String name, Boolean usePrefix = false) extends Identif
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLIdentifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitLIdentifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is LIdentifier that) {
             return name == that.name;
@@ -104,6 +107,9 @@ shared class UIdentifier(String name, Boolean usePrefix = false) extends Identif
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformUIdentifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitUIdentifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is UIdentifier that) {
             return name == that.name;

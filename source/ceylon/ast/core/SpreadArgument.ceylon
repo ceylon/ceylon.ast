@@ -26,6 +26,9 @@ shared class SpreadArgument(argument)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpreadArgument(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpreadArgument(this);
+
     shared actual Boolean equals(Object that) {
         if (is SpreadArgument that) {
             return argument == that.argument;

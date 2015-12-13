@@ -7,6 +7,9 @@ shared class VoidModifier()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformVoidModifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitVoidModifier(this);
+
     shared actual Boolean equals(Object that) {
         return that is VoidModifier;
     }

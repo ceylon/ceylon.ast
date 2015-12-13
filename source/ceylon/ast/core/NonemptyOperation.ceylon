@@ -16,6 +16,9 @@ shared class NonemptyOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNonemptyOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitNonemptyOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is NonemptyOperation that) {
             return operand == that.operand;

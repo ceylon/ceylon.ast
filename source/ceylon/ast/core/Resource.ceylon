@@ -22,6 +22,9 @@ shared class Resource(resource)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformResource(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitResource(this);
+
     shared actual Boolean equals(Object that) {
         if (is Resource that) {
             return resource == that.resource;

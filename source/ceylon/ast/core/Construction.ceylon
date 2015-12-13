@@ -30,6 +30,9 @@ shared class Construction(nameAndArgs, arguments, qualifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformConstruction(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitConstruction(this);
+
     shared actual Boolean equals(Object that) {
         if (is Construction that) {
             if (exists qualifier) {

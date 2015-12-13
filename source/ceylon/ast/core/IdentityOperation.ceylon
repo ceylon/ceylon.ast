@@ -16,6 +16,9 @@ shared class IdentityOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIdentityOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIdentityOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is IdentityOperation that) {
             return operand == that.operand;

@@ -14,6 +14,9 @@ shared class NegationOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNegationOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitNegationOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is NegationOperation that) {
             return operand == that.operand;

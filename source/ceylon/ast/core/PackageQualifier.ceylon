@@ -15,6 +15,9 @@ shared class PackageQualifier()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPackageQualifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPackageQualifier(this);
+
     shared actual Boolean equals(Object that) {
         return that is PackageQualifier;
     }

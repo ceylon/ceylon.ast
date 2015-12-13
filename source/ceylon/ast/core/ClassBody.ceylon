@@ -33,6 +33,9 @@ shared class ClassBody(content)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassBody(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitClassBody(this);
+
     shared actual Boolean equals(Object that) {
         if (is ClassBody that) {
             return content == that.content;

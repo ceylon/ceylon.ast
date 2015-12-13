@@ -35,6 +35,9 @@ shared class FunctionArgument(name, type, parameterLists, definition)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformFunctionArgument(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitFunctionArgument(this);
+
     shared actual Boolean equals(Object that) {
         if (is FunctionArgument that) {
             return name == that.name && type == that.type && parameterLists == that.parameterLists && definition == that.definition;

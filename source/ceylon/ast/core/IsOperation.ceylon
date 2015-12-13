@@ -21,6 +21,9 @@ shared class IsOperation(operand, type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIsOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIsOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is IsOperation that) {
             return operand == that.operand && type == that.type;

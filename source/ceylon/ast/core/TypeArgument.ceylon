@@ -24,6 +24,9 @@ shared class TypeArgument(type, variance = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeArgument(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeArgument(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeArgument that) {
             if (exists variance) {

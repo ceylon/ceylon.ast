@@ -35,6 +35,9 @@ shared class ValueDeclaration(name, type, annotations = Annotations())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueDeclaration(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueDeclaration(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueDeclaration that) {
             return name == that.name && type == that.type && annotations == that.annotations;

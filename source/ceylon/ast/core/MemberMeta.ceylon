@@ -22,6 +22,9 @@ shared class MemberMeta(qualifier, nameAndArgs)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMemberMeta(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitMemberMeta(this);
+
     shared actual Boolean equals(Object that) {
         if (is MemberMeta that) {
             return qualifier == that.qualifier && nameAndArgs == that.nameAndArgs;

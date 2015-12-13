@@ -29,6 +29,9 @@ shared class CallableParameter(type, name, parameterLists, annotations = Annotat
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCallableParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitCallableParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is CallableParameter that) {
             return annotations == that.annotations && type == that.type && name == that.name && parameterLists == that.parameterLists;

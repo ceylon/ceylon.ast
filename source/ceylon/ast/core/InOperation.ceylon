@@ -41,6 +41,9 @@ shared class InOperation(element, category)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is InOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

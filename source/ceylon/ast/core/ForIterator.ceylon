@@ -18,6 +18,9 @@ shared class ForIterator(pattern, iterated)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformForIterator(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitForIterator(this);
+
     shared actual Boolean equals(Object that) {
         if (is ForIterator that) {
             return pattern == that.pattern && iterated == that.iterated;

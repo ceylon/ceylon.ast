@@ -18,6 +18,9 @@ shared class DefaultedValueParameter(parameter, specifier)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDefaultedValueParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDefaultedValueParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is DefaultedValueParameter that) {
             return parameter == that.parameter && specifier == that.specifier;

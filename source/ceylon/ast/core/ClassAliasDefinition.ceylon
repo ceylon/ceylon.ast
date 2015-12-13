@@ -68,6 +68,9 @@ shared class ClassAliasDefinition(name, parameters, specifier, caseTypes = null,
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassAliasDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitClassAliasDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ClassAliasDefinition that) {
             if (exists caseTypes) {

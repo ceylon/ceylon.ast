@@ -10,6 +10,9 @@ shared class PrefixDecrementOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPrefixDecrementOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPrefixDecrementOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is PrefixDecrementOperation that) {
             return operand == that.operand;

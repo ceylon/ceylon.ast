@@ -12,6 +12,9 @@ shared class Continue()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformContinue(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitContinue(this);
+
     shared actual Boolean equals(Object that) {
         return that is Continue;
     }

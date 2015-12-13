@@ -7,6 +7,9 @@ shared class OutModifier()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOutModifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOutModifier(this);
+
     shared actual Boolean equals(Object that) {
         return that is OutModifier;
     }

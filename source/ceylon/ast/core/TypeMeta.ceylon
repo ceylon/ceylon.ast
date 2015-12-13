@@ -15,6 +15,9 @@ shared class TypeMeta(type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeMeta(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeMeta(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeMeta that) {
             return type == that.type;

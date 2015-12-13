@@ -12,6 +12,9 @@ shared class Throw(result = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformThrow(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitThrow(this);
+
     shared actual Boolean equals(Object that) {
         if (is Throw that) {
             if (exists result) {

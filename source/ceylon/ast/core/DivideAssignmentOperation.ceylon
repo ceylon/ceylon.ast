@@ -29,6 +29,9 @@ shared class DivideAssignmentOperation(target, divisor)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDivideAssignmentOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDivideAssignmentOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is DivideAssignmentOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

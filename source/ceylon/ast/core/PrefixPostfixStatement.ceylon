@@ -14,6 +14,9 @@ shared class PrefixPostfixStatement(expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPrefixPostfixStatement(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPrefixPostfixStatement(this);
+
     shared actual Boolean equals(Object that) {
         if (is PrefixPostfixStatement that) {
             return expression == that.expression;

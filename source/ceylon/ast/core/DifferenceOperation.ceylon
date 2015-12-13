@@ -29,6 +29,9 @@ shared class DifferenceOperation(minuend, subtrahend)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDifferenceOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDifferenceOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is DifferenceOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

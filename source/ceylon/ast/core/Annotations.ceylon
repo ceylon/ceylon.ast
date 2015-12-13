@@ -27,6 +27,9 @@ shared class Annotations(anonymousAnnotation = null, annotations = [])
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformAnnotations(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitAnnotations(this);
+
     shared actual Boolean equals(Object that) {
         if (is Annotations that) {
             if (exists anonymousAnnotation) {

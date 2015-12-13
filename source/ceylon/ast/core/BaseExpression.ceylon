@@ -20,6 +20,9 @@ shared class BaseExpression(nameAndArgs)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBaseExpression(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitBaseExpression(this);
+
     shared actual Boolean equals(Object that) {
         if (is BaseExpression that) {
             return nameAndArgs == that.nameAndArgs;

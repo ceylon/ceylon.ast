@@ -17,6 +17,9 @@ shared class ExtendedType(target)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExtendedType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitExtendedType(this);
+
     shared actual Boolean equals(Object that) {
         if (is ExtendedType that) {
             return target == that.target;

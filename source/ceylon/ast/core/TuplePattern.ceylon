@@ -32,6 +32,9 @@ shared class TuplePattern(elementPatterns, variadicElementPattern = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTuplePattern(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTuplePattern(this);
+
     shared actual Boolean equals(Object that) {
         if (is TuplePattern that) {
             if (exists variadicElementPattern) {

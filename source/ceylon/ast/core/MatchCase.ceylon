@@ -32,6 +32,9 @@ shared class MatchCase(expressions)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMatchCase(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitMatchCase(this);
+
     shared actual Boolean equals(Object that) {
         if (is MatchCase that) {
             return expressions == that.expressions;

@@ -29,6 +29,9 @@ shared class TryClause(block, resources = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTryClause(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTryClause(this);
+
     shared actual Boolean equals(Object that) {
         if (is TryClause that) {
             if (exists resources) {

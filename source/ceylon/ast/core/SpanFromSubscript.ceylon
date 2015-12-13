@@ -20,6 +20,9 @@ shared class SpanFromSubscript(from)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpanFromSubscript(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpanFromSubscript(this);
+
     shared actual Boolean equals(Object that) {
         if (is SpanFromSubscript that) {
             return from == that.from;

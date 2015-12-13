@@ -25,6 +25,9 @@ shared class Destructure(pattern, specifier, valueModifier = ValueModifier())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDestructure(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDestructure(this);
+
     shared actual Boolean equals(Object that) {
         if (is Destructure that) {
             return pattern == that.pattern && specifier == that.specifier && valueModifier == that.valueModifier;

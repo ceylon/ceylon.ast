@@ -15,6 +15,9 @@ shared class ImportFunctionValueAlias(name)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImportFunctionValueAlias(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitImportFunctionValueAlias(this);
+
     shared actual Boolean equals(Object that) {
         if (is ImportFunctionValueAlias that) {
             return name == that.name;

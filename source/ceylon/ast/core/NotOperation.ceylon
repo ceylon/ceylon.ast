@@ -21,6 +21,9 @@ shared class NotOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformNotOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitNotOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is NotOperation that) {
             return operand == that.operand;

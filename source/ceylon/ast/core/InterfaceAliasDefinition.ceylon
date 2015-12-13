@@ -53,6 +53,9 @@ shared class InterfaceAliasDefinition(name, specifier, caseTypes = null, satisfi
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceAliasDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInterfaceAliasDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is InterfaceAliasDefinition that) {
             if (exists caseTypes) {

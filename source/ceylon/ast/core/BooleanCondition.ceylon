@@ -17,6 +17,9 @@ shared class BooleanCondition(condition)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBooleanCondition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitBooleanCondition(this);
+
     shared actual Boolean equals(Object that) {
         if (is BooleanCondition that) {
             return condition == that.condition;

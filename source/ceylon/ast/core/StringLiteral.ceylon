@@ -15,6 +15,9 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformStringLiteral(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitStringLiteral(this);
+
     shared actual Boolean equals(Object that) {
         if (is StringLiteral that) {
             return isVerbatim == that.isVerbatim && text == that.text;

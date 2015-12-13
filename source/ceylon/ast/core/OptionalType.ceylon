@@ -18,6 +18,9 @@ shared class OptionalType(definiteType)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOptionalType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOptionalType(this);
+
     shared actual Boolean equals(Object that) {
         if (is OptionalType that) {
             return definiteType == that.definiteType;

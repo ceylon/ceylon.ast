@@ -16,6 +16,9 @@ shared class ValueSpecification(name, specifier, qualifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueSpecification(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueSpecification(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueSpecification that) {
             if (exists qualifier) {

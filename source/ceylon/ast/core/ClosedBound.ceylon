@@ -12,6 +12,9 @@ shared class ClosedBound(endpoint)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClosedBound(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitClosedBound(this);
+
     shared actual Boolean equals(Object that) {
         if (is ClosedBound that) {
             return endpoint == that.endpoint;

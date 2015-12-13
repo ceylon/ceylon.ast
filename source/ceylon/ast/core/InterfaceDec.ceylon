@@ -28,6 +28,9 @@ shared class InterfaceDec(name, qualifier = DecQualifier())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceDec(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInterfaceDec(this);
+
     shared actual Boolean equals(Object that) {
         if (is InterfaceDec that) {
             if (exists qualifier) {

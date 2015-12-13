@@ -19,6 +19,9 @@ shared class Import(packageName, elements)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImport(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitImport(this);
+
     shared actual Boolean equals(Object that) {
         if (is Import that) {
             return packageName == that.packageName && elements == that.elements;

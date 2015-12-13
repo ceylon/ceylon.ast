@@ -21,6 +21,9 @@ shared class Assertion(conditions, annotations = Annotations())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformAssertion(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitAssertion(this);
+
     shared actual Boolean equals(Object that) {
         if (is Assertion that) {
             return conditions == that.conditions && annotations == that.annotations;

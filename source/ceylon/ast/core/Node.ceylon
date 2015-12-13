@@ -120,7 +120,8 @@ shared abstract class Node()
     
     "Visit this node with the given [[visitor]].
      Calls the appropriate `visitX` method on the visitor."
-    shared void visit(Visitor visitor) => transform(visitor);
+    shared formal void visit(Visitor visitor);
+
     "Visit the children of this node with the given [[visitor]].
      Calls [[visit]] on each [[child node|children]]."
     shared void visitChildren(Visitor visitor) {

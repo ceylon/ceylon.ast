@@ -24,6 +24,9 @@ shared class ValueDefinition(name, type, definition, annotations = Annotations()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueDefinition that) {
             return name == that.name && type == that.type && definition == that.definition && annotations == that.annotations;

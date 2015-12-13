@@ -60,6 +60,9 @@ shared class ConstructorDefinition(name, parameters, block, extendedType = null,
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformConstructorDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitConstructorDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ConstructorDefinition that) {
             if (exists extendedType) {

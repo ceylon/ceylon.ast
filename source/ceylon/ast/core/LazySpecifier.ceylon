@@ -12,6 +12,9 @@ shared class LazySpecifier(expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLazySpecifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitLazySpecifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is LazySpecifier that) {
             return expression == that.expression;

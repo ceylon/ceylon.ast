@@ -29,6 +29,9 @@ shared class ImportElements(elements = [], wildcard = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImportElements(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitImportElements(this);
+
     shared actual Boolean equals(Object that) {
         if (is ImportElements that) {
             if (exists wildcard) {

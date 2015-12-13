@@ -16,6 +16,9 @@ shared class TypeList(elements, variadic = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeList(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeList(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeList that) {
             if (exists variadic) {

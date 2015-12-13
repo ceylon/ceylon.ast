@@ -29,6 +29,9 @@ shared class UnionAssignmentOperation(target, other)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformUnionAssignmentOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitUnionAssignmentOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is UnionAssignmentOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

@@ -25,6 +25,9 @@ shared class QualifiedExpression(receiverExpression, nameAndArgs, memberOperator
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedExpression(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitQualifiedExpression(this);
+
     shared actual Boolean equals(Object that) {
         if (is QualifiedExpression that) {
             return receiverExpression == that.receiverExpression && nameAndArgs == that.nameAndArgs;

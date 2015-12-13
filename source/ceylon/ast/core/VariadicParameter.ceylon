@@ -20,6 +20,9 @@ shared class VariadicParameter(type, name, annotations = Annotations())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformVariadicParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitVariadicParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is VariadicParameter that) {
             return annotations == that.annotations && type == that.type && name == that.name;

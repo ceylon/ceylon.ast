@@ -20,6 +20,9 @@ shared class ForComprehensionClause(iterator, clause)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformForComprehensionClause(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitForComprehensionClause(this);
+
     shared actual Boolean equals(Object that) {
         if (is ForComprehensionClause that) {
             return iterator == that.iterator && clause == that.clause;

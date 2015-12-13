@@ -30,6 +30,9 @@ shared class Extension(nameAndArgs, arguments, qualifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExtension(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitExtension(this);
+
     shared actual Boolean equals(Object that) {
         if (is Extension that) {
             if (exists arguments) {

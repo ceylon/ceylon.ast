@@ -18,6 +18,9 @@ shared class IntersectionType(children)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIntersectionType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIntersectionType(this);
+
     shared actual Boolean equals(Object that) {
         if (is IntersectionType that) {
             return children == that.children;

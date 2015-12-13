@@ -154,13 +154,6 @@
    `ceylon.ast` to `ceylon.ast`.
    (That’s why the methods it uses are called `transform` and not `edit`.)
    
-   ## `Visitor`
-   
-   [[Visitor]] is a `Transformer<Anything>`, that is, a transformer
-   from `ceylon.ast` to `void` (nothing).
-   The traversal mechanism comes from [[WideningTransformer]], which you may
-   also use yourself.
-   
    
    # Meaning of an AST
    

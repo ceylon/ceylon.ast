@@ -40,6 +40,9 @@ shared class ScaleOperation(factor, scalable)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformScaleOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitScaleOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is ScaleOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

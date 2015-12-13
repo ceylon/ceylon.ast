@@ -16,6 +16,9 @@ shared class InvocationStatement(expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInvocationStatement(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInvocationStatement(this);
+
     shared actual Boolean equals(Object that) {
         if (is InvocationStatement that) {
             return expression == that.expression;

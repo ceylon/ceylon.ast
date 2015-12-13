@@ -10,6 +10,9 @@ shared class PostfixIncrementOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPostfixIncrementOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPostfixIncrementOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is PostfixIncrementOperation that) {
             return operand == that.operand;

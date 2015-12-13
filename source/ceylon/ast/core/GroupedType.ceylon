@@ -24,6 +24,9 @@ shared class GroupedType(type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformGroupedType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitGroupedType(this);
+
     shared actual Boolean equals(Object that) {
         if (is GroupedType that) {
             return type == that.type;

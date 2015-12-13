@@ -21,6 +21,9 @@ shared class ExistsCondition(tested, negated = false)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExistsCondition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitExistsCondition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ExistsCondition that) {
             return tested == that.tested && negated == that.negated;

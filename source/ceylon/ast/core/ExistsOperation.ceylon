@@ -21,6 +21,9 @@ shared class ExistsOperation(operand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformExistsOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitExistsOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is ExistsOperation that) {
             return operand == that.operand;

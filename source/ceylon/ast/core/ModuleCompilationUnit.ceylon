@@ -25,6 +25,9 @@ shared class ModuleCompilationUnit(moduleDescriptor, imports = [])
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleCompilationUnit(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitModuleCompilationUnit(this);
+
     shared actual Boolean equals(Object that) {
         if (is ModuleCompilationUnit that) {
             return moduleDescriptor == that.moduleDescriptor && imports == that.imports;

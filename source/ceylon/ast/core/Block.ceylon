@@ -34,6 +34,9 @@ shared class Block(content)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBlock(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitBlock(this);
+
     shared actual Boolean equals(Object that) {
         if (is Block that) {
             return content == that.content;

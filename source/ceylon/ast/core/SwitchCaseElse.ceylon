@@ -26,6 +26,9 @@ shared class SwitchCaseElse(clause, cases)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSwitchCaseElse(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSwitchCaseElse(this);
+
     shared actual Boolean equals(Object that) {
         if (is SwitchCaseElse that) {
             return clause == that.clause && cases == that.cases;

@@ -17,6 +17,9 @@ shared class UnionType(children)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformUnionType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitUnionType(this);
+
     shared actual Boolean equals(Object that) {
         if (is UnionType that) {
             return children == that.children;

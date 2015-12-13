@@ -39,6 +39,9 @@ shared class TypeAliasDefinition(name, specifier, typeParameters = null, typeCon
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeAliasDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeAliasDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeAliasDefinition that) {
             if (exists typeParameters) {

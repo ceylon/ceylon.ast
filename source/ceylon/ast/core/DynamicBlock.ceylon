@@ -23,6 +23,9 @@ shared class DynamicBlock(block)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDynamicBlock(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDynamicBlock(this);
+
     shared actual Boolean equals(Object that) {
         if (is DynamicBlock that) {
             return block == that.block;

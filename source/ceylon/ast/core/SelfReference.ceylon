@@ -19,6 +19,8 @@ shared class This() extends SelfReference() {
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformThis(this);
+    shared actual void visit(Visitor visitor)
+            => visitor.visitThis(this);
     equals(Object that) => that is This;
 }
 
@@ -34,6 +36,8 @@ shared class Super() extends SelfReference() {
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSuper(this);
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSuper(this);
     equals(Object that) => that is Super;
 }
 
@@ -49,6 +53,8 @@ shared class Outer() extends SelfReference() {
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOuter(this);
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOuter(this);
     equals(Object that) => that is Outer;
 }
 
@@ -63,5 +69,7 @@ shared class Package() extends SelfReference() {
     }
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPackage(this);
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPackage(this);
     equals(Object that) => that is Package;
 }

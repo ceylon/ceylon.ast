@@ -29,6 +29,9 @@ shared class FunctionShortcutDefinition(name, type, parameterLists, definition, 
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformFunctionShortcutDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitFunctionShortcutDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is FunctionShortcutDefinition that) {
             if (exists typeParameters) {

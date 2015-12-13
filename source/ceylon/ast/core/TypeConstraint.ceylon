@@ -33,6 +33,9 @@ shared class TypeConstraint(parameterName, caseTypes = null, satisfiedTypes = nu
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeConstraint(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeConstraint(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeConstraint that) {
             if (exists caseTypes) {

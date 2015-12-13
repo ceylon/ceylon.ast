@@ -23,6 +23,9 @@ shared class ValueSetterDefinition(name, definition, annotations = Annotations()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueSetterDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueSetterDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueSetterDefinition that) {
             return name == that.name && definition == that.definition && annotations == that.annotations;

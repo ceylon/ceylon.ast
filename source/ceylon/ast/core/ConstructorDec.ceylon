@@ -21,6 +21,9 @@ shared class ConstructorDec(name, qualifier)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformConstructorDec(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitConstructorDec(this);
+
     shared actual Boolean equals(Object that) {
         if (is ConstructorDec that) {
             return name == that.name && qualifier == that.qualifier;

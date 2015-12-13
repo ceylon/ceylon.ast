@@ -8,6 +8,9 @@ shared class CharacterLiteral(text) extends Literal(text) {
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCharacterLiteral(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitCharacterLiteral(this);
+
     shared actual Boolean equals(Object that) {
         if (is CharacterLiteral that) {
             return text == that.text;

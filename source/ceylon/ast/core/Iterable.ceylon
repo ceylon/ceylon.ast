@@ -15,6 +15,9 @@ shared class Iterable(argumentList)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIterable(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIterable(this);
+
     shared actual Boolean equals(Object that) {
         if (is Iterable that) {
             return argumentList == that.argumentList;

@@ -35,6 +35,9 @@ shared class CompilationUnit(declarations, imports = []) // we *could* provide a
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCompilationUnit(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitCompilationUnit(this);
+
     shared actual Boolean equals(Object that) {
         if (is CompilationUnit that) {
             return imports == that.imports && declarations == that.declarations;

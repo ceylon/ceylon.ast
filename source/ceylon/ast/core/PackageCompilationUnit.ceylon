@@ -19,6 +19,9 @@ shared class PackageCompilationUnit(packageDescriptor, imports = [])
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPackageCompilationUnit(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPackageCompilationUnit(this);
+
     shared actual Boolean equals(Object that) {
         if (is PackageCompilationUnit that) {
             return packageDescriptor == that.packageDescriptor && imports == that.imports;

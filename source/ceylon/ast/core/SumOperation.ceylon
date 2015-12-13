@@ -29,6 +29,9 @@ shared class SumOperation(leftSummand, rightSummand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSumOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSumOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is SumOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

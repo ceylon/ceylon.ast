@@ -28,6 +28,9 @@ shared class ElseOperation(optionalValue, defaultValue)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformElseOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitElseOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is ElseOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

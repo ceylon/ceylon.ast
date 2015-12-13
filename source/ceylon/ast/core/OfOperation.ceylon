@@ -23,6 +23,9 @@ shared class OfOperation(operand, type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOfOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOfOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is OfOperation that) {
             return operand == that.operand && type == that.type;

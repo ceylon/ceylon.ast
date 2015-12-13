@@ -18,6 +18,9 @@ shared class Invocation(invoked, arguments = PositionalArguments())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInvocation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInvocation(this);
+
     shared actual Boolean equals(Object that) {
         if (is Invocation that) {
             return invoked == that.invoked && arguments == that.arguments;

@@ -16,6 +16,9 @@ shared class SmallerOperation(leftOperand, rightOperand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSmallerOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSmallerOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is SmallerOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

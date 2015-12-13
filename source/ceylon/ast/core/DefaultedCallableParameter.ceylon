@@ -18,6 +18,9 @@ shared class DefaultedCallableParameter(parameter, specifier)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDefaultedCallableParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDefaultedCallableParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is DefaultedCallableParameter that) {
             return parameter == that.parameter && specifier == that.specifier;

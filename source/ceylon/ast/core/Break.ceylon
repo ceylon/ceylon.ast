@@ -12,6 +12,9 @@ shared class Break()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBreak(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitBreak(this);
+
     shared actual Boolean equals(Object that) {
         return that is Break;
     }

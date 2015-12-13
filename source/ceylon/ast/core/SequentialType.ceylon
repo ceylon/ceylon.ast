@@ -31,6 +31,9 @@ shared class SequentialType(elementType, length = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSequentialType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSequentialType(this);
+
     shared actual Boolean equals(Object that) {
         if (is SequentialType that) {
             if (exists length) {

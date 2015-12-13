@@ -28,6 +28,9 @@ shared class ThenOperation(condition, result)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformThenOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitThenOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is ThenOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

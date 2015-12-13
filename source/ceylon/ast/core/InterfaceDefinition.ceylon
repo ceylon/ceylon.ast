@@ -54,6 +54,9 @@ shared class InterfaceDefinition(name, body, caseTypes = null, satisfiedTypes = 
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInterfaceDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is InterfaceDefinition that) {
             if (exists caseTypes) {

@@ -28,6 +28,9 @@ shared class EntryOperation(key, item)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformEntryOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitEntryOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is EntryOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

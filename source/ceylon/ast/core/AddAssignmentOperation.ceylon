@@ -29,6 +29,9 @@ shared class AddAssignmentOperation(target, summand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformAddAssignmentOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitAddAssignmentOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is AddAssignmentOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

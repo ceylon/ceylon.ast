@@ -25,6 +25,9 @@ shared class LetExpression(patterns, expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLetExpression(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitLetExpression(this);
+
     shared actual Boolean equals(Object that) {
         if (is LetExpression that) {
             return patterns == that.patterns && expression == that.expression;

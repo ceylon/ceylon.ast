@@ -23,6 +23,9 @@ shared class DynamicValue(namedArguments = [], iterableArgument = ArgumentList()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDynamicValue(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDynamicValue(this);
+
     shared actual Boolean equals(Object that) {
         if (is DynamicValue that) {
             return namedArguments == that.namedArguments && iterableArgument == that.iterableArgument && modifier == that.modifier;

@@ -19,6 +19,9 @@ shared class IdenticalOperation(leftOperand, rightOperand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIdenticalOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIdenticalOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is IdenticalOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

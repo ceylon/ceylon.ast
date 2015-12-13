@@ -20,6 +20,9 @@ shared class Comprehension(clause)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformComprehension(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitComprehension(this);
+
     shared actual Boolean equals(Object that) {
         if (is Comprehension that) {
             return clause == that.clause;

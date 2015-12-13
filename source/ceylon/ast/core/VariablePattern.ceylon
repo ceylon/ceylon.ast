@@ -15,6 +15,9 @@ shared class VariablePattern(variable)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformVariablePattern(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitVariablePattern(this);
+
     shared actual Boolean equals(Object that) {
         if (is VariablePattern that) {
             return variable == that.variable;

@@ -20,6 +20,9 @@ shared class LazySpecification(name, specifier, parameterLists = [], qualifier =
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformLazySpecification(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitLazySpecification(this);
+
     shared actual Boolean equals(Object that) {
         if (is LazySpecification that) {
             if (exists qualifier) {

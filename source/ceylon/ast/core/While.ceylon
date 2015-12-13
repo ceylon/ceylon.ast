@@ -18,6 +18,9 @@ shared class While(conditions, block)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformWhile(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitWhile(this);
+
     shared actual Boolean equals(Object that) {
         if (is While that) {
             return conditions == that.conditions && block == that.block;

@@ -29,6 +29,9 @@ shared class IntersectAssignmentOperation(target, other)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIntersectAssignmentOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIntersectAssignmentOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is IntersectAssignmentOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

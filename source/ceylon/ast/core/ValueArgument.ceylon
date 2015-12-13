@@ -39,6 +39,9 @@ shared class ValueArgument(name, type, definition)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueArgument(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueArgument(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueArgument that) {
             return name == that.name && type == that.type && definition == that.definition;

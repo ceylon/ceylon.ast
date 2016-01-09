@@ -151,16 +151,18 @@ class ConcreteClassGenerator(
                  }
                  
                  \"Converts a RedHat AST [[``type``|J``type``]] to a `ceylon.ast` [[``type``]].\"
-                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``) {
-                     return ``type``(TODO);
+                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``, Anything(JNode,Node) update = noop) {
+                     value result = ``type``(TODO);
+                     update(``ltype``, result);
+                     return result;
                  }
                  
                  \"Compiles the given [[code]] for ``aAn`` ``splitType``
                   into ``aAn`` [[``type``]] using the Ceylon compiler
                   (more specifically, the rule for ``aAn`` \```ltype``\`).\"
-                 shared ``type``? compile``type``(String code) {
+                 shared ``type``? compile``type``(String code, Anything(JNode,Node) update = noop) {
                      if (exists j``type`` = createParser(code).``ltype``()) {
-                         return ``ltype``ToCeylon(j``type``);
+                         return ``ltype``ToCeylon(j``type``, update);
                      } else {
                          return null;
                      }

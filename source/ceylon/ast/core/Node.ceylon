@@ -46,9 +46,10 @@ shared abstract class Node()
      */
     HashMap<String,Object> extraInfo = HashMap<String,Object>();
     
+    // extra info; more typesafety: get, put, remove
+    
     "Returns the additional information attached to this node
      using the given [[key]], if any."
-    see (`function put`)
     shared Type? get<out Type>(Key<out Type> key)
             given Type satisfies Object {
         if (exists ret = extraInfo[key.id]) {
@@ -65,37 +66,38 @@ shared abstract class Node()
      with the same key previously, it is returned.
      
      If you don’t care about the previously attached information,
-     you might want to use [[set]] instead."
-    see (`function set`, `function get`, `function remove`)
+     you might want to use [[set]] instead,
+     which has a more convenient signature and might perform better."
     shared Type? put<Type>(Key<Type> key, Type item)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.put(key.id, item));
         return ret;
     }
     
-    "Attaches the given [[additional information|item]]
-     to this node using the given [[key]].
-     
-     Unlike [[put]], this method discards any previously attached information;
-     this makes it possible to declare the type parameter of [[key]]
-     contravariant, enabling users to abstract over keys of different types."
-    see (`function put`, `function get`, `function remove`)
-    shared void set<in Type>(Key<in Type> key, Type item)
-            given Type satisfies Object
-            => extraInfo.put(key.id, item);
-    
     "Removes the additional information attached to
      this node using the given [[key]] from this node,
      returning it."
-    see (`function put`)
     shared Type? remove<Type>(Key<out Type> key)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.remove(key.id));
         return ret;
     }
     
+    // extra info; less typesafety: getObject, set, delete
+    
+    "Attaches the given [[additional information|item]]
+     to this node using the given [[key]].
+     
+     Unlike [[put]], this method discards any previously attached information;
+     this makes it possible to declare the type parameter of [[key]]
+     contravariant, enabling users to abstract over keys of different types.
+     Internally, this also eliminates one reified type test within the method,
+     so `set` is usually faster than `put` too."
+    shared void set<in Type>(Key<in Type> key, Type item)
+            given Type satisfies Object
+            => extraInfo.put(key.id, item);
+    
     "Copies this node’s additional information to the [[other]] node."
-    see (`function put`, `function get`)
     shared void copyExtraInfoTo(Node other) {
         other.extraInfo.clear();
         other.extraInfo.putAll(extraInfo);

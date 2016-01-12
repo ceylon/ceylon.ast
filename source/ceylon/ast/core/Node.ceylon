@@ -8,8 +8,16 @@ import ceylon.collection {
    
    ### Additional information
    
-   You can attach additional information to individual AST nodes
-   using the [[put]] and [[get]] methods. Usage example:
+   You can attach additional information to individual AST nodes using typed keys.
+   Two sets of methods are available for this;
+   [[get]], [[put]] and [[remove]] offer more type safety and information,
+   while [[getObject]], [[set]] and [[delete]] can be slightly faster.
+   
+   - [[get]] and [[getObject]] retrieve a piece of attached information,
+   - [[put]] and [[set]] store a piece of attached information, and
+   - [[remove]] and [[delete]] discard a piece of attached information.
+   
+   Usage example:
    ~~~
    // toplevel
    shared Key<Token[]> tokensKey
@@ -19,7 +27,7 @@ import ceylon.collection {
    node.put(tokensKey, tokens);
    
    // somewhere else
-   assert (exists tokens = node.get(tokensKey));
+   assert (exists tokens = node.get(tokensKey)); // tokens has type Token[]
    ~~~"""
 shared abstract class Node()
         of Expression | Statement | Declaration | Annotation | Annotations | Parameter | TypeParameter | TypeParameters | CaseTypes | SatisfiedTypes | TypeConstraint | PackageDescriptor | ModuleImport | ModuleBody | ModuleDescriptor | ImportAlias | ImportWildcard | ImportElement | ImportElements | Import | AnyCompilationUnit | Condition | Conditions | IfClause | ElseClause | ExtendedType | ClassSpecifier | TypeSpecifier | Variable | ForIterator | ForClause | FailClause | ComprehensionClause | FinallyClause | CatchClause | Resource | Resources | TryClause | CaseItem | CaseClause | SwitchCases | SwitchClause | TypeIsh | Identifier | FullPackageName | ArgumentList | SpreadArgument | Arguments | NamedArgument | AnySpecifier | Parameters | Bound | Modifier | Body | Comprehension | Subscript | DecQualifier | AnyMemberOperator | Pattern | SpecifiedPattern | PatternList | CaseExpression | ExtensionOrConstruction
@@ -49,7 +57,12 @@ shared abstract class Node()
     // extra info; more typesafety: get, put, remove
     
     "Returns the additional information attached to this node
-     using the given [[key]], if any."
+     using the given [[key]], if any.
+     
+     If you don’t care about the return type,
+     you might want to use [[getObject]] instead,
+     which might perform better."
+    see (`function getObject`)
     shared Type? get<out Type>(Key<out Type> key)
             given Type satisfies Object {
         if (exists ret = extraInfo[key.id]) {
@@ -68,6 +81,7 @@ shared abstract class Node()
      If you don’t care about the previously attached information,
      you might want to use [[set]] instead,
      which has a more convenient signature and might perform better."
+    see (`function set`)
     shared Type? put<Type>(Key<Type> key, Type item)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.put(key.id, item));
@@ -76,7 +90,12 @@ shared abstract class Node()
     
     "Removes the additional information attached to
      this node using the given [[key]] from this node,
-     returning it."
+     returning it.
+     
+     If you don’t care about the returned information,
+     you might want to use [[delete]] instead,
+     which might perform better."
+    see (`function delete`)
     shared Type? remove<Type>(Key<out Type> key)
             given Type satisfies Object {
         assert (is Type? ret = extraInfo.remove(key.id));
@@ -84,6 +103,19 @@ shared abstract class Node()
     }
     
     // extra info; less typesafety: getObject, set, delete
+    
+    "Returns the additional information attached to this node
+     using the given [[key]], if any.
+     
+     Unlike [[get]], this method doesn’t return any particular type;
+     this makes it possible to accept keys of any type (`out Anything`),
+     enabling users to abstract over keys of different types.
+     Internally, this also eliminates one reified type test within the method
+     (as well as one reified type parameter),
+     so `getObject` is usually faster than `get` too."
+    see (`function get`)
+    shared Object? getObject(Key<out Anything> key)
+            => extraInfo[key.id];
     
     "Attaches the given [[additional information|item]]
      to this node using the given [[key]].
@@ -93,9 +125,23 @@ shared abstract class Node()
      contravariant, enabling users to abstract over keys of different types.
      Internally, this also eliminates one reified type test within the method,
      so `set` is usually faster than `put` too."
+    see (`function set`)
     shared void set<in Type>(Key<in Type> key, Type item)
             given Type satisfies Object
             => extraInfo.put(key.id, item);
+    
+    "Removes the additional information attached to
+     this node using the given [[key]] from this node.
+     
+     Unlike [[remove]], this method discards the previously attached information;
+     this makes it possible to accept keys of any type (`out Anything`),
+     enabling users to abstract over keys of different types.
+     Internally, this also eliminates one reified type test within the method
+     (as well as one reified type parameter),
+     so `delete` is usually faster than `remove` too."
+    see (`function remove`)
+    shared void delete(Key<out Anything> key)
+            => extraInfo.remove(key.id);
     
     "Copies this node’s additional information to the [[other]] node."
     shared void copyExtraInfoTo(Node other) {

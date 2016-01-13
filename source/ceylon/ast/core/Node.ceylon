@@ -147,7 +147,37 @@ shared abstract class Node()
     shared void copyExtraInfoTo(Node other) {
         other.extraInfo.clear();
         other.extraInfo.putAll(extraInfo);
+        other.data = data;
     }
+    
+    "An additional field for any extra data
+     that an application may want to attach to a node.
+     
+     Use of this field is **strongly discouraged**.
+     Instead, use [[get]], [[put]], and [[remove]] with [[keys|Key]],
+     which offers the following advantages:
+     
+     - full type safety,
+     - the ability to attach arbitrarily many pieces of information
+       by using multiple keys, and
+     - isolation of information attached by different modules.
+     
+     In other words, this field is not typesafe,
+     only allows for a single object to be attached,
+     and offers no protection against multiple modules each attempting to register information here,
+     overwriting each other’s information.
+     
+     To mitigate the last point, it is **extremely strongly recommended**
+     that this field only be used by applications, never by libraries.
+     There should only be one application at runtime,
+     so this application would be in a position to know that it is exclusively accessing this field on any given node.
+     Libraries on the other hand have no such guarantee,
+     since they might be used together with other libraries
+     without knowing whether those use this field.
+     
+     It is emphasized again that you should **not** use this field
+     unless you absolutely need the performance benefit it brings."
+    shared variable Anything data = null;
     
     "Transform this node with the given [[transformer]] by calling the appropriate
      `transformX` method on the transformer.

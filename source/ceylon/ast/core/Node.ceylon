@@ -52,7 +52,9 @@ shared abstract class Node()
      
      [gist]: https://gist.github.com/lucaswerkmeister/b95470259328dea550ad
      */
-    HashMap<String,Object> extraInfo = HashMap<String,Object>();
+    variable HashMap<String,Object>? extraInfoMemo = null;
+    HashMap<String,Object> extraInfo
+            => extraInfoMemo else (extraInfoMemo = HashMap<String,Object>());
     
     // extra info; more typesafety: get, put, remove
     

@@ -30,6 +30,9 @@ shared class TypeParameter(parameterName, variance = null, defaultArgument = nul
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeParameter that) {
             if (exists variance) {

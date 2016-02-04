@@ -17,6 +17,9 @@ shared class IfClause(conditions, block)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIfClause(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIfClause(this);
+
     shared actual Boolean equals(Object that) {
         if (is IfClause that) {
             return conditions == that.conditions && block == that.block;

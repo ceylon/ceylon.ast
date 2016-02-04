@@ -27,6 +27,9 @@ shared class AssignmentStatement(expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformAssignmentStatement(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitAssignmentStatement(this);
+
     shared actual Boolean equals(Object that) {
         if (is AssignmentStatement that) {
             return expression == that.expression;

@@ -28,6 +28,9 @@ shared class ForFail(forClause, failClause = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformForFail(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitForFail(this);
+
     shared actual Boolean equals(Object that) {
         if (is ForFail that) {
             if (exists failClause) {

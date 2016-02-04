@@ -16,6 +16,9 @@ shared class OpenBound(endpoint)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOpenBound(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOpenBound(this);
+
     shared actual Boolean equals(Object that) {
         if (is OpenBound that) {
             return endpoint == that.endpoint;

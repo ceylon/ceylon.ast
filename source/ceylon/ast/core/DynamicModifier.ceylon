@@ -7,6 +7,9 @@ shared class DynamicModifier()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDynamicModifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDynamicModifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is DynamicModifier that) {
             return text == that.text;

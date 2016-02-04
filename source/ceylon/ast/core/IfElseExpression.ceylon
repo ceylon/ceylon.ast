@@ -34,6 +34,9 @@ shared class IfElseExpression(conditions, thenExpression, elseExpression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIfElseExpression(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIfElseExpression(this);
+
     shared actual Boolean equals(Object that) {
         if (is IfElseExpression that) {
             return conditions == that.conditions && thenExpression == that.thenExpression && elseExpression == that.elseExpression;

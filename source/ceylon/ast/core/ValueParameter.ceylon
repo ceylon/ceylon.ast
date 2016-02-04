@@ -22,6 +22,9 @@ shared class ValueParameter(type, name, annotations = Annotations())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueParameter(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueParameter(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueParameter that) {
             return annotations == that.annotations && type == that.type && name == that.name;

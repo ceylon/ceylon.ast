@@ -34,6 +34,9 @@ shared class ObjectArgument(name, body, extendedType = null, satisfiedTypes = nu
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformObjectArgument(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitObjectArgument(this);
+
     shared actual Boolean equals(Object that) {
         if (is ObjectArgument that) {
             if (exists extendedType) {

@@ -10,6 +10,9 @@ shared class IterableType(variadicType)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIterableType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIterableType(this);
+
     shared actual Boolean equals(Object that) {
         if (is IterableType that) {
             return variadicType == that.variadicType;

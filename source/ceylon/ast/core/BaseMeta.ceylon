@@ -24,6 +24,9 @@ shared class BaseMeta(nameAndArgs, packageQualifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBaseMeta(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitBaseMeta(this);
+
     shared actual Boolean equals(Object that) {
         if (is BaseMeta that) {
             if (exists packageQualifier) {

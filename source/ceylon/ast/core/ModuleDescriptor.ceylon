@@ -38,6 +38,9 @@ shared class ModuleDescriptor(name, version, body = ModuleBody(), annotations = 
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleDescriptor(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitModuleDescriptor(this);
+
     shared actual Boolean equals(Object that) {
         if (is ModuleDescriptor that) {
             return name == that.name && version == that.version && body == that.body && annotations == that.annotations;

@@ -28,6 +28,9 @@ shared class InterfaceBody(content)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceBody(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitInterfaceBody(this);
+
     shared actual Boolean equals(Object that) {
         if (is InterfaceBody that) {
             return content == that.content;

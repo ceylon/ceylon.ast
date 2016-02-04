@@ -11,6 +11,9 @@ shared class MemberNameWithTypeArguments(name, typeArguments = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMemberNameWithTypeArguments(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitMemberNameWithTypeArguments(this);
+
     shared actual Boolean equals(Object that) {
         if (is MemberNameWithTypeArguments that) {
             if (exists typeArguments) {

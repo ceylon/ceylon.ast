@@ -16,6 +16,9 @@ shared class TypeArguments(typeArguments)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeArguments(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeArguments(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeArguments that) {
             return typeArguments == that.typeArguments;

@@ -20,6 +20,9 @@ shared class EqualOperation(leftOperand, rightOperand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformEqualOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitEqualOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is EqualOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

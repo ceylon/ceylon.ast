@@ -16,6 +16,9 @@ shared class SafeMemberOperator()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSafeMemberOperator(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSafeMemberOperator(this);
+
     shared actual Boolean equals(Object that) {
         return that is SafeMemberOperator;
     }

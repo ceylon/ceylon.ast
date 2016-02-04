@@ -15,6 +15,9 @@ shared class GroupedExpression(innerExpression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformGroupedExpression(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitGroupedExpression(this);
+
     shared actual Boolean equals(Object that) {
         if (is GroupedExpression that) {
             return innerExpression == that.innerExpression;

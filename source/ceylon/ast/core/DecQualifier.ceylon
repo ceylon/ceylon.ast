@@ -24,6 +24,9 @@ shared class DecQualifier(components = [], packageQualifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDecQualifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDecQualifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is DecQualifier that) {
             if (exists packageQualifier) {

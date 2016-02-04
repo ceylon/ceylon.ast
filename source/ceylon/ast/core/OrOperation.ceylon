@@ -20,6 +20,9 @@ shared class OrOperation(leftOperand, rightOperand)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformOrOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitOrOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is OrOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

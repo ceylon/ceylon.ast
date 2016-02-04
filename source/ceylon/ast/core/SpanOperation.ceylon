@@ -29,6 +29,9 @@ shared class SpanOperation(first, last)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpanOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpanOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is SpanOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

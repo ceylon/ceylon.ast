@@ -60,6 +60,9 @@ shared class CallableConstructorDefinition(name, parameters, block, extendedType
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCallableConstructorDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitCallableConstructorDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is CallableConstructorDefinition that) {
             if (exists extendedType) {

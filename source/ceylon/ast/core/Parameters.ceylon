@@ -45,6 +45,9 @@ shared class Parameters(parameters = [])
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformParameters(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitParameters(this);
+
     shared actual Boolean equals(Object that) {
         if (is Parameters that) {
             return parameters == that.parameters;

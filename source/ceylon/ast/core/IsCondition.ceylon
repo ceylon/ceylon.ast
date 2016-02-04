@@ -22,6 +22,9 @@ shared class IsCondition(variable, negated = false)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIsCondition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIsCondition(this);
+
     shared actual Boolean equals(Object that) {
         if (is IsCondition that) {
             return variable == that.variable && negated == that.negated;

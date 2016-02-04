@@ -26,6 +26,9 @@ shared class ModuleImport(name, version, annotations = Annotations())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleImport(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitModuleImport(this);
+
     shared actual Boolean equals(Object that) {
         if (is ModuleImport that) {
             return name == that.name && version == that.version && annotations == that.annotations;

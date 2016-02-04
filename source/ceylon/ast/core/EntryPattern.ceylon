@@ -21,6 +21,9 @@ shared class EntryPattern(key, item)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformEntryPattern(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitEntryPattern(this);
+
     shared actual Boolean equals(Object that) {
         if (is EntryPattern that) {
             return key == that.key && item == that.item;

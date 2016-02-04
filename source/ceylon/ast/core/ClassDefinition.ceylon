@@ -67,6 +67,9 @@ shared class ClassDefinition(name, parameters, body, caseTypes = null, extendedT
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitClassDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ClassDefinition that) {
             if (exists caseTypes) {

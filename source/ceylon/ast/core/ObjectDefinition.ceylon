@@ -48,6 +48,9 @@ shared class ObjectDefinition(name, body, extendedType = null, satisfiedTypes = 
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformObjectDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitObjectDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is ObjectDefinition that) {
             if (exists extendedType) {

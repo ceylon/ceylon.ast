@@ -22,6 +22,9 @@ shared class ForClause(iterator, block)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformForClause(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitForClause(this);
+
     shared actual Boolean equals(Object that) {
         if (is ForClause that) {
             return iterator == that.iterator && block == that.block;

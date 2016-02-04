@@ -26,6 +26,9 @@ shared class SwitchClause(switched)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSwitchClause(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSwitchClause(this);
+
     shared actual Boolean equals(Object that) {
         if (is SwitchClause that) {
             return switched == that.switched;

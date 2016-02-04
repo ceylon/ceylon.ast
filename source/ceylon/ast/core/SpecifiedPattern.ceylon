@@ -17,6 +17,9 @@ shared class SpecifiedPattern(pattern, specifier)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpecifiedPattern(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpecifiedPattern(this);
+
     shared actual Boolean equals(Object that) {
         if (is SpecifiedPattern that) {
             return pattern == that.pattern && specifier == that.specifier;

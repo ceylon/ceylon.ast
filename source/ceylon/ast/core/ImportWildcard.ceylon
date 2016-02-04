@@ -9,6 +9,9 @@ shared class ImportWildcard()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImportWildcard(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitImportWildcard(this);
+
     shared actual Boolean equals(Object that) {
         return that is ImportWildcard;
     }

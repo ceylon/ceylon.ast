@@ -17,6 +17,9 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformQualifiedType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitQualifiedType(this);
+
     shared actual Boolean equals(Object that) {
         if (is QualifiedType that) {
             return nameAndArgs == that.nameAndArgs && qualifyingType == that.qualifyingType;

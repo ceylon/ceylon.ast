@@ -19,6 +19,9 @@ shared class ValueDec(name, qualifier = DecQualifier())
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueDec(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitValueDec(this);
+
     shared actual Boolean equals(Object that) {
         if (is ValueDec that) {
             return name == that.name && that.qualifier == qualifier;

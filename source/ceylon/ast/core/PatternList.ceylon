@@ -17,6 +17,9 @@ shared class PatternList(patterns)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformPatternList(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitPatternList(this);
+
     shared actual Boolean equals(Object that) {
         if (is PatternList that) {
             return patterns == that.patterns;

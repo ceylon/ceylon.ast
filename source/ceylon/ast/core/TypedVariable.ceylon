@@ -16,6 +16,9 @@ shared class TypedVariable(name, type, specifier = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypedVariable(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypedVariable(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypedVariable that) {
             if (exists specifier) {

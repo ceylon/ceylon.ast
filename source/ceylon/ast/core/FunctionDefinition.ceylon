@@ -36,6 +36,9 @@ shared class FunctionDefinition(name, type, parameterLists, definition, typePara
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformFunctionDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitFunctionDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is FunctionDefinition that) {
             if (exists typeParameters) {

@@ -71,6 +71,9 @@ class ConcreteClassGenerator(
                      shared actual Result transform<out Result>(Transformer<Result> transformer)
                              => transformer.transform``type``(this);
                      
+                     shared actual void visit(Visitor visitor)
+                             => visitor.visit``type``(this);
+                 
                      shared actual Boolean equals(Object that) {");
             if (nonempty params) {
                 value optionalParams = params.select((String->String elem) => elem.key.endsWith("?"));

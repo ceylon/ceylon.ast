@@ -20,6 +20,9 @@ shared class EntryType(key, item)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformEntryType(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitEntryType(this);
+
     shared actual Boolean equals(Object that) {
         if (is EntryType that) {
             return key == that.key && item == that.item;

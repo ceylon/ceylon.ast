@@ -24,6 +24,9 @@ shared class SpanSubscript(from, to)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpanSubscript(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpanSubscript(this);
+
     shared actual Boolean equals(Object that) {
         if (is SpanSubscript that) {
             return from == that.from && to == that.to;

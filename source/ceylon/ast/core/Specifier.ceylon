@@ -12,6 +12,9 @@ shared class Specifier(expression)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpecifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpecifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is Specifier that) {
             return expression == that.expression;

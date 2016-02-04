@@ -20,6 +20,9 @@ shared class ModuleBody(moduleImports = [])
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformModuleBody(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitModuleBody(this);
+
     shared actual Boolean equals(Object that) {
         if (is ModuleBody that) {
             return moduleImports == that.moduleImports;

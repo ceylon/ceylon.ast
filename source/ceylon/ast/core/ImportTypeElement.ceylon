@@ -36,6 +36,9 @@ shared class ImportTypeElement(name, importAlias = null, nestedImports = null)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImportTypeElement(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitImportTypeElement(this);
+
     shared actual Boolean equals(Object that) {
         if (is ImportTypeElement that) {
             if (exists importAlias) {

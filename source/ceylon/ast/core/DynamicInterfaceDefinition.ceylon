@@ -55,6 +55,9 @@ shared class DynamicInterfaceDefinition(name, body, caseTypes = null, satisfiedT
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDynamicInterfaceDefinition(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitDynamicInterfaceDefinition(this);
+
     shared actual Boolean equals(Object that) {
         if (is DynamicInterfaceDefinition that) {
             if (exists caseTypes) {

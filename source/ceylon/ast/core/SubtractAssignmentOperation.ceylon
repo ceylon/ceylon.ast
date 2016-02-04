@@ -28,6 +28,9 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSubtractAssignmentOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSubtractAssignmentOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is SubtractAssignmentOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

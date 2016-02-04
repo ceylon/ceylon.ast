@@ -23,6 +23,9 @@ shared class ProductOperation(leftFactor, rightFactor)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformProductOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitProductOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is ProductOperation that) {
             return leftOperand == that.leftOperand && rightOperand == that.rightOperand;

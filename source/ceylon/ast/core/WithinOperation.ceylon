@@ -25,6 +25,9 @@ shared class WithinOperation(operand, lowerBound, upperBound)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformWithinOperation(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitWithinOperation(this);
+
     shared actual Boolean equals(Object that) {
         if (is WithinOperation that) {
             return lowerBound == that.lowerBound && upperBound == that.upperBound;

@@ -16,6 +16,9 @@ shared class IsCase(type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformIsCase(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitIsCase(this);
+
     shared actual Boolean equals(Object that) {
         if (is IsCase that) {
             return type == that.type;

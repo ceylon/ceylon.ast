@@ -15,6 +15,9 @@ shared class TypeSpecifier(type)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeSpecifier(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitTypeSpecifier(this);
+
     shared actual Boolean equals(Object that) {
         if (is TypeSpecifier that) {
             return type == that.type;

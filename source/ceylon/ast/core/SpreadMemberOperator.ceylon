@@ -16,6 +16,9 @@ shared class SpreadMemberOperator()
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSpreadMemberOperator(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitSpreadMemberOperator(this);
+
     shared actual Boolean equals(Object that) {
         return that is SpreadMemberOperator;
     }

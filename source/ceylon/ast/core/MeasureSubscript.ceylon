@@ -24,6 +24,9 @@ shared class MeasureSubscript(from, length)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMeasureSubscript(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitMeasureSubscript(this);
+
     shared actual Boolean equals(Object that) {
         if (is MeasureSubscript that) {
             return from == that.from && length == that.length;

@@ -15,6 +15,9 @@ shared class Conditions(conditions)
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformConditions(this);
     
+    shared actual void visit(Visitor visitor)
+            => visitor.visitConditions(this);
+
     shared actual Boolean equals(Object that) {
         if (is Conditions that) {
             return conditions == that.conditions;

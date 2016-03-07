@@ -32,7 +32,7 @@
    
    This is especially important for the [[functionDefinition]],
    [[classDefinition]] and [[interfaceDefinition]] functions."""
-module ceylon.ast.create "1.2.1" {
-    shared import ceylon.ast.core "1.2.1";
-    import ceylon.collection "1.2.1";
+module ceylon.ast.create "1.2.2" {
+    shared import ceylon.ast.core "1.2.2";
+    import ceylon.collection "1.2.2";
 }

@@ -76,6 +76,7 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier sayLIdentifier = constructL("say");
     shared String->LIdentifier millisecondsLIdentifier = constructL("milliseconds");
     shared String->LIdentifier originLIdentifier = constructL("origin");
+    shared String->LIdentifier processLIdentifier = constructL("process");
     
     compile = compileIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

@@ -30,9 +30,11 @@ shared object classDec satisfies ConcreteTest<ClassDec,JClassLiteral> {
     shared String->ClassDec stringClassDec = construct(identifier.stringUIdentifier);
     shared String->ClassDec abcClassDec = construct("C"->UIdentifier("C"), "A.B"->DecQualifier([UIdentifier("A"), UIdentifier("B")]));
     shared String->ClassDec currentClassDec = construct(null, null);
+    shared String->ClassDec processClassDec = construct(identifier.processLIdentifier);
+    shared String->ClassDec pointOriginClassDec = construct(identifier.originLIdentifier, "Point"->DecQualifier([UIdentifier("Point")]));
     
     compile = compileClassDec;
     fromCeylon = RedHatTransformer.transformClassDec;
     toCeylon = classDecToCeylon;
-    codes = [stringClassDec, abcClassDec, currentClassDec];
+    codes = [stringClassDec, abcClassDec, currentClassDec, processClassDec, pointOriginClassDec];
 }

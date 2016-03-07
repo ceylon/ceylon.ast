@@ -30,9 +30,9 @@ shared ClassDec classDecToCeylon(JClassLiteral classDec, Anything(JNode,Node) up
             }
             value decQualifier = DecQualifier([], packageQualifier);
             update(jType, decQualifier);
-            result = ClassDec(uIdentifierToCeylon(jType.identifier, update), decQualifier);
+            result = ClassDec(identifierToCeylon(jType.identifier, update), decQualifier);
         }
-        case (is JQualifiedType) { result = ClassDec(uIdentifierToCeylon(jType.identifier, update), decQualifierToCeylon(jType.outerType, update)); }
+        case (is JQualifiedType) { result = ClassDec(identifierToCeylon(jType.identifier, update), decQualifierToCeylon(jType.outerType, update)); }
     } else {
         result = ClassDec(null, null);
     }

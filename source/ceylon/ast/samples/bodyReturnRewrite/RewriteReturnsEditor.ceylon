@@ -62,8 +62,4 @@ shared class RewriteReturnsEditor(LIdentifier returnValueName) satisfies Editor 
                     return ret;
                 }
             }).coalesced.sequence());
-    
-    // shortcuts to do less copying
-    transformStatement(Statement that) => that;
-    transformDeclaration(Declaration that) => that;
 }

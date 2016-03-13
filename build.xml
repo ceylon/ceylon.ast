@@ -5,24 +5,11 @@
     <property name="ceylon.executable" value="${dist.bin.dir}/ceylon"/>
     <property name="out.repo" location="modules"/>
     
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
-        <classpath>
-            <pathelement location="${dist.root.dir}/lib/ant-contrib-1.0b3.jar"/>
-        </classpath>
-    </taskdef>
-
-    <taskdef resource="taskdef.properties">
-        <classpath>
-            <pathelement path="${dist.root.dir}/osgi/lib/org.osgi.impl.bundle.repoindex.ant-2.1.2.jar" />
-        </classpath>
-    </taskdef>
-
-    
     <!-- Local repository -->
     <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
     
     <path id="ant-tasks">
-        <pathelement location="${ceylon.ant.lib}"/>
+        <pathelement location="${dist.libs.dir}/ceylon-ant.jar"/>
     </path>
     
     <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>

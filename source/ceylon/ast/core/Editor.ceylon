@@ -25,12 +25,7 @@
        }
    }
    ~~~
-   will insert a print statement at the beginning and end of every function block in the AST.
-   
-   Note that this deep copy of the AST can be expensive; if you know that you will not touch
-   certain parts of the AST – for example, you only edit function bodies, and never individual instructions –
-   you might want to override some methods to `return this` instead of a deep copy
-   (in this example, override [[transformStatement]])."""
+   will insert a print statement at the beginning and end of every function block in the AST."""
 shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand));

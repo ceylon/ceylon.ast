@@ -311,9 +311,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default FunctionDeclaration transformFunctionDeclaration(FunctionDeclaration that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    shared actual default FunctionDefinition transformFunctionDefinition(FunctionDefinition that) {
-        return that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformBlock(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
-    }
+    shared actual default FunctionDefinition transformFunctionDefinition(FunctionDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrVoidModifierOrFunctionModifierOrDynamicModifier(that.type), that.parameterLists.collect(transformParameters), transformBlock(that.definition), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations));
     shared actual default FunctionExpression transformFunctionExpression(FunctionExpression that)
             => that.copy(that.parameterLists.collect(transformParameters), transformLazySpecifierOrBlock(that.definition), nullsafeInvoke(that.type, transformFunctionModifierOrVoidModifier));
     shared actual default FunctionModifier transformFunctionModifier(FunctionModifier that)
@@ -340,9 +339,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformConditions(that.conditions), transformComprehensionClause(that.clause));
     shared actual default IfElse transformIfElse(IfElse that)
             => that.copy(transformIfClause(that.ifClause), nullsafeInvoke(that.elseClause, transformElseClause));
-    shared actual default IfElseExpression transformIfElseExpression(IfElseExpression that) {
-        return that.copy(transformConditions(that.conditions), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.elseExpression));
-    }
+    shared actual default IfElseExpression transformIfElseExpression(IfElseExpression that)
+            => that.copy(transformConditions(that.conditions), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.elseExpression));
     shared actual default Import transformImport(Import that)
             => that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements));
     shared actual ImportAlias transformImportAlias(ImportAlias that) {
@@ -819,7 +817,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is UnaryArithmeticOperation ret = super.transformUnaryArithmeticOperation(that));
         return ret;
     }
-    
     shared actual UnaryIshOperation transformUnaryIshOperation(UnaryIshOperation that) {
         assert (is UnaryIshOperation ret = super.transformUnaryIshOperation(that));
         return ret;
@@ -852,9 +849,8 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => that.copy(transformLIdentifier(that.name), transformDecQualifier(that.qualifier));
     shared actual default ValueDeclaration transformValueDeclaration(ValueDeclaration that)
             => that.copy(transformLIdentifier(that.name), transformTypeOrVariadicTypeOrDynamicModifier(that.type), transformAnnotations(that.annotations));
-    shared actual default ValueDefinition transformValueDefinition(ValueDefinition that) {
-        return that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
-    }
+    shared actual default ValueDefinition transformValueDefinition(ValueDefinition that)
+            => that.copy(transformLIdentifier(that.name), transformTypeOrValueModifierOrDynamicModifier(that.type), transformAnySpecifier(that.definition), transformAnnotations(that.annotations));
     shared actual ValueExpression transformValueExpression(ValueExpression that) {
         assert (is ValueExpression ret = super.transformValueExpression(that));
         return ret;

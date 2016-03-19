@@ -74,16 +74,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ArgumentList transformArgumentList(ArgumentList that) {
-        value listedArguments = [for (listedArgument in that.listedArguments) transformExpression(listedArgument)];
-        SpreadArgument|Comprehension? sequenceArgument;
-        if (exists seq = that.sequenceArgument) {
-            switch (seq)
-            case (is SpreadArgument) { sequenceArgument = transformSpreadArgument(seq); }
-            case (is Comprehension) { sequenceArgument = transformComprehension(seq); }
-        } else {
-            sequenceArgument = null;
+        SpreadArgument|Comprehension transformSpreadArgumentOrComprehension(SpreadArgument|Comprehension that) {
+            switch (that)
+            case (is SpreadArgument) { return transformSpreadArgument(that); }
+            case (is Comprehension) { return transformComprehension(that); }
         }
-        return that.copy(listedArguments, sequenceArgument);
+        return that.copy(that.listedArguments.collect(transformExpression), nullsafeInvoke(that.sequenceArgument, transformSpreadArgumentOrComprehension));
     }
     shared actual Arguments transformArguments(Arguments that) {
         assert (is Arguments ret = super.transformArguments(that));

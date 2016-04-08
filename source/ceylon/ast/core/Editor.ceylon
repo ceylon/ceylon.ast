@@ -568,25 +568,25 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is PostfixOperation ret = super.transformPostfixOperation(that));
         return ret;
     }
-    shared actual default PrePostfixingExpression transformPrePostfixingExpression(PrePostfixingExpression that) {
+    shared actual PrePostfixingExpression transformPrePostfixingExpression(PrePostfixingExpression that) {
         assert (is PrePostfixingExpression ret = super.transformPrePostfixingExpression(that));
         return ret;
     }
-    shared actual default ExponentiatingExpression transformExponentiatingExpression(ExponentiatingExpression that) {
+    shared actual ExponentiatingExpression transformExponentiatingExpression(ExponentiatingExpression that) {
         assert (is ExponentiatingExpression ret = super.transformExponentiatingExpression(that));
         return ret;
     }
-    shared actual default InvertingExpression transformInvertingExpression(InvertingExpression that) {
+    shared actual InvertingExpression transformInvertingExpression(InvertingExpression that) {
         assert (is InvertingExpression ret = super.transformInvertingExpression(that));
         return ret;
     }
-    shared actual default IntersectingExpression transformIntersectingExpression(IntersectingExpression that) {
+    shared actual IntersectingExpression transformIntersectingExpression(IntersectingExpression that) {
         assert (is IntersectingExpression ret = super.transformIntersectingExpression(that));
         return ret;
     }
     shared actual default SpecifiedPattern transformSpecifiedPattern(SpecifiedPattern that)
             => editNode(that) then that.copy(transformPattern(that.pattern), transformSpecifier(that.specifier)) else that;
-    shared actual default StructureExpression transformStructureExpression(StructureExpression that) {
+    shared actual StructureExpression transformStructureExpression(StructureExpression that) {
         assert (is StructureExpression ret = super.transformStructureExpression(that));
         return ret;
     }
@@ -594,55 +594,55 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => editNode(that) then that.copy(transformSwitchClause(that.clause), that.caseExpressions.collect(transformCaseExpression), nullsafeInvoke(that.elseExpression, transformDisjoiningExpressionOrIfElseExpressionOrLetExpression)) else that;
     shared actual default TuplePattern transformTuplePattern(TuplePattern that)
             => editNode(that) then that.copy(that.elementPatterns.collect(transformPattern), nullsafeInvoke(that.variadicElementPattern, transformVariadicVariable)) else that;
-    shared actual default UnioningExpression transformUnioningExpression(UnioningExpression that) {
+    shared actual UnioningExpression transformUnioningExpression(UnioningExpression that) {
         assert (is UnioningExpression ret = super.transformUnioningExpression(that));
         return ret;
     }
-    shared actual default MultiplyingExpression transformMultiplyingExpression(MultiplyingExpression that) {
+    shared actual MultiplyingExpression transformMultiplyingExpression(MultiplyingExpression that) {
         assert (is MultiplyingExpression ret = super.transformMultiplyingExpression(that));
         return ret;
     }
-    shared actual default ScalingExpression transformScalingExpression(ScalingExpression that) {
+    shared actual ScalingExpression transformScalingExpression(ScalingExpression that) {
         assert (is ScalingExpression ret = super.transformScalingExpression(that));
         return ret;
     }
-    shared actual default AddingExpression transformAddingExpression(AddingExpression that) {
+    shared actual AddingExpression transformAddingExpression(AddingExpression that) {
         assert (is AddingExpression ret = super.transformAddingExpression(that));
         return ret;
     }
-    shared actual default SpanningExpression transformSpanningExpression(SpanningExpression that) {
+    shared actual SpanningExpression transformSpanningExpression(SpanningExpression that) {
         assert (is SpanningExpression ret = super.transformSpanningExpression(that));
         return ret;
     }
-    shared actual default ExistsNonemptyExpression transformExistsNonemptyExpression(ExistsNonemptyExpression that) {
+    shared actual ExistsNonemptyExpression transformExistsNonemptyExpression(ExistsNonemptyExpression that) {
         assert (is ExistsNonemptyExpression ret = super.transformExistsNonemptyExpression(that));
         return ret;
     }
-    shared actual default ComparingExpression transformComparingExpression(ComparingExpression that) {
+    shared actual ComparingExpression transformComparingExpression(ComparingExpression that) {
         assert (is ComparingExpression ret = super.transformComparingExpression(that));
         return ret;
     }
-    shared actual default EquatingExpression transformEquatingExpression(EquatingExpression that) {
+    shared actual EquatingExpression transformEquatingExpression(EquatingExpression that) {
         assert (is EquatingExpression ret = super.transformEquatingExpression(that));
         return ret;
     }
-    shared actual default NegatingExpression transformNegatingExpression(NegatingExpression that) {
+    shared actual NegatingExpression transformNegatingExpression(NegatingExpression that) {
         assert (is NegatingExpression ret = super.transformNegatingExpression(that));
         return ret;
     }
-    shared actual default ConjoiningExpression transformConjoiningExpression(ConjoiningExpression that) {
+    shared actual ConjoiningExpression transformConjoiningExpression(ConjoiningExpression that) {
         assert (is ConjoiningExpression ret = super.transformConjoiningExpression(that));
         return ret;
     }
-    shared actual default DisjoiningExpression transformDisjoiningExpression(DisjoiningExpression that) {
+    shared actual DisjoiningExpression transformDisjoiningExpression(DisjoiningExpression that) {
         assert (is DisjoiningExpression ret = super.transformDisjoiningExpression(that));
         return ret;
     }
-    shared actual default ThenElseExpression transformThenElseExpression(ThenElseExpression that) {
+    shared actual ThenElseExpression transformThenElseExpression(ThenElseExpression that) {
         assert (is ThenElseExpression ret = super.transformThenElseExpression(that));
         return ret;
     }
-    shared actual default AssigningExpression transformAssigningExpression(AssigningExpression that) {
+    shared actual AssigningExpression transformAssigningExpression(AssigningExpression that) {
         assert (is AssigningExpression ret = super.transformAssigningExpression(that));
         return ret;
     }

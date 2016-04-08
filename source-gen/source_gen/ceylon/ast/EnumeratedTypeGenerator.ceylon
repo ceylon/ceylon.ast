@@ -19,7 +19,7 @@ interface EnumeratedTypeGenerator
     
     shared void expandEditor()
             => expandFile("source/ceylon/ast/core/Editor.ceylon",
-        "    shared actual default ",
+        "    shared actual ",
         "``type`` transform``type``(``type`` that) {
                  assert (is ``type`` ret = super.transform``type``(that));
                  return ret;

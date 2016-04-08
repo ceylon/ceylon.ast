@@ -233,10 +233,17 @@ class ConcreteClassGenerator(
                 return "transform``type``(that.``name``)";
             }
         }
-        expandFile("source/ceylon/ast/core/Editor.ceylon",
-            "    shared actual default ",
-            "``type`` transform``type``(``type`` that)
-                         => that.copy(``", ".join { for (type->name in params) editing(type, name) }``);");
+        if (params.empty) {
+            expandFile("source/ceylon/ast/core/Editor.ceylon",
+                "    shared actual default ",
+                "``type`` transform``type``(``type`` that)
+                             => that;");
+        } else {
+            expandFile("source/ceylon/ast/core/Editor.ceylon",
+                "    shared actual default ",
+                "``type`` transform``type``(``type`` that)
+                             => that.copy(``", ".join { for (type->name in params) editing(type, name) }``);");
+        }
     }
     
     void expandCeylonExpressionTransformer() {

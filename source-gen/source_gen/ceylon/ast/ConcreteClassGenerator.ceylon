@@ -242,7 +242,7 @@ class ConcreteClassGenerator(
             expandFile("source/ceylon/ast/core/Editor.ceylon",
                 "    shared actual default ",
                 "``type`` transform``type``(``type`` that)
-                             => that.copy(``", ".join { for (type->name in params) editing(type, name) }``);");
+                             => editNode(that) then that.copy(``", ".join { for (type->name in params) editing(type, name) }``) else that;");
         }
     }
     

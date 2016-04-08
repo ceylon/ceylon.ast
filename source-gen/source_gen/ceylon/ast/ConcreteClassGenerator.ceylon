@@ -1,8 +1,7 @@
 import ceylon.file {
     Nil,
     parsePath,
-    File,
-    Directory
+    File
 }
 import ceylon.collection {
     ArrayList

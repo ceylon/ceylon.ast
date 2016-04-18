@@ -50,8 +50,8 @@
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 native ("jvm")
-module ceylon.ast.redhat "1.2.2" {
-    shared import ceylon.ast.core "1.2.2";
-    shared import com.redhat.ceylon.typechecker "1.2.2";
-    import ceylon.interop.java "1.2.2";
+module ceylon.ast.redhat "1.2.3" {
+    shared import ceylon.ast.core "1.2.3";
+    shared import com.redhat.ceylon.typechecker "1.2.3";
+    import ceylon.interop.java "1.2.3";
 }

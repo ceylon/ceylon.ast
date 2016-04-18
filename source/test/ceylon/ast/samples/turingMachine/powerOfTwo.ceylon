@@ -48,6 +48,14 @@ import com.redhat.ceylon.model.typechecker.util {
     ModuleManager
 }
 
+String uncolor(String string)
+        => string
+            .replace("\e[31m", "")
+            .replace("\e[32m", "")
+            .replace("\e[33m", "")
+            .replace("\e[34m", "")
+            .replace("\e[0m", "");
+
 "Tests the Type System Turing Machine
  with a TM that tests if the input length is a power of two."
 test
@@ -216,12 +224,14 @@ shared void powerOfTwo() {
         expected = 1;
         message = "Typechecker errors";
     };
+    value outString = uncolor(outSb.string);
+    value errString = uncolor(errSb.string);
     assertEquals {
-        actual = outSb.string;
+        actual = outString;
         expected = "1 errors, 0 warnings\n";
         message = "Typechecker standard output";
     };
     // the expected err line is ~1800 chars long, we’re not going to compare that :D
-    assert (errSb.string.startsWith("error [specified expression must be assignable to declared type of 'accept':"));
-    assert (errSb.string.contains("is not assignable to 'Accept'"));
+    assert (errString.startsWith("error [specified expression must be assignable to declared type of 'accept':"));
+    assert (errString.contains("is not assignable to 'Accept'"));
 }

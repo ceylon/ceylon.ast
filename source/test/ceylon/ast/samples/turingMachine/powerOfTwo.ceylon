@@ -71,8 +71,8 @@ shared void powerOfTwo() {
     }
     Integer requiredIterations(Integer wordLength)
             => (2 * (wordLength + 1)) // scan forward and backward (plus blank on each side)
-            * log2_ceil(wordLength) // until the word is fully reduced (log2(n) divisions)
-            + wordLength + 1; // then scan right to the end (plus blank) to see that we really have only one symbol left
+                    * log2_ceil(wordLength) // until the word is fully reduced (log2(n) divisions)
+                    + wordLength + 1; // then scan right to the end (plus blank) to see that we really have only one symbol left
     
     value turingMachine = createTuringMachine {
         states = TreeSet { byIncreasing(identity<String>); "Trash", "Start", "AfterFirst", "Even", "Odd", "Rewind", "Accept" };
@@ -127,7 +127,7 @@ shared void powerOfTwo() {
     };
     value scale = 3; // warning: scale ≥ 7 causes an OOME “GC overhead limit exceeded” when the typechecker tries to print the involved types
     value goodDriver = useTuringMachine("x".repeat(2 ^ scale), requiredIterations(2 ^ scale), "good");
-    value badDriver = useTuringMachine("x".repeat(2 ^ scale - 1), requiredIterations(2 ^ scale - 1), "bad");
+    value badDriver = useTuringMachine("x".repeat(2^scale - 1), requiredIterations(2^scale - 1), "bad");
     
     /*
      Now we feed those compilation units into the typechecker.

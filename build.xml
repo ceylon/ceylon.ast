@@ -103,8 +103,7 @@
         <ceylon-compile-js executable="${ceylon.executable}"
             verbose="${ceylon.verbosity}"
             encoding="UTF-8"
-            out="${out.repo}"
-            pack200="true">
+            out="${out.repo}">
             <moduleset refid="modules.test.js"/>
         </ceylon-compile-js>
     </target>

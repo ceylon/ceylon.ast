@@ -16,7 +16,7 @@ class ConcreteClassGenerator(
         satisfies ClassGenerator {
     
     assert (exists firstChar = type.first);
-    value ltype = String { firstChar.lowercased, *type.rest };
+    value ltype = initLCase(type);
     variable value splitType = type;
     for (char in 'A'..'Z') {
         splitType = splitType.replace(String { char }, String { ' ', char });

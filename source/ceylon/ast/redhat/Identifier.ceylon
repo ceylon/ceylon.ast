@@ -68,11 +68,16 @@ shared LIdentifier lIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[UIdentifier]]."
 throws (`class AssertionError`, "If the token type is not `UIDENTIFIER`.")
 shared UIdentifier uIdentifierToCeylon(JIdentifier identifier, Anything(JNode,Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
-    assert (is CommonToken token = identifier.mainToken);
-    "Must be UIDENTIFIER token"
-    assert (token.type == uidentifier);
-    value result = UIdentifier(identifier.text, isPrefixed(token));
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
+     For synthetic nodes produced by the typechecker during desugaring, a token
+     may not exist."
+    assert (is CommonToken? token = identifier.mainToken);
+    if (exists token) {
+        "Must be UIDENTIFIER token"
+        assert (token.type == uidentifier);
+    }
+    value prefixed = if (exists token) then isPrefixed(token) else false;
+    value result = UIdentifier(identifier.text, prefixed);
     update(identifier, result);
     return result;
 }

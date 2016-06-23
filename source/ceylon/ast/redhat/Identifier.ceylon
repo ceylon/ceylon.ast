@@ -29,14 +29,18 @@ Boolean isPrefixed(CommonToken token) {
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[Identifier]]."
 throws (`class AssertionError`, "If the token type is neither `LIDENTIFIER` nor `UIDENTIFIER`.")
 shared Identifier identifierToCeylon(JIdentifier identifier, Anything(JNode,Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
-    assert (is CommonToken token = identifier.mainToken);
-    value type = token.type;
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
+     For synthetic nodes produced by the typechecker during desugaring, a token
+     may not exist."
+    assert (is CommonToken? token = identifier.mainToken);
+    // desugaring *always* produces lidentifier's, right? :)
+    value type = token?.type else lidentifier;
     Identifier result;
+    value prefixed = if (exists token) then isPrefixed(token) else false;
     if (type == lidentifier) {
-        result = LIdentifier(identifier.text, isPrefixed(token));
+        result = LIdentifier(identifier.text, prefixed);
     } else if (type == uidentifier) {
-        result = UIdentifier(identifier.text, isPrefixed(token));
+        result = UIdentifier(identifier.text, prefixed);
     } else {
         throw AssertionError("Token type of Identifier token must be LIDENTIFIER (``lidentifier``) or UIDENTIFIER (``uidentifier``)");
     }
@@ -47,11 +51,16 @@ shared Identifier identifierToCeylon(JIdentifier identifier, Anything(JNode,Node
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[LIdentifier]]."
 throws (`class AssertionError`, "If the token type is not `LIDENTIFIER`.")
 shared LIdentifier lIdentifierToCeylon(JIdentifier identifier, Anything(JNode,Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
-    assert (is CommonToken token = identifier.mainToken);
-    "Must be LIDENTIFIER token"
-    assert (token.type == lidentifier);
-    value result = LIdentifier(identifier.text, isPrefixed(token));
+    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
+     For synthetic nodes produced by the typechecker during desugaring, a token
+     may not exist."
+    assert (is CommonToken? token = identifier.mainToken);
+    if (exists token) {
+        "Must be LIDENTIFIER token"
+        assert (token.type == lidentifier);
+    }
+    value prefixed = if (exists token) then isPrefixed(token) else false;
+    value result = LIdentifier(identifier.text, prefixed);
     update(identifier, result);
     return result;
 }

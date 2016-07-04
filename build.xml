@@ -288,7 +288,7 @@
             The ceylon-test ant task doesn’t support that, but luckily the 'ceylon test' tool does:
             Set the JAVA_OPTS environment variable.
         -->
-        <exec executable="ceylon">
+        <exec executable="${ceylon.executable}">
             <arg value="test"/>
             <arg value="test.ceylon.ast.core"/>
         	<arg value="test.ceylon.ast.create"/>

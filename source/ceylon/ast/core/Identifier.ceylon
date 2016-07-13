@@ -13,6 +13,7 @@ String[] keywords = [
 shared alias TypeName => UIdentifier;
 shared alias MemberName => LIdentifier;
 shared alias PackageName => LIdentifier;
+shared alias RepositoryType => LIdentifier;
 
 shared Boolean lidentifierNeedsPrefix(String name) {
     "Name must not be empty"

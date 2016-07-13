@@ -72,15 +72,13 @@ String stripStringLiteral(JStringLiteral literal, Integer? column = null) {
     StringBuilder ret = StringBuilder();
     value text = literal.mainToken.text[startQuoteLength : literal.mainToken.text.size - startQuoteLength - stopQuoteLength];
     value lines = text.lines;
-    if (exists firstLine = lines.first) {
-        ret.append(firstLine);
-        for (line in lines.rest) {
-            ret.appendNewline();
-            value parts = line.slice(toStrip);
-            "Multiline string content should align with start of string"
-            assert (parts[0].every(Character.whitespace));
-            ret.append(parts[1]);
-        }
+    ret.append(lines.first);
+    for (line in lines.rest) {
+        ret.appendNewline();
+        value parts = line.slice(toStrip);
+        "Multiline string content should align with start of string"
+        assert (parts[0].every(Character.whitespace));
+        ret.append(parts[1]);
     }
     return ret.string;
 }

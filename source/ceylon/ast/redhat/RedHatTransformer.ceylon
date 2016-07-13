@@ -3813,15 +3813,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     String padStringLiteral(String text, Integer initial) {
         StringBuilder ret = StringBuilder();
         value lines = text.lines;
-        if (exists firstLine = lines.first) {
-            ret.append(firstLine);
-            for (line in lines.rest) {
-                ret.appendNewline();
-                for (i in 0:initial) {
-                    ret.append(" ");
-                }
-                ret.append(line);
+        ret.append(lines.first);
+        for (line in lines.rest) {
+            ret.appendNewline();
+            for (i in 0:initial) {
+                ret.append(" ");
             }
+            ret.append(line);
         }
         return ret.string;
     }

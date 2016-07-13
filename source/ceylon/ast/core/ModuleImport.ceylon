@@ -1,6 +1,6 @@
 """An import of another module within a [[module descriptor|ModuleDescriptor]].
    
-   Each module import consists of a list of [[annotations]], followed by the keyword ‘`package`’, the [[name]]
+   Each module import consists of a list of [[annotations]], followed by the keyword ‘`import`’, the [[name]]
    of the imported module, and the [[version]] of the imported module, terminated by a semicolon.
    
    Examples:

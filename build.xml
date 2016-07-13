@@ -154,6 +154,14 @@
         </ceylon-test>
     </target>
 
+    <target name="test-jvm-tap" depends="compile-jvm"
+        description="Tests all the Ceylon AST modules for the JVM backend, writing a TAP report to test-jvm.tap">
+        <ceylon-test
+            tap="test-jvm.tap">
+            <moduleset refid="modules.test.jvm"/>
+        </ceylon-test>
+    </target>
+
     <target name="test-js" depends="compile-js"
         description="Tests all the Ceylon AST modules for the JS backend">
         <ceylon-test-js>
@@ -161,9 +169,20 @@
         </ceylon-test-js>
     </target>
 
+    <target name="test-js-tap" depends="compile-js"
+        description="Tests all the Ceylon AST modules for the JS backend, writing a TAP report to test-js.tap">
+        <ceylon-test-js
+            tap="test-js.tap">
+            <moduleset refid="modules.test.js"/>
+        </ceylon-test-js>
+    </target>
+
     <target name="test" depends="test-jvm,test-js"
         description="Test all the Ceylon AST modules"/>
-    
+
+    <target name="test-tap" depends="test-jvm-tap,test-js-tap"
+        description="Test all the Ceylon AST modules, writing TAP reports to test-jvm.tap and test-js.tap"/>
+
     <target name="doc" 
             description="Documents the Ceylon AST modules">
         <ceylon-doc executable="${ceylon.executable}"

@@ -125,7 +125,7 @@ shared void powerOfTwo() {
             else { throw IllegalStateException(state); }
         }
     };
-    value scale = 3; // warning: scale ≥ 7 causes an OOME “GC overhead limit exceeded” when the typechecker tries to print the involved types
+    value scale = 2; // warning: scale ≥ 7 causes an OOME “GC overhead limit exceeded” when the typechecker tries to print the involved types
     value goodDriver = useTuringMachine("x".repeat(2 ^ scale), requiredIterations(2 ^ scale), "good");
     value badDriver = useTuringMachine("x".repeat(2^scale - 1), requiredIterations(2^scale - 1), "bad");
     

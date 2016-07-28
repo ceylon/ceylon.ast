@@ -1,6 +1,9 @@
 "A key / index subscript expression,
  to select an element from a [[Correspondence]] expression.
  
+ The [[key]] may be any expression except for a [[SpanOperation]] or [[MeasureOperation]],
+ which would be ambiguous with a [[SpanSubscript]] or [[MeasureSubscript]].
+ 
  Examples:
  
      key
@@ -12,9 +15,14 @@ shared class KeySubscript(key)
     "The key / index expression itself.
      
      See [[Correspondence.get.key]]."
-    shared AddingExpression key;
+    shared Expression key;
     
-    shared actual [AddingExpression] children = [key];
+    "Key may not be a span or measure operation
+     due to ambiguity with span or measure subscripts
+     (wrap in grouped expression to resolve ambiguity)."
+    assert (!key is SpanOperation|MeasureOperation);
+    
+    shared actual [Expression] children = [key];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformKeySubscript(this);
@@ -33,7 +41,7 @@ shared class KeySubscript(key)
     shared actual Integer hash
             => 31 * key.hash;
     
-    shared KeySubscript copy(AddingExpression key = this.key) {
+    shared KeySubscript copy(Expression key = this.key) {
         value ret = KeySubscript(key);
         copyExtraInfoTo(ret);
         return ret;

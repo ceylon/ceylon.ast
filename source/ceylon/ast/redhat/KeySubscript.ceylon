@@ -12,9 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[Element|JElement]] to a `ceylon.ast` [[KeySubscript]]."
 shared KeySubscript keySubscriptToCeylon(JElement keySubscript, Anything(JNode,Node) update = noop) {
-    "Check precedence"
-    assert (is AddingExpression key = expressionToCeylon(keySubscript.expression, update));
-    value result = KeySubscript(key);
+    value result = KeySubscript(expressionToCeylon(keySubscript.expression, update));
     update(keySubscript, result);
     return result;
 }

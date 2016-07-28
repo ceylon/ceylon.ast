@@ -421,7 +421,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default Iterable transformIterable(Iterable that)
             => editNode(that) then that.copy(transformArgumentList(that.argumentList)) else that;
     shared actual default KeySubscript transformKeySubscript(KeySubscript that)
-            => editNode(that) then that.copy(transformAddingExpression(that.key)) else that;
+            => editNode(that) then that.copy(transformExpression(that.key)) else that;
     shared actual default LargeAsOperation transformLargeAsOperation(LargeAsOperation that)
             => editNode(that) then that.copy(transformExistsNonemptyExpression(that.leftOperand), transformExistsNonemptyExpression(that.rightOperand)) else that;
     shared actual default LargerOperation transformLargerOperation(LargerOperation that)

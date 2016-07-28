@@ -1,6 +1,5 @@
 import ceylon.ast.core {
     KeySubscript,
-    AddingExpression,
     Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {

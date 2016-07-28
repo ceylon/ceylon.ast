@@ -1,6 +1,6 @@
 import ceylon.ast.core {
     KeySubscript,
-    AddingExpression
+    Expression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -15,14 +15,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object keySubscript satisfies ConcreteTest<KeySubscript,JElement> {
     
-    String->KeySubscript construct(String->AddingExpression key)
+    String->KeySubscript construct(String->Expression key)
             => "``key.key``"->KeySubscript(key.item);
     
     shared String->KeySubscript iKeySubscript = construct(baseExpression.iExpression);
     shared String->KeySubscript aTimesBPlusCSubscript = construct(sumOperation.aTimesBPlusCExpression);
+    shared String->KeySubscript xElseOneSubscript = construct(elseOperation.xElseOneOperation);
     
     compile = compileKeySubscript;
     fromCeylon = RedHatTransformer.transformKeySubscript;
     toCeylon = keySubscriptToCeylon;
-    codes = [iKeySubscript, aTimesBPlusCSubscript];
+    codes = [iKeySubscript, aTimesBPlusCSubscript, xElseOneSubscript];
 }

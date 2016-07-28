@@ -23,6 +23,7 @@ shared object elseOperation satisfies ConcreteTest<ElseOperation,JDefaultOp> {
     
     // not tested directly, but used by other tests
     shared String->ElseOperation nameElseWorldStringLiteralExpression = construct(baseExpression.nameExpression, stringLiteral.worldStringLiteral);
+    shared String->ElseOperation xElseOneOperation = construct(baseExpression.xExpression, integerLiteral.oneIntegerLiteral);
     
     compile = compileElseOperation;
     fromCeylon = RedHatTransformer.transformElseOperation;

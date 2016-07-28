@@ -58,6 +58,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression atan2Expression = construct("atan2");
     shared String->BaseExpression sinExpression = construct("sin");
     shared String->BaseExpression cosExpression = construct("cos");
+    shared String->BaseExpression emptyExpression = construct("empty");
     
     compile = compileBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

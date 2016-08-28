@@ -21,8 +21,7 @@ shared GroupedExpression groupedExpressionToCeylon(JParExpression groupedExpress
  into a [[GroupedExpression]] using the Ceylon compiler
  (more specifically, the rule for a `parExpression`)."
 shared GroupedExpression? compileGroupedExpression(String code, Anything(JNode,Node) update = noop) {
-    //if (exists jGroupedExpression = createParser(code).parExpression()) {
-    if (is JParExpression jGroupedExpression = createParser(code).parExpression()) {
+    if (exists jGroupedExpression = createParser(code).parExpression()) {
         return groupedExpressionToCeylon(jGroupedExpression, update);
     } else {
         return null;

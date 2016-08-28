@@ -5,7 +5,8 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
-        JLazySpecifierExpression=LazySpecifierExpression
+        JLazySpecifierExpression=LazySpecifierExpression,
+        JParExpression=ParExpression
     }
 }
 import com.redhat.ceylon.compiler.typechecker.parser {
@@ -17,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 "Converts a RedHat AST [[LazySpecifierExpression|JLazySpecifierExpression]] to a `ceylon.ast` [[LazySpecifier]]."
 shared LazySpecifier lazySpecifierToCeylon(JLazySpecifierExpression lazySpecifier, Anything(JNode,Node) update = noop) {
     "Must be a “wrapper” Expression, not a grouping Expression"
-    assert (!lazySpecifier.expression.mainToken exists);
+    assert (!lazySpecifier.expression is JParExpression);
     "Must be a true lazy specifier"
     // The grammar rule functionSpecifier allows '= expression' and proceeds to create a LazySpecifierExpression($SPECIFY). madness
     assert (lazySpecifier.mainToken.type == compute);

@@ -188,6 +188,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JParameter=Parameter,
         JParameterList=ParameterList,
         JParameterizedExpression=ParameterizedExpression,
+        JParExpression=ParExpression,
         JPattern=Pattern,
         JPatternIterator=PatternIterator,
         JPositionalArgumentList=PositionalArgumentList,
@@ -1740,8 +1741,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JExpression transformGroupedExpression(GroupedExpression that) {
-        JExpression ret = JExpression(tokens.token("(", lparen));
+    shared actual JParExpression transformGroupedExpression(GroupedExpression that) {
+        JParExpression ret = JParExpression(tokens.token("(", lparen));
         ret.term = transformExpression(that.innerExpression);
         ret.endToken = tokens.token(")", rparen);
         return ret;

@@ -11,6 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JLiteral=Literal,
         JOuter=Outer,
         JPackage=Package,
+        JParExpression=ParExpression,
         JSelfExpression=SelfExpression,
         JSequenceEnumeration=SequenceEnumeration,
         JStringTemplate=StringTemplate,
@@ -22,7 +23,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Atom atomToCeylon(JAtom atom, Anything(JNode,Node) update = noop) {
     switch (atom)
     case (is JExpression) {
-        if (atom.mainToken exists) {
+        if (is JParExpression atom) {
             return groupedExpressionToCeylon(atom, update);
         } else {
             // a JTerm wrapped in a JExpression

@@ -9,11 +9,11 @@ import ceylon.ast.redhat {
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
-        JExpression=Expression
+        JParExpression=ParExpression
     }
 }
 
-shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JExpression> {
+shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JParExpression> {
     
     String->GroupedExpression construct(String->Expression expr)
             => "(``expr.key``)"->GroupedExpression(expr.item);

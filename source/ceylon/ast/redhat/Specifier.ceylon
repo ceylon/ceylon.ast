@@ -6,6 +6,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JLazySpecifierExpression=LazySpecifierExpression,
+        JParExpression=ParExpression,
         JSpecifierExpression=SpecifierExpression
     }
 }
@@ -18,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 throws (`class AssertionError`, "If [[specifier]] is a [[LazySpecifierExpression|JLazySpecifierExpression]]")
 shared Specifier specifierToCeylon(JSpecifierExpression specifier, Anything(JNode,Node) update = noop) {
     "Must be a “wrapper” Expression, not a grouping Expression"
-    assert (!specifier.expression.mainToken exists);
+    assert (!specifier.expression is JParExpression);
     "Must be a regular specifier"
     assert (!specifier is JLazySpecifierExpression);
     value result = Specifier(expressionToCeylon(specifier.expression.term, update));

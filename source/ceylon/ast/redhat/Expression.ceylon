@@ -10,6 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JIfExpression=IfExpression,
         JLetExpression=LetExpression,
         JOperatorExpression=OperatorExpression,
+        JParExpression=ParExpression,
         JPrimary=Primary,
         JSwitchExpression=SwitchExpression,
         JTerm=Term
@@ -20,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Expression expressionToCeylon(JTerm term, Anything(JNode,Node) update = noop) {
     switch (term)
     case (is JPrimary) {
-        if (is JExpression term, !term.mainToken exists) {
+        if (is JExpression term, !term is JParExpression) {
             // a JTerm wrapped in a JExpression
             return expressionToCeylon(term.term, update);
         }

@@ -19,6 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JNewLiteral=NewLiteral,
         JObjectExpression=ObjectExpression,
         JPackageLiteral=PackageLiteral,
+        JParExpression=ParExpression,
         JPrimary=Primary,
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression,
         JTypeParameterLiteral=TypeParameterLiteral,
@@ -30,7 +31,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared Primary primaryToCeylon(JPrimary primary, Anything(JNode,Node) update = noop) {
     switch (primary)
     case (is JAtom) {
-        if (is JExpression primary, !primary.mainToken exists) {
+        if (is JExpression primary, !primary is JParExpression) {
             // a JTerm wrapped in a JExpression
             assert (is Primary ret = expressionToCeylon(primary.term, update));
             return ret;

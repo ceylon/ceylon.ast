@@ -7,6 +7,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
         JExpression=Expression,
         JOperatorExpression=OperatorExpression,
+        JParExpression=ParExpression,
         JPrimary=Primary,
         JTerm=Term
     }
@@ -17,7 +18,7 @@ throws (`class AssertionError`, "If the [[term]] does not correspond to a [[Valu
 shared ValueExpression valueExpressionToCeylon(JTerm term, Anything(JNode,Node) update = noop) {
     switch (term)
     case (is JPrimary) {
-        if (is JExpression term, !term.mainToken exists) {
+        if (is JExpression term, !term is JParExpression) {
             // a JTerm wrapped in a JExpression
             return valueExpressionToCeylon(term.term, update);
         }

@@ -1444,6 +1444,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             qt.endToken = tokens.token(".", member_op);
             jst = qt;
         }
+        case (is SimpleType) {
+            value st = transformSimpleType(qualifier);
+            value qt = JQualifiedType(null);
+            qt.outerType = st;
+            qt.endToken = tokens.token(".", member_op);
+            jst = qt;
+        }
         case (null) {
             value bt = JBaseType(null);
             jst = bt;

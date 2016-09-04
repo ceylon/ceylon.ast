@@ -299,7 +299,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ExtendedType transformExtendedType(ExtendedType that)
             => editNode(that) then that.copy(transformExtensionOrConstruction(that.target)) else that;
     shared actual default Extension transformExtension(Extension that)
-            => editNode(that) then that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.arguments, transformPositionalArguments), nullsafeInvoke(that.qualifier, transformPackageQualifierOrSuper)) else that;
+            => editNode(that) then that.copy(transformTypeNameWithTypeArguments(that.nameAndArgs), nullsafeInvoke(that.arguments, transformPositionalArguments), nullsafeInvoke(that.qualifier, transformPackageQualifierOrSuperOrSimpleType)) else that;
     shared actual ExtensionOrConstruction transformExtensionOrConstruction(ExtensionOrConstruction that) {
         assert (is ExtensionOrConstruction ret = super.transformExtensionOrConstruction(that));
         return ret;
@@ -930,10 +930,11 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is VariablePattern) { return transformVariablePattern(that); }
         case (is TuplePattern) { return transformTuplePattern(that); }
     }
-    PackageQualifier|Super transformPackageQualifierOrSuper(PackageQualifier|Super that) {
+    PackageQualifier|Super|SimpleType transformPackageQualifierOrSuperOrSimpleType(PackageQualifier|Super|SimpleType that) {
         switch (that)
         case (is PackageQualifier) { return transformPackageQualifier(that); }
         case (is Super) { return transformSuper(that); }
+        case (is SimpleType) { return transformSimpleType(that); }
     }
     FunctionModifier|VoidModifier transformFunctionModifierOrVoidModifier(FunctionModifier|VoidModifier that) {
         switch (that)

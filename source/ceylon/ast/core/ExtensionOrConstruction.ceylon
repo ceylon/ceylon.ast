@@ -13,8 +13,11 @@ shared abstract class ExtensionOrConstruction()
     shared formal NameWithTypeArguments nameAndArgs;
     "The arguments to the extended class or invoked constructor, if any."
     shared formal PositionalArguments? arguments;
-    "The qualifier, if any."
-    shared formal BaseType|PackageQualifier|Super? qualifier;
+    "The qualifier, if any.
+     
+     (`QualifiedType` qualifiers are not covered by the specification,
+     but supported by some backends.)"
+    shared formal SimpleType|PackageQualifier|Super? qualifier;
     
-    shared actual formal <NameWithTypeArguments|PositionalArguments|BaseType|PackageQualifier|Super>[] children;
+    shared actual formal <NameWithTypeArguments|PositionalArguments|SimpleType|PackageQualifier|Super>[] children;
 }

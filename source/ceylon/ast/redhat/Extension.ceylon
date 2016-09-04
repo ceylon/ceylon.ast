@@ -4,6 +4,7 @@ import ceylon.ast.core {
     Node,
     PackageQualifier,
     PositionalArguments,
+    SimpleType,
     Super
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -44,7 +45,7 @@ shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, 
     value ta = anyTypeArgumentsToCeylon(type.typeArgumentList, update);
     TypeNameWithTypeArguments nameAndArgs = TypeNameWithTypeArguments(name, ta);
     update(extension, nameAndArgs);
-    PackageQualifier|Super? qualifier;
+    PackageQualifier|Super|SimpleType? qualifier;
     switch (type)
     case (is JBaseType) {
         if (type.packageQualified) {
@@ -56,10 +57,18 @@ shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, 
         }
     }
     case (is JQualifiedType) {
-        assert (is JSuperType ot = type.outerType);
-        value sq = Super();
-        update(ot, sq);
-        qualifier = sq;
+        switch (ot = type.outerType)
+        case (is JSuperType) {
+            value sq = Super();
+            update(ot, sq);
+            qualifier = sq;
+        }
+        case (is JSimpleType) {
+            qualifier = simpleTypeToCeylon(ot, update);
+        }
+        else {
+            throw AssertionError("Unknown kind of qualified type in extension");
+        }
     }
     value result = Extension(nameAndArgs, arguments, qualifier);
     update(extension, result);

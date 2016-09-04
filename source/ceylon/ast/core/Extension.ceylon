@@ -21,10 +21,11 @@ shared class Extension(nameAndArgs, arguments, qualifier = null)
      This can be:
      - a [[`package` qualifier|PackageQualifier]] to specify that the class belongs to the same package,
      - a [[`super` qualifier|Super]] to specify that the class is an inner class of the superclass, or
+     - a [[base or qualified type|SimpleType]], with backend-specific meaning, or
      - [[null]] to specify that the class is discovered the usual way."
-    shared actual PackageQualifier|Super? qualifier;
+    shared actual PackageQualifier|Super|SimpleType? qualifier;
     
-    shared actual <TypeNameWithTypeArguments|PositionalArguments|PackageQualifier|Super>[] children
+    shared actual <TypeNameWithTypeArguments|PositionalArguments|PackageQualifier|Super|SimpleType>[] children
             = concatenate([nameAndArgs], emptyOrSingleton(arguments), emptyOrSingleton(qualifier));
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -66,7 +67,7 @@ shared class Extension(nameAndArgs, arguments, qualifier = null)
     shared actual Integer hash
             => 31 * (nameAndArgs.hash + 31 * ((arguments?.hash else 0) + 31 * (qualifier?.hash else 0)));
     
-    shared Extension copy(TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs, PositionalArguments? arguments = this.arguments, PackageQualifier|Super? qualifier = this.qualifier) {
+    shared Extension copy(TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs, PositionalArguments? arguments = this.arguments, PackageQualifier|Super|SimpleType? qualifier = this.qualifier) {
         value ret = Extension(nameAndArgs, arguments, qualifier);
         copyExtraInfoTo(ret);
         return ret;

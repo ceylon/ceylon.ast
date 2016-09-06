@@ -1,5 +1,5 @@
 native ("jvm")
-module source_gen.ceylon.ast "1.2.3" {
-    import ceylon.collection "1.2.3";
-    import ceylon.file "1.2.3";
+module source_gen.ceylon.ast "1.3.0" {
+    import ceylon.collection "1.3.0";
+    import ceylon.file "1.3.0";
 }

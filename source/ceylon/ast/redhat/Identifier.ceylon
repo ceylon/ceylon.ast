@@ -38,9 +38,9 @@ shared Identifier identifierToCeylon(JIdentifier identifier, Anything(JNode,Node
     Identifier result;
     value prefixed = if (exists token) then isPrefixed(token) else false;
     if (type == lidentifier) {
-        result = LIdentifier(identifier.text, prefixed);
+        result = LIdentifier.internal(identifier.text, prefixed);
     } else if (type == uidentifier) {
-        result = UIdentifier(identifier.text, prefixed);
+        result = UIdentifier.internal(identifier.text, prefixed);
     } else {
         throw AssertionError("Token type of Identifier token must be LIDENTIFIER (``lidentifier``) or UIDENTIFIER (``uidentifier``)");
     }
@@ -60,7 +60,7 @@ shared LIdentifier lIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
         assert (token.type == lidentifier);
     }
     value prefixed = if (exists token) then isPrefixed(token) else false;
-    value result = LIdentifier(identifier.text, prefixed);
+    value result = LIdentifier.internal(identifier.text, prefixed);
     update(identifier, result);
     return result;
 }
@@ -77,7 +77,7 @@ shared UIdentifier uIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
         assert (token.type == uidentifier);
     }
     value prefixed = if (exists token) then isPrefixed(token) else false;
-    value result = UIdentifier(identifier.text, prefixed);
+    value result = UIdentifier.internal(identifier.text, prefixed);
     update(identifier, result);
     return result;
 }
@@ -91,7 +91,7 @@ shared LIdentifier pIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
     assert (is CommonToken token = identifier.mainToken);
     "Must be PIDENTIFIER token"
     assert (token.type == pidentifier);
-    value result = LIdentifier(identifier.text, isPrefixed(token));
+    value result = LIdentifier.internal(identifier.text);
     update(identifier, result);
     return result;
 }
@@ -105,7 +105,7 @@ shared LIdentifier aIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
     assert (is CommonToken token = identifier.mainToken);
     "Must be AIDENTIFIER token"
     assert (token.type == aidentifier);
-    value result = LIdentifier(identifier.text, isPrefixed(token));
+    value result = LIdentifier.internal(identifier.text);
     update(identifier, result);
     return result;
 }

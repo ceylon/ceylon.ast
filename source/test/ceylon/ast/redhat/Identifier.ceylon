@@ -84,3 +84,12 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     toCeylon = identifierToCeylon;
     codes = [lidLIdentifier, uidUIdentifier, uidLIdentifier, lidUIdentifier];
 }
+
+shared object identifierInternal satisfies ConversionTest<Identifier,JIdentifier> {
+    shared LIdentifier internalLIdentifier = LIdentifier.internal("$internal");
+    shared UIdentifier internalUIdentifier = UIdentifier.internal("$internal", true);
+    
+    fromCeylon = RedHatTransformer.transformIdentifier;
+    toCeylon = identifierToCeylon;
+    nodes = [internalLIdentifier, internalUIdentifier];
+}

@@ -2,7 +2,8 @@ import ceylon.test {
     test,
     assertEquals,
     assertNotEquals,
-    assertTrue
+    assertTrue,
+    assertFalse
 }
 import ceylon.ast.core {
     LIdentifier,
@@ -43,4 +44,23 @@ shared void identifierCeylonExpression() {
     test(UIdentifier("Uid"));
     test(LIdentifier("lid", true));
     test(UIdentifier("Uid", true));
+}
+
+test
+shared void identifierValid() {
+    assertTrue(LIdentifier("foo").valid);
+    assertTrue(LIdentifier.internal("bar").valid);
+    assertFalse(LIdentifier.internal("ba$").valid);
+    assertTrue(UIdentifier("Foo").valid);
+    assertTrue(UIdentifier.internal("Bar").valid);
+    assertFalse(UIdentifier.internal("Ba$").valid);
+    
+    assertEquals {
+        expected = "LIdentifier.internal(\"ba$\")";
+        actual = LIdentifier.internal("ba$").string;
+    };
+    assertEquals {
+        expected = "UIdentifier.internal(\"Ba$\")";
+        actual = UIdentifier.internal("Ba$").string;
+    };
 }

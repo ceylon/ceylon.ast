@@ -550,9 +550,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
     transformIterableType(IterableType that) => "IterableType(``transformWithIndent(that.variadicType)``)";
     transformKeySubscript(KeySubscript that) => "KeySubscript(``transformWithIndent(that.key)``)";
     transformLIdentifier(LIdentifier that)
-            => that.usePrefix
-            then "LIdentifier(\"``that.name``\", true)"
-            else "LIdentifier(\"``that.name``\")";
+            => let (cons = that.valid then "LIdentifier" else "LIdentifier.internal")
+                if (that.usePrefix)
+                then "``cons``(\"``that.name``\", true)"
+                else "``cons``(\"``that.name``\")";
     transformLazySpecification(LazySpecification that)
             =>
             !that.parameterLists nonempty && !that.qualifier exists
@@ -931,9 +932,10 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
                 ``indent``}";
     transformUIdentifier(UIdentifier that)
-            => that.usePrefix
-            then "UIdentifier(\"``that.name``\", true)"
-            else "UIdentifier(\"``that.name``\")";
+            => let (cons = that.valid then "UIdentifier" else "UIdentifier.internal")
+                if (that.usePrefix)
+                then "``cons``(\"``that.name``\", true)"
+                else "``cons``(\"``that.name``\")";
     transformUnionType(UnionType that)
             => "UnionType(``transformWithIndent(that.children)``)";
     transformUnionAssignmentOperation(UnionAssignmentOperation that)

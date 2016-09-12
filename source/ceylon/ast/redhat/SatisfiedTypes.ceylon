@@ -27,10 +27,10 @@ shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes, Any
     return result;
 }
 
-"Compiles the given [[code]] for Satisfied Types
+"Parses the given [[code]] for Satisfied Types
  into [[SatisfiedTypes]] using the Ceylon compiler
  (more specifically, the rule for `satisfiedTypes`)."
-shared SatisfiedTypes? compileSatisfiedTypes(String code, Anything(JNode,Node) update = noop) {
+shared SatisfiedTypes? parseSatisfiedTypes(String code, Anything(JNode,Node) update = noop) {
     if (exists jSatisfiedTypes = createParser(code).satisfiedTypes()) {
         return satisfiedTypesToCeylon(jSatisfiedTypes, update);
     } else {

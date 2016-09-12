@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionDecToCeylon,
-    compileFunctionDec
+    parseFunctionDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -30,7 +30,7 @@ shared object functionDec satisfies ConcreteTest<FunctionDec,JFunctionLiteral> {
     shared String->FunctionDec concatenateFunctionDec = construct(identifier.concatenateLIdentifier);
     shared String->FunctionDec iterableMapFunctionDec = construct(identifier.mapLIdentifier, "Iterable"->DecQualifier([UIdentifier("Iterable")]));
     
-    compile = compileFunctionDec;
+    parse = parseFunctionDec;
     fromCeylon = RedHatTransformer.transformFunctionDec;
     toCeylon = functionDecToCeylon;
     codes = [concatenateFunctionDec, iterableMapFunctionDec];

@@ -23,10 +23,10 @@ shared CaseItem caseItemToCeylon(JCaseItem caseItem, Anything(JNode,Node) update
     }
 }
 
-"Compiles the given [[code]] for a Case Item
+"Parses the given [[code]] for a Case Item
  into a [[CaseItem]] using the Ceylon compiler
  (more specifically, the rule for a `caseItem`)."
-shared CaseItem? compileCaseItem(String code, Anything(JNode,Node) update = noop) {
+shared CaseItem? parseCaseItem(String code, Anything(JNode,Node) update = noop) {
     if (exists jCaseItem = createParser(code).caseItem()) {
         return caseItemToCeylon(jCaseItem, update);
     } else {

@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueDeclarationToCeylon,
-    compileValueDeclaration
+    parseValueDeclaration
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -36,7 +36,7 @@ shared object valueDeclaration satisfies ConcreteTest<ValueDeclaration,JAttribut
     shared String->ValueDeclaration sharedFloatRDeclaration = construct(identifier.rLIdentifier, baseType.floatType, annotations.sharedAnnotations);
     shared String->ValueDeclaration sharedFloatPhiDeclaration = construct(identifier.phiLIdentifier, baseType.floatType, annotations.sharedAnnotations);
     
-    compile = compileValueDeclaration;
+    parse = parseValueDeclaration;
     fromCeylon = RedHatTransformer.transformValueDeclaration;
     toCeylon = valueDeclarationToCeylon;
     codes = [lidValueDeclaration, annotatedByValueDeclaration];

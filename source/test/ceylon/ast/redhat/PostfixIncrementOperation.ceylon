@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     postfixIncrementOperationToCeylon,
-    compilePostfixIncrementOperation
+    parsePostfixIncrementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object postfixIncrementOperation satisfies ConcreteTest<PostfixIncrementO
     shared String->PostfixIncrementOperation _1138IntegerLiteralPostfixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PostfixIncrementOperation _1138IntegerLiteralGroupedExpressionPostfixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
-    compile = compilePostfixIncrementOperation;
+    parse = parsePostfixIncrementOperation;
     fromCeylon = RedHatTransformer.transformPostfixIncrementOperation;
     toCeylon = postfixIncrementOperationToCeylon;
     codes = [_1138IntegerLiteralPostfixIncrementOperation, _1138IntegerLiteralGroupedExpressionPostfixIncrementOperation];

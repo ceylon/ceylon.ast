@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importElementToCeylon,
-    compileImportElement
+    parseImportElement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object importElement satisfies AbstractTest<ImportElement,JImportMemberOrType> {
-    compile = compileImportElement;
+    parse = parseImportElement;
     fromCeylon = RedHatTransformer.transformImportElement;
     toCeylon = importElementToCeylon;
     

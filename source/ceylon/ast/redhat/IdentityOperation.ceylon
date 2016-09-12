@@ -18,10 +18,10 @@ shared IdentityOperation identityOperationToCeylon(JPositiveOp identityOperation
     return result;
 }
 
-"Compiles the given [[code]] for an Identity Operation
+"Parses the given [[code]] for an Identity Operation
  into an [[IdentityOperation]] using the Ceylon compiler
  (more specifically, the rule for an `negationComplementExpression`)."
-shared IdentityOperation? compileIdentityOperation(String code, Anything(JNode,Node) update = noop) {
+shared IdentityOperation? parseIdentityOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPositiveOp jNegationComplementExpression = createParser(code).negationComplementExpression()) {
         return identityOperationToCeylon(jNegationComplementExpression, update);
     } else {

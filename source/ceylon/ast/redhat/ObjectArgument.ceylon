@@ -30,10 +30,10 @@ shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument, Any
     return result;
 }
 
-"Compiles the given [[code]] for an Object Argument
+"Parses the given [[code]] for an Object Argument
  into an [[ObjectArgument]] using the Ceylon compiler
  (more specifically, the rule for an `objectArgument`)."
-shared ObjectArgument? compileObjectArgument(String code, Anything(JNode,Node) update = noop) {
+shared ObjectArgument? parseObjectArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jObjectArgument = createParser(code).objectArgument()) {
         return objectArgumentToCeylon(jObjectArgument, update);
     } else {

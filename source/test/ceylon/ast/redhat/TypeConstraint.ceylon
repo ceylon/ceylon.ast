@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeConstraintToCeylon,
-    compileTypeConstraint
+    parseTypeConstraint
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object typeConstraint satisfies ConcreteTest<TypeConstraint,JTypeConstrai
     shared String->TypeConstraint emptyTypeConstraint = construct(identifier.uidUIdentifier);
     shared String->TypeConstraint nonemptyTypeConstraint = construct(identifier.uidUIdentifier, caseTypes.ofStringIntegerFloatCaseTypes, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes);
     
-    compile = compileTypeConstraint;
+    parse = parseTypeConstraint;
     fromCeylon = RedHatTransformer.transformTypeConstraint;
     toCeylon = typeConstraintToCeylon;
     codes = [emptyTypeConstraint, nonemptyTypeConstraint];

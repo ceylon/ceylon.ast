@@ -58,10 +58,10 @@ shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDecla
     return result;
 }
 
-"Compiles the given [[code]] for an Interface Alias Definition
+"Parses the given [[code]] for an Interface Alias Definition
  into an [[InterfaceAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared InterfaceAliasDefinition? compileInterfaceAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceAliasDefinition? parseInterfaceAliasDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceDeclaration jInterfaceAliasDefinition = createParser(code).declaration()) {
         return interfaceAliasDefinitionToCeylon(jInterfaceAliasDefinition, update);
     } else {

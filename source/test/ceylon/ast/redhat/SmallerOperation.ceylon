@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     smallerOperationToCeylon,
-    compileSmallerOperation
+    parseSmallerOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object smallerOperation satisfies ConcreteTest<SmallerOperation,JSmallerO
     
     shared String->SmallerOperation _1138SmallerExpression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
-    compile = compileSmallerOperation;
+    parse = parseSmallerOperation;
     fromCeylon = RedHatTransformer.transformSmallerOperation;
     toCeylon = smallerOperationToCeylon;
     codes = [_1138SmallerExpression];

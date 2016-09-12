@@ -33,10 +33,10 @@ shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern,
     return result;
 }
 
-"Compiles the given [[code]] for a Variable Pattern
+"Parses the given [[code]] for a Variable Pattern
  into a [[VariablePattern]] using the Ceylon compiler
  (more specifically, the rule for a `variablePattern`)."
-shared VariablePattern? compileVariablePattern(String code, Anything(JNode,Node) update = noop) {
+shared VariablePattern? parseVariablePattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jVariablePattern = createParser(code + ",").variablePattern()) {
         // the parser needs that comma sometimes
         return variablePatternToCeylon(jVariablePattern, update);

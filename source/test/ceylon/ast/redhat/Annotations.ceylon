@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     annotationsToCeylon,
-    compileAnnotations
+    parseAnnotations
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object annotations satisfies ConcreteTest<Annotations,JAnnotationList> {
     shared String->Annotations sharedAnnotations = construct(null, [annotation.sharedAnnotation]);
     shared String->Annotations sharedActualAnnotations = construct(null, [annotation.sharedAnnotation, annotation.actualAnnotation]);
     
-    compile = compileAnnotations;
+    parse = parseAnnotations;
     fromCeylon = RedHatTransformer.transformAnnotations;
     toCeylon = annotationsToCeylon;
     codes = [emptyAnnotations, helloSharedByLucasAnnotations];

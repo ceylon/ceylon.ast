@@ -36,10 +36,10 @@ shared Expression expressionToCeylon(JTerm term, Anything(JNode,Node) update = n
     }
 }
 
-"Compiles the given [[code]] for an Expression
+"Parses the given [[code]] for an Expression
  into an [[Expression]] using the Ceylon compiler
  (more specifically, the rule for a `functionOrExpression`)."
-shared Expression? compileExpression(String code, Anything(JNode,Node) update = noop) {
+shared Expression? parseExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jFunctionOrExpression = createParser(code).functionOrExpression()) {
         return expressionToCeylon(jFunctionOrExpression, update);
     } else {

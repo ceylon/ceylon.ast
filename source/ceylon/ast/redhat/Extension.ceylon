@@ -75,10 +75,10 @@ shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, 
     return result;
 }
 
-"Compiles the given [[code]] for an Extension
+"Parses the given [[code]] for an Extension
  into an [[Extension]] using the Ceylon compiler
  (more specifically, the rule for an `classInstantiation`)."
-shared Extension? compileExtension(String code, Anything(JNode,Node) update = noop) {
+shared Extension? parseExtension(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation()) {
         if (exists ie = jClassInstantiation.invocationExpression,
             is JExtendedTypeExpression ete = ie.primary,

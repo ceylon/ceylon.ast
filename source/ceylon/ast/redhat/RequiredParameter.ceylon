@@ -39,10 +39,10 @@ shared RequiredParameter requiredParameterToCeylon(JParameter requiredParameter,
     }
 }
 
-"Compiles the given [[code]] for a Required Parameter
+"Parses the given [[code]] for a Required Parameter
  into a [[RequiredParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared RequiredParameter? compileRequiredParameter(String code, Anything(JNode,Node) update = noop) {
+shared RequiredParameter? parseRequiredParameter(String code, Anything(JNode,Node) update = noop) {
     if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
         /*
          The parser does some lookahead and seems to need that comma to parse a parameterRef

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     tryClauseToCeylon,
-    compileTryClause
+    parseTryClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object tryClause satisfies ConcreteTest<TryClause,JTryClause> {
     shared String->TryClause tryPrintHelloWorldClause = construct(block.printHelloWorldBlock);
     shared String->TryClause tryTwoResourcesDoNothingClause = construct(block.emptyBlock, resources.twoResources);
     
-    compile = compileTryClause;
+    parse = parseTryClause;
     fromCeylon = RedHatTransformer.transformTryClause;
     toCeylon = tryClauseToCeylon;
     codes = [tryPrintHelloWorldClause, tryTwoResourcesDoNothingClause];

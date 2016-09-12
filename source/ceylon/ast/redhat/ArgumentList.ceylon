@@ -54,10 +54,10 @@ shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList, Anythi
     return result;
 }
 
-"Compiles the given [[code]] for an Argument List
+"Parses the given [[code]] for an Argument List
  into an [[ArgumentList]] using the Ceylon compiler
  (more specifically, the rule for a `sequencedArgument`)."
-shared ArgumentList? compileArgumentList(String code, Anything(JNode,Node) update = noop) {
+shared ArgumentList? parseArgumentList(String code, Anything(JNode,Node) update = noop) {
     if (exists jSequencedArgument = createParser(code).sequencedArgument()) {
         return argumentListToCeylon(jSequencedArgument, update);
     } else {

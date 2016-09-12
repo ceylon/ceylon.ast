@@ -20,10 +20,10 @@ shared PrefixOperation prefixOperationToCeylon(JPrefixOperatorExpression prefixO
     case (is JDecrementOp) { return prefixDecrementOperationToCeylon(prefixOperation, update); }
 }
 
-"Compiles the given [[code]] for a Prefix Operation
+"Parses the given [[code]] for a Prefix Operation
  into a [[PrefixOperation]] using the Ceylon compiler
  (more specifically, the rule for an `incrementDecrementExpression`)."
-shared PrefixOperation? compilePrefixOperation(String code, Anything(JNode,Node) update = noop) {
+shared PrefixOperation? parsePrefixOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPrefixOperatorExpression jPrefixOperation = createParser(code).incrementDecrementExpression(),
         !jPrefixOperation.term is JPrefixOperatorExpression && !jPrefixOperation.term is JPostfixOperatorExpression) {
         return prefixOperationToCeylon(jPrefixOperation, update);

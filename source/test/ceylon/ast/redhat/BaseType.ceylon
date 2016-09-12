@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     baseTypeToCeylon,
-    compileBaseType
+    parseBaseType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -69,7 +69,7 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     shared String->BaseType booleanType = construct("Boolean");
     shared String->BaseType pointType = construct("Point");
     
-    compile = compileBaseType;
+    parse = parseBaseType;
     fromCeylon = RedHatTransformer.transformBaseType;
     toCeylon = baseTypeToCeylon;
     codes = [stringType, iterableOfStringType, listOfOutObjectType, objectPackageQualifiedType, personObjectType];

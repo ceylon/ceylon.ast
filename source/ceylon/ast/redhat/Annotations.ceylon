@@ -26,10 +26,10 @@ shared Annotations annotationsToCeylon(JAnnotationList annotations, Anything(JNo
     return result;
 }
 
-"Compiles the given [[code]] for Annotations
+"Parses the given [[code]] for Annotations
  into an [[Annotations]] using the Ceylon compiler
  (more specifically, the rule for `annotations`)."
-shared Annotations? compileAnnotations(String code, Anything(JNode,Node) update = noop) {
+shared Annotations? parseAnnotations(String code, Anything(JNode,Node) update = noop) {
     if (exists jAnnotations = createParser(code).annotations()) {
         return annotationsToCeylon(jAnnotations, update);
     } else {

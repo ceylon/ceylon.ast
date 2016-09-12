@@ -21,10 +21,10 @@ shared ComplementOperation complementOperationToCeylon(JComplementOp complementO
     return result;
 }
 
-"Compiles the given [[code]] for a Complement Operation
+"Parses the given [[code]] for a Complement Operation
  into a [[ComplementOperation]] using the Ceylon compiler
  (more specifically, the rule for a `unionExpression`)."
-shared ComplementOperation? compileComplementOperation(String code, Anything(JNode,Node) update = noop) {
+shared ComplementOperation? parseComplementOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JComplementOp jComplementOperation = createParser(code).unionExpression()) {
         return complementOperationToCeylon(jComplementOperation, update);
     } else {

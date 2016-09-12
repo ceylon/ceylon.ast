@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     spreadArgumentToCeylon,
-    compileSpreadArgument
+    parseSpreadArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object spreadArgument satisfies ConcreteTest<SpreadArgument,JSpreadArgume
     
     shared String->SpreadArgument spreadTextArgument = construct(baseExpression.textExpression);
     
-    compile = compileSpreadArgument;
+    parse = parseSpreadArgument;
     fromCeylon = RedHatTransformer.transformSpreadArgument;
     toCeylon = spreadArgumentToCeylon;
     codes = [spreadTextArgument];

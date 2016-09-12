@@ -21,10 +21,10 @@ shared Return returnToCeylon(JReturn \ireturn, Anything(JNode,Node) update = noo
     return result;
 }
 
-"Compiles the given [[code]] for a Return
+"Parses the given [[code]] for a Return
  into a [[Return]] using the Ceylon compiler
  (more specifically, the rule for a `return`)."
-shared Return? compileReturn(String code, Anything(JNode,Node) update = noop) {
+shared Return? parseReturn(String code, Anything(JNode,Node) update = noop) {
     if (is JReturn jDirectiveStatement = createParser(code).directiveStatement()) {
         // returnDirective doesn’t contain the semicolon
         return returnToCeylon(jDirectiveStatement, update);

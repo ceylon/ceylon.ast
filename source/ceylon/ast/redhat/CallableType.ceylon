@@ -55,10 +55,10 @@ shared CallableType callableTypeToCeylon(JFunctionType callableType, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Callable Type
+"Parses the given [[code]] for a Callable Type
  into a [[CallableType]] using the Ceylon compiler
  (more specifically, the rule for an `primaryType`)."
-shared CallableType? compileCallableType(String code, Anything(JNode,Node) update = noop) {
+shared CallableType? parseCallableType(String code, Anything(JNode,Node) update = noop) {
     if (is JFunctionType jFunctionType = createParser(code).primaryType()) {
         return callableTypeToCeylon(jFunctionType, update);
     } else {

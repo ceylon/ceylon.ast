@@ -28,10 +28,10 @@ shared ElseClause elseClauseToCeylon(JElseClause elseClause, Anything(JNode,Node
     return result;
 }
 
-"Compiles the given [[code]] for an Else Clause
+"Parses the given [[code]] for an Else Clause
  into an [[ElseClause]] using the Ceylon compiler
  (more specifically, the rule for an `elseBlock`)."
-shared ElseClause? compileElseClause(String code, Anything(JNode,Node) update = noop) {
+shared ElseClause? parseElseClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jElseBlock = createParser(code).elseBlock()) {
         return elseClauseToCeylon(jElseBlock, update);
     } else {

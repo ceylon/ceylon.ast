@@ -16,10 +16,10 @@ shared Comprehension comprehensionToCeylon(JComprehension comprehension, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Comprehension
+"Parses the given [[code]] for a Comprehension
  into a [[Comprehension]] using the Ceylon compiler
  (more specifically, the rule for a `comprehension`)."
-shared Comprehension? compileComprehension(String code, Anything(JNode,Node) update = noop) {
+shared Comprehension? parseComprehension(String code, Anything(JNode,Node) update = noop) {
     if (exists jComprehension = createParser(code).comprehension()) {
         return comprehensionToCeylon(jComprehension, update);
     } else {

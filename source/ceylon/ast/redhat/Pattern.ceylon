@@ -21,10 +21,10 @@ shared Pattern patternToCeylon(JPattern pattern, Anything(JNode,Node) update = n
     case (is JKeyValuePattern) { return entryPatternToCeylon(pattern, update); }
 }
 
-"Compiles the given [[code]] for a Pattern
+"Parses the given [[code]] for a Pattern
  into a [[Pattern]] using the Ceylon compiler
  (more specifically, the rule for a `pattern`)."
-shared Pattern? compilePattern(String code, Anything(JNode,Node) update = noop) {
+shared Pattern? parsePattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jPattern = createParser(code + ",").pattern()) {
         // the parser needs that comma for some patterns
         return patternToCeylon(jPattern, update);

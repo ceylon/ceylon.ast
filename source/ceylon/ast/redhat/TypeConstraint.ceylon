@@ -36,10 +36,10 @@ shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint, Any
     return result;
 }
 
-"Compiles the given [[code]] for a Type Constraint
+"Parses the given [[code]] for a Type Constraint
  into a [[TypeConstraint]] using the Ceylon compiler
  (more specifically, the rule for a `typeConstraint`)."
-shared TypeConstraint? compileTypeConstraint(String code, Anything(JNode,Node) update = noop) {
+shared TypeConstraint? parseTypeConstraint(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeConstraint = createParser(code).typeConstraint(),
         !jTypeConstraint.abstractedType exists) {
         return typeConstraintToCeylon(jTypeConstraint, update);

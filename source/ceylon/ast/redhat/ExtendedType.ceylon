@@ -16,10 +16,10 @@ shared ExtendedType extendedTypeToCeylon(JExtendedType extendedType, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for an Extended Type
+"Parses the given [[code]] for an Extended Type
  into an [[ExtendedType]] using the Ceylon compiler
  (more specifically, the rule for an `extendedType`)."
-shared ExtendedType? compileExtendedType(String code, Anything(JNode,Node) update = noop) {
+shared ExtendedType? parseExtendedType(String code, Anything(JNode,Node) update = noop) {
     if (exists jExtendedType = createParser(code).extendedType()) {
         return extendedTypeToCeylon(jExtendedType, update);
     } else {

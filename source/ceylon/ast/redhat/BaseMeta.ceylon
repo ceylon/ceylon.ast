@@ -43,10 +43,10 @@ shared BaseMeta baseMetaToCeylon(JMemberLiteral baseMeta, Anything(JNode,Node) u
     return result;
 }
 
-"Compiles the given [[code]] for a Base Meta
+"Parses the given [[code]] for a Base Meta
  into a [[BaseMeta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared BaseMeta? compileBaseMeta(String code, Anything(JNode,Node) update = noop) {
+shared BaseMeta? parseBaseMeta(String code, Anything(JNode,Node) update = noop) {
     if (is JMemberLiteral jMetaLiteral = createParser(code).metaLiteral(),
         !jMetaLiteral.type exists,
         !jMetaLiteral is JFunctionLiteral|JValueLiteral) {

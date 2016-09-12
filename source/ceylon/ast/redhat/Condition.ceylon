@@ -21,10 +21,10 @@ shared Condition conditionToCeylon(JCondition condition, Anything(JNode,Node) up
     case (is JExistsOrNonemptyCondition) { return existsOrNonemptyConditionToCeylon(condition, update); }
 }
 
-"Compiles the given [[code]] for a Condition
+"Parses the given [[code]] for a Condition
  into a [[Condition]] using the Ceylon compiler
  (more specifically, the rule for a `condition`)."
-shared Condition? compileCondition(String code, Anything(JNode,Node) update = noop) {
+shared Condition? parseCondition(String code, Anything(JNode,Node) update = noop) {
     if (exists jCondition = createParser(code + ",").condition()) {
         // the parser needs that comma for some conditions
         return conditionToCeylon(jCondition, update);

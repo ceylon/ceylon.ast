@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     integerLiteralToCeylon,
-    compileIntegerLiteral
+    parseIntegerLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiter
     shared String->IntegerLiteral _2IntegerLiteral = construct("2");
     shared String->IntegerLiteral _8IntegerLiteral = construct("8");
     
-    compile = compileIntegerLiteral;
+    parse = parseIntegerLiteral;
     fromCeylon = RedHatTransformer.transformIntegerLiteral;
     toCeylon = integerLiteralToCeylon;
     codes = [_1138IntegerLiteral];

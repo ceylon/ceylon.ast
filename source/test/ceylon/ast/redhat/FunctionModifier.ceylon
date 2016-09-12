@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionModifierToCeylon,
-    compileFunctionModifier
+    parseFunctionModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object functionModifier satisfies ConcreteTest<FunctionModifier,JFunction
     
     shared String->FunctionModifier functionModifier = "function"->FunctionModifier();
     
-    compile = compileFunctionModifier;
+    parse = parseFunctionModifier;
     fromCeylon = RedHatTransformer.transformFunctionModifier;
     toCeylon = functionModifierToCeylon;
     codes = [functionModifier];

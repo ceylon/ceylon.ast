@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     entryOperationToCeylon,
-    compileEntryOperation
+    parseEntryOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object entryOperation satisfies ConcreteTest<EntryOperation,JEntryOp> {
     
     shared String->EntryOperation cCharToCStringExpression = construct(characterLiteral.capitalCCharacterLiteral, stringLiteral.capitalCStringLiteral);
     
-    compile = compileEntryOperation;
+    parse = parseEntryOperation;
     fromCeylon = RedHatTransformer.transformEntryOperation;
     toCeylon = entryOperationToCeylon;
     codes = [cCharToCStringExpression];

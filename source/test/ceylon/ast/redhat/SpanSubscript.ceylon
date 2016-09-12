@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     spanSubscriptToCeylon,
-    compileSpanSubscript
+    parseSpanSubscript
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object spanSubscript satisfies ConcreteTest<SpanSubscript,JElementRange> 
     
     shared String->SpanSubscript spanOneToParsedIntSubscript = construct(integerLiteral.oneIntegerLiteral, baseExpression.parsedIntExpression);
     
-    compile = compileSpanSubscript;
+    parse = parseSpanSubscript;
     fromCeylon = RedHatTransformer.transformSpanSubscript;
     toCeylon = spanSubscriptToCeylon;
     codes = [spanOneToParsedIntSubscript];

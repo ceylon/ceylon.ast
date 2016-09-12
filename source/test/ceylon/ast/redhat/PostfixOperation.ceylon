@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     postfixOperationToCeylon,
-    compilePostfixOperation
+    parsePostfixOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object postfixOperation satisfies AbstractTest<PostfixOperation,JPostfixOperatorExpression> {
-    compile = compilePostfixOperation;
+    parse = parsePostfixOperation;
     fromCeylon = RedHatTransformer.transformPostfixOperation;
     toCeylon = postfixOperationToCeylon;
     

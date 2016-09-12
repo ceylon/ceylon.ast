@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionExpressionToCeylon,
-    compileFunctionExpression
+    parseFunctionExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object functionExpression satisfies ConcreteTest<FunctionExpression,JFunc
     shared String->FunctionExpression functionFunctionExpression = construct([parameters.charactersParameters, parameters.emptyParameters], lazySpecifier.aTimesBPlusCLazySpecifier, functionModifier.functionModifier);
     shared String->FunctionExpression voidFunctionExpression = construct([parameters.notEmptyParameters], block.emptyBlock, voidModifier.voidModifier);
     
-    compile = compileFunctionExpression;
+    parse = parseFunctionExpression;
     fromCeylon = RedHatTransformer.transformFunctionExpression;
     toCeylon = functionExpressionToCeylon;
     codes = [emptyNoopFunctionExpression, functionFunctionExpression, voidFunctionExpression];

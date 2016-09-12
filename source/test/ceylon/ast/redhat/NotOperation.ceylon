@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     notOperationToCeylon,
-    compileNotOperation
+    parseNotOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object notOperation satisfies ConcreteTest<NotOperation,JNotOp> {
     // not tested directly, but used by other tests
     shared String->NotOperation notNameEmptyExpression = construct(qualifiedExpression.nameEmptyExpression);
     
-    compile = compileNotOperation;
+    parse = parseNotOperation;
     fromCeylon = RedHatTransformer.transformNotOperation;
     toCeylon = notOperationToCeylon;
     codes = [notTrueExpression, notAIsPersistentAndPrintableAndIdentifiableExpression, notCInAIntersectBExpression];

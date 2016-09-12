@@ -30,10 +30,10 @@ shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Let Expression
+"Parses the given [[code]] for a Let Expression
  into a [[LetExpression]] using the Ceylon compiler
  (more specifically, the rule for a `let`)."
-shared LetExpression? compileLetExpression(String code, Anything(JNode,Node) update = noop) {
+shared LetExpression? parseLetExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jLet = createParser(code).\ilet()) {
         return letExpressionToCeylon(jLet, update);
     } else {

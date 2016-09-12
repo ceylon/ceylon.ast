@@ -39,10 +39,10 @@ shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typ
     return result;
 }
 
-"Compiles the given [[code]] for a Type Alias Definition
+"Parses the given [[code]] for a Type Alias Definition
  into a [[TypeAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared TypeAliasDefinition? compileTypeAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared TypeAliasDefinition? parseTypeAliasDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeAliasDeclaration jTypeAliasDefinition = createParser(code).declaration()) {
         return typeAliasDefinitionToCeylon(jTypeAliasDefinition, update);
     } else {

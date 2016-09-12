@@ -37,10 +37,10 @@ shared InterfaceDec interfaceDecToCeylon(JInterfaceLiteral interfaceDec, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for an Interface Dec
+"Parses the given [[code]] for an Interface Dec
  into an [[InterfaceDec]] using the Ceylon compiler
  (more specifically, the rule for an `metaLiteral`)."
-shared InterfaceDec? compileInterfaceDec(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceDec? parseInterfaceDec(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return interfaceDecToCeylon(jMetaLiteral, update);
     } else {

@@ -42,10 +42,10 @@ shared Declaration declarationToCeylon(JDeclaration declaration, Anything(JNode,
     }
 }
 
-"Compiles the given [[code]] for a Declaration
+"Parses the given [[code]] for a Declaration
  into a [[Declaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared Declaration? compileDeclaration(String code, Anything(JNode,Node) update = noop) {
+shared Declaration? parseDeclaration(String code, Anything(JNode,Node) update = noop) {
     if (exists jDeclaration = createParser(code).declaration()) {
         return declarationToCeylon(jDeclaration, update);
     } else {

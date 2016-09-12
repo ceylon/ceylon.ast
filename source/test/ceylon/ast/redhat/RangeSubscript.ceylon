@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     rangeSubscriptToCeylon,
-    compileRangeSubscript
+    parseRangeSubscript
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object rangeSubscript satisfies AbstractTest<RangeSubscript,JElementRange> {
-    compile = compileRangeSubscript;
+    parse = parseRangeSubscript;
     fromCeylon = RedHatTransformer.transformRangeSubscript;
     toCeylon = rangeSubscriptToCeylon;
     

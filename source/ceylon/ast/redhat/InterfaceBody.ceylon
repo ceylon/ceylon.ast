@@ -31,10 +31,10 @@ shared InterfaceBody interfaceBodyToCeylon(JInterfaceBody interfaceBody, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for an Interface Body
+"Parses the given [[code]] for an Interface Body
  into an [[InterfaceBody]] using the Ceylon compiler
  (more specifically, the rule for an `interfaceBody`)."
-shared InterfaceBody? compileInterfaceBody(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceBody? parseInterfaceBody(String code, Anything(JNode,Node) update = noop) {
     if (exists jInterfaceBody = createParser(code).interfaceBody()) {
         return interfaceBodyToCeylon(jInterfaceBody, update);
     } else {

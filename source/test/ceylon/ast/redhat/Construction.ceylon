@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     constructionToCeylon,
-    compileConstruction
+    parseConstruction
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object construction satisfies ConcreteTest<Construction,JInvocationExpres
     shared String->Construction withRgbOfStringConstruction = construct("withRGB<String>"->MemberNameWithTypeArguments(LIdentifier("withRGB"), typeArguments.stringTypeArguments.item), positionalArguments.emptyPositionalArguments, baseType.pointType);
     shared String->Construction superCartesianOfStringConstruction = construct("cartesian<String>"->MemberNameWithTypeArguments(LIdentifier("cartesian"), typeArguments.stringTypeArguments.item), positionalArguments.emptyPositionalArguments, "super"->Super());
     
-    compile = compileConstruction;
+    parse = parseConstruction;
     fromCeylon = RedHatTransformer.transformConstruction;
     toCeylon = constructionToCeylon;
     codes = [pointCartesianConstruction, withRgbConstruction, superCartesianConstruction, pointCartesianOfStringConstruction, withRgbOfStringConstruction, superCartesianOfStringConstruction];

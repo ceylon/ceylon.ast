@@ -20,10 +20,10 @@ shared InterfaceDefinition interfaceDefinitionToCeylon(JInterfaceDefinition inte
     return result;
 }
 
-"Compiles the given [[code]] for an Interface Definition
+"Parses the given [[code]] for an Interface Definition
  into an [[InterfaceDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared InterfaceDefinition? compileInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceDefinition? parseInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceDefinition jDeclaration = createParser(code).declaration(),
         !jDeclaration.\idynamic) {
         return interfaceDefinitionToCeylon(jDeclaration, update);

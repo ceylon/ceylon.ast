@@ -29,10 +29,10 @@ shared PrimaryType primaryTypeToCeylon(JStaticType type, Anything(JNode,Node) up
     case (is JGroupedType) { return groupedTypeToCeylon(type, update); }
 }
 
-"Compiles the given [[code]] for a Primary Type
+"Parses the given [[code]] for a Primary Type
  into a [[PrimaryType]] using the Ceylon compiler
  (more specifically, the rule for a `primaryType`)."
-shared PrimaryType? compilePrimaryType(String code, Anything(JNode,Node) update = noop) {
+shared PrimaryType? parsePrimaryType(String code, Anything(JNode,Node) update = noop) {
     if (exists jPrimaryType = createParser(code).primaryType()) {
         return primaryTypeToCeylon(jPrimaryType, update);
     } else {

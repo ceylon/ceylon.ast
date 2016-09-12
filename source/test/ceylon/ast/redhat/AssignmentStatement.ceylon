@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     assignmentStatementToCeylon,
-    compileAssignmentStatement
+    parseAssignmentStatement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object assignmentStatement satisfies ConcreteTest<AssignmentStatement,JEx
     shared String->AssignmentStatement iAddAssignStepStatement = construct(addAssignmentOperation.iAddAssignStepExpression);
     shared String->AssignmentStatement aIntersectAssignBStatement = construct(intersectAssignmentOperation.aIntersectAssignBExpression);
     
-    compile = compileAssignmentStatement;
+    parse = parseAssignmentStatement;
     fromCeylon = RedHatTransformer.transformAssignmentStatement;
     toCeylon = assignmentStatementToCeylon;
     codes = [iAddAssignStepStatement];

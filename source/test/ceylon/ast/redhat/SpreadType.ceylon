@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     spreadTypeToCeylon,
-    compileSpreadType
+    parseSpreadType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object spreadType satisfies ConcreteTest<SpreadType,JSpreadType> {
     
     shared String->SpreadType argsSpreadType = construct(baseType.argsType);
     
-    compile = compileSpreadType;
+    parse = parseSpreadType;
     fromCeylon = RedHatTransformer.transformSpreadType;
     toCeylon = spreadTypeToCeylon;
     codes = [argsSpreadType];

@@ -18,10 +18,10 @@ shared AssignmentStatement assignmentStatementToCeylon(JExpressionStatement assi
     return result;
 }
 
-"Compiles the given [[code]] for an Assignment Statement
+"Parses the given [[code]] for an Assignment Statement
  into an [[AssignmentStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared AssignmentStatement? compileAssignmentStatement(String code, Anything(JNode,Node) update = noop) {
+shared AssignmentStatement? parseAssignmentStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.expression.term is JAssignmentOp) {
         return assignmentStatementToCeylon(jExpressionOrSpecificationStatement, update);

@@ -14,7 +14,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionShortcutDefinitionToCeylon,
-    compileFunctionShortcutDefinition
+    parseFunctionShortcutDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object functionShortcutDefinition satisfies ConcreteTest<FunctionShortcut
     
     shared String->FunctionShortcutDefinition nonemptyFunctionShortcutDefinition = construct(identifier.lidLIdentifier, baseType.integerType, [parameters.notEmptyParameters], lazySpecifier.aTimesBPlusCLazySpecifier);
     
-    compile = compileFunctionShortcutDefinition;
+    parse = parseFunctionShortcutDefinition;
     fromCeylon = RedHatTransformer.transformFunctionShortcutDefinition;
     toCeylon = functionShortcutDefinitionToCeylon;
     codes = [nonemptyFunctionShortcutDefinition];

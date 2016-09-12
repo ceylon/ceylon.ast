@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     resourcesToCeylon,
-    compileResources
+    parseResources
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object resources satisfies ConcreteTest<Resources,JResourceList> {
     shared String->Resources oneResource = construct(resource.lockResource);
     shared String->Resources twoResources = construct(resource.lockResource, resource.writerResource);
     
-    compile = compileResources;
+    parse = parseResources;
     fromCeylon = RedHatTransformer.transformResources;
     toCeylon = resourcesToCeylon;
     codes = [oneResource, twoResources];

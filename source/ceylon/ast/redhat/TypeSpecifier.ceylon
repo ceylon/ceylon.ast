@@ -23,10 +23,10 @@ shared TypeSpecifier typeSpecifierToCeylon(JTypeSpecifier typeSpecifier, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Type Specifier
+"Parses the given [[code]] for a Type Specifier
  into a [[TypeSpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `typeSpecifier`)."
-shared TypeSpecifier? compileTypeSpecifier(String code, Anything(JNode,Node) update = noop) {
+shared TypeSpecifier? parseTypeSpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeSpecifier = createParser(code).typeSpecifier(),
         // the parser also allows type specifiers with a specification operator `=`, check for that
         jTypeSpecifier.mainToken.type == compute) {

@@ -38,10 +38,10 @@ shared ModuleDescriptor moduleDescriptorToCeylon(JModuleDescriptor moduleDescrip
     return result;
 }
 
-"Compiles the given [[code]] for a Module Descriptor
+"Parses the given [[code]] for a Module Descriptor
  into a [[ModuleDescriptor]] using the Ceylon compiler
  (more specifically, the rule for a `moduleDescriptor`)."
-shared ModuleDescriptor? compileModuleDescriptor(String code, Anything(JNode,Node) update = noop) {
+shared ModuleDescriptor? parseModuleDescriptor(String code, Anything(JNode,Node) update = noop) {
     if (exists jModuleDescriptor = createParser(code).moduleDescriptor()) {
         return moduleDescriptorToCeylon(jModuleDescriptor, update);
     } else {

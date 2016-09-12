@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     iterableToCeylon,
-    compileIterable
+    parseIterable
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object iterable satisfies ConcreteTest<Iterable,JSequenceEnumeration> {
     shared String->Iterable abcIterable = construct(argumentList.abcArgumentList);
     shared String->Iterable spreadTextIterable = construct(argumentList.spreadTextArgumentList);
     
-    compile = compileIterable;
+    parse = parseIterable;
     fromCeylon = RedHatTransformer.transformIterable;
     toCeylon = iterableToCeylon;
     codes = [emptyIterable, abcIterable, spreadTextIterable];

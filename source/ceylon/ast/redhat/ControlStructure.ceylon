@@ -27,10 +27,10 @@ shared ControlStructure controlStructureToCeylon(JControlStatement controlStruct
     case (is JDynamicStatement) { return dynamicBlockToCeylon(controlStructure, update); }
 }
 
-"Compiles the given [[code]] for a Control Structure
+"Parses the given [[code]] for a Control Structure
  into a [[ControlStructure]] using the Ceylon compiler
  (more specifically, the rule for a `controlStatement`)."
-shared ControlStructure? compileControlStructure(String code, Anything(JNode,Node) update = noop) {
+shared ControlStructure? parseControlStructure(String code, Anything(JNode,Node) update = noop) {
     if (exists jControlStatement = createParser(code).controlStatement()) {
         return controlStructureToCeylon(jControlStatement, update);
     } else {

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     defaultedCallableParameterToCeylon,
-    compileDefaultedCallableParameter
+    parseDefaultedCallableParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object defaultedCallableParameter satisfies ConcreteTest<DefaultedCallabl
     
     shared String->DefaultedCallableParameter notEmptyDefaultedCallableParameter = construct(callableParameter.notEmptyCallableParameter, lazySpecifier.aTimesBPlusCLazySpecifier);
     
-    compile = compileDefaultedCallableParameter;
+    parse = parseDefaultedCallableParameter;
     fromCeylon = RedHatTransformer.transformDefaultedCallableParameter;
     toCeylon = defaultedCallableParameterToCeylon;
     codes = [notEmptyDefaultedCallableParameter];

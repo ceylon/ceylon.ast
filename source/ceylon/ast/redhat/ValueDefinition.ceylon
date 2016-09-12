@@ -37,10 +37,10 @@ shared ValueDefinition valueDefinitionToCeylon(JAttributeDeclaration valueDefini
     return result;
 }
 
-"Compiles the given [[code]] for a Value Definition
+"Parses the given [[code]] for a Value Definition
  into an [[ValueDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueDefinition? compileValueDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueDefinition? parseValueDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JAttributeDeclaration jDeclaration = createParser(code).declaration(),
         jDeclaration.specifierOrInitializerExpression exists) {
         return valueDefinitionToCeylon(jDeclaration, update);

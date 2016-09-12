@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     parametersToCeylon,
-    compileParameters
+    parseParameters
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -30,7 +30,7 @@ shared object parameters satisfies ConcreteTest<Parameters,JParameterList> {
     shared String->Parameters xyParameters = construct([parameterReference.xParameterReference, parameterReference.yParameterReference]);
     shared String->Parameters rphiParameters = construct([parameterReference.rParameterReference, parameterReference.phiParameterReference]);
     
-    compile = compileParameters;
+    parse = parseParameters;
     fromCeylon = RedHatTransformer.transformParameters;
     toCeylon = parametersToCeylon;
     codes = [emptyParameters, notEmptyParameters];

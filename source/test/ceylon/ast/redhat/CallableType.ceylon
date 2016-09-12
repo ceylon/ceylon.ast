@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     callableTypeToCeylon,
-    compileCallableType
+    parseCallableType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object callableType satisfies ConcreteTest<CallableType,JFunctionType> {
     shared String->CallableType nothingFromIntegerFloatDefaultedStringStarCallableType = construct(baseType.nothingType, typeList.integerFloatDefaultedStringStarTypeList);
     shared String->CallableType retFromArgsCallableType = construct(baseType.retType, spreadType.argsSpreadType);
     
-    compile = compileCallableType;
+    parse = parseCallableType;
     fromCeylon = RedHatTransformer.transformCallableType;
     toCeylon = callableTypeToCeylon;
     codes = [anythingFromEmptyCallableType, floatStarTupleFromStringPlusCallableType, nothingFromIntegerFloatDefaultedStringStarCallableType];

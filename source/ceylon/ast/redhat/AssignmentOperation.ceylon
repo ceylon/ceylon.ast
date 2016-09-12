@@ -23,10 +23,10 @@ shared AssignmentOperation assignmentOperationToCeylon(JAssignmentOp assignmentO
     case (is JLogicalAssignmentOp) { return logicalAssignmentOperationToCeylon(assignmentOperation, update); }
 }
 
-"Compiles the given [[code]] for an Assignment Operation
+"Parses the given [[code]] for an Assignment Operation
  into an [[AssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared AssignmentOperation? compileAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared AssignmentOperation? parseAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return assignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

@@ -23,10 +23,10 @@ shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for a Package Dec
+"Parses the given [[code]] for a Package Dec
  into a [[PackageDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared PackageDec? compilePackageDec(String code, Anything(JNode,Node) update = noop) {
+shared PackageDec? parsePackageDec(String code, Anything(JNode,Node) update = noop) {
     if (is JPackageLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return packageDecToCeylon(jMetaLiteral, update);
     } else {

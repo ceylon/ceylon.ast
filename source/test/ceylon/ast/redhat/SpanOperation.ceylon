@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     spanOperationToCeylon,
-    compileSpanOperation
+    parseSpanOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object spanOperation satisfies ConcreteTest<SpanOperation,JRangeOp> {
     
     shared String->SpanOperation _1SpanTo1138Expression = construct(integerLiteral.oneIntegerLiteral, integerLiteral._1138IntegerLiteral);
     
-    compile = compileSpanOperation;
+    parse = parseSpanOperation;
     fromCeylon = RedHatTransformer.transformSpanOperation;
     toCeylon = spanOperationToCeylon;
     codes = [_1SpanTo1138Expression];

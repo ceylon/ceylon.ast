@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     parameterReferenceToCeylon,
-    compileParameterReference
+    parseParameterReference
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object parameterReference satisfies ConcreteTest<ParameterReference,JInit
     shared String->ParameterReference rParameterReference = construct(identifier.rLIdentifier);
     shared String->ParameterReference phiParameterReference = construct(identifier.phiLIdentifier);
     
-    compile = compileParameterReference;
+    parse = parseParameterReference;
     fromCeylon = RedHatTransformer.transformParameterReference;
     toCeylon = parameterReferenceToCeylon;
     codes = [lidParameterReference];

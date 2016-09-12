@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeSpecifierToCeylon,
-    compileTypeSpecifier
+    parseTypeSpecifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object typeSpecifier satisfies ConcreteTest<TypeSpecifier,JTypeSpecifier>
     // not tested directly, but used by other tests
     shared String->TypeSpecifier uidentifierTypeSpecifier = construct(baseType.uidentifierType);
     
-    compile = compileTypeSpecifier;
+    parse = parseTypeSpecifier;
     fromCeylon = RedHatTransformer.transformTypeSpecifier;
     toCeylon = typeSpecifierToCeylon;
     codes = [mapOfStringPeopleTypeSpecifier, callableTypeSpecifier];

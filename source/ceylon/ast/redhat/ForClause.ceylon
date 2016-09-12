@@ -16,10 +16,10 @@ shared ForClause forClauseToCeylon(JForClause forClause, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a ‘`for`’ Clause
+"Parses the given [[code]] for a ‘`for`’ Clause
  into a [[ForClause]] using the Ceylon compiler
  (more specifically, the rule for a `forBlock`)."
-shared ForClause? compileForClause(String code, Anything(JNode,Node) update = noop) {
+shared ForClause? parseForClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jForBlock = createParser(code).forBlock()) {
         return forClauseToCeylon(jForBlock, update);
     } else {

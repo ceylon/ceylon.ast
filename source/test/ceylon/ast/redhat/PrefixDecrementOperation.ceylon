@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     prefixDecrementOperationToCeylon,
-    compilePrefixDecrementOperation
+    parsePrefixDecrementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object prefixDecrementOperation satisfies ConcreteTest<PrefixDecrementOpe
     shared String->PrefixDecrementOperation _1138IntegerLiteralPrefixDecrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixDecrementOperation _1138IntegerLiteralGroupedExpressionPrefixDecrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
-    compile = compilePrefixDecrementOperation;
+    parse = parsePrefixDecrementOperation;
     fromCeylon = RedHatTransformer.transformPrefixDecrementOperation;
     toCeylon = prefixDecrementOperationToCeylon;
     codes = [_1138IntegerLiteralPrefixDecrementOperation, _1138IntegerLiteralGroupedExpressionPrefixDecrementOperation];

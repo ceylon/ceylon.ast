@@ -16,10 +16,10 @@ shared ImportWildcard importWildcardToCeylon(JImportWildcard importWildcard, Any
     return result;
 }
 
-"Compiles the given [[code]] for an Import Wildcard
+"Parses the given [[code]] for an Import Wildcard
  into an [[ImportWildcard]] using the Ceylon compiler
  (more specifically, the rule for an `importWildcard`)."
-shared ImportWildcard? compileImportWildcard(String code, Anything(JNode,Node) update = noop) {
+shared ImportWildcard? parseImportWildcard(String code, Anything(JNode,Node) update = noop) {
     if (exists jImportWildcard = createParser(code).importWildcard()) {
         return importWildcardToCeylon(jImportWildcard, update);
     } else {

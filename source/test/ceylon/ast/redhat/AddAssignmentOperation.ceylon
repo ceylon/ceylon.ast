@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     addAssignmentOperationToCeylon,
-    compileAddAssignmentOperation
+    parseAddAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object addAssignmentOperation satisfies ConcreteTest<AddAssignmentOperati
     shared String->AddAssignmentOperation iAddAssignStepExpression = construct(baseExpression.iExpression, baseExpression.stepExpression);
     shared String->AddAssignmentOperation iAddAssignIfExpression = construct(baseExpression.iExpression, ifElseExpression.ifThen1Else1Expression);
     
-    compile = compileAddAssignmentOperation;
+    parse = parseAddAssignmentOperation;
     fromCeylon = RedHatTransformer.transformAddAssignmentOperation;
     toCeylon = addAssignmentOperationToCeylon;
     codes = [iAddAssignStepExpression, iAddAssignIfExpression];

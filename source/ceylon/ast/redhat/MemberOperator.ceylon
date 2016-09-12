@@ -16,10 +16,10 @@ shared MemberOperator memberOperatorToCeylon(JMemberOp memberOperator, Anything(
     return result;
 }
 
-"Compiles the given [[code]] for a Member Operator
+"Parses the given [[code]] for a Member Operator
  into a [[MemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared MemberOperator? compileMemberOperator(String code, Anything(JNode,Node) update = noop) {
+shared MemberOperator? parseMemberOperator(String code, Anything(JNode,Node) update = noop) {
     if (is JMemberOp jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
         return memberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {

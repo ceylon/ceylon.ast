@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     entryPatternToCeylon,
-    compileEntryPattern
+    parseEntryPattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object entryPattern satisfies ConcreteTest<EntryPattern,JKeyValuePattern>
     
     shared String->EntryPattern eToStringLineEntryPattern = construct(variablePattern.eVariablePattern, variablePattern.stringLineVariablePattern);
     
-    compile = compileEntryPattern;
+    parse = parseEntryPattern;
     fromCeylon = RedHatTransformer.transformEntryPattern;
     toCeylon = entryPatternToCeylon;
     codes = [eToStringLineEntryPattern];

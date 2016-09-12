@@ -13,7 +13,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionDeclarationToCeylon,
-    compileFunctionDeclaration
+    parseFunctionDeclaration
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -31,7 +31,7 @@ shared object functionDeclaration satisfies ConcreteTest<FunctionDeclaration,JMe
     shared String->FunctionDeclaration functionFunctionDeclaration = construct(identifier.byLIdentifier, functionModifier.functionModifier, [parameters.emptyParameters]);
     shared String->FunctionDeclaration dynamicFunctionDeclaration = construct(identifier.byLIdentifier, dynamicModifier.dynamicModifier, [parameters.emptyParameters]);
     
-    compile = compileFunctionDeclaration;
+    parse = parseFunctionDeclaration;
     fromCeylon = RedHatTransformer.transformFunctionDeclaration;
     toCeylon = functionDeclarationToCeylon;
     codes = [voidFunctionDeclaration, nonemptyFunctionDeclaration, functionFunctionDeclaration, dynamicFunctionDeclaration];

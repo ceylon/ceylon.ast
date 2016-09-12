@@ -21,10 +21,10 @@ shared DifferenceOperation differenceOperationToCeylon(JDifferenceOp differenceO
     return result;
 }
 
-"Compiles the given [[code]] for a Difference Operation
+"Parses the given [[code]] for a Difference Operation
  into a [[DifferenceOperation]] using the Ceylon compiler
  (more specifically, the rule for an `additiveExpression`)."
-shared DifferenceOperation? compileDifferenceOperation(String code, Anything(JNode,Node) update = noop) {
+shared DifferenceOperation? parseDifferenceOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JDifferenceOp jAdditiveExpression = createParser(code).additiveExpression()) {
         return differenceOperationToCeylon(jAdditiveExpression, update);
     } else {

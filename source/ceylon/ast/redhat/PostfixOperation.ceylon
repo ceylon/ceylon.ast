@@ -20,10 +20,10 @@ shared PostfixOperation postfixOperationToCeylon(JPostfixOperatorExpression post
     case (is JPostfixIncrementOp) { return postfixIncrementOperationToCeylon(postfixOperatorExpression, update); }
 }
 
-"Compiles the given [[code]] for a Postfix Operation
+"Parses the given [[code]] for a Postfix Operation
  into a [[PostfixOperation]] using the Ceylon compiler
  (more specifically, the rule for a `postfixIncrementDecrementExpression`)."
-shared PostfixOperation? compilePostfixOperation(String code, Anything(JNode,Node) update = noop) {
+shared PostfixOperation? parsePostfixOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPostfixOperatorExpression jPostfixExpression = createParser(code).postfixIncrementDecrementExpression(),
         jPostfixExpression.term is JPrimary) {
         return postfixOperationToCeylon(jPostfixExpression, update);

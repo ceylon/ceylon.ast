@@ -31,10 +31,10 @@ shared CallableConstructorDefinition callableConstructorDefinitionToCeylon(JCons
     return result;
 }
 
-"Compiles the given [[code]] for a Callable Constructor Definition
+"Parses the given [[code]] for a Callable Constructor Definition
  into a [[CallableConstructorDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared CallableConstructorDefinition? compileCallableConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
+shared CallableConstructorDefinition? parseCallableConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JConstructor jCallableConstructorDefinition = createParser(code).declaration()) {
         return callableConstructorDefinitionToCeylon(jCallableConstructorDefinition, update);
     } else {

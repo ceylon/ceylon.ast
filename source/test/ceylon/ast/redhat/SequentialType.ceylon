@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     sequentialTypeToCeylon,
-    compileSequentialType
+    parseSequentialType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object sequentialType satisfies ConcreteTest<SequentialType,JSequenceType
     shared String->SequentialType iterableOfStringSequentialType = construct(baseType.iterableOfStringType);
     shared String->SequentialType byteSequentialType = construct(baseType.booleanType, integerLiteral._8IntegerLiteral);
     
-    compile = compileSequentialType;
+    parse = parseSequentialType;
     fromCeylon = RedHatTransformer.transformSequentialType;
     toCeylon = sequentialTypeToCeylon;
     codes = [stringSequentialType, iterableOfStringSequentialType, byteSequentialType];

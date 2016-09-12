@@ -26,10 +26,10 @@ shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModif
     return result;
 }
 
-"Compiles the given [[code]] for a Function Modifier
+"Parses the given [[code]] for a Function Modifier
  into a [[FunctionModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared FunctionModifier? compileFunctionModifier(String code, Anything(JNode,Node) update = noop) {
+shared FunctionModifier? parseFunctionModifier(String code, Anything(JNode,Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == functionType) {

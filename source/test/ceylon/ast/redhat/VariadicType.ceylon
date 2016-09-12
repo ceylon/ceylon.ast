@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     variadicTypeToCeylon,
-    compileVariadicType
+    parseVariadicType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object variadicType satisfies ConcreteTest<VariadicType,JSequencedType> {
     shared String->VariadicType floatStarType = (baseType.floatType.key + "*")->VariadicType(baseType.floatType.item);
     shared String->VariadicType characterStarType = (baseType.characterType.key + "*")->VariadicType(baseType.characterType.item);
     
-    compile = compileVariadicType;
+    parse = parseVariadicType;
     fromCeylon = RedHatTransformer.transformVariadicType;
     toCeylon = variadicTypeToCeylon;
     codes = [stringStarType, iterableOfStringPlusType];

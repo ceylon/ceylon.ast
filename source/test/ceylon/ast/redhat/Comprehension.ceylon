@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     comprehensionToCeylon,
-    compileComprehension
+    parseComprehension
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object comprehension satisfies ConcreteTest<Comprehension,JComprehension>
     shared String->Comprehension forPersonInPeopleComprehension = construct(forComprehensionClause.forPersonInPeopleComprehensionClause);
     // TODO better tests
     
-    compile = compileComprehension;
+    parse = parseComprehension;
     fromCeylon = RedHatTransformer.transformComprehension;
     toCeylon = comprehensionToCeylon;
     codes = [ifTrueCommaAAndBThenIComprehension, forPersonInPeopleComprehension];

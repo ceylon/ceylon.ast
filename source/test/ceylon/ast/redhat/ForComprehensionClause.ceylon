@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     forComprehensionClauseToCeylon,
-    compileForComprehensionClause
+    parseForComprehensionClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object forComprehensionClause satisfies ConcreteTest<ForComprehensionClau
     shared String->ForComprehensionClause forPersonInPeopleComprehensionClause = construct(forIterator.variableIterator, ifComprehensionClause.ifTrueCommaAAndBThenIComprehensionClause);
     // TODO better tests
     
-    compile = compileForComprehensionClause;
+    parse = parseForComprehensionClause;
     fromCeylon = RedHatTransformer.transformForComprehensionClause;
     toCeylon = forComprehensionClauseToCeylon;
     codes = [forPersonInPeopleComprehensionClause];

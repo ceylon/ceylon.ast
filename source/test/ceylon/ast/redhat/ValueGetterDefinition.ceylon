@@ -10,7 +10,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueGetterDefinitionToCeylon,
-    compileValueGetterDefinition
+    parseValueGetterDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object valueGetterDefinition satisfies ConcreteTest<ValueGetterDefinition
     shared String->ValueGetterDefinition lidValueGetterDefinition = construct(identifier.lidLIdentifier, valueModifier.valueModifier, block.emptyBlock, annotations.emptyAnnotations);
     shared String->ValueGetterDefinition annotatedByValueGetterDefinition = construct(identifier.byLIdentifier, valueModifier.valueModifier, block.emptyBlock, annotations.helloSharedByLucasAnnotations);
     
-    compile = compileValueGetterDefinition;
+    parse = parseValueGetterDefinition;
     fromCeylon = RedHatTransformer.transformValueGetterDefinition;
     toCeylon = valueGetterDefinitionToCeylon;
     codes = [lidValueGetterDefinition];

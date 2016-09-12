@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     qualifiedExpressionToCeylon,
-    compileQualifiedExpression
+    parseQualifiedExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -45,7 +45,7 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
     shared String->QualifiedExpression personNameQualifiedExpression = construct(baseExpression.personExpression, "name");
     shared String->QualifiedExpression packageNullExpression = construct("package"->Package(), "null");
     
-    compile = compileQualifiedExpression;
+    parse = parseQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;
     toCeylon = qualifiedExpressionToCeylon;
     codes = [joinWithCommasExpression, processArgumentsFirstExpression, nameEmptyExpression, peopleSpreadNameExpression, processArgumentsFirstSafeLowercasedExpression];

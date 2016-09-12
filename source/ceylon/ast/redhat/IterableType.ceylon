@@ -18,10 +18,10 @@ shared IterableType iterableTypeToCeylon(JIterableType iterableType, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for an Iterable Type
+"Parses the given [[code]] for an Iterable Type
  into an [[IterableType]] using the Ceylon compiler
  (more specifically, the rule for an `iterableType`)."
-shared IterableType? compileIterableType(String code, Anything(JNode,Node) update = noop) {
+shared IterableType? parseIterableType(String code, Anything(JNode,Node) update = noop) {
     if (exists jIterableType = createParser(code).iterableType()) {
         return iterableTypeToCeylon(jIterableType, update);
     } else {

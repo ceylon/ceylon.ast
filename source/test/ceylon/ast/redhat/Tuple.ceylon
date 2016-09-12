@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     tupleToCeylon,
-    compileTuple
+    parseTuple
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object tuple satisfies ConcreteTest<Tuple,JTuple> {
     shared String->Tuple abcTuple = construct(argumentList.abcArgumentList);
     shared String->Tuple spreadTextTuple = construct(argumentList.spreadTextArgumentList);
     
-    compile = compileTuple;
+    parse = parseTuple;
     fromCeylon = RedHatTransformer.transformTuple;
     toCeylon = tupleToCeylon;
     codes = [emptyTuple, abcTuple, spreadTextTuple];

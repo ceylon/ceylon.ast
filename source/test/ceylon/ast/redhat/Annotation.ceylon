@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     annotationToCeylon,
-    compileAnnotation
+    parseAnnotation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -35,7 +35,7 @@ shared object annotation satisfies ConcreteTest<Annotation,JAnnotation> {
         assertEquals(helper("shared"), sharedAnnotation.item);
     }
     
-    compile = compileAnnotation;
+    parse = parseAnnotation;
     fromCeylon = RedHatTransformer.transformAnnotation;
     toCeylon = annotationToCeylon;
     codes = [sharedAnnotation, byLucasAnnotation];

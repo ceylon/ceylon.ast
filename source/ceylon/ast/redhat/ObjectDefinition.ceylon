@@ -36,10 +36,10 @@ shared ObjectDefinition objectDefinitionToCeylon(JObjectDefinition objectDefinit
     return result;
 }
 
-"Compiles the given [[code]] for an Object Definition
+"Parses the given [[code]] for an Object Definition
  into an [[ObjectDefinition]] using the Ceylon compiler
  (more specifically, the rule for an `declaration`)."
-shared ObjectDefinition? compileObjectDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ObjectDefinition? parseObjectDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JObjectDefinition jDeclaration = createParser(code).declaration()) {
         return objectDefinitionToCeylon(jDeclaration, update);
     } else {

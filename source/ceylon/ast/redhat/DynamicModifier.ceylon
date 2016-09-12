@@ -26,10 +26,10 @@ shared DynamicModifier dynamicModifierToCeylon(JDynamicModifier dynamicModifier,
     return result;
 }
 
-"Compiles the given [[code]] for a Dynamic Modifier
+"Parses the given [[code]] for a Dynamic Modifier
  into a [[DynamicModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared DynamicModifier? compileDynamicModifier(String code, Anything(JNode,Node) update = noop) {
+shared DynamicModifier? parseDynamicModifier(String code, Anything(JNode,Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == dynamicType) {

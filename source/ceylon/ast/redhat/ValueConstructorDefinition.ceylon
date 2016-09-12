@@ -30,10 +30,10 @@ shared ValueConstructorDefinition valueConstructorDefinitionToCeylon(JEnumerated
     return result;
 }
 
-"Compiles the given [[code]] for a Value Constructor Definition
+"Parses the given [[code]] for a Value Constructor Definition
  into a [[ValueConstructorDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueConstructorDefinition? compileValueConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueConstructorDefinition? parseValueConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JEnumerated jValueConstructorDefinition = createParser(code).declaration()) {
         return valueConstructorDefinitionToCeylon(jValueConstructorDefinition, update);
     } else {

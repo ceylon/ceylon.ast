@@ -53,10 +53,10 @@ shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionE
     return result;
 }
 
-"Compiles the given [[code]] for a Function Expression
+"Parses the given [[code]] for a Function Expression
  into a [[FunctionExpression]] using the Ceylon compiler
  (more specifically, the rule for an `anonymousFunction`)."
-shared FunctionExpression? compileFunctionExpression(String code, Anything(JNode,Node) update = noop) {
+shared FunctionExpression? parseFunctionExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jAnonymousFunction = createParser(code).anonymousFunction()) {
         return functionExpressionToCeylon(jAnonymousFunction, update);
     } else {

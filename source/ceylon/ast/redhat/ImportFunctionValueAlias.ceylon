@@ -21,10 +21,10 @@ shared ImportFunctionValueAlias importFunctionValueAliasToCeylon(JAlias importFu
     return result;
 }
 
-"Compiles the given [[code]] for an Import Function Value Alias
+"Parses the given [[code]] for an Import Function Value Alias
  into an [[ImportFunctionValueAlias]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared ImportFunctionValueAlias? compileImportFunctionValueAlias(String code, Anything(JNode,Node) update = noop) {
+shared ImportFunctionValueAlias? parseImportFunctionValueAlias(String code, Anything(JNode,Node) update = noop) {
     /*
      there’s no separate rule for an alias (it might not even
      work out to do it that way, parser-wise), so we construct

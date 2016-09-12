@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unaryIshOperationToCeylon,
-    compileUnaryIshOperation
+    parseUnaryIshOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object unaryIshOperation satisfies AbstractTest<UnaryIshOperation,JUnaryOperatorExpression> {
-    compile = compileUnaryIshOperation;
+    parse = parseUnaryIshOperation;
     fromCeylon = RedHatTransformer.transformUnaryIshOperation;
     toCeylon = unaryIshOperationToCeylon;
     

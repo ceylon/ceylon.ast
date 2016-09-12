@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     satisfiedTypesToCeylon,
-    compileSatisfiedTypes
+    parseSatisfiedTypes
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object satisfiedTypes satisfies ConcreteTest<SatisfiedTypes,JSatisfiedTyp
     
     shared String->SatisfiedTypes satisfiesStringStarAndPrintableSatisfiedTypes = construct(iterableType.stringStarIterableType, baseType.printableType);
     
-    compile = compileSatisfiedTypes;
+    parse = parseSatisfiedTypes;
     fromCeylon = RedHatTransformer.transformSatisfiedTypes;
     toCeylon = satisfiedTypesToCeylon;
     codes = [satisfiesStringStarAndPrintableSatisfiedTypes];

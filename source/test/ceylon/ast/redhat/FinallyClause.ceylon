@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     finallyClauseToCeylon,
-    compileFinallyClause
+    parseFinallyClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object finallyClause satisfies ConcreteTest<FinallyClause,JFinallyClause>
     
     shared String->FinallyClause printHelloWorldFinallyClause = construct(block.printHelloWorldBlock);
     
-    compile = compileFinallyClause;
+    parse = parseFinallyClause;
     fromCeylon = RedHatTransformer.transformFinallyClause;
     toCeylon = finallyClauseToCeylon;
     codes = [printHelloWorldFinallyClause];

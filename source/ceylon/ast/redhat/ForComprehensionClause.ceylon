@@ -16,10 +16,10 @@ shared ForComprehensionClause forComprehensionClauseToCeylon(JForComprehensionCl
     return result;
 }
 
-"Compiles the given [[code]] for a For Comprehension Clause
+"Parses the given [[code]] for a For Comprehension Clause
  into a [[ForComprehensionClause]] using the Ceylon compiler
  (more specifically, the rule for a `forComprehensionClause`)."
-shared ForComprehensionClause? compileForComprehensionClause(String code, Anything(JNode,Node) update = noop) {
+shared ForComprehensionClause? parseForComprehensionClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jForComprehensionClause = createParser(code).forComprehensionClause()) {
         return forComprehensionClauseToCeylon(jForComprehensionClause, update);
     } else {

@@ -19,10 +19,10 @@ shared AnyClass anyClassToCeylon(JAnyClass anyClass, Anything(JNode,Node) update
     case (is JClassDeclaration) { return classAliasDefinitionToCeylon(anyClass, update); }
 }
 
-"Compiles the given [[code]] for Any Class
+"Parses the given [[code]] for Any Class
  into an [[AnyClass]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyClass? compileAnyClass(String code, Anything(JNode,Node) update = noop) {
+shared AnyClass? parseAnyClass(String code, Anything(JNode,Node) update = noop) {
     if (is JAnyClass jAnyClass = createParser(code).declaration()) {
         return anyClassToCeylon(jAnyClass, update);
     } else {

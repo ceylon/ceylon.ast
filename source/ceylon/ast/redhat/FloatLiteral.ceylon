@@ -23,10 +23,10 @@ shared FloatLiteral floatLiteralToCeylon(JFloatLiteral floatLiteral, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Float Literal
+"Parses the given [[code]] for a Float Literal
  into a [[FloatLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonStringLiteral`)."
-shared FloatLiteral? compileFloatLiteral(String code, Anything(JNode,Node) update = noop) {
+shared FloatLiteral? parseFloatLiteral(String code, Anything(JNode,Node) update = noop) {
     if (is JFloatLiteral jFloatLiteral = createParser(code).nonstringLiteral()) {
         return floatLiteralToCeylon(jFloatLiteral, update);
     } else {

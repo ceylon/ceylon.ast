@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     qualifiedTypeToCeylon,
-    compileQualifiedType
+    parseQualifiedType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object qualifiedType satisfies ConcreteTest<QualifiedType,JQualifiedType>
     shared String->QualifiedType stringDotFooOfNothingDotIterableOfStringDotInnerQualifiedType
             = (stringDotFooOfNothingDotIterableOfStringQualifiedType.key + ".Inner")->QualifiedType(stringDotFooOfNothingDotIterableOfStringQualifiedType.item, TypeNameWithTypeArguments(UIdentifier("Inner")));
     
-    compile = compileQualifiedType;
+    parse = parseQualifiedType;
     fromCeylon = RedHatTransformer.transformQualifiedType;
     toCeylon = qualifiedTypeToCeylon;
     codes = [stringDotFooOfNothingQualifiedType, stringDotFooOfNothingDotIterableOfStringQualifiedType, stringDotFooOfNothingDotIterableOfStringDotInnerQualifiedType];

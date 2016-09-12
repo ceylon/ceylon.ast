@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     catchClauseToCeylon,
-    compileCatchClause
+    parseCatchClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object catchClause satisfies ConcreteTest<CatchClause,JCatchClause> {
     shared String->CatchClause catchThrowableTPrintHelloWorldClause = construct(baseType.throwableType, identifier.tLIdentifier, block.printHelloWorldBlock);
     shared String->CatchClause catchValueEDoNothingClause = construct(valueModifier.valueModifier, identifier.eLIdentifier, block.emptyBlock);
     
-    compile = compileCatchClause;
+    parse = parseCatchClause;
     fromCeylon = RedHatTransformer.transformCatchClause;
     toCeylon = catchClauseToCeylon;
     codes = [catchEDoNothingClause, catchThrowableTPrintHelloWorldClause, catchValueEDoNothingClause];

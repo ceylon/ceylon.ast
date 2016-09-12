@@ -20,10 +20,10 @@ shared MemberDec memberDecToCeylon(JMemberLiteral memberDec, Anything(JNode,Node
     case (is JFunctionLiteral) { return functionDecToCeylon(memberDec, update); }
 }
 
-"Compiles the given [[code]] for a Member Dec
+"Parses the given [[code]] for a Member Dec
  into a [[MemberDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared MemberDec? compileMemberDec(String code, Anything(JNode,Node) update = noop) {
+shared MemberDec? parseMemberDec(String code, Anything(JNode,Node) update = noop) {
     if (is JValueLiteral|JFunctionLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return memberDecToCeylon(jMetaLiteral, update);
     } else {

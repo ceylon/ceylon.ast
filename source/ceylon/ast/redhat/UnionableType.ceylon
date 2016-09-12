@@ -19,10 +19,10 @@ shared UnionableType unionableTypeToCeylon(JStaticType unionableType, Anything(J
     }
 }
 
-"Compiles the given [[code]] for a Unionable Type
+"Parses the given [[code]] for a Unionable Type
  into a [[UnionableType]] using the Ceylon compiler
  (more specifically, the rule for an `intersectionType`)."
-shared UnionableType? compileUnionableType(String code, Anything(JNode,Node) update = noop) {
+shared UnionableType? parseUnionableType(String code, Anything(JNode,Node) update = noop) {
     if (exists jType = createParser(code).intersectionType()) {
         return unionableTypeToCeylon(jType, update);
     } else {

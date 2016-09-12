@@ -28,10 +28,10 @@ shared RangeSubscript rangeSubscriptToCeylon(JElementRange rangeSubscript, Anyth
     return result;
 }
 
-"Compiles the given [[code]] for a Range Subscript
+"Parses the given [[code]] for a Range Subscript
  into a [[RangeSubscript]] using the Ceylon compiler
  (more specifically, the rule for an `indexOrIndexRange`)."
-shared RangeSubscript? compileRangeSubscript(String code, Anything(JNode,Node) update = noop) {
+shared RangeSubscript? parseRangeSubscript(String code, Anything(JNode,Node) update = noop) {
     if (is JElementRange jElementOrRange = createParser("[``code``]").indexOrIndexRange().elementOrRange) {
         return rangeSubscriptToCeylon(jElementOrRange, update);
     } else {

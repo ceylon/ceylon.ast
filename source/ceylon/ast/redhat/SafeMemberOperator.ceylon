@@ -16,10 +16,10 @@ shared SafeMemberOperator safeMemberOperatorToCeylon(JSafeMemberOp safeMemberOpe
     return result;
 }
 
-"Compiles the given [[code]] for a Safe Member Operator
+"Parses the given [[code]] for a Safe Member Operator
  into a [[SafeMemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared SafeMemberOperator? compileSafeMemberOperator(String code, Anything(JNode,Node) update = noop) {
+shared SafeMemberOperator? parseSafeMemberOperator(String code, Anything(JNode,Node) update = noop) {
     if (is JSafeMemberOp jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
         return safeMemberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {

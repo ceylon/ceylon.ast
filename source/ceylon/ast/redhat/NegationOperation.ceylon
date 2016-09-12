@@ -18,10 +18,10 @@ shared NegationOperation negationOperationToCeylon(JNegativeOp negationOperation
     return result;
 }
 
-"Compiles the given [[code]] for a Negation Operation
+"Parses the given [[code]] for a Negation Operation
  into a [[NegationOperation]] using the Ceylon compiler
  (more specifically, the rule for a `negationComplementExpression`)."
-shared NegationOperation? compileNegationOperation(String code, Anything(JNode,Node) update = noop) {
+shared NegationOperation? parseNegationOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JNegativeOp jNegationComplementExpression = createParser(code).negationComplementExpression()) {
         return negationOperationToCeylon(jNegationComplementExpression, update);
     } else {

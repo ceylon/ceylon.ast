@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     nonemptyConditionToCeylon,
-    compileNonemptyCondition
+    parseNonemptyCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object nonemptyCondition satisfies ConcreteTest<NonemptyCondition,JNonemp
     shared String->NonemptyCondition negatedNonemptyCollectionCondition = constructI(identifier.collectionLIdentifier, true);
     shared String->NonemptyCondition nonemptyFirstRestSpecifyCondition = constructP(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     
-    compile = compileNonemptyCondition;
+    parse = parseNonemptyCondition;
     fromCeylon = RedHatTransformer.transformNonemptyCondition;
     toCeylon = nonemptyConditionToCeylon;
     codes = [negatedNonemptyCollectionCondition, nonemptyFirstRestSpecifyCondition];

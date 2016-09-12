@@ -27,10 +27,10 @@ shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticO
     case (is JDifferenceOp) { return differenceOperationToCeylon(arithmeticOperation, update); }
 }
 
-"Compiles the given [[code]] for an Arithmetic Operation
+"Parses the given [[code]] for an Arithmetic Operation
  into an [[ArithmeticOperation]] using the Ceylon compiler
  (more specifically, the rule for an `additiveExpression`)."
-shared ArithmeticOperation? compileArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
+shared ArithmeticOperation? parseArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JArithmeticOp jArithmeticOp = createParser(code).additiveExpression()) {
         return arithmeticOperationToCeylon(jArithmeticOp, update);
     } else {

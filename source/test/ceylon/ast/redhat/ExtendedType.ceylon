@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     extendedTypeToCeylon,
-    compileExtendedType
+    parseExtendedType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -36,7 +36,7 @@ shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
     shared String->ExtendedType extendsAnything = construct(extension.extendsAnything);
     shared String->ExtendedType extendsNull = construct(extension.extendsNull);
     
-    compile = compileExtendedType;
+    parse = parseExtendedType;
     fromCeylon = RedHatTransformer.transformExtendedType;
     toCeylon = extendedTypeToCeylon;
     codes = [objectExtendedType, packageObjectExtendedType, superInnerExtendedType, objectOfStringExtendedType, packageObjectOfStringExtendedType, superInnerOfStringExtendedType,

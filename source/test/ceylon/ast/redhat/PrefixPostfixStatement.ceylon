@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     prefixPostfixStatementToCeylon,
-    compilePrefixPostfixStatement
+    parsePrefixPostfixStatement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object prefixPostfixStatement satisfies ConcreteTest<PrefixPostfixStateme
     shared String->PrefixPostfixStatement _1138PostfixIncrementStatement = construct(postfixIncrementOperation._1138IntegerLiteralPostfixIncrementOperation);
     shared String->PrefixPostfixStatement _1138PrefixDecrementStatement = construct(prefixDecrementOperation._1138IntegerLiteralPrefixDecrementOperation);
     
-    compile = compilePrefixPostfixStatement;
+    parse = parsePrefixPostfixStatement;
     fromCeylon = RedHatTransformer.transformPrefixPostfixStatement;
     toCeylon = prefixPostfixStatementToCeylon;
     codes = [_1138PostfixIncrementStatement, _1138PrefixDecrementStatement];

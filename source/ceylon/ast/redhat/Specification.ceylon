@@ -19,10 +19,10 @@ shared Specification specificationToCeylon(JSpecifierStatement specification, An
     }
 }
 
-"Compiles the given [[code]] for a Specification
+"Parses the given [[code]] for a Specification
  into a [[Specification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared Specification? compileSpecification(String code, Anything(JNode,Node) update = noop) {
+shared Specification? parseSpecification(String code, Anything(JNode,Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement()) {
         return specificationToCeylon(jExpressionOrSpecificationStatement, update);
     } else {

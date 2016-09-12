@@ -24,10 +24,10 @@ shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclarat
     case (is JAnyMethod) { return anyFunctionToCeylon(typedDeclaration, update); }
 }
 
-"Compiles the given [[code]] for a Typed Declaration
+"Parses the given [[code]] for a Typed Declaration
  into a [[TypedDeclaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared TypedDeclaration? compileTypedDeclaration(String code, Anything(JNode,Node) update = noop) {
+shared TypedDeclaration? parseTypedDeclaration(String code, Anything(JNode,Node) update = noop) {
     if (is JTypedDeclaration jDeclaration = createParser(code).declaration()) {
         return typedDeclarationToCeylon(jDeclaration, update);
     } else {

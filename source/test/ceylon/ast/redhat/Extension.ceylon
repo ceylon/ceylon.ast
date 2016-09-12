@@ -12,7 +12,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     extensionToCeylon,
-    compileExtension
+    parseExtension
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -39,7 +39,7 @@ shared object extension satisfies ConcreteTest<Extension,JInvocationExpression|J
     shared String->Extension extendsNull = construct("Null"->TypeNameWithTypeArguments(UIdentifier("Null")), positionalArguments.emptyPositionalArguments, null);
     shared String->Extension extendsStringCharacters = construct("String"->TypeNameWithTypeArguments(UIdentifier("String")), positionalArguments.spreadTextPositionalArguments, null);
     
-    compile = compileExtension;
+    parse = parseExtension;
     fromCeylon = RedHatTransformer.transformExtension;
     toCeylon = extensionToCeylon;
     codes = [objectExtension, packageObjectExtension, superInnerExtension, objectOfStringExtension, packageObjectOfStringExtension, superInnerOfStringExtension, outerStaticMiddleStaticInnerExtension];

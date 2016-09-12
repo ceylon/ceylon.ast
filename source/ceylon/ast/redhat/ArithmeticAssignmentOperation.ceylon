@@ -25,10 +25,10 @@ shared ArithmeticAssignmentOperation arithmeticAssignmentOperationToCeylon(JArit
     case (is JRemainderAssignOp) { return remainderAssignmentOperationToCeylon(arithmeticAssignmentOperation, update); }
 }
 
-"Compiles the given [[code]] for an Arithmetic Assignment Operation
+"Parses the given [[code]] for an Arithmetic Assignment Operation
  into an [[ArithmeticAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared ArithmeticAssignmentOperation? compileArithmeticAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared ArithmeticAssignmentOperation? parseArithmeticAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JArithmeticAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return arithmeticAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

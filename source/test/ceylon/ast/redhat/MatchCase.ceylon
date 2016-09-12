@@ -10,7 +10,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     matchCaseToCeylon,
-    compileMatchCase
+    parseMatchCase
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object matchCase satisfies ConcreteTest<MatchCase,JMatchCase> {
     shared String->MatchCase matchMinusOneCase = construct(negationOperation.minusOneExpression);
     shared String->MatchCase packageNullCase = construct(qualifiedExpression.packageNullExpression);
     
-    compile = compileMatchCase;
+    parse = parseMatchCase;
     fromCeylon = RedHatTransformer.transformMatchCase;
     toCeylon = matchCaseToCeylon;
     codes = [matchZeroOrOneCase, matchNullCase, matchMinusOneCase, packageNullCase];

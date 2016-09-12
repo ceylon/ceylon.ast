@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     existsOperationToCeylon,
-    compileExistsOperation
+    parseExistsOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object existsOperation satisfies ConcreteTest<ExistsOperation,JExists> {
     
     shared String->ExistsOperation aExistsExpression = construct(baseExpression.aExpression);
     
-    compile = compileExistsOperation;
+    parse = parseExistsOperation;
     fromCeylon = RedHatTransformer.transformExistsOperation;
     toCeylon = existsOperationToCeylon;
     codes = [aExistsExpression];

@@ -22,10 +22,10 @@ shared Invocation invocationToCeylon(JInvocationExpression invocation, Anything(
     return result;
 }
 
-"Compiles the given [[code]] for an Invocation
+"Parses the given [[code]] for an Invocation
  into an [[Invocation]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared Invocation? compileInvocation(String code, Anything(JNode,Node) update = noop) {
+shared Invocation? parseInvocation(String code, Anything(JNode,Node) update = noop) {
     if (is JInvocationExpression jPrimary = createParser(code).primary()) {
         return invocationToCeylon(jPrimary, update);
     } else {

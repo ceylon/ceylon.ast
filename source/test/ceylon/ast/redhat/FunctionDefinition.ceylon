@@ -14,7 +14,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionDefinitionToCeylon,
-    compileFunctionDefinition
+    parseFunctionDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -30,7 +30,7 @@ shared object functionDefinition satisfies ConcreteTest<FunctionDefinition,JMeth
     shared String->FunctionDefinition noopFunctionDefinition = construct(identifier.noopLIdentifier, voidModifier.voidModifier, [parameters.emptyParameters], block.emptyBlock);
     shared String->FunctionDefinition nonemptyFunctionDefinition = construct(identifier.lidLIdentifier, intersectionType.persistentAndPrintableAndIdentifiableIntersectionType, [parameters.notEmptyParameters, parameters.emptyParameters], block.emptyBlock, typeParameters.twoTypeParameters, [typeConstraint.nonemptyTypeConstraint], annotations.helloSharedByLucasAnnotations);
     
-    compile = compileFunctionDefinition;
+    parse = parseFunctionDefinition;
     fromCeylon = RedHatTransformer.transformFunctionDefinition;
     toCeylon = functionDefinitionToCeylon;
     codes = [noopFunctionDefinition, nonemptyFunctionDefinition];

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     defaultedValueParameterToCeylon,
-    compileDefaultedValueParameter
+    parseDefaultedValueParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object defaultedValueParameter satisfies ConcreteTest<DefaultedValueParam
     shared String->DefaultedValueParameter dynamicByDefaultsto0DefaultedValueParameter = construct(valueParameter.dynamicByValueParameter, specifier._0Specifier);
     shared String->DefaultedValueParameter annotatedStringLidDefaultstoNameElsoWorldGroupedDefaultedValueParameter = construct(valueParameter.annotatedStringLidValueParameter, specifier.nameElseWorldStringLiteralGroupedSpecifier);
     
-    compile = compileDefaultedValueParameter;
+    parse = parseDefaultedValueParameter;
     fromCeylon = RedHatTransformer.transformDefaultedValueParameter;
     toCeylon = defaultedValueParameterToCeylon;
     codes = [dynamicByDefaultsto0DefaultedValueParameter, annotatedStringLidDefaultstoNameElsoWorldGroupedDefaultedValueParameter];

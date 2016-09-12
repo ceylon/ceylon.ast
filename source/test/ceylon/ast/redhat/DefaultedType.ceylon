@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     defaultedTypeToCeylon,
-    compileDefaultedType
+    parseDefaultedType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object defaultedType satisfies ConcreteTest<DefaultedType,JDefaultedType>
     // not tested directly, but used by other tests
     shared String->DefaultedType floatDefaultedType = (baseType.floatType.key + "=")->DefaultedType(baseType.floatType.item);
     
-    compile = compileDefaultedType;
+    parse = parseDefaultedType;
     fromCeylon = RedHatTransformer.transformDefaultedType;
     toCeylon = defaultedTypeToCeylon;
     codes = [stringDefaultedType, iterableOfStringDefaultedType];

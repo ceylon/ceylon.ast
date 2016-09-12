@@ -31,10 +31,10 @@ shared ValueSetterDefinition valueSetterDefinitionToCeylon(JAttributeSetterDefin
     return result;
 }
 
-"Compiles the given [[code]] for a Value Setter Definition
+"Parses the given [[code]] for a Value Setter Definition
  into a [[ValueSetterDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueSetterDefinition? compileValueSetterDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueSetterDefinition? parseValueSetterDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JAttributeSetterDefinition jDeclaration = createParser(code).declaration()) {
         return valueSetterDefinitionToCeylon(jDeclaration, update);
     } else {

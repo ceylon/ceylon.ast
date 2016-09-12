@@ -19,10 +19,10 @@ shared NotOperation notOperationToCeylon(JNotOp notOperation, Anything(JNode,Nod
     return result;
 }
 
-"Compiles the given [[code]] for a Not Operation
+"Parses the given [[code]] for a Not Operation
  into a [[NotOperation]] using the Ceylon compiler
  (more specifically, the rule for a `logicalNegationExpression`)."
-shared NotOperation? compileNotOperation(String code, Anything(JNode,Node) update = noop) {
+shared NotOperation? parseNotOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JNotOp jLogicalNegationExpression = createParser(code).logicalNegationExpression()) {
         return notOperationToCeylon(jLogicalNegationExpression, update);
     } else {

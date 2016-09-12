@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     switchCaseElseToCeylon,
-    compileSwitchCaseElse
+    parseSwitchCaseElse
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object switchCaseElse satisfies ConcreteTest<SwitchCaseElse,JSwitchStatem
     
     shared String->SwitchCaseElse switchCaseElse = construct(switchClause.switchIClause, switchCases.switchCases);
     
-    compile = compileSwitchCaseElse;
+    parse = parseSwitchCaseElse;
     fromCeylon = RedHatTransformer.transformSwitchCaseElse;
     toCeylon = switchCaseElseToCeylon;
     codes = [switchCaseElse];

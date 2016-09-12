@@ -21,10 +21,10 @@ shared ComplementAssignmentOperation complementAssignmentOperationToCeylon(JComp
     return result;
 }
 
-"Compiles the given [[code]] for a Complement Assignment Operation
+"Parses the given [[code]] for a Complement Assignment Operation
  into a [[ComplementAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared ComplementAssignmentOperation? compileComplementAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared ComplementAssignmentOperation? parseComplementAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JComplementAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return complementAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

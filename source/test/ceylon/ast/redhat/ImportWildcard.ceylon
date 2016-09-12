@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importWildcardToCeylon,
-    compileImportWildcard
+    parseImportWildcard
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object importWildcard satisfies ConcreteTest<ImportWildcard,JImportWildca
     
     shared String->ImportWildcard importWildcard = "..."->ImportWildcard();
     
-    compile = compileImportWildcard;
+    parse = parseImportWildcard;
     fromCeylon = RedHatTransformer.transformImportWildcard;
     toCeylon = importWildcardToCeylon;
     codes = [importWildcard];

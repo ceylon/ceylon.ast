@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     equalOperationToCeylon,
-    compileEqualOperation
+    parseEqualOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object equalOperation satisfies ConcreteTest<EqualOperation,JEqualOp> {
     "a&b == a&b&c"
     shared String->EqualOperation aIntBEqualsAIntBIntCExpression = construct(intersectionOperation.aIntersectBExpression, intersectionOperation.aIntersectBIntersectCExpression);
     
-    compile = compileEqualOperation;
+    parse = parseEqualOperation;
     fromCeylon = RedHatTransformer.transformEqualOperation;
     toCeylon = equalOperationToCeylon;
     codes = [aEqualsBExpression, aIntBEqualsAIntBIntCExpression];

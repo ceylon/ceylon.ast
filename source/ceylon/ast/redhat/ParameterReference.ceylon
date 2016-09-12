@@ -18,10 +18,10 @@ shared ParameterReference parameterReferenceToCeylon(JInitializerParameter param
     return result;
 }
 
-"Compiles the given [[code]] for a Parameter Reference
+"Parses the given [[code]] for a Parameter Reference
  into a [[ParameterReference]] using the Ceylon compiler
  (more specifically, the rule for a `parameterRef`)."
-shared ParameterReference? compileParameterReference(String code, Anything(JNode,Node) update = noop) {
+shared ParameterReference? parseParameterReference(String code, Anything(JNode,Node) update = noop) {
     if (exists jParameterRef = createParser(code).parameterRef(),
         !jParameterRef.specifierExpression exists) {
         return parameterReferenceToCeylon(jParameterRef, update);

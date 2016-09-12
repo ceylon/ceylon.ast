@@ -42,10 +42,10 @@ shared Atom atomToCeylon(JAtom atom, Anything(JNode,Node) update = noop) {
     }
 }
 
-"Compiles the given [[code]] for an Atom
+"Parses the given [[code]] for an Atom
  into an [[Atom]] using the Ceylon compiler
  (more specifically, the rule for a `base`)."
-shared Atom? compileAtom(String code, Anything(JNode,Node) update = noop) {
+shared Atom? parseAtom(String code, Anything(JNode,Node) update = noop) {
     if (is JAtom jAtom = createParser(code).base()) {
         return atomToCeylon(jAtom, update);
     } else {

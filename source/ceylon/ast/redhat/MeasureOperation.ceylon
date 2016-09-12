@@ -20,10 +20,10 @@ shared MeasureOperation measureOperationToCeylon(JSegmentOp measureOperation, An
     return result;
 }
 
-"Compiles the given [[code]] for a Measure Operation
+"Parses the given [[code]] for a Measure Operation
  into a [[MeasureOperation]] using the Ceylon compiler
  (more specifically, the rule for an `entryRangeExpression`)."
-shared MeasureOperation? compileMeasureOperation(String code, Anything(JNode,Node) update = noop) {
+shared MeasureOperation? parseMeasureOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JSegmentOp jEntryRangeExpression = createParser(code).entryRangeExpression()) {
         return measureOperationToCeylon(jEntryRangeExpression, update);
     } else {

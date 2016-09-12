@@ -21,10 +21,10 @@ shared UnionOperation unionOperationToCeylon(JUnionOp unionOperation, Anything(J
     return result;
 }
 
-"Compiles the given [[code]] for a Union Operation
+"Parses the given [[code]] for a Union Operation
  into an [[UnionOperation]] using the Ceylon compiler
  (more specifically, the rule for a `unionExpression`)."
-shared UnionOperation? compileUnionOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnionOperation? parseUnionOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JUnionOp jUnionExpression = createParser(code).unionExpression()) {
         return unionOperationToCeylon(jUnionExpression, update);
     } else {

@@ -36,10 +36,10 @@ shared ForIterator forIteratorToCeylon(JForIterator forIterator, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for a For Iterator
+"Parses the given [[code]] for a For Iterator
  into a [[ForIterator]] using the Ceylon compiler
  (more specifically, the rule for a `forIterator`)."
-shared ForIterator? compileForIterator(String code, Anything(JNode,Node) update = noop) {
+shared ForIterator? parseForIterator(String code, Anything(JNode,Node) update = noop) {
     if (exists jForIterator = createParser(code).forIterator()) {
         return forIteratorToCeylon(jForIterator, update);
     } else {

@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     namedArgumentToCeylon,
-    compileNamedArgument
+    parseNamedArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object namedArgument satisfies AbstractTest<NamedArgument,JNamedArgument> {
-    compile = compileNamedArgument;
+    parse = parseNamedArgument;
     fromCeylon = RedHatTransformer.transformNamedArgument;
     toCeylon = namedArgumentToCeylon;
     

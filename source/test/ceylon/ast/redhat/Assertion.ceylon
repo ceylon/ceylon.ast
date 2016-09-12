@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     assertionToCeylon,
-    compileAssertion
+    parseAssertion
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object assertion satisfies ConcreteTest<Assertion,JAssertion> {
     shared String->Assertion unannotatedAssertion = construct(conditions.trueCommaAAndBConditions);
     shared String->Assertion annotatedAssertion = construct(conditions.trueCommaAAndBConditions, annotations.helloSharedByLucasAnnotations);
     
-    compile = compileAssertion;
+    parse = parseAssertion;
     fromCeylon = RedHatTransformer.transformAssertion;
     toCeylon = assertionToCeylon;
     codes = [unannotatedAssertion, annotatedAssertion];

@@ -54,10 +54,10 @@ shared Parameter parameterToCeylon(JParameter parameter, Anything(JNode,Node) up
     }
 }
 
-"Compiles the given [[code]] for a Parameter
+"Parses the given [[code]] for a Parameter
  into a [[Parameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared Parameter? compileParameter(String code, Anything(JNode,Node) update = noop) {
+shared Parameter? parseParameter(String code, Anything(JNode,Node) update = noop) {
     if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
         /*
          The parser does some lookahead and seems to need that comma to parse a parameterRef

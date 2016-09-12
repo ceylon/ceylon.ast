@@ -27,10 +27,10 @@ shared SwitchCases switchCasesToCeylon(JSwitchCaseList switchCases, Anything(JNo
     return result;
 }
 
-"Compiles the given [[code]] for Switch Cases
+"Parses the given [[code]] for Switch Cases
  into [[SwitchCases]] using the Ceylon compiler
  (more specifically, the rule for `cases`)."
-shared SwitchCases? compileSwitchCases(String code, Anything(JNode,Node) update = noop) {
+shared SwitchCases? parseSwitchCases(String code, Anything(JNode,Node) update = noop) {
     if (exists jCases = createParser(code).cases()) {
         return switchCasesToCeylon(jCases, update);
     } else {

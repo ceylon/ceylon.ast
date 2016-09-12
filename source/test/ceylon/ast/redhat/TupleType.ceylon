@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     tupleTypeToCeylon,
-    compileTupleType
+    parseTupleType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object tupleType satisfies ConcreteTest<TupleType,JTupleType> {
     // not tested directly, but used by other tests
     shared String->TupleType floatStarTupleType = construct(typeList.floatStarTypeList);
     
-    compile = compileTupleType;
+    parse = parseTupleType;
     fromCeylon = RedHatTransformer.transformTupleType;
     toCeylon = tupleTypeToCeylon;
     codes = [emptyTupleType, stringPlusTupleType, integerFloatDefaultedStringStarTupleType];

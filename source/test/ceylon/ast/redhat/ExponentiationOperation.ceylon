@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     exponentiationOperationToCeylon,
-    compileExponentiationOperation
+    parseExponentiationOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object exponentiationOperation satisfies ConcreteTest<ExponentiationOpera
     shared String->ExponentiationOperation xSquaredOperation = construct(baseExpression.xExpression, integerLiteral._2IntegerLiteral);
     shared String->ExponentiationOperation ySquaredOperation = construct(baseExpression.yExpression, integerLiteral._2IntegerLiteral);
     
-    compile = compileExponentiationOperation;
+    parse = parseExponentiationOperation;
     fromCeylon = RedHatTransformer.transformExponentiationOperation;
     toCeylon = exponentiationOperationToCeylon;
     codes = [_1138Pow1Operation];

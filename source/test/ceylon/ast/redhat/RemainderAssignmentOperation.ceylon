@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     remainderAssignmentOperationToCeylon,
-    compileRemainderAssignmentOperation
+    parseRemainderAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object remainderAssignmentOperation satisfies ConcreteTest<RemainderAssig
     
     shared String->RemainderAssignmentOperation incrementRemainderAssignStepExpression = construct(baseExpression.incrementExpression, baseExpression.stepExpression);
     
-    compile = compileRemainderAssignmentOperation;
+    parse = parseRemainderAssignmentOperation;
     fromCeylon = RedHatTransformer.transformRemainderAssignmentOperation;
     toCeylon = remainderAssignmentOperationToCeylon;
     codes = [incrementRemainderAssignStepExpression];

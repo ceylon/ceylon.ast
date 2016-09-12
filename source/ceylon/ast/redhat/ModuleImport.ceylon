@@ -66,10 +66,10 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Module Import
+"Parses the given [[code]] for a Module Import
  into a [[ModuleImport]] using the Ceylon compiler
  (more specifically, the rule for an `importModuleList`)."
-shared ModuleImport? compileModuleImport(String code, Anything(JNode,Node) update = noop) {
+shared ModuleImport? parseModuleImport(String code, Anything(JNode,Node) update = noop) {
     /*
      The `importModule` rule doesn’t take annotations,
      so we have to construct a fake importModuleList

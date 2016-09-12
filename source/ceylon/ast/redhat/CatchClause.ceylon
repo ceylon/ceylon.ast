@@ -33,10 +33,10 @@ shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for a Catch Clause
+"Parses the given [[code]] for a Catch Clause
  into a [[CatchClause]] using the Ceylon compiler
  (more specifically, the rule for a `catchBlock`)."
-shared CatchClause? compileCatchClause(String code, Anything(JNode,Node) update = noop) {
+shared CatchClause? parseCatchClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jCatchBlock = createParser(code).catchBlock(),
         jCatchBlock.catchVariable exists) { // it’s optional in the grammar
         return catchClauseToCeylon(jCatchBlock, update);

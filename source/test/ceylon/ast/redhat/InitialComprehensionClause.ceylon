@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     initialComprehensionClauseToCeylon,
-    compileInitialComprehensionClause
+    parseInitialComprehensionClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object initialComprehensionClause satisfies AbstractTest<InitialComprehensionClause,JInitialComprehensionClause> {
-    compile = compileInitialComprehensionClause;
+    parse = parseInitialComprehensionClause;
     fromCeylon = RedHatTransformer.transformInitialComprehensionClause;
     toCeylon = initialComprehensionClauseToCeylon;
     

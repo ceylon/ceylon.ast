@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     ifClauseToCeylon,
-    compileIfClause
+    parseIfClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object ifClause satisfies ConcreteTest<IfClause,JIfClause> {
     
     shared String->IfClause emptyIfClause = construct(conditions.trueCommaAAndBConditions, block.emptyBlock);
     
-    compile = compileIfClause;
+    parse = parseIfClause;
     fromCeylon = RedHatTransformer.transformIfClause;
     toCeylon = ifClauseToCeylon;
     codes = [emptyIfClause];

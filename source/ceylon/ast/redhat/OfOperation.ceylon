@@ -22,10 +22,10 @@ shared OfOperation ofOperationToCeylon(JOfOp ofOperation, Anything(JNode,Node) u
     return result;
 }
 
-"Compiles the given [[code]] for an Of Operation
+"Parses the given [[code]] for an Of Operation
  into an [[OfOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared OfOperation? compileOfOperation(String code, Anything(JNode,Node) update = noop) {
+shared OfOperation? parseOfOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JOfOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return ofOperationToCeylon(jComparisonExpression, update);
     } else {

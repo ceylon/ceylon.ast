@@ -12,7 +12,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     functionArgumentToCeylon,
-    compileFunctionArgument
+    parseFunctionArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object functionArgument satisfies ConcreteTest<FunctionArgument,JMethodAr
     shared String->FunctionArgument eFunctionArgument = construct(identifier.eLIdentifier, voidModifier.voidModifier, [parameters.notEmptyParameters], block.printPersonNameBlock);
     shared String->FunctionArgument charactersFunctionArgument = construct(identifier.charactersLIdentifier, baseType.stringType, [parameters.emptyParameters], block.emptyBlock);
     
-    compile = compileFunctionArgument;
+    parse = parseFunctionArgument;
     fromCeylon = RedHatTransformer.transformFunctionArgument;
     toCeylon = functionArgumentToCeylon;
     codes = [mapFunctionArgument, eFunctionArgument, charactersFunctionArgument];

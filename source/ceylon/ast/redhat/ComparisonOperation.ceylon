@@ -23,10 +23,10 @@ shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonO
     case (is JSmallAsOp) { return smallAsOperationToCeylon(comparisonOperation, update); }
 }
 
-"Compiles the given [[code]] for a Comparison Operation
+"Parses the given [[code]] for a Comparison Operation
  into a [[ComparisonOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared ComparisonOperation? compileComparisonOperation(String code, Anything(JNode,Node) update = noop) {
+shared ComparisonOperation? parseComparisonOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JComparisonOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return comparisonOperationToCeylon(jComparisonExpression, update);
     } else {

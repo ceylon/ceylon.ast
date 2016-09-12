@@ -32,10 +32,10 @@ shared ObjectExpression objectExpressionToCeylon(JObjectExpression objectExpress
     return result;
 }
 
-"Compiles the given [[code]] for an Object Expression
+"Parses the given [[code]] for an Object Expression
  into an [[ObjectExpression]] using the Ceylon compiler
  (more specifically, the rule for an `objectExpression`)."
-shared ObjectExpression? compileObjectExpression(String code, Anything(JNode,Node) update = noop) {
+shared ObjectExpression? parseObjectExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jObjectExpression = createParser(code).objectExpression()) {
         return objectExpressionToCeylon(jObjectExpression, update);
     } else {

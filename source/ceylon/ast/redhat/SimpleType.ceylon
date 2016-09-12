@@ -19,10 +19,10 @@ shared SimpleType simpleTypeToCeylon(JSimpleType simpleType, Anything(JNode,Node
     case (is JQualifiedType) { return qualifiedTypeToCeylon(simpleType, update); }
 }
 
-"Compiles the given [[code]] for a Simple Type
+"Parses the given [[code]] for a Simple Type
  into a [[SimpleType]] using the Ceylon compiler
  (more specifically, the rule for a `qualifiedType`)."
-shared SimpleType? compileSimpleType(String code, Anything(JNode,Node) update = noop) {
+shared SimpleType? parseSimpleType(String code, Anything(JNode,Node) update = noop) {
     if (is JSimpleType jQualifiedType = createParser(code).qualifiedType()) {
         return simpleTypeToCeylon(jQualifiedType, update);
     } else {

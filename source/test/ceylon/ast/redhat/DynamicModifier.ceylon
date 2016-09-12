@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     dynamicModifierToCeylon,
-    compileDynamicModifier
+    parseDynamicModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object dynamicModifier satisfies ConcreteTest<DynamicModifier,JDynamicMod
     
     shared String->DynamicModifier dynamicModifier = "dynamic"->DynamicModifier();
     
-    compile = compileDynamicModifier;
+    parse = parseDynamicModifier;
     fromCeylon = RedHatTransformer.transformDynamicModifier;
     toCeylon = dynamicModifierToCeylon;
     codes = [dynamicModifier];

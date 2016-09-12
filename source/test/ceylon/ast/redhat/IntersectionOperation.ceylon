@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     intersectionOperationToCeylon,
-    compileIntersectionOperation
+    parseIntersectionOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object intersectionOperation satisfies ConcreteTest<IntersectionOperation
     shared String->IntersectionOperation aIntersectBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     shared String->IntersectionOperation aIntersectBIntersectCExpression = construct(aIntersectBExpression, baseExpression.cExpression);
     
-    compile = compileIntersectionOperation;
+    parse = parseIntersectionOperation;
     fromCeylon = RedHatTransformer.transformIntersectionOperation;
     toCeylon = intersectionOperationToCeylon;
     codes = [aIntersectBExpression, aIntersectBIntersectCExpression];

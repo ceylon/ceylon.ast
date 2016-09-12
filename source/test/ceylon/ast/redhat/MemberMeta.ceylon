@@ -13,7 +13,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     memberMetaToCeylon,
-    compileMemberMeta
+    parseMemberMeta
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -37,7 +37,7 @@ shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
             = construct(baseType.iterableOfStringType, "collect<Integer?>"->MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))])));
     shared String->MemberMeta packageObjectEqualsMeta = construct(baseType.objectPackageQualifiedType, identifier.equalsLIdentifier);
     
-    compile = compileMemberMeta;
+    parse = parseMemberMeta;
     fromCeylon = RedHatTransformer.transformMemberMeta;
     toCeylon = memberMetaToCeylon;
     codes = [personSayMemberMeta, systemMillisecondsMemberMeta, iterableOfStringCollectOfIntegerOptionalMemberMeta, packageObjectEqualsMeta];

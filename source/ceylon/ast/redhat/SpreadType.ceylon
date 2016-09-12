@@ -19,10 +19,10 @@ shared SpreadType spreadTypeToCeylon(JSpreadType spreadType, Anything(JNode,Node
     return result;
 }
 
-"Compiles the given [[code]] for a Spread Type
+"Parses the given [[code]] for a Spread Type
  into a [[SpreadType]] using the Ceylon compiler
  (more specifically, the rule for a `spreadType`)."
-shared SpreadType? compileSpreadType(String code, Anything(JNode,Node) update = noop) {
+shared SpreadType? parseSpreadType(String code, Anything(JNode,Node) update = noop) {
     if (exists jSpreadType = createParser(code).spreadType()) {
         assert (is JSpreadType jSpreadType);
         return spreadTypeToCeylon(jSpreadType, update);

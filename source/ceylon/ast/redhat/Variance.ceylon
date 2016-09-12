@@ -24,10 +24,10 @@ shared Variance varianceToCeylon(JTypeVariance variance, Anything(JNode,Node) up
     }
 }
 
-"Compiles the given [[code]] for a Variance
+"Parses the given [[code]] for a Variance
  into a [[Variance]] using the Ceylon compiler
  (more specifically, the rule for a `variance`)."
-shared Variance? compileVariance(String code, Anything(JNode,Node) update = noop) {
+shared Variance? parseVariance(String code, Anything(JNode,Node) update = noop) {
     if (exists jVariance = createParser(code).variance()) {
         return varianceToCeylon(jVariance, update);
     } else {

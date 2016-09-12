@@ -21,10 +21,10 @@ shared AndOperation andOperationToCeylon(JAndOp andOperation, Anything(JNode,Nod
     return result;
 }
 
-"Compiles the given [[code]] for an And Operation
+"Parses the given [[code]] for an And Operation
  into an [[AndOperation]] using the Ceylon compiler
  (more specifically, the rule for an `conjunctionExpression`)."
-shared AndOperation? compileAndOperation(String code, Anything(JNode,Node) update = noop) {
+shared AndOperation? parseAndOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JAndOp jConjunctionExpression = createParser(code).conjunctionExpression()) {
         return andOperationToCeylon(jConjunctionExpression, update);
     } else {

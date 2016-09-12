@@ -18,10 +18,10 @@ shared OptionalType optionalTypeToCeylon(JOptionalType optionalType, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for an Optional Type
+"Parses the given [[code]] for an Optional Type
  into an [[OptionalType]] using the Ceylon compiler
  (more specifically, the rule for an `primaryType`)."
-shared OptionalType? compileOptionalType(String code, Anything(JNode,Node) update = noop) {
+shared OptionalType? parseOptionalType(String code, Anything(JNode,Node) update = noop) {
     if (is JOptionalType jOptionalType = createParser(code).primaryType()) {
         return optionalTypeToCeylon(jOptionalType, update);
     } else {

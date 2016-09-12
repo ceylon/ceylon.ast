@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     comparisonOperationToCeylon,
-    compileComparisonOperation
+    parseComparisonOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object comparisonOperation satisfies AbstractTest<ComparisonOperation,JComparisonOp> {
-    compile = compileComparisonOperation;
+    parse = parseComparisonOperation;
     fromCeylon = RedHatTransformer.transformComparisonOperation;
     toCeylon = comparisonOperationToCeylon;
     

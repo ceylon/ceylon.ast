@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     invocationStatementToCeylon,
-    compileInvocationStatement
+    parseInvocationStatement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object invocationStatement satisfies ConcreteTest<InvocationStatement,JEx
     shared String->InvocationStatement printHelloWorldStatement = construct(invocation.printHelloWorldInvocation);
     shared String->InvocationStatement printPersonNameStatement = construct(invocation.printPersonNameInvocation);
     
-    compile = compileInvocationStatement;
+    parse = parseInvocationStatement;
     fromCeylon = RedHatTransformer.transformInvocationStatement;
     toCeylon = invocationStatementToCeylon;
     codes = [printHelloWorldStatement, printPersonNameStatement];

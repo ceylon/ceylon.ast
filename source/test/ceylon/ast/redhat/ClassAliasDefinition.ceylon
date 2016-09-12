@@ -13,7 +13,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     classAliasDefinitionToCeylon,
-    compileClassAliasDefinition
+    parseClassAliasDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object classAliasDefinition satisfies ConcreteTest<ClassAliasDefinition,J
     
     shared String->ClassAliasDefinition variadicStringClassAliasDefinition = construct(identifier.variadicStringUIdentifier, parameters.charactersParameters, classSpecifier.classSpecifyStringCharacters);
     
-    compile = compileClassAliasDefinition;
+    parse = parseClassAliasDefinition;
     fromCeylon = RedHatTransformer.transformClassAliasDefinition;
     toCeylon = classAliasDefinitionToCeylon;
     codes = [variadicStringClassAliasDefinition];

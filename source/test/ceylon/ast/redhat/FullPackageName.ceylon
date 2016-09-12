@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     fullPackageNameToCeylon,
-    compileFullPackageName
+    parseFullPackageName
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath
     shared String->FullPackageName javaLangPackageName = construct(identifier.javaLIdentifier, identifier.langLIdentifier);
     shared String->FullPackageName ceylonCollectionPackageName = construct(identifier.ceylonLIdentifier, identifier.collectionLIdentifier);
     
-    compile = compileFullPackageName;
+    parse = parseFullPackageName;
     fromCeylon = RedHatTransformer.transformFullPackageName;
     toCeylon = fullPackageNameToCeylon;
     codes = [ceylonAstCorePackageName];

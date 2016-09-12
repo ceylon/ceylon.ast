@@ -21,10 +21,10 @@ shared ProductOperation productOperationToCeylon(JProductOp productOperation, An
     return result;
 }
 
-"Compiles the given [[code]] for a Product Operation
+"Parses the given [[code]] for a Product Operation
  into a [[ProductOperation]] using the Ceylon compiler
  (more specifically, the rule for a `multiplicativeExpression`)."
-shared ProductOperation? compileProductOperation(String code, Anything(JNode,Node) update = noop) {
+shared ProductOperation? parseProductOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JProductOp jMultiplicativeExpression = createParser(code).multiplicativeExpression()) {
         return productOperationToCeylon(jMultiplicativeExpression, update);
     } else {

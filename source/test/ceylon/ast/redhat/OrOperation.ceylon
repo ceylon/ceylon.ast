@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     orOperationToCeylon,
-    compileOrOperation
+    parseOrOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object orOperation satisfies ConcreteTest<OrOperation,JOrOp> {
     
     shared String->OrOperation aOrBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileOrOperation;
+    parse = parseOrOperation;
     fromCeylon = RedHatTransformer.transformOrOperation;
     toCeylon = orOperationToCeylon;
     codes = [aOrBExpression];

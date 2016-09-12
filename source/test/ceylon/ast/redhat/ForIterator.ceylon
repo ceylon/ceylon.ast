@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     forIteratorToCeylon,
-    compileForIterator
+    parseForIterator
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object forIterator satisfies ConcreteTest<ForIterator,JForIterator> {
     shared String->ForIterator entryDestructureIterator = construct(entryPattern.eToStringLineEntryPattern, baseExpression.peopleByNameExpression);
     shared String->ForIterator tupleDestructureIterator = construct(tuplePattern.firstRestTuplePattern, qualifiedExpression.processArgumentsExpression);
     
-    compile = compileForIterator;
+    parse = parseForIterator;
     fromCeylon = RedHatTransformer.transformForIterator;
     toCeylon = forIteratorToCeylon;
     codes = [variableIterator, entryDestructureIterator, tupleDestructureIterator];

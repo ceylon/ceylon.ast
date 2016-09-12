@@ -73,10 +73,10 @@ shared Package packageToCeylon(JPackage \ipackage, Anything(JNode,Node) update =
     return result;
 }
 
-"Compiles the given [[code]] for a Self Reference
+"Parses the given [[code]] for a Self Reference
  into a [[SelfReference]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."
-shared SelfReference? compileSelfReference(String code, Anything(JNode,Node) update = noop) {
+shared SelfReference? parseSelfReference(String code, Anything(JNode,Node) update = noop) {
     if (exists jSelfReference = createParser(code).selfReference()) {
         assert (is JSelfExpression|JOuter|JPackage jSelfReference);
         return selfReferenceToCeylon(jSelfReference, update);
@@ -85,10 +85,10 @@ shared SelfReference? compileSelfReference(String code, Anything(JNode,Node) upd
     }
 }
 
-"Compiles the given [[code]] for a This
+"Parses the given [[code]] for a This
  into a [[This]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."
-shared This? compileThis(String code, Anything(JNode,Node) update = noop) {
+shared This? parseThis(String code, Anything(JNode,Node) update = noop) {
     if (is JThis jThis = createParser(code).selfReference()) {
         return thisToCeylon(jThis, update);
     } else {
@@ -96,10 +96,10 @@ shared This? compileThis(String code, Anything(JNode,Node) update = noop) {
     }
 }
 
-"Compiles the given [[code]] for a Super
+"Parses the given [[code]] for a Super
  into a [[Super]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."
-shared Super? compileSuper(String code, Anything(JNode,Node) update = noop) {
+shared Super? parseSuper(String code, Anything(JNode,Node) update = noop) {
     if (is JSuper jSuper = createParser(code).selfReference()) {
         return superToCeylon(jSuper, update);
     } else {
@@ -107,10 +107,10 @@ shared Super? compileSuper(String code, Anything(JNode,Node) update = noop) {
     }
 }
 
-"Compiles the given [[code]] for an Outer
+"Parses the given [[code]] for an Outer
  into an [[Outer]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."
-shared Outer? compileOuter(String code, Anything(JNode,Node) update = noop) {
+shared Outer? parseOuter(String code, Anything(JNode,Node) update = noop) {
     if (is JOuter jOuter = createParser(code).selfReference()) {
         return outerToCeylon(jOuter, update);
     } else {
@@ -118,10 +118,10 @@ shared Outer? compileOuter(String code, Anything(JNode,Node) update = noop) {
     }
 }
 
-"Compiles the given [[code]] for a Package
+"Parses the given [[code]] for a Package
  into a [[Package]] using the Ceylon compiler
  (more specifically, the rule for a `selfReference`)."
-shared Package? compilePackage(String code, Anything(JNode,Node) update = noop) {
+shared Package? parsePackage(String code, Anything(JNode,Node) update = noop) {
     if (is JPackage jPackage = createParser(code).selfReference()) {
         return packageToCeylon(jPackage, update);
     } else {

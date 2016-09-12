@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     differenceOperationToCeylon,
-    compileDifferenceOperation
+    parseDifferenceOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object differenceOperation satisfies ConcreteTest<DifferenceOperation,JDi
     
     shared String->DifferenceOperation _1138Minus1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
-    compile = compileDifferenceOperation;
+    parse = parseDifferenceOperation;
     fromCeylon = RedHatTransformer.transformDifferenceOperation;
     toCeylon = differenceOperationToCeylon;
     codes = [_1138Minus1Expression];

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     caseClauseToCeylon,
-    compileCaseClause
+    parseCaseClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object caseClause satisfies ConcreteTest<CaseClause,JCaseClause> {
     shared String->CaseClause caseNullPrintHelloWorldClause = construct(matchCase.matchNullCase, block.printHelloWorldBlock);
     shared String->CaseClause caseIsStringClause = construct(isCase.isStringCase, block.emptyBlock);
     
-    compile = compileCaseClause;
+    parse = parseCaseClause;
     fromCeylon = RedHatTransformer.transformCaseClause;
     toCeylon = caseClauseToCeylon;
     codes = [caseNullPrintHelloWorldClause, caseIsStringClause];

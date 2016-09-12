@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     negationOperationToCeylon,
-    compileNegationOperation
+    parseNegationOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object negationOperation satisfies ConcreteTest<NegationOperation,JNegati
     // not tested directly, but used by other tests
     shared String->NegationOperation minusOneExpression = construct(integerLiteral.oneIntegerLiteral);
     
-    compile = compileNegationOperation;
+    parse = parseNegationOperation;
     fromCeylon = RedHatTransformer.transformNegationOperation;
     toCeylon = negationOperationToCeylon;
     codes = [minus1138Expression, minusPowExpression];

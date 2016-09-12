@@ -20,10 +20,10 @@ shared EntryPattern entryPatternToCeylon(JKeyValuePattern entryPattern, Anything
     return result;
 }
 
-"Compiles the given [[code]] for an Entry Pattern
+"Parses the given [[code]] for an Entry Pattern
  into an [[EntryPattern]] using the Ceylon compiler
  (more specifically, the rule for an `keyItemPattern`)."
-shared EntryPattern? compileEntryPattern(String code, Anything(JNode,Node) update = noop) {
+shared EntryPattern? parseEntryPattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jEntryPattern = createParser(code).keyItemPattern()) {
         return entryPatternToCeylon(jEntryPattern, update);
     } else {

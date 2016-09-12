@@ -121,10 +121,10 @@ shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anythi
     return result;
 }
 
-"Compiles the given [[code]] for a String Literal
+"Parses the given [[code]] for a String Literal
  into a [[StringLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `stringLiteral`)."
-shared StringLiteral? compileStringLiteral(String code, Anything(JNode,Node) update = noop) {
+shared StringLiteral? parseStringLiteral(String code, Anything(JNode,Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
         return stringLiteralToCeylon(jStringLiteral, update);
     } else {

@@ -17,10 +17,10 @@ shared UnaryArithmeticOperation unaryArithmeticOperationToCeylon(JNegativeOp|JPo
     case (is JPositiveOp) { return identityOperationToCeylon(unaryArithmeticOperation, update); }
 }
 
-"Compiles the given [[code]] for an Unary Arithmetic Operation
+"Parses the given [[code]] for an Unary Arithmetic Operation
  into an [[UnaryArithmeticOperation]] using the Ceylon compiler
  (more specifically, the rule for an `negationComplementExpression`)."
-shared UnaryArithmeticOperation? compileUnaryArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryArithmeticOperation? parseUnaryArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
     if (exists jNegationComplementExpression = createParser(code).negationComplementExpression()) {
         assert (is JNegativeOp|JPositiveOp jNegationComplementExpression);
         return unaryArithmeticOperationToCeylon(jNegationComplementExpression, update);

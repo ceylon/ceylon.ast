@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     blockToCeylon,
-    compileBlock
+    parseBlock
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -47,7 +47,7 @@ shared object block satisfies ConcreteTest<Block,JBlock> {
         valueSpecification.phiSpecify0
     );
     
-    compile = compileBlock;
+    parse = parseBlock;
     fromCeylon = RedHatTransformer.transformBlock;
     toCeylon = blockToCeylon;
     codes = [emptyBlock, printHelloWorldBlock, printPersonNameBlock];

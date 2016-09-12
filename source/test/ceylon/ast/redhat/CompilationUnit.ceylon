@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     compilationUnitToCeylon,
-    compileCompilationUnit
+    parseCompilationUnit
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object compilationUnit satisfies ConcreteTest<CompilationUnit,JCompilatio
         declarations = [functionDefinition.nonemptyFunctionDefinition, valueDefinition.annotatedByValueDefinition];
     };
     
-    compile = compileCompilationUnit;
+    parse = parseCompilationUnit;
     fromCeylon = RedHatTransformer.transformCompilationUnit;
     toCeylon = compilationUnitToCeylon;
     codes = [voidFunctionCompilationUnit, nonemptyCompilationUnit];

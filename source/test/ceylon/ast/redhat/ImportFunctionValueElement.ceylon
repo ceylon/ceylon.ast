@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importFunctionValueElementToCeylon,
-    compileImportFunctionValueElement
+    parseImportFunctionValueElement
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object importFunctionValueElement satisfies ConcreteTest<ImportFunctionVa
     // not tested directly, but used by other tests
     shared String->ImportFunctionValueElement outAsSysoutImportElement = construct(identifier.outLIdentifier, importFunctionValueAlias.sysoutImportFunctionValueAlias);
     
-    compile = compileImportFunctionValueElement;
+    parse = parseImportFunctionValueElement;
     fromCeylon = RedHatTransformer.transformImportFunctionValueElement;
     toCeylon = importFunctionValueElementToCeylon;
     codes = [noopImportElement, uidAsLidImportElement];

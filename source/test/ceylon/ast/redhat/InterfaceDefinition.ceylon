@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     interfaceDefinitionToCeylon,
-    compileInterfaceDefinition
+    parseInterfaceDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object interfaceDefinition satisfies ConcreteTest<InterfaceDefinition,JIn
     shared String->InterfaceDefinition mutableListInterfaceDefinition = construct(identifier.mutableListUIdentifier, interfaceBody.emptyInterfaceBody);
     shared String->InterfaceDefinition nonemptyInterfaceDefinition = construct(identifier.uidUIdentifier, interfaceBody.emptyInterfaceBody, caseTypes.ofStringIntegerFloatCaseTypes, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes, typeParameters.twoTypeParameters, [typeConstraint.emptyTypeConstraint, typeConstraint.nonemptyTypeConstraint], annotations.sharedAnnotations);
     
-    compile = compileInterfaceDefinition;
+    parse = parseInterfaceDefinition;
     fromCeylon = RedHatTransformer.transformInterfaceDefinition;
     toCeylon = interfaceDefinitionToCeylon;
     codes = [mutableListInterfaceDefinition, nonemptyInterfaceDefinition];

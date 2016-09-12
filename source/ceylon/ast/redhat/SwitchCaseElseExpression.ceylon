@@ -30,10 +30,10 @@ shared SwitchCaseElseExpression switchCaseElseExpressionToCeylon(JSwitchExpressi
     return result;
 }
 
-"Compiles the given [[code]] for a Switch Case Else Expression
+"Parses the given [[code]] for a Switch Case Else Expression
  into a [[SwitchCaseElseExpression]] using the Ceylon compiler
  (more specifically, the rule for a `switchExpression`)."
-shared SwitchCaseElseExpression? compileSwitchCaseElseExpression(String code, Anything(JNode,Node) update = noop) {
+shared SwitchCaseElseExpression? parseSwitchCaseElseExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jSwitchExpression = createParser(code).switchExpression()) {
         return switchCaseElseExpressionToCeylon(jSwitchExpression, update);
     } else {

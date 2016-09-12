@@ -16,10 +16,10 @@ shared IfComprehensionClause ifComprehensionClauseToCeylon(JIfComprehensionClaus
     return result;
 }
 
-"Compiles the given [[code]] for an If Comprehension Clause
+"Parses the given [[code]] for an If Comprehension Clause
  into an [[IfComprehensionClause]] using the Ceylon compiler
  (more specifically, the rule for an `ifComprehensionClause`)."
-shared IfComprehensionClause? compileIfComprehensionClause(String code, Anything(JNode,Node) update = noop) {
+shared IfComprehensionClause? parseIfComprehensionClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jIfComprehensionClause = createParser(code).ifComprehensionClause()) {
         return ifComprehensionClauseToCeylon(jIfComprehensionClause, update);
     } else {

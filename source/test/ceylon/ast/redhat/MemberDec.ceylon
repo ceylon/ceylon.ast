@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     memberDecToCeylon,
-    compileMemberDec
+    parseMemberDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object memberDec satisfies AbstractTest<MemberDec,JMemberLiteral> {
-    compile = compileMemberDec;
+    parse = parseMemberDec;
     fromCeylon = RedHatTransformer.transformMemberDec;
     toCeylon = memberDecToCeylon;
     

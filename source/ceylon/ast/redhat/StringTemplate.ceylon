@@ -37,10 +37,10 @@ shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Any
     return result;
 }
 
-"Compiles the given [[code]] for a String Template
+"Parses the given [[code]] for a String Template
  into a [[StringTemplate]] using the Ceylon compiler
  (more specifically, the rule for a `stringExpression`)."
-shared StringTemplate? compileStringTemplate(String code, Anything(JNode,Node) update = noop) {
+shared StringTemplate? parseStringTemplate(String code, Anything(JNode,Node) update = noop) {
     if (is JStringTemplate jStringExpression = createParser(code).stringExpression()) {
         return stringTemplateToCeylon(jStringExpression, update);
     } else {

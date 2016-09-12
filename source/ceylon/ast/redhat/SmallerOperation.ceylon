@@ -20,10 +20,10 @@ shared SmallerOperation smallerOperationToCeylon(JSmallerOp smallerOperation, An
     return result;
 }
 
-"Compiles the given [[code]] for a Smaller Operation
+"Parses the given [[code]] for a Smaller Operation
  into a [[SmallerOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared SmallerOperation? compileSmallerOperation(String code, Anything(JNode,Node) update = noop) {
+shared SmallerOperation? parseSmallerOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JSmallerOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return smallerOperationToCeylon(jComparisonExpression, update);
     } else {

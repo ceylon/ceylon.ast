@@ -1,11 +1,11 @@
 """Tests for the [[ceylon.ast RedHat backend|module ceylon.ast.redhat]].
    
    Two things are tested:
-   - compilation of a code string into a `ceylon.ast` AST node, and
+   - parsing a code string into a `ceylon.ast` AST node, and
    - conversion of a `ceylon.ast` node to a RedHat AST node, and then back to a `ceylon.ast` node.
    
-   Compilation is tested in a [[CompilationTest]], using a single function to
-   [[compile|CompilationTest.compile]] the code.
+   Parsing is tested in a [[ParsingTest]], using a single function to
+   [[parse|CompilationTest.parse]] the code.
    
    Conversion is tested in a [[ConversionTest]], using two functions:
    one to convert [[from `ceylon.ast`|ConversionTest.fromCeylon]] to the RedHat AST,
@@ -14,15 +14,15 @@
    ### Testing concrete classes
    
    For each concrete class, there is a toplevel test object implementing [[ConcreteTest]].
-   [[ConcreteTest]] satisfies [[CompilationTest]] and [[ConversionTest]], and the object
+   [[ConcreteTest]] satisfies [[ParsingTest]] and [[ConversionTest]], and the object
    provides the three methods mentioned before, like this:
    ~~~
-   compile = compileSumOperation;
+   parse = parseSumOperation;
    fromCeylon = RedHatTransformer.transformSumOperation;
    toCeylon = sumOperationToCeylon;
    ~~~
    It also provides a sequence of [[codes|CodesProvider.codes]] to be tested,
-   `String->CeylonAstType` entries that are used for both compilation and conversion testing.
+   `String->CeylonAstType` entries that are used for both parsing and conversion testing.
    These codes are typically shared members of the object, constructed via an unshared
    `construct()` method that constructs them from other test codes:
    ~~~
@@ -40,12 +40,12 @@
    ### Testing abstract classes
    
    For each abstract class, there is also a toplevel test object, implementing [[AbstractTest]].
-   [[AbstractTest]] also satisfies [[CompilationTest]] and [[ConversionTest]], but collects
+   [[AbstractTest]] also satisfies [[ParsingTest]] and [[ConversionTest]], but collects
    its [[codes|CodesProvider.codes]] via a sequence of [[tests|AbstractTest.tests]], which the
    test object provides. An abstract test object is usually no longer than this:
    ~~~
    shared object variance satisfies AbstractTest<Variance,JTypeVariance> {
-       compile = compileVariance;
+       parse = parseVariance;
        fromCeylon = RedHatTransformer.transformVariance;
        toCeylon = varianceToCeylon;
        

@@ -16,10 +16,10 @@ shared GroupedType groupedTypeToCeylon(JGroupedType groupedType, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for a Grouped Type
+"Parses the given [[code]] for a Grouped Type
  into a [[GroupedType]] using the Ceylon compiler
  (more specifically, the rule for a `groupedType`)."
-shared GroupedType? compileGroupedType(String code, Anything(JNode,Node) update = noop) {
+shared GroupedType? parseGroupedType(String code, Anything(JNode,Node) update = noop) {
     if (exists jGroupedType = createParser(code).groupedType()) {
         return groupedTypeToCeylon(jGroupedType, update);
     } else {

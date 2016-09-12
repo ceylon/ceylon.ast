@@ -19,10 +19,10 @@ shared UnaryTypeOperation unaryTypeOperationToCeylon(JTypeOperatorExpression una
     case (is JOfOp) { return ofOperationToCeylon(unaryTypeOperation, update); }
 }
 
-"Compiles the given [[code]] for an Unary Type Operation
+"Parses the given [[code]] for an Unary Type Operation
  into an [[UnaryTypeOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared UnaryTypeOperation? compileUnaryTypeOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryTypeOperation? parseUnaryTypeOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeOperatorExpression jUnaryTypeOperation = createParser(code).comparisonExpression()) {
         return unaryTypeOperationToCeylon(jUnaryTypeOperation, update);
     } else {

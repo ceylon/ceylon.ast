@@ -21,10 +21,10 @@ shared ImportTypeAlias importTypeAliasToCeylon(JAlias importTypeAlias, Anything(
     return result;
 }
 
-"Compiles the given [[code]] for an Import Type Alias
+"Parses the given [[code]] for an Import Type Alias
  into an [[ImportTypeAlias]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared ImportTypeAlias? compileImportTypeAlias(String code, Anything(JNode,Node) update = noop) {
+shared ImportTypeAlias? parseImportTypeAlias(String code, Anything(JNode,Node) update = noop) {
     /*
      there’s no separate rule for an alias (it might not even
      work out to do it that way, parser-wise), so we construct

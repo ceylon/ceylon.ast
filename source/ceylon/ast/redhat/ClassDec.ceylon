@@ -40,10 +40,10 @@ shared ClassDec classDecToCeylon(JClassLiteral classDec, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Class Dec
+"Parses the given [[code]] for a Class Dec
  into a [[ClassDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared ClassDec? compileClassDec(String code, Anything(JNode,Node) update = noop) {
+shared ClassDec? parseClassDec(String code, Anything(JNode,Node) update = noop) {
     if (is JClassLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return classDecToCeylon(jMetaLiteral, update);
     } else {

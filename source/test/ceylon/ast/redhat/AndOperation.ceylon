@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     andOperationToCeylon,
-    compileAndOperation
+    parseAndOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object andOperation satisfies ConcreteTest<AndOperation,JAndOp> {
     
     shared String->AndOperation aAndBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileAndOperation;
+    parse = parseAndOperation;
     fromCeylon = RedHatTransformer.transformAndOperation;
     toCeylon = andOperationToCeylon;
     codes = [aAndBExpression];

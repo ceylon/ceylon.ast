@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importToCeylon,
-    compileImport
+    parseImport
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object \iimport satisfies ConcreteTest<Import,JImport> {
     shared String->Import javaLangImport = construct(fullPackageName.javaLangPackageName, importElements.systemImportElements);
     shared String->Import ceylonCollectionImport = construct(fullPackageName.ceylonCollectionPackageName, importElements.collectionImportElements);
     
-    compile = compileImport;
+    parse = parseImport;
     fromCeylon = RedHatTransformer.transformImport;
     toCeylon = importToCeylon;
     codes = [ceylonAstWildcardImport, javaLangImport, ceylonCollectionImport];

@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     stringLiteralToCeylon,
-    compileStringLiteral
+    parseStringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -35,7 +35,7 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     shared String->StringLiteral commonsCodecCommonsCodecStringLiteral = construct("commons-codec:commons-codec");
     shared String->StringLiteral _14VersionStringLiteral = construct("1.4");
     
-    compile = compileStringLiteral;
+    parse = parseStringLiteral;
     fromCeylon = RedHatTransformer.transformStringLiteral;
     toCeylon = stringLiteralToCeylon;
     codes = [capitalCStringLiteral, namedCapitalCStringLiteral, emptyStringLiteral, verbatimStringLiteral, quoteStringLiteral, quoteVerbatimStringLiteral, emptyVerbatimStringLiteral];

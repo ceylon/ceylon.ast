@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     constructorDefinitionToCeylon,
-    compileConstructorDefinition
+    parseConstructorDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object constructorDefinition satisfies AbstractTest<ConstructorDefinition,JConstructor|JEnumerated> {
-    compile = compileConstructorDefinition;
+    parse = parseConstructorDefinition;
     fromCeylon = RedHatTransformer.transformConstructorDefinition;
     toCeylon = constructorDefinitionToCeylon;
     

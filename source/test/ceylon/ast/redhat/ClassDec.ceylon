@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     classDecToCeylon,
-    compileClassDec
+    parseClassDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -33,7 +33,7 @@ shared object classDec satisfies ConcreteTest<ClassDec,JClassLiteral> {
     shared String->ClassDec processClassDec = construct(identifier.processLIdentifier);
     shared String->ClassDec pointOriginClassDec = construct(identifier.originLIdentifier, "Point"->DecQualifier([UIdentifier("Point")]));
     
-    compile = compileClassDec;
+    parse = parseClassDec;
     fromCeylon = RedHatTransformer.transformClassDec;
     toCeylon = classDecToCeylon;
     codes = [stringClassDec, abcClassDec, currentClassDec, processClassDec, pointOriginClassDec];

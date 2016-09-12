@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 import ceylon.ast.redhat {
     RedHatTransformer,
     compilationUnitToCeylon,
-    compileCompilationUnit,
+    parseCompilationUnit,
     TokenSourceTokenFactory
 }
 import ceylon.ast.samples.completeCompilationUnit {
@@ -45,7 +45,7 @@ object completeCompilationUnit satisfies ConcreteTest<CompilationUnit,JCompilati
         tokens = BufferedTokenStream(tokens);
     };
     
-    compile = compileCompilationUnit;
+    parse = parseCompilationUnit;
     fromCeylon = RedHatTransformer.transformCompilationUnit;
     toCeylon = compilationUnitToCeylon;
     codes = [sb.string->completeCU];

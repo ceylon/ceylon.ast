@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     spreadMemberOperatorToCeylon,
-    compileSpreadMemberOperator
+    parseSpreadMemberOperator
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object spreadMemberOperator satisfies ConcreteTest<SpreadMemberOperator,J
     
     shared String->SpreadMemberOperator spreadMemberOperator = "*."->SpreadMemberOperator();
     
-    compile = compileSpreadMemberOperator;
+    parse = parseSpreadMemberOperator;
     fromCeylon = RedHatTransformer.transformSpreadMemberOperator;
     toCeylon = spreadMemberOperatorToCeylon;
     codes = [spreadMemberOperator];

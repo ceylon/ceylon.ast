@@ -22,10 +22,10 @@ shared AnonymousArgument anonymousArgumentToCeylon(JSpecifiedArgument anonymousA
     return result;
 }
 
-"Compiles the given [[code]] for an Anonymous Argument
+"Parses the given [[code]] for an Anonymous Argument
  into an [[AnonymousArgument]] using the Ceylon compiler
  (more specifically, the rule for an `anonymousArgument`)."
-shared AnonymousArgument? compileAnonymousArgument(String code, Anything(JNode,Node) update = noop) {
+shared AnonymousArgument? parseAnonymousArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jAnonymousArgument = createParser(code).anonymousArgument()) {
         return anonymousArgumentToCeylon(jAnonymousArgument, update);
     } else {

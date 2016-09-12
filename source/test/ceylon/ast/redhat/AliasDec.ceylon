@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     aliasDecToCeylon,
-    compileAliasDec
+    parseAliasDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object aliasDec satisfies ConcreteTest<AliasDec,JAliasLiteral> {
     shared String->AliasDec typeNameAliasDec = construct(identifier.typeNameUIdentifier);
     shared String->AliasDec abcAliasDec = construct("C"->UIdentifier("C"), "A.B"->DecQualifier([UIdentifier("A"), UIdentifier("B")]));
     
-    compile = compileAliasDec;
+    parse = parseAliasDec;
     fromCeylon = RedHatTransformer.transformAliasDec;
     toCeylon = aliasDecToCeylon;
     codes = [typeNameAliasDec, abcAliasDec];

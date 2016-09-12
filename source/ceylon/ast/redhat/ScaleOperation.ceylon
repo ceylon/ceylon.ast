@@ -21,10 +21,10 @@ shared ScaleOperation scaleOperationToCeylon(JScaleOp scaleOperation, Anything(J
     return result;
 }
 
-"Compiles the given [[code]] for a Scale Operation
+"Parses the given [[code]] for a Scale Operation
  into a [[ScaleOperation]] using the Ceylon compiler
  (more specifically, the rule for a `scaleExpression`)."
-shared ScaleOperation? compileScaleOperation(String code, Anything(JNode,Node) update = noop) {
+shared ScaleOperation? parseScaleOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JScaleOp jScaleExpression = createParser(code).scaleExpression()) {
         return scaleOperationToCeylon(jScaleExpression, update);
     } else {

@@ -23,10 +23,10 @@ shared CharacterLiteral characterLiteralToCeylon(JCharacterLiteral characterLite
     return result;
 }
 
-"Compiles the given [[code]] for a Character Literal
+"Parses the given [[code]] for a Character Literal
  into a [[CharacterLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonStringLiteral`)."
-shared CharacterLiteral? compileCharacterLiteral(String code, Anything(JNode,Node) update = noop) {
+shared CharacterLiteral? parseCharacterLiteral(String code, Anything(JNode,Node) update = noop) {
     if (is JCharacterLiteral jCharacterLiteral = createParser(code).nonstringLiteral()) {
         return characterLiteralToCeylon(jCharacterLiteral, update);
     } else {

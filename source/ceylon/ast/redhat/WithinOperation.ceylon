@@ -19,10 +19,10 @@ shared WithinOperation withinOperationToCeylon(JWithinOp withinOperation, Anythi
     return result;
 }
 
-"Compiles the given [[code]] for a Within Operation
+"Parses the given [[code]] for a Within Operation
  into a [[WithinOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared WithinOperation? compileWithinOperation(String code, Anything(JNode,Node) update = noop) {
+shared WithinOperation? parseWithinOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JWithinOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return withinOperationToCeylon(jComparisonExpression, update);
     } else {

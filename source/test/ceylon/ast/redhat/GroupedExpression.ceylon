@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     groupedExpressionToCeylon,
-    compileGroupedExpression
+    parseGroupedExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JParExp
     // not tested directly, but used by other tests
     shared String->GroupedExpression nameElseWorldStringLiteralGroupedExpression = construct(elseOperation.nameElseWorldStringLiteralExpression);
     
-    compile = compileGroupedExpression;
+    parse = parseGroupedExpression;
     fromCeylon = RedHatTransformer.transformGroupedExpression;
     toCeylon = groupedExpressionToCeylon;
     codes = [oneIntegerLiteralGroupedExpression];

@@ -31,10 +31,10 @@ shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unar
     case (is JNotOp) { return notOperationToCeylon(unaryIshOperation, update); }
 }
 
-"Compiles the given [[code]] for an Unary Ish Operation
+"Parses the given [[code]] for an Unary Ish Operation
  into an [[UnaryIshOperation]] using the Ceylon compiler
  (more specifically, the rule for an `unaryIshOperation`)."
-shared UnaryIshOperation? compileUnaryIshOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryIshOperation? parseUnaryIshOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JUnaryOperatorExpression jUnaryExpression = createParser(code).assignmentExpression()) {
         return unaryIshOperationToCeylon(jUnaryExpression, update);
     } else {

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     forFailToCeylon,
-    compileForFail
+    parseForFail
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object forFail satisfies ConcreteTest<ForFail,JForStatement> {
     shared String->ForFail printPersonNameInPeopleForFail = construct(forClause.printPersonNameInPeopleForClause);
     shared String->ForFail printPersonNameInPeopleElsePrintHelloWorldForFail = construct(forClause.printPersonNameInPeopleForClause, failClause.printHelloWorldFailClause);
     
-    compile = compileForFail;
+    parse = parseForFail;
     fromCeylon = RedHatTransformer.transformForFail;
     toCeylon = forFailToCeylon;
     codes = [printPersonNameInPeopleForFail, printPersonNameInPeopleElsePrintHelloWorldForFail];

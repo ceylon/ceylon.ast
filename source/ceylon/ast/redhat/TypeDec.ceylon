@@ -24,10 +24,10 @@ shared TypeDec typeDecToCeylon(JTypeLiteral typeDec, Anything(JNode,Node) update
     case (is JTypeParameterLiteral) { return givenDecToCeylon(typeDec, update); }
 }
 
-"Compiles the given [[code]] for a Type Dec
+"Parses the given [[code]] for a Type Dec
  into a [[TypeDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared TypeDec? compileTypeDec(String code, Anything(JNode,Node) update = noop) {
+shared TypeDec? parseTypeDec(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return typeDecToCeylon(jMetaLiteral, update);
     } else {

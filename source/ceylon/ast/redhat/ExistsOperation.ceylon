@@ -19,10 +19,10 @@ shared ExistsOperation existsOperationToCeylon(JExists existsOperation, Anything
     return result;
 }
 
-"Compiles the given [[code]] for an Exists Operation
+"Parses the given [[code]] for an Exists Operation
  into an [[ExistsOperation]] using the Ceylon compiler
  (more specifically, the rule for an `existenceEmptinessExpression`)."
-shared ExistsOperation? compileExistsOperation(String code, Anything(JNode,Node) update = noop) {
+shared ExistsOperation? parseExistsOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JExists jExistenceEmptinessExpression = createParser(code).existenceEmptinessExpression()) {
         return existsOperationToCeylon(jExistenceEmptinessExpression, update);
     } else {

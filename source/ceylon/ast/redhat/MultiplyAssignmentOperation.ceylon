@@ -21,10 +21,10 @@ shared MultiplyAssignmentOperation multiplyAssignmentOperationToCeylon(JMultiply
     return result;
 }
 
-"Compiles the given [[code]] for a Multiply Assignment Operation
+"Parses the given [[code]] for a Multiply Assignment Operation
  into a [[MultiplyAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared MultiplyAssignmentOperation? compileMultiplyAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared MultiplyAssignmentOperation? parseMultiplyAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JMultiplyAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return multiplyAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

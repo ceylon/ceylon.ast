@@ -43,10 +43,10 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Tuple Type
+"Parses the given [[code]] for a Tuple Type
  into a [[TupleType]] using the Ceylon compiler
  (more specifically, the rule for a `tupleType`)."
-shared TupleType? compileTupleType(String code, Anything(JNode,Node) update = noop) {
+shared TupleType? parseTupleType(String code, Anything(JNode,Node) update = noop) {
     if (exists jTupleType = createParser(code).tupleType()) {
         return tupleTypeToCeylon(jTupleType, update);
     } else {

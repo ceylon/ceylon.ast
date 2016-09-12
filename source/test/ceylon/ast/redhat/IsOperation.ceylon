@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     isOperationToCeylon,
-    compileIsOperation
+    parseIsOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object isOperation satisfies ConcreteTest<IsOperation,JIsOp> {
     
     shared String->IsOperation aIsPersistentAndPrintableAndIdentifiableExpression = construct(baseExpression.aExpression, intersectionType.persistentAndPrintableAndIdentifiableIntersectionType);
     
-    compile = compileIsOperation;
+    parse = parseIsOperation;
     fromCeylon = RedHatTransformer.transformIsOperation;
     toCeylon = isOperationToCeylon;
     codes = [aIsPersistentAndPrintableAndIdentifiableExpression];

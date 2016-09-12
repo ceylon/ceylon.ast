@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeParametersToCeylon,
-    compileTypeParameters
+    parseTypeParameters
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object typeParameters satisfies ConcreteTest<TypeParameters,JTypeParamete
     
     shared String->TypeParameters twoTypeParameters = construct(typeParameter.uidTypeParameter, typeParameter.outLidDefaultstoAnythingTypeParameter);
     
-    compile = compileTypeParameters;
+    parse = parseTypeParameters;
     fromCeylon = RedHatTransformer.transformTypeParameters;
     toCeylon = typeParametersToCeylon;
     codes = [twoTypeParameters];

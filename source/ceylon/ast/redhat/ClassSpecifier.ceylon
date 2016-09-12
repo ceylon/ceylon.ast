@@ -16,10 +16,10 @@ shared ClassSpecifier classSpecifierToCeylon(JClassSpecifier classSpecifier, Any
     return result;
 }
 
-"Compiles the given [[code]] for a Class Specifier
+"Parses the given [[code]] for a Class Specifier
  into a [[ClassSpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `classSpecifier`)."
-shared ClassSpecifier? compileClassSpecifier(String code, Anything(JNode,Node) update = noop) {
+shared ClassSpecifier? parseClassSpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassSpecifier = createParser(code).classSpecifier()) {
         return classSpecifierToCeylon(jClassSpecifier, update);
     } else {

@@ -22,10 +22,10 @@ shared ExpressionStatement expressionStatementToCeylon(JExpressionStatement expr
     case (is JInvocationExpression) { return invocationStatementToCeylon(expressionStatement, update); }
 }
 
-"Compiles the given [[code]] for an Expression Statement
+"Parses the given [[code]] for an Expression Statement
  into an [[ExpressionStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared ExpressionStatement? compileExpressionStatement(String code, Anything(JNode,Node) update = noop) {
+shared ExpressionStatement? parseExpressionStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement()) {
         return expressionStatementToCeylon(jExpressionOrSpecificationStatement, update);
     } else {

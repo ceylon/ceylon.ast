@@ -61,10 +61,10 @@ shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Any
     return result;
 }
 
-"Compiles the given [[code]] for a Value Argument
+"Parses the given [[code]] for a Value Argument
  into a [[ValueArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared ValueArgument? compileValueArgument(String code, Anything(JNode,Node) update = noop) {
+shared ValueArgument? parseValueArgument(String code, Anything(JNode,Node) update = noop) {
     if (is JAttributeArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return valueArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

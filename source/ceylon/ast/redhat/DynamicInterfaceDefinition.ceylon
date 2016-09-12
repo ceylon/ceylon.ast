@@ -20,10 +20,10 @@ shared DynamicInterfaceDefinition dynamicInterfaceDefinitionToCeylon(JInterfaceD
     return result;
 }
 
-"Compiles the given [[code]] for a Dynamic Interface Definition
+"Parses the given [[code]] for a Dynamic Interface Definition
  into a [[DynamicInterfaceDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared DynamicInterfaceDefinition? compileDynamicInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
+shared DynamicInterfaceDefinition? parseDynamicInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceDefinition jDeclaration = createParser(code).declaration(),
         jDeclaration.\idynamic) {
         return dynamicInterfaceDefinitionToCeylon(jDeclaration, update);

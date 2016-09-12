@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     callableConstructorDefinitionToCeylon,
-    compileCallableConstructorDefinition
+    parseCallableConstructorDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object callableConstructorDefinition satisfies ConcreteTest<CallableConst
     shared String->CallableConstructorDefinition polarConstructorDefinition = construct(identifier.polarLIdentifier, parameters.rphiParameters, block.polarConstructorBlock, null, annotations.sharedAnnotations);
     shared String->CallableConstructorDefinition defaultConstructorDefinition = construct(null, parameters.emptyParameters, block.emptyBlock);
     
-    compile = compileCallableConstructorDefinition;
+    parse = parseCallableConstructorDefinition;
     fromCeylon = RedHatTransformer.transformCallableConstructorDefinition;
     toCeylon = callableConstructorDefinitionToCeylon;
     codes = [callableConstructorDefinition, cartesianConstructorDefinition, polarConstructorDefinition, defaultConstructorDefinition];

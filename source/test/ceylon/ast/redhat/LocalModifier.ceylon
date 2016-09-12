@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     localModifierToCeylon,
-    compileLocalModifier
+    parseLocalModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object localModifier satisfies AbstractTest<LocalModifier,JLocalModifier> {
-    compile = compileLocalModifier;
+    parse = parseLocalModifier;
     fromCeylon = RedHatTransformer.transformLocalModifier;
     toCeylon = localModifierToCeylon;
     

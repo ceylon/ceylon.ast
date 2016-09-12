@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     objectExpressionToCeylon,
-    compileObjectExpression
+    parseObjectExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object objectExpression satisfies ConcreteTest<ObjectExpression,JObjectEx
     shared String->ObjectExpression emptyObjectExpression = construct(classBody.emptyClassBody);
     shared String->ObjectExpression inheritanceObjectExpression = construct(classBody.emptyClassBody, extendedType.superInnerOfStringExtendedType, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes);
     
-    compile = compileObjectExpression;
+    parse = parseObjectExpression;
     fromCeylon = RedHatTransformer.transformObjectExpression;
     toCeylon = objectExpressionToCeylon;
     codes = [emptyObjectExpression, inheritanceObjectExpression];

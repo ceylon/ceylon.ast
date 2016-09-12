@@ -22,10 +22,10 @@ shared Block blockToCeylon(JBlock block, Anything(JNode,Node) update = noop) {
     return result;
 }
 
-"Compiles the given [[code]] for a Block
+"Parses the given [[code]] for a Block
  into a [[Block]] using the Ceylon compiler
  (more specifically, the rule for a `block`)."
-shared Block? compileBlock(String code, Anything(JNode,Node) update = noop) {
+shared Block? parseBlock(String code, Anything(JNode,Node) update = noop) {
     if (exists jBlock = createParser(code).block()) {
         return blockToCeylon(jBlock, update);
     } else {

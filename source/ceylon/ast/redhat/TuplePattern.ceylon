@@ -49,10 +49,10 @@ shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Tuple Pattern
+"Parses the given [[code]] for a Tuple Pattern
  into a [[TuplePattern]] using the Ceylon compiler
  (more specifically, the rule for a `tuplePattern`)."
-shared TuplePattern? compileTuplePattern(String code, Anything(JNode,Node) update = noop) {
+shared TuplePattern? parseTuplePattern(String code, Anything(JNode,Node) update = noop) {
     if (exists jTuplePattern = createParser(code).tuplePattern()) {
         return tuplePatternToCeylon(jTuplePattern, update);
     } else {

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     dynamicBlockToCeylon,
-    compileDynamicBlock
+    parseDynamicBlock
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object dynamicBlock satisfies ConcreteTest<DynamicBlock,JDynamicStatement
     
     shared String->DynamicBlock printPersonNameDynamicBlock = construct(block.printPersonNameBlock);
     
-    compile = compileDynamicBlock;
+    parse = parseDynamicBlock;
     fromCeylon = RedHatTransformer.transformDynamicBlock;
     toCeylon = dynamicBlockToCeylon;
     codes = [printPersonNameDynamicBlock];

@@ -10,7 +10,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueDefinitionToCeylon,
-    compileValueDefinition
+    parseValueDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object valueDefinition satisfies ConcreteTest<ValueDefinition,JAttributeD
     // not tested directly, but used by other tests
     shared String->ValueDefinition stringDefinition = construct(identifier.stringLIdentifier, baseType.stringType, lazySpecifier.xyStringSpecifier, annotations.sharedActualAnnotations);
     
-    compile = compileValueDefinition;
+    parse = parseValueDefinition;
     fromCeylon = RedHatTransformer.transformValueDefinition;
     toCeylon = valueDefinitionToCeylon;
     codes = [lidValueDefinition, annotatedByValueDefinition];

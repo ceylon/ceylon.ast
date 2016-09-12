@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     subtractAssignmentOperationToCeylon,
-    compileSubtractAssignmentOperation
+    parseSubtractAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object subtractAssignmentOperation satisfies ConcreteTest<SubtractAssignm
     
     shared String->SubtractAssignmentOperation countdownSubtractAssignΔtExpression = construct(baseExpression.countdownExpression, baseExpression.\iΔtExpression);
     
-    compile = compileSubtractAssignmentOperation;
+    parse = parseSubtractAssignmentOperation;
     fromCeylon = RedHatTransformer.transformSubtractAssignmentOperation;
     toCeylon = subtractAssignmentOperationToCeylon;
     codes = [countdownSubtractAssignΔtExpression];

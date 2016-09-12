@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     interfaceBodyToCeylon,
-    compileInterfaceBody
+    parseInterfaceBody
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object interfaceBody satisfies ConcreteTest<InterfaceBody,JInterfaceBody>
     shared String->InterfaceBody emptyInterfaceBody = construct([]);
     shared String->InterfaceBody nonemptyInterfaceBody = construct([functionDeclaration.nonemptyFunctionDeclaration, lazySpecification.stringLazySpecification]);
     
-    compile = compileInterfaceBody;
+    parse = parseInterfaceBody;
     fromCeylon = RedHatTransformer.transformInterfaceBody;
     toCeylon = interfaceBodyToCeylon;
     codes = [emptyInterfaceBody, nonemptyInterfaceBody];

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unionOperationToCeylon,
-    compileUnionOperation
+    parseUnionOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object unionOperation satisfies ConcreteTest<UnionOperation,JUnionOp> {
     
     shared String->UnionOperation aUnionBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileUnionOperation;
+    parse = parseUnionOperation;
     fromCeylon = RedHatTransformer.transformUnionOperation;
     toCeylon = unionOperationToCeylon;
     codes = [aUnionBExpression];

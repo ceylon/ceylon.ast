@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     extensionOrConstructionToCeylon,
-    compileExtensionOrConstruction
+    parseExtensionOrConstruction
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object extensionOrConstruction satisfies AbstractTest<ExtensionOrConstruction,JInvocationExpression|JSimpleType> {
-    compile = compileExtensionOrConstruction;
+    parse = parseExtensionOrConstruction;
     fromCeylon = RedHatTransformer.transformExtensionOrConstruction;
     toCeylon = extensionOrConstructionToCeylon;
     

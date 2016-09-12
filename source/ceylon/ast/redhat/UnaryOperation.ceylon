@@ -17,10 +17,10 @@ shared UnaryOperation unaryOperationToCeylon(JUnaryOperatorExpression unaryOpera
     return result;
 }
 
-"Compiles the given [[code]] for a Unary Operation
+"Parses the given [[code]] for a Unary Operation
  into a [[UnaryOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared UnaryOperation? compileUnaryOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryOperation? parseUnaryOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JUnaryOperatorExpression jUnaryExpression = createParser(code).assignmentExpression()) {
         return unaryOperationToCeylon(jUnaryExpression, update);
     } else {

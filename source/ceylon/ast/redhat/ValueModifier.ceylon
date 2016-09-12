@@ -26,10 +26,10 @@ shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Value Modifier
+"Parses the given [[code]] for a Value Modifier
  into a [[ValueModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared ValueModifier? compileValueModifier(String code, Anything(JNode,Node) update = noop) {
+shared ValueModifier? parseValueModifier(String code, Anything(JNode,Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == valueType) {

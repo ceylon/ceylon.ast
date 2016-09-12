@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     switchClauseToCeylon,
-    compileSwitchClause
+    parseSwitchClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object switchClause satisfies ConcreteTest<SwitchClause,JSwitchClause> {
             specifier = Specifier(baseExpression.iExpression.item);
         });
     
-    compile = compileSwitchClause;
+    parse = parseSwitchClause;
     fromCeylon = RedHatTransformer.transformSwitchClause;
     toCeylon = switchClauseToCeylon;
     codes = [switchIClause, switchVarIClause];

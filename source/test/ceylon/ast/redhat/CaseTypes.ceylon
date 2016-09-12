@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     caseTypesToCeylon,
-    compileCaseTypes
+    parseCaseTypes
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object caseTypes satisfies ConcreteTest<CaseTypes,JCaseTypes> {
     // not tested directly, but used by other tests
     shared String->CaseTypes ofNullCaseTypes = construct(identifier.nullLIdentifier);
     
-    compile = compileCaseTypes;
+    parse = parseCaseTypes;
     fromCeylon = RedHatTransformer.transformCaseTypes;
     toCeylon = caseTypesToCeylon;
     codes = [ofStringIntegerFloatCaseTypes];

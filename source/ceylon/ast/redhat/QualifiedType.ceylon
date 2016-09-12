@@ -36,10 +36,10 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Qualified Type
+"Parses the given [[code]] for a Qualified Type
  into a [[QualifiedType]] using the Ceylon compiler
  (more specifically, the rule for a `qualifiedType`)."
-shared QualifiedType? compileQualifiedType(String code, Anything(JNode,Node) update = noop) {
+shared QualifiedType? parseQualifiedType(String code, Anything(JNode,Node) update = noop) {
     if (exists jQualifiedType = createParser(code).qualifiedType()) {
         if (is JQualifiedType jQualifiedType) {
             return qualifiedTypeToCeylon(jQualifiedType, update);

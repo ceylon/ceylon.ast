@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importTypeAliasToCeylon,
-    compileImportTypeAlias
+    parseImportTypeAlias
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object importTypeAlias satisfies ConcreteTest<ImportTypeAlias,JAlias> {
     // not tested directly, but used by other tests
     shared String->ImportTypeAlias jstringImportTypeAlias = construct(identifier.jstringUIdentifier);
     
-    compile = compileImportTypeAlias;
+    parse = parseImportTypeAlias;
     fromCeylon = RedHatTransformer.transformImportTypeAlias;
     toCeylon = importTypeAliasToCeylon;
     codes = [uidImportTypeAlias];

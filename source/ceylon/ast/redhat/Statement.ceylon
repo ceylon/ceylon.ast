@@ -32,10 +32,10 @@ shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNod
     case (is JDestructure) { return destructureToCeylon(statement, update); }
 }
 
-"Compiles the given [[code]] for a Statement
+"Parses the given [[code]] for a Statement
  into a [[Statement]] using the Ceylon compiler
  (more specifically, the rule for a `declarationOrStatement`)."
-shared Statement? compileStatement(String code, Anything(JNode,Node) update = noop) {
+shared Statement? parseStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExecutableStatement jDeclarationOrStatement = createParser(code).declarationOrStatement()) {
         // declaration() doesn’t include assertions
         return statementToCeylon(jDeclarationOrStatement, update);

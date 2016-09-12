@@ -32,10 +32,10 @@ shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valuePar
     return result;
 }
 
-"Compiles the given [[code]] for a Value Parameter
+"Parses the given [[code]] for a Value Parameter
  into a [[ValueParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared ValueParameter? compileValueParameter(String code, Anything(JNode,Node) update = noop) {
+shared ValueParameter? parseValueParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JValueParameterDeclaration jParameter = createParser(code).parameterDeclarationOrRef(),
         jParameter.typedDeclaration.type is JStaticType|JDynamicModifier) {
         return valueParameterToCeylon(jParameter, update);

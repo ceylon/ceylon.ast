@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     ifComprehensionClauseToCeylon,
-    compileIfComprehensionClause
+    parseIfComprehensionClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object ifComprehensionClause satisfies ConcreteTest<IfComprehensionClause
     shared String->IfComprehensionClause ifTrueCommaAAndBThenIComprehensionClause = construct(conditions.trueCommaAAndBConditions, expressionComprehensionClause.iExpressionComprehensionClause);
     // TODO better tests
     
-    compile = compileIfComprehensionClause;
+    parse = parseIfComprehensionClause;
     fromCeylon = RedHatTransformer.transformIfComprehensionClause;
     toCeylon = ifComprehensionClauseToCeylon;
     codes = [ifTrueCommaAAndBThenIComprehensionClause];

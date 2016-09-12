@@ -16,10 +16,10 @@ shared While whileToCeylon(JWhileStatement \iwhile, Anything(JNode,Node) update 
     return result;
 }
 
-"Compiles the given [[code]] for a While
+"Parses the given [[code]] for a While
  into a [[While]] using the Ceylon compiler
  (more specifically, the rule for a `whileLoop`)."
-shared While? compileWhile(String code, Anything(JNode,Node) update = noop) {
+shared While? parseWhile(String code, Anything(JNode,Node) update = noop) {
     if (exists jWhileLoop = createParser(code).whileLoop()) {
         return whileToCeylon(jWhileLoop, update);
     } else {

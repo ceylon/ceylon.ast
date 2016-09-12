@@ -49,10 +49,10 @@ shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctional
     return result;
 }
 
-"Compiles the given [[code]] for a Defaulted Callable Parameter
+"Parses the given [[code]] for a Defaulted Callable Parameter
  into a [[DefaultedCallableParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared DefaultedCallableParameter? compileDefaultedCallableParameter(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedCallableParameter? parseDefaultedCallableParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JFunctionalParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef()) {
         return defaultedCallableParameterToCeylon(jParameterDeclarationOrRef, update);
     } else {

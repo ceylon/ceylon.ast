@@ -26,10 +26,10 @@ shared UnionType unionTypeToCeylon(JUnionType unionType, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Union Type
+"Parses the given [[code]] for a Union Type
  into an [[UnionType]] using the Ceylon compiler
  (more specifically, the rule for a `unionType`)."
-shared UnionType? compileUnionType(String code, Anything(JNode,Node) update = noop) {
+shared UnionType? parseUnionType(String code, Anything(JNode,Node) update = noop) {
     if (is JUnionType jUnionType = createParser(code).unionType()) {
         return unionTypeToCeylon(jUnionType, update);
     } else {

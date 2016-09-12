@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     prefixIncrementOperationToCeylon,
-    compilePrefixIncrementOperation
+    parsePrefixIncrementOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object prefixIncrementOperation satisfies ConcreteTest<PrefixIncrementOpe
     shared String->PrefixIncrementOperation _1138IntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixIncrementOperation oneIntegerLiteralGroupedExpressionPrefixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);
     
-    compile = compilePrefixIncrementOperation;
+    parse = parsePrefixIncrementOperation;
     fromCeylon = RedHatTransformer.transformPrefixIncrementOperation;
     toCeylon = prefixIncrementOperationToCeylon;
     codes = [_1138IntegerLiteralPrefixIncrementOperation, oneIntegerLiteralGroupedExpressionPrefixIncrementOperation];

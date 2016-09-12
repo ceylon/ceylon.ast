@@ -72,10 +72,10 @@ shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition,
     return result;
 }
 
-"Compiles the given [[code]] for a Class Definition
+"Parses the given [[code]] for a Class Definition
  into a [[ClassDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassDefinition? compileClassDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ClassDefinition? parseClassDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JClassDefinition jDeclaration = createParser(code).declaration()) {
         return classDefinitionToCeylon(jDeclaration, update);
     } else {

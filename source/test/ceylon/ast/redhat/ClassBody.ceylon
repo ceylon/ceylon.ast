@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     classBodyToCeylon,
-    compileClassBody
+    parseClassBody
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -31,7 +31,7 @@ shared object classBody satisfies ConcreteTest<ClassBody,JClassBody> {
             valueDefinition.stringDefinition
         ]);
     
-    compile = compileClassBody;
+    parse = parseClassBody;
     fromCeylon = RedHatTransformer.transformClassBody;
     toCeylon = classBodyToCeylon;
     codes = [emptyClassBody, pointClassBody];

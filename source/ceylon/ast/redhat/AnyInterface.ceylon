@@ -19,10 +19,10 @@ shared AnyInterface anyInterfaceToCeylon(JAnyInterface anyInterface, Anything(JN
     case (is JInterfaceDeclaration) { return interfaceAliasDefinitionToCeylon(anyInterface, update); }
 }
 
-"Compiles the given [[code]] for Any Interface
+"Parses the given [[code]] for Any Interface
  into an [[AnyInterface]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyInterface? compileAnyInterface(String code, Anything(JNode,Node) update = noop) {
+shared AnyInterface? parseAnyInterface(String code, Anything(JNode,Node) update = noop) {
     if (is JAnyInterface jDeclaration = createParser(code).declaration()) {
         return anyInterfaceToCeylon(jDeclaration, update);
     } else {

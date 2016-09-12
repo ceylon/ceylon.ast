@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     floatLiteralToCeylon,
-    compileFloatLiteral
+    parseFloatLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object floatLiteral satisfies ConcreteTest<FloatLiteral,JFloatLiteral> {
     // not tested directly, but used by other tests
     shared String->FloatLiteral oPointOFloatLiteral = construct("0.0");
     
-    compile = compileFloatLiteral;
+    parse = parseFloatLiteral;
     fromCeylon = RedHatTransformer.transformFloatLiteral;
     toCeylon = floatLiteralToCeylon;
     codes = [oPointOFortyTwoKFloatLiteral, tenPointOneOhOneOhFloatLiteral];

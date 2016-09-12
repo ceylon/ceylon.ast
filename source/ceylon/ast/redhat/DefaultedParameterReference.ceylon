@@ -21,10 +21,10 @@ shared DefaultedParameterReference defaultedParameterReferenceToCeylon(JInitiali
     return result;
 }
 
-"Compiles the given [[code]] for a Defaulted Parameter Reference
+"Parses the given [[code]] for a Defaulted Parameter Reference
  into a [[DefaultedParameterReference]] using the Ceylon compiler
  (more specifically, the rule for a `parameterRef`)."
-shared DefaultedParameterReference? compileDefaultedParameterReference(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedParameterReference? parseDefaultedParameterReference(String code, Anything(JNode,Node) update = noop) {
     if (exists jParameterRef = createParser(code).parameterRef(),
         jParameterRef.specifierExpression exists) {
         return defaultedParameterReferenceToCeylon(jParameterRef, update);

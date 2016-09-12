@@ -16,10 +16,10 @@ shared SwitchCaseElse switchCaseElseToCeylon(JSwitchStatement switchCaseElse, An
     return result;
 }
 
-"Compiles the given [[code]] for a Switch Case Else
+"Parses the given [[code]] for a Switch Case Else
  into a [[SwitchCaseElse]] using the Ceylon compiler
  (more specifically, the rule for a `switchCaseElse`)."
-shared SwitchCaseElse? compileSwitchCaseElse(String code, Anything(JNode,Node) update = noop) {
+shared SwitchCaseElse? parseSwitchCaseElse(String code, Anything(JNode,Node) update = noop) {
     if (exists jSwitchCaseElse = createParser(code).switchCaseElse()) {
         return switchCaseElseToCeylon(jSwitchCaseElse, update);
     } else {

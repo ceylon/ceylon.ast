@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     invocationToCeylon,
-    compileInvocation
+    parseInvocation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -31,7 +31,7 @@ shared object invocation satisfies ConcreteTest<Invocation,JInvocationExpression
     shared String->Invocation cosPhiInvocation = construct(baseExpression.cosExpression, positionalArguments.phiPositionalArguments);
     shared String->Invocation sinPhiInvocation = construct(baseExpression.sinExpression, positionalArguments.phiPositionalArguments);
     
-    compile = compileInvocation;
+    parse = parseInvocation;
     fromCeylon = RedHatTransformer.transformInvocation;
     toCeylon = invocationToCeylon;
     codes => [printHelloWorldInvocation, namedArgumentsInvocation];

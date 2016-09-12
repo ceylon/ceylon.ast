@@ -27,10 +27,10 @@ shared Specifier specifierToCeylon(JSpecifierExpression specifier, Anything(JNod
     return result;
 }
 
-"Compiles the given [[code]] for a Specifier
+"Parses the given [[code]] for a Specifier
  into a [[Specifier]] using the Ceylon compiler
  (more specifically, the rule for a `specifier`)."
-shared Specifier? compileSpecifier(String code, Anything(JNode,Node) update = noop) {
+shared Specifier? parseSpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jSpecifier = createParser(code).specifier()) {
         return specifierToCeylon(jSpecifier, update);
     } else {

@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     moduleImportToCeylon,
-    compileModuleImport
+    parseModuleImport
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object moduleImport satisfies ConcreteTest<ModuleImport,JImportModule> {
     shared String->ModuleImport ceylonAstCore100ModuleImport = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral, annotations.sharedAnnotations);
     shared String->ModuleImport mavenCommonsCodecModuleImport = construct(stringLiteral.commonsCodecCommonsCodecStringLiteral, stringLiteral._14VersionStringLiteral, annotations.emptyAnnotations, identifier.mavenLIdentifier);
     
-    compile = compileModuleImport;
+    parse = parseModuleImport;
     fromCeylon = RedHatTransformer.transformModuleImport;
     toCeylon = moduleImportToCeylon;
     codes = [ceylonAstCore100ModuleImport, mavenCommonsCodecModuleImport];

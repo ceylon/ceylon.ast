@@ -16,10 +16,10 @@ shared Import importToCeylon(JImport \iimport, Anything(JNode,Node) update = noo
     return result;
 }
 
-"Compiles the given [[code]] for an Import
+"Parses the given [[code]] for an Import
  into an [[Import]] using the Ceylon compiler
  (more specifically, the rule for an `import`)."
-shared Import? compileImport(String code, Anything(JNode,Node) update = noop) {
+shared Import? parseImport(String code, Anything(JNode,Node) update = noop) {
     if (exists jImport = createParser(code).importDeclaration()) {
         return importToCeylon(jImport, update);
     } else {

@@ -23,10 +23,10 @@ shared TryClause tryClauseToCeylon(JTryClause tryClause, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Try Clause
+"Parses the given [[code]] for a Try Clause
  into a [[TryClause]] using the Ceylon compiler
  (more specifically, the rule for a `tryBlock`)."
-shared TryClause? compileTryClause(String code, Anything(JNode,Node) update = noop) {
+shared TryClause? parseTryClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jTryBlock = createParser(code).tryBlock()) {
         return tryClauseToCeylon(jTryBlock, update);
     } else {

@@ -19,10 +19,10 @@ shared LogicalAssignmentOperation logicalAssignmentOperationToCeylon(JLogicalAss
     case (is JOrAssignOp) { return orAssignmentOperationToCeylon(logicalAssignmentOperation, update); }
 }
 
-"Compiles the given [[code]] for a Logical Assignment Operation
+"Parses the given [[code]] for a Logical Assignment Operation
  into a [[LogicalAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared LogicalAssignmentOperation? compileLogicalAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared LogicalAssignmentOperation? parseLogicalAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JLogicalAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return logicalAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

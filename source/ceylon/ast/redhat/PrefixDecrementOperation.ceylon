@@ -18,10 +18,10 @@ shared PrefixDecrementOperation prefixDecrementOperationToCeylon(JDecrementOp pr
     return result;
 }
 
-"Compiles the given [[code]] for a Prefix Decrement Operation
+"Parses the given [[code]] for a Prefix Decrement Operation
  into a [[PrefixDecrementOperation]] using the Ceylon compiler
  (more specifically, the rule for n `incrementDecrementExpression`)."
-shared PrefixDecrementOperation? compilePrefixDecrementOperation(String code, Anything(JNode,Node) update = noop) {
+shared PrefixDecrementOperation? parsePrefixDecrementOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JDecrementOp jDecrementOp = createParser(code).incrementDecrementExpression(),
         jDecrementOp.term is JPrimary) {
         return prefixDecrementOperationToCeylon(jDecrementOp, update);

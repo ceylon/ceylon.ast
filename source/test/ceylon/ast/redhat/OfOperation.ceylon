@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     ofOperationToCeylon,
-    compileOfOperation
+    parseOfOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object ofOperation satisfies ConcreteTest<OfOperation,JOfOp> {
     
     shared String->OfOperation stringOfStringOptionalExpression = construct(stringLiteral.capitalCStringLiteral, optionalType.stringOptionalType);
     
-    compile = compileOfOperation;
+    parse = parseOfOperation;
     fromCeylon = RedHatTransformer.transformOfOperation;
     toCeylon = ofOperationToCeylon;
     codes = [stringOfStringOptionalExpression];

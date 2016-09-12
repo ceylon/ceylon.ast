@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     assignOperationToCeylon,
-    compileAssignOperation
+    parseAssignOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> 
     // not tested directly, but used by other tests
     shared String->AssignOperation nameEmptyAssignTrueExpression = construct(qualifiedExpression.nameEmptyExpression, baseExpression.trueExpression);
     
-    compile = compileAssignOperation;
+    parse = parseAssignOperation;
     fromCeylon = RedHatTransformer.transformAssignOperation;
     toCeylon = assignOperationToCeylon;
     codes = [iAssign1Expression, textAssignExpression];

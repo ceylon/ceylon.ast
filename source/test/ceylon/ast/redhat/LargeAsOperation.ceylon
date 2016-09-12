@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     largeAsOperationToCeylon,
-    compileLargeAsOperation
+    parseLargeAsOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object largeAsOperation satisfies ConcreteTest<LargeAsOperation,JLargeAsO
     
     shared String->LargeAsOperation _1138LargeAs1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
-    compile = compileLargeAsOperation;
+    parse = parseLargeAsOperation;
     fromCeylon = RedHatTransformer.transformLargeAsOperation;
     toCeylon = largeAsOperationToCeylon;
     codes = [_1138LargeAs1Expression];

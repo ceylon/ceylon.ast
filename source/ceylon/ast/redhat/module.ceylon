@@ -1,5 +1,5 @@
 """This module defines a bidirectional conversion between `ceylon.ast`
-   and the RedHat compiler AST, as well as functions that directly compile code
+   and the RedHat compiler AST, as well as functions that directly parse code
    to `ceylon.ast` nodes using the RedHat compiler.
    
    `ceylon.ast` → RedHat AST:
@@ -12,12 +12,12 @@
        
    Code → `ceylon.ast`:
    
-       compileCompilationUnit(code)
+       parseCompilationUnit(code)
    
    For the latter two, there are also functions for (almost) every other
-   node type, e. g. [[expressionToCeylon]], [[compileType]], etc.
+   node type, e. g. [[expressionToCeylon]], [[parseType]], etc.
    
-   All `XToCeylon` and `compileX` functions also take a second parameter:
+   All `XToCeylon` and `parseX` functions also take a second parameter:
    
        Anything(JNode,Node) update = noop
    
@@ -27,7 +27,7 @@
    It can be used to copy information from the old AST to the new one, for example:
   
        Key<Token[]> tokensKey = ScopedKey<Token[]>(`module`, "tokens");
-       value cu = compileCompilationUnit {
+       value cu = parseCompilationUnit {
            code;
            void update(JNode orig, Node res) {
                res.set(tokensKey, [orig.mainToken, orig.mainEndToken].coalesced);
@@ -40,7 +40,7 @@
    Another useful argument provided by this module is [[attachOriginalNode]],
    which allows you to later retrieve the original node from [[originalNodeKey]]:
    
-       value cu = compileCompilationUnit {
+       value cu = parseCompilationUnit {
            code;
            update = attachOriginalNode;
        };

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     forClauseToCeylon,
-    compileForClause
+    parseForClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object forClause satisfies ConcreteTest<ForClause,JForClause> {
     
     shared String->ForClause printPersonNameInPeopleForClause = construct(forIterator.variableIterator, block.printPersonNameBlock);
     
-    compile = compileForClause;
+    parse = parseForClause;
     fromCeylon = RedHatTransformer.transformForClause;
     toCeylon = forClauseToCeylon;
     codes = [printPersonNameInPeopleForClause];

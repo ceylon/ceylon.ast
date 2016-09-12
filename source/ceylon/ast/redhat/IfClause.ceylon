@@ -16,10 +16,10 @@ shared IfClause ifClauseToCeylon(JIfClause ifClause, Anything(JNode,Node) update
     return result;
 }
 
-"Compiles the given [[code]] for an If Clause
+"Parses the given [[code]] for an If Clause
  into an [[IfClause]] using the Ceylon compiler
  (more specifically, the rule for an `ifBlock`)."
-shared IfClause? compileIfClause(String code, Anything(JNode,Node) update = noop) {
+shared IfClause? parseIfClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jIfBlock = createParser(code).ifBlock()) {
         return ifClauseToCeylon(jIfBlock, update);
     } else {

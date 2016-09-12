@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     optionalTypeToCeylon,
-    compileOptionalType
+    parseOptionalType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object optionalType satisfies ConcreteTest<OptionalType,JOptionalType> {
     shared String->OptionalType stringOptionalType = construct(baseType.stringType);
     shared String->OptionalType iterableOfStringOptionalType = construct(baseType.iterableOfStringType);
     
-    compile = compileOptionalType;
+    parse = parseOptionalType;
     fromCeylon = RedHatTransformer.transformOptionalType;
     toCeylon = optionalTypeToCeylon;
     codes = [stringOptionalType, iterableOfStringOptionalType];

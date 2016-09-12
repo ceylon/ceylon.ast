@@ -21,10 +21,10 @@ shared IntersectionOperation intersectionOperationToCeylon(JIntersectionOp inter
     return result;
 }
 
-"Compiles the given [[code]] for an Intersection Operation
+"Parses the given [[code]] for an Intersection Operation
  into an [[IntersectionOperation]] using the Ceylon compiler
  (more specifically, the rule for an `intersectionExpression`)."
-shared IntersectionOperation? compileIntersectionOperation(String code, Anything(JNode,Node) update = noop) {
+shared IntersectionOperation? parseIntersectionOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JIntersectionOp jIntersectionOperation = createParser(code).intersectionExpression()) {
         return intersectionOperationToCeylon(jIntersectionOperation, update);
     } else {

@@ -26,10 +26,10 @@ shared PackageCompilationUnit packageCompilationUnitToCeylon(JCompilationUnit pa
     return result;
 }
 
-"Compiles the given [[code]] for a Package Compilation Unit
+"Parses the given [[code]] for a Package Compilation Unit
  into a [[PackageCompilationUnit]] using the Ceylon compiler
  (more specifically, the rule for a `compilationUnit`)."
-shared PackageCompilationUnit? compilePackageCompilationUnit(String code, Anything(JNode,Node) update = noop) {
+shared PackageCompilationUnit? parsePackageCompilationUnit(String code, Anything(JNode,Node) update = noop) {
     if (exists jCompilationUnit = createParser(code).compilationUnit(),
         jCompilationUnit.packageDescriptors.size() == 1,
         jCompilationUnit.declarations.empty,

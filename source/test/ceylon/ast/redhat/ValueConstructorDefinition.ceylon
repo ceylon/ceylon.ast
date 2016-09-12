@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueConstructorDefinitionToCeylon,
-    compileValueConstructorDefinition
+    parseValueConstructorDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object valueConstructorDefinition satisfies ConcreteTest<ValueConstructor
     
     shared String->ValueConstructorDefinition originValueConstructorDefinition = construct(identifier.originLIdentifier, block.originValueConstructorBlock, null, annotations.sharedAnnotations);
     
-    compile = compileValueConstructorDefinition;
+    parse = parseValueConstructorDefinition;
     fromCeylon = RedHatTransformer.transformValueConstructorDefinition;
     toCeylon = valueConstructorDefinitionToCeylon;
     codes = [originValueConstructorDefinition];

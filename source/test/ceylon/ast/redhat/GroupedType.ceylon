@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     groupedTypeToCeylon,
-    compileGroupedType
+    parseGroupedType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object groupedType satisfies ConcreteTest<GroupedType,JGroupedType> {
     shared String->GroupedType stringGroupedType = construct(baseType.stringType);
     shared String->GroupedType iterableOfStringGroupedType = construct(baseType.iterableOfStringType);
     
-    compile = compileGroupedType;
+    parse = parseGroupedType;
     fromCeylon = RedHatTransformer.transformGroupedType;
     toCeylon = groupedTypeToCeylon;
     codes = [stringGroupedType, iterableOfStringGroupedType];

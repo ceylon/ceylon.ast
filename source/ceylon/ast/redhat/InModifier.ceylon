@@ -25,10 +25,10 @@ shared InModifier inModifierToCeylon(JTypeVariance inModifier, Anything(JNode,No
     return result;
 }
 
-"Compiles the given [[code]] for an In Modifier
+"Parses the given [[code]] for an In Modifier
  into an [[InModifier]] using the Ceylon compiler
  (more specifically, the rule for a `variance`)."
-shared InModifier? compileInModifier(String code, Anything(JNode,Node) update = noop) {
+shared InModifier? parseInModifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jVariance = createParser(code).variance(),
         jVariance.mainToken.type == in_op) {
         return inModifierToCeylon(jVariance, update);

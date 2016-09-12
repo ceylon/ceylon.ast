@@ -39,10 +39,10 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta, Anything(JNode,N
     return result;
 }
 
-"Compiles the given [[code]] for a Member Meta
+"Parses the given [[code]] for a Member Meta
  into a [[MemberMeta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared MemberMeta? compileMemberMeta(String code, Anything(JNode,Node) update = noop) {
+shared MemberMeta? parseMemberMeta(String code, Anything(JNode,Node) update = noop) {
     if (is JMemberLiteral jMetaLiteral = createParser(code).metaLiteral(),
         jMetaLiteral.type exists,
         !jMetaLiteral is JFunctionLiteral|JValueLiteral) {

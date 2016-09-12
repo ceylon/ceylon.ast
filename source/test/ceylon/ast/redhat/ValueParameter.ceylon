@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueParameterToCeylon,
-    compileValueParameter
+    parseValueParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object valueParameter satisfies ConcreteTest<ValueParameter,JValueParamet
     // not tested directly, but used by other tests
     shared String->ValueParameter objectThatParameter = construct(baseType.objectType, identifier.thatLIdentifier);
     
-    compile = compileValueParameter;
+    parse = parseValueParameter;
     fromCeylon = RedHatTransformer.transformValueParameter;
     toCeylon = valueParameterToCeylon;
     codes = [dynamicByValueParameter, annotatedStringLidValueParameter];

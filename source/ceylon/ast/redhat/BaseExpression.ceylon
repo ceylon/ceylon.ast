@@ -34,10 +34,10 @@ shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMem
     return result;
 }
 
-"Compiles the given [[code]] for a Base Expression
+"Parses the given [[code]] for a Base Expression
  into a [[BaseExpression]] using the Ceylon compiler
  (more specifically, the rule for a `baseReference`)."
-shared BaseExpression? compileBaseExpression(String code, Anything(JNode,Node) update = noop) {
+shared BaseExpression? parseBaseExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jBaseReference = createParser(code).baseReference()) {
         JBaseMemberOrTypeExpression expr;
         if (jBaseReference.isMember) {

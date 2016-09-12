@@ -19,10 +19,10 @@ shared NonemptyOperation nonemptyOperationToCeylon(JNonempty nonemptyOperation, 
     return result;
 }
 
-"Compiles the given [[code]] for a Nonempty Operation
+"Parses the given [[code]] for a Nonempty Operation
  into a [[NonemptyOperation]] using the Ceylon compiler
  (more specifically, the rule for a `existenceEmptinessExpression`)."
-shared NonemptyOperation? compileNonemptyOperation(String code, Anything(JNode,Node) update = noop) {
+shared NonemptyOperation? parseNonemptyOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JNonempty jExistenceEmptinessExpression = createParser(code).existenceEmptinessExpression()) {
         return nonemptyOperationToCeylon(jExistenceEmptinessExpression, update);
     } else {

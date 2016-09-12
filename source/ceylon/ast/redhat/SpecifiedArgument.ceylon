@@ -63,10 +63,10 @@ shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgum
     return result;
 }
 
-"Compiles the given [[code]] for a Specified Argument
+"Parses the given [[code]] for a Specified Argument
  into a [[SpecifiedArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgument`)."
-shared SpecifiedArgument? compileSpecifiedArgument(String code, Anything(JNode,Node) update = noop) {
+shared SpecifiedArgument? parseSpecifiedArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jNamedArgument = createParser(code).namedArgument()) {
         try {
             return specifiedArgumentToCeylon(jNamedArgument, update);

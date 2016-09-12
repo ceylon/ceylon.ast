@@ -49,10 +49,10 @@ shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = n
     }
 }
 
-"Compiles the given [[code]] for a Literal
+"Parses the given [[code]] for a Literal
  into a [[Literal]] using the Ceylon compiler
  (more specifically, the rules for a `stringLiteral` and a `nonstringLiteral`)."
-shared Literal? compileLiteral(String code, Anything(JNode,Node) update = noop) {
+shared Literal? parseLiteral(String code, Anything(JNode,Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
         return stringLiteralToCeylon(jStringLiteral, update);
     } else if (exists jLiteral = createParser(code).nonstringLiteral()) {

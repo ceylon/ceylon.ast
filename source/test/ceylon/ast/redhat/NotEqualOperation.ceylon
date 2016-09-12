@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     notEqualOperationToCeylon,
-    compileNotEqualOperation
+    parseNotEqualOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object notEqualOperation satisfies ConcreteTest<NotEqualOperation,JNotEqu
     "a&b != a&b&c"
     shared String->NotEqualOperation aIntBNotEqualsAIntBIntCExpression = construct(intersectionOperation.aIntersectBExpression, intersectionOperation.aIntersectBIntersectCExpression);
     
-    compile = compileNotEqualOperation;
+    parse = parseNotEqualOperation;
     fromCeylon = RedHatTransformer.transformNotEqualOperation;
     toCeylon = notEqualOperationToCeylon;
     codes = [aNotEqualsBExpression, aIntBNotEqualsAIntBIntCExpression];

@@ -21,10 +21,10 @@ shared ThenOperation thenOperationToCeylon(JThenOp thenOperation, Anything(JNode
     return result;
 }
 
-"Compiles the given [[code]] for a Then Operation
+"Parses the given [[code]] for a Then Operation
  into a [[ThenOperation]] using the Ceylon compiler
  (more specifically, the rule for a `thenElseExpression`)."
-shared ThenOperation? compileThenOperation(String code, Anything(JNode,Node) update = noop) {
+shared ThenOperation? parseThenOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JThenOp jThenElseExpression = createParser(code).thenElseExpression()) {
         return thenOperationToCeylon(jThenElseExpression, update);
     } else {

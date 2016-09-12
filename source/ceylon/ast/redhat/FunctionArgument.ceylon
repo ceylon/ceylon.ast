@@ -54,10 +54,10 @@ shared FunctionArgument functionArgumentToCeylon(JMethodArgument functionArgumen
     return result;
 }
 
-"Compiles the given [[code]] for a Function Argument
+"Parses the given [[code]] for a Function Argument
  into a [[FunctionArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared FunctionArgument? compileFunctionArgument(String code, Anything(JNode,Node) update = noop) {
+shared FunctionArgument? parseFunctionArgument(String code, Anything(JNode,Node) update = noop) {
     if (is JMethodArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return functionArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

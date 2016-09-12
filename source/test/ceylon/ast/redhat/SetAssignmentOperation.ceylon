@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     setAssignmentOperationToCeylon,
-    compileSetAssignmentOperation
+    parseSetAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object setAssignmentOperation satisfies AbstractTest<SetAssignmentOperation,JBitwiseAssignmentOp> {
-    compile = compileSetAssignmentOperation;
+    parse = parseSetAssignmentOperation;
     fromCeylon = RedHatTransformer.transformSetAssignmentOperation;
     toCeylon = setAssignmentOperationToCeylon;
     

@@ -18,10 +18,10 @@ shared PrefixIncrementOperation prefixIncrementOperationToCeylon(JIncrementOp pr
     return result;
 }
 
-"Compiles the given [[code]] for a Prefix Increment Operation
+"Parses the given [[code]] for a Prefix Increment Operation
  into a [[PrefixIncrementOperation]] using the Ceylon compiler
  (more specifically, the rule for an `incrementDecrementExpression`)."
-shared PrefixIncrementOperation? compilePrefixIncrementOperation(String code, Anything(JNode,Node) update = noop) {
+shared PrefixIncrementOperation? parsePrefixIncrementOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JIncrementOp jPrefixIncrementOperation = createParser(code).incrementDecrementExpression(),
         jPrefixIncrementOperation.term is JPrimary) {
         return prefixIncrementOperationToCeylon(jPrefixIncrementOperation, update);

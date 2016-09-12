@@ -30,10 +30,10 @@ shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParamet
     return result;
 }
 
-"Compiles the given [[code]] for a Type Parameter
+"Parses the given [[code]] for a Type Parameter
  into a [[TypeParameter]] using the Ceylon compiler
  (more specifically, the rule for a `typeParameter`)."
-shared TypeParameter? compileTypeParameter(String code, Anything(JNode,Node) update = noop) {
+shared TypeParameter? parseTypeParameter(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeParameter = createParser(code).typeParameter()) {
         return typeParameterToCeylon(jTypeParameter, update);
     } else {

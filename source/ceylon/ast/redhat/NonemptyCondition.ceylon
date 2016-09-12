@@ -17,10 +17,10 @@ shared NonemptyCondition nonemptyConditionToCeylon(JNonemptyCondition nonemptyCo
     return result;
 }
 
-"Compiles the given [[code]] for a Nonempty Condition
+"Parses the given [[code]] for a Nonempty Condition
  into a [[NonemptyCondition]] using the Ceylon compiler
  (more specifically, the rule for a `nonemptyCondition`)."
-shared NonemptyCondition? compileNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
+shared NonemptyCondition? parseNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
     if (exists jNonemptyCondition = createParser(code).nonemptyCondition()) {
         return nonemptyConditionToCeylon(jNonemptyCondition, update);
     } else {

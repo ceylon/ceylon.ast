@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     conditionsToCeylon,
-    compileConditions
+    parseConditions
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object conditions satisfies ConcreteTest<Conditions,JConditionList> {
     // not tested directly, but used by other tests
     shared String->Conditions trueConditions = construct(booleanCondition.trueCondition);
     
-    compile = compileConditions;
+    parse = parseConditions;
     fromCeylon = RedHatTransformer.transformConditions;
     toCeylon = conditionsToCeylon;
     codes = [trueCommaAAndBConditions];

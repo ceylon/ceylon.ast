@@ -19,10 +19,10 @@ shared TypeDeclaration typeDeclarationToCeylon(JTypeDeclaration typeDeclaration,
     case (is JTypeAliasDeclaration) { return typeAliasDefinitionToCeylon(typeDeclaration, update); }
 }
 
-"Compiles the given [[code]] for a Type Declaration
+"Parses the given [[code]] for a Type Declaration
  into a [[TypeDeclaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared TypeDeclaration? compileTypeDeclaration(String code, Anything(JNode,Node) update = noop) {
+shared TypeDeclaration? parseTypeDeclaration(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeDeclaration jDeclaration = createParser(code).declaration()) {
         return typeDeclarationToCeylon(jDeclaration, update);
     } else {

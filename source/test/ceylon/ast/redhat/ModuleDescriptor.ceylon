@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     moduleDescriptorToCeylon,
-    compileModuleDescriptor
+    parseModuleDescriptor
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object moduleDescriptor satisfies ConcreteTest<ModuleDescriptor,JModuleDe
     
     shared String->ModuleDescriptor ceylonAstCoreEmptyModuleDescriptor = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral);
     
-    compile = compileModuleDescriptor;
+    parse = parseModuleDescriptor;
     fromCeylon = RedHatTransformer.transformModuleDescriptor;
     toCeylon = moduleDescriptorToCeylon;
     codes = [ceylonAstCoreEmptyModuleDescriptor];

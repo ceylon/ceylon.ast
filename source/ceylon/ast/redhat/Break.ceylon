@@ -16,10 +16,10 @@ shared Break breakToCeylon(JBreak \ibreak, Anything(JNode,Node) update = noop) {
     return result;
 }
 
-"Compiles the given [[code]] for a Break
+"Parses the given [[code]] for a Break
  into a [[Break]] using the Ceylon compiler
  (more specifically, the rule for a `directiveStatement`)."
-shared Break? compileBreak(String code, Anything(JNode,Node) update = noop) {
+shared Break? parseBreak(String code, Anything(JNode,Node) update = noop) {
     if (is JBreak jDirectiveStatement = createParser(code).directiveStatement()) {
         // breakDirective doesn’t contain the semicolon
         return breakToCeylon(jDirectiveStatement, update);

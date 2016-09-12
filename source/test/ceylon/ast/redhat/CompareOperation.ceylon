@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     compareOperationToCeylon,
-    compileCompareOperation
+    parseCompareOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object compareOperation satisfies ConcreteTest<CompareOperation,JCompareO
     
     shared String->CompareOperation aCompareBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileCompareOperation;
+    parse = parseCompareOperation;
     fromCeylon = RedHatTransformer.transformCompareOperation;
     toCeylon = compareOperationToCeylon;
     codes = [aCompareBExpression];

@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     variablePatternToCeylon,
-    compileVariablePattern
+    parseVariablePattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object variablePattern satisfies ConcreteTest<VariablePattern,JVariablePa
     shared String->VariablePattern firstVariablePattern = construct(identifier.firstLIdentifier);
     shared String->VariablePattern stringLineVariablePattern = construct(identifier.lineLIdentifier, baseType.stringType);
     
-    compile = compileVariablePattern;
+    parse = parseVariablePattern;
     fromCeylon = RedHatTransformer.transformVariablePattern;
     toCeylon = variablePatternToCeylon;
     codes = [eVariablePattern, firstVariablePattern, stringLineVariablePattern];

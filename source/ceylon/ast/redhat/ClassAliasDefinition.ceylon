@@ -66,10 +66,10 @@ shared ClassAliasDefinition classAliasDefinitionToCeylon(JClassDeclaration class
     return result;
 }
 
-"Compiles the given [[code]] for a Class Alias
+"Parses the given [[code]] for a Class Alias
  into a [[ClassAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassAliasDefinition? compileClassAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ClassAliasDefinition? parseClassAliasDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JClassDeclaration jDeclaration = createParser(code).declaration()) {
         return classAliasDefinitionToCeylon(jDeclaration, update);
     } else {

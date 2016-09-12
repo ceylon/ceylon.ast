@@ -29,10 +29,10 @@ shared DynamicBlock dynamicClauseToCeylon(JDynamicClause dynamicClause, Anything
     return result;
 }
 
-"Compiles the given [[code]] for a Dynamic Block
+"Parses the given [[code]] for a Dynamic Block
  into a [[DynamicBlock]] using the Ceylon compiler
  (more specifically, the rule for a `dynamicBlock`)."
-shared DynamicBlock? compileDynamicBlock(String code, Anything(JNode,Node) update = noop) {
+shared DynamicBlock? parseDynamicBlock(String code, Anything(JNode,Node) update = noop) {
     if (exists jDynamic = createParser(code).\idynamic()) {
         return dynamicBlockToCeylon(jDynamic, update);
     } else {

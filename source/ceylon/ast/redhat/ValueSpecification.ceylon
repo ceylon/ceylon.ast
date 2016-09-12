@@ -41,10 +41,10 @@ shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSp
     return result;
 }
 
-"Compiles the given [[code]] for a Value Specification
+"Parses the given [[code]] for a Value Specification
  into a [[ValueSpecification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared ValueSpecification? compileValueSpecification(String code, Anything(JNode,Node) update = noop) {
+shared ValueSpecification? parseValueSpecification(String code, Anything(JNode,Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement()) {
         return valueSpecificationToCeylon(jExpressionOrSpecificationStatement, update);
     } else {

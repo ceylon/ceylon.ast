@@ -13,7 +13,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     classDefinitionToCeylon,
-    compileClassDefinition
+    parseClassDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -41,7 +41,7 @@ shared object classDefinition satisfies ConcreteTest<ClassDefinition,JClassDefin
         annotations = annotations.sharedAnnotations;
     };
     
-    compile = compileClassDefinition;
+    parse = parseClassDefinition;
     fromCeylon = RedHatTransformer.transformClassDefinition;
     toCeylon = classDefinitionToCeylon;
     codes = [nullClassDefinition, pointClassDefinition];

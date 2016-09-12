@@ -17,10 +17,10 @@ shared GroupedExpression groupedExpressionToCeylon(JParExpression groupedExpress
     return result;
 }
 
-"Compiles the given [[code]] for a Grouped Expression
+"Parses the given [[code]] for a Grouped Expression
  into a [[GroupedExpression]] using the Ceylon compiler
  (more specifically, the rule for a `parExpression`)."
-shared GroupedExpression? compileGroupedExpression(String code, Anything(JNode,Node) update = noop) {
+shared GroupedExpression? parseGroupedExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jGroupedExpression = createParser(code).parExpression()) {
         return groupedExpressionToCeylon(jGroupedExpression, update);
     } else {

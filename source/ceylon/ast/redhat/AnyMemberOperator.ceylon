@@ -21,10 +21,10 @@ shared AnyMemberOperator anyMemberOperatorToCeylon(JMemberOperator anyMemberOper
     case (is JSpreadOp) { return spreadMemberOperatorToCeylon(anyMemberOperator, update); }
 }
 
-"Compiles the given [[code]] for Any Member Operator
+"Parses the given [[code]] for Any Member Operator
  into an [[AnyMemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared AnyMemberOperator? compileAnyMemberOperator(String code, Anything(JNode,Node) update = noop) {
+shared AnyMemberOperator? parseAnyMemberOperator(String code, Anything(JNode,Node) update = noop) {
     if (exists jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
         return anyMemberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {

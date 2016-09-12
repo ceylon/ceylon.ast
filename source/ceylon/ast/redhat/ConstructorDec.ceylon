@@ -21,10 +21,10 @@ shared ConstructorDec constructorDecToCeylon(JNewLiteral constructorDec, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Constructor Dec
+"Parses the given [[code]] for a Constructor Dec
  into a [[ConstructorDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared ConstructorDec? compileConstructorDec(String code, Anything(JNode,Node) update = noop) {
+shared ConstructorDec? parseConstructorDec(String code, Anything(JNode,Node) update = noop) {
     if (is JNewLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return constructorDecToCeylon(jMetaLiteral, update);
     } else {

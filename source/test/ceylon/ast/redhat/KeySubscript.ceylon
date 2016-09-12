@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     keySubscriptToCeylon,
-    compileKeySubscript
+    parseKeySubscript
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object keySubscript satisfies ConcreteTest<KeySubscript,JElement> {
     shared String->KeySubscript aTimesBPlusCSubscript = construct(sumOperation.aTimesBPlusCExpression);
     shared String->KeySubscript xElseOneSubscript = construct(elseOperation.xElseOneOperation);
     
-    compile = compileKeySubscript;
+    parse = parseKeySubscript;
     fromCeylon = RedHatTransformer.transformKeySubscript;
     toCeylon = keySubscriptToCeylon;
     codes = [iKeySubscript, aTimesBPlusCSubscript, xElseOneSubscript];

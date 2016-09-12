@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     variadicParameterToCeylon,
-    compileVariadicParameter
+    parseVariadicParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object variadicParameter satisfies ConcreteTest<VariadicParameter,JValueP
     // not tested directly, but used by other tests
     shared String->VariadicParameter charactersVariadicParameter = construct(variadicType.characterStarType, identifier.charactersLIdentifier);
     
-    compile = compileVariadicParameter;
+    parse = parseVariadicParameter;
     fromCeylon = RedHatTransformer.transformVariadicParameter;
     toCeylon = variadicParameterToCeylon;
     codes = [floatStarLidVariadicParameter];

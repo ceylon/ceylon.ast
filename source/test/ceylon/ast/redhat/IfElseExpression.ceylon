@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     ifElseExpressionToCeylon,
-    compileIfElseExpression
+    parseIfElseExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -27,7 +27,7 @@ shared object ifElseExpression satisfies ConcreteTest<IfElseExpression,JIfExpres
     // not tested directly, but used by other tests
     shared String->IfElseExpression ifThen1Else1Expression = construct(conditions.trueConditions, integerLiteral.oneIntegerLiteral, integerLiteral.oneIntegerLiteral);
     
-    compile = compileIfElseExpression;
+    parse = parseIfElseExpression;
     fromCeylon = RedHatTransformer.transformIfElseExpression;
     toCeylon = ifElseExpressionToCeylon;
     codes => [ifThenAElseBExpression, ifThenLetElseIfExpression, ifThenIfElseLetExpression];

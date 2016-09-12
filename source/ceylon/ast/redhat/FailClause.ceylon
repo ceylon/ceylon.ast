@@ -19,10 +19,10 @@ shared FailClause failClauseToCeylon(JElseClause failClause, Anything(JNode,Node
     return result;
 }
 
-"Compiles the given [[code]] for a Fail Clause
+"Parses the given [[code]] for a Fail Clause
  into a [[FailClause]] using the Ceylon compiler
  (more specifically, the rule for a `failBlock`)."
-shared FailClause? compileFailClause(String code, Anything(JNode,Node) update = noop) {
+shared FailClause? parseFailClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jFailBlock = createParser(code).failBlock()) {
         return failClauseToCeylon(jFailBlock, update);
     } else {

@@ -46,10 +46,10 @@ shared SwitchClause switchClauseToCeylon(JSwitchClause switchClause, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Switch Clause
+"Parses the given [[code]] for a Switch Clause
  into a [[SwitchClause]] using the Ceylon compiler
  (more specifically, the rule for a `switchHeader`)."
-shared SwitchClause? compileSwitchClause(String code, Anything(JNode,Node) update = noop) {
+shared SwitchClause? parseSwitchClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jSwitchHeader = createParser(code).switchHeader()) {
         return switchClauseToCeylon(jSwitchHeader, update);
     } else {

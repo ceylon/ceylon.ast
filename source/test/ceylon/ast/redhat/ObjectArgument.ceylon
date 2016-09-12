@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     objectArgumentToCeylon,
-    compileObjectArgument
+    parseObjectArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object objectArgument satisfies ConcreteTest<ObjectArgument,JObjectArgume
     
     shared String->ObjectArgument nullObjectArgument = construct(identifier.nullLIdentifier, classBody.emptyClassBody, extendedType.extendsNull, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes /* because I’m to lazy to write a separate test for that */);
     
-    compile = compileObjectArgument;
+    parse = parseObjectArgument;
     fromCeylon = RedHatTransformer.transformObjectArgument;
     toCeylon = objectArgumentToCeylon;
     codes = [nullObjectArgument];

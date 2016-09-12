@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     interfaceDecToCeylon,
-    compileInterfaceDec
+    parseInterfaceDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -30,7 +30,7 @@ shared object interfaceDec satisfies ConcreteTest<InterfaceDec,JInterfaceLiteral
     shared String->InterfaceDec abcInterfaceDec = construct("C"->UIdentifier("C"), "A.B"->DecQualifier([UIdentifier("A"), UIdentifier("B")]));
     shared String->InterfaceDec currentInterfaceDec = construct(null, null);
     
-    compile = compileInterfaceDec;
+    parse = parseInterfaceDec;
     fromCeylon = RedHatTransformer.transformInterfaceDec;
     toCeylon = interfaceDecToCeylon;
     codes = [mutableListInterfaceDec, abcInterfaceDec, currentInterfaceDec];

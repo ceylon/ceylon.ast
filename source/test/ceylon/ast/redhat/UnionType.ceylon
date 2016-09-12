@@ -10,7 +10,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unionTypeToCeylon,
-    compileUnionType
+    parseUnionType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -43,7 +43,7 @@ shared object unionType satisfies ConcreteTest<UnionType,JUnionType> {
         ];
     };
     
-    compile = compileUnionType;
+    parse = parseUnionType;
     fromCeylon = RedHatTransformer.transformUnionType;
     toCeylon = unionTypeToCeylon;
     codes = [stringOrIntegerOrFloatUnionType, turingStuffUnionType];

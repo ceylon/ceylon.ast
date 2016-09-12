@@ -26,10 +26,10 @@ shared ImportElement importElementToCeylon(JImportMemberOrType importElement, An
     return result;
 }
 
-"Compiles the given [[code]] for an Import Element
+"Parses the given [[code]] for an Import Element
  into an [[ImportElement]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared ImportElement? compileImportElement(String code, Anything(JNode,Node) update = noop) {
+shared ImportElement? parseImportElement(String code, Anything(JNode,Node) update = noop) {
     if (exists jImportElement = createParser(code).importElement()) {
         return importElementToCeylon(jImportElement, update);
     } else {

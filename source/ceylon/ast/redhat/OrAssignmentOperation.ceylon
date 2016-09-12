@@ -21,10 +21,10 @@ shared OrAssignmentOperation orAssignmentOperationToCeylon(JOrAssignOp orAssignm
     return result;
 }
 
-"Compiles the given [[code]] for an Or Assignment Operation
+"Parses the given [[code]] for an Or Assignment Operation
  into an [[OrAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared OrAssignmentOperation? compileOrAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared OrAssignmentOperation? parseOrAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JOrAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return orAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

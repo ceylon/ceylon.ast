@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     sumOperationToCeylon,
-    compileSumOperation
+    parseSumOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object sumOperation satisfies ConcreteTest<SumOperation,JSumOp> {
     shared String->SumOperation onePlusInterestRateExpression = construct(integerLiteral.oneIntegerLiteral, baseExpression.interestRateExpression);
     shared String->SumOperation xySquaredSumExpression = construct(exponentiationOperation.xSquaredOperation, exponentiationOperation.ySquaredOperation);
     
-    compile = compileSumOperation;
+    parse = parseSumOperation;
     fromCeylon = RedHatTransformer.transformSumOperation;
     toCeylon = sumOperationToCeylon;
     codes = [onePlusOneExpression, aTimesBPlusCExpression];

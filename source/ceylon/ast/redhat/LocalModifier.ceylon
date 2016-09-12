@@ -25,15 +25,15 @@ shared LocalModifier localModifierToCeylon(JLocalModifier localModifier, Anythin
     case (is JFunctionModifier) { return functionModifierToCeylon(localModifier, update); }
 }
 
-"Compiles the given [[code]] for a Local Modifier
+"Parses the given [[code]] for a Local Modifier
  into a [[LocalModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared LocalModifier? compileLocalModifier(String code, Anything(JNode,Node) update = noop) {
+shared LocalModifier? parseLocalModifier(String code, Anything(JNode,Node) update = noop) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == value_modifier) {
-        return compileValueModifier(code, update);
+        return parseValueModifier(code, update);
     } else if (type == function_modifier) {
-        return compileFunctionModifier(code, update);
+        return parseFunctionModifier(code, update);
     } else {
         return null;
     }

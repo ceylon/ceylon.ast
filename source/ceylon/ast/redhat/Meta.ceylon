@@ -25,10 +25,10 @@ shared Meta metaToCeylon(JMetaLiteral metaLiteral, Anything(JNode,Node) update =
     }
 }
 
-"Compiles the given [[code]] for a Meta
+"Parses the given [[code]] for a Meta
  into a [[Meta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared Meta? compileMeta(String code, Anything(JNode,Node) update = noop) {
+shared Meta? parseMeta(String code, Anything(JNode,Node) update = noop) {
     if (exists jMetaLiteral = createParser(code).metaLiteral()) {
         return metaToCeylon(jMetaLiteral, update);
     } else {

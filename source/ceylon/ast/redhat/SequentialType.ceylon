@@ -18,10 +18,10 @@ shared SequentialType sequentialTypeToCeylon(JSequenceType sequentialType, Anyth
     return result;
 }
 
-"Compiles the given [[code]] for a Sequential Type
+"Parses the given [[code]] for a Sequential Type
  into a [[SequentialType]] using the Ceylon compiler
  (more specifically, the rule for an `primaryType`)."
-shared SequentialType? compileSequentialType(String code, Anything(JNode,Node) update = noop) {
+shared SequentialType? parseSequentialType(String code, Anything(JNode,Node) update = noop) {
     if (is JSequenceType jSequenceType = createParser(code).primaryType()) {
         return sequentialTypeToCeylon(jSequenceType, update);
     } else {

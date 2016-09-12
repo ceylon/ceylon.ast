@@ -38,10 +38,10 @@ shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for an Alias Dec
+"Parses the given [[code]] for an Alias Dec
  into an [[AliasDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared AliasDec? compileAliasDec(String code, Anything(JNode,Node) update = noop) {
+shared AliasDec? parseAliasDec(String code, Anything(JNode,Node) update = noop) {
     if (is JAliasLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return aliasDecToCeylon(jMetaLiteral, update);
     } else {

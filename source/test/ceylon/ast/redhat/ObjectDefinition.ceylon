@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     objectDefinitionToCeylon,
-    compileObjectDefinition
+    parseObjectDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object objectDefinition satisfies ConcreteTest<ObjectDefinition,JObjectDe
     
     shared String->ObjectDefinition nullObjectDefinition = construct(identifier.nullLIdentifier, classBody.emptyClassBody, extendedType.extendsNull);
     
-    compile = compileObjectDefinition;
+    parse = parseObjectDefinition;
     fromCeylon = RedHatTransformer.transformObjectDefinition;
     toCeylon = objectDefinitionToCeylon;
     codes = [nullObjectDefinition];

@@ -19,10 +19,10 @@ shared EntryType entryTypeToCeylon(JEntryType entryType, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for an Entry Type
+"Parses the given [[code]] for an Entry Type
  into an [[EntryType]] using the Ceylon compiler
  (more specifically, the rule for a `type`)."
-shared EntryType? compileEntryType(String code, Anything(JNode,Node) update = noop) {
+shared EntryType? parseEntryType(String code, Anything(JNode,Node) update = noop) {
     if (is JEntryType jEntryType = createParser(code).type()) {
         return entryTypeToCeylon(jEntryType, update);
     } else {

@@ -16,10 +16,10 @@ shared ElementOrSubrangeExpression elementOrSubrangeExpressionToCeylon(JIndexExp
     return result;
 }
 
-"Compiles the given [[code]] for an Element Or Subrange Expression
+"Parses the given [[code]] for an Element Or Subrange Expression
  into an [[ElementOrSubrangeExpression]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared ElementOrSubrangeExpression? compileElementOrSubrangeExpression(String code, Anything(JNode,Node) update = noop) {
+shared ElementOrSubrangeExpression? parseElementOrSubrangeExpression(String code, Anything(JNode,Node) update = noop) {
     if (is JIndexExpression jPrimary = createParser(code).primary()) {
         return elementOrSubrangeExpressionToCeylon(jPrimary, update);
     } else {

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     returnToCeylon,
-    compileReturn
+    parseReturn
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object \ireturn satisfies ConcreteTest<Return,JReturn> {
     shared String->Return \ireturn = construct();
     shared String->Return returnHelloNameElseWorld = construct(stringTemplate.helloNameElseWorldStringTemplate);
     
-    compile = compileReturn;
+    parse = parseReturn;
     fromCeylon = RedHatTransformer.transformReturn;
     toCeylon = returnToCeylon;
     codes = [\ireturn, returnHelloNameElseWorld];

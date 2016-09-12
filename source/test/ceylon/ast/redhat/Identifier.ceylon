@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     identifierToCeylon,
-    compileIdentifier
+    parseIdentifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -79,7 +79,7 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier processLIdentifier = constructL("process");
     shared String->LIdentifier mavenLIdentifier = constructL("maven");
     
-    compile = compileIdentifier;
+    parse = parseIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;
     toCeylon = identifierToCeylon;
     codes = [lidLIdentifier, uidUIdentifier, uidLIdentifier, lidUIdentifier];

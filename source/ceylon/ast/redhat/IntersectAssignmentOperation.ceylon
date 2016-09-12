@@ -21,10 +21,10 @@ shared IntersectAssignmentOperation intersectAssignmentOperationToCeylon(JInters
     return result;
 }
 
-"Compiles the given [[code]] for an Intersect Assignment Operation
+"Parses the given [[code]] for an Intersect Assignment Operation
  into an [[IntersectAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared IntersectAssignmentOperation? compileIntersectAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared IntersectAssignmentOperation? parseIntersectAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JIntersectAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return intersectAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

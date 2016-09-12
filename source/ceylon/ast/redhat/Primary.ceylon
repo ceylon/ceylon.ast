@@ -56,10 +56,10 @@ shared Primary primaryToCeylon(JPrimary primary, Anything(JNode,Node) update = n
     }
 }
 
-"Compiles the given [[code]] for a Primary
+"Parses the given [[code]] for a Primary
  into a [[Primary]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared Primary? compilePrimary(String code, Anything(JNode,Node) update = noop) {
+shared Primary? parsePrimary(String code, Anything(JNode,Node) update = noop) {
     if (exists jPrimary = createParser(code).primary()) {
         return primaryToCeylon(jPrimary, update);
     } else {

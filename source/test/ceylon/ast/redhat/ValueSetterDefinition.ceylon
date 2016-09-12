@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueSetterDefinitionToCeylon,
-    compileValueSetterDefinition
+    parseValueSetterDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object valueSetterDefinition satisfies ConcreteTest<ValueSetterDefinition
     shared String->ValueSetterDefinition noopValueSetterDefinition = construct(identifier.noopLIdentifier, block.emptyBlock);
     shared String->ValueSetterDefinition nameValueSetterDefinition = construct(identifier.nameLIdentifier, lazySpecifier.assignLazySpecifier);
     
-    compile = compileValueSetterDefinition;
+    parse = parseValueSetterDefinition;
     fromCeylon = RedHatTransformer.transformValueSetterDefinition;
     toCeylon = valueSetterDefinitionToCeylon;
     codes = [noopValueSetterDefinition, nameValueSetterDefinition];

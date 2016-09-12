@@ -36,10 +36,10 @@ shared GivenDec givenDecToCeylon(JTypeParameterLiteral givenDec, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for a Given Dec
+"Parses the given [[code]] for a Given Dec
  into a [[GivenDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared GivenDec? compileGivenDec(String code, Anything(JNode,Node) update = noop) {
+shared GivenDec? parseGivenDec(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeParameterLiteral jMetaLiteral = createParser(code).metaLiteral(),
         jMetaLiteral.type is JBaseType) {
         return givenDecToCeylon(jMetaLiteral, update);

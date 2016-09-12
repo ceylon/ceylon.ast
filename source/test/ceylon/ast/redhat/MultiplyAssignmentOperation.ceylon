@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     multiplyAssignmentOperationToCeylon,
-    compileMultiplyAssignmentOperation
+    parseMultiplyAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object multiplyAssignmentOperation satisfies ConcreteTest<MultiplyAssignm
     
     shared String->MultiplyAssignmentOperation balanceAssignOnePlusInterestRateExpression = construct(baseExpression.balanceExpression, sumOperation.onePlusInterestRateExpression);
     
-    compile = compileMultiplyAssignmentOperation;
+    parse = parseMultiplyAssignmentOperation;
     fromCeylon = RedHatTransformer.transformMultiplyAssignmentOperation;
     toCeylon = multiplyAssignmentOperationToCeylon;
     codes = [balanceAssignOnePlusInterestRateExpression];

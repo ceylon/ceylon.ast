@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     lazySpecifierToCeylon,
-    compileLazySpecifier
+    parseLazySpecifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object lazySpecifier satisfies ConcreteTest<LazySpecifier,JLazySpecifierE
     shared String->LazySpecifier assignLazySpecifier = construct(assignOperation.textAssignExpression);
     shared String->LazySpecifier xyStringSpecifier = construct(stringTemplate.xyStringTemplate);
     
-    compile = compileLazySpecifier;
+    parse = parseLazySpecifier;
     fromCeylon = RedHatTransformer.transformLazySpecifier;
     toCeylon = lazySpecifierToCeylon;
     codes = [aTimesBPlusCLazySpecifier, groupedLazySpecifier];

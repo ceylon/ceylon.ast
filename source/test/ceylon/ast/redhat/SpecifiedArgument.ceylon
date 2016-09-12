@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     specifiedArgumentToCeylon,
-    compileSpecifiedArgument
+    parseSpecifiedArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object specifiedArgument satisfies ConcreteTest<SpecifiedArgument,JNamedA
     shared String->SpecifiedArgument equalsArgument = construct(lazySpecification.equalsLazySpecification);
     shared String->SpecifiedArgument stringArgument = construct(lazySpecification.stringLazySpecification);
     
-    compile = compileSpecifiedArgument;
+    parse = parseSpecifiedArgument;
     fromCeylon = RedHatTransformer.transformSpecifiedArgument;
     toCeylon = specifiedArgumentToCeylon;
     codes = [sizeSpecify0Argument, equalsArgument, stringArgument];

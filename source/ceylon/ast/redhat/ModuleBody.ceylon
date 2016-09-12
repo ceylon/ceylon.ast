@@ -19,10 +19,10 @@ shared ModuleBody moduleBodyToCeylon(JImportModuleList moduleBody, Anything(JNod
     return result;
 }
 
-"Compiles the given [[code]] for a Module Body
+"Parses the given [[code]] for a Module Body
  into a [[ModuleBody]] using the Ceylon compiler
  (more specifically, the rule for a `moduleBody`)."
-shared ModuleBody? compileModuleBody(String code, Anything(JNode,Node) update = noop) {
+shared ModuleBody? parseModuleBody(String code, Anything(JNode,Node) update = noop) {
     if (exists jImportModuleList = createParser(code).importModuleList()) {
         return moduleBodyToCeylon(jImportModuleList, update);
     } else {

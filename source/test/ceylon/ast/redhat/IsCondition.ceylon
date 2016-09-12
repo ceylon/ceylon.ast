@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     isConditionToCeylon,
-    compileIsCondition
+    parseIsCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object isCondition satisfies ConcreteTest<IsCondition,JIsCondition> {
     shared String->IsCondition isItCharactersCharactersSpecifiedCondition = construct(identifier.charactersLIdentifier, iterableType.characterStarIterableType, specifier.nameElseWorldStringLiteralGroupedSpecifier);
     shared String->IsCondition negatedIsStringNameCondition = construct(identifier.nameLIdentifier, baseType.stringType);
     
-    compile = compileIsCondition;
+    parse = parseIsCondition;
     fromCeylon = RedHatTransformer.transformIsCondition;
     toCeylon = isConditionToCeylon;
     codes = [isStringNameCondition, isItCharactersCharactersSpecifiedCondition];

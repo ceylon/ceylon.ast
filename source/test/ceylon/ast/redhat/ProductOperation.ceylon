@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     productOperationToCeylon,
-    compileProductOperation
+    parseProductOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object productOperation satisfies ConcreteTest<ProductOperation,JProductO
     shared String->ProductOperation rTimesCosExpression => construct(baseExpression.rExpression, invocation.cosPhiInvocation);
     shared String->ProductOperation rTimesSinExpression => construct(baseExpression.rExpression, invocation.sinPhiInvocation);
     
-    compile = compileProductOperation;
+    parse = parseProductOperation;
     fromCeylon = RedHatTransformer.transformProductOperation;
     toCeylon = productOperationToCeylon;
     codes = [aTimesBExpression, intTimesFloatExpression];

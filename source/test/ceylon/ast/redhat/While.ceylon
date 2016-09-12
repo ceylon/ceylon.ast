@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     whileToCeylon,
-    compileWhile
+    parseWhile
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object \iwhile satisfies ConcreteTest<While,JWhileStatement> {
     
     shared String->While infiniteEmptyWhileLoop = construct(conditions.trueConditions);
     
-    compile = compileWhile;
+    parse = parseWhile;
     fromCeylon = RedHatTransformer.transformWhile;
     toCeylon = whileToCeylon;
     codes = [infiniteEmptyWhileLoop];

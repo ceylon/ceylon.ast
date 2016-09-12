@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     scaleOperationToCeylon,
-    compileScaleOperation
+    parseScaleOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object scaleOperation satisfies ConcreteTest<ScaleOperation,JScaleOp> {
     
     shared String->ScaleOperation _1138ScaleAExpression = construct(integerLiteral._1138IntegerLiteral, baseExpression.aExpression);
     
-    compile = compileScaleOperation;
+    parse = parseScaleOperation;
     fromCeylon = RedHatTransformer.transformScaleOperation;
     toCeylon = scaleOperationToCeylon;
     codes = [_1138ScaleAExpression];

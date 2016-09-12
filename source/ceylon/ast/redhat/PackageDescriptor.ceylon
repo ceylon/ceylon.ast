@@ -16,10 +16,10 @@ shared PackageDescriptor packageDescriptorToCeylon(JPackageDescriptor packageDes
     return result;
 }
 
-"Compiles the given [[code]] for a Package Descriptor
+"Parses the given [[code]] for a Package Descriptor
  into a [[PackageDescriptor]] using the Ceylon compiler
  (more specifically, the rule for a `packageDescriptor`)."
-shared PackageDescriptor? compilePackageDescriptor(String code, Anything(JNode,Node) update = noop) {
+shared PackageDescriptor? parsePackageDescriptor(String code, Anything(JNode,Node) update = noop) {
     if (exists jPackageDescriptor = createParser(code).packageDescriptor()) {
         return packageDescriptorToCeylon(jPackageDescriptor, update);
     } else {

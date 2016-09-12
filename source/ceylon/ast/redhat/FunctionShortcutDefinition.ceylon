@@ -64,10 +64,10 @@ shared FunctionShortcutDefinition functionShortcutDefinitionToCeylon(JMethodDecl
     return result;
 }
 
-"Compiles the given [[code]] for a Function Shortcut Definition
+"Parses the given [[code]] for a Function Shortcut Definition
  into a [[FunctionShortcutDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionShortcutDefinition? compileFunctionShortcutDefinition(String code, Anything(JNode,Node) update = noop) {
+shared FunctionShortcutDefinition? parseFunctionShortcutDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JMethodDeclaration jDeclaration = createParser(code).declaration(),
         jDeclaration.specifierExpression exists) {
         return functionShortcutDefinitionToCeylon(jDeclaration, update);

@@ -71,10 +71,10 @@ shared AnyInterfaceDefinition anyInterfaceDefinitionToCeylon(JInterfaceDefinitio
     return result;
 }
 
-"Compiles the given [[code]] for an Any Interface Definition
+"Parses the given [[code]] for an Any Interface Definition
  into an [[AnyInterfaceDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyInterfaceDefinition? compileAnyInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
+shared AnyInterfaceDefinition? parseAnyInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JInterfaceDefinition jDeclaration = createParser(code).declaration()) {
         return anyInterfaceDefinitionToCeylon(jDeclaration, update);
     } else {

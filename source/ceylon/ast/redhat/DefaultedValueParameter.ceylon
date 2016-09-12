@@ -45,10 +45,10 @@ shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDe
     return result;
 }
 
-"Compiles the given [[code]] for a Defaulted Value Parameter
+"Parses the given [[code]] for a Defaulted Value Parameter
  into a [[DefaultedValueParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared DefaultedValueParameter? compileDefaultedValueParameter(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedValueParameter? parseDefaultedValueParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JValueParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef(),
         is JAttributeDeclaration dec = jParameterDeclarationOrRef.typedDeclaration,
         dec.specifierOrInitializerExpression is JSpecifierExpression) {

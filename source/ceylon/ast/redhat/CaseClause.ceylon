@@ -16,10 +16,10 @@ shared CaseClause caseClauseToCeylon(JCaseClause caseClause, Anything(JNode,Node
     return result;
 }
 
-"Compiles the given [[code]] for a Case Clause
+"Parses the given [[code]] for a Case Clause
  into a [[CaseClause]] using the Ceylon compiler
  (more specifically, the rule for a `caseBlock`)."
-shared CaseClause? compileCaseClause(String code, Anything(JNode,Node) update = noop) {
+shared CaseClause? parseCaseClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jCaseBlock = createParser(code).caseBlock()) {
         return caseClauseToCeylon(jCaseBlock, update);
     } else {

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unionAssignmentOperationToCeylon,
-    compileUnionAssignmentOperation
+    parseUnionAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object unionAssignmentOperation satisfies ConcreteTest<UnionAssignmentOpe
     
     shared String->UnionAssignmentOperation aUnionAssignBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileUnionAssignmentOperation;
+    parse = parseUnionAssignmentOperation;
     fromCeylon = RedHatTransformer.transformUnionAssignmentOperation;
     toCeylon = unionAssignmentOperationToCeylon;
     codes = [aUnionAssignBExpression];

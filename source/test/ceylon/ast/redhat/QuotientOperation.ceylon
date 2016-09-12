@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     quotientOperationToCeylon,
-    compileQuotientOperation
+    parseQuotientOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object quotientOperation satisfies ConcreteTest<QuotientOperation,JQuotie
     
     shared String->QuotientOperation minus1138Divide1138Expression = construct(negationOperation.minus1138Expression, integerLiteral._1138IntegerLiteral);
     
-    compile = compileQuotientOperation;
+    parse = parseQuotientOperation;
     fromCeylon = RedHatTransformer.transformQuotientOperation;
     toCeylon = quotientOperationToCeylon;
     codes = [minus1138Divide1138Expression];

@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     binaryOperationToCeylon,
-    compileBinaryOperation
+    parseBinaryOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object binaryOperation satisfies AbstractTest<BinaryOperation,JBinaryOperatorExpression> {
-    compile = compileBinaryOperation;
+    parse = parseBinaryOperation;
     fromCeylon = RedHatTransformer.transformBinaryOperation;
     toCeylon = binaryOperationToCeylon;
     

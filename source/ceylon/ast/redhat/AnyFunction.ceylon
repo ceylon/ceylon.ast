@@ -27,10 +27,10 @@ shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction, Anything(JNode,No
     }
 }
 
-"Compiles the given [[code]] for Any Function
+"Parses the given [[code]] for Any Function
  into an [[AnyFunction]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyFunction? compileAnyFunction(String code, Anything(JNode,Node) update = noop) {
+shared AnyFunction? parseAnyFunction(String code, Anything(JNode,Node) update = noop) {
     if (is JAnyMethod jDeclaration = createParser(code).declaration()) {
         return anyFunctionToCeylon(jDeclaration, update);
     } else {

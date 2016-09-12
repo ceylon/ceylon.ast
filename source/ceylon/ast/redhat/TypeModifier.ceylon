@@ -28,19 +28,19 @@ shared TypeModifier typeModifierToCeylon(JLocalModifier|JVoidModifier|JDynamicMo
     case (is JDynamicModifier) { return dynamicModifierToCeylon(typeModifier, update); }
 }
 
-"Compiles the given [[code]] for a Type Modifier
+"Parses the given [[code]] for a Type Modifier
  into a [[TypeModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared TypeModifier? compileTypeModifier(String code, Anything(JNode,Node) update = noop) {
+shared TypeModifier? parseTypeModifier(String code, Anything(JNode,Node) update = noop) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == void_modifier) {
-        return compileVoidModifier(code, update);
+        return parseVoidModifier(code, update);
     } else if (type == value_modifier) {
-        return compileValueModifier(code, update);
+        return parseValueModifier(code, update);
     } else if (type == function_modifier) {
-        return compileFunctionModifier(code, update);
+        return parseFunctionModifier(code, update);
     } else if (type == dynamicModifier) {
-        return compileDynamicModifier(code, update);
+        return parseDynamicModifier(code, update);
     } else {
         return null;
     }

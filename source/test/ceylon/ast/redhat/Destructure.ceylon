@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     destructureToCeylon,
-    compileDestructure
+    parseDestructure
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object destructure satisfies ConcreteTest<Destructure,JDestructure> {
     shared String->Destructure firstRestTupleDestructure = construct(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     shared String->Destructure entryDestructure = construct(entryPattern.eToStringLineEntryPattern, specifier.oneSpecifier);
     
-    compile = compileDestructure;
+    parse = parseDestructure;
     fromCeylon = RedHatTransformer.transformDestructure;
     toCeylon = destructureToCeylon;
     codes = [firstRestTupleDestructure, entryDestructure];

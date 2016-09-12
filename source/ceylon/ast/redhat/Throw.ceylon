@@ -21,10 +21,10 @@ shared Throw throwToCeylon(JThrow \ithrow, Anything(JNode,Node) update = noop) {
     return result;
 }
 
-"Compiles the given [[code]] for a Throw
+"Parses the given [[code]] for a Throw
  into a [[Throw]] using the Ceylon compiler
  (more specifically, the rule for a `throw`)."
-shared Throw? compileThrow(String code, Anything(JNode,Node) update = noop) {
+shared Throw? parseThrow(String code, Anything(JNode,Node) update = noop) {
     if (is JThrow jDirectiveStatement = createParser(code).directiveStatement()) {
         // throwDirective doesn’t contain the semicolon
         return throwToCeylon(jDirectiveStatement, update);

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     andAssignmentOperationToCeylon,
-    compileAndAssignmentOperation
+    parseAndAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object andAssignmentOperation satisfies ConcreteTest<AndAssignmentOperati
     
     shared String->AndAssignmentOperation bAndAssignAExistsExpression = construct(baseExpression.bExpression, existsOperation.aExistsExpression);
     
-    compile = compileAndAssignmentOperation;
+    parse = parseAndAssignmentOperation;
     fromCeylon = RedHatTransformer.transformAndAssignmentOperation;
     toCeylon = andAssignmentOperationToCeylon;
     codes = [bAndAssignAExistsExpression];

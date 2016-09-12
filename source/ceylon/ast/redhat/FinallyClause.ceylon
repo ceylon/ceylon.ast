@@ -16,10 +16,10 @@ shared FinallyClause finallyClauseToCeylon(JFinallyClause finallyClause, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Finally Clause
+"Parses the given [[code]] for a Finally Clause
  into a [[FinallyClause]] using the Ceylon compiler
  (more specifically, the rule for a `finallyBlock`)."
-shared FinallyClause? compileFinallyClause(String code, Anything(JNode,Node) update = noop) {
+shared FinallyClause? parseFinallyClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jFinallyBlock = createParser(code).finallyBlock()) {
         return finallyClauseToCeylon(jFinallyBlock, update);
     } else {

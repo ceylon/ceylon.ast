@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     expressionComprehensionClauseToCeylon,
-    compileExpressionComprehensionClause
+    parseExpressionComprehensionClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object expressionComprehensionClause satisfies ConcreteTest<ExpressionCom
     
     shared String->ExpressionComprehensionClause iExpressionComprehensionClause = construct(baseExpression.iExpression);
     
-    compile = compileExpressionComprehensionClause;
+    parse = parseExpressionComprehensionClause;
     fromCeylon = RedHatTransformer.transformExpressionComprehensionClause;
     toCeylon = expressionComprehensionClauseToCeylon;
     codes = [iExpressionComprehensionClause];

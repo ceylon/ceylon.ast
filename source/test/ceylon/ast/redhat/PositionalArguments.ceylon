@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     positionalArgumentsToCeylon,
-    compilePositionalArguments
+    parsePositionalArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -31,7 +31,7 @@ shared object positionalArguments satisfies ConcreteTest<PositionalArguments,JPo
     shared String->PositionalArguments yxPositionalArguments = construct(argumentList.yxArgumentList);
     shared String->PositionalArguments phiPositionalArguments = construct(argumentList.phiArgumentList);
     
-    compile = compilePositionalArguments;
+    parse = parsePositionalArguments;
     fromCeylon = RedHatTransformer.transformPositionalArguments;
     toCeylon = positionalArgumentsToCeylon;
     codes = [emptyPositionalArguments, abcPositionalArguments, spreadTextPositionalArguments];

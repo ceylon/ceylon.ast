@@ -23,10 +23,10 @@ shared Directive directiveToCeylon(JDirective directive, Anything(JNode,Node) up
     case (is JContinue) { return continueToCeylon(directive, update); }
 }
 
-"Compiles the given [[code]] for a Directive
+"Parses the given [[code]] for a Directive
  into a [[Directive]] using the Ceylon compiler
  (more specifically, the rule for a `directive`)."
-shared Directive? compileDirective(String code, Anything(JNode,Node) update = noop) {
+shared Directive? parseDirective(String code, Anything(JNode,Node) update = noop) {
     if (exists jDirective = createParser(code).directive()) {
         return directiveToCeylon(jDirective, update);
     } else {

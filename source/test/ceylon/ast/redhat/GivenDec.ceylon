@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     givenDecToCeylon,
-    compileGivenDec
+    parseGivenDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -28,7 +28,7 @@ shared object givenDec satisfies ConcreteTest<GivenDec,JTypeParameterLiteral> {
     
     shared String->GivenDec keyGivenDec = construct(identifier.keyUIdentifier);
     
-    compile = compileGivenDec;
+    parse = parseGivenDec;
     fromCeylon = RedHatTransformer.transformGivenDec;
     toCeylon = givenDecToCeylon;
     codes = [keyGivenDec];

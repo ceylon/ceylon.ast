@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     defaultedParameterReferenceToCeylon,
-    compileDefaultedParameterReference
+    parseDefaultedParameterReference
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object defaultedParameterReference satisfies ConcreteTest<DefaultedParame
     
     shared String->DefaultedParameterReference lidDefaultstoNameElseWorldDefaultedParameterReference = construct(parameterReference.lidParameterReference, specifier.nameElseWorldStringLiteralGroupedSpecifier);
     
-    compile = compileDefaultedParameterReference;
+    parse = parseDefaultedParameterReference;
     fromCeylon = RedHatTransformer.transformDefaultedParameterReference;
     toCeylon = defaultedParameterReferenceToCeylon;
     codes = [lidDefaultstoNameElseWorldDefaultedParameterReference];

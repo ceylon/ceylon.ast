@@ -18,7 +18,7 @@ shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType, Anythin
     return result;
 }
 
-"Compiles the given [[code]] for a Defaulted Type
+"Parses the given [[code]] for a Defaulted Type
  into a [[DefaultedType]] using the Ceylon compiler
  (more specifically, the rule for a `defaultedType`).
  
@@ -35,7 +35,7 @@ shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType, Anythin
      Iterable<String> =
  
  instead, if necessary."
-shared DefaultedType? compileDefaultedType(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedType? parseDefaultedType(String code, Anything(JNode,Node) update = noop) {
     if (is JDefaultedType jDefaultedType = createParser(code).defaultedType(), jDefaultedType.type is JStaticType) {
         return defaultedTypeToCeylon(jDefaultedType, update);
     } else {

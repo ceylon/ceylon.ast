@@ -27,10 +27,10 @@ shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, 
     return result;
 }
 
-"Compiles the given [[code]] for Named Arguments
+"Parses the given [[code]] for Named Arguments
  into [[NamedArguments]] using the Ceylon compiler
  (more specifically, the rule for `namedArguments`)."
-shared NamedArguments? compileNamedArguments(String code, Anything(JNode,Node) update = noop) {
+shared NamedArguments? parseNamedArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jNamedArguments = createParser(code).namedArguments()) {
         return namedArgumentsToCeylon(jNamedArguments, update);
     } else {

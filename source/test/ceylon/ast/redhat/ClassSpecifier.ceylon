@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     classSpecifierToCeylon,
-    compileClassSpecifier
+    parseClassSpecifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -35,7 +35,7 @@ shared object classSpecifier satisfies ConcreteTest<ClassSpecifier,JClassSpecifi
     // not tested directly, but used by other tests
     shared String->ClassSpecifier classSpecifyStringCharacters = construct(extension.extendsStringCharacters);
     
-    compile = compileClassSpecifier;
+    parse = parseClassSpecifier;
     fromCeylon = RedHatTransformer.transformClassSpecifier;
     toCeylon = classSpecifierToCeylon;
     codes = [objectClassSpecifier, packageObjectClassSpecifier, superInnerClassSpecifier, objectOfStringClassSpecifier, packageObjectOfStringClassSpecifier, superInnerOfStringClassSpecifier,

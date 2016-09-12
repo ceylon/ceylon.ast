@@ -22,10 +22,10 @@ shared Body bodyToCeylon(JBody body, Anything(JNode,Node) update = noop) {
 }
 
 /*
- There is no compileBody() method because it’s impossible to write:
+ There is no parseBody() method because it’s impossible to write:
  ‘{}’ can be a block, a class body, or an interface body.
  In fact, *every* block can be a class body and vice versa,
  every interface body can also be a block or a class body,
  and blocks and class bodies without statements can also be
- interface bodies. This is utterly ambiguous, and cannot possibly be compiled.
+ interface bodies. This is utterly ambiguous, and cannot possibly be parsed.
  */

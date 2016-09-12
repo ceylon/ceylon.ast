@@ -52,12 +52,12 @@ void assertNodesEquals(Node actual, Node expected, String? message = null) {
 }
 
 void doTest<CeylonAstType,RedHatType>(
-    CeylonAstType?(String,Anything(JNode,Node)=) compile,
+    CeylonAstType?(String,Anything(JNode,Node)=) parse,
     RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon,
     <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
-    testCompilation(compile, *codes);
+    testParsing(parse, *codes);
     testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
 }
 
@@ -75,16 +75,16 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
     }
 }
 
-void testCompilation<CeylonAstType>(CeylonAstType?(String,Anything(JNode,Node)=) compile, <String->CeylonAstType>+ codes)
+void testParsing<CeylonAstType>(CeylonAstType?(String,Anything(JNode,Node)=) parse, <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node {
     for (code->node in codes) {
-        assert (exists compiled = compile(code, storeOriginalNode));
+        assert (exists parsed = parse(code, storeOriginalNode));
         assertNodesEquals {
-            actual = compiled;
+            actual = parsed;
             expected = node;
-            message = "Compile ‘``code``’";
+            message = "Parse ‘``code``’";
         };
-        compiled.visit(checkOriginalNodePresence);
+        parsed.visit(checkOriginalNodePresence);
     }
 }
 
@@ -114,14 +114,14 @@ shared interface NodesProvider<out CeylonAstType>
     shared formal [CeylonAstType+] nodes;
 }
 
-shared interface CompilationTest<out CeylonAstType>
+shared interface ParsingTest<out CeylonAstType>
         satisfies CodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node {
     
-    shared formal CeylonAstType? compile(String code, Anything(JNode,Node) update = noop);
+    shared formal CeylonAstType? parse(String code, Anything(JNode,Node) update = noop);
     
     test
-    shared void compilation() => testCompilation(compile, *codes);
+    shared void parsing() => testParsing(parse, *codes);
 }
 
 shared interface ConversionTest<CeylonAstType,RedHatType>
@@ -141,7 +141,7 @@ shared interface ConversionTest<CeylonAstType,RedHatType>
 }
 
 shared interface ConcreteTest<CeylonAstType,RedHatType>
-        satisfies CompilationTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
+        satisfies ParsingTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     
@@ -149,7 +149,7 @@ shared interface ConcreteTest<CeylonAstType,RedHatType>
 }
 
 shared interface AbstractTest<CeylonAstType,RedHatType>
-        satisfies CompilationTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
+        satisfies ParsingTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     
@@ -159,8 +159,8 @@ shared interface AbstractTest<CeylonAstType,RedHatType>
     shared actual [CeylonAstType+] nodes => codes*.item;
 }
 
-shared interface AbstractCompilationTest<out CeylonAstType>
-        satisfies CompilationTest<CeylonAstType>
+shared interface AbstractParsingTest<out CeylonAstType>
+        satisfies ParsingTest<CeylonAstType>
         given CeylonAstType satisfies Node {
     
     shared formal [CodesProvider<CeylonAstType>+] tests;

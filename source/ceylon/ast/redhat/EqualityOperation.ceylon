@@ -21,10 +21,10 @@ shared EqualityOperation equalityOperationToCeylon(JEqualityOp|JIdenticalOp equa
     case (is JIdenticalOp) { return identicalOperationToCeylon(equalityOperation, update); }
 }
 
-"Compiles the given [[code]] for an Equality Operation
+"Parses the given [[code]] for an Equality Operation
  into an [[EqualityOperation]] using the Ceylon compiler
  (more specifically, the rule for an `equalityExpression`)."
-shared EqualityOperation? compileEqualityOperation(String code, Anything(JNode,Node) update = noop) {
+shared EqualityOperation? parseEqualityOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JEqualityOp|JIdenticalOp jEqualityExpression = createParser(code).equalityExpression()) {
         return equalityOperationToCeylon(jEqualityExpression, update);
     } else {

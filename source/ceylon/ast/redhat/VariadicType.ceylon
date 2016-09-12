@@ -20,10 +20,10 @@ shared VariadicType variadicTypeToCeylon(JSequencedType sequencedType, Anything(
     return result;
 }
 
-"Compiles the given [[code]] for a Variadic Type
+"Parses the given [[code]] for a Variadic Type
  into a [[VariadicType]] using the Ceylon compiler
  (more specifically, the rule for a `variadicType`)."
-shared VariadicType? compileVariadicType(String code, Anything(JNode,Node) update = noop) {
+shared VariadicType? parseVariadicType(String code, Anything(JNode,Node) update = noop) {
     if (is JSequencedType jVariadicType = createParser(code).variadicType()) {
         return variadicTypeToCeylon(jVariadicType, update);
     } else {

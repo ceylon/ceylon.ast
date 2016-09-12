@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     dynamicValueToCeylon,
-    compileDynamicValue
+    parseDynamicValue
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object dynamicValue satisfies ConcreteTest<DynamicValue,JDynamic> {
     
     shared String->DynamicValue abcabcDynamicValue = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);
     
-    compile = compileDynamicValue;
+    parse = parseDynamicValue;
     fromCeylon = RedHatTransformer.transformDynamicValue;
     toCeylon = dynamicValueToCeylon;
     codes = [abcabcDynamicValue];

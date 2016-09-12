@@ -16,10 +16,10 @@ shared Continue continueToCeylon(JContinue \icontinue, Anything(JNode,Node) upda
     return result;
 }
 
-"Compiles the given [[code]] for a Continue
+"Parses the given [[code]] for a Continue
  into a [[Continue]] using the Ceylon compiler
  (more specifically, the rule for a `continue`)."
-shared Continue? compileContinue(String code, Anything(JNode,Node) update = noop) {
+shared Continue? parseContinue(String code, Anything(JNode,Node) update = noop) {
     if (is JContinue jDirectiveStatement = createParser(code).directiveStatement()) {
         // continueDirective doesn’t contain the semicolon
         return continueToCeylon(jDirectiveStatement, update);

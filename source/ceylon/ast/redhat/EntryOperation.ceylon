@@ -20,10 +20,10 @@ shared EntryOperation entryOperationToCeylon(JEntryOp entryOperation, Anything(J
     return result;
 }
 
-"Compiles the given [[code]] for an Entry Operation
+"Parses the given [[code]] for an Entry Operation
  into an [[EntryOperation]] using the Ceylon compiler
  (more specifically, the rule for an `entryRangeExpression`)."
-shared EntryOperation? compileEntryOperation(String code, Anything(JNode,Node) update = noop) {
+shared EntryOperation? parseEntryOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JEntryOp jEntryRangeExpression = createParser(code).entryRangeExpression()) {
         return entryOperationToCeylon(jEntryRangeExpression, update);
     } else {

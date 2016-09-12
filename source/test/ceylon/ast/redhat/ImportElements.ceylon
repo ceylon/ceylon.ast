@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     importElementsToCeylon,
-    compileImportElements
+    parseImportElements
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -33,7 +33,7 @@ shared object importElements satisfies ConcreteTest<ImportElements,JImportMember
     shared String->ImportElements systemImportElements => construct([importTypeElement.systemImportElement]);
     shared String->ImportElements collectionImportElements => construct([importTypeElement.arrayListElement, importTypeElement.mutableListElement]);
     
-    compile = compileImportElements;
+    parse = parseImportElements;
     fromCeylon = RedHatTransformer.transformImportElements;
     toCeylon = importElementsToCeylon;
     codes => [wildcardImportElements, someImportElements]; // again, lazy

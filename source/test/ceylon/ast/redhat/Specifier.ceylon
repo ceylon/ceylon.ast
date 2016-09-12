@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     specifierToCeylon,
-    compileSpecifier
+    parseSpecifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -36,7 +36,7 @@ shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     shared String->Specifier rTimesCosSpecifier = construct(productOperation.rTimesCosExpression);
     shared String->Specifier rTimesSinSpecifier = construct(productOperation.rTimesSinExpression);
     
-    compile = compileSpecifier;
+    parse = parseSpecifier;
     fromCeylon = RedHatTransformer.transformSpecifier;
     toCeylon = specifierToCeylon;
     codes = [oneSpecifier, nameElseWorldStringLiteralGroupedSpecifier, keyGivenDecSpecifier];

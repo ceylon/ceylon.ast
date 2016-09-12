@@ -25,10 +25,10 @@ shared OutModifier outModifierToCeylon(JTypeVariance outModifier, Anything(JNode
     return result;
 }
 
-"Compiles the given [[code]] for an Out Modifier
+"Parses the given [[code]] for an Out Modifier
  into an [[OutModifier]] using the Ceylon compiler
  (more specifically, the rule for a `variance`)."
-shared OutModifier? compileOutModifier(String code, Anything(JNode,Node) update = noop) {
+shared OutModifier? parseOutModifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jVariance = createParser(code).variance(),
         jVariance.mainToken.type == outType) {
         return outModifierToCeylon(jVariance, update);

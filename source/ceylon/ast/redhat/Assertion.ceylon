@@ -23,10 +23,10 @@ shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for an Assertion
+"Parses the given [[code]] for an Assertion
  into an [[Assertion]] using the Ceylon compiler
  (more specifically, the rule for an `assertion`)."
-shared Assertion? compileAssertion(String code, Anything(JNode,Node) update = noop) {
+shared Assertion? parseAssertion(String code, Anything(JNode,Node) update = noop) {
     if (exists jAssertion = createParser(code).assertion()) {
         return assertionToCeylon(jAssertion, update);
     } else {

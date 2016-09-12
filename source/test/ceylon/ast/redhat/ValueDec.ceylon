@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueDecToCeylon,
-    compileValueDec
+    parseValueDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -30,7 +30,7 @@ shared object valueDec satisfies ConcreteTest<ValueDec,JValueLiteral> {
     shared String->ValueDec nullValueDec = construct(identifier.nullLIdentifier);
     shared String->ValueDec iterableFirstValueDec = construct(identifier.firstLIdentifier, "Iterable"->DecQualifier([UIdentifier("Iterable")]));
     
-    compile = compileValueDec;
+    parse = parseValueDec;
     fromCeylon = RedHatTransformer.transformValueDec;
     toCeylon = valueDecToCeylon;
     codes = [nullValueDec, iterableFirstValueDec];

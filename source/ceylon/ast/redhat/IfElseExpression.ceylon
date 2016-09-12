@@ -23,10 +23,10 @@ shared IfElseExpression ifElseExpressionToCeylon(JIfExpression ifElseExpression,
     return result;
 }
 
-"Compiles the given [[code]] for an If Else Expression
+"Parses the given [[code]] for an If Else Expression
  into an [[IfElseExpression]] using the Ceylon compiler
  (more specifically, the rule for an `ifExpression`)."
-shared IfElseExpression? compileIfElseExpression(String code, Anything(JNode,Node) update = noop) {
+shared IfElseExpression? parseIfElseExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jIfExpression = createParser(code).ifExpression()) {
         return ifElseExpressionToCeylon(jIfExpression, update);
     } else {

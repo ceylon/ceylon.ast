@@ -22,10 +22,10 @@ shared SpanFromSubscript spanFromSubscriptToCeylon(JElementRange spanFromSubscri
     return result;
 }
 
-"Compiles the given [[code]] for a Span From Subscript
+"Parses the given [[code]] for a Span From Subscript
  into a [[SpanFromSubscript]] using the Ceylon compiler
  (more specifically, the rule for an `indexOrIndexRange`)."
-shared SpanFromSubscript? compileSpanFromSubscript(String code, Anything(JNode,Node) update = noop) {
+shared SpanFromSubscript? parseSpanFromSubscript(String code, Anything(JNode,Node) update = noop) {
     if (is JElementRange jElementOrRange = createParser("[``code``]").indexOrIndexRange().elementOrRange,
         jElementOrRange.lowerBound exists,
         !jElementOrRange.length exists,

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     iterableTypeToCeylon,
-    compileIterableType
+    parseIterableType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object iterableType satisfies ConcreteTest<IterableType,JIterableType> {
     // not tested directly, but used by other tests
     shared String->IterableType characterStarIterableType = construct(variadicType.characterStarType);
     
-    compile = compileIterableType;
+    parse = parseIterableType;
     fromCeylon = RedHatTransformer.transformIterableType;
     toCeylon = iterableTypeToCeylon;
     codes = [stringStarIterableType, iterableOfStringPlusIterableType];

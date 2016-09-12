@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     anonymousArgumentToCeylon,
-    compileAnonymousArgument
+    parseAnonymousArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object anonymousArgument satisfies ConcreteTest<AnonymousArgument,JSpecif
     shared String->AnonymousArgument aTimesBPlusCAnonymousArgument = construct(sumOperation.aTimesBPlusCExpression);
     shared String->AnonymousArgument cInAIntersectBAnonymousArgument = construct(inOperation.cInAIntersectBExpression);
     
-    compile = compileAnonymousArgument;
+    parse = parseAnonymousArgument;
     fromCeylon = RedHatTransformer.transformAnonymousArgument;
     toCeylon = anonymousArgumentToCeylon;
     codes = [aTimesBPlusCAnonymousArgument, cInAIntersectBAnonymousArgument];

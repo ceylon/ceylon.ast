@@ -29,10 +29,10 @@ shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExp
     return result;
 }
 
-"Compiles the given [[code]] for a Qualified Expression
+"Parses the given [[code]] for a Qualified Expression
  into a [[QualifiedExpression]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared QualifiedExpression? compileQualifiedExpression(String code, Anything(JNode,Node) update = noop) {
+shared QualifiedExpression? parseQualifiedExpression(String code, Anything(JNode,Node) update = noop) {
     value parser = createParser(code);
     if (is JQualifiedMemberOrTypeExpression jQualifiedMemberOrTypeExpression = parser.primary()) {
         return qualifiedExpressionToCeylon(jQualifiedMemberOrTypeExpression, update);

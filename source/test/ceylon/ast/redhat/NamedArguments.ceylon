@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     namedArgumentsToCeylon,
-    compileNamedArguments
+    parseNamedArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object namedArguments satisfies ConcreteTest<NamedArguments,JNamedArgumen
     shared String->NamedArguments abcabcNamedArguments = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);
     shared String->NamedArguments sizeSpecify0NamedArguments = construct([specifiedArgument.sizeSpecify0Argument], argumentList.emptyArgumentList);
     
-    compile = compileNamedArguments;
+    parse = parseNamedArguments;
     fromCeylon = RedHatTransformer.transformNamedArguments;
     toCeylon = namedArgumentsToCeylon;
     codes = [emptyNamedArguments, abcabcNamedArguments, sizeSpecify0NamedArguments];

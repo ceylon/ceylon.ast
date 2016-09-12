@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     callableParameterToCeylon,
-    compileCallableParameter
+    parseCallableParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object callableParameter satisfies ConcreteTest<CallableParameter,JFuncti
     shared String->CallableParameter functionCallableParameter = construct(annotations.emptyAnnotations, functionModifier.functionModifier, identifier.byLIdentifier, [parameters.emptyParameters]);
     shared String->CallableParameter dynamicCallableParameter = construct(annotations.emptyAnnotations, dynamicModifier.dynamicModifier, identifier.byLIdentifier, [parameters.emptyParameters]);
     
-    compile = compileCallableParameter;
+    parse = parseCallableParameter;
     fromCeylon = RedHatTransformer.transformCallableParameter;
     toCeylon = callableParameterToCeylon;
     codes = [emptyCallableParameter, notEmptyCallableParameter, functionCallableParameter, dynamicCallableParameter];

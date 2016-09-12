@@ -24,10 +24,10 @@ shared Tuple tupleToCeylon(JTuple tuple, Anything(JNode,Node) update = noop) {
     return result;
 }
 
-"Compiles the given [[code]] for a Tuple
+"Parses the given [[code]] for a Tuple
  into a [[Tuple]] using the Ceylon compiler
  (more specifically, the rule for a `tuple`)."
-shared Tuple? compileTuple(String code, Anything(JNode,Node) update = noop) {
+shared Tuple? parseTuple(String code, Anything(JNode,Node) update = noop) {
     if (exists jTuple = createParser(code).tuple()) {
         return tupleToCeylon(jTuple, update);
     } else {

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     identityOperationToCeylon,
-    compileIdentityOperation
+    parseIdentityOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object identityOperation satisfies ConcreteTest<IdentityOperation,JPositi
     
     shared String->IdentityOperation plus1138Expression = construct(integerLiteral._1138IntegerLiteral);
     
-    compile = compileIdentityOperation;
+    parse = parseIdentityOperation;
     fromCeylon = RedHatTransformer.transformIdentityOperation;
     toCeylon = identityOperationToCeylon;
     codes = [plus1138Expression];

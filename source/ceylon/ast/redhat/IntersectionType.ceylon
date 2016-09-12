@@ -25,10 +25,10 @@ shared IntersectionType intersectionTypeToCeylon(JIntersectionType intersectionT
     return result;
 }
 
-"Compiles the given [[code]] for an Intersection Type
+"Parses the given [[code]] for an Intersection Type
  into an [[IntersectionType]] using the Ceylon compiler
  (more specifically, the rule for an `intersectionType`)."
-shared IntersectionType? compileIntersectionType(String code, Anything(JNode,Node) update = noop) {
+shared IntersectionType? parseIntersectionType(String code, Anything(JNode,Node) update = noop) {
     if (is JIntersectionType jIntersectionType = createParser(code).intersectionType()) {
         return intersectionTypeToCeylon(jIntersectionType, update);
     } else {

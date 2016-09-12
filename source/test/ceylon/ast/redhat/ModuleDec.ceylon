@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     moduleDecToCeylon,
-    compileModuleDec
+    parseModuleDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object moduleDec satisfies ConcreteTest<ModuleDec,JModuleLiteral> {
     shared String->ModuleDec ceylonAstCoreModuleDec = construct(fullPackageName.ceylonAstCorePackageName);
     shared String->ModuleDec currentModuleDec = construct(null);
     
-    compile = compileModuleDec;
+    parse = parseModuleDec;
     fromCeylon = RedHatTransformer.transformModuleDec;
     toCeylon = moduleDecToCeylon;
     codes = [ceylonAstCoreModuleDec, currentModuleDec];

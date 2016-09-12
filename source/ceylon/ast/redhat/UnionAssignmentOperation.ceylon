@@ -21,10 +21,10 @@ shared UnionAssignmentOperation unionAssignmentOperationToCeylon(JUnionAssignOp 
     return result;
 }
 
-"Compiles the given [[code]] for an Union Assignment Operation
+"Parses the given [[code]] for an Union Assignment Operation
  into an [[UnionAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared UnionAssignmentOperation? compileUnionAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnionAssignmentOperation? parseUnionAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JUnionAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return unionAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

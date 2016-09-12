@@ -18,10 +18,10 @@ shared PostfixDecrementOperation postfixDecrementOperationToCeylon(JPostfixDecre
     return result;
 }
 
-"Compiles the given [[code]] for a Postfix Decrement Operation
+"Parses the given [[code]] for a Postfix Decrement Operation
  into a [[PostfixDecrementOperation]] using the Ceylon compiler
  (more specifically, the rule for a `postfixIncrementDecrementExpression`)."
-shared PostfixDecrementOperation? compilePostfixDecrementOperation(String code, Anything(JNode,Node) update = noop) {
+shared PostfixDecrementOperation? parsePostfixDecrementOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPostfixDecrementOp jPostfixDecrementOp = createParser(code).postfixIncrementDecrementExpression(),
         jPostfixDecrementOp.term is JPrimary) {
         return postfixDecrementOperationToCeylon(jPostfixDecrementOp, update);

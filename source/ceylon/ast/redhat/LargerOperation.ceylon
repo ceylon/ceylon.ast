@@ -20,10 +20,10 @@ shared LargerOperation largerOperationToCeylon(JLargerOp largerOperation, Anythi
     return result;
 }
 
-"Compiles the given [[code]] for a Larger Operation
+"Parses the given [[code]] for a Larger Operation
  into a [[LargerOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared LargerOperation? compileLargerOperation(String code, Anything(JNode,Node) update = noop) {
+shared LargerOperation? parseLargerOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JLargerOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return largerOperationToCeylon(jComparisonExpression, update);
     } else {

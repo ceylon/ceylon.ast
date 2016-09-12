@@ -45,10 +45,10 @@ shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclarati
     return result;
 }
 
-"Compiles the given [[code]] for a Callable Parameter
+"Parses the given [[code]] for a Callable Parameter
  into a [[CallableParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameter`)."
-shared CallableParameter? compileCallableParameter(String code, Anything(JNode,Node) update = noop) {
+shared CallableParameter? parseCallableParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JFunctionalParameterDeclaration jParameter = createParser(code).parameterDeclarationOrRef()) {
         return callableParameterToCeylon(jParameter, update);
     } else {

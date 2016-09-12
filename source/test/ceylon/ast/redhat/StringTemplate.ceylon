@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     stringTemplateToCeylon,
-    compileStringTemplate
+    parseStringTemplate
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -60,7 +60,7 @@ shared object stringTemplate satisfies ConcreteTest<StringTemplate,JStringTempla
         StringLiteral(")")
     );
     
-    compile = compileStringTemplate;
+    parse = parseStringTemplate;
     fromCeylon = RedHatTransformer.transformStringTemplate;
     toCeylon = stringTemplateToCeylon;
     codes = [helloNameElseWorldStringTemplate, ifElseExpressionStringTemplate, emptyPartsStringTemplate, multilineStringTemplate];

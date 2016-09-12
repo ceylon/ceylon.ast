@@ -24,10 +24,10 @@ shared Iterable iterableToCeylon(JSequenceEnumeration iterable, Anything(JNode,N
     return result;
 }
 
-"Compiles the given [[code]] for an Iterable
+"Parses the given [[code]] for an Iterable
  into an [[Iterable]] using the Ceylon compiler
  (more specifically, the rule for an `enumeration`)."
-shared Iterable? compileIterable(String code, Anything(JNode,Node) update = noop) {
+shared Iterable? parseIterable(String code, Anything(JNode,Node) update = noop) {
     if (exists jEnumeration = createParser(code).enumeration()) {
         return iterableToCeylon(jEnumeration, update);
     } else {

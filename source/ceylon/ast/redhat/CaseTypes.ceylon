@@ -48,10 +48,10 @@ shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for Case Types
+"Parses the given [[code]] for Case Types
  into [[CaseTypes]] using the Ceylon compiler
  (more specifically, the rule for `caseTypes`)."
-shared CaseTypes? compileCaseTypes(String code, Anything(JNode,Node) update = noop) {
+shared CaseTypes? parseCaseTypes(String code, Anything(JNode,Node) update = noop) {
     if (exists jCaseTypes = createParser(code).caseTypes()) {
         return caseTypesToCeylon(jCaseTypes, update);
     } else {

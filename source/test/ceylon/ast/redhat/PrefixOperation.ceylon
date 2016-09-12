@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     prefixOperationToCeylon,
-    compilePrefixOperation
+    parsePrefixOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object prefixOperation satisfies AbstractTest<PrefixOperation,JPrefixOperatorExpression> {
-    compile = compilePrefixOperation;
+    parse = parsePrefixOperation;
     fromCeylon = RedHatTransformer.transformPrefixOperation;
     toCeylon = prefixOperationToCeylon;
     

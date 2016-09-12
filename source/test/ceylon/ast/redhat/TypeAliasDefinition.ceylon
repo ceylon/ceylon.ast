@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeAliasDefinitionToCeylon,
-    compileTypeAliasDefinition
+    parseTypeAliasDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object typeAliasDefinition satisfies ConcreteTest<TypeAliasDefinition,JTy
     
     shared String->TypeAliasDefinition todo = construct(identifier.typeNameUIdentifier, typeSpecifier.uidentifierTypeSpecifier);
     
-    compile = compileTypeAliasDefinition;
+    parse = parseTypeAliasDefinition;
     fromCeylon = RedHatTransformer.transformTypeAliasDefinition;
     toCeylon = typeAliasDefinitionToCeylon;
     codes = [todo];

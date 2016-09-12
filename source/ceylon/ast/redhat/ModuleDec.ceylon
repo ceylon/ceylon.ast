@@ -23,10 +23,10 @@ shared ModuleDec moduleDecToCeylon(JModuleLiteral moduleDec, Anything(JNode,Node
     return result;
 }
 
-"Compiles the given [[code]] for a Module Dec
+"Parses the given [[code]] for a Module Dec
  into a [[ModuleDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared ModuleDec? compileModuleDec(String code, Anything(JNode,Node) update = noop) {
+shared ModuleDec? parseModuleDec(String code, Anything(JNode,Node) update = noop) {
     if (is JModuleLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return moduleDecToCeylon(jMetaLiteral, update);
     } else {

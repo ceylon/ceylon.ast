@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     requiredParameterToCeylon,
-    compileRequiredParameter
+    parseRequiredParameter
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object requiredParameter satisfies AbstractTest<RequiredParameter,JParameter> {
-    compile = compileRequiredParameter;
+    parse = parseRequiredParameter;
     fromCeylon = RedHatTransformer.transformRequiredParameter;
     toCeylon = requiredParameterToCeylon;
     

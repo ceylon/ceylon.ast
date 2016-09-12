@@ -24,10 +24,10 @@ shared ValueDec valueDecToCeylon(JValueLiteral valueDec, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Value Dec
+"Parses the given [[code]] for a Value Dec
  into a [[ValueDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared ValueDec? compileValueDec(String code, Anything(JNode,Node) update = noop) {
+shared ValueDec? parseValueDec(String code, Anything(JNode,Node) update = noop) {
     if (is JValueLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return valueDecToCeylon(jMetaLiteral, update);
     } else {

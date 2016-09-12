@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     remainderOperationToCeylon,
-    compileRemainderOperation
+    parseRemainderOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object remainderOperation satisfies ConcreteTest<RemainderOperation,JRema
     
     shared String->RemainderOperation _1138Modulo1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     
-    compile = compileRemainderOperation;
+    parse = parseRemainderOperation;
     fromCeylon = RedHatTransformer.transformRemainderOperation;
     toCeylon = remainderOperationToCeylon;
     codes = [_1138Modulo1Expression];

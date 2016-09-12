@@ -21,10 +21,10 @@ shared Operation operationToCeylon(JOperatorExpression operatorExpression, Anyth
     case (is JWithinOp) { return withinOperationToCeylon(operatorExpression, update); }
 }
 
-"Compiles the given [[code]] for an Operation
+"Parses the given [[code]] for an Operation
  into an [[Operation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared Operation? compileOperation(String code, Anything(JNode,Node) update = noop) {
+shared Operation? parseOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JOperatorExpression jExpression = createParser(code).assignmentExpression()) {
         return operationToCeylon(jExpression, update);
     } else {

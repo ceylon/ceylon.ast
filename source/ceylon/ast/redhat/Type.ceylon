@@ -19,10 +19,10 @@ shared Type typeToCeylon(JStaticType type, Anything(JNode,Node) update = noop) {
     }
 }
 
-"Compiles the given [[code]] for a Type
+"Parses the given [[code]] for a Type
  into a [[Type]] using the Ceylon compiler
  (more specifically, the rule for a `type`)."
-shared Type? compileType(String code, Anything(JNode,Node) update = noop) {
+shared Type? parseType(String code, Anything(JNode,Node) update = noop) {
     if (exists jType = createParser(code).type()) {
         return typeToCeylon(jType, update);
     } else {

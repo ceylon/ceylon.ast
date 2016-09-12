@@ -23,10 +23,10 @@ shared IfElse ifElseToCeylon(JIfStatement ifElse, Anything(JNode,Node) update = 
     return result;
 }
 
-"Compiles the given [[code]] for an If Else
+"Parses the given [[code]] for an If Else
  into an [[IfElse]] using the Ceylon compiler
  (more specifically, the rule for an `ifElse`)."
-shared IfElse? compileIfElse(String code, Anything(JNode,Node) update = noop) {
+shared IfElse? parseIfElse(String code, Anything(JNode,Node) update = noop) {
     if (exists jIfElse = createParser(code).ifElse()) {
         return ifElseToCeylon(jIfElse, update);
     } else {

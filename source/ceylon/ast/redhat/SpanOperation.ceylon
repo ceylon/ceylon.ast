@@ -20,10 +20,10 @@ shared SpanOperation spanOperationToCeylon(JRangeOp spanOperation, Anything(JNod
     return result;
 }
 
-"Compiles the given [[code]] for a Span Operation
+"Parses the given [[code]] for a Span Operation
  into a [[SpanOperation]] using the Ceylon compiler
  (more specifically, the rule for an `entryRangeExpression`)."
-shared SpanOperation? compileSpanOperation(String code, Anything(JNode,Node) update = noop) {
+shared SpanOperation? parseSpanOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JRangeOp jEntryRangeExpression = createParser(code).entryRangeExpression()) {
         return spanOperationToCeylon(jEntryRangeExpression, update);
     } else {

@@ -17,10 +17,10 @@ shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitch
     case (is JSwitchExpression) { return switchCaseElseExpressionToCeylon(conditionalExpression, update); }
 }
 
-"Compiles the given [[code]] for an Any Specifier
+"Parses the given [[code]] for an Any Specifier
  into a [[ConditionalExpression]] using the Ceylon compiler
  (more specifically, the rule for an `ifExpression` or a `switchExpression`)."
-shared ConditionalExpression? compileConditionalExpression(String code, Anything(JNode,Node) update = noop) {
+shared ConditionalExpression? parseConditionalExpression(String code, Anything(JNode,Node) update = noop) {
     // the grammar rule conditionalExpression yields ifExpression|let, not ifExpression|switchExpression
     if (exists jIfExpression = createParser(code).ifExpression()) {
         return conditionalExpressionToCeylon(jIfExpression, update);

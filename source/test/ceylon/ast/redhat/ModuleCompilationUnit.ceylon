@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     moduleCompilationUnitToCeylon,
-    compileModuleCompilationUnit
+    parseModuleCompilationUnit
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object moduleCompilationUnit satisfies ConcreteTest<ModuleCompilationUnit
     
     shared String->ModuleCompilationUnit ceylonAstCoreEmptyModuleCompilationUnit = construct(moduleDescriptor.ceylonAstCoreEmptyModuleDescriptor);
     
-    compile = compileModuleCompilationUnit;
+    parse = parseModuleCompilationUnit;
     fromCeylon = RedHatTransformer.transformModuleCompilationUnit;
     toCeylon = moduleCompilationUnitToCeylon;
     codes = [ceylonAstCoreEmptyModuleCompilationUnit];

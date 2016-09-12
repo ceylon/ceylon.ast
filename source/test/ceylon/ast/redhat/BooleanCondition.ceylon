@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     booleanConditionToCeylon,
-    compileBooleanCondition
+    parseBooleanCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object booleanCondition satisfies ConcreteTest<BooleanCondition,JBooleanC
     shared String->BooleanCondition trueCondition = construct(baseExpression.trueExpression);
     shared String->BooleanCondition aAndBCondition = construct(andOperation.aAndBExpression);
     
-    compile = compileBooleanCondition;
+    parse = parseBooleanCondition;
     fromCeylon = RedHatTransformer.transformBooleanCondition;
     toCeylon = booleanConditionToCeylon;
     codes = [trueCondition, aAndBCondition];

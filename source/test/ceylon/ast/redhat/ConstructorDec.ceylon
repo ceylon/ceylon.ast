@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     constructorDecToCeylon,
-    compileConstructorDec
+    parseConstructorDec
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object constructorDec satisfies ConcreteTest<ConstructorDec,JNewLiteral> 
     
     shared String->ConstructorDec polarPointConstructorDec = construct(identifier.polarLIdentifier, "Point"->DecQualifier([UIdentifier("Point")]));
     
-    compile = compileConstructorDec;
+    parse = parseConstructorDec;
     fromCeylon = RedHatTransformer.transformConstructorDec;
     toCeylon = constructorDecToCeylon;
     codes = [polarPointConstructorDec];

@@ -18,10 +18,10 @@ shared InvocationStatement invocationStatementToCeylon(JExpressionStatement invo
     return result;
 }
 
-"Compiles the given [[code]] for an Invocation Statement
+"Parses the given [[code]] for an Invocation Statement
  into an [[InvocationStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared InvocationStatement? compileInvocationStatement(String code, Anything(JNode,Node) update = noop) {
+shared InvocationStatement? parseInvocationStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.expression.term is JInvocationExpression) {
         return invocationStatementToCeylon(jExpressionOrSpecificationStatement, update);

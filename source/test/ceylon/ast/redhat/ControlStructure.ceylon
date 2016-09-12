@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     controlStructureToCeylon,
-    compileControlStructure
+    parseControlStructure
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object controlStructure satisfies AbstractTest<ControlStructure,JControlStatement> {
-    compile = compileControlStructure;
+    parse = parseControlStructure;
     fromCeylon = RedHatTransformer.transformControlStructure;
     toCeylon = controlStructureToCeylon;
     

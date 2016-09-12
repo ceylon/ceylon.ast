@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     safeMemberOperatorToCeylon,
-    compileSafeMemberOperator
+    parseSafeMemberOperator
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object safeMemberOperator satisfies ConcreteTest<SafeMemberOperator,JSafe
     
     shared String->SafeMemberOperator safeMemberOperator = "?."->SafeMemberOperator();
     
-    compile = compileSafeMemberOperator;
+    parse = parseSafeMemberOperator;
     fromCeylon = RedHatTransformer.transformSafeMemberOperator;
     toCeylon = safeMemberOperatorToCeylon;
     codes = [safeMemberOperator];

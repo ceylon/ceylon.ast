@@ -20,10 +20,10 @@ shared CompareOperation compareOperationToCeylon(JCompareOp compareOperation, An
     return result;
 }
 
-"Compiles the given [[code]] for a Compare Operation
+"Parses the given [[code]] for a Compare Operation
  into a [[CompareOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared CompareOperation? compileCompareOperation(String code, Anything(JNode,Node) update = noop) {
+shared CompareOperation? parseCompareOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JCompareOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return compareOperationToCeylon(jComparisonExpression, update);
     } else {

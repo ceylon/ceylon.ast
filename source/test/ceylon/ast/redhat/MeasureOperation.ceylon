@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     measureOperationToCeylon,
-    compileMeasureOperation
+    parseMeasureOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object measureOperation satisfies ConcreteTest<MeasureOperation,JSegmentO
     
     shared String->MeasureOperation _1MeasureLength1138Expression = construct(integerLiteral.oneIntegerLiteral, integerLiteral._1138IntegerLiteral);
     
-    compile = compileMeasureOperation;
+    parse = parseMeasureOperation;
     fromCeylon = RedHatTransformer.transformMeasureOperation;
     toCeylon = measureOperationToCeylon;
     codes = [_1MeasureLength1138Expression];

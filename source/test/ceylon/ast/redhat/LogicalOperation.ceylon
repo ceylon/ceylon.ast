@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     logicalOperationToCeylon,
-    compileLogicalOperation
+    parseLogicalOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object logicalOperation satisfies AbstractTest<LogicalOperation,JLogicalOp> {
-    compile = compileLogicalOperation;
+    parse = parseLogicalOperation;
     fromCeylon = RedHatTransformer.transformLogicalOperation;
     toCeylon = logicalOperationToCeylon;
     

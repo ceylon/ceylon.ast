@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     varianceToCeylon,
-    compileVariance
+    parseVariance
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object variance satisfies AbstractTest<Variance,JTypeVariance> {
-    compile = compileVariance;
+    parse = parseVariance;
     fromCeylon = RedHatTransformer.transformVariance;
     toCeylon = varianceToCeylon;
     

@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     tuplePatternToCeylon,
-    compileTuplePattern
+    parseTuplePattern
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -44,7 +44,7 @@ shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
     shared String->TuplePattern firstRestTuplePattern = construct([variablePattern.firstVariablePattern], [identifier.restLIdentifier, null]);
     shared String->TuplePattern eTuplePattern = construct([], [identifier.eLIdentifier, null]);
     
-    compile = compileTuplePattern;
+    parse = parseTuplePattern;
     fromCeylon = RedHatTransformer.transformTuplePattern;
     toCeylon = tuplePatternToCeylon;
     codes = [eStringLineTuplePattern, firstRestTuplePattern, eTuplePattern];

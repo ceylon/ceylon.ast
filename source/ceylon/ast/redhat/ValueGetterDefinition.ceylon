@@ -35,10 +35,10 @@ shared ValueGetterDefinition valueGetterDefinitionToCeylon(JAttributeGetterDefin
     return result;
 }
 
-"Compiles the given [[code]] for a Value Getter Definition
+"Parses the given [[code]] for a Value Getter Definition
  into a [[ValueGetterDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueGetterDefinition? compileValueGetterDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueGetterDefinition? parseValueGetterDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JAttributeGetterDefinition jDeclaration = createParser(code).declaration()) {
         return valueGetterDefinitionToCeylon(jDeclaration, update);
     } else {

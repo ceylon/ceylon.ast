@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     tryCatchFinallyToCeylon,
-    compileTryCatchFinally
+    parseTryCatchFinally
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object tryCatchFinally satisfies ConcreteTest<TryCatchFinally,JTryCatchSt
     shared String->TryCatchFinally uselessTryCatchFinally = construct(tryClause.tryTwoResourcesDoNothingClause, [catchClause.catchEDoNothingClause], finallyClause.printHelloWorldFinallyClause);
     // meaningful examples are hard and involved, leave me alone
     
-    compile = compileTryCatchFinally;
+    parse = parseTryCatchFinally;
     fromCeylon = RedHatTransformer.transformTryCatchFinally;
     toCeylon = tryCatchFinallyToCeylon;
     codes = [uselessTryCatchFinally];

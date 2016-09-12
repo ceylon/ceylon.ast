@@ -33,10 +33,10 @@ shared MatchCase matchCaseToCeylon(JMatchCase matchCase, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Match Case
+"Parses the given [[code]] for a Match Case
  into a [[MatchCase]] using the Ceylon compiler
  (more specifically, the rule for a `matchCaseCondition`)."
-shared MatchCase? compileMatchCase(String code, Anything(JNode,Node) update = noop) {
+shared MatchCase? parseMatchCase(String code, Anything(JNode,Node) update = noop) {
     if (exists jMatchCaseCondition = createParser(code).matchCaseCondition()) {
         return matchCaseToCeylon(jMatchCaseCondition, update);
     } else {

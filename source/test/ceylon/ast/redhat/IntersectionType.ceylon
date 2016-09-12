@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     intersectionTypeToCeylon,
-    compileIntersectionType
+    parseIntersectionType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object intersectionType satisfies ConcreteTest<IntersectionType,JIntersec
     shared String->IntersectionType persistentAndPrintableAndIdentifiableIntersectionType
             = construct(baseType.persistentType, baseType.printableType, baseType.identifiableType);
     
-    compile = compileIntersectionType;
+    parse = parseIntersectionType;
     fromCeylon = RedHatTransformer.transformIntersectionType;
     toCeylon = intersectionTypeToCeylon;
     codes = [persistentAndPrintableAndIdentifiableIntersectionType];

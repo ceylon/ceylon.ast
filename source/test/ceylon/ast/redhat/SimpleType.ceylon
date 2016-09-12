@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     simpleTypeToCeylon,
-    compileSimpleType
+    parseSimpleType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object simpleType satisfies AbstractTest<SimpleType,JSimpleType> {
-    compile = compileSimpleType;
+    parse = parseSimpleType;
     fromCeylon = RedHatTransformer.transformSimpleType;
     toCeylon = simpleTypeToCeylon;
     

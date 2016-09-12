@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     withinOperationToCeylon,
-    compileWithinOperation
+    parseWithinOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object withinOperation satisfies ConcreteTest<WithinOperation,JWithinOp> 
     shared String->WithinOperation openClosedWithinOperation = construct(baseExpression.aExpression, openBound.cOpenBound_withCode, closedBound._1138ClosedBound_withCode);
     shared String->WithinOperation doubleClosedWithinOperation = construct(baseExpression.aExpression, closedBound.cClosedBound_withCode, closedBound._1138ClosedBound_withCode);
     
-    compile = compileWithinOperation;
+    parse = parseWithinOperation;
     fromCeylon = RedHatTransformer.transformWithinOperation;
     toCeylon = withinOperationToCeylon;
     codes = [doubleOpenWithinOperation, openClosedWithinOperation, doubleClosedWithinOperation];

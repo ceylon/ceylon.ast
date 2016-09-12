@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     resourceToCeylon,
-    compileResource
+    parseResource
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -31,7 +31,7 @@ shared object resource satisfies ConcreteTest<Resource,JResource> {
             specifier = Specifier(Invocation(qualifiedExpression("file", "Writer")));
         });
     
-    compile = compileResource;
+    parse = parseResource;
     fromCeylon = RedHatTransformer.transformResource;
     toCeylon = resourceToCeylon;
     codes = [lockResource, writerResource];

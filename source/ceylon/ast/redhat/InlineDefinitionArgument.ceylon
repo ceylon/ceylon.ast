@@ -21,10 +21,10 @@ shared InlineDefinitionArgument inlineDefinitionArgumentToCeylon(JTypedArgument 
     case (is JObjectArgument) { return objectArgumentToCeylon(inlineDefinitionArgument, update); }
 }
 
-"Compiles the given [[code]] for an Inline Definition Argument
+"Parses the given [[code]] for an Inline Definition Argument
  into an [[InlineDefinitionArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared InlineDefinitionArgument? compileInlineDefinitionArgument(String code, Anything(JNode,Node) update = noop) {
+shared InlineDefinitionArgument? parseInlineDefinitionArgument(String code, Anything(JNode,Node) update = noop) {
     if (is JTypedArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return inlineDefinitionArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

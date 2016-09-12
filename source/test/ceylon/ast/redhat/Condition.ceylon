@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     conditionToCeylon,
-    compileCondition
+    parseCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object condition satisfies AbstractTest<Condition,JCondition> {
-    compile = compileCondition;
+    parse = parseCondition;
     fromCeylon = RedHatTransformer.transformCondition;
     toCeylon = conditionToCeylon;
     

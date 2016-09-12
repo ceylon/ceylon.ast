@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     equalityOperationToCeylon,
-    compileEqualityOperation
+    parseEqualityOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object equalityOperation satisfies AbstractTest<EqualityOperation,JEqualityOp|JIdenticalOp> {
-    compile = compileEqualityOperation;
+    parse = parseEqualityOperation;
     fromCeylon = RedHatTransformer.transformEqualityOperation;
     toCeylon = equalityOperationToCeylon;
     

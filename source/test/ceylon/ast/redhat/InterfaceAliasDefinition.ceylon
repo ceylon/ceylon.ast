@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     interfaceAliasDefinitionToCeylon,
-    compileInterfaceAliasDefinition
+    parseInterfaceAliasDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object interfaceAliasDefinition satisfies ConcreteTest<InterfaceAliasDefi
     
     shared String->InterfaceAliasDefinition peopleByNameInterfaceAliasDefinition = construct(identifier.peopleByNameUIdentifier, typeSpecifier.mapOfStringPeopleTypeSpecifier);
     
-    compile = compileInterfaceAliasDefinition;
+    parse = parseInterfaceAliasDefinition;
     fromCeylon = RedHatTransformer.transformInterfaceAliasDefinition;
     toCeylon = interfaceAliasDefinitionToCeylon;
     codes = [peopleByNameInterfaceAliasDefinition];

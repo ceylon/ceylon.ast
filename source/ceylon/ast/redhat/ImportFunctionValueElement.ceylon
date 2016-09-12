@@ -25,10 +25,10 @@ shared ImportFunctionValueElement importFunctionValueElementToCeylon(JImportMemb
     return result;
 }
 
-"Compiles the given [[code]] for an Import Function Value Element
+"Parses the given [[code]] for an Import Function Value Element
  into an [[ImportFunctionValueElement]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared ImportFunctionValueElement? compileImportFunctionValueElement(String code, Anything(JNode,Node) update = noop) {
+shared ImportFunctionValueElement? parseImportFunctionValueElement(String code, Anything(JNode,Node) update = noop) {
     if (exists jImportElement = createParser(code).importElement(),
         jImportElement.identifier.mainToken.type == lidentifier) {
         return importFunctionValueElementToCeylon(jImportElement, update);

@@ -30,10 +30,10 @@ shared TryCatchFinally tryCatchFinallyToCeylon(JTryCatchStatement tryCatchFinall
     return result;
 }
 
-"Compiles the given [[code]] for a Try Catch Finally
+"Parses the given [[code]] for a Try Catch Finally
  into a [[TryCatchFinally]] using the Ceylon compiler
  (more specifically, the rule for a `tryCatchFinally`)."
-shared TryCatchFinally? compileTryCatchFinally(String code, Anything(JNode,Node) update = noop) {
+shared TryCatchFinally? parseTryCatchFinally(String code, Anything(JNode,Node) update = noop) {
     if (exists jTryCatchFinally = createParser(code).tryCatchFinally()) {
         return tryCatchFinallyToCeylon(jTryCatchFinally, update);
     } else {

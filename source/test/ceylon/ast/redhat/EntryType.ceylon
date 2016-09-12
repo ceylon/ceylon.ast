@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     entryTypeToCeylon,
-    compileEntryType
+    parseEntryType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object entryType satisfies ConcreteTest<EntryType,JEntryType> {
     
     shared String->EntryType stringToIterableOfStringEntryType = construct(baseType.stringType, baseType.iterableOfStringType);
     
-    compile = compileEntryType;
+    parse = parseEntryType;
     fromCeylon = RedHatTransformer.transformEntryType;
     toCeylon = entryTypeToCeylon;
     codes = [stringToIterableOfStringEntryType];

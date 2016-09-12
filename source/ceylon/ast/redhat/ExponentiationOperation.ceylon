@@ -20,10 +20,10 @@ shared ExponentiationOperation exponentiationOperationToCeylon(JPowerOp exponent
     return result;
 }
 
-"Compiles the given [[code]] for an Exponentiation Operation
+"Parses the given [[code]] for an Exponentiation Operation
  into an [[ExponentiationOperation]] using the Ceylon compiler
  (more specifically, the rule for an `exponentiationExpression`)."
-shared ExponentiationOperation? compileExponentiationOperation(String code, Anything(JNode,Node) update = noop) {
+shared ExponentiationOperation? parseExponentiationOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JPowerOp jExponentiationExpression = createParser(code).exponentiationExpression()) {
         return exponentiationOperationToCeylon(jExponentiationExpression, update);
     } else {

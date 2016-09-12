@@ -22,10 +22,10 @@ shared PrefixPostfixStatement prefixPostfixStatementToCeylon(JExpressionStatemen
     return result;
 }
 
-"Compiles the given [[code]] for a Prefix Postfix Statement
+"Parses the given [[code]] for a Prefix Postfix Statement
  into a [[PrefixPostfixStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared PrefixPostfixStatement? compilePrefixPostfixStatement(String code, Anything(JNode,Node) update = noop) {
+shared PrefixPostfixStatement? parsePrefixPostfixStatement(String code, Anything(JNode,Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.expression.term is JPrefixOperatorExpression|JPostfixOperatorExpression) {
         return prefixPostfixStatementToCeylon(jExpressionOrSpecificationStatement, update);

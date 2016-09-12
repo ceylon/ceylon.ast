@@ -19,10 +19,10 @@ shared Parameters parametersToCeylon(JParameterList parameters, Anything(JNode,N
     return result;
 }
 
-"Compiles the given [[code]] for a Parameters
+"Parses the given [[code]] for a Parameters
  into a [[Parameters]] using the Ceylon compiler
  (more specifically, the rule for a `parameters`)."
-shared Parameters? compileParameters(String code, Anything(JNode,Node) update = noop) {
+shared Parameters? parseParameters(String code, Anything(JNode,Node) update = noop) {
     if (exists jParameters = createParser(code).parameters()) {
         return parametersToCeylon(jParameters, update);
     } else {

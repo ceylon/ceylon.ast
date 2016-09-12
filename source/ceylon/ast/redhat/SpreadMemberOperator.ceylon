@@ -16,10 +16,10 @@ shared SpreadMemberOperator spreadMemberOperatorToCeylon(JSpreadOp spreadMemberO
     return result;
 }
 
-"Compiles the given [[code]] for a Spread Member Operator
+"Parses the given [[code]] for a Spread Member Operator
  into a [[SpreadMemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared SpreadMemberOperator? compileSpreadMemberOperator(String code, Anything(JNode,Node) update = noop) {
+shared SpreadMemberOperator? parseSpreadMemberOperator(String code, Anything(JNode,Node) update = noop) {
     if (is JSpreadOp jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
         return spreadMemberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {

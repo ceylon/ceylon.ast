@@ -19,10 +19,10 @@ shared ComprehensionClause comprehensionClauseToCeylon(JComprehensionClause comp
     case (is JExpressionComprehensionClause) { return expressionComprehensionClauseToCeylon(comprehensionClause, update); }
 }
 
-"Compiles the given [[code]] for a Comprehension Clause
+"Parses the given [[code]] for a Comprehension Clause
  into a [[ComprehensionClause]] using the Ceylon compiler
  (more specifically, the rule for a `comprehensionClause`)."
-shared ComprehensionClause? compileComprehensionClause(String code, Anything(JNode,Node) update = noop) {
+shared ComprehensionClause? parseComprehensionClause(String code, Anything(JNode,Node) update = noop) {
     if (exists jComprehensionClause = createParser(code).comprehensionClause()) {
         return comprehensionClauseToCeylon(jComprehensionClause, update);
     } else {

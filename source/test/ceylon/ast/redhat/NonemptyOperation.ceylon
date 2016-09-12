@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     nonemptyOperationToCeylon,
-    compileNonemptyOperation
+    parseNonemptyOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object nonemptyOperation satisfies ConcreteTest<NonemptyOperation,JNonemp
     shared String->NonemptyOperation aIntersectBNonemptyExpression = construct(intersectionOperation.aIntersectBExpression);
     shared String->NonemptyOperation aUnionBComplementAIntersectBNonemptyExpression = construct(complementOperation.aUnionBComplementAIntersectBExpression);
     
-    compile = compileNonemptyOperation;
+    parse = parseNonemptyOperation;
     fromCeylon = RedHatTransformer.transformNonemptyOperation;
     toCeylon = nonemptyOperationToCeylon;
     codes = [aIntersectBNonemptyExpression, aUnionBComplementAIntersectBNonemptyExpression];

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     isCaseToCeylon,
-    compileIsCase
+    parseIsCase
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object isCase satisfies ConcreteTest<IsCase,JIsCase> {
     shared String->IsCase isStringCase = construct(baseType.stringType);
     shared String->IsCase isStringOrIntegerOrFloatCase = construct(unionType.stringOrIntegerOrFloatUnionType);
     
-    compile = compileIsCase;
+    parse = parseIsCase;
     fromCeylon = RedHatTransformer.transformIsCase;
     toCeylon = isCaseToCeylon;
     codes = [isStringCase, isStringOrIntegerOrFloatCase];

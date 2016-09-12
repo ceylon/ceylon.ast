@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     specificationToCeylon,
-    compileSpecification
+    parseSpecification
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object specification satisfies AbstractTest<Specification,JSpecifierStatement> {
-    compile = compileSpecification;
+    parse = parseSpecification;
     fromCeylon = RedHatTransformer.transformSpecification;
     toCeylon = specificationToCeylon;
     

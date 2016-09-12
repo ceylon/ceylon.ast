@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeMetaToCeylon,
-    compileTypeMeta
+    parseTypeMeta
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -22,7 +22,7 @@ shared object typeMeta satisfies ConcreteTest<TypeMeta,JTypeLiteral> {
     shared String->TypeMeta stringToIterableOfStringEntryTypeTypeMeta = construct(entryType.stringToIterableOfStringEntryType);
     shared String->TypeMeta packageObjectMeta = construct(baseType.objectPackageQualifiedType);
     
-    compile = compileTypeMeta;
+    parse = parseTypeMeta;
     fromCeylon = RedHatTransformer.transformTypeMeta;
     toCeylon = typeMetaToCeylon;
     codes = [integerFloatDefaultedStringStarTupleTypeTypeMeta, stringToIterableOfStringEntryTypeTypeMeta, packageObjectMeta];

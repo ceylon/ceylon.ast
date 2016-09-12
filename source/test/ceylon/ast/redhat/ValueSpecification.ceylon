@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueSpecificationToCeylon,
-    compileValueSpecification
+    parseValueSpecification
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -40,7 +40,7 @@ shared object valueSpecification satisfies ConcreteTest<ValueSpecification,JSpec
     shared String->ValueSpecification rSpecify0 = construct(identifier.rLIdentifier, specifier._0Specifier);
     shared String->ValueSpecification phiSpecify0 = construct(identifier.phiLIdentifier, specifier._0Specifier);
     
-    compile = compileValueSpecification;
+    parse = parseValueSpecification;
     fromCeylon = RedHatTransformer.transformValueSpecification;
     toCeylon = valueSpecificationToCeylon;
     codes = [sizeSpecify0, thisSizeSpecify0];

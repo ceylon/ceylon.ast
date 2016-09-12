@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     baseExpressionToCeylon,
-    compileBaseExpression
+    parseBaseExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -60,7 +60,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression cosExpression = construct("cos");
     shared String->BaseExpression emptyExpression = construct("empty");
     
-    compile = compileBaseExpression;
+    parse = parseBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;
     toCeylon = baseExpressionToCeylon;
     codes = [nullExpression, maxOfIntegerNothingExpression];

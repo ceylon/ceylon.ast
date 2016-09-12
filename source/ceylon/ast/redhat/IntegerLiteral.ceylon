@@ -23,10 +23,10 @@ shared IntegerLiteral integerLiteralToCeylon(JIntegerLiteral integerLiteral, Any
     return result;
 }
 
-"Compiles the given [[code]] for an Integer Literal
+"Parses the given [[code]] for an Integer Literal
  into an [[IntegerLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `nonstringLiteral`)."
-shared IntegerLiteral? compileIntegerLiteral(String code, Anything(JNode,Node) update = noop) {
+shared IntegerLiteral? parseIntegerLiteral(String code, Anything(JNode,Node) update = noop) {
     if (is JIntegerLiteral jIntegerLiteral = createParser(code).nonstringLiteral()) {
         return integerLiteralToCeylon(jIntegerLiteral, update);
     } else {

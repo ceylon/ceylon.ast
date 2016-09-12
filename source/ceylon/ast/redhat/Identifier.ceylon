@@ -110,10 +110,10 @@ shared LIdentifier aIdentifierToCeylon(JIdentifier identifier, Anything(JNode,No
     return result;
 }
 
-"Compiles the given [[code]] for an Identifier
+"Parses the given [[code]] for an Identifier
  into an [[Identifier]] using the Ceylon compiler
  (more specifically, the rule for an Import Name)."
-shared Identifier? compileIdentifier(String code, Anything(JNode,Node) update = noop) {
+shared Identifier? parseIdentifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jidentifier = createParser(code).importName()) {
         return identifierToCeylon(jidentifier, update);
     } else {
@@ -121,10 +121,10 @@ shared Identifier? compileIdentifier(String code, Anything(JNode,Node) update = 
     }
 }
 
-"Compiles the given [[code]] for a Lowercase Identifier
+"Parses the given [[code]] for a Lowercase Identifier
  into an [[LIdentifier]] using the Ceylon compiler
  (more specifically, the rule for a Member Name)."
-shared LIdentifier? compileLIdentifier(String code, Anything(JNode,Node) update = noop) {
+shared LIdentifier? parseLIdentifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jidentifier = createParser(code).memberName()) {
         return lIdentifierToCeylon(jidentifier, update);
     } else {
@@ -132,10 +132,10 @@ shared LIdentifier? compileLIdentifier(String code, Anything(JNode,Node) update 
     }
 }
 
-"Compiles the given [[code]] for an Uppercase Identifier
+"Parses the given [[code]] for an Uppercase Identifier
  into a [[UIdentifier]] using the Ceylon compiler
  (more specifically, the rule for a Type Name)."
-shared UIdentifier? compileUIdentifier(String code, Anything(JNode,Node) update = noop) {
+shared UIdentifier? parseUIdentifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jidentifier = createParser(code).typeName()) {
         return uIdentifierToCeylon(jidentifier, update);
     } else {
@@ -143,10 +143,10 @@ shared UIdentifier? compileUIdentifier(String code, Anything(JNode,Node) update 
     }
 }
 
-"Compiles the given [[code]] for a Package Identifier
+"Parses the given [[code]] for a Package Identifier
  into an [[LIdentifier]] using the Ceylon compiler
  (more specifically, the rule for a `packageName`)."
-shared LIdentifier? compilePIdentifier(String code, Anything(JNode,Node) update = noop) {
+shared LIdentifier? parsePIdentifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jidentifier = createParser(code).packageName()) {
         return pIdentifierToCeylon(jidentifier, update);
     } else {

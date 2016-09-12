@@ -32,10 +32,10 @@ shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode,
     return result;
 }
 
-"Compiles the given [[code]] for an Is Condition
+"Parses the given [[code]] for an Is Condition
  into an [[IsCondition]] using the Ceylon compiler
  (more specifically, the rule for an `isCondition`)."
-shared IsCondition? compileIsCondition(String code, Anything(JNode,Node) update = noop) {
+shared IsCondition? parseIsCondition(String code, Anything(JNode,Node) update = noop) {
     if (exists jIsCondition = createParser(code + ",").isCondition()) {
         // the parser needs that comma for conditions without a specifier
         return isConditionToCeylon(jIsCondition, update);

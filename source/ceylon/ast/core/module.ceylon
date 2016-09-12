@@ -21,10 +21,10 @@
        BaseExpression(MemberNameWithTypeArguments(LIdentifier("null")))
    
    
-   ## Compile it
+   ## Parse it
    
    The [[`ceylon.ast.redhat` module|module ceylon.ast.redhat]] allows you to
-   compile any AST node from a corresponding code string (internally using the
+   parse any AST node from a corresponding code string (internally using the
    RedHat Ceylon compiler).
    
    If you have a node from the RedHat AST, you can also convert it using

@@ -28,20 +28,20 @@ shared Modifier modifierToCeylon(JVoidModifier|JLocalModifier|JDynamicModifier|J
     case (is JTypeVariance) { return varianceToCeylon(modifier, update); }
 }
 
-"Compiles the given [[code]] for a Modifier
+"Parses the given [[code]] for a Modifier
  into a [[Modifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared Modifier? compileModifier(String code, Anything(JNode,Node) update = noop) {
+shared Modifier? parseModifier(String code, Anything(JNode,Node) update = noop) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == void_modifier) {
-        return compileVoidModifier(code, update);
+        return parseVoidModifier(code, update);
     } else if (type == value_modifier) {
-        return compileValueModifier(code, update);
+        return parseValueModifier(code, update);
     } else if (type == function_modifier) {
-        return compileFunctionModifier(code, update);
+        return parseFunctionModifier(code, update);
     } else if (type == dynamicModifier) {
-        return compileDynamicModifier(code, update);
-    } else if (exists variance = compileVariance(code, update)) {
+        return parseDynamicModifier(code, update);
+    } else if (exists variance = parseVariance(code, update)) {
         return variance;
     } else {
         return null;

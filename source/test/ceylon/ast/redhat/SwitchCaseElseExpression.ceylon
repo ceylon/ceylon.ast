@@ -9,7 +9,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     switchCaseElseExpressionToCeylon,
-    compileSwitchCaseElseExpression
+    parseSwitchCaseElseExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -24,7 +24,7 @@ shared object switchCaseElseExpression satisfies ConcreteTest<SwitchCaseElseExpr
     
     shared String->SwitchCaseElseExpression switchCaseElseExpression = construct(switchClause.switchIClause, ["case (0 | 1) i"->CaseExpression(matchCase.matchZeroOrOneCase.item, baseExpression.iExpression.item)], baseExpression.nullExpression);
     
-    compile = compileSwitchCaseElseExpression;
+    parse = parseSwitchCaseElseExpression;
     fromCeylon = RedHatTransformer.transformSwitchCaseElseExpression;
     toCeylon = switchCaseElseExpressionToCeylon;
     codes = [switchCaseElseExpression];

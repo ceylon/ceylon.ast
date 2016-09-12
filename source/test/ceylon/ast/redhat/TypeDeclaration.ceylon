@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeDeclarationToCeylon,
-    compileTypeDeclaration
+    parseTypeDeclaration
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object typeDeclaration satisfies AbstractTest<TypeDeclaration,JTypeDeclaration> {
-    compile = compileTypeDeclaration;
+    parse = parseTypeDeclaration;
     fromCeylon = RedHatTransformer.transformTypeDeclaration;
     toCeylon = typeDeclarationToCeylon;
     

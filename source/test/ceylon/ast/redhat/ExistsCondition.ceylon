@@ -8,7 +8,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     existsConditionToCeylon,
-    compileExistsCondition
+    parseExistsCondition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -29,7 +29,7 @@ shared object existsCondition satisfies ConcreteTest<ExistsCondition,JExistsCond
     shared String->ExistsCondition existsFirstRestSpecifyCondition = constructP(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     shared String->ExistsCondition existsEntryPatternSpecifyCondition = constructP(entryPattern.eToStringLineEntryPattern, specifier._0Specifier);
     
-    compile = compileExistsCondition;
+    parse = parseExistsCondition;
     fromCeylon = RedHatTransformer.transformExistsCondition;
     toCeylon = existsConditionToCeylon;
     codes = [negatedExistsCeylonCondition, existsFirstSpecifyCondition, existsFirstRestSpecifyCondition, existsEntryPatternSpecifyCondition];

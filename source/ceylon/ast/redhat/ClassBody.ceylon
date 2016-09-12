@@ -22,10 +22,10 @@ shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode,Node) up
     return result;
 }
 
-"Compiles the given [[code]] for a Class Body
+"Parses the given [[code]] for a Class Body
  into a [[ClassBody]] using the Ceylon compiler
  (more specifically, the rule for a `classBody`)."
-shared ClassBody? compileClassBody(String code, Anything(JNode,Node) update = noop) {
+shared ClassBody? parseClassBody(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassBody = createParser(code).classBody()) {
         return classBodyToCeylon(jClassBody, update);
     } else {

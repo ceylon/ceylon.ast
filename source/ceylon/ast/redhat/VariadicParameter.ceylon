@@ -22,10 +22,10 @@ shared VariadicParameter variadicParameterToCeylon(JValueParameterDeclaration va
     return result;
 }
 
-"Compiles the given [[code]] for a Variadic Parameter
+"Parses the given [[code]] for a Variadic Parameter
  into a [[VariadicParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared VariadicParameter? compileVariadicParameter(String code, Anything(JNode,Node) update = noop) {
+shared VariadicParameter? parseVariadicParameter(String code, Anything(JNode,Node) update = noop) {
     if (is JValueParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef()) {
         return variadicParameterToCeylon(jParameterDeclarationOrRef, update);
     } else {

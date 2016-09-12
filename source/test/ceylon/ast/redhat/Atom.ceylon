@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     atomToCeylon,
-    compileAtom
+    parseAtom
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object atom satisfies AbstractTest<Atom,JAtom> {
-    compile = compileAtom;
+    parse = parseAtom;
     fromCeylon = RedHatTransformer.transformAtom;
     toCeylon = atomToCeylon;
     

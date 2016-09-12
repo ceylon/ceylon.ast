@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     conditionalExpressionToCeylon,
-    compileConditionalExpression
+    parseConditionalExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object conditionalExpression satisfies AbstractTest<ConditionalExpression,JIfExpression|JSwitchExpression> {
-    compile = compileConditionalExpression;
+    parse = parseConditionalExpression;
     fromCeylon = RedHatTransformer.transformConditionalExpression;
     toCeylon = conditionalExpressionToCeylon;
     

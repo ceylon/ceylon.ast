@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     identicalOperationToCeylon,
-    compileIdenticalOperation
+    parseIdenticalOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object identicalOperation satisfies ConcreteTest<IdenticalOperation,JIden
     
     shared String->IdenticalOperation aIdenticalBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     
-    compile = compileIdenticalOperation;
+    parse = parseIdenticalOperation;
     fromCeylon = RedHatTransformer.transformIdenticalOperation;
     toCeylon = identicalOperationToCeylon;
     codes = [aIdenticalBExpression];

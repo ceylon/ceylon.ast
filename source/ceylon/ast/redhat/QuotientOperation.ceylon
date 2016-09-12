@@ -21,10 +21,10 @@ shared QuotientOperation quotientOperationToCeylon(JQuotientOp divisionOperation
     return result;
 }
 
-"Compiles the given [[code]] for a Quotient Operation
+"Parses the given [[code]] for a Quotient Operation
  into a [[QuotientOperation]] using the Ceylon compiler
  (more specifically, the rule for a `multiplicativeExpression`)."
-shared QuotientOperation? compileQuotientOperation(String code, Anything(JNode,Node) update = noop) {
+shared QuotientOperation? parseQuotientOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JQuotientOp jMultiplicativeExpression = createParser(code).multiplicativeExpression()) {
         return quotientOperationToCeylon(jMultiplicativeExpression, update);
     } else {

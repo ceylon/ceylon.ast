@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     inModifierToCeylon,
-    compileInModifier
+    parseInModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object inModifier satisfies ConcreteTest<InModifier,JTypeVariance> {
     
     shared String->InModifier inModifier = " in "->InModifier();
     
-    compile = compileInModifier;
+    parse = parseInModifier;
     fromCeylon = RedHatTransformer.transformInModifier;
     toCeylon = inModifierToCeylon;
     codes = [inModifier];

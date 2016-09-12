@@ -54,10 +54,10 @@ shared Construction constructionToCeylon(JInvocationExpression construction, Any
     return result;
 }
 
-"Compiles the given [[code]] for a Construction
+"Parses the given [[code]] for a Construction
  into a [[Construction]] using the Ceylon compiler
  (more specifically, the rule for a `classInstantiation`)."
-shared Construction? compileConstruction(String code, Anything(JNode,Node) update = noop) {
+shared Construction? parseConstruction(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation(),
         exists ie = jClassInstantiation.invocationExpression,
         is JExtendedTypeExpression ete = ie.primary,

@@ -17,10 +17,10 @@ shared ConstructorDefinition constructorDefinitionToCeylon(JConstructor|JEnumera
     case (is JEnumerated) { return valueConstructorDefinitionToCeylon(constructorDefinition, update); }
 }
 
-"Compiles the given [[code]] for a Constructor Definition
+"Parses the given [[code]] for a Constructor Definition
  into a [[ConstructorDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ConstructorDefinition? compileConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ConstructorDefinition? parseConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JConstructor|JEnumerated jConstructorDefinition = createParser(code).declaration()) {
         return constructorDefinitionToCeylon(jConstructorDefinition, update);
     } else {

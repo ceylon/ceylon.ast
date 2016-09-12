@@ -84,10 +84,10 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                      ``"\n    ".join({ for (kase in cases) "case (is J``kase``) { return ``initLCase(kase)``ToCeylon(``ltype``); }" })``
                  }
                  
-                 \"Compiles the given [[code]] for ``aAn`` ``splitType``
+                 \"Parses the given [[code]] for ``aAn`` ``splitType``
                   into ``aAn`` [[``type``]] using the Ceylon compiler
                   (more specifically, the rule for ``aAn`` \```ltype``\`).\"
-                 shared ``type``? compile``type``(String code) {
+                 shared ``type``? parse``type``(String code) {
                      if (exists j``type`` = createParser(code).``ltype``()) {
                          return ``ltype``ToCeylon(j``type``);
                      } else {
@@ -109,7 +109,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                  import ceylon.ast.redhat {
                      RedHatTransformer,
                      ``ltype``ToCeylon,
-                     compile``type``
+                     parse``type``
                  }
                  import com.redhat.ceylon.compiler.typechecker.tree {
                      Tree {
@@ -118,7 +118,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                  }
                  
                  shared object ``ltype`` satisfies AbstractTest<``type``,J``type``> {
-                     compile = compile``type``;
+                     parse = parse``type``;
                      fromCeylon = RedHatTransformer.transform``type``;
                      toCeylon = ``ltype``ToCeylon;
                      

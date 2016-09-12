@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeModifierToCeylon,
-    compileTypeModifier
+    parseTypeModifier
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object typeModifier satisfies AbstractTest<TypeModifier,JLocalModifier|JVoidModifier|JDynamicModifier> {
-    compile = compileTypeModifier;
+    parse = parseTypeModifier;
     fromCeylon = RedHatTransformer.transformTypeModifier;
     toCeylon = typeModifierToCeylon;
     

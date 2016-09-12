@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     elementOrSubrangeExpressionToCeylon,
-    compileElementOrSubrangeExpression
+    parseElementOrSubrangeExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object elementOrSubrangeExpression satisfies ConcreteTest<ElementOrSubran
     shared String->ElementOrSubrangeExpression processArgumentsFirstSpanFrom2Expression = construct(qualifiedExpression.processArgumentsFirstExpression, spanFromSubscript.spanFrom2Subscript);
     shared String->ElementOrSubrangeExpression emptyXElseOneExpression = construct(baseExpression.emptyExpression, keySubscript.xElseOneSubscript);
     
-    compile = compileElementOrSubrangeExpression;
+    parse = parseElementOrSubrangeExpression;
     fromCeylon = RedHatTransformer.transformElementOrSubrangeExpression;
     toCeylon = elementOrSubrangeExpressionToCeylon;
     codes = [textElementIExpression, processArgumentsFirstSpanFrom2Expression, emptyXElseOneExpression];

@@ -34,10 +34,10 @@ shared ExtensionOrConstruction extensionOrConstructionToCeylon(JInvocationExpres
     }
 }
 
-"Compiles the given [[code]] for an Extension Or Construction
+"Parses the given [[code]] for an Extension Or Construction
  into an [[ExtensionOrConstruction]] using the Ceylon compiler
  (more specifically, the rule for an `classInstantiation`)."
-shared ExtensionOrConstruction? compileExtensionOrConstruction(String code, Anything(JNode,Node) update = noop) {
+shared ExtensionOrConstruction? parseExtensionOrConstruction(String code, Anything(JNode,Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation()) {
         return extensionOrConstructionToCeylon(jClassInstantiation.invocationExpression else jClassInstantiation.type, update);
     } else {

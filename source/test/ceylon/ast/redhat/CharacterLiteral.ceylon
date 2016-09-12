@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     characterLiteralToCeylon,
-    compileCharacterLiteral
+    parseCharacterLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -20,7 +20,7 @@ shared object characterLiteral satisfies ConcreteTest<CharacterLiteral,JCharLite
     shared String->CharacterLiteral capitalCCharacterLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->CharacterLiteral namedCapitalCCharacterLiteral = construct("\\{LATIN CAPITAL LETTER C}");
     
-    compile = compileCharacterLiteral;
+    parse = parseCharacterLiteral;
     fromCeylon = RedHatTransformer.transformCharacterLiteral;
     toCeylon = characterLiteralToCeylon;
     codes = [capitalCCharacterLiteral, namedCapitalCCharacterLiteral];

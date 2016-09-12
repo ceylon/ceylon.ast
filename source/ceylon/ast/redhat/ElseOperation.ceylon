@@ -21,10 +21,10 @@ shared ElseOperation elseOperationToCeylon(JDefaultOp elseOperation, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for an Else Operation
+"Parses the given [[code]] for an Else Operation
  into an [[ElseOperation]] using the Ceylon compiler
  (more specifically, the rule for a `thenElseExpression`)."
-shared ElseOperation? compileElseOperation(String code, Anything(JNode,Node) update = noop) {
+shared ElseOperation? parseElseOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JDefaultOp jThenElseExpression = createParser(code).thenElseExpression()) {
         return elseOperationToCeylon(jThenElseExpression, update);
     } else {

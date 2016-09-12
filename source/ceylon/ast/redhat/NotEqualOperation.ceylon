@@ -20,10 +20,10 @@ shared NotEqualOperation notEqualOperationToCeylon(JNotEqualOp notEqualOperation
     return result;
 }
 
-"Compiles the given [[code]] for a Not Equal Operation
+"Parses the given [[code]] for a Not Equal Operation
  into a [[NotEqualOperation]] using the Ceylon compiler
  (more specifically, the rule for a `equalityExpression`)."
-shared NotEqualOperation? compileNotEqualOperation(String code, Anything(JNode,Node) update = noop) {
+shared NotEqualOperation? parseNotEqualOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JNotEqualOp jEqualityExpression = createParser(code).equalityExpression()) {
         return notEqualOperationToCeylon(jEqualityExpression, update);
     } else {

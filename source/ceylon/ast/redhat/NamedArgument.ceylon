@@ -38,10 +38,10 @@ shared NamedArgument namedArgumentToCeylon(JNamedArgument namedArgument, Anythin
     }
 }
 
-"Compiles the given [[code]] for a Named Argument
+"Parses the given [[code]] for a Named Argument
  into a [[NamedArgument]] using the Ceylon compiler
  (more specifically, the rules for a `namedArgument` and for an `anonymousArgument`)."
-shared NamedArgument? compileNamedArgument(String code, Anything(JNode,Node) update = noop) {
+shared NamedArgument? parseNamedArgument(String code, Anything(JNode,Node) update = noop) {
     if (exists jNamedArgument = createParser(code).namedArgument()) {
         return namedArgumentToCeylon(jNamedArgument, update);
     } else if (exists jAnonymousArgument = createParser(code).anonymousArgument()) {

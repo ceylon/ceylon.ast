@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     directiveToCeylon,
-    compileDirective
+    parseDirective
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object directive satisfies AbstractTest<Directive,JDirective> {
-    compile = compileDirective;
+    parse = parseDirective;
     fromCeylon = RedHatTransformer.transformDirective;
     toCeylon = directiveToCeylon;
     

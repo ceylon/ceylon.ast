@@ -21,10 +21,10 @@ shared AssignOperation assignOperationToCeylon(JAssignOp assignOperation, Anythi
     return result;
 }
 
-"Compiles the given [[code]] for an Assign Operation
+"Parses the given [[code]] for an Assign Operation
  into an [[AssignOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared AssignOperation? compileAssignOperation(String code, Anything(JNode,Node) update = noop) {
+shared AssignOperation? parseAssignOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return assignOperationToCeylon(jAssignmentExpression, update);
     } else {

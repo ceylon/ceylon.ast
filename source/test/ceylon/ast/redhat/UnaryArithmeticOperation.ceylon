@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     unaryArithmeticOperationToCeylon,
-    compileUnaryArithmeticOperation
+    parseUnaryArithmeticOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object unaryArithmeticOperation satisfies AbstractTest<UnaryArithmeticOperation,JNegativeOp|JPositiveOp> {
-    compile = compileUnaryArithmeticOperation;
+    parse = parseUnaryArithmeticOperation;
     fromCeylon = RedHatTransformer.transformUnaryArithmeticOperation;
     toCeylon = unaryArithmeticOperationToCeylon;
     

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     elseClauseToCeylon,
-    compileElseClause
+    parseElseClause
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object elseClause satisfies ConcreteTest<ElseClause,JElseClause> {
     shared String->ElseClause emptyElseIfClause => construct(ifElse.emptyIf);
     shared String->ElseClause elsePrintHelloWorldClause = construct(block.printHelloWorldBlock);
     
-    compile = compileElseClause;
+    parse = parseElseClause;
     fromCeylon = RedHatTransformer.transformElseClause;
     toCeylon = elseClauseToCeylon;
     codes => [emptyElseClause, emptyElseIfClause, elsePrintHelloWorldClause];

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     typeArgumentsToCeylon,
-    compileTypeArguments
+    parseTypeArguments
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -23,7 +23,7 @@ shared object typeArguments satisfies ConcreteTest<TypeArguments,JTypeArgumentLi
     shared String->TypeArguments integerNothingTypeArguments = construct(baseType.integerType, baseType.nothingType);
     shared String->TypeArguments emptyTypeArguments = construct();
     
-    compile = compileTypeArguments;
+    parse = parseTypeArguments;
     fromCeylon = RedHatTransformer.transformTypeArguments;
     toCeylon = typeArgumentsToCeylon;
     codes = [stringTypeArguments, integerNothingTypeArguments, emptyTypeArguments];

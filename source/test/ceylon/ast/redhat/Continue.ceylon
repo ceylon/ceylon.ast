@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     continueToCeylon,
-    compileContinue
+    parseContinue
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -16,7 +16,7 @@ shared object \icontinue satisfies ConcreteTest<Continue,JContinue> {
     
     shared String->Continue \icontinue = "continue;"->Continue();
     
-    compile = compileContinue;
+    parse = parseContinue;
     fromCeylon = RedHatTransformer.transformContinue;
     toCeylon = continueToCeylon;
     codes = [\icontinue];

@@ -5,7 +5,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     throwToCeylon,
-    compileThrow
+    parseThrow
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object \ithrow satisfies ConcreteTest<Throw,JThrow> {
     shared String->Throw \ithrow = construct();
     shared String->Throw throwAssertionError = construct(invocation.assertionErrorInvocation);
     
-    compile = compileThrow;
+    parse = parseThrow;
     fromCeylon = RedHatTransformer.transformThrow;
     toCeylon = throwToCeylon;
     codes = [\ithrow, throwAssertionError];

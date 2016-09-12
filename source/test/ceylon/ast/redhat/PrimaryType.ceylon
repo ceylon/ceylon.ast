@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     primaryTypeToCeylon,
-    compilePrimaryType
+    parsePrimaryType
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object primaryType satisfies AbstractTest<PrimaryType,JStaticType> {
-    compile = compilePrimaryType;
+    parse = parsePrimaryType;
     fromCeylon = RedHatTransformer.transformPrimaryType;
     toCeylon = primaryTypeToCeylon;
     

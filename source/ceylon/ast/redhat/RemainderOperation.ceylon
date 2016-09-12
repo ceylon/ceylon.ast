@@ -21,10 +21,10 @@ shared RemainderOperation remainderOperationToCeylon(JRemainderOp remainderOpera
     return result;
 }
 
-"Compiles the given [[code]] for a Remainder Operation
+"Parses the given [[code]] for a Remainder Operation
  into a [[RemainderOperation]] using the Ceylon compiler
  (more specifically, the rule for a `multiplicativeExpression`)."
-shared RemainderOperation? compileRemainderOperation(String code, Anything(JNode,Node) update = noop) {
+shared RemainderOperation? parseRemainderOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JRemainderOp jMultiplicativeExpression = createParser(code).multiplicativeExpression()) {
         return remainderOperationToCeylon(jMultiplicativeExpression, update);
     } else {

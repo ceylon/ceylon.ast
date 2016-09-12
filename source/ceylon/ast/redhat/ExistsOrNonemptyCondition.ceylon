@@ -42,10 +42,10 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
     return result;
 }
 
-"Compiles the given [[code]] for an Exists Or Nonempty Condition
+"Parses the given [[code]] for an Exists Or Nonempty Condition
  into an [[ExistsOrNonemptyCondition]] using the Ceylon compiler
  (more specifically, the rule for an `condition`)."
-shared ExistsOrNonemptyCondition? compileExistsOrNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
+shared ExistsOrNonemptyCondition? parseExistsOrNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
     if (is JExistsOrNonemptyCondition jCondition = createParser(code).condition()) {
         return existsOrNonemptyConditionToCeylon(jCondition, update);
     } else {

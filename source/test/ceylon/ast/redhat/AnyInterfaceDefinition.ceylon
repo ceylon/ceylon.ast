@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     anyInterfaceDefinitionToCeylon,
-    compileAnyInterfaceDefinition
+    parseAnyInterfaceDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object anyInterfaceDefinition satisfies AbstractTest<AnyInterfaceDefinition,JInterfaceDefinition> {
-    compile = compileAnyInterfaceDefinition;
+    parse = parseAnyInterfaceDefinition;
     fromCeylon = RedHatTransformer.transformAnyInterfaceDefinition;
     toCeylon = anyInterfaceDefinitionToCeylon;
     

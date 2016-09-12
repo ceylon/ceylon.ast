@@ -21,10 +21,10 @@ shared SubtractAssignmentOperation subtractAssignmentOperationToCeylon(JSubtract
     return result;
 }
 
-"Compiles the given [[code]] for a Subtract Assignment Operation
+"Parses the given [[code]] for a Subtract Assignment Operation
  into a [[SubtractAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared SubtractAssignmentOperation? compileSubtractAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared SubtractAssignmentOperation? parseSubtractAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JSubtractAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return subtractAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

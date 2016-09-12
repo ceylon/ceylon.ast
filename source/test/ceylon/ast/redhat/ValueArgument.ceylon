@@ -10,7 +10,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     valueArgumentToCeylon,
-    compileValueArgument
+    parseValueArgument
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object valueArgument satisfies ConcreteTest<ValueArgument,JAttributeArgum
     shared String->ValueArgument index0ValueArgument = construct(identifier.indexLIdentifier, valueModifier.valueModifier, specifier.oneSpecifier);
     shared String->ValueArgument charValueArgument = construct(identifier.charLIdentifier, baseType.characterType, block.emptyBlock);
     
-    compile = compileValueArgument;
+    parse = parseValueArgument;
     fromCeylon = RedHatTransformer.transformValueArgument;
     toCeylon = valueArgumentToCeylon;
     codes = [index0ValueArgument, charValueArgument];

@@ -159,10 +159,10 @@ class ConcreteClassGenerator(
                      return result;
                  }
                  
-                 \"Compiles the given [[code]] for ``aAn`` ``splitType``
+                 \"Parses the given [[code]] for ``aAn`` ``splitType``
                   into ``aAn`` [[``type``]] using the Ceylon compiler
                   (more specifically, the rule for ``aAn`` \```ltype``\`).\"
-                 shared ``type``? compile``type``(String code, Anything(JNode,Node) update = noop) {
+                 shared ``type``? parse``type``(String code, Anything(JNode,Node) update = noop) {
                      if (exists j``type`` = createParser(code).``ltype``()) {
                          return ``ltype``ToCeylon(j``type``, update);
                      } else {
@@ -184,7 +184,7 @@ class ConcreteClassGenerator(
                  import ceylon.ast.redhat {
                      RedHatTransformer,
                      ``ltype``ToCeylon,
-                     compile``type``
+                     parse``type``
                  }
                  import com.redhat.ceylon.compiler.typechecker.tree {
                      Tree {
@@ -199,7 +199,7 @@ class ConcreteClassGenerator(
                      
                      shared String->``type`` todo = construct(``", ".join { for (param in params) "``initLCase(param.key)``.todo" }``);
                      
-                     compile = compile``type``;
+                     parse = parse``type``;
                      fromCeylon = RedHatTransformer.transform``type``;
                      toCeylon = ``ltype``ToCeylon;
                      codes = [todo];

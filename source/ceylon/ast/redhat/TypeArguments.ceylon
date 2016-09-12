@@ -54,10 +54,10 @@ shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments? typeArguments, An
     case (null) { return null; }
 }
 
-"Compiles the given [[code]] for Type Arguments
+"Parses the given [[code]] for Type Arguments
  into a [[TypeArguments]] using the Ceylon compiler
  (more specifically, the rule for `typeArguments`)."
-shared TypeArguments? compileTypeArguments(String code, Anything(JNode,Node) update = noop) {
+shared TypeArguments? parseTypeArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jTypeArguments = createParser(code).typeArguments()) {
         return typeArgumentsToCeylon(jTypeArguments, update);
     } else {

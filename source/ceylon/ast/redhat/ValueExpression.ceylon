@@ -32,10 +32,10 @@ shared ValueExpression valueExpressionToCeylon(JTerm term, Anything(JNode,Node) 
     }
 }
 
-"Compiles the given [[code]] for a Value Expression
+"Parses the given [[code]] for a Value Expression
  into a [[ValueExpression]] using the Ceylon compiler
  (more specifically, the rule for an `expression`)."
-shared ValueExpression? compileValueExpression(String code, Anything(JNode,Node) update = noop) {
+shared ValueExpression? parseValueExpression(String code, Anything(JNode,Node) update = noop) {
     if (exists jExpression = createParser(code).expression()) {
         return valueExpressionToCeylon(jExpression, update);
     } else {

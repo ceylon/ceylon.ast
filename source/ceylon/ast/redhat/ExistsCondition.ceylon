@@ -17,10 +17,10 @@ shared ExistsCondition existsConditionToCeylon(JExistsCondition existsCondition,
     return result;
 }
 
-"Compiles the given [[code]] for an Exists Condition
+"Parses the given [[code]] for an Exists Condition
  into an [[ExistsCondition]] using the Ceylon compiler
  (more specifically, the rule for an `existsCondition`)."
-shared ExistsCondition? compileExistsCondition(String code, Anything(JNode,Node) update = noop) {
+shared ExistsCondition? parseExistsCondition(String code, Anything(JNode,Node) update = noop) {
     if (exists jExistsCondition = createParser(code).existsCondition()) {
         return existsConditionToCeylon(jExistsCondition, update);
     } else {

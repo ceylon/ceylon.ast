@@ -12,7 +12,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     baseMetaToCeylon,
-    compileBaseMeta
+    parseBaseMeta
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object baseMeta satisfies ConcreteTest<BaseMeta,JMemberLiteral> {
     shared String->BaseMeta systemBaseMeta = "`system`"->BaseMeta(MemberNameWithTypeArguments(LIdentifier("system"), null));
     shared String->BaseMeta packageVersionMeta = "`package.version`"->BaseMeta(MemberNameWithTypeArguments(LIdentifier("version"), null), PackageQualifier());
     
-    compile = compileBaseMeta;
+    parse = parseBaseMeta;
     fromCeylon = RedHatTransformer.transformBaseMeta;
     toCeylon = baseMetaToCeylon;
     codes = [sumOfFloatBaseMeta, systemBaseMeta, packageVersionMeta];

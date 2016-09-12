@@ -4,7 +4,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     metaToCeylon,
-    compileMeta
+    parseMeta
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 shared object meta satisfies AbstractTest<Meta,JMetaLiteral> {
-    compile = compileMeta;
+    parse = parseMeta;
     fromCeylon = RedHatTransformer.transformMeta;
     toCeylon = metaToCeylon;
     

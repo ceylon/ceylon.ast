@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     thenOperationToCeylon,
-    compileThenOperation
+    parseThenOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object thenOperation satisfies ConcreteTest<ThenOperation,JThenOp> {
     
     shared String->ThenOperation notNameEmptyThenNameExpression = construct(notOperation.notNameEmptyExpression, baseExpression.nameExpression);
     
-    compile = compileThenOperation;
+    parse = parseThenOperation;
     fromCeylon = RedHatTransformer.transformThenOperation;
     toCeylon = thenOperationToCeylon;
     codes = [notNameEmptyThenNameExpression];

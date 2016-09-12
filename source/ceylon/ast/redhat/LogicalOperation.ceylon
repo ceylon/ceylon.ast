@@ -19,10 +19,10 @@ shared LogicalOperation logicalOperationToCeylon(JLogicalOp logicalOperation, An
     case (is JOrOp) { return orOperationToCeylon(logicalOperation, update); }
 }
 
-"Compiles the given [[code]] for a Logical Operation
+"Parses the given [[code]] for a Logical Operation
  into a [[LogicalOperation]] using the Ceylon compiler
  (more specifically, the rule for a `disjunctionExpression`)."
-shared LogicalOperation? compileLogicalOperation(String code, Anything(JNode,Node) update = noop) {
+shared LogicalOperation? parseLogicalOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JLogicalOp jDisjunctionExpression = createParser(code).disjunctionExpression()) {
         return logicalOperationToCeylon(jDisjunctionExpression, update);
     } else {

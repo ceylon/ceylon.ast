@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     divideAssignmentOperationToCeylon,
-    compileDivideAssignmentOperation
+    parseDivideAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object divideAssignmentOperation satisfies ConcreteTest<DivideAssignmentO
     
     shared String->DivideAssignmentOperation stepDivideAssign2Expression = construct(baseExpression.stepExpression, integerLiteral._2IntegerLiteral);
     
-    compile = compileDivideAssignmentOperation;
+    parse = parseDivideAssignmentOperation;
     fromCeylon = RedHatTransformer.transformDivideAssignmentOperation;
     toCeylon = divideAssignmentOperationToCeylon;
     codes = [stepDivideAssign2Expression];

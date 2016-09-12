@@ -21,10 +21,10 @@ shared SetAssignmentOperation setAssignmentOperationToCeylon(JBitwiseAssignmentO
     case (is JComplementAssignOp) { return complementAssignmentOperationToCeylon(setAssignmentOperation, update); }
 }
 
-"Compiles the given [[code]] for a Set Assignment Operation
+"Parses the given [[code]] for a Set Assignment Operation
  into a [[SetAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared SetAssignmentOperation? compileSetAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared SetAssignmentOperation? parseSetAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JBitwiseAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return setAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

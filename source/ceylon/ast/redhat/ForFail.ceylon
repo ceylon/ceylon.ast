@@ -23,10 +23,10 @@ shared ForFail forFailToCeylon(JForStatement forFail, Anything(JNode,Node) updat
     return result;
 }
 
-"Compiles the given [[code]] for a ‘`for`’ loop
+"Parses the given [[code]] for a ‘`for`’ loop
  into a [[ForFail]] using the Ceylon compiler
  (more specifically, the rule for a `forElse`)."
-shared ForFail? compileForFail(String code, Anything(JNode,Node) update = noop) {
+shared ForFail? parseForFail(String code, Anything(JNode,Node) update = noop) {
     if (exists jForElse = createParser(code).forElse()) {
         return forFailToCeylon(jForElse, update);
     } else {

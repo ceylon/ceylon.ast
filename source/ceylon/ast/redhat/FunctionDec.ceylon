@@ -24,10 +24,10 @@ shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec, Anything(JN
     return result;
 }
 
-"Compiles the given [[code]] for a Function Dec
+"Parses the given [[code]] for a Function Dec
  into a [[FunctionDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared FunctionDec? compileFunctionDec(String code, Anything(JNode,Node) update = noop) {
+shared FunctionDec? parseFunctionDec(String code, Anything(JNode,Node) update = noop) {
     if (is JFunctionLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return functionDecToCeylon(jMetaLiteral, update);
     } else {

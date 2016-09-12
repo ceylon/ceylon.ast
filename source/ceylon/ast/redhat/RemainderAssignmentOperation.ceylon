@@ -21,10 +21,10 @@ shared RemainderAssignmentOperation remainderAssignmentOperationToCeylon(JRemain
     return result;
 }
 
-"Compiles the given [[code]] for a Remainder Assignment Operation
+"Parses the given [[code]] for a Remainder Assignment Operation
  into a [[RemainderAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for a `assignmentExpression`)."
-shared RemainderAssignmentOperation? compileRemainderAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared RemainderAssignmentOperation? parseRemainderAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JRemainderAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return remainderAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     dynamicInterfaceDefinitionToCeylon,
-    compileDynamicInterfaceDefinition
+    parseDynamicInterfaceDefinition
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -26,7 +26,7 @@ shared object dynamicInterfaceDefinition satisfies ConcreteTest<DynamicInterface
     
     shared String->DynamicInterfaceDefinition nonemptyDynamicInterfaceDefinition = construct(identifier.systemUIdentifier, interfaceBody.emptyInterfaceBody, caseTypes.ofStringIntegerFloatCaseTypes, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes, typeParameters.twoTypeParameters, [typeConstraint.emptyTypeConstraint, typeConstraint.nonemptyTypeConstraint], annotations.helloSharedByLucasAnnotations);
     
-    compile = compileDynamicInterfaceDefinition;
+    parse = parseDynamicInterfaceDefinition;
     fromCeylon = RedHatTransformer.transformDynamicInterfaceDefinition;
     toCeylon = dynamicInterfaceDefinitionToCeylon;
     codes = [nonemptyDynamicInterfaceDefinition];

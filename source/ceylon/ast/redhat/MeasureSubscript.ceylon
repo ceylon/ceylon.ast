@@ -23,10 +23,10 @@ shared MeasureSubscript measureSubscriptToCeylon(JElementRange measureSubscript,
     return result;
 }
 
-"Compiles the given [[code]] for a Measure Subscript
+"Parses the given [[code]] for a Measure Subscript
  into a [[MeasureSubscript]] using the Ceylon compiler
  (more specifically, the rule for an `indexOrIndexRange`)."
-shared MeasureSubscript? compileMeasureSubscript(String code, Anything(JNode,Node) update = noop) {
+shared MeasureSubscript? parseMeasureSubscript(String code, Anything(JNode,Node) update = noop) {
     if (is JElementRange jElementOrRange = createParser("[``code``]").indexOrIndexRange().elementOrRange,
         jElementOrRange.lowerBound exists,
         jElementOrRange.length exists,

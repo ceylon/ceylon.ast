@@ -7,7 +7,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     argumentListToCeylon,
-    compileArgumentList
+    parseArgumentList
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -43,7 +43,7 @@ shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgumen
     shared String->ArgumentList yxArgumentList = construct([baseExpression.yExpression, baseExpression.xExpression]);
     shared String->ArgumentList phiArgumentList = construct([baseExpression.phiExpression]);
     
-    compile = compileArgumentList;
+    parse = parseArgumentList;
     fromCeylon = RedHatTransformer.transformArgumentList;
     toCeylon = argumentListToCeylon;
     codes = [emptyArgumentList, abcArgumentList, spreadTextArgumentList, comprehensionArgumentList];

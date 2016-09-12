@@ -21,10 +21,10 @@ shared DivideAssignmentOperation divideAssignmentOperationToCeylon(JDivideAssign
     return result;
 }
 
-"Compiles the given [[code]] for a Divide Assignment Operation
+"Parses the given [[code]] for a Divide Assignment Operation
  into a [[DivideAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for a `assignmentExpression`)."
-shared DivideAssignmentOperation? compileDivideAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared DivideAssignmentOperation? parseDivideAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JDivideAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return divideAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

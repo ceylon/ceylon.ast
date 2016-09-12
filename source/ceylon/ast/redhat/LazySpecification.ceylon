@@ -64,10 +64,10 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
     return result;
 }
 
-"Compiles the given [[code]] for a Lazy Specification
+"Parses the given [[code]] for a Lazy Specification
  into a [[LazySpecification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared LazySpecification? compileLazySpecification(String code, Anything(JNode,Node) update = noop) {
+shared LazySpecification? parseLazySpecification(String code, Anything(JNode,Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.specifierExpression is JLazySpecifierExpression) {
         return lazySpecificationToCeylon(jExpressionOrSpecificationStatement, update);

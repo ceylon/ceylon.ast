@@ -11,7 +11,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     letExpressionToCeylon,
-    compileLetExpression
+    parseLetExpression
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -32,7 +32,7 @@ shared object letExpression satisfies ConcreteTest<LetExpression,JLetExpression>
         sumOperation.aTimesBPlusCExpression);
     shared String->LetExpression letIfExpression => construct(["a=1"->SpecifiedPattern(VariablePattern(UnspecifiedVariable(LIdentifier("a"))), specifier.oneSpecifier.item)],ifElseExpression.ifThenAElseBExpression);
     
-    compile = compileLetExpression;
+    parse = parseLetExpression;
     fromCeylon = RedHatTransformer.transformLetExpression;
     toCeylon = letExpressionToCeylon;
     codes => [distLetExpression, abcLetExpression, letIfExpression];

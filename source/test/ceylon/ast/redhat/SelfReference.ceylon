@@ -7,11 +7,11 @@ import ceylon.ast.core {
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
-    compileSelfReference,
-    compileThis,
-    compileSuper,
-    compileOuter,
-    compilePackage,
+    parseSelfReference,
+    parseThis,
+    parseSuper,
+    parseOuter,
+    parsePackage,
     selfReferenceToCeylon,
     thisToCeylon,
     superToCeylon,
@@ -30,35 +30,35 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object \ithis satisfies ConcreteTest<This,JThis> {
     shared String->This thisThis = "this"->This();
-    compile = compileThis;
+    parse = parseThis;
     fromCeylon = RedHatTransformer.transformThis;
     toCeylon = thisToCeylon;
     codes = [thisThis];
 }
 shared object \isuper satisfies ConcreteTest<Super,JSuper> {
     shared String->Super superSuper = "super"->Super();
-    compile = compileSuper;
+    parse = parseSuper;
     fromCeylon = RedHatTransformer.transformSuper;
     toCeylon = superToCeylon;
     codes = [superSuper];
 }
 shared object \iouter satisfies ConcreteTest<Outer,JOuter> {
     shared String->Outer outerOuter = "outer"->Outer();
-    compile = compileOuter;
+    parse = parseOuter;
     fromCeylon = RedHatTransformer.transformOuter;
     toCeylon = outerToCeylon;
     codes = [outerOuter];
 }
 shared object \ipackage satisfies ConcreteTest<Package,JPackage> {
     shared String->Package packagePackage = "package"->Package();
-    compile = compilePackage;
+    parse = parsePackage;
     fromCeylon = RedHatTransformer.transformPackage;
     toCeylon = packageToCeylon;
     codes = [packagePackage];
 }
 
 shared object selfReference satisfies AbstractTest<SelfReference,JSelfExpression|JOuter|JPackage> {
-    compile = compileSelfReference;
+    parse = parseSelfReference;
     fromCeylon = RedHatTransformer.transformSelfReference;
     toCeylon = selfReferenceToCeylon;
     

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     elseOperationToCeylon,
-    compileElseOperation
+    parseElseOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -25,7 +25,7 @@ shared object elseOperation satisfies ConcreteTest<ElseOperation,JDefaultOp> {
     shared String->ElseOperation nameElseWorldStringLiteralExpression = construct(baseExpression.nameExpression, stringLiteral.worldStringLiteral);
     shared String->ElseOperation xElseOneOperation = construct(baseExpression.xExpression, integerLiteral.oneIntegerLiteral);
     
-    compile = compileElseOperation;
+    parse = parseElseOperation;
     fromCeylon = RedHatTransformer.transformElseOperation;
     toCeylon = elseOperationToCeylon;
     codes = [parsedIntElse0LiteralExpression];

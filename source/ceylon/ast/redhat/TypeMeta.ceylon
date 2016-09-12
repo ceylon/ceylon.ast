@@ -22,10 +22,10 @@ shared TypeMeta typeMetaToCeylon(JTypeLiteral typeMeta, Anything(JNode,Node) upd
     return result;
 }
 
-"Compiles the given [[code]] for a Type Meta
+"Parses the given [[code]] for a Type Meta
  into a [[TypeMeta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared TypeMeta? compileTypeMeta(String code, Anything(JNode,Node) update = noop) {
+shared TypeMeta? parseTypeMeta(String code, Anything(JNode,Node) update = noop) {
     if (is JTypeLiteral jMetaLiteral = createParser(code).metaLiteral(),
         !jMetaLiteral is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral) {
         return typeMetaToCeylon(jMetaLiteral, update);

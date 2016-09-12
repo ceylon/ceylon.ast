@@ -20,10 +20,10 @@ shared Resources resourcesToCeylon(JResourceList resources, Anything(JNode,Node)
     return result;
 }
 
-"Compiles the given [[code]] for Resources
+"Parses the given [[code]] for Resources
  into [[Resources]] using the Ceylon compiler
  (more specifically, the rule for `resources`)."
-shared Resources? compileResources(String code, Anything(JNode,Node) update = noop) {
+shared Resources? parseResources(String code, Anything(JNode,Node) update = noop) {
     if (exists jResources = createParser(code).resources()) {
         return resourcesToCeylon(jResources, update);
     } else {

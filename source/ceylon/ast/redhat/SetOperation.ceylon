@@ -21,10 +21,10 @@ shared SetOperation setOperationToCeylon(JBitwiseOp setOperation, Anything(JNode
     case (is JComplementOp) { return complementOperationToCeylon(setOperation, update); }
 }
 
-"Compiles the given [[code]] for a Set Operation
+"Parses the given [[code]] for a Set Operation
  into a [[SetOperation]] using the Ceylon compiler
  (more specifically, the rule for a `unionExpression`)."
-shared SetOperation? compileSetOperation(String code, Anything(JNode,Node) update = noop) {
+shared SetOperation? parseSetOperation(String code, Anything(JNode,Node) update = noop) {
     if (is JBitwiseOp jUnionExpression = createParser(code).unionExpression()) {
         return setOperationToCeylon(jUnionExpression, update);
     } else {

@@ -6,7 +6,7 @@ import ceylon.ast.core {
 import ceylon.ast.redhat {
     RedHatTransformer,
     packageDescriptorToCeylon,
-    compilePackageDescriptor
+    parsePackageDescriptor
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     Tree {
@@ -21,7 +21,7 @@ shared object packageDescriptor satisfies ConcreteTest<PackageDescriptor,JPackag
     
     shared String->PackageDescriptor ceylonAstCorePackageDescriptor = construct(fullPackageName.ceylonAstCorePackageName, annotations.helloSharedByLucasAnnotations);
     
-    compile = compilePackageDescriptor;
+    parse = parsePackageDescriptor;
     fromCeylon = RedHatTransformer.transformPackageDescriptor;
     toCeylon = packageDescriptorToCeylon;
     codes = [ceylonAstCorePackageDescriptor];

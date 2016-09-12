@@ -20,10 +20,10 @@ shared Conditions conditionsToCeylon(JConditionList conditions, Anything(JNode,N
     return result;
 }
 
-"Compiles the given [[code]] for Conditions
+"Parses the given [[code]] for Conditions
  into [[Conditions]] using the Ceylon compiler
  (more specifically, the rule for `conditions`)."
-shared Conditions? compileConditions(String code, Anything(JNode,Node) update = noop) {
+shared Conditions? parseConditions(String code, Anything(JNode,Node) update = noop) {
     if (exists jConditions = createParser(code).conditions()) {
         return conditionsToCeylon(jConditions, update);
     } else {

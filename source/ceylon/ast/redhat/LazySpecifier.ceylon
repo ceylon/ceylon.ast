@@ -27,10 +27,10 @@ shared LazySpecifier lazySpecifierToCeylon(JLazySpecifierExpression lazySpecifie
     return result;
 }
 
-"Compiles the given [[code]] for a Lazy Specifier
+"Parses the given [[code]] for a Lazy Specifier
  into a [[LazySpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `lazySpecifier`)."
-shared LazySpecifier? compileLazySpecifier(String code, Anything(JNode,Node) update = noop) {
+shared LazySpecifier? parseLazySpecifier(String code, Anything(JNode,Node) update = noop) {
     if (exists jLazySpecifier = createParser(code).lazySpecifier()) {
         "The grammar rule declares only SpecifierExpression, but will always return LazySpecifierExpression"
         assert (is JLazySpecifierExpression jLazySpecifier);

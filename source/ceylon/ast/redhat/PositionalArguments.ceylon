@@ -34,10 +34,10 @@ shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList p
     return result;
 }
 
-"Compiles the given [[code]] for Positional Arguments
+"Parses the given [[code]] for Positional Arguments
  into [[PositionalArguments]] using the Ceylon compiler
  (more specifically, the rule for `positionalArguments`)."
-shared PositionalArguments? compilePositionalArguments(String code, Anything(JNode,Node) update = noop) {
+shared PositionalArguments? parsePositionalArguments(String code, Anything(JNode,Node) update = noop) {
     if (exists jPositionalArguments = createParser(code).positionalArguments()) {
         return positionalArgumentsToCeylon(jPositionalArguments, update);
     } else {

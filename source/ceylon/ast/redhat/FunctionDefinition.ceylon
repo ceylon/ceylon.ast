@@ -60,10 +60,10 @@ shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionD
     return result;
 }
 
-"Compiles the given [[code]] for a Function Definition
+"Parses the given [[code]] for a Function Definition
  into a [[FunctionDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionDefinition? compileFunctionDefinition(String code, Anything(JNode,Node) update = noop) {
+shared FunctionDefinition? parseFunctionDefinition(String code, Anything(JNode,Node) update = noop) {
     if (is JMethodDefinition jDeclaration = createParser(code).declaration()) {
         return functionDefinitionToCeylon(jDeclaration, update);
     } else {

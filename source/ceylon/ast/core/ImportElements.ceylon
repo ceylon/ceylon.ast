@@ -2,8 +2,6 @@
  where the last element may optionally be a wildcard instead,
  surrounded by braces.
  
- Import elements may not be empty.
- 
  (`ceylon.ast` `ImportElements` are slightly different from the
  specification’s `ImportElements`; in the specification,
  the surrounding braces are always part of the “parent” node
@@ -22,9 +20,7 @@ shared class ImportElements(elements = [], wildcard = null)
     "The import wildcard, if present."
     shared ImportWildcard? wildcard;
     
-    "Import elements may not be empty"
-    assert (nonempty children_ = concatenate(elements, emptyOrSingleton(wildcard)));
-    shared actual [<ImportElement|ImportWildcard>+] children = children_;
+    shared actual [<ImportElement|ImportWildcard>*] children = concatenate(elements, emptyOrSingleton(wildcard));
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformImportElements(this);

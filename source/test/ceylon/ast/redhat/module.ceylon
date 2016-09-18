@@ -5,7 +5,7 @@
    - conversion of a `ceylon.ast` node to a RedHat AST node, and then back to a `ceylon.ast` node.
    
    Parsing is tested in a [[ParsingTest]], using a single function to
-   [[parse|CompilationTest.parse]] the code.
+   [[parse|ParsingTest.parse]] the code.
    
    Conversion is tested in a [[ConversionTest]], using two functions:
    one to convert [[from `ceylon.ast`|ConversionTest.fromCeylon]] to the RedHat AST,

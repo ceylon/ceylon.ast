@@ -189,6 +189,6 @@
    [spec]: https://ceylon-lang.org/documentation/1.3/spec/html_single/"""
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
-module ceylon.ast.core "1.3.1" {
-    import ceylon.collection "1.3.1";
+module ceylon.ast.core "1.3.1-SNAPSHOT" {
+    import ceylon.collection "1.3.1-SNAPSHOT";
 }

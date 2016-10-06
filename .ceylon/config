@@ -3,6 +3,7 @@
 source=source
 source=source-gen
 suppresswarning=ceylonNamespace
+target=7
 
 [defaults]
 encoding=UTF-8

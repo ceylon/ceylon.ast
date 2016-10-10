@@ -1,7 +1,6 @@
 import ceylon.ast.core {
     Node,
     ThenElseExpression,
-    AssigningExpression,
     RemainderAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -14,8 +13,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[RemainderAssignOp|JRemainderAssignOp]] to a `ceylon.ast` [[RemainderAssignmentOperation]]."
 shared RemainderAssignmentOperation remainderAssignmentOperationToCeylon(JRemainderAssignOp remainderAssignmentOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ThenElseExpression left = expressionToCeylon(remainderAssignmentOperation.leftTerm, update),
-        is AssigningExpression right = expressionToCeylon(remainderAssignmentOperation.rightTerm, update));
+    assert (is ThenElseExpression left = expressionToCeylon(remainderAssignmentOperation.leftTerm, update));
+    value right = expressionToCeylon(remainderAssignmentOperation.rightTerm, update);
     value result = RemainderAssignmentOperation(left, right);
     update(remainderAssignmentOperation, result);
     return result;

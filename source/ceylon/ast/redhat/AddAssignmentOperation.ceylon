@@ -1,6 +1,5 @@
 import ceylon.ast.core {
     AddAssignmentOperation,
-    AssigningExpression,
     Node,
     ThenElseExpression
 }
@@ -14,8 +13,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[AddAssignOp|JAddAssignOp]] to a `ceylon.ast` [[AddAssignmentOperation]]."
 shared AddAssignmentOperation addAssignmentOperationToCeylon(JAddAssignOp addAssignmentOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ThenElseExpression left = expressionToCeylon(addAssignmentOperation.leftTerm, update),
-        is AssigningExpression right = expressionToCeylon(addAssignmentOperation.rightTerm, update));
+    assert (is ThenElseExpression left = expressionToCeylon(addAssignmentOperation.leftTerm, update));
+    value right = expressionToCeylon(addAssignmentOperation.rightTerm, update);
     value result = AddAssignmentOperation(left, right);
     update(addAssignmentOperation, result);
     return result;

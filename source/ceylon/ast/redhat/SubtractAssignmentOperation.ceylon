@@ -1,7 +1,6 @@
 import ceylon.ast.core {
     Node,
     ThenElseExpression,
-    AssigningExpression,
     SubtractAssignmentOperation
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -14,8 +13,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[SubtractAssignOp|JSubtractAssignOp]] to a `ceylon.ast` [[SubtractAssignmentOperation]]."
 shared SubtractAssignmentOperation subtractAssignmentOperationToCeylon(JSubtractAssignOp subtractAssignmentOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ThenElseExpression left = expressionToCeylon(subtractAssignmentOperation.leftTerm, update),
-        is AssigningExpression right = expressionToCeylon(subtractAssignmentOperation.rightTerm, update));
+    assert (is ThenElseExpression left = expressionToCeylon(subtractAssignmentOperation.leftTerm, update));
+    value right = expressionToCeylon(subtractAssignmentOperation.rightTerm, update);
     value result = SubtractAssignmentOperation(left, right);
     update(subtractAssignmentOperation, result);
     return result;

@@ -1,6 +1,6 @@
 "A multiply assignment operation (`*=`).
  
- Right-associative.
+ Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
  
  Examples:
  
@@ -11,16 +11,16 @@ shared class MultiplyAssignmentOperation(target, factor)
     "The target expression and left factor."
     shared ThenElseExpression target;
     "The right factor."
-    shared AssigningExpression factor;
+    shared Expression factor;
     
     "The target expression and left factor."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The right factor."
     see (`value factor`)
-    shared actual AssigningExpression rightOperand = factor;
+    shared actual Expression rightOperand = factor;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "*=";
     
@@ -41,7 +41,7 @@ shared class MultiplyAssignmentOperation(target, factor)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared MultiplyAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
+    shared MultiplyAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = MultiplyAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

@@ -1,6 +1,6 @@
 "An add assignment operation (`+=`).
  
- Right-associative.
+ Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
  
  Examples:
  
@@ -13,16 +13,16 @@ shared class AddAssignmentOperation(target, summand)
     "The target expression and left summand."
     shared ThenElseExpression target;
     "The right summand."
-    shared AssigningExpression summand;
+    shared Expression summand;
     
     "The target expression and left summand."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The right summand."
     see (`value summand`)
-    shared actual AssigningExpression rightOperand = summand;
+    shared actual Expression rightOperand = summand;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "+=";
     
@@ -43,7 +43,7 @@ shared class AddAssignmentOperation(target, summand)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared AddAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
+    shared AddAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = AddAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

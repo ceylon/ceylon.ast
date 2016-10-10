@@ -1,6 +1,6 @@
 """An assignment expression.
    
-   Right-associative.
+   Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
    
    Examples:
    
@@ -12,16 +12,16 @@ shared class AssignOperation(target, expression)
     "The target expression."
     shared ThenElseExpression target;
     "The expression to assign to [[target]]."
-    shared AssigningExpression expression;
+    shared Expression expression;
     
     "The target expression."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The expression to assign to [[target]]."
     see (`value expression`)
-    shared actual AssigningExpression rightOperand = expression;
+    shared actual Expression rightOperand = expression;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "=";
     
@@ -42,7 +42,7 @@ shared class AssignOperation(target, expression)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared AssignOperation copy(ThenElseExpression target = this.target, AssigningExpression expression = this.rightOperand) {
+    shared AssignOperation copy(ThenElseExpression target = this.target, Expression expression = this.rightOperand) {
         value ret = AssignOperation(target, expression);
         copyExtraInfoTo(ret);
         return ret;

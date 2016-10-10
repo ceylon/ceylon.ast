@@ -1,6 +1,6 @@
 "A subtract assignment operation (`-=`).
  
- Right-associative.
+ Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
  
  Examples:
  
@@ -12,16 +12,16 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     "The target expression and minuend."
     shared ThenElseExpression target;
     "The subtrahend."
-    shared AssigningExpression subtrahend;
+    shared Expression subtrahend;
     
     "The target expression and minuend."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The subtrahend."
     see (`value subtrahend`)
-    shared actual AssigningExpression rightOperand = subtrahend;
+    shared actual Expression rightOperand = subtrahend;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "-=";
     
@@ -42,7 +42,7 @@ shared class SubtractAssignmentOperation(target, subtrahend)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared SubtractAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
+    shared SubtractAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = SubtractAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

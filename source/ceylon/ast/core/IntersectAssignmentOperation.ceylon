@@ -1,6 +1,6 @@
 "An intersect assignment operation.
  
- Right-associative.
+ Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
  
  Examples:
  
@@ -13,16 +13,16 @@ shared class IntersectAssignmentOperation(target, other)
     "The target expression and left operand."
     shared ThenElseExpression target;
     "The right operand."
-    shared AssigningExpression other;
+    shared Expression other;
     
     "The target expression and left operand."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The right operand."
     see (`value other`)
-    shared actual AssigningExpression rightOperand = other;
+    shared actual Expression rightOperand = other;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "&=";
     
@@ -43,7 +43,7 @@ shared class IntersectAssignmentOperation(target, other)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared IntersectAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
+    shared IntersectAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = IntersectAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

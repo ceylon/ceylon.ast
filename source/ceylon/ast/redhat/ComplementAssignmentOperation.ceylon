@@ -1,5 +1,4 @@
 import ceylon.ast.core {
-    AssigningExpression,
     ComplementAssignmentOperation,
     Node,
     ThenElseExpression
@@ -14,8 +13,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 "Converts a RedHat AST [[ComplementAssignOp|JComplementAssignOp]] to a `ceylon.ast` [[ComplementAssignmentOperation]]."
 shared ComplementAssignmentOperation complementAssignmentOperationToCeylon(JComplementAssignOp complementAssignmentOperation, Anything(JNode,Node) update = noop) {
     "Check precedence"
-    assert (is ThenElseExpression left = expressionToCeylon(complementAssignmentOperation.leftTerm, update),
-        is AssigningExpression right = expressionToCeylon(complementAssignmentOperation.rightTerm, update));
+    assert (is ThenElseExpression left = expressionToCeylon(complementAssignmentOperation.leftTerm, update));
+    value right = expressionToCeylon(complementAssignmentOperation.rightTerm, update);
     value result = ComplementAssignmentOperation(left, right);
     update(complementAssignmentOperation, result);
     return result;

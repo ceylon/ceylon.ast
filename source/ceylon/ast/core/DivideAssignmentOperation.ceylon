@@ -1,6 +1,6 @@
 "A divide assignment operation (`/=`).
  
- Right-associative.
+ Right-associative. Any expression may appear on the right-hand side, regardless of precedence.
  
  Examples:
  
@@ -13,16 +13,16 @@ shared class DivideAssignmentOperation(target, divisor)
     "The target expression and dividend / numerator."
     shared ThenElseExpression target;
     "The divisor / denominator."
-    shared AssigningExpression divisor;
+    shared Expression divisor;
     
     "The target expression and dividend / numerator."
     see (`value target`)
     shared actual ThenElseExpression leftOperand = target;
     "The divisor / denominator."
     see (`value divisor`)
-    shared actual AssigningExpression rightOperand = divisor;
+    shared actual Expression rightOperand = divisor;
     
-    shared actual [ThenElseExpression, AssigningExpression] children = [leftOperand, rightOperand];
+    shared actual [ThenElseExpression, Expression] children = [leftOperand, rightOperand];
     
     operator = "/=";
     
@@ -43,7 +43,7 @@ shared class DivideAssignmentOperation(target, divisor)
     shared actual Integer hash
             => 31 * (leftOperand.hash + 31 * rightOperand.hash);
     
-    shared DivideAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, AssigningExpression rightOperand = this.rightOperand) {
+    shared DivideAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = DivideAssignmentOperation(leftOperand, rightOperand);
         copyExtraInfoTo(ret);
         return ret;

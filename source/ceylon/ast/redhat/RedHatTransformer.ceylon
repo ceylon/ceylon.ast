@@ -444,7 +444,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JAddAssignOp ret = JAddAssignOp(tokens.token(that.operator, add_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -476,7 +476,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JAndAssignOp ret = JAndAssignOp(tokens.token(that.operator, and_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -692,7 +692,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JAssignOp ret = JAssignOp(tokens.token(that.operator, specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -1068,7 +1068,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JComplementAssignOp ret = JComplementAssignOp(tokens.token(that.operator, complement_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -1259,7 +1259,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JDivideAssignOp ret = JDivideAssignOp(tokens.token(that.operator, divide_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -2013,7 +2013,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JIntersectAssignOp ret = JIntersectAssignOp(tokens.token(that.operator, intersect_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -2351,7 +2351,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JMultiplyAssignOp ret = JMultiplyAssignOp(tokens.token(that.operator, multiply_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -2496,7 +2496,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JOrAssignOp ret = JOrAssignOp(tokens.token(that.operator, or_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -2729,7 +2729,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JRemainderAssignOp ret = JRemainderAssignOp(tokens.token(that.operator, remainder_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -3018,7 +3018,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JSubtractAssignOp ret = JSubtractAssignOp(tokens.token(that.operator, subtract_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     
@@ -3380,7 +3380,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JTerm left = transformThenElseExpression(that.leftOperand);
         JUnionAssignOp ret = JUnionAssignOp(tokens.token(that.operator, union_specify));
         ret.leftTerm = left;
-        ret.rightTerm = transformAssigningExpression(that.rightOperand);
+        ret.rightTerm = transformExpression(that.rightOperand);
         return ret;
     }
     

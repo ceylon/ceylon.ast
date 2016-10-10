@@ -43,11 +43,11 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared default Boolean editNode(Node node) => true;
     
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default AliasDec transformAliasDec(AliasDec that)
             => editNode(that) then that.copy(transformUIdentifier(that.name), transformDecQualifier(that.qualifier)) else that;
     shared actual default AndAssignmentOperation transformAndAssignmentOperation(AndAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default AndOperation transformAndOperation(AndOperation that)
             => editNode(that) then that.copy(transformConjoiningExpression(that.leftOperand), transformNegatingExpression(that.rightOperand)) else that;
     shared actual default Annotation transformAnnotation(Annotation that)
@@ -105,7 +105,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default Assertion transformAssertion(Assertion that)
             => editNode(that) then that.copy(transformConditions(that.conditions), transformAnnotations(that.annotations)) else that;
     shared actual default AssignOperation transformAssignOperation(AssignOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {
         assert (is AssignmentOperation ret = super.transformAssignmentOperation(that));
         return ret;
@@ -185,7 +185,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default CompilationUnit transformCompilationUnit(CompilationUnit that)
             => editNode(that) then that.copy(that.declarations.collect(transformDeclaration), that.imports.collect(transformImport)) else that;
     shared actual default ComplementAssignmentOperation transformComplementAssignmentOperation(ComplementAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default ComplementOperation transformComplementOperation(ComplementOperation that)
             => editNode(that) then that.copy(transformUnioningExpression(that.leftOperand), transformIntersectingExpression(that.rightOperand)) else that;
     shared actual default Comprehension transformComprehension(Comprehension that)
@@ -249,7 +249,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default DivideAssignmentOperation transformDivideAssignmentOperation(DivideAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default DynamicBlock transformDynamicBlock(DynamicBlock that)
             => editNode(that) then that.copy(transformBlock(that.block)) else that;
     shared actual default DynamicInterfaceDefinition transformDynamicInterfaceDefinition(DynamicInterfaceDefinition that)
@@ -401,7 +401,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default InterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)
             => editNode(that) then that.copy(transformUIdentifier(that.name), transformInterfaceBody(that.body), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations)) else that;
     shared actual default IntersectAssignmentOperation transformIntersectAssignmentOperation(IntersectAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default IntersectionOperation transformIntersectionOperation(IntersectionOperation that)
             => editNode(that) then that.copy(transformIntersectingExpression(that.leftOperand), transformInvertingExpression(that.rightOperand)) else that;
     shared actual default IntersectionType transformIntersectionType(IntersectionType that)
@@ -489,7 +489,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ModuleImport transformModuleImport(ModuleImport that)
             => editNode(that) then that.copy(transformFullPackageNameOrStringLiteral(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations)) else that;
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
         assert (is NameWithTypeArguments ret = super.transformNameWithTypeArguments(that));
         return ret;
@@ -527,7 +527,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default OptionalType transformOptionalType(OptionalType that)
             => editNode(that) then that.copy(transformPrimaryType(that.definiteType)) else that;
     shared actual default OrAssignmentOperation transformOrAssignmentOperation(OrAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default OrOperation transformOrOperation(OrOperation that)
             => editNode(that) then that.copy(transformDisjoiningExpression(that.leftOperand), transformConjoiningExpression(that.rightOperand)) else that;
     shared actual default OutModifier transformOutModifier(OutModifier that)
@@ -677,7 +677,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default RemainderAssignmentOperation transformRemainderAssignmentOperation(RemainderAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default RemainderOperation transformRemainderOperation(RemainderOperation that)
             => editNode(that) then that.copy(transformMultiplyingExpression(that.leftOperand), transformUnioningExpression(that.rightOperand)) else that;
     shared actual RequiredParameter transformRequiredParameter(RequiredParameter that) {
@@ -755,7 +755,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default SubtractAssignmentOperation transformSubtractAssignmentOperation(SubtractAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default SumOperation transformSumOperation(SumOperation that)
             => editNode(that) then that.copy(transformAddingExpression(that.leftOperand), transformScalingExpression(that.rightOperand)) else that;
     shared actual default Super transformSuper(Super that)
@@ -845,7 +845,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default UnionAssignmentOperation transformUnionAssignmentOperation(UnionAssignmentOperation that)
-            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformAssigningExpression(that.rightOperand)) else that;
+            => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default UnionOperation transformUnionOperation(UnionOperation that)
             => editNode(that) then that.copy(transformUnioningExpression(that.leftOperand), transformIntersectingExpression(that.rightOperand)) else that;
     shared actual default UnionType transformUnionType(UnionType that)

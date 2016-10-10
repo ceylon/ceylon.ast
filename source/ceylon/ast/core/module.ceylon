@@ -179,14 +179,19 @@
    
    their AST nodes are not.
    
-   The distinction between syntactical and semantical restrictions is sometimes
-   unclear or ambiguous; note especially that the RedHat compiler’s parser
-   (grammar) allows (for better error messages) some syntax that is refused
-   in `ceylon.ast` (for example, empty resource lists for `try`).
-   `ceylon.ast` seeks to comply only with the [Ceylon Language Specification][spec],
-   not its implementation in the compiler.
+   The standard for a syntactically valid Ceylon program
+   is the [reference implementation][impl] of the typechecker.
+   This includes some programs that are not covered by the [specification][spec],
+   which the typechecker accepts for better interoperation;
+   within reason, and where this does not appear to be a bug in the typechecker,
+   `ceylon.ast` permits such programs as well.
+   However, this is restricted to programs that do not cause any typechecker errors:
+   programs which the typechecker can parse merely so that it can report proper errors
+   instead of parse errors (for example, `try (/* empty resource list */)`)
+   are not accepted by `ceylon.ast`.
    
-   [spec]: https://ceylon-lang.org/documentation/1.3/spec/html_single/"""
+   [spec]: https://ceylon-lang.org/documentation/1.3/spec/html_single/
+   [impl]: https://github.com/ceylon/ceylon/"""
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 module ceylon.ast.core "1.3.1-SNAPSHOT" {

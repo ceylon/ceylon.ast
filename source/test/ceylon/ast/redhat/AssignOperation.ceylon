@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     AssignOperation,
-    ThenElseExpression,
-    AssigningExpression
+    Expression,
+    ThenElseExpression
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,11 +16,12 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> {
     
-    String->AssignOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
+    String->AssignOperation construct(String->ThenElseExpression left, String->Expression right)
             => "``left.key``=``right.key``"->AssignOperation(left.item, right.item);
     
     shared String->AssignOperation iAssign1Expression = construct(baseExpression.iExpression, integerLiteral.oneIntegerLiteral);
     shared String->AssignOperation textAssignExpression = construct(baseExpression.textExpression, sumOperation.helloPlusNameElseWorldPlusBangExpression);
+    shared String->AssignOperation functionAssignExpression => construct(baseExpression.aExpression, functionExpression.emptyNoopFunctionExpression);
     
     // not tested directly, but used by other tests
     shared String->AssignOperation nameEmptyAssignTrueExpression = construct(qualifiedExpression.nameEmptyExpression, baseExpression.trueExpression);
@@ -28,5 +29,5 @@ shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> 
     parse = parseAssignOperation;
     fromCeylon = RedHatTransformer.transformAssignOperation;
     toCeylon = assignOperationToCeylon;
-    codes = [iAssign1Expression, textAssignExpression];
+    codes => [iAssign1Expression, textAssignExpression, functionAssignExpression];
 }

@@ -12,10 +12,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] to a `ceylon.ast` [[Invocation]]."
+suppressWarnings ("inferredNotNull")
 shared Invocation invocationToCeylon(JInvocationExpression invocation, Anything(JNode,Node) update = noop) {
-    value arguments = invocation.positionalArgumentList else invocation.namedArgumentList;
     Invocation result;
-    switch (arguments)
+    switch (arguments = invocation.positionalArgumentList else invocation.namedArgumentList)
     case (is JPositionalArgumentList) { result = Invocation(primaryToCeylon(invocation.primary, update), positionalArgumentsToCeylon(arguments, update)); }
     case (is JNamedArgumentList) { result = Invocation(primaryToCeylon(invocation.primary, update), namedArgumentsToCeylon(arguments, update)); }
     update(invocation, result);

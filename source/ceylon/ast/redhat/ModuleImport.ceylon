@@ -21,6 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[ImportModule|JImportModule]] to a `ceylon.ast` [[ModuleImport]]."
+suppressWarnings ("inferredNotNull")
 shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JNode,Node) update = noop) {
     FullPackageName|StringLiteral name;
     if (exists jName = moduleImport.importPath) {

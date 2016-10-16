@@ -18,6 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[ModuleDescriptor|JModuleDescriptor]] to a `ceylon.ast` [[ModuleDescriptor]]."
+suppressWarnings ("inferredNotNull")
 shared ModuleDescriptor moduleDescriptorToCeylon(JModuleDescriptor moduleDescriptor, Anything(JNode,Node) update = noop) {
     StringLiteral version;
     value jVersion = moduleDescriptor.version;

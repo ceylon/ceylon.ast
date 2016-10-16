@@ -15,6 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[VariablePattern|JVariablePattern]] to a `ceylon.ast` [[VariablePattern]]."
+suppressWarnings ("inferredNotNull")
 shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern, Anything(JNode,Node) update = noop) {
     Type|ValueModifier? type;
     value jVariable = variablePattern.variable;

@@ -14,6 +14,7 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[CompilationUnit|JCompilationUnit]] to a `ceylon.ast` [[ModuleCompilationUnit]]."
 throws (`class AssertionError`, "If the compilation unit contains package descriptors, declarations, or not exactly one module descriptor")
+suppressWarnings ("inferredNotNull")
 shared ModuleCompilationUnit moduleCompilationUnitToCeylon(JCompilationUnit moduleCompilationUnit, Anything(JNode,Node) update = noop) {
     "Must not have declarations or package descriptors"
     assert (moduleCompilationUnit.declarations.empty,

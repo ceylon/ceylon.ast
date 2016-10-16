@@ -16,6 +16,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[LetExpression|JLetExpression]] to a `ceylon.ast` [[LetExpression]]."
+suppressWarnings ("inferredNotNull")
 shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anything(JNode,Node) update = noop) {
     value letClause = letExpression.letClause;
     value letValues = CeylonIterable(letClause.variables).collect(propagateUpdate(specifiedPatternToCeylon, update));

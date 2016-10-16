@@ -15,6 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CatchClause|JCatchClause]] to a `ceylon.ast` [[CatchClause]]."
+suppressWarnings ("inferredNotNull")
 shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,Node) update = noop) {
     Type|ValueModifier? type;
     value jVariable = catchClause.catchVariable.variable;

@@ -455,7 +455,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default MatchCase transformMatchCase(MatchCase that)
-            => editNode(that) then that.copy(that.expressions.collect(transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpression)) else that;
+            => editNode(that) then that.copy(that.expressions.collect(transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpressionOrTuple)) else that;
     shared actual default MeasureOperation transformMeasureOperation(MeasureOperation that)
             => editNode(that) then that.copy(transformAddingExpression(that.leftOperand), transformAddingExpression(that.rightOperand)) else that;
     shared actual default MeasureSubscript transformMeasureSubscript(MeasureSubscript that)
@@ -946,7 +946,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is Declaration) { return transformDeclaration(that); }
         case (is Specification) { return transformSpecification(that); }
     }
-    IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpression(IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression that) {
+    IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple transformIntegerLiteralOrCharacterLiteralOrStringLiteralOrNegationOperationOrBaseExpressionOrQualifiedExpressionOrTuple(IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple that) {
         switch (that)
         case (is IntegerLiteral) { return transformIntegerLiteral(that); }
         case (is CharacterLiteral) { return transformCharacterLiteral(that); }
@@ -954,6 +954,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is NegationOperation) { return transformNegationOperation(that); }
         case (is BaseExpression) { return transformBaseExpression(that); }
         case (is QualifiedExpression) { return transformQualifiedExpression(that); }
+        case (is Tuple) { return transformTuple(that); }
     }
     FullPackageName|StringLiteral transformFullPackageNameOrStringLiteral(FullPackageName|StringLiteral that) {
         switch (that)

@@ -6,7 +6,8 @@ import ceylon.ast.core {
     NegationOperation,
     Node,
     QualifiedExpression,
-    StringLiteral
+    StringLiteral,
+    Tuple
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
@@ -23,8 +24,8 @@ import ceylon.interop.java {
 shared MatchCase matchCaseToCeylon(JMatchCase matchCase, Anything(JNode,Node) update = noop) {
     assert (nonempty expressions = CeylonIterable(matchCase.expressionList.expressions)
             .collect {
-            IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression collecting(JExpression element) {
-                assert (is IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression expression = expressionToCeylon(element, update));
+            IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple collecting(JExpression element) {
+                assert (is IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple expression = expressionToCeylon(element, update));
                 return expression;
             }
         });

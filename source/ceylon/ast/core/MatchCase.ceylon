@@ -10,12 +10,12 @@ shared class MatchCase(expressions)
     
     "The tested expressions.
      Every tested expression must be [[acceptable|matchCaseAcceptable]]."
-    shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions;
+    shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple>+] expressions;
     
     "All expressions must be known at compile time"
     assert (expressions.every(matchCaseAcceptable));
     
-    shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] children = expressions;
+    shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple>+] children = expressions;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformMatchCase(this);
@@ -34,7 +34,7 @@ shared class MatchCase(expressions)
     shared actual Integer hash
             => 31 * expressions.hash;
     
-    shared MatchCase copy([<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions = this.expressions) {
+    shared MatchCase copy([<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple>+] expressions = this.expressions) {
         value ret = MatchCase(expressions);
         copyExtraInfoTo(ret);
         return ret;
@@ -56,6 +56,8 @@ shared class MatchCase(expressions)
  - A [[qualified expression|QualifiedExpression]] referring to
    a [[package|Package]]-qualified toplevel object is known at compile time
    and accepted if the object satisfies `Identifiable|Null`.
+ - A [[tuple|Tuple]] is accepted if all of its listed expressions are accepted
+   and it does not have a [[sequence argument|ArgumentList.sequenceArgument]].
  - No other expressions are accepted.
  
  These conditions are slightly relaxed for `ceylon.ast`;
@@ -70,5 +72,6 @@ shared Boolean matchCaseAcceptable(Expression expression) {
     case (is IntegerLiteral|CharacterLiteral|StringLiteral|BaseExpression|Package) { return true; }
     case (is NegationOperation) { return  expression.operand is IntegerLiteral; }
     case (is QualifiedExpression) { return matchCaseAcceptable(expression.receiverExpression); }
+    case (is Tuple) { return expression.argumentList.listedArguments.every(matchCaseAcceptable) && !expression.argumentList.sequenceArgument exists; }
     else { return false; }
 }

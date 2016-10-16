@@ -22,16 +22,7 @@ shared class MatchCase(expressions)
      exact comparison with a float literal value is rarely the correct thing to do.)"
     shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions;
     
-    for (expression in expressions) {
-        if (is NegationOperation expression) {
-            "Negated operand in switch case item must be integer literal"
-            assert (expression.operand is IntegerLiteral);
-        }
-        if (is QualifiedExpression expression) {
-            "Base expression in switch case item must be package.toplevel or Class.valueConstructor"
-            assert (expression.receiverExpression is BaseExpression|QualifiedExpression|Package);
-        }
-    }
+    assert (expressions.every(matchCaseAcceptable));
     
     shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] children = expressions;
     
@@ -57,4 +48,14 @@ shared class MatchCase(expressions)
         copyExtraInfoTo(ret);
         return ret;
     }
+}
+
+"Tests whether an expression is acceptable for a [[match case|MatchCase]]."
+see (`value MatchCase.expressions`)
+shared Boolean matchCaseAcceptable(Expression expression) {
+    switch (expression)
+    case (is IntegerLiteral|CharacterLiteral|StringLiteral|BaseExpression|Package) { return true; }
+    case (is NegationOperation) { return  expression.operand is IntegerLiteral; }
+    case (is QualifiedExpression) { return matchCaseAcceptable(expression.receiverExpression); }
+    else { return false; }
 }

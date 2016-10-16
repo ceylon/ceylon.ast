@@ -9,19 +9,10 @@ shared class MatchCase(expressions)
         extends CaseItem() {
     
     "The tested expressions.
-     
-     The tested expressions must all be known at compile time:
-     - literals are always known at compile time;
-     - the [[operand|NegationOperation.operand]] of a [[NegationOperation]] must be an [[IntegerLiteral]];
-     - a [[BaseExpression]] must refer to a toplevel value that satisfies `Identifiable|Null`;
-     - a [[QualifiedExpression]] must refer to a toplevel value that satisfies `Identifiable|Null` (qualified with [[Package]]),
-       or to a value constructor of a toplevel class that satisfies `Identifiable`.
-       (The [[QualifiedExpression.receiverExpression]] must be a `BaseExpression|QualifiedExpression|Package`.)
-     
-     (A [[FloatLiteral]] is not permitted because due to rounding errors,
-     exact comparison with a float literal value is rarely the correct thing to do.)"
+     Every tested expression must be [[acceptable|matchCaseAcceptable]]."
     shared [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] expressions;
     
+    "All expressions must be known at compile time"
     assert (expressions.every(matchCaseAcceptable));
     
     shared actual [<IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression>+] children = expressions;
@@ -50,7 +41,29 @@ shared class MatchCase(expressions)
     }
 }
 
-"Tests whether an expression is acceptable for a [[match case|MatchCase]]."
+"Determines whether an expression is acceptable for a [[match case|MatchCase]].
+ 
+ - An [[integer|IntegerLiteral]], [[character|CharacterLiteral]]
+   or [[string literal|StringLiteral]] is known at compile time and therefore accepted.
+   (Float literals are not accepted because due to rounding errors,
+   exact comparison with a float literal value is rarely the correct thing to do.)
+ - A [[negated|NegationOperation]] [[integer literal|IntegerLiteral]] is known at compile time and therefore accepted.
+ - A [[base expression|BaseExpression]] referring to a toplevel object is known at compile time
+   and acceptable if the object satisfies `Identifiable|Null`.
+ - A [[qualified expression|QualifiedExpression]] referring to
+   a value constructor of a toplevel class is known at compile time
+   and acceptable if the class satisfies `Identifiable|Null`.
+ - A [[qualified expression|QualifiedExpression]] referring to
+   a [[package|Package]]-qualified toplevel object is known at compile time
+   and accepted if the object satisfies `Identifiable|Null`.
+ - No other expressions are accepted.
+ 
+ These conditions are slightly relaxed for `ceylon.ast`;
+ without typechecker information, it is impossible to know what an expression refers to,
+ so any base expression is accepted,
+ and a qualified  expression is accepted
+ iff its [[receiver expression|QualifiedExpression.receiverExpression]] is accepted,
+ permitting arbitrarily nested qualifier expressions."
 see (`value MatchCase.expressions`)
 shared Boolean matchCaseAcceptable(Expression expression) {
     switch (expression)

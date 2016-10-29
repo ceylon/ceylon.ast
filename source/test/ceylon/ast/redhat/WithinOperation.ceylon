@@ -24,9 +24,10 @@ shared object withinOperation satisfies ConcreteTest<WithinOperation,JWithinOp> 
     shared String->WithinOperation doubleOpenWithinOperation = construct(baseExpression.aExpression, openBound.cOpenBound_withCode, openBound._1138OpenBound_withCode);
     shared String->WithinOperation openClosedWithinOperation = construct(baseExpression.aExpression, openBound.cOpenBound_withCode, closedBound._1138ClosedBound_withCode);
     shared String->WithinOperation doubleClosedWithinOperation = construct(baseExpression.aExpression, closedBound.cClosedBound_withCode, closedBound._1138ClosedBound_withCode);
+    shared String->WithinOperation bDoubleOpenWithinOperation = construct(baseExpression.bExpression, openBound.cOpenBound_withCode, openBound._1138OpenBound_withCode);
     
     parse = parseWithinOperation;
     fromCeylon = RedHatTransformer.transformWithinOperation;
     toCeylon = withinOperationToCeylon;
-    codes = [doubleOpenWithinOperation, openClosedWithinOperation, doubleClosedWithinOperation];
+    codes = [doubleOpenWithinOperation, openClosedWithinOperation, doubleClosedWithinOperation, bDoubleOpenWithinOperation];
 }

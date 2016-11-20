@@ -1,9 +1,10 @@
+[defaults]
+encoding=UTF-8
 
 [compiler]
 source=source
 source=source-gen
 suppresswarning=ceylonNamespace
-target=7
 
-[defaults]
-encoding=UTF-8
+[compiler.jvm]
+target=7

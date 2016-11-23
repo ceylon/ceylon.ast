@@ -758,6 +758,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JBlock transformBlock(Block that) {
         JBlock ret = JBlock(tokens.token("{", lbrace));
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = true; };
         for (element in that.content) {
             assert (is JStatement jStatement = element.transform(this));
             ret.addStatement(jStatement);
@@ -949,6 +950,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JClassBody transformClassBody(ClassBody that) {
         JClassBody ret = JClassBody(tokens.token("{", lbrace));
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = true; };
         for (element in that.content) {
             assert (is JStatement jStatement = element.transform(this));
             ret.addStatement(jStatement);
@@ -1052,11 +1054,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JCompilationUnit transformCompilationUnit(CompilationUnit that) {
         JCompilationUnit ret = JCompilationUnit(null);
-        JImportList imports = JImportList(null);
-        for (\iimport in that.imports) {
-            imports.addImport(transformImport(\iimport));
-        }
-        ret.importList = imports;
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = false; };
         for (declaration in that.declarations) {
             ret.addDeclaration(transformDeclaration(declaration));
         }
@@ -1985,6 +1983,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JInterfaceBody transformInterfaceBody(InterfaceBody that) {
         JInterfaceBody ret = JInterfaceBody(tokens.token("{", lbrace));
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = true; };
         for (declaration in that.content) {
             assert (is JStatement jStatement = declaration.transform(this));
             ret.addStatement(jStatement);
@@ -2299,11 +2298,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that) {
         JCompilationUnit ret = JCompilationUnit(null);
-        JImportList imports = JImportList(null);
-        for (\iimport in that.imports) {
-            imports.addImport(transformImport(\iimport));
-        }
-        ret.importList = imports;
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = false; };
         ret.addModuleDescriptor(transformModuleDescriptor(that.moduleDescriptor));
         tokens.token("", eof);
         return ret;
@@ -2522,11 +2517,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JCompilationUnit transformPackageCompilationUnit(PackageCompilationUnit that) {
         JCompilationUnit ret = JCompilationUnit(null);
-        JImportList imports = JImportList(null);
-        for (\iimport in that.imports) {
-            imports.addImport(transformImport(\iimport));
-        }
-        ret.importList = imports;
+        ret.importList = helpTransformImports { that.imports; nullIfEmpty = false; };
         ret.addPackageDescriptor(transformPackageDescriptor(that.packageDescriptor));
         tokens.token("", eof);
         return ret;
@@ -3776,6 +3767,18 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         case (is JInvocationExpression) {
             assert (is JExtendedTypeExpression ete = transformed.primary);
             return [ete.type, transformed];
+        }
+    }
+    
+    JImportList? helpTransformImports(Import[] imports, Boolean nullIfEmpty) {
+        if (imports nonempty || !nullIfEmpty) {
+            JImportList importList = JImportList(null);
+            for (\iimport in imports) {
+                importList.addImport(transformImport(\iimport));
+            }
+            return importList;
+        } else {
+            return null;
         }
     }
     

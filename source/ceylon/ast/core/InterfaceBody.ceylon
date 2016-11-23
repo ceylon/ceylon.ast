@@ -5,6 +5,9 @@
    An exception from this are specifications, which, while technically statements,
    are allowed (shortcut refinement).
    
+   An interface body may also include a list of [[imports]]
+   that is local to this interface body only.
+   
    Examples (multi-line):
    
        {
@@ -18,12 +21,13 @@
            shared formal String name;
            string => name;
        }"""
-shared class InterfaceBody(content)
+shared class InterfaceBody(content, imports = [])
         extends Body() {
     
+    shared actual Import[] imports;
     shared actual <Declaration|Specification>[] content;
     
-    shared actual <Declaration|Specification>[] children = content;
+    shared actual <Import|Declaration|Specification>[] children = concatenate(imports, content);
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceBody(this);
@@ -33,17 +37,17 @@ shared class InterfaceBody(content)
 
     shared actual Boolean equals(Object that) {
         if (is InterfaceBody that) {
-            return content == that.content;
+            return imports == that.imports && content == that.content;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * content.hash;
+            => 31 * (imports.hash + 31 * content.hash);
     
-    shared InterfaceBody copy(<Declaration|Specification>[] content = this.content) {
-        value ret = InterfaceBody(content);
+    shared InterfaceBody copy(<Declaration|Specification>[] content = this.content, Import[] imports = this.imports) {
+        value ret = InterfaceBody(content, imports);
         copyExtraInfoTo(ret);
         return ret;
     }

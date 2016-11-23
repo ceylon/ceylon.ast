@@ -123,7 +123,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
             => that.qualifier exists
             then "BaseType(``transformWithIndent(that.nameAndArgs)``, ``transformWithIndent(that.qualifier)``)"
             else "BaseType(``transformWithIndent(that.nameAndArgs)``)";
-    transformBlock(Block that) => "Block(``transformWithIndent(that.content)``)";
+    transformBlock(Block that)
+            => that.imports nonempty
+            then "Block {
+                  `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                  `` indent + indentLevel ``content = ``transformWithIndent(that.content)``;
+                  }"
+            else "Block(``transformWithIndent(that.content)``)";
     transformBooleanCondition(BooleanCondition that) => "BooleanCondition(``transformWithIndent(that.condition)``)";
     transformBreak(Break that) => "Break()";
     transformCallableConstructorDefinition(CallableConstructorDefinition that)
@@ -175,7 +181,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
-    transformClassBody(ClassBody that) => "ClassBody(``transformWithIndent(that.content)``)";
+    transformClassBody(ClassBody that)
+            => that.imports nonempty
+            then "ClassBody {
+                  `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                  `` indent + indentLevel ``content = ``transformWithIndent(that.content)``;
+                  }"
+            else "ClassBody(``transformWithIndent(that.content)``)";
     transformClassDec(ClassDec that)
             => that.qualifier?.children nonempty
             then "ClassDec {
@@ -498,7 +510,13 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``typeConstraints = ``transformWithIndent(that.typeConstraints)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 ``indent``}";
-    transformInterfaceBody(InterfaceBody that) => "InterfaceBody(``transformWithIndent(that.content)``)";
+    transformInterfaceBody(InterfaceBody that)
+            => that.imports nonempty
+            then "InterfaceBody {
+                  `` indent + indentLevel ``imports = ``transformWithIndent(that.imports)``;
+                  `` indent + indentLevel ``content = ``transformWithIndent(that.content)``;
+                  }"
+            else "InterfaceBody(``transformWithIndent(that.content)``)";
     transformInterfaceDec(InterfaceDec that)
             => that.qualifier?.children nonempty
             then "InterfaceDec {

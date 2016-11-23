@@ -4,6 +4,9 @@
    executed sequentially each time the block is entered (declarations
    can’t be executed). It may also return a value.
    
+   A block may also include a list of [[imports]]
+   that is local to this block only.
+   
    Examples (multi-line):
    
        {
@@ -23,13 +26,18 @@
            } else {
                return "";
            }
+       }
+       {
+           import java.lang { System }
+           System.arraycopy(src, srcPos, dest, destPos, length);
        }"""
-shared class Block(content)
+shared class Block(content, imports = [])
         extends Body() {
     
+    shared actual Import[] imports;
     shared actual <Declaration|Statement>[] content;
     
-    shared actual <Declaration|Statement>[] children = content;
+    shared actual <Import|Declaration|Statement>[] children = concatenate(imports, content);
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformBlock(this);
@@ -39,17 +47,17 @@ shared class Block(content)
 
     shared actual Boolean equals(Object that) {
         if (is Block that) {
-            return content == that.content;
+            return imports == that.imports && content == that.content;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * content.hash;
+            => 31 * (imports.hash + 31 * content.hash);
     
-    shared Block copy(<Declaration|Statement>[] content = this.content) {
-        value ret = Block(content);
+    shared Block copy(<Declaration|Statement>[] content = this.content, Import[] imports = this.imports) {
+        value ret = Block(content, imports);
         copyExtraInfoTo(ret);
         return ret;
     }

@@ -1855,12 +1855,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JAlias transformImportAlias(ImportAlias that) {
-        assert (is JAlias ret = super.transformImportAlias(that));
+        value identifier = transformIdentifier(that.name);
+        JAlias ret = JAlias(tokens.token("=", specify));
+        ret.identifier = identifier;
         return ret;
     }
     
     shared actual JImportMemberOrType transformImportElement(ImportElement that) {
-        assert (is JImportMemberOrType ret = super.transformImportElement(that));
+        // JImportType exists, but is never instantiated by the parser nor referenced by the rest of the compiler, so we always instantiate JImportMember as well
+        JImportMember ret = JImportMember(null);
+        if (exists importAlias = that.importAlias) {
+            ret.\ialias = transformImportAlias(importAlias);
+        }
+        ret.identifier = transformIdentifier(that.name);
+        if (exists nestedImports = that.nestedImports) {
+            ret.importMemberOrTypeList = transformImportElements(nestedImports);
+        }
         return ret;
     }
     
@@ -1882,45 +1892,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             }
         }
         ret.endToken = tokens.token("}", rbrace);
-        return ret;
-    }
-    
-    shared actual JAlias transformImportFunctionValueAlias(ImportFunctionValueAlias that) {
-        value identifier = transformLIdentifier(that.name);
-        JAlias ret = JAlias(tokens.token("=", specify));
-        ret.identifier = identifier;
-        return ret;
-    }
-    
-    shared actual JImportMemberOrType transformImportFunctionValueElement(ImportFunctionValueElement that) {
-        JImportMember ret = JImportMember(null);
-        if (exists importAlias = that.importAlias) {
-            ret.\ialias = transformImportFunctionValueAlias(importAlias);
-        }
-        ret.identifier = transformLIdentifier(that.name);
-        if (exists nestedImports = that.nestedImports) {
-            ret.importMemberOrTypeList = transformImportElements(nestedImports);
-        }
-        return ret;
-    }
-    
-    shared actual JAlias transformImportTypeAlias(ImportTypeAlias that) {
-        value identifier = transformUIdentifier(that.name);
-        JAlias ret = JAlias(tokens.token("=", specify));
-        ret.identifier = identifier;
-        return ret;
-    }
-    
-    shared actual JImportMemberOrType transformImportTypeElement(ImportTypeElement that) {
-        // We generate an ImportMember, not an ImportType, because that’s what the parser does
-        JImportMember ret = JImportMember(null);
-        if (exists importAlias = that.importAlias) {
-            ret.\ialias = transformImportTypeAlias(importAlias);
-        }
-        ret.identifier = transformIdentifier(that.name);
-        if (exists nestedImports = that.nestedImports) {
-            ret.importMemberOrTypeList = transformImportElements(nestedImports);
-        }
         return ret;
     }
     

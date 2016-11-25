@@ -358,24 +358,12 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
             => editNode(that) then that.copy(transformConditions(that.conditions), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.thenExpression), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.elseExpression)) else that;
     shared actual default Import transformImport(Import that)
             => editNode(that) then that.copy(transformFullPackageName(that.packageName), transformImportElements(that.elements)) else that;
-    shared actual ImportAlias transformImportAlias(ImportAlias that) {
-        assert (is ImportAlias ret = super.transformImportAlias(that));
-        return ret;
-    }
-    shared actual ImportElement transformImportElement(ImportElement that) {
-        assert (is ImportElement ret = super.transformImportElement(that));
-        return ret;
-    }
+    shared actual default ImportAlias transformImportAlias(ImportAlias that)
+            => editNode(that) then that.copy(transformIdentifier(that.name)) else that;
+    shared actual default ImportElement transformImportElement(ImportElement that)
+            => editNode(that) then that.copy(transformIdentifier(that.name), nullsafeInvoke(that.importAlias, transformImportAlias), nullsafeInvoke(that.nestedImports, transformImportElements)) else that;
     shared actual default ImportElements transformImportElements(ImportElements that)
             => editNode(that) then that.copy(that.elements.collect(transformImportElement), nullsafeInvoke(that.wildcard, transformImportWildcard)) else that;
-    shared actual default ImportFunctionValueAlias transformImportFunctionValueAlias(ImportFunctionValueAlias that)
-            => editNode(that) then that.copy(transformLIdentifier(that.name)) else that;
-    shared actual default ImportFunctionValueElement transformImportFunctionValueElement(ImportFunctionValueElement that)
-            => editNode(that) then that.copy(transformLIdentifier(that.name), nullsafeInvoke(that.importAlias, transformImportFunctionValueAlias), nullsafeInvoke(that.nestedImports, transformImportElements)) else that;
-    shared actual default ImportTypeAlias transformImportTypeAlias(ImportTypeAlias that)
-            => editNode(that) then that.copy(transformUIdentifier(that.name)) else that;
-    shared actual default ImportTypeElement transformImportTypeElement(ImportTypeElement that)
-            => editNode(that) then that.copy(transformUIdentifier(that.name), nullsafeInvoke(that.importAlias, transformImportTypeAlias), nullsafeInvoke(that.nestedImports, transformImportElements)) else that;
     shared actual default ImportWildcard transformImportWildcard(ImportWildcard that)
             => that;
     shared actual default InModifier transformInModifier(InModifier that)

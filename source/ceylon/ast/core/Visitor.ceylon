@@ -145,10 +145,6 @@ shared interface Visitor {
     shared default void visitImportAlias(ImportAlias that) => visitNode(that);
     shared default void visitImportElement(ImportElement that) => visitNode(that);
     shared default void visitImportElements(ImportElements that) => visitNode(that);
-    shared default void visitImportFunctionValueAlias(ImportFunctionValueAlias that) => visitImportAlias(that);
-    shared default void visitImportFunctionValueElement(ImportFunctionValueElement that) => visitImportElement(that);
-    shared default void visitImportTypeAlias(ImportTypeAlias that) => visitImportAlias(that);
-    shared default void visitImportTypeElement(ImportTypeElement that) => visitImportElement(that);
     shared default void visitImportWildcard(ImportWildcard that) => visitNode(that);
     shared default void visitInModifier(InModifier that) => visitVariance(that);
     shared default void visitInOperation(InOperation that) => visitBinaryOperation(that);

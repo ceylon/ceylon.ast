@@ -8,20 +8,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JImportMemberOrType=ImportMemberOrType
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
-    CeylonParser {
-        uidentifier=\iUIDENTIFIER
-    }
-}
 
 "Converts a RedHat AST [[ImportMemberOrType|JImportMemberOrType]] to a `ceylon.ast` [[ImportElement]]."
 shared ImportElement importElementToCeylon(JImportMemberOrType importElement, Anything(JNode,Node) update = noop) {
-    ImportElement result;
-    if (importElement.identifier.mainToken.type == uidentifier) {
-        result = importTypeElementToCeylon(importElement, update);
-    } else {
-        result = importFunctionValueElementToCeylon(importElement, update);
-    }
+    value result = ImportElement {
+        identifierToCeylon(importElement.identifier, update);
+        importElement.\ialias exists then importAliasToCeylon(importElement.\ialias, update);
+        importElement.importMemberOrTypeList exists then importElementsToCeylon(importElement.importMemberOrTypeList, update);
+    };
     update(importElement, result);
     return result;
 }

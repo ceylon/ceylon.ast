@@ -473,24 +473,17 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``packageName = ``transformWithIndent(that.packageName)``;
                 `` indent + indentLevel ``elements = ``transformWithIndent(that.elements)``;
                 ``indent``}";
+    transformImportAlias(ImportAlias that) => "ImportAlias(``transformWithIndent(that.name)``)";
+    transformImportElement(ImportElement that)
+            => "ImportElement {
+                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                `` indent + indentLevel ``importAlias = ``transformWithIndent(that.importAlias)``;
+                `` indent + indentLevel ``nestedImports = ``transformWithIndent(that.nestedImports)``;
+                ``indent``}";
     transformImportElements(ImportElements that)
             => "ImportElements {
                 `` indent + indentLevel ``elements = ``transformWithIndent(that.elements)``;
                 `` indent + indentLevel ``wildcard = ``transformWithIndent(that.wildcard)``;
-                ``indent``}";
-    transformImportFunctionValueAlias(ImportFunctionValueAlias that) => "ImportFunctionValueAlias(``transformWithIndent(that.name)``)";
-    transformImportFunctionValueElement(ImportFunctionValueElement that)
-            => "ImportFunctionValueElement {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``importAlias = ``transformWithIndent(that.importAlias)``;
-                `` indent + indentLevel ``nestedImports = ``transformWithIndent(that.nestedImports)``;
-                ``indent``}";
-    transformImportTypeAlias(ImportTypeAlias that) => "ImportTypeAlias(``transformWithIndent(that.name)``)";
-    transformImportTypeElement(ImportTypeElement that)
-            => "ImportTypeElement {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``importAlias = ``transformWithIndent(that.importAlias)``;
-                `` indent + indentLevel ``nestedImports = ``transformWithIndent(that.nestedImports)``;
                 ``indent``}";
     transformImportWildcard(ImportWildcard that) => "ImportWildcard()";
     transformInModifier(InModifier that) => "InModifier()";

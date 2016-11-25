@@ -130,10 +130,6 @@ shared interface WideningTransformer<out Result> satisfies Transformer<Result> {
     shared actual default Result transformImportAlias(ImportAlias that) => transformNode(that);
     shared actual default Result transformImportElement(ImportElement that) => transformNode(that);
     shared actual default Result transformImportElements(ImportElements that) => transformNode(that);
-    shared actual default Result transformImportFunctionValueAlias(ImportFunctionValueAlias that) => transformImportAlias(that);
-    shared actual default Result transformImportFunctionValueElement(ImportFunctionValueElement that) => transformImportElement(that);
-    shared actual default Result transformImportTypeAlias(ImportTypeAlias that) => transformImportAlias(that);
-    shared actual default Result transformImportTypeElement(ImportTypeElement that) => transformImportElement(that);
     shared actual default Result transformImportWildcard(ImportWildcard that) => transformNode(that);
     shared actual default Result transformInModifier(InModifier that) => transformVariance(that);
     shared actual default Result transformInOperation(InOperation that) => transformBinaryOperation(that);

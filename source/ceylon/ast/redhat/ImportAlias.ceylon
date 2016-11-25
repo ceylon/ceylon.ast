@@ -8,20 +8,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JAlias=Alias
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
-    CeylonLexer {
-        uidentifier=\iUIDENTIFIER
-    }
-}
 
 "Converts a RedHat AST [[Alias|JAlias]] to a `ceylon.ast` [[ImportAlias]]."
 shared ImportAlias importAliasToCeylon(JAlias importAlias, Anything(JNode,Node) update = noop) {
-    ImportAlias result;
-    if (importAlias.identifier.token.type == uidentifier) {
-        result = importTypeAliasToCeylon(importAlias, update);
-    } else {
-        result = importFunctionValueAliasToCeylon(importAlias, update);
-    }
+    value result = ImportAlias(identifierToCeylon(importAlias.identifier, update));
     update(importAlias, result);
     return result;
 }

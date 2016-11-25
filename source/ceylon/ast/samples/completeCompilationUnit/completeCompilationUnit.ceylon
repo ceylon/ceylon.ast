@@ -90,11 +90,9 @@ import ceylon.ast.core {
     IfElse,
     IfElseExpression,
     Import,
+    ImportAlias,
+    ImportElement,
     ImportElements,
-    ImportFunctionValueAlias,
-    ImportFunctionValueElement,
-    ImportTypeAlias,
-    ImportTypeElement,
     ImportWildcard,
     InModifier,
     InOperation,
@@ -255,14 +253,14 @@ shared CompilationUnit completeCompilationUnit
                 ]);
             elements = ImportElements {
                 elements = [
-                    ImportTypeElement {
+                    ImportElement {
                         name = UIdentifier("System");
-                        importAlias = ImportTypeAlias(UIdentifier("Sys"));
+                        importAlias = ImportAlias(UIdentifier("Sys"));
                         nestedImports = ImportElements {
                             elements = [
-                                ImportFunctionValueElement {
+                                ImportElement {
                                     name = LIdentifier("out", true);
-                                    importAlias = ImportFunctionValueAlias(LIdentifier("sysout"));
+                                    importAlias = ImportAlias(LIdentifier("sysout"));
                                     nestedImports = null;
                                 }
                             ];

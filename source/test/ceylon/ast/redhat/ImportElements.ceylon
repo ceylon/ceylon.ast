@@ -22,16 +22,16 @@ shared object importElements satisfies ConcreteTest<ImportElements,JImportMember
     // these need to be lazy to avoid cyclic initialization
     shared String->ImportElements wildcardImportElements => construct { wildcard = importWildcard.importWildcard; };
     shared String->ImportElements someImportElements => construct([
-            importTypeElement.nestedImportElement,
-            importTypeElement.lidAsUidImportElement,
-            importFunctionValueElement.noopImportElement,
-            importFunctionValueElement.uidAsLidImportElement
+            importElement.nestedImportElement,
+            importElement.lidAsUidImportElement,
+            importElement.noopImportElement,
+            importElement.uidAsLidImportElement
         ]);
     
     // not tested directly, but used by other tests
-    shared String->ImportElements outAsSysoutImportElements => construct([importFunctionValueElement.outAsSysoutImportElement]);
-    shared String->ImportElements systemImportElements => construct([importTypeElement.systemImportElement]);
-    shared String->ImportElements collectionImportElements => construct([importTypeElement.arrayListElement, importTypeElement.mutableListElement]);
+    shared String->ImportElements outAsSysoutImportElements => construct([importElement.outAsSysoutImportElement]);
+    shared String->ImportElements systemImportElements => construct([importElement.systemImportElement]);
+    shared String->ImportElements collectionImportElements => construct([importElement.arrayListElement, importElement.mutableListElement]);
     
     parse = parseImportElements;
     fromCeylon = RedHatTransformer.transformImportElements;

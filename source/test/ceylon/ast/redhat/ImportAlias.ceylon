@@ -1,4 +1,5 @@
 import ceylon.ast.core {
+    Identifier,
     ImportAlias
 }
 import ceylon.ast.redhat {
@@ -12,10 +13,20 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     }
 }
 
-shared object importAlias satisfies AbstractTest<ImportAlias,JAlias> {
+shared object importAlias satisfies ConcreteTest<ImportAlias,JAlias> {
+    
+    String->ImportAlias construct(String->Identifier name)
+            => "``name.key``="->ImportAlias(name.item);
+    
+    shared String->ImportAlias uidImportAlias = construct(identifier.uidUIdentifier);
+    shared String->ImportAlias lidImportAlias = construct(identifier.lidLIdentifier);
+    
+    // not tested directly, but used by other tests
+    shared String->ImportAlias jstringImportAlias = construct(identifier.jstringUIdentifier);
+    shared String->ImportAlias sysoutImportAlias = construct(identifier.sysoutLIdentifier);
+    
     parse = parseImportAlias;
     fromCeylon = RedHatTransformer.transformImportAlias;
     toCeylon = importAliasToCeylon;
-    
-    tests = [importTypeAlias, importFunctionValueAlias];
+    codes = [uidImportAlias, lidImportAlias];
 }

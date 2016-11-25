@@ -239,16 +239,6 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is LIdentifier) { return transformLIdentifier(that); }
         case (is UIdentifier) { return transformUIdentifier(that); }
     }
-    shared actual default Result transformImportAlias(ImportAlias that) {
-        switch (that)
-        case (is ImportTypeAlias) { return transformImportTypeAlias(that); }
-        case (is ImportFunctionValueAlias) { return transformImportFunctionValueAlias(that); }
-    }
-    shared actual default Result transformImportElement(ImportElement that) {
-        switch (that)
-        case (is ImportTypeElement) { return transformImportTypeElement(that); }
-        case (is ImportFunctionValueElement) { return transformImportFunctionValueElement(that); }
-    }
     shared actual default Result transformInitialComprehensionClause(InitialComprehensionClause that) {
         switch (that)
         case (is ForComprehensionClause) { return transformForComprehensionClause(that); }

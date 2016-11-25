@@ -30,7 +30,7 @@ shared class WithinOperation(operand, lowerBound, upperBound)
 
     shared actual Boolean equals(Object that) {
         if (is WithinOperation that) {
-            return lowerBound == that.lowerBound && upperBound == that.upperBound;
+            return operand == that.operand && lowerBound == that.lowerBound && upperBound == that.upperBound;
         } else {
             return false;
         }

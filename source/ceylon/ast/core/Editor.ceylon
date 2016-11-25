@@ -127,7 +127,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default Block transformBlock(Block that)
-            => editNode(that) then that.copy(that.content.collect(transformStatementOrDeclaration)) else that;
+            => editNode(that) then that.copy(that.content.collect(transformStatementOrDeclaration), that.imports.collect(transformImport)) else that;
     shared actual Body transformBody(Body that) {
         assert (is Body ret = super.transformBody(that));
         return ret;
@@ -163,7 +163,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ClassAliasDefinition transformClassAliasDefinition(ClassAliasDefinition that)
             => editNode(that) then that.copy(transformUIdentifier(that.name), transformParameters(that.parameters), transformClassSpecifier(that.specifier), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.extendedType, transformExtendedType), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations)) else that;
     shared actual default ClassBody transformClassBody(ClassBody that)
-            => editNode(that) then that.copy(that.content.collect(transformStatementOrDeclaration)) else that;
+            => editNode(that) then that.copy(that.content.collect(transformStatementOrDeclaration), that.imports.collect(transformImport)) else that;
     shared actual default ClassDec transformClassDec(ClassDec that)
             => editNode(that) then that.copy(nullsafeInvoke(that.name, transformIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier)) else that;
     shared actual default ClassDefinition transformClassDefinition(ClassDefinition that)
@@ -395,7 +395,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default InterfaceAliasDefinition transformInterfaceAliasDefinition(InterfaceAliasDefinition that)
             => editNode(that) then that.copy(transformUIdentifier(that.name), transformTypeSpecifier(that.specifier), nullsafeInvoke(that.caseTypes, transformCaseTypes), nullsafeInvoke(that.satisfiedTypes, transformSatisfiedTypes), nullsafeInvoke(that.typeParameters, transformTypeParameters), that.typeConstraints.collect(transformTypeConstraint), transformAnnotations(that.annotations)) else that;
     shared actual default InterfaceBody transformInterfaceBody(InterfaceBody that)
-            => editNode(that) then that.copy(that.content.collect(transformDeclarationOrSpecification)) else that;
+            => editNode(that) then that.copy(that.content.collect(transformDeclarationOrSpecification), that.imports.collect(transformImport)) else that;
     shared actual default InterfaceDec transformInterfaceDec(InterfaceDec that)
             => editNode(that) then that.copy(nullsafeInvoke(that.name, transformUIdentifier), nullsafeInvoke(that.qualifier, transformDecQualifier)) else that;
     shared actual default InterfaceDefinition transformInterfaceDefinition(InterfaceDefinition that)

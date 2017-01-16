@@ -1802,7 +1802,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    suppressWarnings ("inferredNotNull")
     shared actual JIfExpression transformIfElseExpression(IfElseExpression that) {
         JIfExpression ret = JIfExpression(tokens.token("if", if_clause));
         value cl = transformConditions(that.conditions);

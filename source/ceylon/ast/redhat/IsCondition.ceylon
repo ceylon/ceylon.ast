@@ -12,7 +12,6 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IsCondition|JIsCondition]] to a `ceylon.ast` [[IsCondition]]."
-suppressWarnings ("inferredNotNull")
 shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode,Node) update = noop) {
     assert (is JStaticType jType = isCondition.type);
     value jVariable = isCondition.variable;

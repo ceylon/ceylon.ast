@@ -59,7 +59,6 @@ String uncolor(String string)
 "Tests the Type System Turing Machine
  with a TM that tests if the input length is a power of two."
 test
-suppressWarnings ("inferredNotNull")
 shared void powerOfTwo() {
     
     Integer log2_ceil(variable Integer num) {

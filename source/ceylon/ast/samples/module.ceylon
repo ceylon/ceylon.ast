@@ -9,8 +9,8 @@
    to demonstrate how to edit ASTs, and
  - sample [[ceylon.ast.core::Visitor]]s
    to demonstrate how to consume ASTs."
-module ceylon.ast.samples "1.3.1-SNAPSHOT" {
-    shared import ceylon.ast.core "1.3.1-SNAPSHOT";
-    import ceylon.ast.create "1.3.1-SNAPSHOT";
-    import ceylon.collection "1.3.1-SNAPSHOT";
+module ceylon.ast.samples "1.3.2-SNAPSHOT" {
+    shared import ceylon.ast.core "1.3.2-SNAPSHOT";
+    import ceylon.ast.create "1.3.2-SNAPSHOT";
+    import ceylon.collection "1.3.2-SNAPSHOT";
 }

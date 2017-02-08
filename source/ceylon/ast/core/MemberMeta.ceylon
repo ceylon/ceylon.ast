@@ -7,7 +7,6 @@
  Examples:
  
      `Person.say`
-     `system.milliseconds`
      `Iterable<String>.collect<Integer?>`"
 shared class MemberMeta(qualifier, nameAndArgs)
         extends Meta() {

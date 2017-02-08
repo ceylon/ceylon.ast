@@ -24,7 +24,7 @@ shared FullPackageName fullPackageNameToCeylon(JImportPath fullPackageName, Anyt
  into a [[FullPackageName]] using the Ceylon compiler
  (more specifically, the rule for a `fullPackageName`)."
 shared FullPackageName? parseFullPackageName(String code, Anything(JNode,Node) update = noop) {
-    if (exists jPackagePath = createParser(code).packagePath()) {
+    if (exists jPackagePath = createParser(code + "\"\"").packagePath()) {
         return fullPackageNameToCeylon(jPackagePath, update);
     } else {
         return null;

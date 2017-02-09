@@ -21,8 +21,7 @@ Parameters? optionalParameters_internal(Parameters|{Parameter*}? parameters) {
     if (is Parameters parameters) {
         return [parameters];
     } else if (is {Parameters+} parameters) {
-        assert (nonempty ret = parameters.sequence());
-        return ret;
+        return parameters.sequence();
     } else {
         return [parameters_internal(parameters)];
     }

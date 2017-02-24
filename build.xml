@@ -5,6 +5,8 @@
     <property name="ceylon.executable" value="${dist.bin.dir}/ceylon"/>
     <property name="out.repo" location="modules"/>
     
+    <property name="modules.version" value="1.3.2-SNAPSHOT" />
+    
     <!-- Local repository -->
     <property name="ceylon.repo.dir" location="${user.home}/.ceylon/repo" />
     
@@ -32,13 +34,13 @@
     </moduleset>
     
     <moduleset id="modules.test.ceylon">
-        <module name="test.ceylon.ast.core"/> 
-        <module name="test.ceylon.ast.create"/> 
+        <module name="test.ceylon.ast.core" version="${modules.version}"/> 
+        <module name="test.ceylon.ast.create" version="${modules.version}"/> 
     </moduleset>
     <moduleset id="modules.test.jvm">
         <moduleset refid="modules.test.ceylon"/>
-        <module name="test.ceylon.ast.redhat"/> 
-        <module name="test.ceylon.ast.samples"/> 
+        <module name="test.ceylon.ast.redhat" version="${modules.version}"/> 
+        <module name="test.ceylon.ast.samples" version="${modules.version}"/> 
     </moduleset>
     <moduleset id="modules.test.js">
         <moduleset refid="modules.test.ceylon"/>

@@ -1,7 +1,8 @@
 import ceylon.ast.core {
     Assertion,
-    Annotations,
-    Node
+    Node,
+    StringLiteral,
+    StringTemplate
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
@@ -12,13 +13,27 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[Assertion|JAssertion]] to a `ceylon.ast` [[Assertion]]."
 shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode,Node) update = noop) {
-    Annotations annotations;
+    StringLiteral|StringTemplate? message;
     if (exists jAnnotations = assertion.annotationList) {
-        annotations = annotationsToCeylon(jAnnotations, update);
+        "Assertion cannot have regular annotations"
+        assert (jAnnotations.annotations.empty);
+        if (exists jAnonymousAnnotation = jAnnotations.anonymousAnnotation) {
+            if (exists jStringLiteral = jAnonymousAnnotation.stringLiteral) {
+                "Anonymous annotation cannot have both string literal and string template"
+                assert (!jAnonymousAnnotation.stringTemplate exists);
+                message = stringLiteralToCeylon(jStringLiteral, update);
+            } else {
+                "Anonymous annotation must have either string literal or string template"
+                assert (exists jStringTemplate = jAnonymousAnnotation.stringTemplate);
+                message = stringTemplateToCeylon(jStringTemplate, update);
+            }
+        } else {
+            message = null;
+        }
     } else {
-        annotations = Annotations();
+        message = null;
     }
-    value result = Assertion(conditionsToCeylon(assertion.conditionList, update), annotations);
+    value result = Assertion(conditionsToCeylon(assertion.conditionList, update), message);
     update(assertion, result);
     return result;
 }

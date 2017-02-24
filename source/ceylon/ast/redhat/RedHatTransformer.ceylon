@@ -663,7 +663,25 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JAssertion transformAssertion(Assertion that) {
-        value annotationList = transformAnnotations(that.annotations);
+        JAnnotationList annotationList = JAnnotationList(null);
+        switch (message = that.message)
+        case (is StringLiteral) {
+            JStringLiteral stringLiteral = transformStringLiteral(message);
+            if (stringLiteral.token.type == verbatim_string_literal) {
+                stringLiteral.token.type = averbatim_string;
+            } else {
+                stringLiteral.token.type = astring_literal;
+            }
+            JAnonymousAnnotation aa = JAnonymousAnnotation(null);
+            aa.stringLiteral = stringLiteral;
+            annotationList.anonymousAnnotation = aa;
+        }
+        case (is StringTemplate) {
+            JAnonymousAnnotation aa = JAnonymousAnnotation(null);
+            aa.stringTemplate = transformStringTemplate(message);
+            annotationList.anonymousAnnotation = aa;
+        }
+        case (null) {}
         JAssertion ret = JAssertion(tokens.token("assert", assertType));
         ret.annotationList = annotationList;
         ret.conditionList = transformConditions(that.conditions);

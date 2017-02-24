@@ -1,7 +1,8 @@
 import ceylon.ast.core {
-    Annotations,
     Assertion,
-    Conditions
+    Conditions,
+    StringLiteral,
+    StringTemplate
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -16,14 +17,15 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object assertion satisfies ConcreteTest<Assertion,JAssertion> {
     
-    String->Assertion construct(String->Conditions conditions, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` assert``conditions.key``;"->Assertion(conditions.item, annotations.item);
+    String->Assertion construct(String->Conditions conditions, <String->StringLiteral|StringTemplate>? message = null)
+            => "`` message?.key else "" `` assert``conditions.key``;"->Assertion(conditions.item, message?.item);
     
-    shared String->Assertion unannotatedAssertion = construct(conditions.trueCommaAAndBConditions);
-    shared String->Assertion annotatedAssertion = construct(conditions.trueCommaAAndBConditions, annotations.helloSharedByLucasAnnotations);
+    shared String->Assertion undocumentedAssertion = construct(conditions.trueCommaAAndBConditions);
+    shared String->Assertion literalDocumentedAssertion = construct(conditions.trueCommaAAndBConditions, stringLiteral.namedCapitalCStringLiteral);
+    shared String->Assertion templateDocumentedAssertion = construct(conditions.trueCommaAAndBConditions, stringTemplate.helloNameElseWorldStringTemplate);
     
     parse = parseAssertion;
     fromCeylon = RedHatTransformer.transformAssertion;
     toCeylon = assertionToCeylon;
-    codes = [unannotatedAssertion, annotatedAssertion];
+    codes = [undocumentedAssertion, literalDocumentedAssertion, templateDocumentedAssertion];
 }

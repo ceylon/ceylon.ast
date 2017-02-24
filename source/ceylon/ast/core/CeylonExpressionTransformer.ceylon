@@ -104,10 +104,12 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 else "Annotations()");
     transformAnonymousArgument(AnonymousArgument that) => "AnonymousArgument(``transformWithIndent(that.expression)``)";
     transformAssertion(Assertion that)
-            => "Assertion {
-                `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
-                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                ``indent``}";
+            => that.message exists
+            then "Assertion {
+                  `` indent + indentLevel ``conditions = ``transformWithIndent(that.conditions)``;
+                  `` indent + indentLevel ``message = ``transformWithIndent(that.message)``;
+                  ``indent``}"
+            else "Assertion(``transformWithIndent(that.conditions)``)";
     transformAssignOperation(AssignOperation that)
             => "AssignOperation {
                 `` indent + indentLevel ``target = ``transformWithIndent(that.target)``;

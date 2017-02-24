@@ -380,7 +380,7 @@ shared CompilationUnit completeCompilationUnit
                                 NonemptyCondition(LIdentifier("arg2")),
                                 BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
                             ]);
-                        annotations = Annotations();
+                        message = StringLiteral("""assertion message""");
                     },
                     ValueDefinition {
                         name = LIdentifier("metas");

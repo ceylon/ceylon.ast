@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object prefixDecrementOperation satisfies ConcreteTest<PrefixDecrementOperation,JDecrementOp> {
     
     String->PrefixDecrementOperation construct(String->Primary operand)
-            => "--``operand.key``"->PrefixDecrementOperation(operand.item);
+            => "--``operand.key``" -> PrefixDecrementOperation(operand.item);
     
     shared String->PrefixDecrementOperation _1138IntegerLiteralPrefixDecrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixDecrementOperation _1138IntegerLiteralGroupedExpressionPrefixDecrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);

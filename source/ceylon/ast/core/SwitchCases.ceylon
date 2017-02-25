@@ -27,7 +27,7 @@ shared class SwitchCases(caseClauses, elseClause = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSwitchCases(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SwitchCases that) {
             if (exists elseClause) {

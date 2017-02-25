@@ -21,17 +21,17 @@ shared class Import(packageName, elements)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitImport(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Import that) {
-            return packageName == that.packageName && elements == that.elements;
+            return packageName==that.packageName && elements==that.elements;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (packageName.hash + 31 * elements.hash);
+            => 31 * (packageName.hash + 31*elements.hash);
     
     shared Import copy(FullPackageName packageName = this.packageName, ImportElements elements = this.elements) {
         value ret = Import(packageName, elements);

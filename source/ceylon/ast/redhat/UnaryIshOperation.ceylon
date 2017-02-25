@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[UnaryOperatorExpression|JUnaryOperatorExpression]] to a `ceylon.ast` [[UnaryIshOperation]]."
-shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unaryIshOperation, Anything(JNode,Node) update = noop) {
+shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unaryIshOperation, Anything(JNode, Node) update = noop) {
     assert (is JPostfixOperatorExpression|JPrefixOperatorExpression|JNegativeOp|JPositiveOp|JExists|JNonempty|JTypeOperatorExpression|JNotOp unaryIshOperation);
     switch (unaryIshOperation)
     case (is JPostfixOperatorExpression) { return postfixOperationToCeylon(unaryIshOperation, update); }
@@ -34,7 +34,7 @@ shared UnaryIshOperation unaryIshOperationToCeylon(JUnaryOperatorExpression unar
 "Parses the given [[code]] for an Unary Ish Operation
  into an [[UnaryIshOperation]] using the Ceylon compiler
  (more specifically, the rule for an `unaryIshOperation`)."
-shared UnaryIshOperation? parseUnaryIshOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryIshOperation? parseUnaryIshOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JUnaryOperatorExpression jUnaryExpression = createParser(code).assignmentExpression()) {
         return unaryIshOperationToCeylon(jUnaryExpression, update);
     } else {

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object multiplyAssignmentOperation satisfies ConcreteTest<MultiplyAssignmentOperation,JMultiplyAssignOp> {
     
     String->MultiplyAssignmentOperation construct(String->ThenElseExpression leftOperand, String->AssigningExpression rightOperand)
-            => "``leftOperand.key``*=``rightOperand.key``"->MultiplyAssignmentOperation(leftOperand.item, rightOperand.item);
+            => "``leftOperand.key``*=``rightOperand.key``" -> MultiplyAssignmentOperation(leftOperand.item, rightOperand.item);
     
     shared String->MultiplyAssignmentOperation balanceAssignOnePlusInterestRateExpression = construct(baseExpression.balanceExpression, sumOperation.onePlusInterestRateExpression);
     

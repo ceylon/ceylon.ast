@@ -14,7 +14,7 @@ shared class Throw(result = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitThrow(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Throw that) {
             if (exists result) {

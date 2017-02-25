@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object divideAssignmentOperation satisfies ConcreteTest<DivideAssignmentOperation,JDivideAssignOp> {
     
     String->DivideAssignmentOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
-            => "``left.key``/=``right.key``"->DivideAssignmentOperation(left.item, right.item);
+            => "``left.key``/=``right.key``" -> DivideAssignmentOperation(left.item, right.item);
     
     shared String->DivideAssignmentOperation stepDivideAssign2Expression = construct(baseExpression.stepExpression, integerLiteral._2IntegerLiteral);
     

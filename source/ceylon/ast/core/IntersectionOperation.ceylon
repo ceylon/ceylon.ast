@@ -24,17 +24,17 @@ shared class IntersectionOperation(leftOperand, rightOperand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIntersectionOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IntersectionOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared IntersectionOperation copy(IntersectingExpression leftOperand = this.leftOperand, InvertingExpression rightOperand = this.rightOperand) {
         value ret = IntersectionOperation(leftOperand, rightOperand);

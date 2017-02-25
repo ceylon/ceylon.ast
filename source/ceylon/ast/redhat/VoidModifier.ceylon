@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[VoidModifier|JVoidModifier]] to a `ceylon.ast` [[VoidModifier]]."
-shared VoidModifier voidModifierToCeylon(JVoidModifier voidModifier, Anything(JNode,Node) update = noop) {
+shared VoidModifier voidModifierToCeylon(JVoidModifier voidModifier, Anything(JNode, Node) update = noop) {
     value result = VoidModifier();
     update(voidModifier, result);
     return result;
@@ -29,7 +29,7 @@ shared VoidModifier voidModifierToCeylon(JVoidModifier voidModifier, Anything(JN
 "Parses the given [[code]] for a Void Modifier
  into a [[VoidModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared VoidModifier? parseVoidModifier(String code, Anything(JNode,Node) update = noop) {
+shared VoidModifier? parseVoidModifier(String code, Anything(JNode, Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == voidType) {

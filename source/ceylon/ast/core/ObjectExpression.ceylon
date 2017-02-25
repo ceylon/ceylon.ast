@@ -23,7 +23,7 @@ shared class ObjectExpression(body, extendedType = null, satisfiedTypes = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitObjectExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ObjectExpression that) {
             if (exists extendedType) {

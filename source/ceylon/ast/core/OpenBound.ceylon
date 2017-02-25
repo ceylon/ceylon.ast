@@ -18,7 +18,7 @@ shared class OpenBound(endpoint)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitOpenBound(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is OpenBound that) {
             return endpoint == that.endpoint;

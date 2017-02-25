@@ -18,9 +18,9 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object constructorDec satisfies ConcreteTest<ConstructorDec,JNewLiteral> {
     
     String->ConstructorDec construct(String->LIdentifier name, String->DecQualifier qualifier)
-            => "`new ``qualifier.key``.``name.key```"->ConstructorDec(name.item, qualifier.item);
+            => "`new ``qualifier.key``.``name.key```" -> ConstructorDec(name.item, qualifier.item);
     
-    shared String->ConstructorDec polarPointConstructorDec = construct(identifier.polarLIdentifier, "Point"->DecQualifier([UIdentifier("Point")]));
+    shared String->ConstructorDec polarPointConstructorDec = construct(identifier.polarLIdentifier, "Point" -> DecQualifier([UIdentifier("Point")]));
     
     parse = parseConstructorDec;
     fromCeylon = RedHatTransformer.transformConstructorDec;

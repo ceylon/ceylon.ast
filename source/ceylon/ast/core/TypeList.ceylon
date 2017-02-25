@@ -18,7 +18,7 @@ shared class TypeList(elements, variadic = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeList(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeList that) {
             if (exists variadic) {
@@ -39,7 +39,7 @@ shared class TypeList(elements, variadic = null)
     }
     
     shared actual Integer hash
-            => 31 * elements.hash + (variadic?.hash else 0);
+            => 31*elements.hash + (variadic?.hash else 0);
     
     shared TypeList copy(<Type|DefaultedType>[] elements = this.elements, VariadicType? variadic = this.variadic) {
         value ret = TypeList(elements, variadic);

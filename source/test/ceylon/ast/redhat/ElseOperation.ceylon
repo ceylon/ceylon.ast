@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object elseOperation satisfies ConcreteTest<ElseOperation,JDefaultOp> {
     
     String->ElseOperation construct(String->ThenElseExpression left, String->DisjoiningExpression right)
-            => "``left.key`` else ``right.key``"->ElseOperation(left.item, right.item);
+            => "``left.key`` else ``right.key``" -> ElseOperation(left.item, right.item);
     
     shared String->ElseOperation parsedIntElse0LiteralExpression = construct(baseExpression.parsedIntExpression, integerLiteral._0IntegerLiteral);
     

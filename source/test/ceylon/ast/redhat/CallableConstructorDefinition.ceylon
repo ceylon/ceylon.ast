@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object callableConstructorDefinition satisfies ConcreteTest<CallableConstructorDefinition,JConstructor> {
     
     String->CallableConstructorDefinition construct(<String->LIdentifier>? name, String->Parameters parameters, String->Block block, <String->ExtendedType>? extendedType = null, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` new `` name?.key else "" ````parameters.key`` `` extendedType?.key else "" `` ``block.key``"->CallableConstructorDefinition(name?.item, parameters.item, block.item, extendedType?.item, annotations.item);
+            => "``annotations.key`` new `` name?.key else "" ````parameters.key`` `` extendedType?.key else "" `` ``block.key``" -> CallableConstructorDefinition(name?.item, parameters.item, block.item, extendedType?.item, annotations.item);
     
     shared String->CallableConstructorDefinition callableConstructorDefinition = construct(identifier.nameLIdentifier, parameters.notEmptyParameters, block.printPersonNameBlock, extendedType.pointCartesianExtendedType, annotations.sharedAnnotations);
     shared String->CallableConstructorDefinition cartesianConstructorDefinition = construct(identifier.cartesianLIdentifier, parameters.xyParameters, block.cartesianConstructorBlock, null, annotations.sharedAnnotations);

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object ifElse satisfies ConcreteTest<IfElse,JIfStatement> {
     
     String->IfElse construct(String->IfClause ifClause, <String->ElseClause>? elseClause = null)
-            => "``ifClause.key```` elseClause?.key else "" ``"->IfElse(ifClause.item, elseClause?.item);
+            => "``ifClause.key```` elseClause?.key else "" ``" -> IfElse(ifClause.item, elseClause?.item);
     
     shared String->IfElse emptyIf => construct(ifClause.emptyIfClause);
     shared String->IfElse emptyIfElse => construct(ifClause.emptyIfClause, elseClause.emptyElseClause);

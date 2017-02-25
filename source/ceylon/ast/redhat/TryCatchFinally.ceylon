@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TryCatchFinally|JTryCatchStatement]] to a `ceylon.ast` [[TryCatchFinally]]."
-shared TryCatchFinally tryCatchFinallyToCeylon(JTryCatchStatement tryCatchFinally, Anything(JNode,Node) update = noop) {
+shared TryCatchFinally tryCatchFinallyToCeylon(JTryCatchStatement tryCatchFinally, Anything(JNode, Node) update = noop) {
     FinallyClause? finallyClause;
     if (exists jFinallyClause = tryCatchFinally.finallyClause) {
         finallyClause = finallyClauseToCeylon(jFinallyClause, update);
@@ -33,7 +33,7 @@ shared TryCatchFinally tryCatchFinallyToCeylon(JTryCatchStatement tryCatchFinall
 "Parses the given [[code]] for a Try Catch Finally
  into a [[TryCatchFinally]] using the Ceylon compiler
  (more specifically, the rule for a `tryCatchFinally`)."
-shared TryCatchFinally? parseTryCatchFinally(String code, Anything(JNode,Node) update = noop) {
+shared TryCatchFinally? parseTryCatchFinally(String code, Anything(JNode, Node) update = noop) {
     if (exists jTryCatchFinally = createParser(code).tryCatchFinally()) {
         return tryCatchFinallyToCeylon(jTryCatchFinally, update);
     } else {

@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[BaseMemberOrTypeExpression|JBaseMemberOrTypeExpression]]
  to a `ceylon.ast` [[BaseExpression]]."
-shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMemberOrTypeExpression, Anything(JNode,Node) update = noop) {
+shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMemberOrTypeExpression, Anything(JNode, Node) update = noop) {
     assert (is JTypeArgumentList|JInferredTypeArguments jTypeArguments = baseMemberOrTypeExpression.typeArguments);
     value name = identifierToCeylon(baseMemberOrTypeExpression.identifier, update);
     value ta = anyTypeArgumentsToCeylon(baseMemberOrTypeExpression.typeArguments, update);
@@ -37,7 +37,7 @@ shared BaseExpression baseExpressionToCeylon(JBaseMemberOrTypeExpression baseMem
 "Parses the given [[code]] for a Base Expression
  into a [[BaseExpression]] using the Ceylon compiler
  (more specifically, the rule for a `baseReference`)."
-shared BaseExpression? parseBaseExpression(String code, Anything(JNode,Node) update = noop) {
+shared BaseExpression? parseBaseExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jBaseReference = createParser(code).baseReference()) {
         JBaseMemberOrTypeExpression expr;
         if (jBaseReference.isMember) {

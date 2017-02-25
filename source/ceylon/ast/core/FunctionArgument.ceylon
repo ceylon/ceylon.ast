@@ -37,17 +37,17 @@ shared class FunctionArgument(name, type, parameterLists, definition)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFunctionArgument(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FunctionArgument that) {
-            return name == that.name && type == that.type && parameterLists == that.parameterLists && definition == that.definition;
+            return name==that.name && type==that.type && parameterLists==that.parameterLists && definition==that.definition;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (type.hash + 31 * (parameterLists.hash + 31 * definition.hash)));
+            => 31 * (name.hash + 31 * (type.hash + 31 * (parameterLists.hash + 31*definition.hash)));
     
     shared FunctionArgument copy(LIdentifier name = this.name, Type|VoidModifier|FunctionModifier|DynamicModifier type = this.type, [Parameters+] parameterLists = this.parameterLists, Block|LazySpecifier definition = this.definition) {
         value ret = FunctionArgument(name, type, parameterLists, definition);

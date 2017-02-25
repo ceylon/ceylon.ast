@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object typeSpecifier satisfies ConcreteTest<TypeSpecifier,JTypeSpecifier> {
     
     String->TypeSpecifier construct(String->Type type)
-            => "=>``type.key``;"->TypeSpecifier(type.item);
+            => "=>``type.key``;" -> TypeSpecifier(type.item);
     
     shared String->TypeSpecifier mapOfStringPeopleTypeSpecifier = construct(baseType.mapOfStringPeopleType);
     shared String->TypeSpecifier callableTypeSpecifier = construct(callableType.floatStarTupleFromStringPlusCallableType);

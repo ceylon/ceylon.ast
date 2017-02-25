@@ -17,7 +17,7 @@ shared class ExpressionComprehensionClause(expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitExpressionComprehensionClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ExpressionComprehensionClause that) {
             return expression == that.expression;

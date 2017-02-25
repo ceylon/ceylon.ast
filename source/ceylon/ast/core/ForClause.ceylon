@@ -24,17 +24,17 @@ shared class ForClause(iterator, block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitForClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ForClause that) {
-            return iterator == that.iterator && block == that.block;
+            return iterator==that.iterator && block==that.block;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (iterator.hash + 31 * block.hash);
+            => 31 * (iterator.hash + 31*block.hash);
     
     shared ForClause copy(ForIterator iterator = this.iterator, Block block = this.block) {
         value ret = ForClause(iterator, block);

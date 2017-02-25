@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Condition|JCondition]] to a `ceylon.ast` [[Condition]]."
-shared Condition conditionToCeylon(JCondition condition, Anything(JNode,Node) update = noop) {
+shared Condition conditionToCeylon(JCondition condition, Anything(JNode, Node) update = noop) {
     assert (is JBooleanCondition|JIsCondition|JExistsOrNonemptyCondition condition);
     switch (condition)
     case (is JBooleanCondition) { return booleanConditionToCeylon(condition, update); }
@@ -24,7 +24,7 @@ shared Condition conditionToCeylon(JCondition condition, Anything(JNode,Node) up
 "Parses the given [[code]] for a Condition
  into a [[Condition]] using the Ceylon compiler
  (more specifically, the rule for a `condition`)."
-shared Condition? parseCondition(String code, Anything(JNode,Node) update = noop) {
+shared Condition? parseCondition(String code, Anything(JNode, Node) update = noop) {
     if (exists jCondition = createParser(code + ",").condition()) {
         // the parser needs that comma for some conditions
         return conditionToCeylon(jCondition, update);

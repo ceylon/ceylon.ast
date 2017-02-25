@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ObjectArgument|JObjectArgument]] to a `ceylon.ast` [[ObjectArgument]]."
-shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument, Anything(JNode,Node) update = noop) {
+shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument, Anything(JNode, Node) update = noop) {
     ExtendedType? extendedType;
     if (exists jExtendedType = objectArgument.extendedType) {
         extendedType = extendedTypeToCeylon(jExtendedType, update);
@@ -33,7 +33,7 @@ shared ObjectArgument objectArgumentToCeylon(JObjectArgument objectArgument, Any
 "Parses the given [[code]] for an Object Argument
  into an [[ObjectArgument]] using the Ceylon compiler
  (more specifically, the rule for an `objectArgument`)."
-shared ObjectArgument? parseObjectArgument(String code, Anything(JNode,Node) update = noop) {
+shared ObjectArgument? parseObjectArgument(String code, Anything(JNode, Node) update = noop) {
     if (exists jObjectArgument = createParser(code).objectArgument()) {
         return objectArgumentToCeylon(jObjectArgument, update);
     } else {

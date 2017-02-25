@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[OfOp|JOfOp]] to a `ceylon.ast` [[OfOperation]]."
-shared OfOperation ofOperationToCeylon(JOfOp ofOperation, Anything(JNode,Node) update = noop) {
+shared OfOperation ofOperationToCeylon(JOfOp ofOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ExistsNonemptyExpression operand = expressionToCeylon(ofOperation.term, update));
     "Must be a real type"
@@ -25,7 +25,7 @@ shared OfOperation ofOperationToCeylon(JOfOp ofOperation, Anything(JNode,Node) u
 "Parses the given [[code]] for an Of Operation
  into an [[OfOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared OfOperation? parseOfOperation(String code, Anything(JNode,Node) update = noop) {
+shared OfOperation? parseOfOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JOfOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return ofOperationToCeylon(jComparisonExpression, update);
     } else {

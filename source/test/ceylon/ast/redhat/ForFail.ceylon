@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object forFail satisfies ConcreteTest<ForFail,JForStatement> {
     
     String->ForFail construct(String->ForClause forClause, <String->FailClause>? failClause = null)
-            => "``forClause.key```` failClause?.key else "" ``"->ForFail(forClause.item, failClause?.item);
+            => "``forClause.key```` failClause?.key else "" ``" -> ForFail(forClause.item, failClause?.item);
     
     shared String->ForFail printPersonNameInPeopleForFail = construct(forClause.printPersonNameInPeopleForClause);
     shared String->ForFail printPersonNameInPeopleElsePrintHelloWorldForFail = construct(forClause.printPersonNameInPeopleForClause, failClause.printHelloWorldFailClause);

@@ -39,7 +39,7 @@ shared class ClassDec(name, qualifier = DecQualifier())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitClassDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ClassDec that) {
             if (exists qualifier) {

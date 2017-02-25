@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object ifClause satisfies ConcreteTest<IfClause,JIfClause> {
     
     String->IfClause construct(String->Conditions conditions, String->Block block)
-            => "if``conditions.key````block.key``"->IfClause(conditions.item, block.item);
+            => "if``conditions.key````block.key``" -> IfClause(conditions.item, block.item);
     
     shared String->IfClause emptyIfClause = construct(conditions.trueCommaAAndBConditions, block.emptyBlock);
     

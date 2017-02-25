@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AssignmentOp|JAssignmentOp]] to a `ceylon.ast` [[AssignmentOperation]]."
-shared AssignmentOperation assignmentOperationToCeylon(JAssignmentOp assignmentOperation, Anything(JNode,Node) update = noop) {
+shared AssignmentOperation assignmentOperationToCeylon(JAssignmentOp assignmentOperation, Anything(JNode, Node) update = noop) {
     assert (is JAssignOp|JArithmeticAssignmentOp|JBitwiseAssignmentOp|JLogicalAssignmentOp assignmentOperation);
     switch (assignmentOperation)
     case (is JAssignOp) { return assignOperationToCeylon(assignmentOperation, update); }
@@ -26,7 +26,7 @@ shared AssignmentOperation assignmentOperationToCeylon(JAssignmentOp assignmentO
 "Parses the given [[code]] for an Assignment Operation
  into an [[AssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared AssignmentOperation? parseAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared AssignmentOperation? parseAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return assignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

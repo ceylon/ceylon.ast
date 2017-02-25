@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object elseClause satisfies ConcreteTest<ElseClause,JElseClause> {
     
     String->ElseClause construct(String->Block|IfElse child)
-            => "else ``child.key``"->ElseClause(child.item);
+            => "else ``child.key``" -> ElseClause(child.item);
     
     shared String->ElseClause emptyElseClause => construct(block.emptyBlock);
     shared String->ElseClause emptyElseIfClause => construct(ifElse.emptyIf);

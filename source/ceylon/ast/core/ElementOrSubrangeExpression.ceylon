@@ -26,17 +26,17 @@ shared class ElementOrSubrangeExpression(primary, subscript)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitElementOrSubrangeExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ElementOrSubrangeExpression that) {
-            return primary == that.primary && subscript == that.subscript;
+            return primary==that.primary && subscript==that.subscript;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (primary.hash + 31 * subscript.hash);
+            => 31 * (primary.hash + 31*subscript.hash);
     
     shared ElementOrSubrangeExpression copy(Primary primary = this.primary, Subscript subscript = this.subscript) {
         value ret = ElementOrSubrangeExpression(primary, subscript);

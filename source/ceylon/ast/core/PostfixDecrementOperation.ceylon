@@ -12,7 +12,7 @@ shared class PostfixDecrementOperation(operand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPostfixDecrementOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PostfixDecrementOperation that) {
             return operand == that.operand;

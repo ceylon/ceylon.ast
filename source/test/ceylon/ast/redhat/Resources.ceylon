@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object resources satisfies ConcreteTest<Resources,JResourceList> {
     
     String->Resources construct(<String->Resource>+ resources)
-            => "(``",".join(resources*.key)``)"->Resources(resources*.item);
+            => "(``",".join(resources*.key)``)" -> Resources(resources*.item);
     
     shared String->Resources oneResource = construct(resource.lockResource);
     shared String->Resources twoResources = construct(resource.lockResource, resource.writerResource);

@@ -22,7 +22,7 @@ shared class SpecifiedArgument(specification)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpecifiedArgument(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpecifiedArgument that) {
             return specification == that.specification;

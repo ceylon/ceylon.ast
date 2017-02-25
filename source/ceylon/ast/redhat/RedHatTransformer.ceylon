@@ -1029,7 +1029,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JClassSpecifier transformClassSpecifier(ClassSpecifier that) {
         JClassSpecifier ret = JClassSpecifier(tokens.token("=>", compute));
-        value [type,invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        value [type, invocationExpression] = helpTransformExtensionOrConstruction(that.target);
         ret.type = type;
         ret.invocationExpression = invocationExpression;
         return ret;
@@ -1438,7 +1438,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExtendedType transformExtendedType(ExtendedType that) {
         JExtendedType ret = JExtendedType(tokens.token("extends", extendsType));
-        value [type,invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        value [type, invocationExpression] = helpTransformExtensionOrConstruction(that.target);
         ret.type = type;
         ret.invocationExpression = invocationExpression;
         return ret;
@@ -3749,7 +3749,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    [JSimpleType?,JInvocationExpression?] helpTransformExtensionOrConstruction(ExtensionOrConstruction extensionOrConstruction) {
+    [JSimpleType?, JInvocationExpression?] helpTransformExtensionOrConstruction(ExtensionOrConstruction extensionOrConstruction) {
         switch (transformed = transformExtensionOrConstruction(extensionOrConstruction))
         case (is JType) { return [transformed, null]; }
         case (is JInvocationExpression) {

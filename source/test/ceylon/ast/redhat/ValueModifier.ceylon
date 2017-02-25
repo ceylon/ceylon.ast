@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object valueModifier satisfies ConcreteTest<ValueModifier,JValueModifier> {
     
-    shared String->ValueModifier valueModifier = "value"->ValueModifier();
+    shared String->ValueModifier valueModifier = "value" -> ValueModifier();
     
     parse = parseValueModifier;
     fromCeylon = RedHatTransformer.transformValueModifier;

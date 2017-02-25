@@ -26,17 +26,17 @@ shared class CallableType(returnType, argumentTypes)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCallableType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CallableType that) {
-            return returnType == that.returnType && argumentTypes == that.argumentTypes;
+            return returnType==that.returnType && argumentTypes==that.argumentTypes;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (returnType.hash + 31 * argumentTypes.hash);
+            => 31 * (returnType.hash + 31*argumentTypes.hash);
     
     shared CallableType copy(PrimaryType returnType = this.returnType, TypeList|SpreadType argumentTypes = this.argumentTypes) {
         value ret = CallableType(returnType, argumentTypes);

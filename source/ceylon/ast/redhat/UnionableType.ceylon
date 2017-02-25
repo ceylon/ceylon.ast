@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[UnionableType]]."
-shared UnionableType unionableTypeToCeylon(JStaticType unionableType, Anything(JNode,Node) update = noop) {
+shared UnionableType unionableTypeToCeylon(JStaticType unionableType, Anything(JNode, Node) update = noop) {
     if (is JIntersectionType unionableType) {
         return intersectionTypeToCeylon(unionableType, update);
     } else {
@@ -22,7 +22,7 @@ shared UnionableType unionableTypeToCeylon(JStaticType unionableType, Anything(J
 "Parses the given [[code]] for a Unionable Type
  into a [[UnionableType]] using the Ceylon compiler
  (more specifically, the rule for an `intersectionType`)."
-shared UnionableType? parseUnionableType(String code, Anything(JNode,Node) update = noop) {
+shared UnionableType? parseUnionableType(String code, Anything(JNode, Node) update = noop) {
     if (exists jType = createParser(code).intersectionType()) {
         return unionableTypeToCeylon(jType, update);
     } else {

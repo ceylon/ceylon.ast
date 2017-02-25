@@ -15,7 +15,7 @@ import ceylon.interop.java {
 }
 
 "Converts RedHat AST [[SatisfiedTypes|JSatisfiedTypes]] to `ceylon.ast` [[SatisfiedTypes]]."
-shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes, Anything(JNode,Node) update = noop) {
+shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes, Anything(JNode, Node) update = noop) {
     assert (nonempty types = CeylonIterable(satisfiedTypes.types).collect {
             PrimaryType collecting(JStaticType element) {
                 assert (is PrimaryType ret = typeToCeylon(element, update));
@@ -30,7 +30,7 @@ shared SatisfiedTypes satisfiedTypesToCeylon(JSatisfiedTypes satisfiedTypes, Any
 "Parses the given [[code]] for Satisfied Types
  into [[SatisfiedTypes]] using the Ceylon compiler
  (more specifically, the rule for `satisfiedTypes`)."
-shared SatisfiedTypes? parseSatisfiedTypes(String code, Anything(JNode,Node) update = noop) {
+shared SatisfiedTypes? parseSatisfiedTypes(String code, Anything(JNode, Node) update = noop) {
     if (exists jSatisfiedTypes = createParser(code).satisfiedTypes()) {
         return satisfiedTypesToCeylon(jSatisfiedTypes, update);
     } else {

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IsOp|JIsOp]] to a `ceylon.ast` [[IsOperation]]."
-shared IsOperation isOperationToCeylon(JIsOp isOperation, Anything(JNode,Node) update = noop) {
+shared IsOperation isOperationToCeylon(JIsOp isOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ExistsNonemptyExpression operand = expressionToCeylon(isOperation.term, update));
     "Must be a real type"
@@ -25,7 +25,7 @@ shared IsOperation isOperationToCeylon(JIsOp isOperation, Anything(JNode,Node) u
 "Parses the given [[code]] for an Is Operation
  into an [[IsOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared IsOperation? parseIsOperation(String code, Anything(JNode,Node) update = noop) {
+shared IsOperation? parseIsOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JIsOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return isOperationToCeylon(jComparisonExpression, update);
     } else {

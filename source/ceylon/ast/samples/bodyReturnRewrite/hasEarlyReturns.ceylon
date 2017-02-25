@@ -38,7 +38,7 @@ shared Boolean hasEarlyReturns(Body body) {
                 shared actual void visitBody(Body that) {
                     that.children.last?.visit(this);
                     returnAllowed = false;
-                    for (statement in that.children[... that.children.size - 2]) {
+                    for (statement in that.children[... that.children.size-2]) {
                         statement.visit(this);
                     }
                 }

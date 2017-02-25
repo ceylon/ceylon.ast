@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object memberOperator satisfies ConcreteTest<MemberOperator,JMemberOp> {
     
-    shared String->MemberOperator memberOperator = "."->MemberOperator();
+    shared String->MemberOperator memberOperator = "." -> MemberOperator();
     
     parse = parseMemberOperator;
     fromCeylon = RedHatTransformer.transformMemberOperator;

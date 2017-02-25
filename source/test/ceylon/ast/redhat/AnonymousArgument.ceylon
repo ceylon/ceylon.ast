@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object anonymousArgument satisfies ConcreteTest<AnonymousArgument,JSpecifiedArgument> {
     
     String->AnonymousArgument construct(String->Expression expression)
-            => "``expression.key``;"->AnonymousArgument(expression.item);
+            => "``expression.key``;" -> AnonymousArgument(expression.item);
     
     shared String->AnonymousArgument aTimesBPlusCAnonymousArgument = construct(sumOperation.aTimesBPlusCExpression);
     shared String->AnonymousArgument cInAIntersectBAnonymousArgument = construct(inOperation.cInAIntersectBExpression);

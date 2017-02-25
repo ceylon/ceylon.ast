@@ -18,7 +18,7 @@ shared class DecQualifier(components = [], packageQualifier = null)
     "The ‘`package`’ qualifier, if present."
     shared PackageQualifier? packageQualifier;
     
-    shared actual [PackageQualifier,Identifier*]|[Identifier*] children
+    shared actual [PackageQualifier, Identifier*]|[Identifier*] children
             = if (exists packageQualifier) then [packageQualifier, *components] else components;
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -26,7 +26,7 @@ shared class DecQualifier(components = [], packageQualifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDecQualifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DecQualifier that) {
             if (exists packageQualifier) {

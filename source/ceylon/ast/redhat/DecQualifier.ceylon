@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[DecQualifier]]."
-DecQualifier decQualifierToCeylon(JStaticType decQualifier, Anything(JNode,Node) update) {
+DecQualifier decQualifierToCeylon(JStaticType decQualifier, Anything(JNode, Node) update) {
     assert (is JBaseType|JQualifiedType decQualifier);
     DecQualifier result;
     switch (decQualifier)

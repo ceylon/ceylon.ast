@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object thenOperation satisfies ConcreteTest<ThenOperation,JThenOp> {
     
     String->ThenOperation construct(String->ThenElseExpression left, String->DisjoiningExpression right)
-            => "``left.key`` then ``right.key``"->ThenOperation(left.item, right.item);
+            => "``left.key`` then ``right.key``" -> ThenOperation(left.item, right.item);
     
     shared String->ThenOperation notNameEmptyThenNameExpression = construct(notOperation.notNameEmptyExpression, baseExpression.nameExpression);
     

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object defaultedParameterReference satisfies ConcreteTest<DefaultedParameterReference,JInitializerParameter> {
     
     String->DefaultedParameterReference construct(String->ParameterReference parameter, String->Specifier specifier)
-            => "``parameter.key````specifier.key``"->DefaultedParameterReference(parameter.item, specifier.item);
+            => "``parameter.key````specifier.key``" -> DefaultedParameterReference(parameter.item, specifier.item);
     
     shared String->DefaultedParameterReference lidDefaultstoNameElseWorldDefaultedParameterReference = construct(parameterReference.lidParameterReference, specifier.nameElseWorldStringLiteralGroupedSpecifier);
     

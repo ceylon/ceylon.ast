@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object forIterator satisfies ConcreteTest<ForIterator,JForIterator> {
     
     String->ForIterator construct(String->Pattern pattern, String->Expression iterated)
-            => "(``pattern.key`` in ``iterated.key``)"->ForIterator(pattern.item, iterated.item);
+            => "(``pattern.key`` in ``iterated.key``)" -> ForIterator(pattern.item, iterated.item);
     
     shared String->ForIterator variableIterator = construct(variablePattern.stringLineVariablePattern, baseExpression.textExpression);
     shared String->ForIterator entryDestructureIterator = construct(entryPattern.eToStringLineEntryPattern, baseExpression.peopleByNameExpression);

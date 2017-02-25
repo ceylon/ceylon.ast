@@ -19,7 +19,7 @@ shared class SpreadType(type)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpreadType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpreadType that) {
             return type == that.type;

@@ -26,17 +26,17 @@ shared class MeasureSubscript(from, length)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitMeasureSubscript(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is MeasureSubscript that) {
-            return from == that.from && length == that.length;
+            return from==that.from && length==that.length;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (from.hash + 31 * length.hash);
+            => 31 * (from.hash + 31*length.hash);
     
     shared MeasureSubscript copy(AddingExpression from = this.from, AddingExpression length = this.length) {
         value ret = MeasureSubscript(from, length);

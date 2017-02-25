@@ -22,17 +22,17 @@ shared class VariadicParameter(type, name, annotations = Annotations())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitVariadicParameter(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is VariadicParameter that) {
-            return annotations == that.annotations && type == that.type && name == that.name;
+            return annotations==that.annotations && type==that.type && name==that.name;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (annotations.hash + 31 * (type.hash + 31 * name.hash));
+            => 31 * (annotations.hash + 31 * (type.hash + 31*name.hash));
     
     shared VariadicParameter copy(VariadicType type = this.type, MemberName name = this.name, Annotations annotations = this.annotations) {
         value ret = VariadicParameter(type, name, annotations);

@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[FunctionModifier|JFunctionModifier]] to a `ceylon.ast` [[FunctionModifier]]."
-shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModifier, Anything(JNode,Node) update = noop) {
+shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModifier, Anything(JNode, Node) update = noop) {
     value result = FunctionModifier();
     update(functionModifier, result);
     return result;
@@ -29,7 +29,7 @@ shared FunctionModifier functionModifierToCeylon(JFunctionModifier functionModif
 "Parses the given [[code]] for a Function Modifier
  into a [[FunctionModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared FunctionModifier? parseFunctionModifier(String code, Anything(JNode,Node) update = noop) {
+shared FunctionModifier? parseFunctionModifier(String code, Anything(JNode, Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == functionType) {

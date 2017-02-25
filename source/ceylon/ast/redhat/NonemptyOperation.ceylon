@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Nonempty|JNonempty]] to a `ceylon.ast` [[NonemptyOperation]]."
-shared NonemptyOperation nonemptyOperationToCeylon(JNonempty nonemptyOperation, Anything(JNode,Node) update = noop) {
+shared NonemptyOperation nonemptyOperationToCeylon(JNonempty nonemptyOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is SpanningExpression operand = expressionToCeylon(nonemptyOperation.term, update));
     value result = NonemptyOperation(operand);
@@ -22,7 +22,7 @@ shared NonemptyOperation nonemptyOperationToCeylon(JNonempty nonemptyOperation, 
 "Parses the given [[code]] for a Nonempty Operation
  into a [[NonemptyOperation]] using the Ceylon compiler
  (more specifically, the rule for a `existenceEmptinessExpression`)."
-shared NonemptyOperation? parseNonemptyOperation(String code, Anything(JNode,Node) update = noop) {
+shared NonemptyOperation? parseNonemptyOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JNonempty jExistenceEmptinessExpression = createParser(code).existenceEmptinessExpression()) {
         return nonemptyOperationToCeylon(jExistenceEmptinessExpression, update);
     } else {

@@ -19,10 +19,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object switchClause satisfies ConcreteTest<SwitchClause,JSwitchClause> {
     
     String->SwitchClause construct(String->Expression|SpecifiedVariable expression)
-            => "switch (``expression.key``)"->SwitchClause(expression.item);
+            => "switch (``expression.key``)" -> SwitchClause(expression.item);
     
     shared String->SwitchClause switchIClause = construct(baseExpression.iExpression);
-    shared String->SwitchClause switchVarIClause = construct("var = i"->SpecifiedVariable {
+    shared String->SwitchClause switchVarIClause = construct("var = i" -> SpecifiedVariable {
             name = LIdentifier("var");
             specifier = Specifier(baseExpression.iExpression.item);
         });

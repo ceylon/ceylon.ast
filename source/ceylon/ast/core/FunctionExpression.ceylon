@@ -30,7 +30,7 @@ shared class FunctionExpression(parameterLists, definition, type = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFunctionExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FunctionExpression that) {
             if (exists type) {
@@ -44,7 +44,7 @@ shared class FunctionExpression(parameterLists, definition, type = null)
             } else if (that.type exists) {
                 return false;
             }
-            return parameterLists == that.parameterLists && definition == that.definition;
+            return parameterLists==that.parameterLists && definition==that.definition;
         } else {
             return false;
         }

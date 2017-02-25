@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AttributeGetterDefinition|JAttributeGetterDefinition]] to a `ceylon.ast` [[ValueGetterDefinition]]."
-shared ValueGetterDefinition valueGetterDefinitionToCeylon(JAttributeGetterDefinition valueGetterDefinition, Anything(JNode,Node) update = noop) {
+shared ValueGetterDefinition valueGetterDefinitionToCeylon(JAttributeGetterDefinition valueGetterDefinition, Anything(JNode, Node) update = noop) {
     "Must be defined"
     assert (exists definition = valueGetterDefinition.block);
     assert (is JStaticType|JValueModifier|JDynamicModifier jType = valueGetterDefinition.type);
@@ -38,7 +38,7 @@ shared ValueGetterDefinition valueGetterDefinitionToCeylon(JAttributeGetterDefin
 "Parses the given [[code]] for a Value Getter Definition
  into a [[ValueGetterDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueGetterDefinition? parseValueGetterDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueGetterDefinition? parseValueGetterDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JAttributeGetterDefinition jDeclaration = createParser(code).declaration()) {
         return valueGetterDefinitionToCeylon(jDeclaration, update);
     } else {

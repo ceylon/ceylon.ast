@@ -18,7 +18,7 @@ shared class TypedVariable(name, type, specifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypedVariable(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypedVariable that) {
             if (exists specifier) {
@@ -32,7 +32,7 @@ shared class TypedVariable(name, type, specifier = null)
             } else if (that.specifier exists) {
                 return false;
             }
-            return name == that.name && type == that.type;
+            return name==that.name && type==that.type;
         } else {
             return false;
         }

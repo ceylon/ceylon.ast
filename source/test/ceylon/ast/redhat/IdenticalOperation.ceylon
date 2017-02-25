@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object identicalOperation satisfies ConcreteTest<IdenticalOperation,JIdenticalOp> {
     
     String->IdenticalOperation construct(String->ComparingExpression left, String->ComparingExpression right)
-            => "``left.key``===``right.key``"->IdenticalOperation(left.item, right.item);
+            => "``left.key``===``right.key``" -> IdenticalOperation(left.item, right.item);
     
     shared String->IdenticalOperation aIdenticalBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     

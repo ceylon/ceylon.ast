@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Resource|JResource]] to a `ceylon.ast` [[Resource]]."
-shared Resource resourceToCeylon(JResource resource, Anything(JNode,Node) update = noop) {
+shared Resource resourceToCeylon(JResource resource, Anything(JNode, Node) update = noop) {
     Resource result;
     if (exists jVariable = resource.variable) {
         "Resource can’t have both a variable and an expression"
@@ -48,7 +48,7 @@ shared Resource resourceToCeylon(JResource resource, Anything(JNode,Node) update
 "Parses the given [[code]] for a Resource
  into a [[Resource]] using the Ceylon compiler
  (more specifically, the rule for a `resource`)."
-shared Resource? parseResource(String code, Anything(JNode,Node) update = noop) {
+shared Resource? parseResource(String code, Anything(JNode, Node) update = noop) {
     if (exists jResource = createParser(code).resource()) {
         return resourceToCeylon(jResource, update);
     } else {

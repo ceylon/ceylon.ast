@@ -27,7 +27,7 @@ shared class ImportElements(elements = [], wildcard = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitImportElements(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ImportElements that) {
             if (exists wildcard) {

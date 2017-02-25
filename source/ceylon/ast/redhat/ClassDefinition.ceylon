@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ClassDefinition|JClassDefinition]] to a `ceylon.ast` [[ClassDefinition]]."
-shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition, Anything(JNode,Node) update = noop) {
+shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition, Anything(JNode, Node) update = noop) {
     value result = ClassDefinition {
         name = uIdentifierToCeylon(classDefinition.identifier, update);
         value parameters {
@@ -75,7 +75,7 @@ shared ClassDefinition classDefinitionToCeylon(JClassDefinition classDefinition,
 "Parses the given [[code]] for a Class Definition
  into a [[ClassDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassDefinition? parseClassDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ClassDefinition? parseClassDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JClassDefinition jDeclaration = createParser(code).declaration()) {
         return classDefinitionToCeylon(jDeclaration, update);
     } else {

@@ -43,17 +43,17 @@ shared class InOperation(element, category)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitInOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is InOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared InOperation copy(ExistsNonemptyExpression leftOperand = this.leftOperand, ExistsNonemptyExpression rightOperand = this.rightOperand) {
         value ret = InOperation(leftOperand, rightOperand);

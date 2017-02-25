@@ -24,17 +24,17 @@ shared class IsCondition(variable, negated = false)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIsCondition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IsCondition that) {
-            return variable == that.variable && negated == that.negated;
+            return variable==that.variable && negated==that.negated;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (variable.hash + 31 * negated.hash);
+            => 31 * (variable.hash + 31*negated.hash);
     
     shared IsCondition copy(TypedVariable variable = this.variable, Boolean negated = this.negated) {
         value ret = IsCondition(variable, negated);

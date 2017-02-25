@@ -20,7 +20,7 @@ shared class OptionalType(definiteType)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitOptionalType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is OptionalType that) {
             return definiteType == that.definiteType;

@@ -21,7 +21,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[FunctionalParameterDeclaration|JFunctionalParameterDeclaration]] to a `ceylon.ast` [[DefaultedCallableParameter]]."
-shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctionalParameterDeclaration defaultedCallableParameter, Anything(JNode,Node) update = noop) {
+shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctionalParameterDeclaration defaultedCallableParameter, Anything(JNode, Node) update = noop) {
     assert (is JMethodDeclaration dec = defaultedCallableParameter.typedDeclaration,
         is JLazySpecifierExpression specifier = dec.specifierExpression);
     assert (is JStaticType|JVoidModifier jType = dec.type);
@@ -52,7 +52,7 @@ shared DefaultedCallableParameter defaultedCallableParameterToCeylon(JFunctional
 "Parses the given [[code]] for a Defaulted Callable Parameter
  into a [[DefaultedCallableParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared DefaultedCallableParameter? parseDefaultedCallableParameter(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedCallableParameter? parseDefaultedCallableParameter(String code, Anything(JNode, Node) update = noop) {
     if (is JFunctionalParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef()) {
         return defaultedCallableParameterToCeylon(jParameterDeclarationOrRef, update);
     } else {

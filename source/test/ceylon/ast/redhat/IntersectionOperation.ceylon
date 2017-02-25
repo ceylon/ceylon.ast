@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object intersectionOperation satisfies ConcreteTest<IntersectionOperation,JIntersectionOp> {
     
     String->IntersectionOperation construct(String->IntersectingExpression left, String->InvertingExpression right)
-            => "``left.key``&``right.key``"->IntersectionOperation(left.item, right.item);
+            => "``left.key``&``right.key``" -> IntersectionOperation(left.item, right.item);
     
     shared String->IntersectionOperation aIntersectBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     shared String->IntersectionOperation aIntersectBIntersectCExpression = construct(aIntersectBExpression, baseExpression.cExpression);

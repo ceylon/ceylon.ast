@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IntersectAssignOp|JIntersectAssignOp]] to a `ceylon.ast` [[IntersectAssignmentOperation]]."
-shared IntersectAssignmentOperation intersectAssignmentOperationToCeylon(JIntersectAssignOp intersectAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared IntersectAssignmentOperation intersectAssignmentOperationToCeylon(JIntersectAssignOp intersectAssignmentOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ThenElseExpression left = expressionToCeylon(intersectAssignmentOperation.leftTerm, update));
     value right = expressionToCeylon(intersectAssignmentOperation.rightTerm, update);
@@ -23,7 +23,7 @@ shared IntersectAssignmentOperation intersectAssignmentOperationToCeylon(JInters
 "Parses the given [[code]] for an Intersect Assignment Operation
  into an [[IntersectAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared IntersectAssignmentOperation? parseIntersectAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared IntersectAssignmentOperation? parseIntersectAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JIntersectAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return intersectAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

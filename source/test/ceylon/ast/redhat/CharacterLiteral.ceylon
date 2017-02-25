@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object characterLiteral satisfies ConcreteTest<CharacterLiteral,JCharLiteral> {
     
     String->CharacterLiteral construct(String text)
-            => "'``text``'"->CharacterLiteral(text);
+            => "'``text``'" -> CharacterLiteral(text);
     
     shared String->CharacterLiteral capitalCCharacterLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->CharacterLiteral namedCapitalCCharacterLiteral = construct("\\{LATIN CAPITAL LETTER C}");

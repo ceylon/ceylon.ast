@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object caseClause satisfies ConcreteTest<CaseClause,JCaseClause> {
     
     String->CaseClause construct(String->CaseItem caseItem, String->Block block)
-            => "case (``caseItem.key``) ``block.key``"->CaseClause(caseItem.item, block.item);
+            => "case (``caseItem.key``) ``block.key``" -> CaseClause(caseItem.item, block.item);
     
     shared String->CaseClause caseNullPrintHelloWorldClause = construct(matchCase.matchNullCase, block.printHelloWorldBlock);
     shared String->CaseClause caseIsStringClause = construct(isCase.isStringCase, block.emptyBlock);

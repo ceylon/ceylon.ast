@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object isCase satisfies ConcreteTest<IsCase,JIsCase> {
     
     String->IsCase construct(String->Type type)
-            => "is ``type.key``"->IsCase(type.item);
+            => "is ``type.key``" -> IsCase(type.item);
     
     shared String->IsCase isStringCase = construct(baseType.stringType);
     shared String->IsCase isStringOrIntegerOrFloatCase = construct(unionType.stringOrIntegerOrFloatUnionType);

@@ -23,7 +23,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object functionArgument satisfies ConcreteTest<FunctionArgument,JMethodArgument> {
     
     String->FunctionArgument construct(String->LIdentifier name, String->Type|VoidModifier|FunctionModifier|DynamicModifier type, [<String->Parameters>+] parameterLists, String->Block|LazySpecifier definition)
-            => "``type.key`` ``name.key`` ``"".join(parameterLists*.key)`` ``definition.key``"->FunctionArgument(name.item, type.item, parameterLists*.item, definition.item);
+            => "``type.key`` ``name.key`` ``"".join(parameterLists*.key)`` ``definition.key``" -> FunctionArgument(name.item, type.item, parameterLists*.item, definition.item);
     
     shared String->FunctionArgument mapFunctionArgument = construct(identifier.mapLIdentifier, functionModifier.functionModifier, [parameters.charactersParameters, parameters.emptyParameters], lazySpecifier.assignLazySpecifier);
     shared String->FunctionArgument eFunctionArgument = construct(identifier.eLIdentifier, voidModifier.voidModifier, [parameters.notEmptyParameters], block.printPersonNameBlock);

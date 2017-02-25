@@ -28,7 +28,7 @@ import ceylon.interop.java {
  (Warning: The RedHat `MethodArgument` should not be confused with
  [[FunctionArgument|com.redhat.ceylon.compiler.typechecker.tree::Tree.FunctionArgument]],
  which corresponds to `ceylon.ast`’s [[ceylon.ast.core::FunctionExpression]].)"
-shared FunctionArgument functionArgumentToCeylon(JMethodArgument functionArgument, Anything(JNode,Node) update = noop) {
+shared FunctionArgument functionArgumentToCeylon(JMethodArgument functionArgument, Anything(JNode, Node) update = noop) {
     assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionArgument.type);
     Type|VoidModifier|FunctionModifier|DynamicModifier type;
     switch (jType)
@@ -57,7 +57,7 @@ shared FunctionArgument functionArgumentToCeylon(JMethodArgument functionArgumen
 "Parses the given [[code]] for a Function Argument
  into a [[FunctionArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared FunctionArgument? parseFunctionArgument(String code, Anything(JNode,Node) update = noop) {
+shared FunctionArgument? parseFunctionArgument(String code, Anything(JNode, Node) update = noop) {
     if (is JMethodArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return functionArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

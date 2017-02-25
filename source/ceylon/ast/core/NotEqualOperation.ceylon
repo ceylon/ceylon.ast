@@ -21,17 +21,17 @@ shared class NotEqualOperation(leftOperand, rightOperand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitNotEqualOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is NotEqualOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared NotEqualOperation copy(ComparingExpression leftOperand = this.leftOperand, ComparingExpression rightOperand = this.rightOperand) {
         value ret = NotEqualOperation(leftOperand, rightOperand);

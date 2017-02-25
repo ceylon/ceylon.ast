@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object satisfiedTypes satisfies ConcreteTest<SatisfiedTypes,JSatisfiedTypes> {
     
     String->SatisfiedTypes construct(<String->PrimaryType>+ satisfiedTypes)
-            => "satisfies ``"&".join(satisfiedTypes*.key)``"->SatisfiedTypes(satisfiedTypes*.item);
+            => "satisfies ``"&".join(satisfiedTypes*.key)``" -> SatisfiedTypes(satisfiedTypes*.item);
     
     shared String->SatisfiedTypes satisfiesStringStarAndPrintableSatisfiedTypes = construct(iterableType.stringStarIterableType, baseType.printableType);
     

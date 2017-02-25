@@ -17,17 +17,17 @@ shared class VariadicType(elementType, isNonempty = false)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitVariadicType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is VariadicType that) {
-            return isNonempty == that.isNonempty && elementType == that.elementType;
+            return isNonempty==that.isNonempty && elementType==that.elementType;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * elementType.hash + isNonempty.hash;
+            => 31*elementType.hash + isNonempty.hash;
     
     shared VariadicType copy(MainType elementType = this.elementType, Boolean isNonempty = this.isNonempty) {
         value ret = VariadicType(elementType, isNonempty);

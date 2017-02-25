@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SequenceEnumeration|JSequenceEnumeration]] to a `ceylon.ast` [[Iterable]]."
-shared Iterable iterableToCeylon(JSequenceEnumeration iterable, Anything(JNode,Node) update = noop) {
+shared Iterable iterableToCeylon(JSequenceEnumeration iterable, Anything(JNode, Node) update = noop) {
     Iterable result;
     if (exists args = iterable.sequencedArgument) {
         result = Iterable(argumentListToCeylon(args, update));
@@ -27,7 +27,7 @@ shared Iterable iterableToCeylon(JSequenceEnumeration iterable, Anything(JNode,N
 "Parses the given [[code]] for an Iterable
  into an [[Iterable]] using the Ceylon compiler
  (more specifically, the rule for an `enumeration`)."
-shared Iterable? parseIterable(String code, Anything(JNode,Node) update = noop) {
+shared Iterable? parseIterable(String code, Anything(JNode, Node) update = noop) {
     if (exists jEnumeration = createParser(code).enumeration()) {
         return iterableToCeylon(jEnumeration, update);
     } else {

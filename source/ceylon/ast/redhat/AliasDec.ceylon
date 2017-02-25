@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AliasLiteral|JAliasLiteral]] to a `ceylon.ast` [[AliasDec]]."
-shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec, Anything(JNode,Node) update = noop) {
+shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec, Anything(JNode, Node) update = noop) {
     assert (is JBaseType|JQualifiedType jType = aliasDec.type);
     AliasDec result;
     switch (jType)
@@ -41,7 +41,7 @@ shared AliasDec aliasDecToCeylon(JAliasLiteral aliasDec, Anything(JNode,Node) up
 "Parses the given [[code]] for an Alias Dec
  into an [[AliasDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared AliasDec? parseAliasDec(String code, Anything(JNode,Node) update = noop) {
+shared AliasDec? parseAliasDec(String code, Anything(JNode, Node) update = noop) {
     if (is JAliasLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return aliasDecToCeylon(jMetaLiteral, update);
     } else {

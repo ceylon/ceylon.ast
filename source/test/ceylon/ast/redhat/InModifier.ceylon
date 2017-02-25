@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object inModifier satisfies ConcreteTest<InModifier,JTypeVariance> {
     
-    shared String->InModifier inModifier = " in "->InModifier();
+    shared String->InModifier inModifier = " in " -> InModifier();
     
     parse = parseInModifier;
     fromCeylon = RedHatTransformer.transformInModifier;

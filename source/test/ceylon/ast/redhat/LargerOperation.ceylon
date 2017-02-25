@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object largerOperation satisfies ConcreteTest<LargerOperation,JLargerOp> {
     
     String->LargerOperation construct(String->ExistsNonemptyExpression left, String->ExistsNonemptyExpression right)
-            => "``left.key``>``right.key``"->LargerOperation(left.item, right.item);
+            => "``left.key``>``right.key``" -> LargerOperation(left.item, right.item);
     
     shared String->LargerOperation _1138Larger1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     

@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ImportWildcard|JImportWildcard]] to a `ceylon.ast` [[ImportWildcard]]."
-shared ImportWildcard importWildcardToCeylon(JImportWildcard importWildcard, Anything(JNode,Node) update = noop) {
+shared ImportWildcard importWildcardToCeylon(JImportWildcard importWildcard, Anything(JNode, Node) update = noop) {
     value result = ImportWildcard();
     update(importWildcard, result);
     return result;
@@ -19,7 +19,7 @@ shared ImportWildcard importWildcardToCeylon(JImportWildcard importWildcard, Any
 "Parses the given [[code]] for an Import Wildcard
  into an [[ImportWildcard]] using the Ceylon compiler
  (more specifically, the rule for an `importWildcard`)."
-shared ImportWildcard? parseImportWildcard(String code, Anything(JNode,Node) update = noop) {
+shared ImportWildcard? parseImportWildcard(String code, Anything(JNode, Node) update = noop) {
     if (exists jImportWildcard = createParser(code).importWildcard()) {
         return importWildcardToCeylon(jImportWildcard, update);
     } else {

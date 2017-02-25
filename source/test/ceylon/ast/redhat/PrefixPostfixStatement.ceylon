@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object prefixPostfixStatement satisfies ConcreteTest<PrefixPostfixStatement,JExpressionStatement> {
     
     String->PrefixPostfixStatement construct(String->PrefixOperation|PostfixOperation expression)
-            => "``expression.key``;"->PrefixPostfixStatement(expression.item);
+            => "``expression.key``;" -> PrefixPostfixStatement(expression.item);
     
     shared String->PrefixPostfixStatement _1138PostfixIncrementStatement = construct(postfixIncrementOperation._1138IntegerLiteralPostfixIncrementOperation);
     shared String->PrefixPostfixStatement _1138PrefixDecrementStatement = construct(prefixDecrementOperation._1138IntegerLiteralPrefixDecrementOperation);

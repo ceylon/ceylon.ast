@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object dynamicBlock satisfies ConcreteTest<DynamicBlock,JDynamicStatement> {
     
     String->DynamicBlock construct(String->Block block)
-            => "dynamic ``block.key``"->DynamicBlock(block.item);
+            => "dynamic ``block.key``" -> DynamicBlock(block.item);
     
     shared String->DynamicBlock printPersonNameDynamicBlock = construct(block.printPersonNameBlock);
     

@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object spreadMemberOperator satisfies ConcreteTest<SpreadMemberOperator,JSpreadOp> {
     
-    shared String->SpreadMemberOperator spreadMemberOperator = "*."->SpreadMemberOperator();
+    shared String->SpreadMemberOperator spreadMemberOperator = "*." -> SpreadMemberOperator();
     
     parse = parseSpreadMemberOperator;
     fromCeylon = RedHatTransformer.transformSpreadMemberOperator;

@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[MemberOperator|JMemberOperator]] to a `ceylon.ast` [[AnyMemberOperator]]."
-shared AnyMemberOperator anyMemberOperatorToCeylon(JMemberOperator anyMemberOperator, Anything(JNode,Node) update = noop) {
+shared AnyMemberOperator anyMemberOperatorToCeylon(JMemberOperator anyMemberOperator, Anything(JNode, Node) update = noop) {
     assert (is JMemberOp|JSafeMemberOp|JSpreadOp anyMemberOperator);
     switch (anyMemberOperator)
     case (is JMemberOp) { return memberOperatorToCeylon(anyMemberOperator, update); }
@@ -24,7 +24,7 @@ shared AnyMemberOperator anyMemberOperatorToCeylon(JMemberOperator anyMemberOper
 "Parses the given [[code]] for Any Member Operator
  into an [[AnyMemberOperator]] using the Ceylon compiler
  (more specifically, the rule for a `memberSelectionOperator`)."
-shared AnyMemberOperator? parseAnyMemberOperator(String code, Anything(JNode,Node) update = noop) {
+shared AnyMemberOperator? parseAnyMemberOperator(String code, Anything(JNode, Node) update = noop) {
     if (exists jMemberSelectionOperator = createParser(code).memberSelectionOperator()) {
         return anyMemberOperatorToCeylon(jMemberSelectionOperator, update);
     } else {

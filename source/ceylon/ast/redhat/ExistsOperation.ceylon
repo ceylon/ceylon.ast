@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Exists|JExists]] to a `ceylon.ast` [[ExistsOperation]]."
-shared ExistsOperation existsOperationToCeylon(JExists existsOperation, Anything(JNode,Node) update = noop) {
+shared ExistsOperation existsOperationToCeylon(JExists existsOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is SpanningExpression operand = expressionToCeylon(existsOperation.term, update));
     value result = ExistsOperation(operand);
@@ -22,7 +22,7 @@ shared ExistsOperation existsOperationToCeylon(JExists existsOperation, Anything
 "Parses the given [[code]] for an Exists Operation
  into an [[ExistsOperation]] using the Ceylon compiler
  (more specifically, the rule for an `existenceEmptinessExpression`)."
-shared ExistsOperation? parseExistsOperation(String code, Anything(JNode,Node) update = noop) {
+shared ExistsOperation? parseExistsOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JExists jExistenceEmptinessExpression = createParser(code).existenceEmptinessExpression()) {
         return existsOperationToCeylon(jExistenceEmptinessExpression, update);
     } else {

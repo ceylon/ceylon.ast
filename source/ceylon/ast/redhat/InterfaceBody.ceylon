@@ -22,7 +22,7 @@ import java.util {
 }
 
 "Converts a RedHat AST [[InterfaceBody|JInterfaceBody]] to a `ceylon.ast` [[InterfaceBody]]."
-shared InterfaceBody interfaceBodyToCeylon(JInterfaceBody interfaceBody, Anything(JNode,Node) update = noop) {
+shared InterfaceBody interfaceBodyToCeylon(JInterfaceBody interfaceBody, Anything(JNode, Node) update = noop) {
     value result = InterfaceBody {
         content = CeylonIterable(interfaceBody.statements).collect {
             Declaration|Specification collecting(JStatement statement) {
@@ -41,7 +41,7 @@ shared InterfaceBody interfaceBodyToCeylon(JInterfaceBody interfaceBody, Anythin
 "Parses the given [[code]] for an Interface Body
  into an [[InterfaceBody]] using the Ceylon compiler
  (more specifically, the rule for an `interfaceBody`)."
-shared InterfaceBody? parseInterfaceBody(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceBody? parseInterfaceBody(String code, Anything(JNode, Node) update = noop) {
     if (exists jInterfaceBody = createParser(code).interfaceBody()) {
         return interfaceBodyToCeylon(jInterfaceBody, update);
     } else {

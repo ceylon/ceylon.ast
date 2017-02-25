@@ -13,7 +13,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TypeParameterList|JTypeParameterList]] to `ceylon.ast` [[TypeParameters]]."
-shared TypeParameters typeParametersToCeylon(JTypeParameterList typeParameters, Anything(JNode,Node) update = noop) {
+shared TypeParameters typeParametersToCeylon(JTypeParameterList typeParameters, Anything(JNode, Node) update = noop) {
     assert (nonempty params = CeylonIterable(typeParameters.typeParameterDeclarations).collect(propagateUpdate(typeParameterToCeylon, update)));
     value result = TypeParameters(params);
     update(typeParameters, result);
@@ -23,7 +23,7 @@ shared TypeParameters typeParametersToCeylon(JTypeParameterList typeParameters, 
 "Parses the given [[code]] for Type Parameters
  into [[TypeParameters]] using the Ceylon compiler
  (more specifically, the rule for `typeParameters`)."
-shared TypeParameters? parseTypeParameters(String code, Anything(JNode,Node) update = noop) {
+shared TypeParameters? parseTypeParameters(String code, Anything(JNode, Node) update = noop) {
     if (exists jTypeParameters = createParser(code).typeParameters()) {
         return typeParametersToCeylon(jTypeParameters, update);
     } else {

@@ -31,17 +31,17 @@ shared class OrAssignmentOperation(target, other)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitOrAssignmentOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is OrAssignmentOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared OrAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = OrAssignmentOperation(leftOperand, rightOperand);

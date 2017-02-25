@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object packageDescriptor satisfies ConcreteTest<PackageDescriptor,JPackageDescriptor> {
     
     String->PackageDescriptor construct(String->FullPackageName name, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` package ``name.key``;"->PackageDescriptor(name.item, annotations.item);
+            => "``annotations.key`` package ``name.key``;" -> PackageDescriptor(name.item, annotations.item);
     
     shared String->PackageDescriptor ceylonAstCorePackageDescriptor = construct(fullPackageName.ceylonAstCorePackageName, annotations.helloSharedByLucasAnnotations);
     

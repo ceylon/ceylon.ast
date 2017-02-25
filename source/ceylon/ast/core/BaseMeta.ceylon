@@ -18,7 +18,7 @@ shared class BaseMeta(nameAndArgs, packageQualifier = null)
     "The package qualifier, if present."
     shared PackageQualifier? packageQualifier;
     
-    shared actual [PackageQualifier,MemberNameWithTypeArguments]|[MemberNameWithTypeArguments] children
+    shared actual [PackageQualifier, MemberNameWithTypeArguments]|[MemberNameWithTypeArguments] children
             = if (exists packageQualifier) then [packageQualifier, nameAndArgs] else [nameAndArgs];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -26,7 +26,7 @@ shared class BaseMeta(nameAndArgs, packageQualifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitBaseMeta(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is BaseMeta that) {
             if (exists packageQualifier) {

@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ClassDeclaration|JClassDeclaration]] to a `ceylon.ast` [[ClassAliasDefinition]]."
-shared ClassAliasDefinition classAliasDefinitionToCeylon(JClassDeclaration classAliasDefinition, Anything(JNode,Node) update = noop) {
+shared ClassAliasDefinition classAliasDefinitionToCeylon(JClassDeclaration classAliasDefinition, Anything(JNode, Node) update = noop) {
     value result = ClassAliasDefinition {
         name = uIdentifierToCeylon(classAliasDefinition.identifier, update);
         parameters = parametersToCeylon(classAliasDefinition.parameterList, update);
@@ -69,7 +69,7 @@ shared ClassAliasDefinition classAliasDefinitionToCeylon(JClassDeclaration class
 "Parses the given [[code]] for a Class Alias
  into a [[ClassAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassAliasDefinition? parseClassAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ClassAliasDefinition? parseClassAliasDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JClassDeclaration jDeclaration = createParser(code).declaration()) {
         return classAliasDefinitionToCeylon(jDeclaration, update);
     } else {

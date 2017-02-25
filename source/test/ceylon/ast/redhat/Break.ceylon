@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object \ibreak satisfies ConcreteTest<Break,JBreak> {
     
-    shared String->Break \ibreak = "break;"->Break();
+    shared String->Break \ibreak = "break;" -> Break();
     
     parse = parseBreak;
     fromCeylon = RedHatTransformer.transformBreak;

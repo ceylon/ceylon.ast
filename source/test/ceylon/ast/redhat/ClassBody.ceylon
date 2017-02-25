@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object classBody satisfies ConcreteTest<ClassBody,JClassBody> {
     
     String->ClassBody construct(<String->Declaration|Statement>[] content, <String->Import>[] imports = [])
-            => "{``"".join(concatenate(imports, content)*.key)``}"->ClassBody(content*.item, imports*.item);
+            => "{``"".join(concatenate(imports, content)*.key)``}" -> ClassBody(content*.item, imports*.item);
     
     shared String->ClassBody emptyClassBody = construct([]);
     shared String->ClassBody pointClassBody = construct([

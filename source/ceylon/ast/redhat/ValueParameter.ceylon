@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ValueParameterDeclaration|JValueParameterDeclaration]] to a `ceylon.ast` [[ValueParameter]]."
-shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valueParameter, Anything(JNode,Node) update = noop) {
+shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valueParameter, Anything(JNode, Node) update = noop) {
     "Must not be variadic"
     assert (is JStaticType|JDynamicModifier jType = valueParameter.typedDeclaration.type);
     Type|DynamicModifier type;
@@ -35,7 +35,7 @@ shared ValueParameter valueParameterToCeylon(JValueParameterDeclaration valuePar
 "Parses the given [[code]] for a Value Parameter
  into a [[ValueParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared ValueParameter? parseValueParameter(String code, Anything(JNode,Node) update = noop) {
+shared ValueParameter? parseValueParameter(String code, Anything(JNode, Node) update = noop) {
     if (is JValueParameterDeclaration jParameter = createParser(code).parameterDeclarationOrRef(),
         jParameter.typedDeclaration.type is JStaticType|JDynamicModifier) {
         return valueParameterToCeylon(jParameter, update);

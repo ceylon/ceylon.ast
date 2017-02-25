@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Term|JTerm]] to a `ceylon.ast` [[Expression]]."
-shared Expression expressionToCeylon(JTerm term, Anything(JNode,Node) update = noop) {
+shared Expression expressionToCeylon(JTerm term, Anything(JNode, Node) update = noop) {
     switch (term)
     case (is JPrimary) {
         if (is JExpression term, !term is JParExpression) {
@@ -39,7 +39,7 @@ shared Expression expressionToCeylon(JTerm term, Anything(JNode,Node) update = n
 "Parses the given [[code]] for an Expression
  into an [[Expression]] using the Ceylon compiler
  (more specifically, the rule for a `functionOrExpression`)."
-shared Expression? parseExpression(String code, Anything(JNode,Node) update = noop) {
+shared Expression? parseExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jFunctionOrExpression = createParser(code).functionOrExpression()) {
         return expressionToCeylon(jFunctionOrExpression, update);
     } else {

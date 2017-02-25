@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object \iimport satisfies ConcreteTest<Import,JImport> {
     
     String->Import construct(String->FullPackageName packageName, String->ImportElements elements)
-            => "import ``packageName.key````elements.key``"->Import(packageName.item, elements.item);
+            => "import ``packageName.key````elements.key``" -> Import(packageName.item, elements.item);
     
     shared String->Import ceylonAstWildcardImport = construct(fullPackageName.ceylonAstCorePackageName, importElements.wildcardImportElements);
     shared String->Import javaLangImport = construct(fullPackageName.javaLangPackageName, importElements.systemImportElements);

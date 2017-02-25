@@ -30,7 +30,7 @@ shared class ParameterReference(name)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitParameterReference(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ParameterReference that) {
             return name == that.name;

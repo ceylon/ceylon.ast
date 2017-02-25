@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object booleanCondition satisfies ConcreteTest<BooleanCondition,JBooleanCondition> {
     
     String->BooleanCondition construct(String->Expression condition)
-            => "``condition.key``"->BooleanCondition(condition.item);
+            => "``condition.key``" -> BooleanCondition(condition.item);
     
     shared String->BooleanCondition trueCondition = construct(baseExpression.trueExpression);
     shared String->BooleanCondition aAndBCondition = construct(andOperation.aAndBExpression);

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[PrimaryType]]."
-shared PrimaryType primaryTypeToCeylon(JStaticType type, Anything(JNode,Node) update = noop) {
+shared PrimaryType primaryTypeToCeylon(JStaticType type, Anything(JNode, Node) update = noop) {
     assert (is JSimpleType|JOptionalType|JSequenceType|JTupleType|JIterableType|JFunctionType|JGroupedType type);
     switch (type)
     case (is JSimpleType) { return simpleTypeToCeylon(type, update); }
@@ -32,7 +32,7 @@ shared PrimaryType primaryTypeToCeylon(JStaticType type, Anything(JNode,Node) up
 "Parses the given [[code]] for a Primary Type
  into a [[PrimaryType]] using the Ceylon compiler
  (more specifically, the rule for a `primaryType`)."
-shared PrimaryType? parsePrimaryType(String code, Anything(JNode,Node) update = noop) {
+shared PrimaryType? parsePrimaryType(String code, Anything(JNode, Node) update = noop) {
     if (exists jPrimaryType = createParser(code).primaryType()) {
         return primaryTypeToCeylon(jPrimaryType, update);
     } else {

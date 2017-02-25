@@ -13,7 +13,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ImportModuleList|JImportModuleList]] to a `ceylon.ast` [[ModuleBody]]."
-shared ModuleBody moduleBodyToCeylon(JImportModuleList moduleBody, Anything(JNode,Node) update = noop) {
+shared ModuleBody moduleBodyToCeylon(JImportModuleList moduleBody, Anything(JNode, Node) update = noop) {
     value result = ModuleBody(CeylonIterable(moduleBody.importModules).collect(propagateUpdate(moduleImportToCeylon, update)));
     update(moduleBody, result);
     return result;
@@ -22,7 +22,7 @@ shared ModuleBody moduleBodyToCeylon(JImportModuleList moduleBody, Anything(JNod
 "Parses the given [[code]] for a Module Body
  into a [[ModuleBody]] using the Ceylon compiler
  (more specifically, the rule for a `moduleBody`)."
-shared ModuleBody? parseModuleBody(String code, Anything(JNode,Node) update = noop) {
+shared ModuleBody? parseModuleBody(String code, Anything(JNode, Node) update = noop) {
     if (exists jImportModuleList = createParser(code).importModuleList()) {
         return moduleBodyToCeylon(jImportModuleList, update);
     } else {

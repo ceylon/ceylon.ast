@@ -19,14 +19,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object qualifiedType satisfies ConcreteTest<QualifiedType,JQualifiedType> {
     shared String->QualifiedType stringDotFooOfNothingQualifiedType
-            = "String.Foo<Nothing>"->QualifiedType {
-        qualifyingType = baseType.stringType.item;
-        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Foo"), TypeArguments([TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"), null)))]));
-    };
+            = "String.Foo<Nothing>" -> QualifiedType {
+                qualifyingType = baseType.stringType.item;
+                nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Foo"), TypeArguments([TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("Nothing"), null)))]));
+            };
     shared String->QualifiedType stringDotFooOfNothingDotIterableOfStringQualifiedType
-            = (stringDotFooOfNothingQualifiedType.key + "." + baseType.iterableOfStringType.key)->QualifiedType(stringDotFooOfNothingQualifiedType.item, baseType.iterableOfStringType.item.nameAndArgs);
+            = (stringDotFooOfNothingQualifiedType.key + "." + baseType.iterableOfStringType.key) -> QualifiedType(stringDotFooOfNothingQualifiedType.item, baseType.iterableOfStringType.item.nameAndArgs);
     shared String->QualifiedType stringDotFooOfNothingDotIterableOfStringDotInnerQualifiedType
-            = (stringDotFooOfNothingDotIterableOfStringQualifiedType.key + ".Inner")->QualifiedType(stringDotFooOfNothingDotIterableOfStringQualifiedType.item, TypeNameWithTypeArguments(UIdentifier("Inner")));
+            = (stringDotFooOfNothingDotIterableOfStringQualifiedType.key + ".Inner") -> QualifiedType(stringDotFooOfNothingDotIterableOfStringQualifiedType.item, TypeNameWithTypeArguments(UIdentifier("Inner")));
     
     parse = parseQualifiedType;
     fromCeylon = RedHatTransformer.transformQualifiedType;

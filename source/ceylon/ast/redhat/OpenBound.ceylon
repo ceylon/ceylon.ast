@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[OpenBound|JOpenBound]] to a `ceylon.ast` [[OpenBound]]."
-shared OpenBound openBoundToCeylon(JOpenBound openBound, Anything(JNode,Node) update = noop) {
+shared OpenBound openBoundToCeylon(JOpenBound openBound, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ExistsNonemptyExpression endpoint = expressionToCeylon(openBound.term, update));
     value result = OpenBound(endpoint);

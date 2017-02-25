@@ -28,17 +28,17 @@ shared class CatchClause(variable, block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCatchClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CatchClause that) {
-            return variable == that.variable && block == that.block;
+            return variable==that.variable && block==that.block;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (variable.hash + 31 * block.hash);
+            => 31 * (variable.hash + 31*block.hash);
     
     shared CatchClause copy(UnspecifiedVariable variable = this.variable, Block block = this.block) {
         value ret = CatchClause(variable, block);

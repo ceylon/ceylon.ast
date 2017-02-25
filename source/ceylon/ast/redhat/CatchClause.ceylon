@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CatchClause|JCatchClause]] to a `ceylon.ast` [[CatchClause]]."
-shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,Node) update = noop) {
+shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode, Node) update = noop) {
     Type|ValueModifier? type;
     value jVariable = catchClause.catchVariable.variable;
     value jType = jVariable.type;
@@ -36,7 +36,7 @@ shared CatchClause catchClauseToCeylon(JCatchClause catchClause, Anything(JNode,
 "Parses the given [[code]] for a Catch Clause
  into a [[CatchClause]] using the Ceylon compiler
  (more specifically, the rule for a `catchBlock`)."
-shared CatchClause? parseCatchClause(String code, Anything(JNode,Node) update = noop) {
+shared CatchClause? parseCatchClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jCatchBlock = createParser(code).catchBlock(),
         jCatchBlock.catchVariable exists) { // it’s optional in the grammar
         return catchClauseToCeylon(jCatchBlock, update);

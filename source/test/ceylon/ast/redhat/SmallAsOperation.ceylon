@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object smallAsOperation satisfies ConcreteTest<SmallAsOperation,JSmallAsOp> {
     
     String->SmallAsOperation construct(String->ExistsNonemptyExpression left, String->ExistsNonemptyExpression right)
-            => "``left.key``<=``right.key``"->SmallAsOperation(left.item, right.item);
+            => "``left.key``<=``right.key``" -> SmallAsOperation(left.item, right.item);
     
     shared String->SmallAsOperation _1138LargeAs1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     

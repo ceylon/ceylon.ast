@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object functionExpression satisfies ConcreteTest<FunctionExpression,JFunctionArgument> {
     
     String->FunctionExpression construct([<String->Parameters>+] parameterLists, String->LazySpecifier|Block definition, <String->FunctionModifier|VoidModifier>? type = null)
-            => "`` type?.key else "" ````"".join(parameterLists*.key)````definition.key``"->FunctionExpression(parameterLists*.item, definition.item, type?.item);
+            => "`` type?.key else "" ````"".join(parameterLists*.key)````definition.key``" -> FunctionExpression(parameterLists*.item, definition.item, type?.item);
     
     shared String->FunctionExpression emptyNoopFunctionExpression = construct([parameters.emptyParameters], block.emptyBlock);
     shared String->FunctionExpression functionFunctionExpression = construct([parameters.charactersParameters, parameters.emptyParameters], lazySpecifier.aTimesBPlusCLazySpecifier, functionModifier.functionModifier);

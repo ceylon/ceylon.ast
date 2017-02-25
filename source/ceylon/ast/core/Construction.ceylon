@@ -32,7 +32,7 @@ shared class Construction(nameAndArgs, arguments, qualifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitConstruction(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Construction that) {
             if (exists qualifier) {
@@ -46,7 +46,7 @@ shared class Construction(nameAndArgs, arguments, qualifier = null)
             } else if (that.qualifier exists) {
                 return false;
             }
-            return nameAndArgs == that.nameAndArgs && arguments == that.arguments;
+            return nameAndArgs==that.nameAndArgs && arguments==that.arguments;
         } else {
             return false;
         }

@@ -23,7 +23,7 @@ shared class PackageDec(packageName)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPackageDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PackageDec that) {
             if (exists packageName) {

@@ -37,17 +37,17 @@ shared class CompilationUnit(declarations, imports = []) // we *could* provide a
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCompilationUnit(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CompilationUnit that) {
-            return imports == that.imports && declarations == that.declarations;
+            return imports==that.imports && declarations==that.declarations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (imports.hash + 31 * declarations.hash);
+            => 31 * (imports.hash + 31*declarations.hash);
     
     shared CompilationUnit copy(Declaration[] declarations = this.declarations, Import[] imports = this.imports) {
         value ret = CompilationUnit(declarations, imports);

@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SpreadArgument|JSpreadArgument]] to a `ceylon.ast` [[SpreadArgument]]."
-shared SpreadArgument spreadArgumentToCeylon(JSpreadArgument spreadArgument, Anything(JNode,Node) update = noop) {
+shared SpreadArgument spreadArgumentToCeylon(JSpreadArgument spreadArgument, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is UnioningExpression expression = expressionToCeylon(spreadArgument.expression, update));
     value result = SpreadArgument(expression);
@@ -22,7 +22,7 @@ shared SpreadArgument spreadArgumentToCeylon(JSpreadArgument spreadArgument, Any
 "Parses the given [[code]] for a Spread Argument
  into a [[SpreadArgument]] using the Ceylon compiler
  (more specifically, the rule for a `spreadArgument`)."
-shared SpreadArgument? parseSpreadArgument(String code, Anything(JNode,Node) update = noop) {
+shared SpreadArgument? parseSpreadArgument(String code, Anything(JNode, Node) update = noop) {
     if (exists jSpreadArgument = createParser(code).spreadArgument()) {
         return spreadArgumentToCeylon(jSpreadArgument, update);
     } else {

@@ -17,7 +17,7 @@ shared class TypeMeta(type)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeMeta(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeMeta that) {
             return type == that.type;

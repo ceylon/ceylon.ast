@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object \ithrow satisfies ConcreteTest<Throw,JThrow> {
     
     String->Throw construct(<String->Expression>? result = null)
-            => "throw `` result?.key else "" ``;"->Throw(result?.item);
+            => "throw `` result?.key else "" ``;" -> Throw(result?.item);
     
     shared String->Throw \ithrow = construct();
     shared String->Throw throwAssertionError = construct(invocation.assertionErrorInvocation);

@@ -50,10 +50,10 @@ String stripStringLiteral(JStringLiteral literal, Integer? column = null) {
     Integer startQuoteLength;
     Integer stopQuoteLength;
     value type = literal.mainToken.type;
-    if (type == string_literal || type == astring_literal) {
+    if (type==string_literal || type==astring_literal) {
         startQuoteLength = 1;
         stopQuoteLength = 1;
-    } else if (type == verbatim_string_literal || type == averbatim_string) {
+    } else if (type==verbatim_string_literal || type==averbatim_string) {
         startQuoteLength = 3;
         stopQuoteLength = 3;
     } else if (type == string_start) {
@@ -70,7 +70,7 @@ String stripStringLiteral(JStringLiteral literal, Integer? column = null) {
     }
     value toStrip = column else literal.mainToken.charPositionInLine + startQuoteLength;
     StringBuilder ret = StringBuilder();
-    value text = literal.mainToken.text[startQuoteLength : literal.mainToken.text.size - startQuoteLength - stopQuoteLength];
+    value text = literal.mainToken.text[startQuoteLength : literal.mainToken.text.size-startQuoteLength-stopQuoteLength];
     value lines = text.lines;
     ret.append(lines.first);
     for (line in lines.rest) {
@@ -86,13 +86,13 @@ String stripStringLiteral(JStringLiteral literal, Integer? column = null) {
 "Converts a RedHat AST [[StringLiteral|JStringLiteral]] to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `STRING_LITERAL` nor `VERBATIM_STRING`
                                  nor `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
-shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode,Node) update = noop) {
+shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode, Node) update = noop) {
     StringLiteral result;
     assert (is CommonToken token = stringLiteral.mainToken);
-    if (token.type == verbatim_string_literal || token.type == averbatim_string) {
+    if (token.type==verbatim_string_literal || token.type==averbatim_string) {
         // verbatim
         result = StringLiteral(stripStringLiteral(stringLiteral), true);
-    } else if (token.type == string_literal || token.type == astring_literal) {
+    } else if (token.type==string_literal || token.type==astring_literal) {
         // regular
         result = StringLiteral(stripStringLiteral(stringLiteral), false);
     } else {
@@ -105,7 +105,7 @@ shared StringLiteral stringLiteralToCeylon(JStringLiteral stringLiteral, Anythin
 "Converts a RedHat AST [[StringLiteral|JStringLiteral]] with annotation token type
  (`ASTRING_LITERAL` or `AVERBATIM_STRING`) to a `ceylon.ast` [[StringLiteral]]."
 throws (`class AssertionError`, "If the token type is neither `ASTRING_LITERAL` nor `AVERBATIM_STRING`.")
-shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode,Node) update = noop) {
+shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anything(JNode, Node) update = noop) {
     assert (is CommonToken token = stringLiteral.mainToken);
     StringLiteral result;
     if (token.type == averbatim_string) {
@@ -124,7 +124,7 @@ shared StringLiteral aStringLiteralToCeylon(JStringLiteral stringLiteral, Anythi
 "Parses the given [[code]] for a String Literal
  into a [[StringLiteral]] using the Ceylon compiler
  (more specifically, the rule for a `stringLiteral`)."
-shared StringLiteral? parseStringLiteral(String code, Anything(JNode,Node) update = noop) {
+shared StringLiteral? parseStringLiteral(String code, Anything(JNode, Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
         return stringLiteralToCeylon(jStringLiteral, update);
     } else {

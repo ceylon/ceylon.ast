@@ -24,7 +24,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object functionDeclaration satisfies ConcreteTest<FunctionDeclaration,JMethodDeclaration> {
     
     String->FunctionDeclaration construct(String->LIdentifier name, String->Type|VoidModifier|FunctionModifier|DynamicModifier type, [<String->Parameters>+] parameterLists, <String->TypeParameters>? typeParameters = null, <String->TypeConstraint>[] typeConstraints = [], String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` ``type.key`` ``name.key```` typeParameters?.key else "" ````"".join(parameterLists*.key)````"".join(typeConstraints*.key)``;"->FunctionDeclaration(name.item, type.item, parameterLists*.item, typeParameters?.item, typeConstraints*.item, annotations.item);
+            => "``annotations.key`` ``type.key`` ``name.key```` typeParameters?.key else "" ````"".join(parameterLists*.key)````"".join(typeConstraints*.key)``;" -> FunctionDeclaration(name.item, type.item, parameterLists*.item, typeParameters?.item, typeConstraints*.item, annotations.item);
     
     shared String->FunctionDeclaration voidFunctionDeclaration = construct(identifier.byLIdentifier, voidModifier.voidModifier, [parameters.emptyParameters]);
     shared String->FunctionDeclaration nonemptyFunctionDeclaration = construct(identifier.sharedLIdentifier, unionType.stringOrIntegerOrFloatUnionType, [parameters.notEmptyParameters, parameters.emptyParameters], typeParameters.twoTypeParameters, [typeConstraint.nonemptyTypeConstraint], annotations.helloSharedByLucasAnnotations);

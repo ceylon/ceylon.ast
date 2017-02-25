@@ -231,11 +231,11 @@ class ConcreteClassGenerator(
     void expandEditor() {
         String editing(String type, String name) {
             if (type.endsWith("[]")) {
-                return "that.``name``.collect(transform``type[... type.size - 3]``)";
+                return "that.``name``.collect(transform``type[... type.size-3]``)";
             } else if (type.startsWith("[") && type.endsWith("+]")) {
-                return "that.``name``.collect(transform``type[1 .. type.size - 3]``)";
+                return "that.``name``.collect(transform``type[1 .. type.size-3]``)";
             } else if (type.endsWith("?")) {
-                return "nullsafeInvoke(that.``name``, transform``type[... type.size - 2]``)";
+                return "nullsafeInvoke(that.``name``, transform``type[... type.size-2]``)";
             } else {
                 return "transform``type``(that.``name``)";
             }

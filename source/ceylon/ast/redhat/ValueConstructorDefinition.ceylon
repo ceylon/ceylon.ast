@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Enumerated|JEnumerated]] to a `ceylon.ast` [[ValueConstructorDefinition]]."
-shared ValueConstructorDefinition valueConstructorDefinitionToCeylon(JEnumerated valueConstructorDefinition, Anything(JNode,Node) update = noop) {
+shared ValueConstructorDefinition valueConstructorDefinitionToCeylon(JEnumerated valueConstructorDefinition, Anything(JNode, Node) update = noop) {
     value result = ValueConstructorDefinition {
         name = lIdentifierToCeylon(valueConstructorDefinition.identifier, update);
         block = blockToCeylon(valueConstructorDefinition.block, update);
@@ -33,7 +33,7 @@ shared ValueConstructorDefinition valueConstructorDefinitionToCeylon(JEnumerated
 "Parses the given [[code]] for a Value Constructor Definition
  into a [[ValueConstructorDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueConstructorDefinition? parseValueConstructorDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueConstructorDefinition? parseValueConstructorDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JEnumerated jValueConstructorDefinition = createParser(code).declaration()) {
         return valueConstructorDefinitionToCeylon(jValueConstructorDefinition, update);
     } else {

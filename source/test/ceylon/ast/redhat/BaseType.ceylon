@@ -23,22 +23,22 @@ shared object baseType satisfies ConcreteTest<BaseType,JBaseType> {
     
     String->BaseType construct(String name, [<String->Type>+]? args = null, Boolean qualified = false) {
         if (exists args) {
-            return "`` qualified then "package." else "" ````name``<``",".join(args.collect(Entry<String,Type>.key))``>"->BaseType(TypeNameWithTypeArguments(UIdentifier(name), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))), qualified then PackageQualifier());
+            return "`` qualified then "package." else "" ````name``<``",".join(args.collect(Entry<String,Type>.key))``>" -> BaseType(TypeNameWithTypeArguments(UIdentifier(name), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))), qualified then PackageQualifier());
         } else {
-            return ((qualified then "package." else "") + name)->BaseType(TypeNameWithTypeArguments(UIdentifier(name)), qualified then PackageQualifier());
+            return ((qualified then "package." else "") + name) -> BaseType(TypeNameWithTypeArguments(UIdentifier(name)), qualified then PackageQualifier());
         }
     }
     String->BaseType constructO(String name, [<String->Type>+]? args = null, Boolean qualified = false) {
         if (exists args) {
-            return "`` qualified then "package." else "" ``\\I``name``<``",".join(args.collect(Entry<String,Type>.key))``>"->BaseType(TypeNameWithTypeArguments(UIdentifier(name, true), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))), qualified then PackageQualifier());
+            return "`` qualified then "package." else "" ``\\I``name``<``",".join(args.collect(Entry<String,Type>.key))``>" -> BaseType(TypeNameWithTypeArguments(UIdentifier(name, true), TypeArguments(args.collect((String->Type entry) => TypeArgument(entry.item)))), qualified then PackageQualifier());
         } else {
-            return ((qualified then "package.\\I" else "\\I") + name)->BaseType(TypeNameWithTypeArguments(UIdentifier(name, true)), qualified then PackageQualifier());
+            return ((qualified then "package.\\I" else "\\I") + name) -> BaseType(TypeNameWithTypeArguments(UIdentifier(name, true)), qualified then PackageQualifier());
         }
     }
     
     shared String->BaseType stringType = construct("String");
     shared String->BaseType iterableOfStringType = construct("Iterable", [stringType]);
-    shared String->BaseType listOfOutObjectType = "List<out Object>"->BaseType(TypeNameWithTypeArguments {
+    shared String->BaseType listOfOutObjectType = "List<out Object>" -> BaseType(TypeNameWithTypeArguments {
             name = UIdentifier("List");
             typeArguments = TypeArguments([
                     TypeArgument {

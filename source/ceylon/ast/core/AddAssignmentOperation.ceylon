@@ -31,17 +31,17 @@ shared class AddAssignmentOperation(target, summand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitAddAssignmentOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is AddAssignmentOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared AddAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = AddAssignmentOperation(leftOperand, rightOperand);

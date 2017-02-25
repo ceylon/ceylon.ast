@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Directive|JDirective]] to a `ceylon.ast` [[Directive]]."
-shared Directive directiveToCeylon(JDirective directive, Anything(JNode,Node) update = noop) {
+shared Directive directiveToCeylon(JDirective directive, Anything(JNode, Node) update = noop) {
     assert (is JReturn|JThrow|JBreak|JContinue directive);
     switch (directive)
     case (is JReturn) { return returnToCeylon(directive, update); }
@@ -26,7 +26,7 @@ shared Directive directiveToCeylon(JDirective directive, Anything(JNode,Node) up
 "Parses the given [[code]] for a Directive
  into a [[Directive]] using the Ceylon compiler
  (more specifically, the rule for a `directive`)."
-shared Directive? parseDirective(String code, Anything(JNode,Node) update = noop) {
+shared Directive? parseDirective(String code, Anything(JNode, Node) update = noop) {
     if (exists jDirective = createParser(code).directive()) {
         return directiveToCeylon(jDirective, update);
     } else {

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SwitchClause|JSwitchClause]] to a `ceylon.ast` [[SwitchClause]]."
-shared SwitchClause switchClauseToCeylon(JSwitchClause switchClause, Anything(JNode,Node) update = noop) {
+shared SwitchClause switchClauseToCeylon(JSwitchClause switchClause, Anything(JNode, Node) update = noop) {
     Expression|SpecifiedVariable switched;
     if (exists jExpression = switchClause.switched.expression) {
         "Switch clause cannot have both expression and variable"
@@ -49,7 +49,7 @@ shared SwitchClause switchClauseToCeylon(JSwitchClause switchClause, Anything(JN
 "Parses the given [[code]] for a Switch Clause
  into a [[SwitchClause]] using the Ceylon compiler
  (more specifically, the rule for a `switchHeader`)."
-shared SwitchClause? parseSwitchClause(String code, Anything(JNode,Node) update = noop) {
+shared SwitchClause? parseSwitchClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jSwitchHeader = createParser(code).switchHeader()) {
         return switchClauseToCeylon(jSwitchHeader, update);
     } else {

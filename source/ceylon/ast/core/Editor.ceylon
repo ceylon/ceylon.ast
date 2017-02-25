@@ -89,7 +89,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ArgumentList transformArgumentList(ArgumentList that)
-        => editNode(that) then that.copy(that.listedArguments.collect(transformExpression), nullsafeInvoke(that.sequenceArgument, transformSpreadArgumentOrComprehension)) else that;
+            => editNode(that) then that.copy(that.listedArguments.collect(transformExpression), nullsafeInvoke(that.sequenceArgument, transformSpreadArgumentOrComprehension)) else that;
     shared actual Arguments transformArguments(Arguments that) {
         assert (is Arguments ret = super.transformArguments(that));
         return ret;

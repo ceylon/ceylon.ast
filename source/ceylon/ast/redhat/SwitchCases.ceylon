@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[SwitchCaseList|JSwitchCaseList]] to a `ceylon.ast` [[SwitchCases]]."
-shared SwitchCases switchCasesToCeylon(JSwitchCaseList switchCases, Anything(JNode,Node) update = noop) {
+shared SwitchCases switchCasesToCeylon(JSwitchCaseList switchCases, Anything(JNode, Node) update = noop) {
     assert (nonempty caseClauses = CeylonIterable(switchCases.caseClauses).collect(propagateUpdate(caseClauseToCeylon, update)));
     ElseClause? elseClause;
     if (exists jElseClause = switchCases.elseClause) {
@@ -30,7 +30,7 @@ shared SwitchCases switchCasesToCeylon(JSwitchCaseList switchCases, Anything(JNo
 "Parses the given [[code]] for Switch Cases
  into [[SwitchCases]] using the Ceylon compiler
  (more specifically, the rule for `cases`)."
-shared SwitchCases? parseSwitchCases(String code, Anything(JNode,Node) update = noop) {
+shared SwitchCases? parseSwitchCases(String code, Anything(JNode, Node) update = noop) {
     if (exists jCases = createParser(code).cases()) {
         return switchCasesToCeylon(jCases, update);
     } else {

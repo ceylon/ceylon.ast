@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object groupedExpression satisfies ConcreteTest<GroupedExpression,JParExpression> {
     
     String->GroupedExpression construct(String->Expression expr)
-            => "(``expr.key``)"->GroupedExpression(expr.item);
+            => "(``expr.key``)" -> GroupedExpression(expr.item);
     
     shared String->GroupedExpression oneIntegerLiteralGroupedExpression = construct(integerLiteral.oneIntegerLiteral);
     

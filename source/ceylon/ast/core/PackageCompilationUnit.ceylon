@@ -21,17 +21,17 @@ shared class PackageCompilationUnit(packageDescriptor, imports = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPackageCompilationUnit(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PackageCompilationUnit that) {
-            return packageDescriptor == that.packageDescriptor && imports == that.imports;
+            return packageDescriptor==that.packageDescriptor && imports==that.imports;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (packageDescriptor.hash + 31 * imports.hash);
+            => 31 * (packageDescriptor.hash + 31*imports.hash);
     
     shared PackageCompilationUnit copy(PackageDescriptor packageDescriptor = this.packageDescriptor, Import[] imports = this.imports) {
         value ret = PackageCompilationUnit(packageDescriptor, imports);

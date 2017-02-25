@@ -39,7 +39,7 @@ shared class IfElse(ifClause, elseClause)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIfElse(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IfElse that) {
             if (exists elseClause) {

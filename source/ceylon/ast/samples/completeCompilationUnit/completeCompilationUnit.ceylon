@@ -245,300 +245,302 @@ import ceylon.ast.core {
  (there is, for example, no `else if`)."
 shared CompilationUnit completeCompilationUnit
         = /* BEGIN */ CompilationUnit {
-    imports = [
-        Import {
-            packageName = FullPackageName([
-                    LIdentifier("java"),
-                    LIdentifier("lang")
-                ]);
-            elements = ImportElements {
-                elements = [
-                    ImportElement {
-                        name = UIdentifier("System");
-                        importAlias = ImportAlias(UIdentifier("Sys"));
-                        nestedImports = ImportElements {
-                            elements = [
-                                ImportElement {
-                                    name = LIdentifier("out", true);
-                                    importAlias = ImportAlias(LIdentifier("sysout"));
-                                    nestedImports = null;
-                                }
-                            ];
-                            wildcard = null;
-                        };
-                    }
-                ];
-                wildcard = ImportWildcard();
-            };
-        }
-    ];
-    declarations = [
-        FunctionDefinition {
-            name = LIdentifier("run");
-            type = VoidModifier();
-            parameterLists = [Parameters()];
-            definition = Block([
-                    InvocationStatement(Invocation {
-                            invoked = QualifiedExpression {
-                                receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("sysout")));
-                                nameAndArgs = MemberNameWithTypeArguments(LIdentifier("println"));
-                            };
-                            arguments = PositionalArguments(ArgumentList([StringLiteral("""Hello, World!""")]));
-                        }),
-                    Return()
-                ]);
-            typeParameters = null;
-            typeConstraints = [];
-            annotations = Annotations {
-                anonymousAnnotation = StringLiteral(
-                    """The run function.
-                       
-                       Prints “Hello, World!”.""");
-                annotations = [Annotation(LIdentifier("shared"))];
-            };
-        },
-        ClassDefinition {
-            name = UIdentifier("MyBoolean");
-            parameters = Parameters([
-                    ValueParameter {
-                        annotations = Annotations {
-                            annotations = [
-                                Annotation(LIdentifier("shared")),
-                                Annotation(LIdentifier("actual"))
-                            ];
-                        };
-                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
-                        name = LIdentifier("string");
-                    }
-                ]);
-            body = ClassBody([
-                    CallableConstructorDefinition {
-                        name = LIdentifier("bool");
-                        parameters = Parameters();
-                        block = Block([
-                                ValueDefinition {
-                                    name = LIdentifier("self");
-                                    type = ValueModifier();
-                                    definition = Specifier(ConstructorDec {
-                                            name = LIdentifier("bool");
-                                            qualifier = DecQualifier([UIdentifier("MyBoolean")], PackageQualifier());
-                                        });
-                                    annotations = Annotations();
-                                }
-                            ]);
-                        extendedType = null;
-                        annotations = Annotations();
-                    },
-                    ValueSpecification {
-                        name = LIdentifier("eagerString");
-                        specifier = Specifier(StringLiteral("""Bool"""));
-                    },
-                    LazySpecification {
-                        name = LIdentifier("lazyString");
-                        specifier = LazySpecifier(StringLiteral("""Bool"""));
-                    },
-                    TryCatchFinally {
-                        tryClause = TryClause {
-                            block = Block([Throw()]);
-                            resources = Resources([
-                                    Resource(SpecifiedVariable {
-                                            name = LIdentifier("w");
-                                            specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("wr"))));
-                                            type = ValueModifier();
-                                        })
-                                ]);
-                        };
-                        catchClauses = [
-                            CatchClause {
-                                variable = UnspecifiedVariable {
-                                    name = LIdentifier("t");
-                                    type = BaseType(TypeNameWithTypeArguments(UIdentifier("Throwable")));
+            imports = [
+                Import {
+                    packageName = FullPackageName([
+                            LIdentifier("java"),
+                            LIdentifier("lang")
+                        ]);
+                    elements = ImportElements {
+                        elements = [
+                            ImportElement {
+                                name = UIdentifier("System");
+                                importAlias = ImportAlias(UIdentifier("Sys"));
+                                nestedImports = ImportElements {
+                                    elements = [
+                                        ImportElement {
+                                            name = LIdentifier("out", true);
+                                            importAlias = ImportAlias(LIdentifier("sysout"));
+                                            nestedImports = null;
+                                        }
+                                    ];
+                                    wildcard = null;
                                 };
-                                block = Block([]);
                             }
                         ];
-                        finallyClause = FinallyClause(Block([]));
-                    },
-                    Assertion {
-                        conditions = Conditions([
-                                IsCondition(TypedVariable {
-                                        name = LIdentifier("arg1");
-                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
-                                        specifier = null;
-                                    }),
-                                ExistsCondition(SpecifiedPattern {
-                                        pattern = VariablePattern(UnspecifiedVariable(LIdentifier("arg2")));
-                                        specifier = Specifier(ElementOrSubrangeExpression {
-                                                primary = QualifiedExpression {
-                                                    receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1")));
-                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("uppercased"));
-                                                    memberOperator = SpreadMemberOperator();
-                                                };
-                                                subscript = SpanToSubscript(IntegerLiteral("65536"));
-                                            });
-                                    }),
-                                NonemptyCondition(LIdentifier("arg2")),
-                                BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
-                            ]);
-                        message = StringLiteral("""assertion message""");
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("metas");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        TypeMeta(IntersectionType([
-                                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable"))),
-                                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Usable")))
-                                                ])),
-                                        BaseMeta(MemberNameWithTypeArguments(LIdentifier("process"))),
-                                        MemberMeta {
-                                            qualifier = BaseType(TypeNameWithTypeArguments(UIdentifier("process", true)));
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("arguments"));
-                                        }
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("decs");
-                        type = ValueModifier();
-                        definition = Specifier(Tuple(ArgumentList([
-                                        ClassDec(UIdentifier("String")),
-                                        InterfaceDec(UIdentifier("Iterable")),
-                                        AliasDec(UIdentifier("AddingExpression")),
-                                        GivenDec(UIdentifier("Element")),
-                                        ValueDec {
-                                            name = LIdentifier("arguments");
-                                            qualifier = DecQualifier([LIdentifier("process")]);
-                                        },
-                                        FunctionDec(LIdentifier("print")),
-                                        PackageDec(FullPackageName([LIdentifier("tmp")])),
-                                        ModuleDec(FullPackageName([LIdentifier("tmp")]))
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("operations");
-                        type = ValueModifier();
-                        definition = Specifier(ElseOperation {
-                                optionalValue = ThenOperation {
-                                    condition = OrOperation {
-                                        leftOperand = AndOperation {
-                                            leftOperand = NotOperation(EqualOperation {
-                                                    leftOperand = IsOperation {
-                                                        operand = ExistsOperation(SpanOperation {
-                                                                first = SumOperation {
-                                                                    leftSummand = ScaleOperation {
-                                                                        factor = ProductOperation {
-                                                                            leftFactor = UnionOperation {
-                                                                                leftOperand = IntersectionOperation {
-                                                                                    leftOperand = IdentityOperation(ExponentiationOperation {
-                                                                                            base = PrefixIncrementOperation(IntegerLiteral("0"));
-                                                                                            exponent = PrefixDecrementOperation(IntegerLiteral("0"));
-                                                                                        });
-                                                                                    rightOperand = NegationOperation(PostfixIncrementOperation(IntegerLiteral("0")));
-                                                                                };
-                                                                                rightOperand = PostfixDecrementOperation(IntegerLiteral("0"));
-                                                                            };
-                                                                            rightFactor = ComplementOperation {
-                                                                                leftOperand = IntegerLiteral("0");
-                                                                                rightOperand = IntegerLiteral("0");
-                                                                            };
-                                                                        };
-                                                                        scalable = QuotientOperation {
-                                                                            dividend = IntegerLiteral("0");
-                                                                            divisor = IntegerLiteral("0");
-                                                                        };
-                                                                    };
-                                                                    rightSummand = RemainderOperation {
-                                                                        dividend = IntegerLiteral("0");
-                                                                        divisor = IntegerLiteral("0");
-                                                                    };
-                                                                };
-                                                                last = DifferenceOperation {
-                                                                    minuend = IntegerLiteral("0");
-                                                                    subtrahend = IntegerLiteral("0");
-                                                                };
-                                                            });
-                                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
-                                                    };
-                                                    rightOperand = OfOperation {
-                                                        operand = NonemptyOperation(MeasureOperation {
-                                                                first = IntegerLiteral("0");
-                                                                size = IntegerLiteral("0");
-                                                            });
-                                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
-                                                    };
+                        wildcard = ImportWildcard();
+                    };
+                }
+            ];
+            declarations = [
+                FunctionDefinition {
+                    name = LIdentifier("run");
+                    type = VoidModifier();
+                    parameterLists = [Parameters()];
+                    definition = Block([
+                            InvocationStatement(Invocation {
+                                    invoked = QualifiedExpression {
+                                        receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("sysout")));
+                                        nameAndArgs = MemberNameWithTypeArguments(LIdentifier("println"));
+                                    };
+                                    arguments = PositionalArguments(ArgumentList([StringLiteral("""Hello, World!""")]));
+                                }),
+                            Return()
+                        ]);
+                    typeParameters = null;
+                    typeConstraints = [];
+                    annotations = Annotations {
+                        anonymousAnnotation = StringLiteral(
+                            """The run function.
+                               
+                               Prints “Hello, World!”.""");
+                        annotations = [Annotation(LIdentifier("shared"))];
+                    };
+                },
+                ClassDefinition {
+                    name = UIdentifier("MyBoolean");
+                    parameters = Parameters([
+                            ValueParameter {
+                                annotations = Annotations {
+                                    annotations = [
+                                        Annotation(LIdentifier("shared")),
+                                        Annotation(LIdentifier("actual"))
+                                    ];
+                                };
+                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                name = LIdentifier("string");
+                            }
+                        ]);
+                    body = ClassBody([
+                            CallableConstructorDefinition {
+                                name = LIdentifier("bool");
+                                parameters = Parameters();
+                                block = Block([
+                                        ValueDefinition {
+                                            name = LIdentifier("self");
+                                            type = ValueModifier();
+                                            definition = Specifier(ConstructorDec {
+                                                    name = LIdentifier("bool");
+                                                    qualifier = DecQualifier([UIdentifier("MyBoolean")], PackageQualifier());
                                                 });
-                                            rightOperand = InOperation {
-                                                element = EntryOperation {
-                                                    key = IntegerLiteral("0");
-                                                    item = IntegerLiteral("0");
+                                            annotations = Annotations();
+                                        }
+                                    ]);
+                                extendedType = null;
+                                annotations = Annotations();
+                            },
+                            ValueSpecification {
+                                name = LIdentifier("eagerString");
+                                specifier = Specifier(StringLiteral("""Bool"""));
+                            },
+                            LazySpecification {
+                                name = LIdentifier("lazyString");
+                                specifier = LazySpecifier(StringLiteral("""Bool"""));
+                            },
+                            TryCatchFinally {
+                                tryClause = TryClause {
+                                    block = Block([Throw()]);
+                                    resources = Resources([
+                                            Resource(SpecifiedVariable {
+                                                    name = LIdentifier("w");
+                                                    specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("wr"))));
+                                                    type = ValueModifier();
+                                                })
+                                        ]);
+                                };
+                                catchClauses = [
+                                    CatchClause {
+                                        variable = UnspecifiedVariable {
+                                            name = LIdentifier("t");
+                                            type = BaseType(TypeNameWithTypeArguments(UIdentifier("Throwable")));
+                                        };
+                                        block = Block([]);
+                                    }
+                                ];
+                                finallyClause = FinallyClause(Block([]));
+                            },
+                            Assertion {
+                                conditions = Conditions([
+                                        IsCondition(TypedVariable {
+                                                name = LIdentifier("arg1");
+                                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                specifier = null;
+                                            }),
+                                        ExistsCondition(SpecifiedPattern {
+                                                pattern = VariablePattern(UnspecifiedVariable(LIdentifier("arg2")));
+                                                specifier = Specifier(ElementOrSubrangeExpression {
+                                                        primary = QualifiedExpression {
+                                                            receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1")));
+                                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("uppercased"));
+                                                            memberOperator = SpreadMemberOperator();
+                                                        };
+                                                        subscript = SpanToSubscript(IntegerLiteral("65536"));
+                                                    });
+                                            }),
+                                        NonemptyCondition(LIdentifier("arg2")),
+                                        BooleanCondition(NotOperation(NonemptyOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("arg1"))))))
+                                    ]);
+                                message = StringLiteral("""assertion message""");
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("metas");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                TypeMeta(IntersectionType([
+                                                            BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable"))),
+                                                            BaseType(TypeNameWithTypeArguments(UIdentifier("Usable")))
+                                                        ])),
+                                                BaseMeta(MemberNameWithTypeArguments(LIdentifier("process"))),
+                                                MemberMeta {
+                                                    qualifier = BaseType(TypeNameWithTypeArguments(UIdentifier("process", true)));
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("arguments"));
+                                                }
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("decs");
+                                type = ValueModifier();
+                                definition = Specifier(Tuple(ArgumentList([
+                                                ClassDec(UIdentifier("String")),
+                                                InterfaceDec(UIdentifier("Iterable")),
+                                                AliasDec(UIdentifier("AddingExpression")),
+                                                GivenDec(UIdentifier("Element")),
+                                                ValueDec {
+                                                    name = LIdentifier("arguments");
+                                                    qualifier = DecQualifier([LIdentifier("process")]);
+                                                },
+                                                FunctionDec(LIdentifier("print")),
+                                                PackageDec(FullPackageName([LIdentifier("tmp")])),
+                                                ModuleDec(FullPackageName([LIdentifier("tmp")]))
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("operations");
+                                type = ValueModifier();
+                                definition = Specifier(ElseOperation {
+                                        optionalValue = ThenOperation {
+                                            condition = OrOperation {
+                                                leftOperand = AndOperation {
+                                                    leftOperand = NotOperation(EqualOperation {
+                                                            leftOperand = IsOperation {
+                                                                operand = ExistsOperation(SpanOperation {
+                                                                        first = SumOperation {
+                                                                            leftSummand = ScaleOperation {
+                                                                                factor = ProductOperation {
+                                                                                    leftFactor = UnionOperation {
+                                                                                        leftOperand = IntersectionOperation {
+                                                                                            leftOperand = IdentityOperation(ExponentiationOperation {
+                                                                                                    base = PrefixIncrementOperation(IntegerLiteral("0"));
+                                                                                                    exponent = PrefixDecrementOperation(IntegerLiteral("0"));
+                                                                                                });
+                                                                                            rightOperand = NegationOperation(PostfixIncrementOperation(IntegerLiteral("0")));
+                                                                                        };
+                                                                                        rightOperand = PostfixDecrementOperation(IntegerLiteral("0"));
+                                                                                    };
+                                                                                    rightFactor = ComplementOperation {
+                                                                                        leftOperand = IntegerLiteral("0");
+                                                                                        rightOperand = IntegerLiteral("0");
+                                                                                    };
+                                                                                };
+                                                                                scalable = QuotientOperation {
+                                                                                    dividend = IntegerLiteral("0");
+                                                                                    divisor = IntegerLiteral("0");
+                                                                                };
+                                                                            };
+                                                                            rightSummand = RemainderOperation {
+                                                                                dividend = IntegerLiteral("0");
+                                                                                divisor = IntegerLiteral("0");
+                                                                            };
+                                                                        };
+                                                                        last = DifferenceOperation {
+                                                                            minuend = IntegerLiteral("0");
+                                                                            subtrahend = IntegerLiteral("0");
+                                                                        };
+                                                                    });
+                                                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                            };
+                                                            rightOperand = OfOperation {
+                                                                operand = NonemptyOperation(MeasureOperation {
+                                                                        first = IntegerLiteral("0");
+                                                                        size = IntegerLiteral("0");
+                                                                    });
+                                                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                                            };
+                                                        });
+                                                    rightOperand = InOperation {
+                                                        element = EntryOperation {
+                                                            key = IntegerLiteral("0");
+                                                            item = IntegerLiteral("0");
+                                                        };
+                                                        category = IntegerLiteral("0");
+                                                    };
                                                 };
-                                                category = IntegerLiteral("0");
+                                                rightOperand = NotEqualOperation {
+                                                    leftOperand = LargerOperation {
+                                                        leftOperand = IntegerLiteral("0");
+                                                        rightOperand = IntegerLiteral("0");
+                                                    };
+                                                    rightOperand = SmallerOperation {
+                                                        leftOperand = IntegerLiteral("0");
+                                                        rightOperand = IntegerLiteral("0");
+                                                    };
+                                                };
+                                            };
+                                            result = IdenticalOperation {
+                                                leftOperand = LargeAsOperation {
+                                                    leftOperand = IntegerLiteral("0");
+                                                    rightOperand = IntegerLiteral("0");
+                                                };
+                                                rightOperand = SmallAsOperation {
+                                                    leftOperand = IntegerLiteral("0");
+                                                    rightOperand = IntegerLiteral("0");
+                                                };
                                             };
                                         };
-                                        rightOperand = NotEqualOperation {
-                                            leftOperand = LargerOperation {
+                                        defaultValue = EqualOperation {
+                                            leftOperand = CompareOperation {
                                                 leftOperand = IntegerLiteral("0");
                                                 rightOperand = IntegerLiteral("0");
                                             };
-                                            rightOperand = SmallerOperation {
-                                                leftOperand = IntegerLiteral("0");
-                                                rightOperand = IntegerLiteral("0");
+                                            rightOperand = WithinOperation {
+                                                operand = IntegerLiteral("0");
+                                                lowerBound = ClosedBound(IntegerLiteral("0"));
+                                                upperBound = OpenBound(IntegerLiteral("0"));
                                             };
                                         };
-                                    };
-                                    result = IdenticalOperation {
-                                        leftOperand = LargeAsOperation {
-                                            leftOperand = IntegerLiteral("0");
-                                            rightOperand = IntegerLiteral("0");
-                                        };
-                                        rightOperand = SmallAsOperation {
-                                            leftOperand = IntegerLiteral("0");
-                                            rightOperand = IntegerLiteral("0");
-                                        };
-                                    };
-                                };
-                                defaultValue = EqualOperation {
-                                    leftOperand = CompareOperation {
-                                        leftOperand = IntegerLiteral("0");
-                                        rightOperand = IntegerLiteral("0");
-                                    };
-                                    rightOperand = WithinOperation {
-                                        operand = IntegerLiteral("0");
-                                        lowerBound = ClosedBound(IntegerLiteral("0"));
-                                        upperBound = OpenBound(IntegerLiteral("0"));
-                                    };
-                                };
-                            });
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("assignments");
-                        type = ValueModifier();
-                        definition = Specifier(AssignOperation {
-                                target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                expression = AddAssignmentOperation {
-                                    target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                    summand = SubtractAssignmentOperation {
+                                    });
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("assignments");
+                                type = ValueModifier();
+                                definition = Specifier(AssignOperation {
                                         target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                        subtrahend = MultiplyAssignmentOperation {
+                                        expression = AddAssignmentOperation {
                                             target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                            factor = DivideAssignmentOperation {
+                                            summand = SubtractAssignmentOperation {
                                                 target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                divisor = RemainderAssignmentOperation {
+                                                subtrahend = MultiplyAssignmentOperation {
                                                     target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                    divisor = IntersectAssignmentOperation {
+                                                    factor = DivideAssignmentOperation {
                                                         target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                        other = UnionAssignmentOperation {
+                                                        divisor = RemainderAssignmentOperation {
                                                             target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                            other = ComplementAssignmentOperation {
+                                                            divisor = IntersectAssignmentOperation {
                                                                 target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                                other = AndAssignmentOperation {
+                                                                other = UnionAssignmentOperation {
                                                                     target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                                    other = OrAssignmentOperation {
+                                                                    other = ComplementAssignmentOperation {
                                                                         target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
-                                                                        other = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                        other = AndAssignmentOperation {
+                                                                            target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                            other = OrAssignmentOperation {
+                                                                                target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                                other = BaseExpression(MemberNameWithTypeArguments(LIdentifier("v")));
+                                                                            };
+                                                                        };
                                                                     };
                                                                 };
                                                             };
@@ -547,519 +549,517 @@ shared CompilationUnit completeCompilationUnit
                                                 };
                                             };
                                         };
+                                    });
+                                annotations = Annotations();
+                            },
+                            While {
+                                conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("true"))))]);
+                                block = Block([Break()]);
+                            },
+                            ForFail {
+                                forClause = ForClause {
+                                    iterator = ForIterator {
+                                        pattern = EntryPattern {
+                                            key = VariablePattern(UnspecifiedVariable(LIdentifier("k")));
+                                            item = VariablePattern(UnspecifiedVariable(LIdentifier("v")));
+                                        };
+                                        iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
                                     };
+                                    block = Block([Continue()]);
                                 };
-                            });
-                        annotations = Annotations();
-                    },
-                    While {
-                        conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("true"))))]);
-                        block = Block([Break()]);
-                    },
-                    ForFail {
-                        forClause = ForClause {
-                            iterator = ForIterator {
-                                pattern = EntryPattern {
-                                    key = VariablePattern(UnspecifiedVariable(LIdentifier("k")));
-                                    item = VariablePattern(UnspecifiedVariable(LIdentifier("v")));
+                                failClause = FailClause(Block([]));
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("comprehension");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList {
+                                            listedArguments = [];
+                                            sequenceArgument = Comprehension(ForComprehensionClause {
+                                                    iterator = ForIterator {
+                                                        pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("v")))]);
+                                                        iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs")));
+                                                    };
+                                                    clause = IfComprehensionClause {
+                                                        conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
+                                                        clause = ExpressionComprehensionClause(LetExpression {
+                                                                patterns = PatternList([
+                                                                        SpecifiedPattern {
+                                                                            pattern = VariablePattern(UnspecifiedVariable(LIdentifier("w")));
+                                                                            specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
+                                                                        }
+                                                                    ]);
+                                                                expression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("w")));
+                                                            });
+                                                    };
+                                                });
+                                        }));
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("spread");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList {
+                                            listedArguments = [];
+                                            sequenceArgument = SpreadArgument(BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs"))));
+                                        }));
+                                annotations = Annotations();
+                            },
+                            InvocationStatement(Invocation {
+                                    invoked = BaseExpression(MemberNameWithTypeArguments(LIdentifier("namedArguments")));
+                                    arguments = NamedArguments([
+                                            AnonymousArgument(IntegerLiteral("0")),
+                                            SpecifiedArgument(ValueSpecification {
+                                                    name = LIdentifier("specifiedArgument");
+                                                    specifier = Specifier(IntegerLiteral("0"));
+                                                }),
+                                            SpecifiedArgument(LazySpecification {
+                                                    name = LIdentifier("lazySpecifiedArgument");
+                                                    specifier = LazySpecifier(IntegerLiteral("0"));
+                                                }),
+                                            ValueArgument {
+                                                name = LIdentifier("valueArgument");
+                                                type = ValueModifier();
+                                                definition = Specifier(IntegerLiteral("0"));
+                                            },
+                                            FunctionArgument {
+                                                name = LIdentifier("functionArgument");
+                                                type = FunctionModifier();
+                                                parameterLists = [Parameters()];
+                                                definition = LazySpecifier(IntegerLiteral("0"));
+                                            },
+                                            ObjectArgument {
+                                                name = LIdentifier("objectArgument");
+                                                body = ClassBody([]);
+                                                extendedType = null;
+                                                satisfiedTypes = null;
+                                            }
+                                        ]);
+                                }),
+                            AssignmentStatement(AddAssignmentOperation {
+                                    target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
+                                    summand = IntegerLiteral("0");
+                                }),
+                            PrefixPostfixStatement(PostfixIncrementOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("i"))))),
+                            FunctionDeclaration {
+                                name = LIdentifier("functionDeclaration");
+                                type = VoidModifier();
+                                parameterLists = [
+                                    Parameters([
+                                            ValueParameter {
+                                                annotations = Annotations();
+                                                type = DynamicModifier();
+                                                name = LIdentifier("valueParameter");
+                                            },
+                                            CallableParameter {
+                                                annotations = Annotations();
+                                                type = VoidModifier();
+                                                name = LIdentifier("callableParameter");
+                                                parameterLists = [Parameters()];
+                                            },
+                                            ParameterReference(LIdentifier("parameterReference")),
+                                            DefaultedValueParameter {
+                                                parameter = ValueParameter {
+                                                    annotations = Annotations();
+                                                    type = DynamicModifier();
+                                                    name = LIdentifier("defaultedValueParameter");
+                                                };
+                                                specifier = Specifier(IntegerLiteral("0"));
+                                            },
+                                            DefaultedCallableParameter {
+                                                parameter = CallableParameter {
+                                                    annotations = Annotations();
+                                                    type = VoidModifier();
+                                                    name = LIdentifier("defaultedCallableParameter");
+                                                    parameterLists = [Parameters()];
+                                                };
+                                                specifier = LazySpecifier(IntegerLiteral("0"));
+                                            },
+                                            DefaultedParameterReference {
+                                                parameter = ParameterReference(LIdentifier("defaultedParameterReference"));
+                                                specifier = Specifier(IntegerLiteral("0"));
+                                            },
+                                            VariadicParameter {
+                                                annotations = Annotations();
+                                                type = VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                                name = LIdentifier("variadicParameter");
+                                            }
+                                        ])
+                                ];
+                                typeParameters = null;
+                                typeConstraints = [];
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("literals");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                StringLiteral("""String literal"""),
+                                                StringLiteral("""Verbatim string literal""", true),
+                                                CharacterLiteral("""c"""),
+                                                IntegerLiteral("0"),
+                                                FloatLiteral("0.0")
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            IfElse {
+                                ifClause = IfClause {
+                                    conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("ifElse"))))]);
+                                    block = Block([]);
                                 };
-                                iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("kvs")));
-                            };
-                            block = Block([Continue()]);
-                        };
-                        failClause = FailClause(Block([]));
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("comprehension");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList {
-                                    listedArguments = [];
-                                    sequenceArgument = Comprehension(ForComprehensionClause {
-                                            iterator = ForIterator {
-                                                pattern = TuplePattern([VariablePattern(UnspecifiedVariable(LIdentifier("v")))]);
-                                                iterated = BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs")));
-                                            };
-                                            clause = IfComprehensionClause {
-                                                conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("c"))))]);
-                                                clause = ExpressionComprehensionClause(LetExpression {
-                                                        patterns = PatternList([
-                                                                SpecifiedPattern {
-                                                                    pattern = VariablePattern(UnspecifiedVariable(LIdentifier("w")));
-                                                                    specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("v"))));
-                                                                }
-                                                            ]);
-                                                        expression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("w")));
-                                                    });
-                                            };
-                                        });
-                                }));
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("spread");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList {
-                                    listedArguments = [];
-                                    sequenceArgument = SpreadArgument(BaseExpression(MemberNameWithTypeArguments(LIdentifier("vs"))));
-                                }));
-                        annotations = Annotations();
-                    },
-                    InvocationStatement(Invocation {
-                            invoked = BaseExpression(MemberNameWithTypeArguments(LIdentifier("namedArguments")));
-                            arguments = NamedArguments([
-                                    AnonymousArgument(IntegerLiteral("0")),
-                                    SpecifiedArgument(ValueSpecification {
-                                            name = LIdentifier("specifiedArgument");
-                                            specifier = Specifier(IntegerLiteral("0"));
-                                        }),
-                                    SpecifiedArgument(LazySpecification {
-                                            name = LIdentifier("lazySpecifiedArgument");
-                                            specifier = LazySpecifier(IntegerLiteral("0"));
-                                        }),
-                                    ValueArgument {
-                                        name = LIdentifier("valueArgument");
+                                elseClause = ElseClause(Block([]));
+                            },
+                            SwitchCaseElse {
+                                clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchCaseElse"))));
+                                cases = SwitchCases {
+                                    caseClauses = [
+                                        CaseClause {
+                                            caseItem = MatchCase([IntegerLiteral("0")]);
+                                            block = Block([]);
+                                        },
+                                        CaseClause {
+                                            caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                            block = Block([]);
+                                        }
+                                    ];
+                                    elseClause = ElseClause(Block([]));
+                                };
+                            },
+                            SwitchCaseElse {
+                                clause = SwitchClause(SpecifiedVariable {
+                                        name = LIdentifier("switchVariable");
+                                        specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchVariableExpression"))));
                                         type = ValueModifier();
-                                        definition = Specifier(IntegerLiteral("0"));
-                                    },
-                                    FunctionArgument {
-                                        name = LIdentifier("functionArgument");
-                                        type = FunctionModifier();
-                                        parameterLists = [Parameters()];
-                                        definition = LazySpecifier(IntegerLiteral("0"));
-                                    },
-                                    ObjectArgument {
-                                        name = LIdentifier("objectArgument");
+                                    });
+                                cases = SwitchCases {
+                                    caseClauses = [
+                                        CaseClause {
+                                            caseItem = MatchCase([IntegerLiteral("0")]);
+                                            block = Block([]);
+                                        },
+                                        CaseClause {
+                                            caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
+                                            block = Block([]);
+                                        }
+                                    ];
+                                    elseClause = ElseClause(Block([]));
+                                };
+                            },
+                            DynamicBlock(Block([])),
+                            ValueDefinition {
+                                name = LIdentifier("subscripts");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                ElementOrSubrangeExpression {
+                                                    primary = IntegerLiteral("0");
+                                                    subscript = KeySubscript(IntegerLiteral("0"));
+                                                },
+                                                ElementOrSubrangeExpression {
+                                                    primary = IntegerLiteral("0");
+                                                    subscript = SpanSubscript {
+                                                        from = IntegerLiteral("0");
+                                                        to = IntegerLiteral("0");
+                                                    };
+                                                },
+                                                ElementOrSubrangeExpression {
+                                                    primary = IntegerLiteral("0");
+                                                    subscript = MeasureSubscript {
+                                                        from = IntegerLiteral("0");
+                                                        length = IntegerLiteral("0");
+                                                    };
+                                                },
+                                                ElementOrSubrangeExpression {
+                                                    primary = IntegerLiteral("0");
+                                                    subscript = SpanFromSubscript(IntegerLiteral("0"));
+                                                },
+                                                ElementOrSubrangeExpression {
+                                                    primary = IntegerLiteral("0");
+                                                    subscript = SpanToSubscript(IntegerLiteral("0"));
+                                                }
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            ValueDeclaration {
+                                name = LIdentifier("valueDeclaration");
+                                type = DynamicModifier();
+                                annotations = Annotations();
+                            },
+                            ValueGetterDefinition {
+                                name = LIdentifier("valueGetterDefinition");
+                                type = ValueModifier();
+                                definition = Block([]);
+                                annotations = Annotations();
+                            },
+                            ValueSetterDefinition {
+                                name = LIdentifier("valueSetterDefinition");
+                                definition = Block([]);
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("selfReferences");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                QualifiedExpression {
+                                                    receiverExpression = This();
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("thisReference"));
+                                                },
+                                                QualifiedExpression {
+                                                    receiverExpression = Super();
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("superReference"));
+                                                },
+                                                QualifiedExpression {
+                                                    receiverExpression = Outer();
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("outerReference"));
+                                                    memberOperator = SafeMemberOperator();
+                                                },
+                                                QualifiedExpression {
+                                                    receiverExpression = Package();
+                                                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("packageReference"));
+                                                    memberOperator = SpreadMemberOperator();
+                                                }
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            InterfaceDefinition {
+                                name = UIdentifier("Interface");
+                                body = InterfaceBody([]);
+                                caseTypes = null;
+                                satisfiedTypes = null;
+                                typeParameters = null;
+                                typeConstraints = [];
+                                annotations = Annotations();
+                            },
+                            DynamicInterfaceDefinition {
+                                name = UIdentifier("DynamicInterface");
+                                body = InterfaceBody([]);
+                                caseTypes = null;
+                                satisfiedTypes = null;
+                                typeParameters = null;
+                                typeConstraints = [];
+                                annotations = Annotations();
+                            },
+                            ObjectDefinition {
+                                name = LIdentifier("objectDefinition");
+                                body = ClassBody([]);
+                                extendedType = null;
+                                satisfiedTypes = null;
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("miscExpressions");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                GroupedExpression(FunctionExpression {
+                                                        parameterLists = [Parameters()];
+                                                        definition = LazySpecifier(DynamicValue {
+                                                                namedArguments = [];
+                                                                iterableArgument = ArgumentList([]);
+                                                                modifier = DynamicModifier();
+                                                            });
+                                                        type = null;
+                                                    }),
+                                                StringTemplate {
+                                                    literals = [
+                                                        StringLiteral("""Hello, """),
+                                                        StringLiteral("""!""")
+                                                    ];
+                                                    expressions = [IntegerLiteral("0")];
+                                                }
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("objectExpression");
+                                type = ValueModifier();
+                                definition = Specifier(ObjectExpression {
                                         body = ClassBody([]);
-                                        extendedType = null;
-                                        satisfiedTypes = null;
-                                    }
-                                ]);
-                        }),
-                    AssignmentStatement(AddAssignmentOperation {
-                            target = BaseExpression(MemberNameWithTypeArguments(LIdentifier("i")));
-                            summand = IntegerLiteral("0");
-                        }),
-                    PrefixPostfixStatement(PostfixIncrementOperation(BaseExpression(MemberNameWithTypeArguments(LIdentifier("i"))))),
-                    FunctionDeclaration {
-                        name = LIdentifier("functionDeclaration");
-                        type = VoidModifier();
-                        parameterLists = [
-                            Parameters([
-                                    ValueParameter {
+                                        extendedType = ExtendedType(Extension {
+                                                nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Object"));
+                                                arguments = PositionalArguments(ArgumentList([]));
+                                            });
+                                        satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))]);
+                                    });
+                                annotations = Annotations();
+                            },
+                            ValueDefinition {
+                                name = LIdentifier("conditionalExpressions");
+                                type = ValueModifier();
+                                definition = Specifier(Iterable(ArgumentList([
+                                                IfElseExpression {
+                                                    conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition"))))]);
+                                                    thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("thenExpression")));
+                                                    elseExpression = IfElseExpression {
+                                                        conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition2"))))]);
+                                                        thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseThenExpression")));
+                                                        elseExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseExpression")));
+                                                    };
+                                                },
+                                                SwitchCaseElseExpression {
+                                                    clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("seq"))));
+                                                    caseExpressions = [
+                                                        CaseExpression {
+                                                            caseItem = MatchCase([BaseExpression(MemberNameWithTypeArguments(LIdentifier("null")))]);
+                                                            expression = StringLiteral("""null""");
+                                                        },
+                                                        CaseExpression {
+                                                            caseItem = IsCase(TupleType(TypeList([])));
+                                                            expression = StringLiteral("""empty""");
+                                                        }
+                                                    ];
+                                                    elseExpression = StringLiteral("""nonempty""");
+                                                }
+                                            ])));
+                                annotations = Annotations();
+                            },
+                            Destructure {
+                                pattern = TuplePattern {
+                                    elementPatterns = [VariablePattern(UnspecifiedVariable(LIdentifier("destructureFirst")))];
+                                    variadicElementPattern = VariadicVariable(LIdentifier("destructureRest"));
+                                };
+                                specifier = Specifier(IntegerLiteral("1"));
+                            }
+                        ]);
+                    caseTypes = CaseTypes([
+                            LIdentifier("myTrue"),
+                            LIdentifier("myFalse")
+                        ]);
+                    extendedType = ExtendedType(Construction {
+                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("cons"));
+                            arguments = PositionalArguments(ArgumentList([]));
+                        });
+                    satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("MyObject")))]);
+                    typeParameters = null;
+                    typeConstraints = [];
+                    annotations = Annotations {
+                        annotations = [Annotation(LIdentifier("shared"))];
+                    };
+                },
+                ClassAliasDefinition {
+                    name = UIdentifier("B");
+                    parameters = Parameters();
+                    specifier = ClassSpecifier(Extension {
+                            nameAndArgs = TypeNameWithTypeArguments(UIdentifier("MyBoolean"));
+                            arguments = PositionalArguments(ArgumentList([]));
+                        });
+                    caseTypes = null;
+                    extendedType = null;
+                    satisfiedTypes = null;
+                    typeParameters = null;
+                    typeConstraints = [];
+                    annotations = Annotations();
+                },
+                InterfaceAliasDefinition {
+                    name = UIdentifier("Strings");
+                    specifier = TypeSpecifier(IterableType(VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))))));
+                    caseTypes = null;
+                    satisfiedTypes = null;
+                    typeParameters = null;
+                    typeConstraints = [];
+                    annotations = Annotations();
+                },
+                TypeAliasDefinition {
+                    name = UIdentifier("Primitive");
+                    specifier = TypeSpecifier(UnionType([
+                                BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                                BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))),
+                                BaseType(TypeNameWithTypeArguments(UIdentifier("Boolean"))),
+                                OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Character"))))
+                            ]));
+                    typeParameters = null;
+                    typeConstraints = [];
+                    annotations = Annotations();
+                },
+                FunctionShortcutDefinition {
+                    name = LIdentifier("genericLoop");
+                    type = FunctionModifier();
+                    parameterLists = [
+                        Parameters([
+                                DefaultedValueParameter {
+                                    parameter = ValueParameter {
                                         annotations = Annotations();
                                         type = DynamicModifier();
-                                        name = LIdentifier("valueParameter");
-                                    },
-                                    CallableParameter {
-                                        annotations = Annotations();
-                                        type = VoidModifier();
-                                        name = LIdentifier("callableParameter");
-                                        parameterLists = [Parameters()];
-                                    },
-                                    ParameterReference(LIdentifier("parameterReference")),
-                                    DefaultedValueParameter {
-                                        parameter = ValueParameter {
-                                            annotations = Annotations();
-                                            type = DynamicModifier();
-                                            name = LIdentifier("defaultedValueParameter");
-                                        };
-                                        specifier = Specifier(IntegerLiteral("0"));
-                                    },
-                                    DefaultedCallableParameter {
-                                        parameter = CallableParameter {
-                                            annotations = Annotations();
-                                            type = VoidModifier();
-                                            name = LIdentifier("defaultedCallableParameter");
-                                            parameterLists = [Parameters()];
-                                        };
-                                        specifier = LazySpecifier(IntegerLiteral("0"));
-                                    },
-                                    DefaultedParameterReference {
-                                        parameter = ParameterReference(LIdentifier("defaultedParameterReference"));
-                                        specifier = Specifier(IntegerLiteral("0"));
-                                    },
-                                    VariadicParameter {
-                                        annotations = Annotations();
-                                        type = VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
-                                        name = LIdentifier("variadicParameter");
-                                    }
-                                ])
-                        ];
-                        typeParameters = null;
-                        typeConstraints = [];
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("literals");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        StringLiteral("""String literal"""),
-                                        StringLiteral("""Verbatim string literal""", true),
-                                        CharacterLiteral("""c"""),
-                                        IntegerLiteral("0"),
-                                        FloatLiteral("0.0")
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    IfElse {
-                        ifClause = IfClause {
-                            conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("ifElse"))))]);
-                            block = Block([]);
-                        };
-                        elseClause = ElseClause(Block([]));
-                    },
-                    SwitchCaseElse {
-                        clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchCaseElse"))));
-                        cases = SwitchCases {
-                            caseClauses = [
-                                CaseClause {
-                                    caseItem = MatchCase([IntegerLiteral("0")]);
-                                    block = Block([]);
-                                },
-                                CaseClause {
-                                    caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
-                                    block = Block([]);
+                                        name = LIdentifier("param");
+                                    };
+                                    specifier = Specifier(Tuple(ArgumentList([])));
                                 }
-                            ];
-                            elseClause = ElseClause(Block([]));
-                        };
-                    },
-                    SwitchCaseElse {
-                        clause = SwitchClause(SpecifiedVariable {
-                                name = LIdentifier("switchVariable");
-                                specifier = Specifier(BaseExpression(MemberNameWithTypeArguments(LIdentifier("switchVariableExpression"))));
-                                type = ValueModifier();
-                            });
-                        cases = SwitchCases {
-                            caseClauses = [
-                                CaseClause {
-                                    caseItem = MatchCase([IntegerLiteral("0")]);
-                                    block = Block([]);
-                                },
-                                CaseClause {
-                                    caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
-                                    block = Block([]);
-                                }
-                            ];
-                            elseClause = ElseClause(Block([]));
-                        };
-                    },
-                    DynamicBlock(Block([])),
-                    ValueDefinition {
-                        name = LIdentifier("subscripts");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        ElementOrSubrangeExpression {
-                                            primary = IntegerLiteral("0");
-                                            subscript = KeySubscript(IntegerLiteral("0"));
-                                        },
-                                        ElementOrSubrangeExpression {
-                                            primary = IntegerLiteral("0");
-                                            subscript = SpanSubscript {
-                                                from = IntegerLiteral("0");
-                                                to = IntegerLiteral("0");
-                                            };
-                                        },
-                                        ElementOrSubrangeExpression {
-                                            primary = IntegerLiteral("0");
-                                            subscript = MeasureSubscript {
-                                                from = IntegerLiteral("0");
-                                                length = IntegerLiteral("0");
-                                            };
-                                        },
-                                        ElementOrSubrangeExpression {
-                                            primary = IntegerLiteral("0");
-                                            subscript = SpanFromSubscript(IntegerLiteral("0"));
-                                        },
-                                        ElementOrSubrangeExpression {
-                                            primary = IntegerLiteral("0");
-                                            subscript = SpanToSubscript(IntegerLiteral("0"));
-                                        }
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    ValueDeclaration {
-                        name = LIdentifier("valueDeclaration");
-                        type = DynamicModifier();
-                        annotations = Annotations();
-                    },
-                    ValueGetterDefinition {
-                        name = LIdentifier("valueGetterDefinition");
-                        type = ValueModifier();
-                        definition = Block([]);
-                        annotations = Annotations();
-                    },
-                    ValueSetterDefinition {
-                        name = LIdentifier("valueSetterDefinition");
-                        definition = Block([]);
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("selfReferences");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        QualifiedExpression {
-                                            receiverExpression = This();
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("thisReference"));
-                                        },
-                                        QualifiedExpression {
-                                            receiverExpression = Super();
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("superReference"));
-                                        },
-                                        QualifiedExpression {
-                                            receiverExpression = Outer();
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("outerReference"));
-                                            memberOperator = SafeMemberOperator();
-                                        },
-                                        QualifiedExpression {
-                                            receiverExpression = Package();
-                                            nameAndArgs = MemberNameWithTypeArguments(LIdentifier("packageReference"));
-                                            memberOperator = SpreadMemberOperator();
-                                        }
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    InterfaceDefinition {
-                        name = UIdentifier("Interface");
-                        body = InterfaceBody([]);
-                        caseTypes = null;
-                        satisfiedTypes = null;
-                        typeParameters = null;
-                        typeConstraints = [];
-                        annotations = Annotations();
-                    },
-                    DynamicInterfaceDefinition {
-                        name = UIdentifier("DynamicInterface");
-                        body = InterfaceBody([]);
-                        caseTypes = null;
-                        satisfiedTypes = null;
-                        typeParameters = null;
-                        typeConstraints = [];
-                        annotations = Annotations();
-                    },
-                    ObjectDefinition {
-                        name = LIdentifier("objectDefinition");
-                        body = ClassBody([]);
-                        extendedType = null;
-                        satisfiedTypes = null;
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("miscExpressions");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        GroupedExpression(FunctionExpression {
-                                                parameterLists = [Parameters()];
-                                                definition = LazySpecifier(DynamicValue {
-                                                        namedArguments = [];
-                                                        iterableArgument = ArgumentList([]);
-                                                        modifier = DynamicModifier();
-                                                    });
-                                                type = null;
-                                            }),
-                                        StringTemplate {
-                                            literals = [
-                                                StringLiteral("""Hello, """),
-                                                StringLiteral("""!""")
-                                            ];
-                                            expressions = [IntegerLiteral("0")];
-                                        }
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("objectExpression");
-                        type = ValueModifier();
-                        definition = Specifier(ObjectExpression {
-                                body = ClassBody([]);
-                                extendedType = ExtendedType(Extension {
-                                        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Object"));
-                                        arguments = PositionalArguments(ArgumentList([]));
-                                    });
-                                satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("Identifiable")))]);
-                            });
-                        annotations = Annotations();
-                    },
-                    ValueDefinition {
-                        name = LIdentifier("conditionalExpressions");
-                        type = ValueModifier();
-                        definition = Specifier(Iterable(ArgumentList([
-                                        IfElseExpression {
-                                            conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition"))))]);
-                                            thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("thenExpression")));
-                                            elseExpression = IfElseExpression {
-                                                conditions = Conditions([BooleanCondition(BaseExpression(MemberNameWithTypeArguments(LIdentifier("condition2"))))]);
-                                                thenExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseThenExpression")));
-                                                elseExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("elseExpression")));
-                                            };
-                                        },
-                                        SwitchCaseElseExpression {
-                                            clause = SwitchClause(BaseExpression(MemberNameWithTypeArguments(LIdentifier("seq"))));
-                                            caseExpressions = [
-                                                CaseExpression {
-                                                    caseItem = MatchCase([BaseExpression(MemberNameWithTypeArguments(LIdentifier("null")))]);
-                                                    expression = StringLiteral("""null""");
-                                                },
-                                                CaseExpression {
-                                                    caseItem = IsCase(TupleType(TypeList([])));
-                                                    expression = StringLiteral("""empty""");
-                                                }
-                                            ];
-                                            elseExpression = StringLiteral("""nonempty""");
-                                        }
-                                    ])));
-                        annotations = Annotations();
-                    },
-                    Destructure {
-                        pattern = TuplePattern {
-                            elementPatterns = [VariablePattern(UnspecifiedVariable(LIdentifier("destructureFirst")))];
-                            variadicElementPattern = VariadicVariable(LIdentifier("destructureRest"));
-                        };
-                        specifier = Specifier(IntegerLiteral("1"));
-                    }
-                ]);
-            caseTypes = CaseTypes([
-                    LIdentifier("myTrue"),
-                    LIdentifier("myFalse")
-                ]);
-            extendedType = ExtendedType(Construction {
-                    nameAndArgs = MemberNameWithTypeArguments(LIdentifier("cons"));
-                    arguments = PositionalArguments(ArgumentList([]));
-                });
-            satisfiedTypes = SatisfiedTypes([BaseType(TypeNameWithTypeArguments(UIdentifier("MyObject")))]);
-            typeParameters = null;
-            typeConstraints = [];
-            annotations = Annotations {
-                annotations = [Annotation(LIdentifier("shared"))];
-            };
-        },
-        ClassAliasDefinition {
-            name = UIdentifier("B");
-            parameters = Parameters();
-            specifier = ClassSpecifier(Extension {
-                    nameAndArgs = TypeNameWithTypeArguments(UIdentifier("MyBoolean"));
-                    arguments = PositionalArguments(ArgumentList([]));
-                });
-            caseTypes = null;
-            extendedType = null;
-            satisfiedTypes = null;
-            typeParameters = null;
-            typeConstraints = [];
-            annotations = Annotations();
-        },
-        InterfaceAliasDefinition {
-            name = UIdentifier("Strings");
-            specifier = TypeSpecifier(IterableType(VariadicType(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))))));
-            caseTypes = null;
-            satisfiedTypes = null;
-            typeParameters = null;
-            typeConstraints = [];
-            annotations = Annotations();
-        },
-        TypeAliasDefinition {
-            name = UIdentifier("Primitive");
-            specifier = TypeSpecifier(UnionType([
-                        BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
-                        BaseType(TypeNameWithTypeArguments(UIdentifier("Float"))),
-                        BaseType(TypeNameWithTypeArguments(UIdentifier("Boolean"))),
-                        OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Character"))))
-                    ]));
-            typeParameters = null;
-            typeConstraints = [];
-            annotations = Annotations();
-        },
-        FunctionShortcutDefinition {
-            name = LIdentifier("genericLoop");
-            type = FunctionModifier();
-            parameterLists = [
-                Parameters([
-                        DefaultedValueParameter {
-                            parameter = ValueParameter {
-                                annotations = Annotations();
-                                type = DynamicModifier();
-                                name = LIdentifier("param");
-                            };
-                            specifier = Specifier(Tuple(ArgumentList([])));
-                        }
-                    ])
-            ];
-            definition = LazySpecifier(Invocation {
-                    invoked = BaseExpression(MemberNameWithTypeArguments {
-                            name = LIdentifier("genericLoop");
-                            typeArguments = TypeArguments([
-                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam1")))),
-                                    TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam2")))),
-                                    TypeArgument {
-                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam3")));
-                                        variance = InModifier();
-                                    },
-                                    TypeArgument {
-                                        type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam4")));
-                                        variance = OutModifier();
-                                    }
-                                ]);
+                            ])
+                    ];
+                    definition = LazySpecifier(Invocation {
+                            invoked = BaseExpression(MemberNameWithTypeArguments {
+                                    name = LIdentifier("genericLoop");
+                                    typeArguments = TypeArguments([
+                                            TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam1")))),
+                                            TypeArgument(BaseType(TypeNameWithTypeArguments(UIdentifier("TParam2")))),
+                                            TypeArgument {
+                                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam3")));
+                                                variance = InModifier();
+                                            },
+                                            TypeArgument {
+                                                type = BaseType(TypeNameWithTypeArguments(UIdentifier("TParam4")));
+                                                variance = OutModifier();
+                                            }
+                                        ]);
+                                });
+                            arguments = PositionalArguments(ArgumentList([]));
                         });
-                    arguments = PositionalArguments(ArgumentList([]));
-                });
-            typeParameters = TypeParameters([
-                    TypeParameter {
-                        parameterName = UIdentifier("TParam1");
-                        variance = InModifier();
-                        defaultArgument = EntryType {
-                            key = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
-                            item = BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")));
-                        };
-                    },
-                    TypeParameter {
-                        parameterName = UIdentifier("TParam2");
-                        variance = OutModifier();
-                        defaultArgument = CallableType {
-                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
-                            argumentTypes = TypeList([]);
-                        };
-                    },
-                    TypeParameter {
-                        parameterName = UIdentifier("TParam3");
-                        variance = null;
-                        defaultArgument = CallableType {
-                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Ret")));
-                            argumentTypes = SpreadType(BaseType(TypeNameWithTypeArguments(UIdentifier("Args"))));
-                        };
-                    },
-                    TypeParameter {
-                        parameterName = UIdentifier("TParam4");
-                        variance = null;
-                        defaultArgument = CallableType {
-                            returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
-                            argumentTypes = TypeList([]);
-                        };
-                    }
-                ]);
-            typeConstraints = [
-                TypeConstraint {
-                    parameterName = UIdentifier("TParam1");
-                    caseTypes = CaseTypes([
-                            BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
-                            BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))
+                    typeParameters = TypeParameters([
+                            TypeParameter {
+                                parameterName = UIdentifier("TParam1");
+                                variance = InModifier();
+                                defaultArgument = EntryType {
+                                    key = BaseType(TypeNameWithTypeArguments(UIdentifier("String")));
+                                    item = BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")));
+                                };
+                            },
+                            TypeParameter {
+                                parameterName = UIdentifier("TParam2");
+                                variance = OutModifier();
+                                defaultArgument = CallableType {
+                                    returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
+                                    argumentTypes = TypeList([]);
+                                };
+                            },
+                            TypeParameter {
+                                parameterName = UIdentifier("TParam3");
+                                variance = null;
+                                defaultArgument = CallableType {
+                                    returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Ret")));
+                                    argumentTypes = SpreadType(BaseType(TypeNameWithTypeArguments(UIdentifier("Args"))));
+                                };
+                            },
+                            TypeParameter {
+                                parameterName = UIdentifier("TParam4");
+                                variance = null;
+                                defaultArgument = CallableType {
+                                    returnType = BaseType(TypeNameWithTypeArguments(UIdentifier("Anything")));
+                                    argumentTypes = TypeList([]);
+                                };
+                            }
                         ]);
-                    satisfiedTypes = null;
-                },
-                TypeConstraint {
-                    parameterName = UIdentifier("TParam2");
-                    caseTypes = null;
-                    satisfiedTypes = SatisfiedTypes([
-                            TupleType(TypeList([
-                                        BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))),
-                                        DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))))
-                                    ])),
-                            SequentialType(GroupedType(QualifiedType {
-                                        qualifyingType = BaseType(TypeNameWithTypeArguments(UIdentifier("Outer")));
-                                        nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Inner"));
-                                    }))
-                        ]);
+                    typeConstraints = [
+                        TypeConstraint {
+                            parameterName = UIdentifier("TParam1");
+                            caseTypes = CaseTypes([
+                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Integer"))),
+                                    BaseType(TypeNameWithTypeArguments(UIdentifier("Float")))
+                                ]);
+                            satisfiedTypes = null;
+                        },
+                        TypeConstraint {
+                            parameterName = UIdentifier("TParam2");
+                            caseTypes = null;
+                            satisfiedTypes = SatisfiedTypes([
+                                    TupleType(TypeList([
+                                                BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))),
+                                                DefaultedType(BaseType(TypeNameWithTypeArguments(UIdentifier("Anything"))))
+                                            ])),
+                                    SequentialType(GroupedType(QualifiedType {
+                                                qualifyingType = BaseType(TypeNameWithTypeArguments(UIdentifier("Outer")));
+                                                nameAndArgs = TypeNameWithTypeArguments(UIdentifier("Inner"));
+                                            }))
+                                ]);
+                        }
+                    ];
+                    annotations = Annotations();
                 }
             ];
-            annotations = Annotations();
-        }
-    ];
-} /* END */;
+        } /* END */;

@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[BooleanCondition|JBooleanCondition]] to a `ceylon.ast` [[BooleanCondition]]."
-shared BooleanCondition booleanConditionToCeylon(JBooleanCondition booleanCondition, Anything(JNode,Node) update = noop) {
+shared BooleanCondition booleanConditionToCeylon(JBooleanCondition booleanCondition, Anything(JNode, Node) update = noop) {
     value result = BooleanCondition(expressionToCeylon(booleanCondition.expression, update));
     update(booleanCondition, result);
     return result;
@@ -19,7 +19,7 @@ shared BooleanCondition booleanConditionToCeylon(JBooleanCondition booleanCondit
 "Parses the given [[code]] for a Boolean Condition
  into a [[BooleanCondition]] using the Ceylon compiler
  (more specifically, the rule for a `booleanCondition`)."
-shared BooleanCondition? parseBooleanCondition(String code, Anything(JNode,Node) update = noop) {
+shared BooleanCondition? parseBooleanCondition(String code, Anything(JNode, Node) update = noop) {
     if (exists jBooleanCondition = createParser(code).booleanCondition()) {
         return booleanConditionToCeylon(jBooleanCondition, update);
     } else {

@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SubtractAssignOp|JSubtractAssignOp]] to a `ceylon.ast` [[SubtractAssignmentOperation]]."
-shared SubtractAssignmentOperation subtractAssignmentOperationToCeylon(JSubtractAssignOp subtractAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared SubtractAssignmentOperation subtractAssignmentOperationToCeylon(JSubtractAssignOp subtractAssignmentOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ThenElseExpression left = expressionToCeylon(subtractAssignmentOperation.leftTerm, update));
     value right = expressionToCeylon(subtractAssignmentOperation.rightTerm, update);
@@ -23,7 +23,7 @@ shared SubtractAssignmentOperation subtractAssignmentOperationToCeylon(JSubtract
 "Parses the given [[code]] for a Subtract Assignment Operation
  into a [[SubtractAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared SubtractAssignmentOperation? parseSubtractAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared SubtractAssignmentOperation? parseSubtractAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JSubtractAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return subtractAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

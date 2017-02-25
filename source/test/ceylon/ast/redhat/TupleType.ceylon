@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object tupleType satisfies ConcreteTest<TupleType,JTupleType> {
     
     String->TupleType construct(String->TypeList list)
-            => "[``list.key``]"->TupleType(list.item);
+            => "[``list.key``]" -> TupleType(list.item);
     
     shared String->TupleType emptyTupleType = construct(typeList.emptyTypeList);
     shared String->TupleType stringPlusTupleType = construct(typeList.stringPlusTypeList);

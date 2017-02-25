@@ -29,7 +29,7 @@ shared class Annotations(anonymousAnnotation = null, annotations = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitAnnotations(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Annotations that) {
             if (exists anonymousAnnotation) {
@@ -50,7 +50,7 @@ shared class Annotations(anonymousAnnotation = null, annotations = [])
     }
     
     shared actual Integer hash
-            => 31 * ((anonymousAnnotation?.hash else 0) + 31 * annotations.hash);
+            => 31 * ((anonymousAnnotation?.hash else 0) + 31*annotations.hash);
     
     shared Annotations copy(StringLiteral? anonymousAnnotation = this.anonymousAnnotation, Annotation[] annotations = this.annotations) {
         value ret = Annotations(anonymousAnnotation, annotations);

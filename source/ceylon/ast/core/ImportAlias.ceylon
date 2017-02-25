@@ -26,7 +26,7 @@ shared class ImportAlias(name)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitImportAlias(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ImportAlias that) {
             return name == that.name;

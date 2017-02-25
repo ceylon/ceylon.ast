@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object tuple satisfies ConcreteTest<Tuple,JTuple> {
     
     String->Tuple construct(String->ArgumentList arguments)
-            => "[``arguments.key``]"->Tuple(arguments.item);
+            => "[``arguments.key``]" -> Tuple(arguments.item);
     
     shared String->Tuple emptyTuple = construct(argumentList.emptyArgumentList);
     shared String->Tuple abcTuple = construct(argumentList.abcArgumentList);

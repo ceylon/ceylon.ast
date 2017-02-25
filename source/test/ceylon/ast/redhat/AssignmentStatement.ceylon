@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object assignmentStatement satisfies ConcreteTest<AssignmentStatement,JExpressionStatement> {
     
     String->AssignmentStatement construct(String->AssignmentOperation expression)
-            => "``expression.key``;"->AssignmentStatement(expression.item);
+            => "``expression.key``;" -> AssignmentStatement(expression.item);
     
     shared String->AssignmentStatement nameEmptyAssignTrueStatement = construct(assignOperation.nameEmptyAssignTrueExpression);
     shared String->AssignmentStatement iAddAssignStepStatement = construct(addAssignmentOperation.iAddAssignStepExpression);

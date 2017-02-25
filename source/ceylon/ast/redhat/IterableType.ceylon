@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IterableType|JIterableType]] to a `ceylon.ast` [[IterableType]]."
-shared IterableType iterableTypeToCeylon(JIterableType iterableType, Anything(JNode,Node) update = noop) {
+shared IterableType iterableTypeToCeylon(JIterableType iterableType, Anything(JNode, Node) update = noop) {
     assert (exists elemType = iterableType.elementType, is VariadicType varType = typeIshToCeylon(elemType, update));
     value result = IterableType(varType);
     update(iterableType, result);
@@ -21,7 +21,7 @@ shared IterableType iterableTypeToCeylon(JIterableType iterableType, Anything(JN
 "Parses the given [[code]] for an Iterable Type
  into an [[IterableType]] using the Ceylon compiler
  (more specifically, the rule for an `iterableType`)."
-shared IterableType? parseIterableType(String code, Anything(JNode,Node) update = noop) {
+shared IterableType? parseIterableType(String code, Anything(JNode, Node) update = noop) {
     if (exists jIterableType = createParser(code).iterableType()) {
         return iterableTypeToCeylon(jIterableType, update);
     } else {

@@ -23,12 +23,12 @@ import ceylon.interop.java {
  
  (The RedHat AST [[ArgumentList|com.redhat.ceylon.compiler.typechecker.tree::Tree.ArgumentList]]
  does *not* correspond to the `ceylon.ast` [[ArgumentList]]!)"
-shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList, Anything(JNode,Node) update = noop) {
+shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList, Anything(JNode, Node) update = noop) {
     value arguments = CeylonIterable(argumentList.positionalArguments).sequence();
     ArgumentList result;
     if (exists lastArgument = arguments.last) {
         assert (is JListedArgument|JSpreadArgument|JComprehension lastArgument);
-        Expression listedArgumentToCeylon(JPositionalArgument positionalArgument, Anything(JNode,Node) update = noop) {
+        Expression listedArgumentToCeylon(JPositionalArgument positionalArgument, Anything(JNode, Node) update = noop) {
             assert (is JListedArgument positionalArgument);
             return expressionToCeylon(positionalArgument.expression, update);
         }
@@ -57,7 +57,7 @@ shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList, Anythi
 "Parses the given [[code]] for an Argument List
  into an [[ArgumentList]] using the Ceylon compiler
  (more specifically, the rule for a `sequencedArgument`)."
-shared ArgumentList? parseArgumentList(String code, Anything(JNode,Node) update = noop) {
+shared ArgumentList? parseArgumentList(String code, Anything(JNode, Node) update = noop) {
     if (exists jSequencedArgument = createParser(code).sequencedArgument()) {
         return argumentListToCeylon(jSequencedArgument, update);
     } else {

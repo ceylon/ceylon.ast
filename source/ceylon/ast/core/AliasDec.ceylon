@@ -21,17 +21,17 @@ shared class AliasDec(name, qualifier = DecQualifier())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitAliasDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is AliasDec that) {
-            return name == that.name && qualifier == that.qualifier;
+            return name==that.name && qualifier==that.qualifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * qualifier.hash);
+            => 31 * (name.hash + 31*qualifier.hash);
     
     shared AliasDec copy(UIdentifier name = this.name, DecQualifier qualifier = this.qualifier) {
         value ret = AliasDec(name, qualifier);

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 "Converts a RedHat AST [[TypeVariance|JTypeVariance]]
  with token type [[`OUT`|outType]]
  to a `ceylon.ast` [[OutModifier]]."
-shared OutModifier outModifierToCeylon(JTypeVariance outModifier, Anything(JNode,Node) update = noop) {
+shared OutModifier outModifierToCeylon(JTypeVariance outModifier, Anything(JNode, Node) update = noop) {
     "Must be an ‘in’ modifier"
     assert (outModifier.mainToken.type == outType);
     value result = OutModifier();
@@ -28,7 +28,7 @@ shared OutModifier outModifierToCeylon(JTypeVariance outModifier, Anything(JNode
 "Parses the given [[code]] for an Out Modifier
  into an [[OutModifier]] using the Ceylon compiler
  (more specifically, the rule for a `variance`)."
-shared OutModifier? parseOutModifier(String code, Anything(JNode,Node) update = noop) {
+shared OutModifier? parseOutModifier(String code, Anything(JNode, Node) update = noop) {
     if (exists jVariance = createParser(code).variance(),
         jVariance.mainToken.type == outType) {
         return outModifierToCeylon(jVariance, update);

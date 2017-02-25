@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object exponentiationOperation satisfies ConcreteTest<ExponentiationOperation,JPowerOp> {
     
     String->ExponentiationOperation construct(String->PrePostfixingExpression left, String->ExponentiatingExpression right)
-            => "``left.key``^``right.key``"->ExponentiationOperation(left.item, right.item);
+            => "``left.key``^``right.key``" -> ExponentiationOperation(left.item, right.item);
     
     shared String->ExponentiationOperation _1138Pow1Operation = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     

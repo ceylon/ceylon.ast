@@ -21,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[ImportModule|JImportModule]] to a `ceylon.ast` [[ModuleImport]]."
-shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JNode,Node) update = noop) {
+shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JNode, Node) update = noop) {
     FullPackageName|StringLiteral name;
     if (exists jName = moduleImport.importPath) {
         "Can’t have both import path and quoted literal"
@@ -69,7 +69,7 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
 "Parses the given [[code]] for a Module Import
  into a [[ModuleImport]] using the Ceylon compiler
  (more specifically, the rule for an `importModuleList`)."
-shared ModuleImport? parseModuleImport(String code, Anything(JNode,Node) update = noop) {
+shared ModuleImport? parseModuleImport(String code, Anything(JNode, Node) update = noop) {
     /*
      The `importModule` rule doesn’t take annotations,
      so we have to construct a fake importModuleList

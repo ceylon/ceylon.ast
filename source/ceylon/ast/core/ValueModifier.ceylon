@@ -12,7 +12,7 @@ shared class ValueModifier()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueModifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is ValueModifier;
     }

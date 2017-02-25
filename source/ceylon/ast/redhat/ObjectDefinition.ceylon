@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ObjectDefinition|JObjectDefinition]] to a `ceylon.ast` [[ObjectDefinition]]."
-shared ObjectDefinition objectDefinitionToCeylon(JObjectDefinition objectDefinition, Anything(JNode,Node) update = noop) {
+shared ObjectDefinition objectDefinitionToCeylon(JObjectDefinition objectDefinition, Anything(JNode, Node) update = noop) {
     ExtendedType? extendedType;
     if (exists jExtendedType = objectDefinition.extendedType) {
         extendedType = extendedTypeToCeylon(jExtendedType, update);
@@ -39,7 +39,7 @@ shared ObjectDefinition objectDefinitionToCeylon(JObjectDefinition objectDefinit
 "Parses the given [[code]] for an Object Definition
  into an [[ObjectDefinition]] using the Ceylon compiler
  (more specifically, the rule for an `declaration`)."
-shared ObjectDefinition? parseObjectDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ObjectDefinition? parseObjectDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JObjectDefinition jDeclaration = createParser(code).declaration()) {
         return objectDefinitionToCeylon(jDeclaration, update);
     } else {

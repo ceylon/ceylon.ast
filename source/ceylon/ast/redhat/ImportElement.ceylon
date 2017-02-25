@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ImportMemberOrType|JImportMemberOrType]] to a `ceylon.ast` [[ImportElement]]."
-shared ImportElement importElementToCeylon(JImportMemberOrType importElement, Anything(JNode,Node) update = noop) {
+shared ImportElement importElementToCeylon(JImportMemberOrType importElement, Anything(JNode, Node) update = noop) {
     value result = ImportElement {
         identifierToCeylon(importElement.identifier, update);
         importElement.\ialias exists then importAliasToCeylon(importElement.\ialias, update);
@@ -23,7 +23,7 @@ shared ImportElement importElementToCeylon(JImportMemberOrType importElement, An
 "Parses the given [[code]] for an Import Element
  into an [[ImportElement]] using the Ceylon compiler
  (more specifically, the rule for an `importElement`)."
-shared ImportElement? parseImportElement(String code, Anything(JNode,Node) update = noop) {
+shared ImportElement? parseImportElement(String code, Anything(JNode, Node) update = noop) {
     if (exists jImportElement = createParser(code).importElement()) {
         return importElementToCeylon(jImportElement, update);
     } else {

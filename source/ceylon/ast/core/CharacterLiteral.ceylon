@@ -10,7 +10,7 @@ shared class CharacterLiteral(text) extends Literal(text) {
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCharacterLiteral(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CharacterLiteral that) {
             return text == that.text;

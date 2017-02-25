@@ -18,7 +18,7 @@ shared class SafeMemberOperator()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSafeMemberOperator(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is SafeMemberOperator;
     }

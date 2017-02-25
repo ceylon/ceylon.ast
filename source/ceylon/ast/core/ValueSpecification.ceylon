@@ -18,7 +18,7 @@ shared class ValueSpecification(name, specifier, qualifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueSpecification(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ValueSpecification that) {
             if (exists qualifier) {
@@ -32,14 +32,14 @@ shared class ValueSpecification(name, specifier, qualifier = null)
             } else if (that.qualifier exists) {
                 return false;
             }
-            return name == that.name && specifier == that.specifier;
+            return name==that.name && specifier==that.specifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * specifier.hash);
+            => 31 * (name.hash + 31*specifier.hash);
     
     shared ValueSpecification copy(LIdentifier name = this.name, Specifier specifier = this.specifier, This? qualifier = this.qualifier) {
         value ret = ValueSpecification(name, specifier, qualifier);

@@ -40,17 +40,17 @@ shared class ModuleDescriptor(name, version, body = ModuleBody(), annotations = 
     
     shared actual void visit(Visitor visitor)
             => visitor.visitModuleDescriptor(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ModuleDescriptor that) {
-            return name == that.name && version == that.version && body == that.body && annotations == that.annotations;
+            return name==that.name && version==that.version && body==that.body && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (version.hash + 31 * (body.hash + 31 * annotations.hash)));
+            => 31 * (name.hash + 31 * (version.hash + 31 * (body.hash + 31*annotations.hash)));
     
     shared ModuleDescriptor copy(FullPackageName name = this.name, StringLiteral version = this.version, ModuleBody body = this.body, Annotations annotations = this.annotations) {
         value ret = ModuleDescriptor(name, version, body, annotations);

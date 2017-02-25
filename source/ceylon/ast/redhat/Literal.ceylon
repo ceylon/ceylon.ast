@@ -27,7 +27,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
  (A [[QuotedLiteral|JQuotedLiteral]] – a string surrounded by single or double quotes –
  is always converted to a [[StringLiteral]].)"
 throws (`class AssertionError`, "If the token type is wrong.")
-shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = noop) {
+shared Literal literalToCeylon(JLiteral literal, Anything(JNode, Node) update = noop) {
     assert (is JStringLiteral|JCharacterLiteral|JIntegerLiteral|JFloatLiteral|JQuotedLiteral literal);
     switch (literal)
     case (is JStringLiteral) { return stringLiteralToCeylon(literal, update); }
@@ -39,10 +39,10 @@ shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = n
         value type = literal.mainToken.type;
         StringLiteral result;
         if (type == verbatim_string_literal) {
-            result = StringLiteral(literal.text[3 .. literal.text.size - 4], true);
+            result = StringLiteral(literal.text[3 .. literal.text.size-4], true);
         } else {
-            assert (type == string_literal || type == character_literal);
-            result = StringLiteral(literal.text[1 .. literal.text.size - 2], false);
+            assert (type==string_literal || type==character_literal);
+            result = StringLiteral(literal.text[1 .. literal.text.size-2], false);
         }
         update(literal, result);
         return result;
@@ -52,7 +52,7 @@ shared Literal literalToCeylon(JLiteral literal, Anything(JNode,Node) update = n
 "Parses the given [[code]] for a Literal
  into a [[Literal]] using the Ceylon compiler
  (more specifically, the rules for a `stringLiteral` and a `nonstringLiteral`)."
-shared Literal? parseLiteral(String code, Anything(JNode,Node) update = noop) {
+shared Literal? parseLiteral(String code, Anything(JNode, Node) update = noop) {
     if (exists jStringLiteral = createParser(code).stringLiteral()) {
         return stringLiteralToCeylon(jStringLiteral, update);
     } else if (exists jLiteral = createParser(code).nonstringLiteral()) {

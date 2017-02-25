@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object complementAssignmentOperation satisfies ConcreteTest<ComplementAssignmentOperation,JComplementAssignOp> {
     
     String->ComplementAssignmentOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
-            => "``left.key``~=``right.key``"->ComplementAssignmentOperation(left.item, right.item);
+            => "``left.key``~=``right.key``" -> ComplementAssignmentOperation(left.item, right.item);
     
     shared String->ComplementAssignmentOperation aComplementAssignBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     

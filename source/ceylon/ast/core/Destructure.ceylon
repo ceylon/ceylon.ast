@@ -27,17 +27,17 @@ shared class Destructure(pattern, specifier, valueModifier = ValueModifier())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDestructure(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Destructure that) {
-            return pattern == that.pattern && specifier == that.specifier && valueModifier == that.valueModifier;
+            return pattern==that.pattern && specifier==that.specifier && valueModifier==that.valueModifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (pattern.hash + 31 * (specifier.hash + 31 * valueModifier.hash));
+            => 31 * (pattern.hash + 31 * (specifier.hash + 31*valueModifier.hash));
     
     shared Destructure copy(TuplePattern|EntryPattern pattern = this.pattern, Specifier specifier = this.specifier, ValueModifier valueModifier = this.valueModifier) {
         value ret = Destructure(pattern, specifier, valueModifier);

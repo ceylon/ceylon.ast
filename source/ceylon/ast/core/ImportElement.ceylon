@@ -44,7 +44,7 @@ shared class ImportElement(name, importAlias = null, nestedImports = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitImportElement(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ImportElement that) {
             if (exists importAlias) {

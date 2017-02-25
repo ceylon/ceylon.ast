@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AnyMethod|JAnyMethod]] to a `ceylon.ast` [[AnyFunction]]."
-shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction, Anything(JNode,Node) update = noop) {
+shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction, Anything(JNode, Node) update = noop) {
     assert (is JMethodDefinition|JMethodDeclaration anyFunction);
     switch (anyFunction)
     case (is JMethodDefinition) {
@@ -30,7 +30,7 @@ shared AnyFunction anyFunctionToCeylon(JAnyMethod anyFunction, Anything(JNode,No
 "Parses the given [[code]] for Any Function
  into an [[AnyFunction]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyFunction? parseAnyFunction(String code, Anything(JNode,Node) update = noop) {
+shared AnyFunction? parseAnyFunction(String code, Anything(JNode, Node) update = noop) {
     if (is JAnyMethod jDeclaration = createParser(code).declaration()) {
         return anyFunctionToCeylon(jDeclaration, update);
     } else {

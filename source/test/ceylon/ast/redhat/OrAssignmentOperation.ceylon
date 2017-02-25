@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object orAssignmentOperation satisfies ConcreteTest<OrAssignmentOperation,JOrAssignOp> {
     
     String->OrAssignmentOperation construct(String->ThenElseExpression leftOperand, String->AssigningExpression rightOperand)
-            => "``leftOperand.key``||=``rightOperand.key``"->OrAssignmentOperation(leftOperand.item, rightOperand.item);
+            => "``leftOperand.key``||=``rightOperand.key``" -> OrAssignmentOperation(leftOperand.item, rightOperand.item);
     
     shared String->OrAssignmentOperation bOrAssignAExistsExpression = construct(baseExpression.bExpression, existsOperation.aExistsExpression);
     

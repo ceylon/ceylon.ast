@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypeParameterDeclaration|JTypeParameterDeclaration]] to a `ceylon.ast` [[TypeParameter]]."
-shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParameter, Anything(JNode,Node) update = noop) {
+shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParameter, Anything(JNode, Node) update = noop) {
     Variance? variance;
     if (exists jVariance = typeParameter.typeVariance) {
         variance = varianceToCeylon(jVariance, update);
@@ -33,7 +33,7 @@ shared TypeParameter typeParameterToCeylon(JTypeParameterDeclaration typeParamet
 "Parses the given [[code]] for a Type Parameter
  into a [[TypeParameter]] using the Ceylon compiler
  (more specifically, the rule for a `typeParameter`)."
-shared TypeParameter? parseTypeParameter(String code, Anything(JNode,Node) update = noop) {
+shared TypeParameter? parseTypeParameter(String code, Anything(JNode, Node) update = noop) {
     if (exists jTypeParameter = createParser(code).typeParameter()) {
         return typeParameterToCeylon(jTypeParameter, update);
     } else {

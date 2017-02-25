@@ -20,17 +20,17 @@ shared class While(conditions, block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitWhile(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is While that) {
-            return conditions == that.conditions && block == that.block;
+            return conditions==that.conditions && block==that.block;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (conditions.hash + 31 * block.hash);
+            => 31 * (conditions.hash + 31*block.hash);
     
     shared While copy(Conditions conditions = this.conditions, Block block = this.block) {
         value ret = While(conditions, block);

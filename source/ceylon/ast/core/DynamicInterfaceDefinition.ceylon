@@ -43,21 +43,21 @@ shared class DynamicInterfaceDefinition(name, body, caseTypes = null, satisfiedT
     
     shared actual <Annotations|UIdentifier|TypeParameters|CaseTypes|SatisfiedTypes|TypeConstraint|InterfaceBody>[] children
             = concatenate(
-        [annotations],
-        [name],
-        emptyOrSingleton(typeParameters),
-        emptyOrSingleton(caseTypes),
-        emptyOrSingleton(satisfiedTypes),
-        typeConstraints,
-        [body]
-    );
+                [annotations],
+                [name],
+                emptyOrSingleton(typeParameters),
+                emptyOrSingleton(caseTypes),
+                emptyOrSingleton(satisfiedTypes),
+                typeConstraints,
+                [body]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDynamicInterfaceDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDynamicInterfaceDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DynamicInterfaceDefinition that) {
             if (exists caseTypes) {
@@ -93,14 +93,14 @@ shared class DynamicInterfaceDefinition(name, body, caseTypes = null, satisfiedT
             } else if (that.typeParameters exists) {
                 return false;
             }
-            return name == that.name && body == that.body && typeConstraints == that.typeConstraints && annotations == that.annotations;
+            return name==that.name && body==that.body && typeConstraints==that.typeConstraints && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (body.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))));
+            => 31 * (name.hash + 31 * (body.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31*annotations.hash))))));
     
     shared DynamicInterfaceDefinition copy(UIdentifier name = this.name, InterfaceBody body = this.body, CaseTypes? caseTypes = this.caseTypes, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = DynamicInterfaceDefinition(name, body, caseTypes, satisfiedTypes, typeParameters, typeConstraints, annotations);

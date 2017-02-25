@@ -17,7 +17,7 @@ shared class SatisfiedTypes(satisfiedTypes)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSatisfiedTypes(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SatisfiedTypes that) {
             return satisfiedTypes == that.satisfiedTypes;

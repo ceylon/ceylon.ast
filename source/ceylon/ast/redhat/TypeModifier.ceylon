@@ -21,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 "Converts a RedHat AST [[LocalModifier|JLocalModifier]], [[VoidModifier|JVoidModifier]]
  or [[DynamicModifier|JDynamicModifier]] to a `ceylon.ast` [[TypeModifier]]."
-shared TypeModifier typeModifierToCeylon(JLocalModifier|JVoidModifier|JDynamicModifier typeModifier, Anything(JNode,Node) update = noop) {
+shared TypeModifier typeModifierToCeylon(JLocalModifier|JVoidModifier|JDynamicModifier typeModifier, Anything(JNode, Node) update = noop) {
     switch (typeModifier)
     case (is JLocalModifier) { return localModifierToCeylon(typeModifier, update); }
     case (is JVoidModifier) { return voidModifierToCeylon(typeModifier, update); }
@@ -31,7 +31,7 @@ shared TypeModifier typeModifierToCeylon(JLocalModifier|JVoidModifier|JDynamicMo
 "Parses the given [[code]] for a Type Modifier
  into a [[TypeModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared TypeModifier? parseTypeModifier(String code, Anything(JNode,Node) update = noop) {
+shared TypeModifier? parseTypeModifier(String code, Anything(JNode, Node) update = noop) {
     value type = createParser(code).tokenStream.\iLA(1);
     if (type == void_modifier) {
         return parseVoidModifier(code, update);

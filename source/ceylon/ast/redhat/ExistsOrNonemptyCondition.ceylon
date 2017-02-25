@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ExistsOrNonemptyCondition|JExistsOrNonemptyCondition]] to a `ceylon.ast` [[ExistsOrNonemptyCondition]]."
-shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNonemptyCondition existsOrNonemptyCondition, Anything(JNode,Node) update = noop) {
+shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNonemptyCondition existsOrNonemptyCondition, Anything(JNode, Node) update = noop) {
     /*
      The conversion is almost identical for both kinds of condition,
      so we do it here instead of delegating to {exists,nonempty}ConditionToCeylon by typecast.
@@ -45,7 +45,7 @@ shared ExistsOrNonemptyCondition existsOrNonemptyConditionToCeylon(JExistsOrNone
 "Parses the given [[code]] for an Exists Or Nonempty Condition
  into an [[ExistsOrNonemptyCondition]] using the Ceylon compiler
  (more specifically, the rule for an `condition`)."
-shared ExistsOrNonemptyCondition? parseExistsOrNonemptyCondition(String code, Anything(JNode,Node) update = noop) {
+shared ExistsOrNonemptyCondition? parseExistsOrNonemptyCondition(String code, Anything(JNode, Node) update = noop) {
     if (is JExistsOrNonemptyCondition jCondition = createParser(code).condition()) {
         return existsOrNonemptyConditionToCeylon(jCondition, update);
     } else {

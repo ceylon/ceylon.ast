@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypedArgument|JTypedArgument]] to a `ceylon.ast` [[InlineDefinitionArgument]]."
-shared InlineDefinitionArgument inlineDefinitionArgumentToCeylon(JTypedArgument inlineDefinitionArgument, Anything(JNode,Node) update = noop) {
+shared InlineDefinitionArgument inlineDefinitionArgumentToCeylon(JTypedArgument inlineDefinitionArgument, Anything(JNode, Node) update = noop) {
     assert (is JAttributeArgument|JMethodArgument|JObjectArgument inlineDefinitionArgument);
     switch (inlineDefinitionArgument)
     case (is JAttributeArgument) { return valueArgumentToCeylon(inlineDefinitionArgument, update); }
@@ -24,7 +24,7 @@ shared InlineDefinitionArgument inlineDefinitionArgumentToCeylon(JTypedArgument 
 "Parses the given [[code]] for an Inline Definition Argument
  into an [[InlineDefinitionArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared InlineDefinitionArgument? parseInlineDefinitionArgument(String code, Anything(JNode,Node) update = noop) {
+shared InlineDefinitionArgument? parseInlineDefinitionArgument(String code, Anything(JNode, Node) update = noop) {
     if (is JTypedArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return inlineDefinitionArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

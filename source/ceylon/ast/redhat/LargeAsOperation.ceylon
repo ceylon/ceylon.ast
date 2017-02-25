@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[LargeAsOp|JLargeAsOp]] to a `ceylon.ast` [[LargeAsOperation]]."
-shared LargeAsOperation largeAsOperationToCeylon(JLargeAsOp largeAsOperation, Anything(JNode,Node) update = noop) {
+shared LargeAsOperation largeAsOperationToCeylon(JLargeAsOp largeAsOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ExistsNonemptyExpression left = expressionToCeylon(largeAsOperation.leftTerm, update),
         is ExistsNonemptyExpression right = expressionToCeylon(largeAsOperation.rightTerm, update));
@@ -23,7 +23,7 @@ shared LargeAsOperation largeAsOperationToCeylon(JLargeAsOp largeAsOperation, An
 "Parses the given [[code]] for a Large As Operation
  into a [[LargeAsOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared LargeAsOperation? parseLargeAsOperation(String code, Anything(JNode,Node) update = noop) {
+shared LargeAsOperation? parseLargeAsOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JLargeAsOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return largeAsOperationToCeylon(jComparisonExpression, update);
     } else {

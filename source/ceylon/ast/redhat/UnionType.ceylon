@@ -16,7 +16,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[UnionType|JUnionType]] to a `ceylon.ast` [[UnionType]]."
-shared UnionType unionTypeToCeylon(JUnionType unionType, Anything(JNode,Node) update = noop) {
+shared UnionType unionTypeToCeylon(JUnionType unionType, Anything(JNode, Node) update = noop) {
     assert (nonempty types = CeylonIterable(unionType.staticTypes).collect((JStaticType jType) {
                 assert (is PrimaryType|IntersectionType type = typeToCeylon(jType, update));
                 return type;
@@ -29,7 +29,7 @@ shared UnionType unionTypeToCeylon(JUnionType unionType, Anything(JNode,Node) up
 "Parses the given [[code]] for a Union Type
  into an [[UnionType]] using the Ceylon compiler
  (more specifically, the rule for a `unionType`)."
-shared UnionType? parseUnionType(String code, Anything(JNode,Node) update = noop) {
+shared UnionType? parseUnionType(String code, Anything(JNode, Node) update = noop) {
     if (is JUnionType jUnionType = createParser(code).unionType()) {
         return unionTypeToCeylon(jUnionType, update);
     } else {

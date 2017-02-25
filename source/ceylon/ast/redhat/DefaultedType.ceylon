@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[DefaultedType|JDefaultedType]] to a `ceylon.ast` [[DefaultedType]]."
-shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType, Anything(JNode,Node) update = noop) {
+shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType, Anything(JNode, Node) update = noop) {
     assert (is JStaticType jType = defaultedType.type);
     value result = DefaultedType(typeToCeylon(jType, update));
     update(defaultedType, result);
@@ -35,7 +35,7 @@ shared DefaultedType defaultedTypeToCeylon(JDefaultedType defaultedType, Anythin
      Iterable<String> =
  
  instead, if necessary."
-shared DefaultedType? parseDefaultedType(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedType? parseDefaultedType(String code, Anything(JNode, Node) update = noop) {
     if (is JDefaultedType jDefaultedType = createParser(code).defaultedType(), jDefaultedType.type is JStaticType) {
         return defaultedTypeToCeylon(jDefaultedType, update);
     } else {

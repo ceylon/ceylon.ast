@@ -55,11 +55,11 @@ shared class RewriteReturnsEditor(LIdentifier returnValueName) satisfies Editor 
     
     shared actual Block transformBlock(Block that)
             => that.copy(that.content.map((Declaration|Statement that) {
-                if (is Return that) {
-                    return rewriteReturn(that);
-                } else {
-                    assert (is Declaration|Statement ret = that.transform(this));
-                    return ret;
-                }
-            }).coalesced.sequence());
+                        if (is Return that) {
+                            return rewriteReturn(that);
+                        } else {
+                            assert (is Declaration|Statement ret = that.transform(this));
+                            return ret;
+                        }
+                    }).coalesced.sequence());
 }

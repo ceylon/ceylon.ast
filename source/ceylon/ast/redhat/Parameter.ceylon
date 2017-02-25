@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Parameter|JParameter]] to a `ceylon.ast` [[Parameter]]."
-shared Parameter parameterToCeylon(JParameter parameter, Anything(JNode,Node) update = noop) {
+shared Parameter parameterToCeylon(JParameter parameter, Anything(JNode, Node) update = noop) {
     assert (is JParameterDeclaration|JInitializerParameter parameter);
     switch (parameter)
     case (is JParameterDeclaration) {
@@ -57,7 +57,7 @@ shared Parameter parameterToCeylon(JParameter parameter, Anything(JNode,Node) up
 "Parses the given [[code]] for a Parameter
  into a [[Parameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared Parameter? parseParameter(String code, Anything(JNode,Node) update = noop) {
+shared Parameter? parseParameter(String code, Anything(JNode, Node) update = noop) {
     if (exists jParameterDeclarationOrRef = createParser(code + ",").parameterDeclarationOrRef()) {
         /*
          The parser does some lookahead and seems to need that comma to parse a parameterRef

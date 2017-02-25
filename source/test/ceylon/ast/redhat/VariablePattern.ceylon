@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object variablePattern satisfies ConcreteTest<VariablePattern,JVariablePattern> {
     
     String->VariablePattern construct(String->LIdentifier name, <String->Type|ValueModifier>? type = null)
-            => "`` type?.key else "" `` ``name.key``"->VariablePattern(UnspecifiedVariable(name.item, type?.item));
+            => "`` type?.key else "" `` ``name.key``" -> VariablePattern(UnspecifiedVariable(name.item, type?.item));
     
     shared String->VariablePattern eVariablePattern = construct(identifier.eLIdentifier);
     shared String->VariablePattern firstVariablePattern = construct(identifier.firstLIdentifier);

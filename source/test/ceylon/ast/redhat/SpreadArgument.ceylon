@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object spreadArgument satisfies ConcreteTest<SpreadArgument,JSpreadArgument> {
     
     String->SpreadArgument construct(String->UnioningExpression argument)
-            => "*``argument.key``"->SpreadArgument(argument.item);
+            => "*``argument.key``" -> SpreadArgument(argument.item);
     
     shared String->SpreadArgument spreadTextArgument = construct(baseExpression.textExpression);
     

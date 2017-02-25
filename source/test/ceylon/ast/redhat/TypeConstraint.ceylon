@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object typeConstraint satisfies ConcreteTest<TypeConstraint,JTypeConstraint> {
     
     String->TypeConstraint construct(String->UIdentifier parameterName, <String->CaseTypes>? caseTypes = null, <String->SatisfiedTypes>? satisfiedTypes = null)
-            => "given ``parameterName.key`` `` caseTypes?.key else "" `` `` satisfiedTypes?.key else "" ``"->TypeConstraint(parameterName.item, caseTypes?.item, satisfiedTypes?.item);
+            => "given ``parameterName.key`` `` caseTypes?.key else "" `` `` satisfiedTypes?.key else "" ``" -> TypeConstraint(parameterName.item, caseTypes?.item, satisfiedTypes?.item);
     
     shared String->TypeConstraint emptyTypeConstraint = construct(identifier.uidUIdentifier);
     shared String->TypeConstraint nonemptyTypeConstraint = construct(identifier.uidUIdentifier, caseTypes.ofStringIntegerFloatCaseTypes, satisfiedTypes.satisfiesStringStarAndPrintableSatisfiedTypes);

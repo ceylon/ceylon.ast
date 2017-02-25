@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[VariablePattern|JVariablePattern]] to a `ceylon.ast` [[VariablePattern]]."
-shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern, Anything(JNode,Node) update = noop) {
+shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern, Anything(JNode, Node) update = noop) {
     Type|ValueModifier? type;
     value jVariable = variablePattern.variable;
     value jType = jVariable.type;
@@ -36,7 +36,7 @@ shared VariablePattern variablePatternToCeylon(JVariablePattern variablePattern,
 "Parses the given [[code]] for a Variable Pattern
  into a [[VariablePattern]] using the Ceylon compiler
  (more specifically, the rule for a `variablePattern`)."
-shared VariablePattern? parseVariablePattern(String code, Anything(JNode,Node) update = noop) {
+shared VariablePattern? parseVariablePattern(String code, Anything(JNode, Node) update = noop) {
     if (exists jVariablePattern = createParser(code + ",").variablePattern()) {
         // the parser needs that comma sometimes
         return variablePatternToCeylon(jVariablePattern, update);

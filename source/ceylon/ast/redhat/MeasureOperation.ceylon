@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SegmentOp|JSegmentOp]] to a `ceylon.ast` [[MeasureOperation]]."
-shared MeasureOperation measureOperationToCeylon(JSegmentOp measureOperation, Anything(JNode,Node) update = noop) {
+shared MeasureOperation measureOperationToCeylon(JSegmentOp measureOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is AddingExpression left = expressionToCeylon(measureOperation.leftTerm, update),
         is AddingExpression right = expressionToCeylon(measureOperation.rightTerm, update));
@@ -23,7 +23,7 @@ shared MeasureOperation measureOperationToCeylon(JSegmentOp measureOperation, An
 "Parses the given [[code]] for a Measure Operation
  into a [[MeasureOperation]] using the Ceylon compiler
  (more specifically, the rule for an `entryRangeExpression`)."
-shared MeasureOperation? parseMeasureOperation(String code, Anything(JNode,Node) update = noop) {
+shared MeasureOperation? parseMeasureOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JSegmentOp jEntryRangeExpression = createParser(code).entryRangeExpression()) {
         return measureOperationToCeylon(jEntryRangeExpression, update);
     } else {

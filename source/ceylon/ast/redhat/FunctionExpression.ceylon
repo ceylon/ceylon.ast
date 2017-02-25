@@ -19,7 +19,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[FunctionArgument|JFunctionArgument]] to a `ceylon.ast` [[FunctionExpression]]."
-shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionExpression, Anything(JNode,Node) update = noop) {
+shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionExpression, Anything(JNode, Node) update = noop) {
     
     assert (nonempty parameterLists = CeylonIterable(functionExpression.parameterLists).collect(propagateUpdate(parametersToCeylon, update)));
     
@@ -56,7 +56,7 @@ shared FunctionExpression functionExpressionToCeylon(JFunctionArgument functionE
 "Parses the given [[code]] for a Function Expression
  into a [[FunctionExpression]] using the Ceylon compiler
  (more specifically, the rule for an `anonymousFunction`)."
-shared FunctionExpression? parseFunctionExpression(String code, Anything(JNode,Node) update = noop) {
+shared FunctionExpression? parseFunctionExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jAnonymousFunction = createParser(code).anonymousFunction()) {
         return functionExpressionToCeylon(jAnonymousFunction, update);
     } else {

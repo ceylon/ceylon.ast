@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[NamedArgumentList|JNamedArgumentList]] to a `ceylon.ast` [[NamedArguments]]."
-shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, Anything(JNode,Node) update = noop) {
+shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, Anything(JNode, Node) update = noop) {
     ArgumentList iterableArguments;
     if (exists sequencedArgument = namedArguments.sequencedArgument) {
         iterableArguments = argumentListToCeylon(sequencedArgument, update);
@@ -30,7 +30,7 @@ shared NamedArguments namedArgumentsToCeylon(JNamedArgumentList namedArguments, 
 "Parses the given [[code]] for Named Arguments
  into [[NamedArguments]] using the Ceylon compiler
  (more specifically, the rule for `namedArguments`)."
-shared NamedArguments? parseNamedArguments(String code, Anything(JNode,Node) update = noop) {
+shared NamedArguments? parseNamedArguments(String code, Anything(JNode, Node) update = noop) {
     if (exists jNamedArguments = createParser(code).namedArguments()) {
         return namedArgumentsToCeylon(jNamedArguments, update);
     } else {

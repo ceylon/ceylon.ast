@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ClassOrInterface|JClassOrInterface]] to a `ceylon.ast` [[ClassOrInterface]]."
-shared ClassOrInterface classOrInterfaceToCeylon(JClassOrInterface classOrInterface, Anything(JNode,Node) update = noop) {
+shared ClassOrInterface classOrInterfaceToCeylon(JClassOrInterface classOrInterface, Anything(JNode, Node) update = noop) {
     assert (is JAnyClass|JAnyInterface classOrInterface);
     switch (classOrInterface)
     case (is JAnyClass) { return anyClassToCeylon(classOrInterface, update); }
@@ -22,7 +22,7 @@ shared ClassOrInterface classOrInterfaceToCeylon(JClassOrInterface classOrInterf
 "Parses the given [[code]] for a Class Or Interface
  into a [[ClassOrInterface]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ClassOrInterface? parseClassOrInterface(String code, Anything(JNode,Node) update = noop) {
+shared ClassOrInterface? parseClassOrInterface(String code, Anything(JNode, Node) update = noop) {
     if (is JClassOrInterface jDeclaration = createParser(code).declaration()) {
         return classOrInterfaceToCeylon(jDeclaration, update);
     } else {

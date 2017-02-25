@@ -22,7 +22,7 @@ shared class StringTemplate(literals, expressions)
     shared [Expression+] expressions;
     
     "There must be exactly one more string literal than there are expressions"
-    assert (literals.size == expressions.size + 1);
+    assert (literals.size == expressions.size+1);
     
     assert (nonempty children_ = concatenate([literals.first], *zipPairs(expressions, literals.rest)));
     shared actual [<StringLiteral|Expression>+] children = children_;
@@ -32,17 +32,17 @@ shared class StringTemplate(literals, expressions)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitStringTemplate(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is StringTemplate that) {
-            return literals == that.literals && expressions == that.expressions;
+            return literals==that.literals && expressions==that.expressions;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (literals.hash + 31 * expressions.hash);
+            => 31 * (literals.hash + 31*expressions.hash);
     
     shared StringTemplate copy([StringLiteral+] literals = this.literals, [Expression+] expressions = this.expressions) {
         value ret = StringTemplate(literals, expressions);

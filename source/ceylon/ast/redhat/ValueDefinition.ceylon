@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AttributeDeclaration|JAttributeDeclaration]] to a `ceylon.ast` [[ValueDefinition]]."
-shared ValueDefinition valueDefinitionToCeylon(JAttributeDeclaration valueDefinition, Anything(JNode,Node) update = noop) {
+shared ValueDefinition valueDefinitionToCeylon(JAttributeDeclaration valueDefinition, Anything(JNode, Node) update = noop) {
     "Must be defined"
     // The other case type of SpecifierOrInitializerExpression, InitializerExpression, is obsolete
     assert (is JSpecifierExpression definition = valueDefinition.specifierOrInitializerExpression);
@@ -40,7 +40,7 @@ shared ValueDefinition valueDefinitionToCeylon(JAttributeDeclaration valueDefini
 "Parses the given [[code]] for a Value Definition
  into an [[ValueDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueDefinition? parseValueDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueDefinition? parseValueDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JAttributeDeclaration jDeclaration = createParser(code).declaration(),
         jDeclaration.specifierOrInitializerExpression exists) {
         return valueDefinitionToCeylon(jDeclaration, update);

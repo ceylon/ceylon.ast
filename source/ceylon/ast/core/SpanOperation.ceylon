@@ -31,17 +31,17 @@ shared class SpanOperation(first, last)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpanOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpanOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared SpanOperation copy(AddingExpression leftOperand = this.leftOperand, AddingExpression rightOperand = this.rightOperand) {
         value ret = SpanOperation(leftOperand, rightOperand);

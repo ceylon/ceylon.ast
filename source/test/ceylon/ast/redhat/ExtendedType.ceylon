@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object extendedType satisfies ConcreteTest<ExtendedType,JExtendedType> {
     
     String->ExtendedType construct(String->ExtensionOrConstruction target)
-            => "extends ``target.key``"->ExtendedType(target.item);
+            => "extends ``target.key``" -> ExtendedType(target.item);
     
     shared String->ExtendedType objectExtendedType = construct(extension.objectExtension);
     shared String->ExtendedType packageObjectExtendedType = construct(extension.packageObjectExtension);

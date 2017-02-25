@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[StaticType|JStaticType]] to a `ceylon.ast` [[Type]]."
-shared Type typeToCeylon(JStaticType type, Anything(JNode,Node) update = noop) {
+shared Type typeToCeylon(JStaticType type, Anything(JNode, Node) update = noop) {
     if (is JEntryType type) {
         return entryTypeToCeylon(type, update);
     } else {
@@ -22,7 +22,7 @@ shared Type typeToCeylon(JStaticType type, Anything(JNode,Node) update = noop) {
 "Parses the given [[code]] for a Type
  into a [[Type]] using the Ceylon compiler
  (more specifically, the rule for a `type`)."
-shared Type? parseType(String code, Anything(JNode,Node) update = noop) {
+shared Type? parseType(String code, Anything(JNode, Node) update = noop) {
     if (exists jType = createParser(code).type()) {
         return typeToCeylon(jType, update);
     } else {

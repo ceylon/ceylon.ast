@@ -14,7 +14,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[InterfaceDeclaration|JInterfaceDeclaration]] to a `ceylon.ast` [[InterfaceAliasDefinition]]."
-shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDeclaration interfaceAliasDefinition, Anything(JNode,Node) update = noop) {
+shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDeclaration interfaceAliasDefinition, Anything(JNode, Node) update = noop) {
     value result = InterfaceAliasDefinition {
         name = uIdentifierToCeylon(interfaceAliasDefinition.identifier, update);
         specifier = typeSpecifierToCeylon(interfaceAliasDefinition.typeSpecifier, update);
@@ -61,7 +61,7 @@ shared InterfaceAliasDefinition interfaceAliasDefinitionToCeylon(JInterfaceDecla
 "Parses the given [[code]] for an Interface Alias Definition
  into an [[InterfaceAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared InterfaceAliasDefinition? parseInterfaceAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared InterfaceAliasDefinition? parseInterfaceAliasDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JInterfaceDeclaration jInterfaceAliasDefinition = createParser(code).declaration()) {
         return interfaceAliasDefinitionToCeylon(jInterfaceAliasDefinition, update);
     } else {

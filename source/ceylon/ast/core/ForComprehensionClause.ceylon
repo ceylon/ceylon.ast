@@ -22,17 +22,17 @@ shared class ForComprehensionClause(iterator, clause)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitForComprehensionClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ForComprehensionClause that) {
-            return iterator == that.iterator && clause == that.clause;
+            return iterator==that.iterator && clause==that.clause;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (iterator.hash + 31 * clause.hash);
+            => 31 * (iterator.hash + 31*clause.hash);
     
     shared ForComprehensionClause copy(ForIterator iterator = this.iterator, ComprehensionClause clause = this.clause) {
         value ret = ForComprehensionClause(iterator, clause);

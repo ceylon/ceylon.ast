@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object dynamicValue satisfies ConcreteTest<DynamicValue,JDynamic> {
     
     String->DynamicValue construct(<String->NamedArgument>[] namedArguments, String->ArgumentList iterableArgument)
-            => "dynamic [``";\n".join(namedArguments*.key)``\n``iterableArgument.key``]"->DynamicValue(namedArguments*.item, iterableArgument.item);
+            => "dynamic [``";\n".join(namedArguments*.key)``\n``iterableArgument.key``]" -> DynamicValue(namedArguments*.item, iterableArgument.item);
     
     shared String->DynamicValue abcabcDynamicValue = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);
     

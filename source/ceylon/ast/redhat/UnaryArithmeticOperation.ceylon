@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[NegativeOp|JNegativeOp]] or [[PositiveOp|JPositiveOp]] to a `ceylon.ast` [[UnaryArithmeticOperation]]."
-shared UnaryArithmeticOperation unaryArithmeticOperationToCeylon(JNegativeOp|JPositiveOp unaryArithmeticOperation, Anything(JNode,Node) update = noop) {
+shared UnaryArithmeticOperation unaryArithmeticOperationToCeylon(JNegativeOp|JPositiveOp unaryArithmeticOperation, Anything(JNode, Node) update = noop) {
     switch (unaryArithmeticOperation)
     case (is JNegativeOp) { return negationOperationToCeylon(unaryArithmeticOperation, update); }
     case (is JPositiveOp) { return identityOperationToCeylon(unaryArithmeticOperation, update); }
@@ -20,7 +20,7 @@ shared UnaryArithmeticOperation unaryArithmeticOperationToCeylon(JNegativeOp|JPo
 "Parses the given [[code]] for an Unary Arithmetic Operation
  into an [[UnaryArithmeticOperation]] using the Ceylon compiler
  (more specifically, the rule for an `negationComplementExpression`)."
-shared UnaryArithmeticOperation? parseUnaryArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryArithmeticOperation? parseUnaryArithmeticOperation(String code, Anything(JNode, Node) update = noop) {
     if (exists jNegationComplementExpression = createParser(code).negationComplementExpression()) {
         assert (is JNegativeOp|JPositiveOp jNegationComplementExpression);
         return unaryArithmeticOperationToCeylon(jNegationComplementExpression, update);

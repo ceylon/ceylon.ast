@@ -18,17 +18,17 @@ shared class SmallAsOperation(leftOperand, rightOperand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSmallAsOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SmallAsOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared SmallAsOperation copy(ExistsNonemptyExpression leftOperand = this.leftOperand, ExistsNonemptyExpression rightOperand = this.rightOperand) {
         value ret = SmallAsOperation(leftOperand, rightOperand);

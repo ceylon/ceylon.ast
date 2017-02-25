@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object intersectAssignmentOperation satisfies ConcreteTest<IntersectAssignmentOperation,JIntersectAssignOp> {
     
     String->IntersectAssignmentOperation construct(String->ThenElseExpression left, String->AssigningExpression right)
-            => "``left.key``&=``right.key``"->IntersectAssignmentOperation(left.item, right.item);
+            => "``left.key``&=``right.key``" -> IntersectAssignmentOperation(left.item, right.item);
     
     shared String->IntersectAssignmentOperation aIntersectAssignBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     

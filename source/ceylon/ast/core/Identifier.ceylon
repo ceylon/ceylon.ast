@@ -23,7 +23,7 @@ shared Boolean lidentifierNeedsPrefix(String name) {
 shared Boolean uidentifierNeedsPrefix(String name) {
     "Name must not be empty"
     assert (exists firstChar = name.first);
-    return firstChar.lowercase || firstChar == '_'; // there are no initial uppercase keywords
+    return firstChar.lowercase || firstChar=='_'; // there are no initial uppercase keywords
 }
 
 shared abstract class Identifier(name, usePrefix) of LIdentifier | UIdentifier extends Node() {
@@ -70,9 +70,9 @@ shared class LIdentifier extends Identifier {
         "Name must not be empty"
         assert (exists first = name.first);
         "First character of name must be a letter or an underscore ('_')"
-        assert (first.letter || first == '_');
+        assert (first.letter || first=='_');
         "Name may only contain letters, digits and underscores"
-        assert (name.every((Character c) => c.letter || c.digit || c == '_'));
+        assert (name.every((Character c) => c.letter || c.digit || c=='_'));
         "Prefix must be present if necessary"
         assert (usePrefix || !lidentifierNeedsPrefix(name));
     }
@@ -83,9 +83,9 @@ shared class LIdentifier extends Identifier {
         "Name must not be empty"
         assert (exists first = name.first);
         "First character of internal name must be a letter, an underscore ('_'), or a dollar sign ('$')"
-        assert (first.letter || first == '_' || first == '$');
+        assert (first.letter || first=='_' || first=='$');
         "Internal name may only contain letters, digits, underscores, and dollar signs"
-        assert (name.every((Character c) => c.letter || c.digit || c == '_' || c == '$'));
+        assert (name.every((Character c) => c.letter || c.digit || c=='_' || c=='$'));
         "Prefix must be present if necessary"
         assert (usePrefix || !lidentifierNeedsPrefix(name));
     }
@@ -97,7 +97,7 @@ shared class LIdentifier extends Identifier {
     
     shared actual void visit(Visitor visitor)
             => visitor.visitLIdentifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is LIdentifier that) {
             return name == that.name;
@@ -120,9 +120,9 @@ shared class UIdentifier extends Identifier {
         "Name must not be empty"
         assert (exists first = name.first);
         "First character of name must be a letter or an underscore ('_')"
-        assert (first.letter || first == '_');
+        assert (first.letter || first=='_');
         "Name may only contain letters, digits and underscores"
-        assert (name.every((Character c) => c.letter || c.digit || c == '_'));
+        assert (name.every((Character c) => c.letter || c.digit || c=='_'));
         "Prefix must be present if necessary"
         assert (usePrefix || !uidentifierNeedsPrefix(name));
     }
@@ -133,9 +133,9 @@ shared class UIdentifier extends Identifier {
         "Name must not be empty"
         assert (exists first = name.first);
         "First character of internal name must be a letter, an underscore ('_'), or a dollar sign ('$')"
-        assert (first.letter || first == '_' || first == '$');
+        assert (first.letter || first=='_' || first=='$');
         "Internal name may only contain letters, digits, underscores, and dollar signs"
-        assert (name.every((Character c) => c.letter || c.digit || c == '_' || c == '$'));
+        assert (name.every((Character c) => c.letter || c.digit || c=='_' || c=='$'));
         "Prefix must be present if necessary"
         assert (usePrefix || !uidentifierNeedsPrefix(name));
     }

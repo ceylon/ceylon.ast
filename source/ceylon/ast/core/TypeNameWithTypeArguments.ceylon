@@ -13,7 +13,7 @@ shared class TypeNameWithTypeArguments(name, typeArguments = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeNameWithTypeArguments(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeNameWithTypeArguments that) {
             if (exists typeArguments) {
@@ -35,8 +35,8 @@ shared class TypeNameWithTypeArguments(name, typeArguments = null)
     
     shared actual Integer hash {
         variable value hash = 1;
-        hash = 31 * hash + name.hash;
-        hash = 31 * hash + (typeArguments?.hash else 0);
+        hash = 31*hash + name.hash;
+        hash = 31*hash + (typeArguments?.hash else 0);
         return hash;
     }
     

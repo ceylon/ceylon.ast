@@ -19,17 +19,17 @@ shared class SpecifiedPattern(pattern, specifier)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpecifiedPattern(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpecifiedPattern that) {
-            return pattern == that.pattern && specifier == that.specifier;
+            return pattern==that.pattern && specifier==that.specifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (pattern.hash + 31 * specifier.hash);
+            => 31 * (pattern.hash + 31*specifier.hash);
     
     shared SpecifiedPattern copy(Pattern pattern = this.pattern, Specifier specifier = this.specifier) {
         value ret = SpecifiedPattern(pattern, specifier);

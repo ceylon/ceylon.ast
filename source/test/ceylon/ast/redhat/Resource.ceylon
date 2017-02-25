@@ -23,10 +23,10 @@ import ceylon.ast.create {
 shared object resource satisfies ConcreteTest<Resource,JResource> {
     
     String->Resource construct(String->Expression|SpecifiedVariable resource)
-            => "``resource.key``"->Resource(resource.item);
+            => "``resource.key``" -> Resource(resource.item);
     
     shared String->Resource lockResource = construct(baseExpression.lockExpression);
-    shared String->Resource writerResource = construct("writer = file.Writer()"->SpecifiedVariable {
+    shared String->Resource writerResource = construct("writer = file.Writer()" -> SpecifiedVariable {
             name = LIdentifier("writer");
             specifier = Specifier(Invocation(qualifiedExpression("file", "Writer")));
         });

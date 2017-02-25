@@ -42,7 +42,7 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters = nu
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFunctionDeclaration(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FunctionDeclaration that) {
             if (exists typeParameters) {
@@ -56,14 +56,14 @@ shared class FunctionDeclaration(name, type, parameterLists, typeParameters = nu
             } else if (that.typeParameters exists) {
                 return false;
             }
-            return typeConstraints == that.typeConstraints && name == that.name && type == that.type && parameterLists == that.parameterLists;
+            return typeConstraints==that.typeConstraints && name==that.name && type==that.type && parameterLists==that.parameterLists;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (type.hash + 31 * (parameterLists.hash + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash)))));
+            => 31 * (name.hash + 31 * (type.hash + 31 * (parameterLists.hash + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31*annotations.hash)))));
     
     shared FunctionDeclaration copy(MemberName name = this.name, Type|VoidModifier|FunctionModifier|DynamicModifier type = this.type, [Parameters+] parameterLists = this.parameterLists, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = FunctionDeclaration(name, type, parameterLists, typeParameters, typeConstraints, annotations);

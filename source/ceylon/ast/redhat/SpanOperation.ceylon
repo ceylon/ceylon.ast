@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[RangeOp|JRangeOp]] to a `ceylon.ast` [[SpanOperation]]."
-shared SpanOperation spanOperationToCeylon(JRangeOp spanOperation, Anything(JNode,Node) update = noop) {
+shared SpanOperation spanOperationToCeylon(JRangeOp spanOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is AddingExpression left = expressionToCeylon(spanOperation.leftTerm, update),
         is AddingExpression right = expressionToCeylon(spanOperation.rightTerm, update));
@@ -23,7 +23,7 @@ shared SpanOperation spanOperationToCeylon(JRangeOp spanOperation, Anything(JNod
 "Parses the given [[code]] for a Span Operation
  into a [[SpanOperation]] using the Ceylon compiler
  (more specifically, the rule for an `entryRangeExpression`)."
-shared SpanOperation? parseSpanOperation(String code, Anything(JNode,Node) update = noop) {
+shared SpanOperation? parseSpanOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JRangeOp jEntryRangeExpression = createParser(code).entryRangeExpression()) {
         return spanOperationToCeylon(jEntryRangeExpression, update);
     } else {

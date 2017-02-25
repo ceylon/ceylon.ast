@@ -33,18 +33,18 @@ shared class ValueConstructorDefinition(name, block, extendedType, annotations)
     
     shared actual <Annotations|LIdentifier|ExtendedType|Block>[] children
             = concatenate(
-        [annotations],
-        emptyOrSingleton(name),
-        emptyOrSingleton(extendedType),
-        [block]
-    );
+                [annotations],
+                emptyOrSingleton(name),
+                emptyOrSingleton(extendedType),
+                [block]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformValueConstructorDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueConstructorDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ValueConstructorDefinition that) {
             if (exists extendedType) {
@@ -58,14 +58,14 @@ shared class ValueConstructorDefinition(name, block, extendedType, annotations)
             } else if (that.extendedType exists) {
                 return false;
             }
-            return name == that.name && block == that.block && annotations == that.annotations;
+            return name==that.name && block==that.block && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31 * annotations.hash)));
+            => 31 * (name.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31*annotations.hash)));
     
     shared ValueConstructorDefinition copy(LIdentifier name = this.name, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
         value ret = ValueConstructorDefinition(name, block, extendedType, annotations);

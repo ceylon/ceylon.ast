@@ -18,7 +18,7 @@ shared class NonemptyOperation(operand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitNonemptyOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is NonemptyOperation that) {
             return operand == that.operand;

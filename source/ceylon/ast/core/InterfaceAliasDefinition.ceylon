@@ -41,21 +41,21 @@ shared class InterfaceAliasDefinition(name, specifier, caseTypes = null, satisfi
     
     shared actual <Annotations|UIdentifier|TypeParameters|CaseTypes|SatisfiedTypes|TypeConstraint|TypeSpecifier>[] children
             = concatenate(
-        [annotations],
-        [name],
-        emptyOrSingleton(typeParameters),
-        emptyOrSingleton(caseTypes),
-        emptyOrSingleton(satisfiedTypes),
-        typeConstraints,
-        [specifier]
-    );
+                [annotations],
+                [name],
+                emptyOrSingleton(typeParameters),
+                emptyOrSingleton(caseTypes),
+                emptyOrSingleton(satisfiedTypes),
+                typeConstraints,
+                [specifier]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformInterfaceAliasDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitInterfaceAliasDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is InterfaceAliasDefinition that) {
             if (exists caseTypes) {
@@ -91,14 +91,14 @@ shared class InterfaceAliasDefinition(name, specifier, caseTypes = null, satisfi
             } else if (that.typeParameters exists) {
                 return false;
             }
-            return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
+            return name==that.name && specifier==that.specifier && typeConstraints==that.typeConstraints && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (specifier.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))));
+            => 31 * (name.hash + 31 * (specifier.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31*annotations.hash))))));
     
     shared InterfaceAliasDefinition copy(UIdentifier name = this.name, TypeSpecifier specifier = this.specifier, CaseTypes? caseTypes = this.caseTypes, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = InterfaceAliasDefinition(name, specifier, caseTypes, satisfiedTypes, typeParameters, typeConstraints, annotations);

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object keySubscript satisfies ConcreteTest<KeySubscript,JElement> {
     
     String->KeySubscript construct(String->Expression key)
-            => "``key.key``"->KeySubscript(key.item);
+            => "``key.key``" -> KeySubscript(key.item);
     
     shared String->KeySubscript iKeySubscript = construct(baseExpression.iExpression);
     shared String->KeySubscript aTimesBPlusCSubscript = construct(sumOperation.aTimesBPlusCExpression);

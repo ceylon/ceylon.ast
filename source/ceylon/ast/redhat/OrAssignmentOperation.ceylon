@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[OrAssignOp|JOrAssignOp]] to a `ceylon.ast` [[OrAssignmentOperation]]."
-shared OrAssignmentOperation orAssignmentOperationToCeylon(JOrAssignOp orAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared OrAssignmentOperation orAssignmentOperationToCeylon(JOrAssignOp orAssignmentOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ThenElseExpression left = expressionToCeylon(orAssignmentOperation.leftTerm, update));
     value right = expressionToCeylon(orAssignmentOperation.rightTerm, update);
@@ -23,7 +23,7 @@ shared OrAssignmentOperation orAssignmentOperationToCeylon(JOrAssignOp orAssignm
 "Parses the given [[code]] for an Or Assignment Operation
  into an [[OrAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared OrAssignmentOperation? parseOrAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared OrAssignmentOperation? parseOrAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JOrAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return orAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

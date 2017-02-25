@@ -23,7 +23,7 @@ shared class ModuleDec(moduleName)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitModuleDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ModuleDec that) {
             if (exists moduleName) {

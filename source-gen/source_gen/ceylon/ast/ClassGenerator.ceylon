@@ -5,9 +5,9 @@ interface ClassGenerator
     
     shared void expandWideningTransformer()
             => expandFile(
-        "source/ceylon/ast/core/WideningTransformer.ceylon",
-        "    shared actual default Result transform",
-        "``type``(``type`` that) => transform``superType``(that);");
+                "source/ceylon/ast/core/WideningTransformer.ceylon",
+                "    shared actual default Result transform",
+                "``type``(``type`` that) => transform``superType``(that);");
     
     shared void expandVisitor() {
         value filename = "source/ceylon/ast/core/Visitor.ceylon";

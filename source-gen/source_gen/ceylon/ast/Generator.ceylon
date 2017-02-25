@@ -48,11 +48,11 @@ interface Generator {
     
     shared void expandTransformer()
             => expandFile(
-        "source/ceylon/ast/core/Transformer.ceylon",
-        "    shared formal Result transform", "``type``(``type`` that);");
+                "source/ceylon/ast/core/Transformer.ceylon",
+                "    shared formal Result transform", "``type``(``type`` that);");
     
     shared void expandRedHatTransformerImports()
             => expandFile("source/ceylon/ast/redhat/RedHatTransformer.ceylon",
-        "        J",
-        "``type``=``type``,");
+                "        J",
+                "``type``=``type``,");
 }

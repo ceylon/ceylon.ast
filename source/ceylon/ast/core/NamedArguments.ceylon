@@ -31,17 +31,17 @@ shared class NamedArguments(namedArguments = [], iterableArgument = ArgumentList
     
     shared actual void visit(Visitor visitor)
             => visitor.visitNamedArguments(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is NamedArguments that) {
-            return namedArguments == that.namedArguments && iterableArgument == that.iterableArgument;
+            return namedArguments==that.namedArguments && iterableArgument==that.iterableArgument;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (namedArguments.hash + 31 * iterableArgument.hash);
+            => 31 * (namedArguments.hash + 31*iterableArgument.hash);
     
     shared NamedArguments copy(NamedArgument[] namedArguments = this.namedArguments, ArgumentList iterableArgument = this.iterableArgument) {
         value ret = NamedArguments(namedArguments, iterableArgument);

@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ObjectExpression|JObjectExpression]] to a `ceylon.ast` [[ObjectExpression]]."
-shared ObjectExpression objectExpressionToCeylon(JObjectExpression objectExpression, Anything(JNode,Node) update = noop) {
+shared ObjectExpression objectExpressionToCeylon(JObjectExpression objectExpression, Anything(JNode, Node) update = noop) {
     value result = ObjectExpression {
         body = classBodyToCeylon(objectExpression.classBody, update);
         value extendedType {
@@ -35,7 +35,7 @@ shared ObjectExpression objectExpressionToCeylon(JObjectExpression objectExpress
 "Parses the given [[code]] for an Object Expression
  into an [[ObjectExpression]] using the Ceylon compiler
  (more specifically, the rule for an `objectExpression`)."
-shared ObjectExpression? parseObjectExpression(String code, Anything(JNode,Node) update = noop) {
+shared ObjectExpression? parseObjectExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jObjectExpression = createParser(code).objectExpression()) {
         return objectExpressionToCeylon(jObjectExpression, update);
     } else {

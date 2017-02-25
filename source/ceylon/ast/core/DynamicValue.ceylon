@@ -25,17 +25,17 @@ shared class DynamicValue(namedArguments = [], iterableArgument = ArgumentList()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDynamicValue(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DynamicValue that) {
-            return namedArguments == that.namedArguments && iterableArgument == that.iterableArgument && modifier == that.modifier;
+            return namedArguments==that.namedArguments && iterableArgument==that.iterableArgument && modifier==that.modifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (namedArguments.hash + 31 * (iterableArgument.hash + 31 * modifier.hash));
+            => 31 * (namedArguments.hash + 31 * (iterableArgument.hash + 31*modifier.hash));
     
     shared DynamicValue copy(NamedArgument[] namedArguments = this.namedArguments, ArgumentList iterableArgument = this.iterableArgument, DynamicModifier modifier = this.modifier) {
         value ret = DynamicValue(namedArguments, iterableArgument, modifier);

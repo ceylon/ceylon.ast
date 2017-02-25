@@ -21,7 +21,7 @@ shared class Assertion(conditions, message = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitAssertion(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Assertion that) {
             if (exists message) {

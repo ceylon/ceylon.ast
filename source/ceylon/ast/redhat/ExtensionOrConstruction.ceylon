@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] or [[SimpleType|JSimpleType]] to a `ceylon.ast` [[ExtensionOrConstruction]]."
-shared ExtensionOrConstruction extensionOrConstructionToCeylon(JInvocationExpression|JSimpleType extensionOrConstruction, Anything(JNode,Node) update = noop) {
+shared ExtensionOrConstruction extensionOrConstructionToCeylon(JInvocationExpression|JSimpleType extensionOrConstruction, Anything(JNode, Node) update = noop) {
     switch (extensionOrConstruction)
     case (is JInvocationExpression) {
         assert (is JExtendedTypeExpression ete = extensionOrConstruction.primary);
@@ -37,7 +37,7 @@ shared ExtensionOrConstruction extensionOrConstructionToCeylon(JInvocationExpres
 "Parses the given [[code]] for an Extension Or Construction
  into an [[ExtensionOrConstruction]] using the Ceylon compiler
  (more specifically, the rule for an `classInstantiation`)."
-shared ExtensionOrConstruction? parseExtensionOrConstruction(String code, Anything(JNode,Node) update = noop) {
+shared ExtensionOrConstruction? parseExtensionOrConstruction(String code, Anything(JNode, Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation()) {
         return extensionOrConstructionToCeylon(jClassInstantiation.invocationExpression else jClassInstantiation.type, update);
     } else {

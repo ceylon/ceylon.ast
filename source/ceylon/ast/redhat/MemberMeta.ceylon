@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[MemberMeta]]."
-shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta, Anything(JNode,Node) update = noop) {
+shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta, Anything(JNode, Node) update = noop) {
     assert (exists jQualifier = memberMeta.type);
     "Must not be a reference expression"
     assert (!memberMeta is JFunctionLiteral|JValueLiteral); // reference expressions are subtypes of meta expressions. ew
@@ -42,7 +42,7 @@ shared MemberMeta memberMetaToCeylon(JMemberLiteral memberMeta, Anything(JNode,N
 "Parses the given [[code]] for a Member Meta
  into a [[MemberMeta]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared MemberMeta? parseMemberMeta(String code, Anything(JNode,Node) update = noop) {
+shared MemberMeta? parseMemberMeta(String code, Anything(JNode, Node) update = noop) {
     if (is JMemberLiteral jMetaLiteral = createParser(code).metaLiteral(),
         jMetaLiteral.type exists,
         !jMetaLiteral is JFunctionLiteral|JValueLiteral) {

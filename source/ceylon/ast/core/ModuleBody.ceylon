@@ -22,7 +22,7 @@ shared class ModuleBody(moduleImports = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitModuleBody(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ModuleBody that) {
             return moduleImports == that.moduleImports;

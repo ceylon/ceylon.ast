@@ -38,19 +38,19 @@ shared class ObjectDefinition(name, body, extendedType = null, satisfiedTypes = 
     
     shared actual <Annotations|LIdentifier|ExtendedType|SatisfiedTypes|ClassBody>[] children
             = concatenate(
-        [annotations],
-        [name],
-        emptyOrSingleton(extendedType),
-        emptyOrSingleton(satisfiedTypes),
-        [body]
-    );
+                [annotations],
+                [name],
+                emptyOrSingleton(extendedType),
+                emptyOrSingleton(satisfiedTypes),
+                [body]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformObjectDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitObjectDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ObjectDefinition that) {
             if (exists extendedType) {
@@ -75,14 +75,14 @@ shared class ObjectDefinition(name, body, extendedType = null, satisfiedTypes = 
             } else if (that.satisfiedTypes exists) {
                 return false;
             }
-            return name == that.name && body == that.body && annotations == that.annotations;
+            return name==that.name && body==that.body && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (body.hash + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * annotations.hash))));
+            => 31 * (name.hash + 31 * (body.hash + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31*annotations.hash))));
     
     shared ObjectDefinition copy(LIdentifier name = this.name, ClassBody body = this.body, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, Annotations annotations = this.annotations) {
         value ret = ObjectDefinition(name, body, extendedType, satisfiedTypes, annotations);

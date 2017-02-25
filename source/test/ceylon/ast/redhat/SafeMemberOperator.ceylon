@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object safeMemberOperator satisfies ConcreteTest<SafeMemberOperator,JSafeMemberOp> {
     
-    shared String->SafeMemberOperator safeMemberOperator = "?."->SafeMemberOperator();
+    shared String->SafeMemberOperator safeMemberOperator = "?." -> SafeMemberOperator();
     
     parse = parseSafeMemberOperator;
     fromCeylon = RedHatTransformer.transformSafeMemberOperator;

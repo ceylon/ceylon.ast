@@ -1,6 +1,7 @@
 import ceylon.collection {
     HashMap
 }
+
 """Abstract superclass of all AST nodes.
    
    Note that nodes are not [[Identifiable]]: as they are immutable,

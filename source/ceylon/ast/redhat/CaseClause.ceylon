@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CaseClause|JCaseClause]] to a `ceylon.ast` [[CaseClause]]."
-shared CaseClause caseClauseToCeylon(JCaseClause caseClause, Anything(JNode,Node) update = noop) {
+shared CaseClause caseClauseToCeylon(JCaseClause caseClause, Anything(JNode, Node) update = noop) {
     value result = CaseClause(caseItemToCeylon(caseClause.caseItem, update), blockToCeylon(caseClause.block, update));
     update(caseClause, result);
     return result;
@@ -19,7 +19,7 @@ shared CaseClause caseClauseToCeylon(JCaseClause caseClause, Anything(JNode,Node
 "Parses the given [[code]] for a Case Clause
  into a [[CaseClause]] using the Ceylon compiler
  (more specifically, the rule for a `caseBlock`)."
-shared CaseClause? parseCaseClause(String code, Anything(JNode,Node) update = noop) {
+shared CaseClause? parseCaseClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jCaseBlock = createParser(code).caseBlock()) {
         return caseClauseToCeylon(jCaseBlock, update);
     } else {

@@ -26,17 +26,17 @@ shared class CaseExpression(caseItem, expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCaseExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CaseExpression that) {
-            return caseItem == that.caseItem && expression == that.expression;
+            return caseItem==that.caseItem && expression==that.expression;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (caseItem.hash + 31 * expression.hash);
+            => 31 * (caseItem.hash + 31*expression.hash);
     
     shared CaseExpression copy(CaseItem caseItem = this.caseItem, DisjoiningExpression|IfElseExpression|LetExpression expression = this.expression) {
         value ret = CaseExpression(caseItem, expression);

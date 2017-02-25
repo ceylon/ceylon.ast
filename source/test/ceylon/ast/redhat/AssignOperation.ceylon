@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object assignOperation satisfies ConcreteTest<AssignOperation,JAssignOp> {
     
     String->AssignOperation construct(String->ThenElseExpression left, String->Expression right)
-            => "``left.key``=``right.key``"->AssignOperation(left.item, right.item);
+            => "``left.key``=``right.key``" -> AssignOperation(left.item, right.item);
     
     shared String->AssignOperation iAssign1Expression = construct(baseExpression.iExpression, integerLiteral.oneIntegerLiteral);
     shared String->AssignOperation textAssignExpression = construct(baseExpression.textExpression, sumOperation.helloPlusNameElseWorldPlusBangExpression);

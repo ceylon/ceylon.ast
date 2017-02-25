@@ -31,17 +31,17 @@ shared class CallableParameter(type, name, parameterLists, annotations = Annotat
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCallableParameter(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CallableParameter that) {
-            return annotations == that.annotations && type == that.type && name == that.name && parameterLists == that.parameterLists;
+            return annotations==that.annotations && type==that.type && name==that.name && parameterLists==that.parameterLists;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (annotations.hash + 31 * (type.hash + 31 * (name.hash + 31 * parameterLists.hash)));
+            => 31 * (annotations.hash + 31 * (type.hash + 31 * (name.hash + 31*parameterLists.hash)));
     
     shared CallableParameter copy(Type|VoidModifier|FunctionModifier|DynamicModifier type = this.type, MemberName name = this.name, [Parameters+] parameterLists = this.parameterLists, Annotations annotations = this.annotations) {
         value ret = CallableParameter(type, name, parameterLists, annotations);

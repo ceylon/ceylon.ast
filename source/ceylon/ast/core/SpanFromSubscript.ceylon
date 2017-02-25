@@ -22,7 +22,7 @@ shared class SpanFromSubscript(from)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpanFromSubscript(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpanFromSubscript that) {
             return from == that.from;

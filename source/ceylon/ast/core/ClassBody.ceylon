@@ -39,17 +39,17 @@ shared class ClassBody(content, imports = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitClassBody(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ClassBody that) {
-            return imports == that.imports && content == that.content;
+            return imports==that.imports && content==that.content;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (imports.hash + 31 * content.hash);
+            => 31 * (imports.hash + 31*content.hash);
     
     shared ClassBody copy(<Declaration|Statement>[] content = this.content, Import[] imports = this.imports) {
         value ret = ClassBody(content, imports);

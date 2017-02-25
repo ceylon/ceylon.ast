@@ -25,10 +25,10 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
     String->QualifiedExpression construct(String->Primary receiverExpression, <String->NameWithTypeArguments>|String nameAndArgs, String->AnyMemberOperator memberOperator = package.memberOperator.memberOperator) {
         switch (nameAndArgs)
         case (is String) {
-            return (receiverExpression.key + memberOperator.key + nameAndArgs)->QualifiedExpression(receiverExpression.item, nameWithTypeArguments(identifier(nameAndArgs)), memberOperator.item);
+            return (receiverExpression.key + memberOperator.key + nameAndArgs) -> QualifiedExpression(receiverExpression.item, nameWithTypeArguments(identifier(nameAndArgs)), memberOperator.item);
         }
         case (is String->NameWithTypeArguments) {
-            return (receiverExpression.key + memberOperator.key + nameAndArgs.key)->QualifiedExpression(receiverExpression.item, nameAndArgs.item, memberOperator.item);
+            return (receiverExpression.key + memberOperator.key + nameAndArgs.key) -> QualifiedExpression(receiverExpression.item, nameAndArgs.item, memberOperator.item);
         }
     }
     
@@ -43,7 +43,7 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
     shared String->QualifiedExpression processArgumentsSequenceQualifiedExpression = construct(processArgumentsExpression, "sequence");
     shared String->QualifiedExpression textIndexedQualifiedExpression = construct(baseExpression.textExpression, "indexed");
     shared String->QualifiedExpression personNameQualifiedExpression = construct(baseExpression.personExpression, "name");
-    shared String->QualifiedExpression packageNullExpression = construct("package"->Package(), "null");
+    shared String->QualifiedExpression packageNullExpression = construct("package" -> Package(), "null");
     
     parse = parseQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;

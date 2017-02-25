@@ -27,17 +27,17 @@ shared class ModuleCompilationUnit(moduleDescriptor, imports = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitModuleCompilationUnit(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ModuleCompilationUnit that) {
-            return moduleDescriptor == that.moduleDescriptor && imports == that.imports;
+            return moduleDescriptor==that.moduleDescriptor && imports==that.imports;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (moduleDescriptor.hash + 31 * imports.hash);
+            => 31 * (moduleDescriptor.hash + 31*imports.hash);
     
     shared ModuleCompilationUnit copy(ModuleDescriptor moduleDescriptor = this.moduleDescriptor, Import[] imports = this.imports) {
         value ret = ModuleCompilationUnit(moduleDescriptor, imports);

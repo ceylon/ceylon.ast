@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AttributeSetterDefinition|JAttributeSetterDefinition]] to a `ceylon.ast` [[ValueSetterDefinition]]."
-shared ValueSetterDefinition valueSetterDefinitionToCeylon(JAttributeSetterDefinition valueSetterDefinition, Anything(JNode,Node) update = noop) {
+shared ValueSetterDefinition valueSetterDefinitionToCeylon(JAttributeSetterDefinition valueSetterDefinition, Anything(JNode, Node) update = noop) {
     Block|LazySpecifier definition;
     if (exists jBlock = valueSetterDefinition.block) {
         "Value setter definition can’t have both a block and a specifier expression"
@@ -34,7 +34,7 @@ shared ValueSetterDefinition valueSetterDefinitionToCeylon(JAttributeSetterDefin
 "Parses the given [[code]] for a Value Setter Definition
  into a [[ValueSetterDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueSetterDefinition? parseValueSetterDefinition(String code, Anything(JNode,Node) update = noop) {
+shared ValueSetterDefinition? parseValueSetterDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JAttributeSetterDefinition jDeclaration = createParser(code).declaration()) {
         return valueSetterDefinitionToCeylon(jDeclaration, update);
     } else {

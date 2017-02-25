@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object differenceOperation satisfies ConcreteTest<DifferenceOperation,JDifferenceOp> {
     
     String->DifferenceOperation construct(String->AddingExpression left, String->ScalingExpression right)
-            => "``left.key``-``right.key``"->DifferenceOperation(left.item, right.item);
+            => "``left.key``-``right.key``" -> DifferenceOperation(left.item, right.item);
     
     shared String->DifferenceOperation _1138Minus1Expression = construct(integerLiteral._1138IntegerLiteral, integerLiteral.oneIntegerLiteral);
     

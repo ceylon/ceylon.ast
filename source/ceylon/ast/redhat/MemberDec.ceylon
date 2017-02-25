@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[MemberLiteral|JMemberLiteral]] to a `ceylon.ast` [[MemberDec]]."
-shared MemberDec memberDecToCeylon(JMemberLiteral memberDec, Anything(JNode,Node) update = noop) {
+shared MemberDec memberDecToCeylon(JMemberLiteral memberDec, Anything(JNode, Node) update = noop) {
     "Must be a Dec, not a Meta"
     assert (is JValueLiteral|JFunctionLiteral memberDec);
     switch (memberDec)
@@ -23,7 +23,7 @@ shared MemberDec memberDecToCeylon(JMemberLiteral memberDec, Anything(JNode,Node
 "Parses the given [[code]] for a Member Dec
  into a [[MemberDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared MemberDec? parseMemberDec(String code, Anything(JNode,Node) update = noop) {
+shared MemberDec? parseMemberDec(String code, Anything(JNode, Node) update = noop) {
     if (is JValueLiteral|JFunctionLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return memberDecToCeylon(jMetaLiteral, update);
     } else {

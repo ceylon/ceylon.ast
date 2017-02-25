@@ -22,17 +22,17 @@ shared class IfComprehensionClause(conditions, clause)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIfComprehensionClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IfComprehensionClause that) {
-            return conditions == that.conditions && clause == that.clause;
+            return conditions==that.conditions && clause==that.clause;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (conditions.hash + 31 * clause.hash);
+            => 31 * (conditions.hash + 31*clause.hash);
     
     shared IfComprehensionClause copy(Conditions conditions = this.conditions, ComprehensionClause clause = this.clause) {
         value ret = IfComprehensionClause(conditions, clause);

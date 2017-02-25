@@ -9,7 +9,7 @@ shared class InModifier()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitInModifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is InModifier;
     }

@@ -22,7 +22,6 @@ import ceylon.language.meta {
     type
 }
 
-
 Key<JNode> originalNodeKey = ScopedKey<JNode>(`module`, "originalNode");
 void storeOriginalNode(JNode originalNode, Node newNode)
         => newNode.put(originalNodeKey, originalNode);
@@ -51,9 +50,9 @@ void assertNodesEquals(Node actual, Node expected, String? message = null) {
     }
 }
 
-void doTest<CeylonAstType,RedHatType>(
-    CeylonAstType?(String,Anything(JNode,Node)=) parse,
-    RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon,
+void doTest<CeylonAstType, RedHatType>(
+    CeylonAstType?(String, Anything(JNode, Node)=) parse,
+    RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType, Anything(JNode, Node)=) toCeylon,
     <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
@@ -61,7 +60,7 @@ void doTest<CeylonAstType,RedHatType>(
     testConversion(fromCeylon, toCeylon, *codes.collect(Entry<String,CeylonAstType>.item));
 }
 
-void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType,Anything(JNode,Node)=) toCeylon, CeylonAstType+ nodes)
+void testConversion<CeylonAstType, RedHatType>(RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node), CeylonAstType(RedHatType, Anything(JNode, Node)=) toCeylon, CeylonAstType+ nodes)
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     for (node in nodes) {
@@ -75,7 +74,7 @@ void testConversion<CeylonAstType,RedHatType>(RedHatType fromCeylon(RedHatTransf
     }
 }
 
-void testParsing<CeylonAstType>(CeylonAstType?(String,Anything(JNode,Node)=) parse, <String->CeylonAstType>+ codes)
+void testParsing<CeylonAstType>(CeylonAstType?(String, Anything(JNode, Node)=) parse, <String->CeylonAstType>+ codes)
         given CeylonAstType satisfies Node {
     for (code->node in codes) {
         assert (exists parsed = parse(code, storeOriginalNode));
@@ -118,29 +117,29 @@ shared interface ParsingTest<out CeylonAstType>
         satisfies CodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node {
     
-    shared formal CeylonAstType? parse(String code, Anything(JNode,Node) update = noop);
+    shared formal CeylonAstType? parse(String code, Anything(JNode, Node) update = noop);
     
     test
     shared void parsing() => testParsing(parse, *codes);
 }
 
-shared interface ConversionTest<CeylonAstType,RedHatType>
+shared interface ConversionTest<CeylonAstType, RedHatType>
         satisfies NodesProvider<CeylonAstType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
     
     shared formal RedHatType fromCeylon(RedHatTransformer transformer)(CeylonAstType node);
-    shared formal CeylonAstType toCeylon(RedHatType node, Anything(JNode,Node) update = noop);
+    shared formal CeylonAstType toCeylon(RedHatType node, Anything(JNode, Node) update = noop);
     
     test
     shared void conversion() => testConversion(fromCeylon, toCeylon, *nodes);
     
     test
-    ignore("Not useful during regular development")
+    ignore ("Not useful during regular development")
     shared void equality() => testEquality(*nodes);
 }
 
-shared interface ConcreteTest<CeylonAstType,RedHatType>
+shared interface ConcreteTest<CeylonAstType, RedHatType>
         satisfies ParsingTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
@@ -148,7 +147,7 @@ shared interface ConcreteTest<CeylonAstType,RedHatType>
     shared actual [CeylonAstType+] nodes => codes*.item;
 }
 
-shared interface AbstractTest<CeylonAstType,RedHatType>
+shared interface AbstractTest<CeylonAstType, RedHatType>
         satisfies ParsingTest<CeylonAstType> & ConversionTest<CeylonAstType,RedHatType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {
@@ -168,7 +167,7 @@ shared interface AbstractParsingTest<out CeylonAstType>
     shared actual [<String->CeylonAstType>+] codes => [for (test in tests) for (code in test.codes) code];
 }
 
-shared interface AbstractConversionTest<CeylonAstType,RedHatType>
+shared interface AbstractConversionTest<CeylonAstType, RedHatType>
         satisfies ConversionTest<CeylonAstType,RedHatType>
         given CeylonAstType satisfies Node
         given RedHatType satisfies JNode {

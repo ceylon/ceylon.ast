@@ -18,7 +18,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDefinition|JMethodDefinition]] to a `ceylon.ast` [[FunctionDefinition]]."
-shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition, Anything(JNode,Node) update = noop) {
+shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionDefinition, Anything(JNode, Node) update = noop) {
     value result = FunctionDefinition {
         name = lIdentifierToCeylon(functionDefinition.identifier, update);
         value type {
@@ -63,7 +63,7 @@ shared FunctionDefinition functionDefinitionToCeylon(JMethodDefinition functionD
 "Parses the given [[code]] for a Function Definition
  into a [[FunctionDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionDefinition? parseFunctionDefinition(String code, Anything(JNode,Node) update = noop) {
+shared FunctionDefinition? parseFunctionDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JMethodDefinition jDeclaration = createParser(code).declaration()) {
         return functionDefinitionToCeylon(jDeclaration, update);
     } else {

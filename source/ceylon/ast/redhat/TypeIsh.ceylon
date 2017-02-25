@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Type|JType]] to a `ceylon.ast` [[TypeIsh]]."
-shared TypeIsh typeIshToCeylon(JType typeIsh, Anything(JNode,Node) update = noop) {
+shared TypeIsh typeIshToCeylon(JType typeIsh, Anything(JNode, Node) update = noop) {
     switch (typeIsh)
     case (is JStaticType) { return typeToCeylon(typeIsh, update); }
     case (is JSequencedType) { return variadicTypeToCeylon(typeIsh, update); }
@@ -27,7 +27,7 @@ shared TypeIsh typeIshToCeylon(JType typeIsh, Anything(JNode,Node) update = noop
 "Parses the given [[code]] for a Type-ish
  into a [[TypeIsh]] using the Ceylon compiler
  (more specifically, the rule for a `type`, `variadicType` or `defaultedType`)."
-shared TypeIsh? parseTypeIsh(String code, Anything(JNode,Node) update = noop) {
+shared TypeIsh? parseTypeIsh(String code, Anything(JNode, Node) update = noop) {
     if (exists jVariadicType = createParser(code).variadicType()) {
         assert (is JStaticType|JSequencedType jVariadicType);
         switch (jVariadicType)

@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object importWildcard satisfies ConcreteTest<ImportWildcard,JImportWildcard> {
     
-    shared String->ImportWildcard importWildcard = "..."->ImportWildcard();
+    shared String->ImportWildcard importWildcard = "..." -> ImportWildcard();
     
     parse = parseImportWildcard;
     fromCeylon = RedHatTransformer.transformImportWildcard;

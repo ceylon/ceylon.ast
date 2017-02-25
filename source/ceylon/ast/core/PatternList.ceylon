@@ -19,7 +19,7 @@ shared class PatternList(patterns)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPatternList(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PatternList that) {
             return patterns == that.patterns;

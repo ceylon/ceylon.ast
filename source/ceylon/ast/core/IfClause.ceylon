@@ -19,17 +19,17 @@ shared class IfClause(conditions, block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIfClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IfClause that) {
-            return conditions == that.conditions && block == that.block;
+            return conditions==that.conditions && block==that.block;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (conditions.hash + 31 * block.hash);
+            => 31 * (conditions.hash + 31*block.hash);
     
     shared IfClause copy(Conditions conditions = this.conditions, Block block = this.block) {
         value ret = IfClause(conditions, block);

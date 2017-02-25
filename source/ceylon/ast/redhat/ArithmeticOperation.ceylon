@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ArithmeticOp|JArithmeticOp]] to a `ceylon.ast` [[ArithmeticOperation]]."
-shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticOperation, Anything(JNode,Node) update = noop) {
+shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticOperation, Anything(JNode, Node) update = noop) {
     assert (is JPowerOp|JProductOp|JQuotientOp|JRemainderOp|JSumOp|JDifferenceOp arithmeticOperation);
     switch (arithmeticOperation)
     case (is JPowerOp) { return exponentiationOperationToCeylon(arithmeticOperation, update); }
@@ -30,7 +30,7 @@ shared ArithmeticOperation arithmeticOperationToCeylon(JArithmeticOp arithmeticO
 "Parses the given [[code]] for an Arithmetic Operation
  into an [[ArithmeticOperation]] using the Ceylon compiler
  (more specifically, the rule for an `additiveExpression`)."
-shared ArithmeticOperation? parseArithmeticOperation(String code, Anything(JNode,Node) update = noop) {
+shared ArithmeticOperation? parseArithmeticOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JArithmeticOp jArithmeticOp = createParser(code).additiveExpression()) {
         return arithmeticOperationToCeylon(jArithmeticOp, update);
     } else {

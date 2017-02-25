@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object compilationUnit satisfies ConcreteTest<CompilationUnit,JCompilationUnit> {
     
     String->CompilationUnit construct(<String->Declaration>[] declarations, <String->Import>[] imports = [])
-            => "``"".join(imports*.key)`` ``"".join(declarations*.key)``"->CompilationUnit(declarations*.item, imports*.item);
+            => "``"".join(imports*.key)`` ``"".join(declarations*.key)``" -> CompilationUnit(declarations*.item, imports*.item);
     
     shared String->CompilationUnit voidFunctionCompilationUnit = construct([functionDefinition.noopFunctionDefinition]);
     shared String->CompilationUnit nonemptyCompilationUnit = construct {

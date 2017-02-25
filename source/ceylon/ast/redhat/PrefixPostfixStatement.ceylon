@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ExpressionStatement|JExpressionStatement]] to a `ceylon.ast` [[PrefixPostfixStatement]]."
-shared PrefixPostfixStatement prefixPostfixStatementToCeylon(JExpressionStatement prefixPostfixStatement, Anything(JNode,Node) update = noop) {
+shared PrefixPostfixStatement prefixPostfixStatementToCeylon(JExpressionStatement prefixPostfixStatement, Anything(JNode, Node) update = noop) {
     assert (is JPrefixOperatorExpression|JPostfixOperatorExpression expression = prefixPostfixStatement.expression.term);
     PrefixPostfixStatement result;
     switch (expression)
@@ -25,7 +25,7 @@ shared PrefixPostfixStatement prefixPostfixStatementToCeylon(JExpressionStatemen
 "Parses the given [[code]] for a Prefix Postfix Statement
  into a [[PrefixPostfixStatement]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared PrefixPostfixStatement? parsePrefixPostfixStatement(String code, Anything(JNode,Node) update = noop) {
+shared PrefixPostfixStatement? parsePrefixPostfixStatement(String code, Anything(JNode, Node) update = noop) {
     if (is JExpressionStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.expression.term is JPrefixOperatorExpression|JPostfixOperatorExpression) {
         return prefixPostfixStatementToCeylon(jExpressionOrSpecificationStatement, update);

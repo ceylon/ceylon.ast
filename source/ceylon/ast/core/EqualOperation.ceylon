@@ -22,17 +22,17 @@ shared class EqualOperation(leftOperand, rightOperand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitEqualOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is EqualOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared EqualOperation copy(ComparingExpression leftOperand = this.leftOperand, ComparingExpression rightOperand = this.rightOperand) {
         value ret = EqualOperation(leftOperand, rightOperand);

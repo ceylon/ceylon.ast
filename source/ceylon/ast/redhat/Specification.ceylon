@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SpecifierStatement|JSpecifierStatement]] to a `ceylon.ast` [[Specification]]."
-shared Specification specificationToCeylon(JSpecifierStatement specification, Anything(JNode,Node) update = noop) {
+shared Specification specificationToCeylon(JSpecifierStatement specification, Anything(JNode, Node) update = noop) {
     if (specification.specifierExpression is JLazySpecifierExpression) {
         return lazySpecificationToCeylon(specification, update);
     } else {
@@ -22,7 +22,7 @@ shared Specification specificationToCeylon(JSpecifierStatement specification, An
 "Parses the given [[code]] for a Specification
  into a [[Specification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared Specification? parseSpecification(String code, Anything(JNode,Node) update = noop) {
+shared Specification? parseSpecification(String code, Anything(JNode, Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement()) {
         return specificationToCeylon(jExpressionOrSpecificationStatement, update);
     } else {

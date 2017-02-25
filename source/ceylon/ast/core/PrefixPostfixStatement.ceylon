@@ -16,7 +16,7 @@ shared class PrefixPostfixStatement(expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPrefixPostfixStatement(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PrefixPostfixStatement that) {
             return expression == that.expression;

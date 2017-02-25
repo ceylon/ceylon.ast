@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral> {
     
     String->StringLiteral construct(String text, Boolean verbatim = false)
-            => let (quotes = verbatim then "\"\"\"" else "\"") (quotes + text + quotes)->StringLiteral(text, verbatim);
+            => let (quotes = verbatim then "\"\"\"" else "\"") (quotes + text + quotes) -> StringLiteral(text, verbatim);
     
     shared String->StringLiteral capitalCStringLiteral = construct("\{LATIN CAPITAL LETTER C}");
     shared String->StringLiteral namedCapitalCStringLiteral = construct("\\{LATIN CAPITAL LETTER C}");

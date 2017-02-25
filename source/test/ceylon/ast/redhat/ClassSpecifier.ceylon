@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object classSpecifier satisfies ConcreteTest<ClassSpecifier,JClassSpecifier> {
     
     String->ClassSpecifier construct(String->ExtensionOrConstruction target)
-            => "=> ``target.key``"->ClassSpecifier(target.item);
+            => "=> ``target.key``" -> ClassSpecifier(target.item);
     
     shared String->ClassSpecifier objectClassSpecifier = construct(extension.objectExtension);
     shared String->ClassSpecifier packageObjectClassSpecifier = construct(extension.packageObjectExtension);

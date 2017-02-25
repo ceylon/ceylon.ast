@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[QualifiedMemberOrTypeExpression|JQualifiedMemberOrTypeExpression]]
  to a `ceylon.ast` [[QualifiedExpression]]."
-shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExpression qualifiedMemberOrTypeExpression, Anything(JNode,Node) update = noop) {
+shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExpression qualifiedMemberOrTypeExpression, Anything(JNode, Node) update = noop) {
     value name = identifierToCeylon(qualifiedMemberOrTypeExpression.identifier, update);
     value ta = anyTypeArgumentsToCeylon(qualifiedMemberOrTypeExpression.typeArguments, update);
     NameWithTypeArguments nta;
@@ -32,7 +32,7 @@ shared QualifiedExpression qualifiedExpressionToCeylon(JQualifiedMemberOrTypeExp
 "Parses the given [[code]] for a Qualified Expression
  into a [[QualifiedExpression]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared QualifiedExpression? parseQualifiedExpression(String code, Anything(JNode,Node) update = noop) {
+shared QualifiedExpression? parseQualifiedExpression(String code, Anything(JNode, Node) update = noop) {
     value parser = createParser(code);
     if (is JQualifiedMemberOrTypeExpression jQualifiedMemberOrTypeExpression = parser.primary()) {
         return qualifiedExpressionToCeylon(jQualifiedMemberOrTypeExpression, update);

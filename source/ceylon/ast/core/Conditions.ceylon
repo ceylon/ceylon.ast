@@ -17,7 +17,7 @@ shared class Conditions(conditions)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitConditions(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Conditions that) {
             return conditions == that.conditions;

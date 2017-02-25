@@ -14,7 +14,7 @@ shared class LazySpecifier(expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitLazySpecifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is LazySpecifier that) {
             return expression == that.expression;

@@ -13,7 +13,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[Resources|JResourceList]] to `ceylon.ast` [[Resources]]."
-shared Resources resourcesToCeylon(JResourceList resources, Anything(JNode,Node) update = noop) {
+shared Resources resourcesToCeylon(JResourceList resources, Anything(JNode, Node) update = noop) {
     assert (nonempty res = CeylonIterable(resources.resources).collect(propagateUpdate(resourceToCeylon, update)));
     value result = Resources(res);
     update(resources, result);
@@ -23,7 +23,7 @@ shared Resources resourcesToCeylon(JResourceList resources, Anything(JNode,Node)
 "Parses the given [[code]] for Resources
  into [[Resources]] using the Ceylon compiler
  (more specifically, the rule for `resources`)."
-shared Resources? parseResources(String code, Anything(JNode,Node) update = noop) {
+shared Resources? parseResources(String code, Anything(JNode, Node) update = noop) {
     if (exists jResources = createParser(code).resources()) {
         return resourcesToCeylon(jResources, update);
     } else {

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object notOperation satisfies ConcreteTest<NotOperation,JNotOp> {
     
     String->NotOperation construct(String->NegatingExpression operand)
-            => "!``operand.key``"->NotOperation(operand.item);
+            => "!``operand.key``" -> NotOperation(operand.item);
     
     shared String->NotOperation notTrueExpression = construct(baseExpression.trueExpression);
     shared String->NotOperation notAIsPersistentAndPrintableAndIdentifiableExpression = construct(isOperation.aIsPersistentAndPrintableAndIdentifiableExpression);

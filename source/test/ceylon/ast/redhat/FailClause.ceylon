@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object failClause satisfies ConcreteTest<FailClause,JElseClause> {
     
     String->FailClause construct(String->Block block)
-            => "else ``block.key``"->FailClause(block.item);
+            => "else ``block.key``" -> FailClause(block.item);
     
     shared String->FailClause printHelloWorldFailClause = construct(block.printHelloWorldBlock);
     

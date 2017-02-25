@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[PositionalArgumentList|JPositionalArgumentList]] to a `ceylon.ast` [[PositionalArguments]]."
-shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList positionalArguments, Anything(JNode,Node) update = noop) {
+shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList positionalArguments, Anything(JNode, Node) update = noop) {
     /*
      I think the following excerpt from Ceylon.g explains the situation best:
      
@@ -37,7 +37,7 @@ shared PositionalArguments positionalArgumentsToCeylon(JPositionalArgumentList p
 "Parses the given [[code]] for Positional Arguments
  into [[PositionalArguments]] using the Ceylon compiler
  (more specifically, the rule for `positionalArguments`)."
-shared PositionalArguments? parsePositionalArguments(String code, Anything(JNode,Node) update = noop) {
+shared PositionalArguments? parsePositionalArguments(String code, Anything(JNode, Node) update = noop) {
     if (exists jPositionalArguments = createParser(code).positionalArguments()) {
         return positionalArgumentsToCeylon(jPositionalArguments, update);
     } else {

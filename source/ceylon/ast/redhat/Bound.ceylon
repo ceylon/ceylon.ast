@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Bound|JBound]] to a `ceylon.ast` [[Bound]]."
-shared Bound boundToCeylon(JBound bound, Anything(JNode,Node) update = noop) {
+shared Bound boundToCeylon(JBound bound, Anything(JNode, Node) update = noop) {
     assert (is JOpenBound|JClosedBound bound);
     switch (bound)
     case (is JOpenBound) { return openBoundToCeylon(bound, update); }

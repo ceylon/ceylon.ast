@@ -21,17 +21,17 @@ shared class FunctionDec(name, qualifier = DecQualifier())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFunctionDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FunctionDec that) {
-            return name == that.name && qualifier == that.qualifier;
+            return name==that.name && qualifier==that.qualifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * qualifier.hash);
+            => 31 * (name.hash + 31*qualifier.hash);
     
     shared FunctionDec copy(LIdentifier name = this.name, DecQualifier qualifier = this.qualifier) {
         value ret = FunctionDec(name, qualifier);

@@ -30,7 +30,7 @@ shared class InterfaceDec(name, qualifier = DecQualifier())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitInterfaceDec(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is InterfaceDec that) {
             if (exists qualifier) {

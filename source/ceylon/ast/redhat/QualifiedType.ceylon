@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[QualifiedType|JQualifiedType]] to a `ceylon.ast` [[QualifiedType]]."
-shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType, Anything(JNode,Node) update = noop) {
+shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType, Anything(JNode, Node) update = noop) {
     TypeArguments? typeArguments;
     if (exists jTypeArguments = qualifiedType.typeArgumentList) {
         typeArguments = typeArgumentsToCeylon(jTypeArguments, update);
@@ -39,7 +39,7 @@ shared QualifiedType qualifiedTypeToCeylon(JQualifiedType qualifiedType, Anythin
 "Parses the given [[code]] for a Qualified Type
  into a [[QualifiedType]] using the Ceylon compiler
  (more specifically, the rule for a `qualifiedType`)."
-shared QualifiedType? parseQualifiedType(String code, Anything(JNode,Node) update = noop) {
+shared QualifiedType? parseQualifiedType(String code, Anything(JNode, Node) update = noop) {
     if (exists jQualifiedType = createParser(code).qualifiedType()) {
         if (is JQualifiedType jQualifiedType) {
             return qualifiedTypeToCeylon(jQualifiedType, update);

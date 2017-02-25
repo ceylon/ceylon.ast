@@ -13,7 +13,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ConditionList|JConditionList]] to `ceylon.ast` [[Conditions]]."
-shared Conditions conditionsToCeylon(JConditionList conditions, Anything(JNode,Node) update = noop) {
+shared Conditions conditionsToCeylon(JConditionList conditions, Anything(JNode, Node) update = noop) {
     assert (nonempty conds = CeylonIterable(conditions.conditions).collect(propagateUpdate(conditionToCeylon, update)));
     value result = Conditions(conds);
     update(conditions, result);
@@ -23,7 +23,7 @@ shared Conditions conditionsToCeylon(JConditionList conditions, Anything(JNode,N
 "Parses the given [[code]] for Conditions
  into [[Conditions]] using the Ceylon compiler
  (more specifically, the rule for `conditions`)."
-shared Conditions? parseConditions(String code, Anything(JNode,Node) update = noop) {
+shared Conditions? parseConditions(String code, Anything(JNode, Node) update = noop) {
     if (exists jConditions = createParser(code).conditions()) {
         return conditionsToCeylon(jConditions, update);
     } else {

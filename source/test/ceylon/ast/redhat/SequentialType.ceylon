@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object sequentialType satisfies ConcreteTest<SequentialType,JSequenceType> {
     
     String->SequentialType construct(String->PrimaryType elem, <String->IntegerLiteral>? length = null)
-            => "``elem.key``[`` length?.key else "" ``]"->SequentialType(elem.item, length?.item);
+            => "``elem.key``[`` length?.key else "" ``]" -> SequentialType(elem.item, length?.item);
     
     shared String->SequentialType stringSequentialType = construct(baseType.stringType);
     shared String->SequentialType iterableOfStringSequentialType = construct(baseType.iterableOfStringType);

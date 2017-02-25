@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ClassSpecifier|JClassSpecifier]] to a `ceylon.ast` [[ClassSpecifier]]."
-shared ClassSpecifier classSpecifierToCeylon(JClassSpecifier classSpecifier, Anything(JNode,Node) update = noop) {
+shared ClassSpecifier classSpecifierToCeylon(JClassSpecifier classSpecifier, Anything(JNode, Node) update = noop) {
     value result = ClassSpecifier(extensionOrConstructionToCeylon(classSpecifier.invocationExpression else classSpecifier.type, update));
     update(classSpecifier, result);
     return result;
@@ -19,7 +19,7 @@ shared ClassSpecifier classSpecifierToCeylon(JClassSpecifier classSpecifier, Any
 "Parses the given [[code]] for a Class Specifier
  into a [[ClassSpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `classSpecifier`)."
-shared ClassSpecifier? parseClassSpecifier(String code, Anything(JNode,Node) update = noop) {
+shared ClassSpecifier? parseClassSpecifier(String code, Anything(JNode, Node) update = noop) {
     if (exists jClassSpecifier = createParser(code).classSpecifier()) {
         return classSpecifierToCeylon(jClassSpecifier, update);
     } else {

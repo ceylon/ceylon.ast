@@ -24,7 +24,7 @@ shared class Annotation(name, arguments = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitAnnotation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Annotation that) {
             if (exists arguments) {

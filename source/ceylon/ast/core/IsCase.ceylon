@@ -18,7 +18,7 @@ shared class IsCase(type)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIsCase(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IsCase that) {
             return type == that.type;

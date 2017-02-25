@@ -18,7 +18,7 @@ shared class TypeArguments(typeArguments)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeArguments(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeArguments that) {
             return typeArguments == that.typeArguments;

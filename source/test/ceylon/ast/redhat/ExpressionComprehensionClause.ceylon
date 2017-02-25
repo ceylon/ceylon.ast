@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object expressionComprehensionClause satisfies ConcreteTest<ExpressionComprehensionClause,JExpressionComprehensionClause> {
     
     String->ExpressionComprehensionClause construct(String->Expression expression)
-            => "``expression.key``"->ExpressionComprehensionClause(expression.item);
+            => "``expression.key``" -> ExpressionComprehensionClause(expression.item);
     
     shared String->ExpressionComprehensionClause iExpressionComprehensionClause = construct(baseExpression.iExpression);
     

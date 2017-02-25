@@ -22,7 +22,7 @@ import ceylon.test {
 shared object annotation satisfies ConcreteTest<Annotation,JAnnotation> {
     
     String->Annotation construct(String->LIdentifier name, <String->Arguments>? arguments)
-            => "``name.key```` arguments?.key else "" ``"->Annotation(name.item, arguments?.item);
+            => "``name.key```` arguments?.key else "" ``" -> Annotation(name.item, arguments?.item);
     
     shared String->Annotation sharedAnnotation = construct(identifier.sharedLIdentifier, null);
     shared String->Annotation byLucasAnnotation = construct(identifier.byLIdentifier, positionalArguments.lucasPositionalArguments);

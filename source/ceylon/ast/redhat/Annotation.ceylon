@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Annotation|JAnnotation]] to a `ceylon.ast` [[Annotation]]."
-shared Annotation annotationToCeylon(JAnnotation annotation, Anything(JNode,Node) update = noop) {
+shared Annotation annotationToCeylon(JAnnotation annotation, Anything(JNode, Node) update = noop) {
     // Note: JAnnotation is a subclass of JInvocationExpression
     assert (is JBaseMemberExpression bme = annotation.primary);
     "Must not have type arguments"
@@ -47,7 +47,7 @@ shared Annotation annotationToCeylon(JAnnotation annotation, Anything(JNode,Node
 "Parses the given [[code]] for an Annotation
  into an [[Annotation]] using the Ceylon compiler
  (more specifically, the rule for an `annotation`)."
-shared Annotation? parseAnnotation(String code, Anything(JNode,Node) update = noop) {
+shared Annotation? parseAnnotation(String code, Anything(JNode, Node) update = noop) {
     if (exists jAnnotation = createParser(code).annotation()) {
         return annotationToCeylon(jAnnotation, update);
     } else {

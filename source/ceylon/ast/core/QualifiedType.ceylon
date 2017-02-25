@@ -19,17 +19,17 @@ shared class QualifiedType(qualifyingType, nameAndArgs)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitQualifiedType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is QualifiedType that) {
-            return nameAndArgs == that.nameAndArgs && qualifyingType == that.qualifyingType;
+            return nameAndArgs==that.nameAndArgs && qualifyingType==that.qualifyingType;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * nameAndArgs.hash + nameAndArgs.hash;
+            => 31*nameAndArgs.hash + nameAndArgs.hash;
     
     shared QualifiedType copy(SimpleType|GroupedType qualifyingType = this.qualifyingType, TypeNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = QualifiedType(qualifyingType, nameAndArgs);

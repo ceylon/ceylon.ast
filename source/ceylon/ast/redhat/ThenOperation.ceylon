@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ThenOp|JThenOp]] to a `ceylon.ast` [[ThenOperation]]."
-shared ThenOperation thenOperationToCeylon(JThenOp thenOperation, Anything(JNode,Node) update = noop) {
+shared ThenOperation thenOperationToCeylon(JThenOp thenOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ThenElseExpression left = expressionToCeylon(thenOperation.leftTerm, update),
         is DisjoiningExpression right = expressionToCeylon(thenOperation.rightTerm, update));
@@ -24,7 +24,7 @@ shared ThenOperation thenOperationToCeylon(JThenOp thenOperation, Anything(JNode
 "Parses the given [[code]] for a Then Operation
  into a [[ThenOperation]] using the Ceylon compiler
  (more specifically, the rule for a `thenElseExpression`)."
-shared ThenOperation? parseThenOperation(String code, Anything(JNode,Node) update = noop) {
+shared ThenOperation? parseThenOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JThenOp jThenElseExpression = createParser(code).thenElseExpression()) {
         return thenOperationToCeylon(jThenElseExpression, update);
     } else {

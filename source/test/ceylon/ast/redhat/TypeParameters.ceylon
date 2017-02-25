@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object typeParameters satisfies ConcreteTest<TypeParameters,JTypeParameterList> {
     
     String->TypeParameters construct(<String->TypeParameter>+ typeParameters)
-            => "<``",".join(typeParameters*.key)``>"->TypeParameters(typeParameters*.item);
+            => "<``",".join(typeParameters*.key)``>" -> TypeParameters(typeParameters*.item);
     
     shared String->TypeParameters twoTypeParameters = construct(typeParameter.uidTypeParameter, typeParameter.outLidDefaultstoAnythingTypeParameter);
     

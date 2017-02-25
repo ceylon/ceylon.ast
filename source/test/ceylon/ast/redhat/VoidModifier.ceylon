@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object voidModifier satisfies ConcreteTest<VoidModifier,JVoidModifier> {
     
-    shared String->VoidModifier voidModifier = "void"->VoidModifier();
+    shared String->VoidModifier voidModifier = "void" -> VoidModifier();
     
     parse = parseVoidModifier;
     fromCeylon = RedHatTransformer.transformVoidModifier;

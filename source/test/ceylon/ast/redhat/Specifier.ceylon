@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     
     String->Specifier construct(String->Expression expression)
-            => "=``expression.key``"->Specifier(expression.item);
+            => "=``expression.key``" -> Specifier(expression.item);
     
     shared String->Specifier oneSpecifier = construct(integerLiteral.oneIntegerLiteral);
     shared String->Specifier nameElseWorldStringLiteralGroupedSpecifier = construct(groupedExpression.nameElseWorldStringLiteralGroupedExpression);

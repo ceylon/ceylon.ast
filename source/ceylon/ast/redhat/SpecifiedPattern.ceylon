@@ -24,7 +24,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  This is a purely internal helper function for some constructs
  that represent a pattern + specification via a [[Statement|JStatement]]:
  see [[existsOrNonemptyConditionToCeylon]] and [[letExpressionToCeylon]]."
-SpecifiedPattern specifiedPatternToCeylon(JStatement statement, Anything(JNode,Node) update) {
+SpecifiedPattern specifiedPatternToCeylon(JStatement statement, Anything(JNode, Node) update) {
     // letVariable
     // Either a variable or a pattern wrapped in a synthetic Destructure.
     assert (is JVariable|JDestructure jVariable = statement);

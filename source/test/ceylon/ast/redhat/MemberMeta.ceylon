@@ -28,13 +28,13 @@ shared object memberMeta satisfies ConcreteTest<MemberMeta,JMemberLiteral> {
         switch (nameAndArgsItem = nameAndArgs.item)
         case (is LIdentifier) { actualNameAndArgs = MemberNameWithTypeArguments(nameAndArgsItem); }
         case (is MemberNameWithTypeArguments) { actualNameAndArgs = nameAndArgsItem; }
-        return "` ``qualifier.key``.``nameAndArgs.key`` `"->MemberMeta(qualifier.item, actualNameAndArgs);
+        return "` ``qualifier.key``.``nameAndArgs.key`` `" -> MemberMeta(qualifier.item, actualNameAndArgs);
     }
     
     shared String->MemberMeta personSayMemberMeta = construct(baseType.personObjectType, identifier.sayLIdentifier);
     shared String->MemberMeta systemMillisecondsMemberMeta = construct(baseType.systemObjectType, identifier.millisecondsLIdentifier);
     shared String->MemberMeta iterableOfStringCollectOfIntegerOptionalMemberMeta
-            = construct(baseType.iterableOfStringType, "collect<Integer?>"->MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))])));
+            = construct(baseType.iterableOfStringType, "collect<Integer?>" -> MemberNameWithTypeArguments(LIdentifier("collect"), TypeArguments([TypeArgument(OptionalType(BaseType(TypeNameWithTypeArguments(UIdentifier("Integer")))))])));
     shared String->MemberMeta packageObjectEqualsMeta = construct(baseType.objectPackageQualifiedType, identifier.equalsLIdentifier);
     
     parse = parseMemberMeta;

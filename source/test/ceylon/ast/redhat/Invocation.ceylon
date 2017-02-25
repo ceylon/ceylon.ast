@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object invocation satisfies ConcreteTest<Invocation,JInvocationExpression> {
     
     String->Invocation construct(String->Primary invoked, String->Arguments arguments)
-            => "``invoked.key````arguments.key``"->Invocation(invoked.item, arguments.item);
+            => "``invoked.key````arguments.key``" -> Invocation(invoked.item, arguments.item);
     
     shared String->Invocation printHelloWorldInvocation = construct(baseExpression.printExpression, positionalArguments.helloWorldPositionalArguments);
     shared String->Invocation namedArgumentsInvocation => construct(baseExpression.printExpression, namedArguments.sizeSpecify0NamedArguments);

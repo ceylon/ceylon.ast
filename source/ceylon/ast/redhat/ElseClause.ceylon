@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ElseClause|JElseClause]] to a `ceylon.ast` [[ElseClause]]."
-shared ElseClause elseClauseToCeylon(JElseClause elseClause, Anything(JNode,Node) update = noop) {
+shared ElseClause elseClauseToCeylon(JElseClause elseClause, Anything(JNode, Node) update = noop) {
     ElseClause result;
     if (elseClause.block.mainToken exists) {
         // it’s a proper block
@@ -31,7 +31,7 @@ shared ElseClause elseClauseToCeylon(JElseClause elseClause, Anything(JNode,Node
 "Parses the given [[code]] for an Else Clause
  into an [[ElseClause]] using the Ceylon compiler
  (more specifically, the rule for an `elseBlock`)."
-shared ElseClause? parseElseClause(String code, Anything(JNode,Node) update = noop) {
+shared ElseClause? parseElseClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jElseBlock = createParser(code).elseBlock()) {
         return elseClauseToCeylon(jElseBlock, update);
     } else {

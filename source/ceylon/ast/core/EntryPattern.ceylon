@@ -23,17 +23,17 @@ shared class EntryPattern(key, item)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitEntryPattern(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is EntryPattern that) {
-            return key == that.key && item == that.item;
+            return key==that.key && item==that.item;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (key.hash + 31 * item.hash);
+            => 31 * (key.hash + 31*item.hash);
     
     shared EntryPattern copy(VariablePattern|TuplePattern key = this.key, VariablePattern|TuplePattern item = this.item) {
         value ret = EntryPattern(key, item);

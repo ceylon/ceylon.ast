@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object invocationStatement satisfies ConcreteTest<InvocationStatement,JExpressionStatement> {
     
     String->InvocationStatement construct(String->Invocation expression)
-            => "``expression.key``;"->InvocationStatement(expression.item);
+            => "``expression.key``;" -> InvocationStatement(expression.item);
     
     shared String->InvocationStatement printHelloWorldStatement = construct(invocation.printHelloWorldInvocation);
     shared String->InvocationStatement printPersonNameStatement = construct(invocation.printPersonNameInvocation);

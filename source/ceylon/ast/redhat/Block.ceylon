@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JImport=Import
     },
     CustomTree {
-      JGuardedVariable=GuardedVariable
+        JGuardedVariable=GuardedVariable
     }
 }
 import ceylon.interop.java {
@@ -20,7 +20,7 @@ import java.util {
 }
 
 "Converts a RedHat AST [[Block|JBlock]] to a `ceylon.ast` [[Block]]."
-shared Block blockToCeylon(JBlock block, Anything(JNode,Node) update = noop) {
+shared Block blockToCeylon(JBlock block, Anything(JNode, Node) update = noop) {
     value result = Block {
         content = CeylonIterable(block.statements).filter((d) => !d is JGuardedVariable).collect(propagateUpdate(declarationOrStatementToCeylon, update));
         imports = CeylonIterable(block.importList?.imports else JLinkedList<JImport>()).collect(propagateUpdate(importToCeylon, update));
@@ -32,7 +32,7 @@ shared Block blockToCeylon(JBlock block, Anything(JNode,Node) update = noop) {
 "Parses the given [[code]] for a Block
  into a [[Block]] using the Ceylon compiler
  (more specifically, the rule for a `block`)."
-shared Block? parseBlock(String code, Anything(JNode,Node) update = noop) {
+shared Block? parseBlock(String code, Anything(JNode, Node) update = noop) {
     if (exists jBlock = createParser(code).block()) {
         return blockToCeylon(jBlock, update);
     } else {

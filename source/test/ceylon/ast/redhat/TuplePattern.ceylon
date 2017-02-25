@@ -31,12 +31,12 @@ shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
                 varNode = VariadicVariable(nameNode);
             }
             if (nonempty elementPatterns) {
-                return "[``", ".join(elementPatterns*.key)``, ``varCode``]"->TuplePattern(elementPatterns*.item, varNode);
+                return "[``", ".join(elementPatterns*.key)``, ``varCode``]" -> TuplePattern(elementPatterns*.item, varNode);
             } else {
-                return "[``varCode``]"->TuplePattern([], varNode);
+                return "[``varCode``]" -> TuplePattern([], varNode);
             }
         } else {
-            return "[``", ".join(elementPatterns*.key)``]"->TuplePattern(elementPatterns*.item);
+            return "[``", ".join(elementPatterns*.key)``]" -> TuplePattern(elementPatterns*.item);
         }
     }
     

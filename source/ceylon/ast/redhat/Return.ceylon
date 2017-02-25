@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Return|JReturn]] to a `ceylon.ast` [[Return]]."
-shared Return returnToCeylon(JReturn \ireturn, Anything(JNode,Node) update = noop) {
+shared Return returnToCeylon(JReturn \ireturn, Anything(JNode, Node) update = noop) {
     Return result;
     if (exists expression = \ireturn.expression) {
         result = Return(expressionToCeylon(expression, update));
@@ -24,7 +24,7 @@ shared Return returnToCeylon(JReturn \ireturn, Anything(JNode,Node) update = noo
 "Parses the given [[code]] for a Return
  into a [[Return]] using the Ceylon compiler
  (more specifically, the rule for a `return`)."
-shared Return? parseReturn(String code, Anything(JNode,Node) update = noop) {
+shared Return? parseReturn(String code, Anything(JNode, Node) update = noop) {
     if (is JReturn jDirectiveStatement = createParser(code).directiveStatement()) {
         // returnDirective doesn’t contain the semicolon
         return returnToCeylon(jDirectiveStatement, update);

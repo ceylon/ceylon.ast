@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IfExpression|JIfExpression]] or [[SwitchExpression|JSwitchExpression]] to a `ceylon.ast` [[ConditionalExpression]]."
-shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitchExpression conditionalExpression, Anything(JNode,Node) update = noop) {
+shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitchExpression conditionalExpression, Anything(JNode, Node) update = noop) {
     switch (conditionalExpression)
     case (is JIfExpression) { return ifElseExpressionToCeylon(conditionalExpression, update); }
     case (is JSwitchExpression) { return switchCaseElseExpressionToCeylon(conditionalExpression, update); }
@@ -20,7 +20,7 @@ shared ConditionalExpression conditionalExpressionToCeylon(JIfExpression|JSwitch
 "Parses the given [[code]] for an Any Specifier
  into a [[ConditionalExpression]] using the Ceylon compiler
  (more specifically, the rule for an `ifExpression` or a `switchExpression`)."
-shared ConditionalExpression? parseConditionalExpression(String code, Anything(JNode,Node) update = noop) {
+shared ConditionalExpression? parseConditionalExpression(String code, Anything(JNode, Node) update = noop) {
     // the grammar rule conditionalExpression yields ifExpression|let, not ifExpression|switchExpression
     if (exists jIfExpression = createParser(code).ifExpression()) {
         return conditionalExpressionToCeylon(jIfExpression, update);

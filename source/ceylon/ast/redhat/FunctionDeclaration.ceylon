@@ -18,7 +18,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MethodDeclaration|JMethodDeclaration]] to a `ceylon.ast` [[FunctionDeclaration]]."
-shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functionDeclaration, Anything(JNode,Node) update = noop) {
+shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functionDeclaration, Anything(JNode, Node) update = noop) {
     "Must not have a specification"
     assert (!functionDeclaration.specifierExpression exists);
     value result = FunctionDeclaration {
@@ -64,7 +64,7 @@ shared FunctionDeclaration functionDeclarationToCeylon(JMethodDeclaration functi
 "Parses the given [[code]] for a Function Declaration
  into a [[FunctionDeclaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared FunctionDeclaration? parseFunctionDeclaration(String code, Anything(JNode,Node) update = noop) {
+shared FunctionDeclaration? parseFunctionDeclaration(String code, Anything(JNode, Node) update = noop) {
     if (is JMethodDeclaration jDeclaration = createParser(code).declaration(),
         !jDeclaration.specifierExpression exists) {
         return functionDeclarationToCeylon(jDeclaration, update);

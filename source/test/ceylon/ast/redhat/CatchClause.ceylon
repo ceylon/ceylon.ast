@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object catchClause satisfies ConcreteTest<CatchClause,JCatchClause> {
     
     String->CatchClause construct(<String->Type|ValueModifier>? type, String->LIdentifier name, String->Block block)
-            => "catch (`` type?.key else "" `` ``name.key``) ``block.key``"->CatchClause(UnspecifiedVariable(name.item, type?.item), block.item);
+            => "catch (`` type?.key else "" `` ``name.key``) ``block.key``" -> CatchClause(UnspecifiedVariable(name.item, type?.item), block.item);
     
     shared String->CatchClause catchEDoNothingClause = construct(null, identifier.eLIdentifier, block.emptyBlock);
     shared String->CatchClause catchThrowableTPrintHelloWorldClause = construct(baseType.throwableType, identifier.tLIdentifier, block.printHelloWorldBlock);

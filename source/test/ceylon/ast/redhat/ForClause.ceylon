@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object forClause satisfies ConcreteTest<ForClause,JForClause> {
     
     String->ForClause construct(String->ForIterator iterator, String->Block block)
-            => "for``iterator.key````block.key``"->ForClause(iterator.item, block.item);
+            => "for``iterator.key````block.key``" -> ForClause(iterator.item, block.item);
     
     shared String->ForClause printPersonNameInPeopleForClause = construct(forIterator.variableIterator, block.printPersonNameBlock);
     

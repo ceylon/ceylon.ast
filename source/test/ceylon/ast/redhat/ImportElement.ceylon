@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object importElement satisfies ConcreteTest<ImportElement,JImportMemberOrType> {
     
     String->ImportElement construct(String->Identifier name, <String->ImportAlias>? importAlias = null, <String->ImportElements>? nestedImports = null)
-            => "`` importAlias?.key else "" ````name.key```` nestedImports?.key else "" ``"->ImportElement(name.item, importAlias?.item, nestedImports?.item);
+            => "`` importAlias?.key else "" ````name.key```` nestedImports?.key else "" ``" -> ImportElement(name.item, importAlias?.item, nestedImports?.item);
     
     shared String->ImportElement uidImportElement = construct(identifier.uidUIdentifier);
     shared String->ImportElement lidAsUidImportElement = construct(identifier.lidUIdentifier, importAlias.uidImportAlias);

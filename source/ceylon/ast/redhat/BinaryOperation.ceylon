@@ -25,7 +25,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[BinaryOperatorExpression|JBinaryOperatorExpression]] to a `ceylon.ast` [[BinaryOperation]]."
-shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation, Anything(JNode,Node) update = noop) {
+shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryOperation, Anything(JNode, Node) update = noop) {
     assert (is JArithmeticOp|JBitwiseOp|JScaleOp|JRangeOp|JSegmentOp|JEntryOp|JInOp|JComparisonOp|JCompareOp|JEqualityOp|JIdenticalOp|JLogicalOp|JThenOp|JDefaultOp|JAssignmentOp binaryOperation);
     switch (binaryOperation)
     case (is JArithmeticOp) { return arithmeticOperationToCeylon(binaryOperation, update); }
@@ -47,7 +47,7 @@ shared BinaryOperation binaryOperationToCeylon(JBinaryOperatorExpression binaryO
 "Parses the given [[code]] for a Binary Operation
  into a [[BinaryOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared BinaryOperation? parseBinaryOperation(String code, Anything(JNode,Node) update = noop) {
+shared BinaryOperation? parseBinaryOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JBinaryOperatorExpression jBinaryOperation = createParser(code).assignmentExpression()) {
         return binaryOperationToCeylon(jBinaryOperation, update);
     } else {

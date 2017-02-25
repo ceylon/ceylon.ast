@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object namedArguments satisfies ConcreteTest<NamedArguments,JNamedArgumentList> {
     
     String->NamedArguments construct(<String->NamedArgument>[] namedArguments, String->ArgumentList iterableArgument)
-            => "{``"".join(namedArguments.collect(Entry<String,NamedArgument>.key))````iterableArgument.key``}"->NamedArguments(namedArguments*.item, iterableArgument.item);
+            => "{``"".join(namedArguments.collect(Entry<String,NamedArgument>.key))````iterableArgument.key``}" -> NamedArguments(namedArguments*.item, iterableArgument.item);
     
     shared String->NamedArguments emptyNamedArguments = construct([], argumentList.emptyArgumentList);
     shared String->NamedArguments abcabcNamedArguments = construct([anonymousArgument.aTimesBPlusCAnonymousArgument], argumentList.abcArgumentList);

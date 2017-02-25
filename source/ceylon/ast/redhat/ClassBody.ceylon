@@ -9,7 +9,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JImport=Import
     },
     CustomTree {
-      JGuardedVariable=GuardedVariable
+        JGuardedVariable=GuardedVariable
     }
 }
 import ceylon.interop.java {
@@ -20,7 +20,7 @@ import java.util {
 }
 
 "Converts a RedHat AST [[ClassBody|JClassBody]] to a `ceylon.ast` [[ClassBody]]."
-shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode,Node) update = noop) {
+shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode, Node) update = noop) {
     value result = ClassBody {
         content = CeylonIterable(classBody.statements).filter((d) => !d is JGuardedVariable).collect(propagateUpdate(declarationOrStatementToCeylon, update));
         imports = CeylonIterable(classBody.importList?.imports else JLinkedList<JImport>()).collect(propagateUpdate(importToCeylon, update));
@@ -32,7 +32,7 @@ shared ClassBody classBodyToCeylon(JClassBody classBody, Anything(JNode,Node) up
 "Parses the given [[code]] for a Class Body
  into a [[ClassBody]] using the Ceylon compiler
  (more specifically, the rule for a `classBody`)."
-shared ClassBody? parseClassBody(String code, Anything(JNode,Node) update = noop) {
+shared ClassBody? parseClassBody(String code, Anything(JNode, Node) update = noop) {
     if (exists jClassBody = createParser(code).classBody()) {
         return classBodyToCeylon(jClassBody, update);
     } else {

@@ -14,7 +14,7 @@ shared class Specifier(expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpecifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Specifier that) {
             return expression == that.expression;

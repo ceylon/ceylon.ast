@@ -24,7 +24,7 @@ shared PositionalArguments positionalArguments(PositionalArgumentIsh* arguments)
         return argument;
     }
     if (is SpreadArgument|Comprehension sequenceArgument = arguments.last) {
-        Expression[] listedArguments = arguments[... arguments.size - 2].collect(assertIsExpression);
+        Expression[] listedArguments = arguments[... arguments.size-2].collect(assertIsExpression);
         return PositionalArguments(ArgumentList(listedArguments, sequenceArgument));
     } else {
         Expression[] listedArguments = arguments.collect(assertIsExpression);

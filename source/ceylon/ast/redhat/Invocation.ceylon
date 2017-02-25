@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] to a `ceylon.ast` [[Invocation]]."
-shared Invocation invocationToCeylon(JInvocationExpression invocation, Anything(JNode,Node) update = noop) {
+shared Invocation invocationToCeylon(JInvocationExpression invocation, Anything(JNode, Node) update = noop) {
     Invocation result;
     switch (arguments = invocation.positionalArgumentList else invocation.namedArgumentList)
     case (is JPositionalArgumentList) { result = Invocation(primaryToCeylon(invocation.primary, update), positionalArgumentsToCeylon(arguments, update)); }
@@ -24,7 +24,7 @@ shared Invocation invocationToCeylon(JInvocationExpression invocation, Anything(
 "Parses the given [[code]] for an Invocation
  into an [[Invocation]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared Invocation? parseInvocation(String code, Anything(JNode,Node) update = noop) {
+shared Invocation? parseInvocation(String code, Anything(JNode, Node) update = noop) {
     if (is JInvocationExpression jPrimary = createParser(code).primary()) {
         return invocationToCeylon(jPrimary, update);
     } else {

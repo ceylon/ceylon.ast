@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypeOperatorExpression|JTypeOperatorExpression]] to a `ceylon.ast` [[UnaryTypeOperation]]."
-shared UnaryTypeOperation unaryTypeOperationToCeylon(JTypeOperatorExpression unaryTypeOperation, Anything(JNode,Node) update = noop) {
+shared UnaryTypeOperation unaryTypeOperationToCeylon(JTypeOperatorExpression unaryTypeOperation, Anything(JNode, Node) update = noop) {
     assert (is JIsOp|JOfOp unaryTypeOperation);
     switch (unaryTypeOperation)
     case (is JIsOp) { return isOperationToCeylon(unaryTypeOperation, update); }
@@ -22,7 +22,7 @@ shared UnaryTypeOperation unaryTypeOperationToCeylon(JTypeOperatorExpression una
 "Parses the given [[code]] for an Unary Type Operation
  into an [[UnaryTypeOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared UnaryTypeOperation? parseUnaryTypeOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnaryTypeOperation? parseUnaryTypeOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JTypeOperatorExpression jUnaryTypeOperation = createParser(code).comparisonExpression()) {
         return unaryTypeOperationToCeylon(jUnaryTypeOperation, update);
     } else {

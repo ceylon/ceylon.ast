@@ -37,8 +37,8 @@ shared void testUneditor() {
         value key = ScopedKey<Boolean>(`function testUneditor`, "identity");
         original.set(key, true);
         try {
-	    "copy must be identical and share original's extra info"
-	    assert (copy.getObject(key) exists);
+            "copy must be identical and share original's extra info"
+            assert (copy.getObject(key) exists);
         } finally {
             original.delete(key);
         }

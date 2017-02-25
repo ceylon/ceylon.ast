@@ -24,7 +24,7 @@ shared class SpecifiedVariable(name, specifier, type = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpecifiedVariable(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpecifiedVariable that) {
             if (exists type) {
@@ -38,7 +38,7 @@ shared class SpecifiedVariable(name, specifier, type = null)
             } else if (that.type exists) {
                 return false;
             }
-            return name == that.name && specifier == that.specifier;
+            return name==that.name && specifier==that.specifier;
         } else {
             return false;
         }

@@ -31,17 +31,17 @@ shared class ComplementAssignmentOperation(target, other)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitComplementAssignmentOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ComplementAssignmentOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared ComplementAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = ComplementAssignmentOperation(leftOperand, rightOperand);

@@ -17,7 +17,7 @@ shared class Iterable(argumentList)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIterable(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Iterable that) {
             return argumentList == that.argumentList;

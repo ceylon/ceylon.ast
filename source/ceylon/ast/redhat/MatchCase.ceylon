@@ -21,7 +21,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[MatchCase|JMatchCase]] to a `ceylon.ast` [[MatchCase]]."
-shared MatchCase matchCaseToCeylon(JMatchCase matchCase, Anything(JNode,Node) update = noop) {
+shared MatchCase matchCaseToCeylon(JMatchCase matchCase, Anything(JNode, Node) update = noop) {
     assert (nonempty expressions = CeylonIterable(matchCase.expressionList.expressions)
             .collect {
             IntegerLiteral|CharacterLiteral|StringLiteral|NegationOperation|BaseExpression|QualifiedExpression|Tuple collecting(JExpression element) {
@@ -37,7 +37,7 @@ shared MatchCase matchCaseToCeylon(JMatchCase matchCase, Anything(JNode,Node) up
 "Parses the given [[code]] for a Match Case
  into a [[MatchCase]] using the Ceylon compiler
  (more specifically, the rule for a `matchCaseCondition`)."
-shared MatchCase? parseMatchCase(String code, Anything(JNode,Node) update = noop) {
+shared MatchCase? parseMatchCase(String code, Anything(JNode, Node) update = noop) {
     if (exists jMatchCaseCondition = createParser(code).matchCaseCondition()) {
         return matchCaseToCeylon(jMatchCaseCondition, update);
     } else {

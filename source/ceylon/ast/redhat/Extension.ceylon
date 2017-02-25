@@ -27,7 +27,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] or [[SimpleType|JSimpleType]] to a `ceylon.ast` [[Extension]]."
-shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, Anything(JNode,Node) update = noop) {
+shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, Anything(JNode, Node) update = noop) {
     PositionalArguments? arguments;
     JSimpleType type;
     switch (extension)
@@ -78,7 +78,7 @@ shared Extension extensionToCeylon(JInvocationExpression|JSimpleType extension, 
 "Parses the given [[code]] for an Extension
  into an [[Extension]] using the Ceylon compiler
  (more specifically, the rule for an `classInstantiation`)."
-shared Extension? parseExtension(String code, Anything(JNode,Node) update = noop) {
+shared Extension? parseExtension(String code, Anything(JNode, Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation()) {
         if (exists ie = jClassInstantiation.invocationExpression,
             is JExtendedTypeExpression ete = ie.primary,

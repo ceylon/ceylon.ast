@@ -21,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  is the supertype of [[Declaration|com.redhat.ceylon.compiler.typechecker.tree::Tree.Declaration]]
  and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
-shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNode,Node) update = noop) {
+shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNode, Node) update = noop) {
     assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement|JDestructure statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement, update); }
@@ -35,7 +35,7 @@ shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNod
 "Parses the given [[code]] for a Statement
  into a [[Statement]] using the Ceylon compiler
  (more specifically, the rule for a `declarationOrStatement`)."
-shared Statement? parseStatement(String code, Anything(JNode,Node) update = noop) {
+shared Statement? parseStatement(String code, Anything(JNode, Node) update = noop) {
     if (is JExecutableStatement jDeclarationOrStatement = createParser(code).declarationOrStatement()) {
         // declaration() doesn’t include assertions
         return statementToCeylon(jDeclarationOrStatement, update);

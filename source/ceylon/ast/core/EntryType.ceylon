@@ -22,17 +22,17 @@ shared class EntryType(key, item)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitEntryType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is EntryType that) {
-            return key == that.key && item == that.item;
+            return key==that.key && item==that.item;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (key.hash + 31 * item.hash);
+            => 31 * (key.hash + 31*item.hash);
     
     shared EntryType copy(MainType key = this.key, MainType item = this.item) {
         value ret = EntryType(key, item);

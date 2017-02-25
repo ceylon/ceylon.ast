@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[ValueModifier|JValueModifier]] to a `ceylon.ast` [[ValueModifier]]."
-shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anything(JNode,Node) update = noop) {
+shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anything(JNode, Node) update = noop) {
     value result = ValueModifier();
     update(valueModifier, result);
     return result;
@@ -29,7 +29,7 @@ shared ValueModifier valueModifierToCeylon(JValueModifier valueModifier, Anythin
 "Parses the given [[code]] for a Value Modifier
  into a [[ValueModifier]] using the Ceylon compiler
  (more specifically, the lexer)."
-shared ValueModifier? parseValueModifier(String code, Anything(JNode,Node) update = noop) {
+shared ValueModifier? parseValueModifier(String code, Anything(JNode, Node) update = noop) {
     value stream = CommonTokenStream(CeylonLexer(ANTLRStringStream(code + " ")));
     Token? token = stream.\iLT(1);
     if (exists token, token.type == valueType) {

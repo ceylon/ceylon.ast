@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[FunctionDec|JFunctionLiteral]] to a `ceylon.ast` [[FunctionDec]]."
-shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec, Anything(JNode,Node) update = noop) {
+shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec, Anything(JNode, Node) update = noop) {
     DecQualifier qualifier;
     if (exists jQualifier = functionDec.type) {
         qualifier = decQualifierToCeylon(jQualifier, update);
@@ -27,7 +27,7 @@ shared FunctionDec functionDecToCeylon(JFunctionLiteral functionDec, Anything(JN
 "Parses the given [[code]] for a Function Dec
  into a [[FunctionDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared FunctionDec? parseFunctionDec(String code, Anything(JNode,Node) update = noop) {
+shared FunctionDec? parseFunctionDec(String code, Anything(JNode, Node) update = noop) {
     if (is JFunctionLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return functionDecToCeylon(jMetaLiteral, update);
     } else {

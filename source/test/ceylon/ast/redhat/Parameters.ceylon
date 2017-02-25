@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object parameters satisfies ConcreteTest<Parameters,JParameterList> {
     
     String->Parameters construct(<String->Parameter>[] parameters)
-            => "(``",".join(parameters*.key)``)"->Parameters(parameters*.item);
+            => "(``",".join(parameters*.key)``)" -> Parameters(parameters*.item);
     
     shared String->Parameters emptyParameters = construct([]);
     shared String->Parameters notEmptyParameters = construct([

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object spanToSubscript satisfies ConcreteTest<SpanToSubscript,JElementRange> {
     
     String->SpanToSubscript construct(String->AddingExpression to)
-            => "...``to.key``"->SpanToSubscript(to.item);
+            => "...``to.key``" -> SpanToSubscript(to.item);
     
     shared String->SpanToSubscript spanToCountSubscript = construct(baseExpression.countExpression);
     

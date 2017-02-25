@@ -14,7 +14,7 @@ shared class Return(result = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitReturn(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Return that) {
             if (exists result) {

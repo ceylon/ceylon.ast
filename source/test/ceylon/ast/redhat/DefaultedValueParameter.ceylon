@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object defaultedValueParameter satisfies ConcreteTest<DefaultedValueParameter,JValueParameterDeclaration> {
     
     String->DefaultedValueParameter construct(String->ValueParameter parameter, String->Specifier specifier)
-            => "``parameter.key````specifier.key``"->DefaultedValueParameter(parameter.item, specifier.item);
+            => "``parameter.key````specifier.key``" -> DefaultedValueParameter(parameter.item, specifier.item);
     
     shared String->DefaultedValueParameter dynamicByDefaultsto0DefaultedValueParameter = construct(valueParameter.dynamicByValueParameter, specifier._0Specifier);
     shared String->DefaultedValueParameter annotatedStringLidDefaultstoNameElsoWorldGroupedDefaultedValueParameter = construct(valueParameter.annotatedStringLidValueParameter, specifier.nameElseWorldStringLiteralGroupedSpecifier);

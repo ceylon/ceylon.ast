@@ -21,7 +21,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object valueDefinition satisfies ConcreteTest<ValueDefinition,JAttributeDeclaration> {
     
     String->ValueDefinition construct(String->LIdentifier name, String->Type|ValueModifier|DynamicModifier type, String->AnySpecifier definition, String->Annotations annotations)
-            => "``annotations.key`` ``type.key`` ``name.key````definition.key``;"->ValueDefinition(name.item, type.item, definition.item, annotations.item);
+            => "``annotations.key`` ``type.key`` ``name.key````definition.key``;" -> ValueDefinition(name.item, type.item, definition.item, annotations.item);
     
     shared String->ValueDefinition lidValueDefinition = construct(identifier.lidLIdentifier, valueModifier.valueModifier, specifier._0Specifier, annotations.emptyAnnotations);
     shared String->ValueDefinition annotatedByValueDefinition = construct(identifier.byLIdentifier, intersectionType.persistentAndPrintableAndIdentifiableIntersectionType, lazySpecifier.aTimesBPlusCLazySpecifier, annotations.helloSharedByLucasAnnotations);

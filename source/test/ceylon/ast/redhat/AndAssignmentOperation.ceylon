@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object andAssignmentOperation satisfies ConcreteTest<AndAssignmentOperation,JAndAssignOp> {
     
     String->AndAssignmentOperation construct(String->ThenElseExpression leftOperand, String->AssigningExpression rightOperand)
-            => "``leftOperand.key``&&=``rightOperand.key``"->AndAssignmentOperation(leftOperand.item, rightOperand.item);
+            => "``leftOperand.key``&&=``rightOperand.key``" -> AndAssignmentOperation(leftOperand.item, rightOperand.item);
     
     shared String->AndAssignmentOperation bAndAssignAExistsExpression = construct(baseExpression.bExpression, existsOperation.aExistsExpression);
     

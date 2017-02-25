@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ValueParameterDeclaration|JValueParameterDeclaration]] to a `ceylon.ast` [[DefaultedValueParameter]]."
-shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDeclaration defaultedValueParameter, Anything(JNode,Node) update = noop) {
+shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDeclaration defaultedValueParameter, Anything(JNode, Node) update = noop) {
     "Must be defaulted"
     assert (is JAttributeDeclaration dec = defaultedValueParameter.typedDeclaration,
         is JSpecifierExpression specifier = dec.specifierOrInitializerExpression);
@@ -48,7 +48,7 @@ shared DefaultedValueParameter defaultedValueParameterToCeylon(JValueParameterDe
 "Parses the given [[code]] for a Defaulted Value Parameter
  into a [[DefaultedValueParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameterDeclarationOrRef`)."
-shared DefaultedValueParameter? parseDefaultedValueParameter(String code, Anything(JNode,Node) update = noop) {
+shared DefaultedValueParameter? parseDefaultedValueParameter(String code, Anything(JNode, Node) update = noop) {
     if (is JValueParameterDeclaration jParameterDeclarationOrRef = createParser(code).parameterDeclarationOrRef(),
         is JAttributeDeclaration dec = jParameterDeclarationOrRef.typedDeclaration,
         dec.specifierOrInitializerExpression is JSpecifierExpression) {

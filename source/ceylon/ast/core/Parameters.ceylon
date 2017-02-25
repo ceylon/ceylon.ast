@@ -47,7 +47,7 @@ shared class Parameters(parameters = [])
     
     shared actual void visit(Visitor visitor)
             => visitor.visitParameters(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Parameters that) {
             return parameters == that.parameters;

@@ -20,17 +20,17 @@ shared class Invocation(invoked, arguments = PositionalArguments())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitInvocation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Invocation that) {
-            return invoked == that.invoked && arguments == that.arguments;
+            return invoked==that.invoked && arguments==that.arguments;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (invoked.hash + 31 * arguments.hash);
+            => 31 * (invoked.hash + 31*arguments.hash);
     
     shared Invocation copy(Primary invoked = this.invoked, Arguments arguments = this.arguments) {
         value ret = Invocation(invoked, arguments);

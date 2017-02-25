@@ -16,7 +16,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[SwitchExpression|JSwitchExpression]] to a `ceylon.ast` [[SwitchCaseElseExpression]]."
-shared SwitchCaseElseExpression switchCaseElseExpressionToCeylon(JSwitchExpression switchCaseElseExpression, Anything(JNode,Node) update = noop) {
+shared SwitchCaseElseExpression switchCaseElseExpressionToCeylon(JSwitchExpression switchCaseElseExpression, Anything(JNode, Node) update = noop) {
     assert (nonempty caseClauses = CeylonIterable(switchCaseElseExpression.switchCaseList.caseClauses).collect(propagateUpdate(caseExpressionToCeylon, update)));
     DisjoiningExpression|IfElseExpression|LetExpression? elseExpression;
     if (exists jElseClause = switchCaseElseExpression.switchCaseList.elseClause) {
@@ -33,7 +33,7 @@ shared SwitchCaseElseExpression switchCaseElseExpressionToCeylon(JSwitchExpressi
 "Parses the given [[code]] for a Switch Case Else Expression
  into a [[SwitchCaseElseExpression]] using the Ceylon compiler
  (more specifically, the rule for a `switchExpression`)."
-shared SwitchCaseElseExpression? parseSwitchCaseElseExpression(String code, Anything(JNode,Node) update = noop) {
+shared SwitchCaseElseExpression? parseSwitchCaseElseExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jSwitchExpression = createParser(code).switchExpression()) {
         return switchCaseElseExpressionToCeylon(jSwitchExpression, update);
     } else {

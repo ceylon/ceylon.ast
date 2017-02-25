@@ -9,7 +9,7 @@ shared class OutModifier()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitOutModifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is OutModifier;
     }

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object iterableType satisfies ConcreteTest<IterableType,JIterableType> {
     
     String->IterableType construct(String->VariadicType var)
-            => "{``var.key``}"->IterableType(var.item);
+            => "{``var.key``}" -> IterableType(var.item);
     
     shared String->IterableType stringStarIterableType = construct(variadicType.stringStarType);
     shared String->IterableType iterableOfStringPlusIterableType = construct(variadicType.iterableOfStringPlusType);

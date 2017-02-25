@@ -23,9 +23,9 @@ import ceylon.interop.java {
  
  Note: this function works regardless of whether the templates’ string literals still contain their quotes
  (as produced by the parser) or not (stripped by `LiteralVisitor`, for example)."
-shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Anything(JNode,Node) update = noop) {
+shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Anything(JNode, Node) update = noop) {
     value column = let (token = stringTemplate.stringLiterals.get(0).mainToken)
-            token.charPositionInLine + (token.type == verbatim_string then 3 else 1);
+        token.charPositionInLine + (token.type == verbatim_string then 3 else 1);
     assert (nonempty literals = CeylonIterable(stringTemplate.stringLiterals).collect((JStringLiteral element) {
                 value result = StringLiteral(stripStringLiteral(element, column));
                 update(element, result);
@@ -40,7 +40,7 @@ shared StringTemplate stringTemplateToCeylon(JStringTemplate stringTemplate, Any
 "Parses the given [[code]] for a String Template
  into a [[StringTemplate]] using the Ceylon compiler
  (more specifically, the rule for a `stringExpression`)."
-shared StringTemplate? parseStringTemplate(String code, Anything(JNode,Node) update = noop) {
+shared StringTemplate? parseStringTemplate(String code, Anything(JNode, Node) update = noop) {
     if (is JStringTemplate jStringExpression = createParser(code).stringExpression()) {
         return stringTemplateToCeylon(jStringExpression, update);
     } else {

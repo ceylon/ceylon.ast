@@ -16,7 +16,7 @@ shared class NegationOperation(operand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitNegationOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is NegationOperation that) {
             return operand == that.operand;

@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[PackageLiteral|JPackageLiteral]] to a `ceylon.ast` [[PackageDec]]."
-shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode,Node) update = noop) {
+shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode, Node) update = noop) {
     PackageDec result;
     if (exists importPath = packageDec.importPath, !importPath.identifiers.empty) {
         result = PackageDec(fullPackageNameToCeylon(importPath, update));
@@ -26,7 +26,7 @@ shared PackageDec packageDecToCeylon(JPackageLiteral packageDec, Anything(JNode,
 "Parses the given [[code]] for a Package Dec
  into a [[PackageDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared PackageDec? parsePackageDec(String code, Anything(JNode,Node) update = noop) {
+shared PackageDec? parsePackageDec(String code, Anything(JNode, Node) update = noop) {
     if (is JPackageLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return packageDecToCeylon(jMetaLiteral, update);
     } else {

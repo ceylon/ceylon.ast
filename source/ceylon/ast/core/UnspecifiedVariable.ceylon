@@ -26,7 +26,7 @@ shared class UnspecifiedVariable(name, type = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitUnspecifiedVariable(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is UnspecifiedVariable that) {
             if (exists type) {

@@ -36,17 +36,17 @@ shared class IfElseExpression(conditions, thenExpression, elseExpression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIfElseExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IfElseExpression that) {
-            return conditions == that.conditions && thenExpression == that.thenExpression && elseExpression == that.elseExpression;
+            return conditions==that.conditions && thenExpression==that.thenExpression && elseExpression==that.elseExpression;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (conditions.hash + 31 * (thenExpression.hash + 31 * elseExpression.hash));
+            => 31 * (conditions.hash + 31 * (thenExpression.hash + 31*elseExpression.hash));
     
     shared IfElseExpression copy(Conditions conditions = this.conditions, DisjoiningExpression|IfElseExpression|LetExpression thenExpression = this.thenExpression, DisjoiningExpression|IfElseExpression|LetExpression elseExpression = this.elseExpression) {
         value ret = IfElseExpression(conditions, thenExpression, elseExpression);

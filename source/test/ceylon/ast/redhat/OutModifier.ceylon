@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object outModifier satisfies ConcreteTest<OutModifier,JTypeVariance> {
     
-    shared String->OutModifier outModifier = " out "->OutModifier();
+    shared String->OutModifier outModifier = " out " -> OutModifier();
     
     parse = parseOutModifier;
     fromCeylon = RedHatTransformer.transformOutModifier;

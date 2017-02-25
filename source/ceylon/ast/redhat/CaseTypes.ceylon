@@ -21,7 +21,7 @@ import ceylon.interop.java {
 }
 
 "Converts RedHat AST [[CaseTypes|JCaseTypes]] to `ceylon.ast` [[CaseTypes]]."
-shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode,Node) update = noop) {
+shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode, Node) update = noop) {
     /*
      Note: currently, the compiler doesn’t explicitly track the order of case types
      ( https://github.com/ceylon/ceylon-spec/issues/947 ).
@@ -30,8 +30,8 @@ shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode,Node) up
      */
     assert (nonempty cases
                 = concatenate(CeylonIterable(caseTypes.types), CeylonIterable(caseTypes.baseMemberExpressions))
-            .sort(byIncreasing(compose(Token.tokenIndex, JNode.token))));
-    PrimaryType|MemberName primaryTypeOrMemberNameToCeylon(JStaticType|JBaseMemberExpression that, Anything(JNode,Node) update = noop) {
+                    .sort(byIncreasing(compose(Token.tokenIndex, JNode.token))));
+    PrimaryType|MemberName primaryTypeOrMemberNameToCeylon(JStaticType|JBaseMemberExpression that, Anything(JNode, Node) update = noop) {
         switch (that)
         case (is JStaticType) {
             assert (is PrimaryType type = typeToCeylon(that, update));
@@ -51,7 +51,7 @@ shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode,Node) up
 "Parses the given [[code]] for Case Types
  into [[CaseTypes]] using the Ceylon compiler
  (more specifically, the rule for `caseTypes`)."
-shared CaseTypes? parseCaseTypes(String code, Anything(JNode,Node) update = noop) {
+shared CaseTypes? parseCaseTypes(String code, Anything(JNode, Node) update = noop) {
     if (exists jCaseTypes = createParser(code).caseTypes()) {
         return caseTypesToCeylon(jCaseTypes, update);
     } else {

@@ -43,7 +43,7 @@ shared class TryCatchFinally(tryClause, catchClauses = [], finallyClause = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTryCatchFinally(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TryCatchFinally that) {
             if (exists finallyClause) {
@@ -57,7 +57,7 @@ shared class TryCatchFinally(tryClause, catchClauses = [], finallyClause = null)
             } else if (that.finallyClause exists) {
                 return false;
             }
-            return tryClause == that.tryClause && catchClauses == that.catchClauses;
+            return tryClause==that.tryClause && catchClauses==that.catchClauses;
         } else {
             return false;
         }

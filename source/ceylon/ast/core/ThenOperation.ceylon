@@ -30,17 +30,17 @@ shared class ThenOperation(condition, result)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitThenOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ThenOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared ThenOperation copy(ThenElseExpression leftOperand = this.leftOperand, DisjoiningExpression rightOperand = this.rightOperand) {
         value ret = ThenOperation(leftOperand, rightOperand);

@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  Only simple specification statements are converted by this method; other statements that in the RedHat AST
  are also represented via `SpecifierStatement` (e. g. `void(String s) => print(s);`) are not converted."
 throws (`class AssertionError`, "If the [[valueSpecification]] isn’t a simple specification")
-shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSpecification, Anything(JNode,Node) update = noop) {
+shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSpecification, Anything(JNode, Node) update = noop) {
     "Only value may be specified"
     assert (is JBaseMemberExpression|JQualifiedMemberExpression baseMemberExpression = valueSpecification.baseMemberExpression);
     LIdentifier name;
@@ -44,7 +44,7 @@ shared ValueSpecification valueSpecificationToCeylon(JSpecifierStatement valueSp
 "Parses the given [[code]] for a Value Specification
  into a [[ValueSpecification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared ValueSpecification? parseValueSpecification(String code, Anything(JNode,Node) update = noop) {
+shared ValueSpecification? parseValueSpecification(String code, Anything(JNode, Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement()) {
         return valueSpecificationToCeylon(jExpressionOrSpecificationStatement, update);
     } else {

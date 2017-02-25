@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object importAlias satisfies ConcreteTest<ImportAlias,JAlias> {
     
     String->ImportAlias construct(String->Identifier name)
-            => "``name.key``="->ImportAlias(name.item);
+            => "``name.key``=" -> ImportAlias(name.item);
     
     shared String->ImportAlias uidImportAlias = construct(identifier.uidUIdentifier);
     shared String->ImportAlias lidImportAlias = construct(identifier.lidLIdentifier);

@@ -29,19 +29,19 @@ shared class TypeAliasDefinition(name, specifier, typeParameters = null, typeCon
     
     shared actual <Annotations|UIdentifier|TypeParameters|TypeConstraint|TypeSpecifier>[] children
             = concatenate(
-        [annotations],
-        [name],
-        emptyOrSingleton(typeParameters),
-        typeConstraints,
-        [specifier]
-    );
+                [annotations],
+                [name],
+                emptyOrSingleton(typeParameters),
+                typeConstraints,
+                [specifier]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformTypeAliasDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeAliasDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeAliasDefinition that) {
             if (exists typeParameters) {
@@ -55,14 +55,14 @@ shared class TypeAliasDefinition(name, specifier, typeParameters = null, typeCon
             } else if (that.typeParameters exists) {
                 return false;
             }
-            return name == that.name && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
+            return name==that.name && specifier==that.specifier && typeConstraints==that.typeConstraints && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (specifier.hash + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))));
+            => 31 * (name.hash + 31 * (specifier.hash + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31*annotations.hash))));
     
     shared TypeAliasDefinition copy(UIdentifier name = this.name, TypeSpecifier specifier = this.specifier, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = TypeAliasDefinition(name, specifier, typeParameters, typeConstraints, annotations);

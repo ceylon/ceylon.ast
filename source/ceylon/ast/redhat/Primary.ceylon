@@ -28,7 +28,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Primary|JPrimary]] to a `ceylon.ast` [[Primary]]."
-shared Primary primaryToCeylon(JPrimary primary, Anything(JNode,Node) update = noop) {
+shared Primary primaryToCeylon(JPrimary primary, Anything(JNode, Node) update = noop) {
     switch (primary)
     case (is JAtom) {
         if (is JExpression primary, !primary is JParExpression) {
@@ -59,7 +59,7 @@ shared Primary primaryToCeylon(JPrimary primary, Anything(JNode,Node) update = n
 "Parses the given [[code]] for a Primary
  into a [[Primary]] using the Ceylon compiler
  (more specifically, the rule for a `primary`)."
-shared Primary? parsePrimary(String code, Anything(JNode,Node) update = noop) {
+shared Primary? parsePrimary(String code, Anything(JNode, Node) update = noop) {
     if (exists jPrimary = createParser(code).primary()) {
         return primaryToCeylon(jPrimary, update);
     } else {

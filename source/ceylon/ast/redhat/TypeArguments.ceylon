@@ -23,7 +23,7 @@ import ceylon.interop.java {
  (This function does not accept [[TypeArguments|JTypeArguments]],
  which include [[InferredTypeArguments|JInferredTypeArguments]];
  use [[anyTypeArgumentsToCeylon]] for that.)"
-shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments, Anything(JNode,Node) update = noop) {
+shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments, Anything(JNode, Node) update = noop) {
     value result = TypeArguments(CeylonIterable(typeArguments.types).collect((JType jType) {
                 assert (is JStaticType jType);
                 value type = typeToCeylon(jType, update);
@@ -46,7 +46,7 @@ shared TypeArguments typeArgumentsToCeylon(JTypeArgumentList typeArguments, Anyt
  Returns
  - `typeArgumentsToCeylon(typeArguments, update)` for a proper [[TypeArgumentList|JTypeArgumentList]],
  - `null` for [[InferredTypeArguments|JInferredTypeArguments]] or [[null]]."
-shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments? typeArguments, Anything(JNode,Node) update = noop) {
+shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments? typeArguments, Anything(JNode, Node) update = noop) {
     assert (is JTypeArgumentList|JInferredTypeArguments? typeArguments);
     switch (typeArguments)
     case (is JTypeArgumentList) { return typeArgumentsToCeylon(typeArguments, update); }
@@ -57,7 +57,7 @@ shared TypeArguments? anyTypeArgumentsToCeylon(JTypeArguments? typeArguments, An
 "Parses the given [[code]] for Type Arguments
  into a [[TypeArguments]] using the Ceylon compiler
  (more specifically, the rule for `typeArguments`)."
-shared TypeArguments? parseTypeArguments(String code, Anything(JNode,Node) update = noop) {
+shared TypeArguments? parseTypeArguments(String code, Anything(JNode, Node) update = noop) {
     if (exists jTypeArguments = createParser(code).typeArguments()) {
         return typeArgumentsToCeylon(jTypeArguments, update);
     } else {

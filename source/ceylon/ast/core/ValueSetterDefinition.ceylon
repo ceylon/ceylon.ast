@@ -25,17 +25,17 @@ shared class ValueSetterDefinition(name, definition, annotations = Annotations()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueSetterDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ValueSetterDefinition that) {
-            return name == that.name && definition == that.definition && annotations == that.annotations;
+            return name==that.name && definition==that.definition && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (definition.hash + 31 * annotations.hash));
+            => 31 * (name.hash + 31 * (definition.hash + 31*annotations.hash));
     
     shared ValueSetterDefinition copy(LIdentifier name = this.name, Block|LazySpecifier definition = this.definition, Annotations annotations = this.annotations) {
         value ret = ValueSetterDefinition(name, definition, annotations);

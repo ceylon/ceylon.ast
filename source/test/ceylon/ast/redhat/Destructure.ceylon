@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object destructure satisfies ConcreteTest<Destructure,JDestructure> {
     
     String->Destructure construct(String->TuplePattern|EntryPattern pattern, String->Specifier specifier, String->ValueModifier valueModifier = package.valueModifier.valueModifier)
-            => "``valueModifier.key`` ``pattern.key`` ``specifier.key``"->Destructure(pattern.item, specifier.item, valueModifier.item);
+            => "``valueModifier.key`` ``pattern.key`` ``specifier.key``" -> Destructure(pattern.item, specifier.item, valueModifier.item);
     
     shared String->Destructure firstRestTupleDestructure = construct(tuplePattern.firstRestTuplePattern, specifier.processArgumentsSequenceSpecifier);
     shared String->Destructure entryDestructure = construct(entryPattern.eToStringLineEntryPattern, specifier.oneSpecifier);

@@ -31,17 +31,17 @@ shared class DifferenceOperation(minuend, subtrahend)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDifferenceOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DifferenceOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared DifferenceOperation copy(AddingExpression leftOperand = this.leftOperand, ScalingExpression rightOperand = this.rightOperand) {
         value ret = DifferenceOperation(leftOperand, rightOperand);

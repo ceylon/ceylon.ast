@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object specifiedArgument satisfies ConcreteTest<SpecifiedArgument,JNamedArgument> {
     
     String->SpecifiedArgument construct(String->Specification specification)
-            => "``specification.key``"->SpecifiedArgument(specification.item);
+            => "``specification.key``" -> SpecifiedArgument(specification.item);
     
     shared String->SpecifiedArgument sizeSpecify0Argument = construct(valueSpecification.sizeSpecify0);
     shared String->SpecifiedArgument equalsArgument = construct(lazySpecification.equalsLazySpecification);

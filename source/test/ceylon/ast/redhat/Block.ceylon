@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object block satisfies ConcreteTest<Block,JBlock> {
     
     String->Block construct(<String->Declaration|Statement>[] content, <String->Import>[] imports = [])
-            => "{``"".join(concatenate(imports, content)*.key)``}"->Block(content*.item, imports*.item);
+            => "{``"".join(concatenate(imports, content)*.key)``}" -> Block(content*.item, imports*.item);
     
     shared String->Block emptyBlock = construct([]);
     shared String->Block printHelloWorldBlock = construct([invocationStatement.printHelloWorldStatement]);

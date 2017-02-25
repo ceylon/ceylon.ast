@@ -22,7 +22,7 @@ shared class LazySpecification(name, specifier, parameterLists = [], qualifier =
     
     shared actual void visit(Visitor visitor)
             => visitor.visitLazySpecification(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is LazySpecification that) {
             if (exists qualifier) {
@@ -36,14 +36,14 @@ shared class LazySpecification(name, specifier, parameterLists = [], qualifier =
             } else if (that.qualifier exists) {
                 return false;
             }
-            return name == that.name && specifier == that.specifier && parameterLists == that.parameterLists;
+            return name==that.name && specifier==that.specifier && parameterLists==that.parameterLists;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (specifier.hash + 31 * parameterLists.hash));
+            => 31 * (name.hash + 31 * (specifier.hash + 31*parameterLists.hash));
     
     shared LazySpecification copy(LIdentifier name = this.name, LazySpecifier specifier = this.specifier, Parameters[] parameterLists = this.parameterLists, This? qualifier = this.qualifier) {
         value ret = LazySpecification(name, specifier, parameterLists, qualifier);

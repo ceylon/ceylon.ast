@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath> {
     
     String->FullPackageName construct(<String->PackageName>+ components)
-            => ".".join(components*.key)->FullPackageName(components*.item);
+            => ".".join(components*.key) -> FullPackageName(components*.item);
     
     shared String->FullPackageName ceylonAstCorePackageName = construct(identifier.ceylonLIdentifier, identifier.astLIdentifier, identifier.coreLIdentifier);
     

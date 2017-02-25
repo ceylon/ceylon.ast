@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object spreadType satisfies ConcreteTest<SpreadType,JSpreadType> {
     
     String->SpreadType construct(String->Type type)
-            => "*``type.key``"->SpreadType(type.item);
+            => "*``type.key``" -> SpreadType(type.item);
     
     shared String->SpreadType argsSpreadType = construct(baseType.argsType);
     

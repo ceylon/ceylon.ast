@@ -18,7 +18,7 @@ shared class IdentityOperation(operand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIdentityOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IdentityOperation that) {
             return operand == that.operand;

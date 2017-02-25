@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object lazySpecifier satisfies ConcreteTest<LazySpecifier,JLazySpecifierExpression> {
     
     String->LazySpecifier construct(String->Expression expression)
-            => "=>``expression.key``"->LazySpecifier(expression.item);
+            => "=>``expression.key``" -> LazySpecifier(expression.item);
     
     shared String->LazySpecifier aTimesBPlusCLazySpecifier = construct(sumOperation.aTimesBPlusCExpression);
     shared String->LazySpecifier groupedLazySpecifier = construct(groupedExpression.nameElseWorldStringLiteralGroupedExpression);

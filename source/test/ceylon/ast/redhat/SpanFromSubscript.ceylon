@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object spanFromSubscript satisfies ConcreteTest<SpanFromSubscript,JElementRange> {
     
     String->SpanFromSubscript construct(String->AddingExpression from)
-            => "``from.key``..."->SpanFromSubscript(from.item);
+            => "``from.key``..." -> SpanFromSubscript(from.item);
     
     shared String->SpanFromSubscript spanFrom2Subscript = construct(integerLiteral._2IntegerLiteral);
     

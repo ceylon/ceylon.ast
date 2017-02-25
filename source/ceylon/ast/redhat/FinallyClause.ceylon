@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[FinallyClause|JFinallyClause]] to a `ceylon.ast` [[FinallyClause]]."
-shared FinallyClause finallyClauseToCeylon(JFinallyClause finallyClause, Anything(JNode,Node) update = noop) {
+shared FinallyClause finallyClauseToCeylon(JFinallyClause finallyClause, Anything(JNode, Node) update = noop) {
     value result = FinallyClause(blockToCeylon(finallyClause.block, update));
     update(finallyClause, result);
     return result;
@@ -19,7 +19,7 @@ shared FinallyClause finallyClauseToCeylon(JFinallyClause finallyClause, Anythin
 "Parses the given [[code]] for a Finally Clause
  into a [[FinallyClause]] using the Ceylon compiler
  (more specifically, the rule for a `finallyBlock`)."
-shared FinallyClause? parseFinallyClause(String code, Anything(JNode,Node) update = noop) {
+shared FinallyClause? parseFinallyClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jFinallyBlock = createParser(code).finallyBlock()) {
         return finallyClauseToCeylon(jFinallyBlock, update);
     } else {

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IsCondition|JIsCondition]] to a `ceylon.ast` [[IsCondition]]."
-shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode,Node) update = noop) {
+shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode, Node) update = noop) {
     assert (is JStaticType jType = isCondition.type);
     value jVariable = isCondition.variable;
     value jSpecifierExpression = jVariable.specifierExpression;
@@ -35,7 +35,7 @@ shared IsCondition isConditionToCeylon(JIsCondition isCondition, Anything(JNode,
 "Parses the given [[code]] for an Is Condition
  into an [[IsCondition]] using the Ceylon compiler
  (more specifically, the rule for an `isCondition`)."
-shared IsCondition? parseIsCondition(String code, Anything(JNode,Node) update = noop) {
+shared IsCondition? parseIsCondition(String code, Anything(JNode, Node) update = noop) {
     if (exists jIsCondition = createParser(code + ",").isCondition()) {
         // the parser needs that comma for conditions without a specifier
         return isConditionToCeylon(jIsCondition, update);

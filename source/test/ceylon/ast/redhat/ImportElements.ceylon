@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object importElements satisfies ConcreteTest<ImportElements,JImportMemberOrTypeList> {
     
     String->ImportElements construct(<String->ImportElement>[] elements = [], <String->ImportWildcard>? wildcard = null)
-            => "{``",\n".join(concatenate(elements*.key, emptyOrSingleton(wildcard?.key)))``}"->ImportElements(elements*.item, wildcard?.item);
+            => "{``",\n".join(concatenate(elements*.key, emptyOrSingleton(wildcard?.key)))``}" -> ImportElements(elements*.item, wildcard?.item);
     
     // these need to be lazy to avoid cyclic initialization
     shared String->ImportElements wildcardImportElements => construct { wildcard = importWildcard.importWildcard; };

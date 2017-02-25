@@ -43,8 +43,8 @@ class AliasGenerator(shared actual String type, shared actual String[] cases, St
     
     void expandNarrowingTransformer()
             => expandFile("source/ceylon/ast/core/NarrowingTransformer.ceylon",
-        "shared formal Result transform",
-        "``type``(``type`` that);");
+                "shared formal Result transform",
+                "``type``(``type`` that);");
     
     shared actual void run() {
         generateAlias();

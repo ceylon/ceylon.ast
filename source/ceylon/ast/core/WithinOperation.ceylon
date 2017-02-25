@@ -27,17 +27,17 @@ shared class WithinOperation(operand, lowerBound, upperBound)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitWithinOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is WithinOperation that) {
-            return operand == that.operand && lowerBound == that.lowerBound && upperBound == that.upperBound;
+            return operand==that.operand && lowerBound==that.lowerBound && upperBound==that.upperBound;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (lowerBound.hash + 31 * upperBound.hash);
+            => 31 * (lowerBound.hash + 31*upperBound.hash);
     
     shared WithinOperation copy(ExistsNonemptyExpression operand = this.operand, Bound lowerBound = this.lowerBound, Bound upperBound = this.upperBound) {
         value ret = WithinOperation(operand, lowerBound, upperBound);

@@ -25,7 +25,7 @@ import ceylon.interop.java {
  
  Only lazy specification statements are converted by this function; for non-lazy specification statements,
  use [[valueSpecificationToCeylon]]."
-shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpecification, Anything(JNode,Node) update = noop) {
+shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpecification, Anything(JNode, Node) update = noop) {
     "Only function or value may be specified"
     assert (is JBaseMemberExpression|JParameterizedExpression|JQualifiedMemberExpression baseMemberExpression = lazySpecification.baseMemberExpression);
     LIdentifier name;
@@ -67,7 +67,7 @@ shared LazySpecification lazySpecificationToCeylon(JSpecifierStatement lazySpeci
 "Parses the given [[code]] for a Lazy Specification
  into a [[LazySpecification]] using the Ceylon compiler
  (more specifically, the rule for an `expressionOrSpecificationStatement`)."
-shared LazySpecification? parseLazySpecification(String code, Anything(JNode,Node) update = noop) {
+shared LazySpecification? parseLazySpecification(String code, Anything(JNode, Node) update = noop) {
     if (is JSpecifierStatement jExpressionOrSpecificationStatement = createParser(code).expressionOrSpecificationStatement(),
         jExpressionOrSpecificationStatement.specifierExpression is JLazySpecifierExpression) {
         return lazySpecificationToCeylon(jExpressionOrSpecificationStatement, update);

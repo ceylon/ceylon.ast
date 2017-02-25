@@ -18,17 +18,17 @@ shared class SwitchCaseElseExpression(clause, caseExpressions, elseExpression)
     
     shared actual <SwitchClause|CaseExpression|DisjoiningExpression|IfElseExpression|LetExpression>[] children
             = concatenate(
-        [clause],
-        caseExpressions,
-        emptyOrSingleton(elseExpression)
-    );
+                [clause],
+                caseExpressions,
+                emptyOrSingleton(elseExpression)
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformSwitchCaseElseExpression(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSwitchCaseElseExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SwitchCaseElseExpression that) {
             if (exists elseExpression) {
@@ -42,7 +42,7 @@ shared class SwitchCaseElseExpression(clause, caseExpressions, elseExpression)
             } else if (that.elseExpression exists) {
                 return false;
             }
-            return clause == that.clause && caseExpressions == that.caseExpressions;
+            return clause==that.clause && caseExpressions==that.caseExpressions;
         } else {
             return false;
         }

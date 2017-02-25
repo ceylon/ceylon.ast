@@ -54,23 +54,23 @@ shared class ClassAliasDefinition(name, parameters, specifier, caseTypes = null,
     
     shared actual <Annotations|UIdentifier|TypeParameters|Parameters|CaseTypes|ExtendedType|SatisfiedTypes|TypeConstraint|ClassSpecifier>[] children
             = concatenate(
-        [annotations],
-        [name],
-        emptyOrSingleton(typeParameters),
-        [parameters],
-        emptyOrSingleton(caseTypes),
-        emptyOrSingleton(extendedType),
-        emptyOrSingleton(satisfiedTypes),
-        typeConstraints,
-        [specifier]
-    );
+                [annotations],
+                [name],
+                emptyOrSingleton(typeParameters),
+                [parameters],
+                emptyOrSingleton(caseTypes),
+                emptyOrSingleton(extendedType),
+                emptyOrSingleton(satisfiedTypes),
+                typeConstraints,
+                [specifier]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformClassAliasDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitClassAliasDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ClassAliasDefinition that) {
             if (exists caseTypes) {
@@ -117,14 +117,14 @@ shared class ClassAliasDefinition(name, parameters, specifier, caseTypes = null,
             } else if (that.typeParameters exists) {
                 return false;
             }
-            return name == that.name && parameters == that.parameters && specifier == that.specifier && typeConstraints == that.typeConstraints && annotations == that.annotations;
+            return name==that.name && parameters==that.parameters && specifier==that.specifier && typeConstraints==that.typeConstraints && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (parameters.hash + 31 * (specifier.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31 * annotations.hash))))))));
+            => 31 * (name.hash + 31 * (parameters.hash + 31 * (specifier.hash + 31 * ((caseTypes?.hash else 0) + 31 * ((extendedType?.hash else 0) + 31 * ((satisfiedTypes?.hash else 0) + 31 * ((typeParameters?.hash else 0) + 31 * (typeConstraints.hash + 31*annotations.hash))))))));
     
     shared ClassAliasDefinition copy(UIdentifier name = this.name, Parameters parameters = this.parameters, ClassSpecifier specifier = this.specifier, CaseTypes? caseTypes = this.caseTypes, ExtendedType? extendedType = this.extendedType, SatisfiedTypes? satisfiedTypes = this.satisfiedTypes, TypeParameters? typeParameters = this.typeParameters, TypeConstraint[] typeConstraints = this.typeConstraints, Annotations annotations = this.annotations) {
         value ret = ClassAliasDefinition(name, parameters, specifier, caseTypes, extendedType, satisfiedTypes, typeParameters, typeConstraints, annotations);

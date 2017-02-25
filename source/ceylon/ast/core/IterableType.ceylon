@@ -12,7 +12,7 @@ shared class IterableType(variadicType)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIterableType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is IterableType that) {
             return variadicType == that.variadicType;

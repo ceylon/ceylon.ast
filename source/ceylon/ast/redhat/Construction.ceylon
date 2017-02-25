@@ -24,7 +24,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[InvocationExpression|JInvocationExpression]] to a `ceylon.ast` [[Construction]]."
-shared Construction constructionToCeylon(JInvocationExpression construction, Anything(JNode,Node) update = noop) {
+shared Construction constructionToCeylon(JInvocationExpression construction, Anything(JNode, Node) update = noop) {
     assert (is JExtendedTypeExpression ete = construction.primary);
     assert (is JBaseType|JQualifiedType type = ete.type);
     value name = lIdentifierToCeylon(type.identifier, update);
@@ -57,7 +57,7 @@ shared Construction constructionToCeylon(JInvocationExpression construction, Any
 "Parses the given [[code]] for a Construction
  into a [[Construction]] using the Ceylon compiler
  (more specifically, the rule for a `classInstantiation`)."
-shared Construction? parseConstruction(String code, Anything(JNode,Node) update = noop) {
+shared Construction? parseConstruction(String code, Anything(JNode, Node) update = noop) {
     if (exists jClassInstantiation = createParser(code).classInstantiation(),
         exists ie = jClassInstantiation.invocationExpression,
         is JExtendedTypeExpression ete = ie.primary,

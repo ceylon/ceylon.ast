@@ -22,17 +22,17 @@ shared class PackageDescriptor(name, annotations = Annotations())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPackageDescriptor(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PackageDescriptor that) {
-            return name == that.name && annotations == that.annotations;
+            return name==that.name && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * annotations.hash);
+            => 31 * (name.hash + 31*annotations.hash);
     
     shared PackageDescriptor copy(FullPackageName name = this.name, Annotations annotations = this.annotations) {
         value ret = PackageDescriptor(name, annotations);

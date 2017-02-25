@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object parameterReference satisfies ConcreteTest<ParameterReference,JInitializerParameter> {
     
     String->ParameterReference construct(String->MemberName name)
-            => name.key->ParameterReference(name.item);
+            => name.key -> ParameterReference(name.item);
     
     shared String->ParameterReference lidParameterReference = construct(identifier.lidLIdentifier);
     

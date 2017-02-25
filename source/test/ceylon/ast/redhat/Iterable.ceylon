@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object iterable satisfies ConcreteTest<Iterable,JSequenceEnumeration> {
     
     String->Iterable construct(String->ArgumentList arguments)
-            => "{``arguments.key``}"->Iterable(arguments.item);
+            => "{``arguments.key``}" -> Iterable(arguments.item);
     
     shared String->Iterable emptyIterable = construct(argumentList.emptyArgumentList);
     shared String->Iterable abcIterable = construct(argumentList.abcArgumentList);

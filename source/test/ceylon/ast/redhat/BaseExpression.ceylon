@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOrTypeExpression> {
     
     String->BaseExpression construct(String name, <String->TypeArguments>? typeArguments = null)
-            => (name + (typeArguments?.key else ""))->BaseExpression(MemberNameWithTypeArguments(LIdentifier(name), typeArguments?.item));
+            => (name + (typeArguments?.key else "")) -> BaseExpression(MemberNameWithTypeArguments(LIdentifier(name), typeArguments?.item));
     
     shared String->BaseExpression nullExpression = construct("null");
     shared String->BaseExpression maxOfIntegerNothingExpression = construct("max", typeArguments.integerNothingTypeArguments);
@@ -40,9 +40,9 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression interestRateExpression = construct("interestRate");
     shared String->BaseExpression incrementExpression = construct("increment");
     shared String->BaseExpression countdownExpression = construct("countdown");
-    shared String->BaseExpression \iΔtExpression = "\\iΔt"->BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt", true)));
+    shared String->BaseExpression \iΔtExpression = "\\iΔt" -> BaseExpression(MemberNameWithTypeArguments(LIdentifier("Δt", true)));
     shared String->BaseExpression printExpression = construct("print");
-    shared String->BaseExpression assertionErrorExpression = "AssertionError"->BaseExpression(TypeNameWithTypeArguments(UIdentifier("AssertionError")));
+    shared String->BaseExpression assertionErrorExpression = "AssertionError" -> BaseExpression(TypeNameWithTypeArguments(UIdentifier("AssertionError")));
     shared String->BaseExpression keyExpression = construct("key");
     shared String->BaseExpression itemExpression = construct("item");
     shared String->BaseExpression peopleExpression = construct("people");

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ControlStatement|JControlStatement]] to a `ceylon.ast` [[ControlStructure]]."
-shared ControlStructure controlStructureToCeylon(JControlStatement controlStructure, Anything(JNode,Node) update = noop) {
+shared ControlStructure controlStructureToCeylon(JControlStatement controlStructure, Anything(JNode, Node) update = noop) {
     assert (is JIfStatement|JForStatement|JWhileStatement|JSwitchStatement|JTryCatchStatement|JDynamicStatement controlStructure);
     switch (controlStructure)
     case (is JIfStatement) { return ifElseToCeylon(controlStructure, update); }
@@ -30,7 +30,7 @@ shared ControlStructure controlStructureToCeylon(JControlStatement controlStruct
 "Parses the given [[code]] for a Control Structure
  into a [[ControlStructure]] using the Ceylon compiler
  (more specifically, the rule for a `controlStatement`)."
-shared ControlStructure? parseControlStructure(String code, Anything(JNode,Node) update = noop) {
+shared ControlStructure? parseControlStructure(String code, Anything(JNode, Node) update = noop) {
     if (exists jControlStatement = createParser(code).controlStatement()) {
         return controlStructureToCeylon(jControlStatement, update);
     } else {

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object andOperation satisfies ConcreteTest<AndOperation,JAndOp> {
     
     String->AndOperation construct(String->ConjoiningExpression left, String->NegatingExpression right)
-            => "``left.key``&&``right.key``"->AndOperation(left.item, right.item);
+            => "``left.key``&&``right.key``" -> AndOperation(left.item, right.item);
     
     shared String->AndOperation aAndBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     

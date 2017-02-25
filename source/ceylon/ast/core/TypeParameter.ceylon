@@ -32,7 +32,7 @@ shared class TypeParameter(parameterName, variance = null, defaultArgument = nul
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeParameter(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeParameter that) {
             if (exists variance) {

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[IfExpression|JIfExpression]] to a `ceylon.ast` [[IfElseExpression]]."
-shared IfElseExpression ifElseExpressionToCeylon(JIfExpression ifElseExpression, Anything(JNode,Node) update = noop) {
+shared IfElseExpression ifElseExpressionToCeylon(JIfExpression ifElseExpression, Anything(JNode, Node) update = noop) {
     assert (exists jThenExpression = ifElseExpression.ifClause.expression,
         exists jElseExpression = ifElseExpression.elseClause.expression);
     "Check precedence"
@@ -26,7 +26,7 @@ shared IfElseExpression ifElseExpressionToCeylon(JIfExpression ifElseExpression,
 "Parses the given [[code]] for an If Else Expression
  into an [[IfElseExpression]] using the Ceylon compiler
  (more specifically, the rule for an `ifExpression`)."
-shared IfElseExpression? parseIfElseExpression(String code, Anything(JNode,Node) update = noop) {
+shared IfElseExpression? parseIfElseExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jIfExpression = createParser(code).ifExpression()) {
         return ifElseExpressionToCeylon(jIfExpression, update);
     } else {

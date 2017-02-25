@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[CaseItem|JCaseItem]] to a `ceylon.ast` [[CaseItem]]."
-shared CaseItem caseItemToCeylon(JCaseItem caseItem, Anything(JNode,Node) update = noop) {
+shared CaseItem caseItemToCeylon(JCaseItem caseItem, Anything(JNode, Node) update = noop) {
     assert (is JMatchCase|JIsCase|JSatisfiesCase caseItem);
     switch (caseItem)
     case (is JMatchCase) { return matchCaseToCeylon(caseItem, update); }
@@ -26,7 +26,7 @@ shared CaseItem caseItemToCeylon(JCaseItem caseItem, Anything(JNode,Node) update
 "Parses the given [[code]] for a Case Item
  into a [[CaseItem]] using the Ceylon compiler
  (more specifically, the rule for a `caseItem`)."
-shared CaseItem? parseCaseItem(String code, Anything(JNode,Node) update = noop) {
+shared CaseItem? parseCaseItem(String code, Anything(JNode, Node) update = noop) {
     if (exists jCaseItem = createParser(code).caseItem()) {
         return caseItemToCeylon(jCaseItem, update);
     } else {

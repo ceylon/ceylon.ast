@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object sumOperation satisfies ConcreteTest<SumOperation,JSumOp> {
     
-    String->SumOperation construct(String->AddingExpression left, String->ScalingExpression right) => "``left.key``+``right.key``"->SumOperation(left.item, right.item);
+    String->SumOperation construct(String->AddingExpression left, String->ScalingExpression right) => "``left.key``+``right.key``" -> SumOperation(left.item, right.item);
     
     shared String->SumOperation onePlusOneExpression = construct(integerLiteral.oneIntegerLiteral, integerLiteral.oneIntegerLiteral);
     shared String->SumOperation aTimesBPlusCExpression = construct(productOperation.aTimesBExpression, baseExpression.cExpression);

@@ -58,10 +58,10 @@ shared void testFormattedHelloWorld() {}
 test
 void testFormattedModuleCU()
         => testFormatted {
-    ModuleCompilationUnit(comExampleHelloworldModuleDescriptor);
-    """module com.example.helloworld "1.0.0" {
-       }""";
-};
+            ModuleCompilationUnit(comExampleHelloworldModuleDescriptor);
+            """module com.example.helloworld "1.0.0" {
+               }""";
+        };
 
 "Convert the [[hello world package descriptor|comExampleHelloworldPackageDescriptor]]
  to the RedHat AST, format it with the [[Ceylon formatter|module ceylon.formatter]],
@@ -69,9 +69,9 @@ void testFormattedModuleCU()
 test
 void testFormattedPackageCU()
         => testFormatted {
-    PackageCompilationUnit(comExampleHelloworldPackageDescriptor);
-    """package com.example.helloworld;""";
-};
+            PackageCompilationUnit(comExampleHelloworldPackageDescriptor);
+            """package com.example.helloworld;""";
+        };
 
 "Convert the [[hello world compilation unit|helloWorldCompilationUnit]]
  to the RedHat AST, format it with the [[Ceylon formatter|module ceylon.formatter]],
@@ -79,8 +79,8 @@ void testFormattedPackageCU()
 test
 void testFormattedHelloWorldCU()
         => testFormatted {
-    helloWorldCompilationUnit;
-    """void run() {
-           print("Hello, `` process.arguments.first else "World" ``!");
-       }""";
-};
+            helloWorldCompilationUnit;
+            """void run() {
+                   print("Hello, `` process.arguments.first else "World" ``!");
+               }""";
+        };

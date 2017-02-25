@@ -17,16 +17,16 @@ shared class StringLiteral(text, isVerbatim = false) extends Literal(text) {
     
     shared actual void visit(Visitor visitor)
             => visitor.visitStringLiteral(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is StringLiteral that) {
-            return isVerbatim == that.isVerbatim && text == that.text;
+            return isVerbatim==that.isVerbatim && text==that.text;
         } else {
             return false;
         }
     }
     
-    hash => 31 * text.hash + isVerbatim.hash;
+    hash => 31*text.hash + isVerbatim.hash;
     
     shared StringLiteral copy(String text = this.text, Boolean isVerbatim = this.isVerbatim) {
         value ret = StringLiteral(text, isVerbatim);

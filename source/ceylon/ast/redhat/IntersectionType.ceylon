@@ -15,7 +15,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[IntersectionType|JIntersectionType]] to a `ceylon.ast` [[IntersectionType]]."
-shared IntersectionType intersectionTypeToCeylon(JIntersectionType intersectionType, Anything(JNode,Node) update = noop) {
+shared IntersectionType intersectionTypeToCeylon(JIntersectionType intersectionType, Anything(JNode, Node) update = noop) {
     assert (nonempty types = CeylonIterable(intersectionType.staticTypes).collect((JStaticType jType) {
                 assert (is PrimaryType type = typeToCeylon(jType, update));
                 return type;
@@ -28,7 +28,7 @@ shared IntersectionType intersectionTypeToCeylon(JIntersectionType intersectionT
 "Parses the given [[code]] for an Intersection Type
  into an [[IntersectionType]] using the Ceylon compiler
  (more specifically, the rule for an `intersectionType`)."
-shared IntersectionType? parseIntersectionType(String code, Anything(JNode,Node) update = noop) {
+shared IntersectionType? parseIntersectionType(String code, Anything(JNode, Node) update = noop) {
     if (is JIntersectionType jIntersectionType = createParser(code).intersectionType()) {
         return intersectionTypeToCeylon(jIntersectionType, update);
     } else {

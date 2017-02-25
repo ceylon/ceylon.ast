@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ElementRange|JElementRange]] to a `ceylon.ast` [[SpanFromSubscript]]."
-shared SpanFromSubscript spanFromSubscriptToCeylon(JElementRange spanFromSubscript, Anything(JNode,Node) update = noop) {
+shared SpanFromSubscript spanFromSubscriptToCeylon(JElementRange spanFromSubscript, Anything(JNode, Node) update = noop) {
     assert (exists jFrom = spanFromSubscript.lowerBound,
         !spanFromSubscript.upperBound exists,
         !spanFromSubscript.length exists);
@@ -25,7 +25,7 @@ shared SpanFromSubscript spanFromSubscriptToCeylon(JElementRange spanFromSubscri
 "Parses the given [[code]] for a Span From Subscript
  into a [[SpanFromSubscript]] using the Ceylon compiler
  (more specifically, the rule for an `indexOrIndexRange`)."
-shared SpanFromSubscript? parseSpanFromSubscript(String code, Anything(JNode,Node) update = noop) {
+shared SpanFromSubscript? parseSpanFromSubscript(String code, Anything(JNode, Node) update = noop) {
     if (is JElementRange jElementOrRange = createParser("[``code``]").indexOrIndexRange().elementOrRange,
         jElementOrRange.lowerBound exists,
         !jElementOrRange.length exists,

@@ -21,7 +21,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[FunctionType|JFunctionType]] to a `ceylon.ast` [[CallableType]]."
-shared CallableType callableTypeToCeylon(JFunctionType callableType, Anything(JNode,Node) update = noop) {
+shared CallableType callableTypeToCeylon(JFunctionType callableType, Anything(JNode, Node) update = noop) {
     TypeList|SpreadType argumentTypes;
     if (is JSpreadType spreadType = CeylonIterable(callableType.argumentTypes).first) {
         "Cannot have any other types beside a spread type"
@@ -58,7 +58,7 @@ shared CallableType callableTypeToCeylon(JFunctionType callableType, Anything(JN
 "Parses the given [[code]] for a Callable Type
  into a [[CallableType]] using the Ceylon compiler
  (more specifically, the rule for an `primaryType`)."
-shared CallableType? parseCallableType(String code, Anything(JNode,Node) update = noop) {
+shared CallableType? parseCallableType(String code, Anything(JNode, Node) update = noop) {
     if (is JFunctionType jFunctionType = createParser(code).primaryType()) {
         return callableTypeToCeylon(jFunctionType, update);
     } else {

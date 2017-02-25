@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object prefixIncrementOperation satisfies ConcreteTest<PrefixIncrementOperation,JIncrementOp> {
     
     String->PrefixIncrementOperation construct(String->Primary operand)
-            => "++``operand.key``"->PrefixIncrementOperation(operand.item);
+            => "++``operand.key``" -> PrefixIncrementOperation(operand.item);
     
     shared String->PrefixIncrementOperation _1138IntegerLiteralPrefixIncrementOperation = construct(integerLiteral._1138IntegerLiteral);
     shared String->PrefixIncrementOperation oneIntegerLiteralGroupedExpressionPrefixIncrementOperation = construct(groupedExpression.oneIntegerLiteralGroupedExpression);

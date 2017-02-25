@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object valueParameter satisfies ConcreteTest<ValueParameter,JValueParameterDeclaration> {
     
     String->ValueParameter construct(String->Type|DynamicModifier type, String->LIdentifier name, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` ``type.key`` ``name.key``"->ValueParameter(type.item, name.item, annotations.item);
+            => "``annotations.key`` ``type.key`` ``name.key``" -> ValueParameter(type.item, name.item, annotations.item);
     
     shared String->ValueParameter dynamicByValueParameter = construct(dynamicModifier.dynamicModifier, identifier.byLIdentifier);
     shared String->ValueParameter annotatedStringLidValueParameter = construct(baseType.stringType, identifier.lidLIdentifier, annotations.helloSharedByLucasAnnotations);

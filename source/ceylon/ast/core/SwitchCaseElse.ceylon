@@ -28,17 +28,17 @@ shared class SwitchCaseElse(clause, cases)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSwitchCaseElse(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SwitchCaseElse that) {
-            return clause == that.clause && cases == that.cases;
+            return clause==that.clause && cases==that.cases;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (clause.hash + 31 * cases.hash);
+            => 31 * (clause.hash + 31*cases.hash);
     
     shared SwitchCaseElse copy(SwitchClause clause = this.clause, SwitchCases cases = this.cases) {
         value ret = SwitchCaseElse(clause, cases);

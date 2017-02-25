@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[BitwiseOp|JBitwiseOp]] to a `ceylon.ast` [[SetOperation]]."
-shared SetOperation setOperationToCeylon(JBitwiseOp setOperation, Anything(JNode,Node) update = noop) {
+shared SetOperation setOperationToCeylon(JBitwiseOp setOperation, Anything(JNode, Node) update = noop) {
     assert (is JIntersectionOp|JUnionOp|JComplementOp setOperation);
     switch (setOperation)
     case (is JIntersectionOp) { return intersectionOperationToCeylon(setOperation, update); }
@@ -24,7 +24,7 @@ shared SetOperation setOperationToCeylon(JBitwiseOp setOperation, Anything(JNode
 "Parses the given [[code]] for a Set Operation
  into a [[SetOperation]] using the Ceylon compiler
  (more specifically, the rule for a `unionExpression`)."
-shared SetOperation? parseSetOperation(String code, Anything(JNode,Node) update = noop) {
+shared SetOperation? parseSetOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JBitwiseOp jUnionExpression = createParser(code).unionExpression()) {
         return setOperationToCeylon(jUnionExpression, update);
     } else {

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ForIterator|JForIterator]] to a `ceylon.ast` [[ForIterator]]."
-shared ForIterator forIteratorToCeylon(JForIterator forIterator, Anything(JNode,Node) update = noop) {
+shared ForIterator forIteratorToCeylon(JForIterator forIterator, Anything(JNode, Node) update = noop) {
     assert (is JValueIterator|JPatternIterator forIterator);
     Pattern pattern;
     switch (forIterator)
@@ -39,7 +39,7 @@ shared ForIterator forIteratorToCeylon(JForIterator forIterator, Anything(JNode,
 "Parses the given [[code]] for a For Iterator
  into a [[ForIterator]] using the Ceylon compiler
  (more specifically, the rule for a `forIterator`)."
-shared ForIterator? parseForIterator(String code, Anything(JNode,Node) update = noop) {
+shared ForIterator? parseForIterator(String code, Anything(JNode, Node) update = noop) {
     if (exists jForIterator = createParser(code).forIterator()) {
         return forIteratorToCeylon(jForIterator, update);
     } else {

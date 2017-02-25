@@ -26,17 +26,17 @@ shared class SpanSubscript(from, to)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpanSubscript(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpanSubscript that) {
-            return from == that.from && to == that.to;
+            return from==that.from && to==that.to;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (from.hash + 31 * to.hash);
+            => 31 * (from.hash + 31*to.hash);
     
     shared SpanSubscript copy(AddingExpression from = this.from, AddingExpression to = this.to) {
         value ret = SpanSubscript(from, to);

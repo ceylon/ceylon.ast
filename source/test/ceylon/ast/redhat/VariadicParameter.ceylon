@@ -18,7 +18,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object variadicParameter satisfies ConcreteTest<VariadicParameter,JValueParameterDeclaration> {
     
     String->VariadicParameter construct(String->VariadicType type, String->LIdentifier name, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` ``type.key````name.key``"->VariadicParameter(type.item, name.item, annotations.item);
+            => "``annotations.key`` ``type.key````name.key``" -> VariadicParameter(type.item, name.item, annotations.item);
     
     shared String->VariadicParameter floatStarLidVariadicParameter = construct(variadicType.floatStarType, identifier.lidLIdentifier);
     

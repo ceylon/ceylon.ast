@@ -22,7 +22,7 @@ shared class Comprehension(clause)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitComprehension(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Comprehension that) {
             return clause == that.clause;

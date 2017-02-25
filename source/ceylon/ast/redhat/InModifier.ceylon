@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 "Converts a RedHat AST [[TypeVariance|JTypeVariance]]
  with token type [[`IN_OP`|in_op]]
  to a `ceylon.ast` [[InModifier]]."
-shared InModifier inModifierToCeylon(JTypeVariance inModifier, Anything(JNode,Node) update = noop) {
+shared InModifier inModifierToCeylon(JTypeVariance inModifier, Anything(JNode, Node) update = noop) {
     "Must be an ‘in’ modifier"
     assert (inModifier.mainToken.type == in_op);
     value result = InModifier();
@@ -28,7 +28,7 @@ shared InModifier inModifierToCeylon(JTypeVariance inModifier, Anything(JNode,No
 "Parses the given [[code]] for an In Modifier
  into an [[InModifier]] using the Ceylon compiler
  (more specifically, the rule for a `variance`)."
-shared InModifier? parseInModifier(String code, Anything(JNode,Node) update = noop) {
+shared InModifier? parseInModifier(String code, Anything(JNode, Node) update = noop) {
     if (exists jVariance = createParser(code).variance(),
         jVariance.mainToken.type == in_op) {
         return inModifierToCeylon(jVariance, update);

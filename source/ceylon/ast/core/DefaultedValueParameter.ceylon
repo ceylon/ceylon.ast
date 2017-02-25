@@ -20,17 +20,17 @@ shared class DefaultedValueParameter(parameter, specifier)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDefaultedValueParameter(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DefaultedValueParameter that) {
-            return parameter == that.parameter && specifier == that.specifier;
+            return parameter==that.parameter && specifier==that.specifier;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (parameter.hash + 31 * specifier.hash);
+            => 31 * (parameter.hash + 31*specifier.hash);
     
     shared DefaultedValueParameter copy(ValueParameter parameter = this.parameter, Specifier specifier = this.specifier) {
         value ret = DefaultedValueParameter(parameter, specifier);

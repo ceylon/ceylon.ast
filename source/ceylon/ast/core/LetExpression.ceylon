@@ -27,17 +27,17 @@ shared class LetExpression(patterns, expression)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitLetExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is LetExpression that) {
-            return patterns == that.patterns && expression == that.expression;
+            return patterns==that.patterns && expression==that.expression;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (patterns.hash + 31 * expression.hash);
+            => 31 * (patterns.hash + 31*expression.hash);
     
     shared LetExpression copy(PatternList patterns = this.patterns, DisjoiningExpression|IfElseExpression|LetExpression expression = this.expression) {
         value ret = LetExpression(patterns, expression);

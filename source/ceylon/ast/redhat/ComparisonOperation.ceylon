@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ComparisonOp|JComparisonOp]] to a `ceylon.ast` [[ComparisonOperation]]."
-shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonOperation, Anything(JNode,Node) update = noop) {
+shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonOperation, Anything(JNode, Node) update = noop) {
     assert (is JLargerOp|JSmallerOp|JLargeAsOp|JSmallAsOp comparisonOperation);
     switch (comparisonOperation)
     case (is JLargerOp) { return largerOperationToCeylon(comparisonOperation, update); }
@@ -26,7 +26,7 @@ shared ComparisonOperation comparisonOperationToCeylon(JComparisonOp comparisonO
 "Parses the given [[code]] for a Comparison Operation
  into a [[ComparisonOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared ComparisonOperation? parseComparisonOperation(String code, Anything(JNode,Node) update = noop) {
+shared ComparisonOperation? parseComparisonOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JComparisonOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return comparisonOperationToCeylon(jComparisonExpression, update);
     } else {

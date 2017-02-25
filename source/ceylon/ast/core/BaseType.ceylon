@@ -23,7 +23,7 @@ shared class BaseType(nameAndArgs, qualifier = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitBaseType(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is BaseType that) {
             if (exists qualifier) {

@@ -19,7 +19,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[InterfaceDefinition|JInterfaceDefinition]] to a `ceylon.ast` [[AnyInterfaceDefinition]]."
-shared AnyInterfaceDefinition anyInterfaceDefinitionToCeylon(JInterfaceDefinition anyInterfaceDefinition, Anything(JNode,Node) update = noop) {
+shared AnyInterfaceDefinition anyInterfaceDefinitionToCeylon(JInterfaceDefinition anyInterfaceDefinition, Anything(JNode, Node) update = noop) {
     /*
      regular and dynamic interface definitions are so similar
      that it’s better to do the conversion for both here
@@ -74,7 +74,7 @@ shared AnyInterfaceDefinition anyInterfaceDefinitionToCeylon(JInterfaceDefinitio
 "Parses the given [[code]] for an Any Interface Definition
  into an [[AnyInterfaceDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyInterfaceDefinition? parseAnyInterfaceDefinition(String code, Anything(JNode,Node) update = noop) {
+shared AnyInterfaceDefinition? parseAnyInterfaceDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JInterfaceDefinition jDeclaration = createParser(code).declaration()) {
         return anyInterfaceDefinitionToCeylon(jDeclaration, update);
     } else {

@@ -9,7 +9,7 @@ shared class DynamicModifier()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDynamicModifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DynamicModifier that) {
             return text == that.text;

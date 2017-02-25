@@ -22,7 +22,7 @@ shared class PositionalArguments(argumentList = ArgumentList())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPositionalArguments(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PositionalArguments that) {
             return argumentList == that.argumentList;

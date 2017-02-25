@@ -16,7 +16,7 @@ import ceylon.interop.java {
  
  Note: This only converts regular compilation units. For arbitrary compilation units, see [[anyCompilationUnitToCeylon]]."
 throws (`class AssertionError`, "If the compilation unit contains package or module descriptors")
-shared CompilationUnit compilationUnitToCeylon(JCompilationUnit compilationUnit, Anything(JNode,Node) update = noop) {
+shared CompilationUnit compilationUnitToCeylon(JCompilationUnit compilationUnit, Anything(JNode, Node) update = noop) {
     "Must not have package or module descriptors"
     assert (compilationUnit.packageDescriptors.empty,
         compilationUnit.moduleDescriptors.empty);
@@ -31,7 +31,7 @@ shared CompilationUnit compilationUnitToCeylon(JCompilationUnit compilationUnit,
 "Parses the given [[code]] for a Compilation Unit
  into a [[CompilationUnit]] using the Ceylon compiler
  (more specifically, the rule for a `compilationUnit`)."
-shared CompilationUnit? parseCompilationUnit(String code, Anything(JNode,Node) update = noop) {
+shared CompilationUnit? parseCompilationUnit(String code, Anything(JNode, Node) update = noop) {
     if (exists jCompilationUnit = createParser(code).compilationUnit(),
         jCompilationUnit.packageDescriptors.empty,
         jCompilationUnit.moduleDescriptors.empty) {

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object conditions satisfies ConcreteTest<Conditions,JConditionList> {
     
     String->Conditions construct(<String->Condition>+ conditions)
-            => "(``",".join(conditions*.key)``)"->Conditions(conditions*.item);
+            => "(``",".join(conditions*.key)``)" -> Conditions(conditions*.item);
     
     // not very useful, but at the time of writing no other types of conditions have been implemented yet:
     shared String->Conditions trueCommaAAndBConditions = construct(booleanCondition.trueCondition, booleanCondition.aAndBCondition);

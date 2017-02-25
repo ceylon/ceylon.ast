@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[KeyValuePattern|JKeyValuePattern]] to a `ceylon.ast` [[EntryPattern]]."
-shared EntryPattern entryPatternToCeylon(JKeyValuePattern entryPattern, Anything(JNode,Node) update = noop) {
+shared EntryPattern entryPatternToCeylon(JKeyValuePattern entryPattern, Anything(JNode, Node) update = noop) {
     assert (is VariablePattern|TuplePattern key = patternToCeylon(entryPattern.key, update),
         is VariablePattern|TuplePattern item = patternToCeylon(entryPattern.\ivalue, update));
     value result = EntryPattern(key, item);
@@ -23,7 +23,7 @@ shared EntryPattern entryPatternToCeylon(JKeyValuePattern entryPattern, Anything
 "Parses the given [[code]] for an Entry Pattern
  into an [[EntryPattern]] using the Ceylon compiler
  (more specifically, the rule for an `keyItemPattern`)."
-shared EntryPattern? parseEntryPattern(String code, Anything(JNode,Node) update = noop) {
+shared EntryPattern? parseEntryPattern(String code, Anything(JNode, Node) update = noop) {
     if (exists jEntryPattern = createParser(code).keyItemPattern()) {
         return entryPatternToCeylon(jEntryPattern, update);
     } else {

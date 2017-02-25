@@ -37,17 +37,17 @@ shared class ValueDeclaration(name, type, annotations = Annotations())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueDeclaration(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ValueDeclaration that) {
-            return name == that.name && type == that.type && annotations == that.annotations;
+            return name==that.name && type==that.type && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (name.hash + 31 * (type.hash + 31 * annotations.hash));
+            => 31 * (name.hash + 31 * (type.hash + 31*annotations.hash));
     
     shared ValueDeclaration copy(MemberName name = this.name, Type|VariadicType|DynamicModifier type = this.type, Annotations annotations = this.annotations) {
         value ret = ValueDeclaration(name, type, annotations);

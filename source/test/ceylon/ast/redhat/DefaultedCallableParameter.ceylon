@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object defaultedCallableParameter satisfies ConcreteTest<DefaultedCallableParameter,JFunctionalParameterDeclaration> {
     
     String->DefaultedCallableParameter construct(String->CallableParameter parameter, String->LazySpecifier specifier)
-            => "``parameter.key````specifier.key``"->DefaultedCallableParameter(parameter.item, specifier.item);
+            => "``parameter.key````specifier.key``" -> DefaultedCallableParameter(parameter.item, specifier.item);
     
     shared String->DefaultedCallableParameter notEmptyDefaultedCallableParameter = construct(callableParameter.notEmptyCallableParameter, lazySpecifier.aTimesBPlusCLazySpecifier);
     

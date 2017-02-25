@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object moduleCompilationUnit satisfies ConcreteTest<ModuleCompilationUnit,JCompilationUnit> {
     
     String->ModuleCompilationUnit construct(String->ModuleDescriptor moduleDescriptor, <String->Import>[] imports = [])
-            => "``"".join(imports*.key)`` ``moduleDescriptor.key``"->ModuleCompilationUnit(moduleDescriptor.item, imports*.item);
+            => "``"".join(imports*.key)`` ``moduleDescriptor.key``" -> ModuleCompilationUnit(moduleDescriptor.item, imports*.item);
     
     shared String->ModuleCompilationUnit ceylonAstCoreEmptyModuleCompilationUnit = construct(moduleDescriptor.ceylonAstCoreEmptyModuleDescriptor);
     

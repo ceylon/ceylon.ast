@@ -30,7 +30,7 @@ shared Identifier identifier(IdentifierIsh text) {
                 throw AssertionError("Identifier text can’t contain escape sequences");
             }
         } else {
-            if (first.lowercase || first == '_') {
+            if (first.lowercase || first=='_') {
                 return LIdentifier(text);
             } else {
                 return UIdentifier(text);

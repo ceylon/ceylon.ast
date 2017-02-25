@@ -23,17 +23,17 @@ shared class MemberMeta(qualifier, nameAndArgs)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitMemberMeta(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is MemberMeta that) {
-            return qualifier == that.qualifier && nameAndArgs == that.nameAndArgs;
+            return qualifier==that.qualifier && nameAndArgs==that.nameAndArgs;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (qualifier.hash + 31 * nameAndArgs.hash);
+            => 31 * (qualifier.hash + 31*nameAndArgs.hash);
     
     shared MemberMeta copy(PrimaryType qualifier = this.qualifier, MemberNameWithTypeArguments nameAndArgs = this.nameAndArgs) {
         value ret = MemberMeta(qualifier, nameAndArgs);

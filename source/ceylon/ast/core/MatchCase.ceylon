@@ -22,7 +22,7 @@ shared class MatchCase(expressions)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitMatchCase(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is MatchCase that) {
             return expressions == that.expressions;
@@ -70,7 +70,7 @@ see (`value MatchCase.expressions`)
 shared Boolean matchCaseAcceptable(Expression expression) {
     switch (expression)
     case (is IntegerLiteral|CharacterLiteral|StringLiteral|BaseExpression|Package) { return true; }
-    case (is NegationOperation) { return  expression.operand is IntegerLiteral; }
+    case (is NegationOperation) { return expression.operand is IntegerLiteral; }
     case (is QualifiedExpression) { return matchCaseAcceptable(expression.receiverExpression); }
     case (is Tuple) { return expression.argumentList.listedArguments.every(matchCaseAcceptable) && !expression.argumentList.sequenceArgument exists; }
     else { return false; }

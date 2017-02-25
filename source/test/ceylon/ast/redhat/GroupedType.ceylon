@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object groupedType satisfies ConcreteTest<GroupedType,JGroupedType> {
     
     String->GroupedType construct(String->Type inner)
-            => "<``inner.key``>"->GroupedType(inner.item);
+            => "<``inner.key``>" -> GroupedType(inner.item);
     
     shared String->GroupedType stringGroupedType = construct(baseType.stringType);
     shared String->GroupedType iterableOfStringGroupedType = construct(baseType.iterableOfStringType);

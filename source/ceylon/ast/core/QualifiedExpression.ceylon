@@ -27,17 +27,17 @@ shared class QualifiedExpression(receiverExpression, nameAndArgs, memberOperator
     
     shared actual void visit(Visitor visitor)
             => visitor.visitQualifiedExpression(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is QualifiedExpression that) {
-            return receiverExpression == that.receiverExpression && nameAndArgs == that.nameAndArgs;
+            return receiverExpression==that.receiverExpression && nameAndArgs==that.nameAndArgs;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (receiverExpression.hash + 31 * nameAndArgs.hash);
+            => 31 * (receiverExpression.hash + 31*nameAndArgs.hash);
     
     shared QualifiedExpression copy(Primary receiverExpression = this.receiverExpression, NameWithTypeArguments nameAndArgs = this.nameAndArgs, AnyMemberOperator memberOperator = this.memberOperator) {
         value ret = QualifiedExpression(receiverExpression, nameAndArgs, memberOperator);

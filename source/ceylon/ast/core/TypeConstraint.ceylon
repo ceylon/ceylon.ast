@@ -35,7 +35,7 @@ shared class TypeConstraint(parameterName, caseTypes = null, satisfiedTypes = nu
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeConstraint(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeConstraint that) {
             if (exists caseTypes) {

@@ -73,7 +73,7 @@ shared class TuringMachineCreator(
     "Accepting states must be valid states"
     assert (acceptingStates.subset(states));
     
-    Boolean identifierPart(Character character) => character.letter || character.digit || character == '_';
+    Boolean identifierPart(Character character) => character.letter || character.digit || character=='_';
     "State names must be composed of valid identifier parts"
     assert (states.every((String state) => state.every(identifierPart)));
     "Alphabet must be valid identifier parts"
@@ -103,18 +103,18 @@ shared class TuringMachineCreator(
      along with the definitions of those tape symbol interfaces."
     shared {InterfaceDefinition*} symbolDefinitions
             => {
-        interfaceDefinition {
-            name = "Symbol";
-            caseTypes = { for (symbol in allSymbols) symbolTypeName(symbol) };
-            annotations = annotations { "shared" };
-        },
-        for (symbol in allSymbols)
-            interfaceDefinition {
-                name = symbolTypeName(symbol);
-                satisfiedTypes = { "Symbol" };
-                annotations = annotations { "shared" };
-            }
-    };
+                interfaceDefinition {
+                    name = "Symbol";
+                    caseTypes = { for (symbol in allSymbols) symbolTypeName(symbol) };
+                    annotations = annotations { "shared" };
+                },
+                for (symbol in allSymbols)
+                    interfaceDefinition {
+                        name = symbolTypeName(symbol);
+                        satisfiedTypes = { "Symbol" };
+                        annotations = annotations { "shared" };
+                    }
+            };
     
     "The definitions for the input:
      One enumerated class `Input_${symbol}`
@@ -123,24 +123,24 @@ shared class TuringMachineCreator(
      per [[input symbol|inputSymbols]]."
     shared {ClassDefinition|ObjectDefinition*} inputDefinitions
             => expand {
-        for (symbol in inputSymbols)
-            {
-                classDefinition {
-                    name = inputTypeName(symbol);
-                    satisfiedTypes = { symbolTypeName(symbol) };
-                    annotations = annotations {
-                        doc = symbolDescription(symbol);
-                        "shared", "abstract"
-                    };
-                },
-                ObjectDefinition {
-                    name = LIdentifier(inputInstanceName(symbol));
-                    extendedType = extendedType(inputTypeName(symbol));
-                    annotations = annotations { "shared" };
-                    body = ClassBody([]);
-                }
-            }
-    };
+                for (symbol in inputSymbols)
+                    {
+                        classDefinition {
+                            name = inputTypeName(symbol);
+                            satisfiedTypes = { symbolTypeName(symbol) };
+                            annotations = annotations {
+                                doc = symbolDescription(symbol);
+                                "shared", "abstract"
+                            };
+                        },
+                        ObjectDefinition {
+                            name = LIdentifier(inputInstanceName(symbol));
+                            extendedType = extendedType(inputTypeName(symbol));
+                            annotations = annotations { "shared" };
+                            body = ClassBody([]);
+                        }
+                    }
+            };
     
     "The definitions for the states:
      One enumerated `State` interface
@@ -148,21 +148,21 @@ shared class TuringMachineCreator(
      along with the definitions of those state interfaces."
     shared {InterfaceDefinition*} stateDefinitions
             => {
-        interfaceDefinition {
-            name = "State";
-            caseTypes = { for (state in states) stateTypeName(state) };
-            annotations = annotations { "shared" };
-        },
-        for (state in states)
-            interfaceDefinition {
-                name = stateTypeName(state);
-                satisfiedTypes = { "State" };
-                annotations = annotations {
-                    doc = stateDescription(state);
-                    "shared"
-                };
-            }
-    };
+                interfaceDefinition {
+                    name = "State";
+                    caseTypes = { for (state in states) stateTypeName(state) };
+                    annotations = annotations { "shared" };
+                },
+                for (state in states)
+                    interfaceDefinition {
+                        name = stateTypeName(state);
+                        satisfiedTypes = { "State" };
+                        annotations = annotations {
+                            doc = stateDescription(state);
+                            "shared"
+                        };
+                    }
+            };
     
     """The definition of the `Box` interface:
        
@@ -174,23 +174,23 @@ shared class TuringMachineCreator(
            }"""
     shared InterfaceDefinition boxDefinition
             => interfaceDefinition {
-        name = "Box";
-        typeParameters = {
-            for (typeParameter in { "First", "Second", "Third" })
-                TypeParameter(UIdentifier(typeParameter), OutModifier())
-        };
-        annotations = annotations {
-            "Box around three types.";
-            "shared"
-        };
-        
-        for (typeParameter in { "First", "Second", "Third" })
-            ValueDeclaration {
-                name = LIdentifier(String { typeParameter.first?.lowercased else 'X', *typeParameter.rest });
-                type = baseType(typeParameter);
-                annotations = annotations { "shared", "formal" };
-            }
-    };
+                name = "Box";
+                typeParameters = {
+                    for (typeParameter in { "First", "Second", "Third" })
+                        TypeParameter(UIdentifier(typeParameter), OutModifier())
+                };
+                annotations = annotations {
+                    "Box around three types.";
+                    "shared"
+                };
+                
+                for (typeParameter in { "First", "Second", "Third" })
+                    ValueDeclaration {
+                        name = LIdentifier(String { typeParameter.first?.lowercased else 'X', *typeParameter.rest });
+                        type = baseType(typeParameter);
+                        annotations = annotations { "shared", "formal" };
+                    }
+            };
     
     """The definition of the stack interfaces:
        
@@ -218,74 +218,74 @@ shared class TuringMachineCreator(
        left and right simultaneously and independently.)"""
     shared {InterfaceDefinition*} stackDefinitions
             => expand {
-        for (side in { "Left", "Right" })
-            {
-                interfaceDefinition {
-                    name = "``side``SideStack";
-                    caseTypes = { baseType("``side``StackHead", "Symbol", "``side``SideStack"), "``side``StackEnd" };
-                    annotations = annotations { "shared" };
-                    
-                    for (type->name in { "Symbol"->"first", "``side``SideStack"->"rest" })
-                        ValueDeclaration {
-                            name = LIdentifier(name);
-                            type = baseType(type);
-                            annotations = annotations { "shared", "formal" };
-                        }
-                },
-                interfaceDefinition {
-                    name = "``side``StackHead";
-                    typeParameters = { TypeParameter(UIdentifier("Element"), OutModifier()), TypeParameter(UIdentifier("Rest"), OutModifier()) };
-                    satisfiedTypes = { "``side``SideStack" };
-                    typeConstraints = {
-                        TypeConstraint {
-                            parameterName = UIdentifier("Element");
-                            satisfiedTypes = satisfiedTypes("Symbol");
+                for (side in { "Left", "Right" })
+                    {
+                        interfaceDefinition {
+                            name = "``side``SideStack";
+                            caseTypes = { baseType("``side``StackHead", "Symbol", "``side``SideStack"), "``side``StackEnd" };
+                            annotations = annotations { "shared" };
+                            
+                            for (type->name in { "Symbol"->"first", "``side``SideStack"->"rest" })
+                                ValueDeclaration {
+                                    name = LIdentifier(name);
+                                    type = baseType(type);
+                                    annotations = annotations { "shared", "formal" };
+                                }
                         },
-                        TypeConstraint {
-                            parameterName = UIdentifier("Rest");
-                            satisfiedTypes = satisfiedTypes("``side``SideStack");
+                        interfaceDefinition {
+                            name = "``side``StackHead";
+                            typeParameters = { TypeParameter(UIdentifier("Element"), OutModifier()), TypeParameter(UIdentifier("Rest"), OutModifier()) };
+                            satisfiedTypes = { "``side``SideStack" };
+                            typeConstraints = {
+                                TypeConstraint {
+                                    parameterName = UIdentifier("Element");
+                                    satisfiedTypes = satisfiedTypes("Symbol");
+                                },
+                                TypeConstraint {
+                                    parameterName = UIdentifier("Rest");
+                                    satisfiedTypes = satisfiedTypes("``side``SideStack");
+                                }
+                            };
+                            annotations = annotations { "shared" };
+                            
+                            for (type->name in { "Element"->"first", "Rest"->"rest" })
+                                ValueDeclaration {
+                                    name = LIdentifier(name);
+                                    type = baseType(type);
+                                    annotations = annotations { "shared", "actual", "formal" };
+                                }
+                        },
+                        interfaceDefinition {
+                            name = "``side``StackEnd"; // home of Stilbo Stackins
+                            satisfiedTypes = { "``side``SideStack" };
+                            annotations = annotations { "shared" };
+                            
+                            for (type->name in { "Nothing"->"first", "Nothing"->"rest" })
+                                ValueDeclaration {
+                                    name = LIdentifier(name);
+                                    type = baseType(type);
+                                    annotations = annotations { "shared", "actual", "formal" };
+                                }
                         }
-                    };
-                    annotations = annotations { "shared" };
-                    
-                    for (type->name in { "Element"->"first", "Rest"->"rest" })
-                        ValueDeclaration {
-                            name = LIdentifier(name);
-                            type = baseType(type);
-                            annotations = annotations { "shared", "actual", "formal" };
-                        }
-                },
-                interfaceDefinition {
-                    name = "``side``StackEnd"; // home of Stilbo Stackins
-                    satisfiedTypes = { "``side``SideStack" };
-                    annotations = annotations { "shared" };
-                    
-                    for (type->name in { "Nothing"->"first", "Nothing"->"rest" })
-                        ValueDeclaration {
-                            name = LIdentifier(name);
-                            type = baseType(type);
-                            annotations = annotations { "shared", "actual", "formal" };
-                        }
-                }
-            }
-    };
+                    }
+            };
     
     "The definition of the `Accept` alias,
      a `Box` (see [[boxDefinition]]) around all [[accepting states|acceptingStates]]
      (and any stack)."
     shared TypeAliasDefinition acceptDefinition
             => TypeAliasDefinition {
-        name = UIdentifier("Accept");
-        specifier = TypeSpecifier(baseType("Box",
-                acceptingStates_seq.longerThan(1)
-                        then UnionType([for (state in acceptingStates_seq) baseType(stateTypeName(state))])
-                        else baseType(stateTypeName(acceptingStates_seq.first)),
-                "LeftSideStack", "RightSideStack"));
-        annotations = annotations {
-            "Accepting state`` acceptingStates.longerThan(1) then "s" else "" ``";
-            "shared"
-        };
-    };
+                name = UIdentifier("Accept");
+                specifier = TypeSpecifier(baseType("Box",
+                        acceptingStates_seq.longerThan(1)
+                                then UnionType([for (state in acceptingStates_seq) baseType(stateTypeName(state))])
+                                else baseType(stateTypeName(acceptingStates_seq.first)),
+                        "LeftSideStack", "RightSideStack"));
+                annotations = annotations {
+                    "Accepting state`` acceptingStates.longerThan(1) then "s" else "" ``";
+                    "shared"
+                };
+            };
     
     """The definition of the `b` function
        that can be used to build a stack:
@@ -298,25 +298,25 @@ shared class TuringMachineCreator(
            }    """
     shared FunctionDefinition buildFunctionDefinition
             => functionDefinition {
-        name = "b";
-        type = baseType("RightStackHead", "First", "Rest");
-        typeParameters = { "First", "Rest" };
-        parameters = { for (type->name in { "First"->"first", "Rest"->"rest" }) ValueParameter(baseType(type), LIdentifier(name)) };
-        typeConstraints = {
-            TypeConstraint {
-                parameterName = UIdentifier("First");
-                satisfiedTypes = satisfiedTypes("Symbol");
-            },
-            TypeConstraint {
-                parameterName = UIdentifier("Rest");
-                caseTypes = caseTypes(baseType("RightStackHead", "Symbol", "RightSideStack"), baseType("RightStackEnd"));
-                satisfiedTypes = satisfiedTypes("RightSideStack");
-            }
-        };
-        annotations = annotations { "shared" };
-        
-        Return(baseExpression("nothing"))
-    };
+                name = "b";
+                type = baseType("RightStackHead", "First", "Rest");
+                typeParameters = { "First", "Rest" };
+                parameters = { for (type->name in { "First"->"first", "Rest"->"rest" }) ValueParameter(baseType(type), LIdentifier(name)) };
+                typeConstraints = {
+                    TypeConstraint {
+                        parameterName = UIdentifier("First");
+                        satisfiedTypes = satisfiedTypes("Symbol");
+                    },
+                    TypeConstraint {
+                        parameterName = UIdentifier("Rest");
+                        caseTypes = caseTypes(baseType("RightStackHead", "Symbol", "RightSideStack"), baseType("RightStackEnd"));
+                        satisfiedTypes = satisfiedTypes("RightSideStack");
+                    }
+                };
+                annotations = annotations { "shared" };
+                
+                Return(baseExpression("nothing"))
+            };
     
     """The definition of the `e` function
        that can be used to obtain an empty stack:
@@ -326,12 +326,12 @@ shared class TuringMachineCreator(
            }"""
     shared FunctionDefinition endFunctionDefinition
             => functionDefinition {
-        name = "e";
-        type = baseType("RightStackEnd");
-        annotations = annotations { "shared" };
-        
-        Return(baseExpression("nothing"))
-    };
+                name = "e";
+                type = baseType("RightStackEnd");
+                annotations = annotations { "shared" };
+                
+                Return(baseExpression("nothing"))
+            };
     
     """The definition of the `initial` function
        that can be used to turn an initial stack
@@ -343,20 +343,20 @@ shared class TuringMachineCreator(
            }"""
     shared FunctionDefinition initialFunctionDefinition
             => functionDefinition {
-        name = "initial";
-        type = baseType("Box", stateTypeName(initialState), "LeftStackEnd", "Input");
-        typeParameters = { "Input" };
-        parameters = { ValueParameter(baseType("Input"), LIdentifier("input")) };
-        typeConstraints = {
-            TypeConstraint {
-                parameterName = UIdentifier("Input");
-                satisfiedTypes = satisfiedTypes("RightSideStack");
-            }
-        };
-        annotations = annotations { "shared" };
-        
-        Return(baseExpression("nothing"))
-    };
+                name = "initial";
+                type = baseType("Box", stateTypeName(initialState), "LeftStackEnd", "Input");
+                typeParameters = { "Input" };
+                parameters = { ValueParameter(baseType("Input"), LIdentifier("input")) };
+                typeConstraints = {
+                    TypeConstraint {
+                        parameterName = UIdentifier("Input");
+                        satisfiedTypes = satisfiedTypes("RightSideStack");
+                    }
+                };
+                annotations = annotations { "shared" };
+                
+                Return(baseExpression("nothing"))
+            };
     
     throws (`class IllegalStateException`,
         "If the [[transition]] function attempts to transition to an illegal state.")

@@ -17,7 +17,7 @@ shared class FailClause(block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFailClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FailClause that) {
             return block == that.block;

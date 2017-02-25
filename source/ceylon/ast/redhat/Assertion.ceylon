@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Assertion|JAssertion]] to a `ceylon.ast` [[Assertion]]."
-shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode,Node) update = noop) {
+shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode, Node) update = noop) {
     StringLiteral|StringTemplate? message;
     if (exists jAnnotations = assertion.annotationList) {
         "Assertion cannot have regular annotations"
@@ -41,7 +41,7 @@ shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode,Node) up
 "Parses the given [[code]] for an Assertion
  into an [[Assertion]] using the Ceylon compiler
  (more specifically, the rule for an `assertion`)."
-shared Assertion? parseAssertion(String code, Anything(JNode,Node) update = noop) {
+shared Assertion? parseAssertion(String code, Anything(JNode, Node) update = noop) {
     if (exists jAssertion = createParser(code).assertion()) {
         return assertionToCeylon(jAssertion, update);
     } else {

@@ -34,7 +34,7 @@ shared class ModuleImport(name, version, annotations = Annotations(), repository
     
     shared actual void visit(Visitor visitor)
             => visitor.visitModuleImport(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ModuleImport that) {
             if (exists repositoryType) {
@@ -48,7 +48,7 @@ shared class ModuleImport(name, version, annotations = Annotations(), repository
             } else if (that.repositoryType exists) {
                 return false;
             }
-            return name == that.name && version == that.version && annotations == that.annotations;
+            return name==that.name && version==that.version && annotations==that.annotations;
         } else {
             return false;
         }

@@ -20,12 +20,12 @@ shared object argumentList satisfies ConcreteTest<ArgumentList,JSequencedArgumen
     String->ArgumentList construct(<String->Expression>[] listedArguments = [], <String->SpreadArgument|Comprehension>? sequenceArgument = null) {
         if (exists sequenceArgument) {
             if (nonempty listedArguments) {
-                return "``",".join(listedArguments.collect(Entry<String,Expression>.key))``,``sequenceArgument.key``"->ArgumentList(listedArguments.collect(Entry<String,Expression>.item), sequenceArgument.item);
+                return "``",".join(listedArguments.collect(Entry<String,Expression>.key))``,``sequenceArgument.key``" -> ArgumentList(listedArguments.collect(Entry<String,Expression>.item), sequenceArgument.item);
             } else {
-                return sequenceArgument.key->ArgumentList([], sequenceArgument.item);
+                return sequenceArgument.key -> ArgumentList([], sequenceArgument.item);
             }
         } else {
-            return "``",".join(listedArguments.collect(Entry<String,Expression>.key))``"->ArgumentList(listedArguments.collect(Entry<String,Expression>.item));
+            return "``",".join(listedArguments.collect(Entry<String,Expression>.key))``" -> ArgumentList(listedArguments.collect(Entry<String,Expression>.item));
         }
     }
     

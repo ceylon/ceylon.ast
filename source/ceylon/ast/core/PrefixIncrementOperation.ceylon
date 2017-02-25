@@ -12,7 +12,7 @@ shared class PrefixIncrementOperation(operand)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitPrefixIncrementOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is PrefixIncrementOperation that) {
             return operand == that.operand;

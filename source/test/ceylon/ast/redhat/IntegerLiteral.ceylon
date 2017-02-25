@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object integerLiteral satisfies ConcreteTest<IntegerLiteral,JNaturalLiteral> {
     
     String->IntegerLiteral construct(String text)
-            => text->IntegerLiteral(text);
+            => text -> IntegerLiteral(text);
     
     shared String->IntegerLiteral _1138IntegerLiteral = construct("1138");
     /*

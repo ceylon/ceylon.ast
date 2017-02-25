@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypeLiteral|JTypeLiteral]] to a `ceylon.ast` [[TypeDec]]."
-shared TypeDec typeDecToCeylon(JTypeLiteral typeDec, Anything(JNode,Node) update = noop) {
+shared TypeDec typeDecToCeylon(JTypeLiteral typeDec, Anything(JNode, Node) update = noop) {
     "Must be a Dec, not a Meta"
     assert (is JClassLiteral|JInterfaceLiteral|JAliasLiteral|JTypeParameterLiteral typeDec);
     switch (typeDec)
@@ -27,7 +27,7 @@ shared TypeDec typeDecToCeylon(JTypeLiteral typeDec, Anything(JNode,Node) update
 "Parses the given [[code]] for a Type Dec
  into a [[TypeDec]] using the Ceylon compiler
  (more specifically, the rule for a `metaLiteral`)."
-shared TypeDec? parseTypeDec(String code, Anything(JNode,Node) update = noop) {
+shared TypeDec? parseTypeDec(String code, Anything(JNode, Node) update = noop) {
     if (is JTypeLiteral jMetaLiteral = createParser(code).metaLiteral()) {
         return typeDecToCeylon(jMetaLiteral, update);
     } else {

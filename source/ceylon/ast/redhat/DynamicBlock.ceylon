@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[DynamicStatement|JDynamicStatement]] to a `ceylon.ast` [[DynamicBlock]]."
-shared DynamicBlock dynamicBlockToCeylon(JDynamicStatement dynamicBlock, Anything(JNode,Node) update = noop) {
+shared DynamicBlock dynamicBlockToCeylon(JDynamicStatement dynamicBlock, Anything(JNode, Node) update = noop) {
     value result = DynamicBlock(blockToCeylon(dynamicBlock.dynamicClause.block, update));
     update(dynamicBlock, result);
     return result;
@@ -23,7 +23,7 @@ shared DynamicBlock dynamicBlockToCeylon(JDynamicStatement dynamicBlock, Anythin
  an unwrapped `DynamicClause`; the real RedHat AST node corresponding
  to `ceylon.ast`’s [[DynamicBlock]] is [[DynamicStatement|JDynamicStatement]]."
 see (`function dynamicBlockToCeylon`)
-shared DynamicBlock dynamicClauseToCeylon(JDynamicClause dynamicClause, Anything(JNode,Node) update = noop) {
+shared DynamicBlock dynamicClauseToCeylon(JDynamicClause dynamicClause, Anything(JNode, Node) update = noop) {
     value result = DynamicBlock(blockToCeylon(dynamicClause.block, update));
     update(dynamicClause, result);
     return result;
@@ -32,7 +32,7 @@ shared DynamicBlock dynamicClauseToCeylon(JDynamicClause dynamicClause, Anything
 "Parses the given [[code]] for a Dynamic Block
  into a [[DynamicBlock]] using the Ceylon compiler
  (more specifically, the rule for a `dynamicBlock`)."
-shared DynamicBlock? parseDynamicBlock(String code, Anything(JNode,Node) update = noop) {
+shared DynamicBlock? parseDynamicBlock(String code, Anything(JNode, Node) update = noop) {
     if (exists jDynamic = createParser(code).\idynamic()) {
         return dynamicBlockToCeylon(jDynamic, update);
     } else {

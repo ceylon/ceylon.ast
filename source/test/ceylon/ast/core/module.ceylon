@@ -7,6 +7,5 @@ module test.ceylon.ast.core "1.3.2-SNAPSHOT" {
     import ceylon.ast.samples "1.3.2-SNAPSHOT";
     
     // for CeylonExpressionTransformer test
-    native ("jvm")
-    import ceylon.file "1.3.2-SNAPSHOT";
+    native ("jvm") import ceylon.file "1.3.2-SNAPSHOT";
 }

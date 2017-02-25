@@ -16,14 +16,14 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object givenDec satisfies ConcreteTest<GivenDec,JTypeParameterLiteral> {
     
-    String->GivenDec construct(String->UIdentifier name, String->DecQualifier qualifier = ""->DecQualifier()) {
+    String->GivenDec construct(String->UIdentifier name, String->DecQualifier qualifier = "" -> DecQualifier()) {
         String qualification;
         if (qualifier.item.children nonempty) {
             qualification = qualifier.key + ".";
         } else {
             qualification = "";
         }
-        return "` given ``qualification````name.key`` `"->GivenDec(name.item, qualifier.item);
+        return "` given ``qualification````name.key`` `" -> GivenDec(name.item, qualifier.item);
     }
     
     shared String->GivenDec keyGivenDec = construct(identifier.keyUIdentifier);

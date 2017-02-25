@@ -15,7 +15,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TypeAliasDeclaration|JTypeAliasDeclaration]] to a `ceylon.ast` [[TypeAliasDefinition]]."
-shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typeAliasDefinition, Anything(JNode,Node) update = noop) {
+shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typeAliasDefinition, Anything(JNode, Node) update = noop) {
     TypeParameters? typeParameters;
     if (exists jTypeParameterList = typeAliasDefinition.typeParameterList) {
         typeParameters = typeParametersToCeylon(jTypeParameterList, update);
@@ -42,7 +42,7 @@ shared TypeAliasDefinition typeAliasDefinitionToCeylon(JTypeAliasDeclaration typ
 "Parses the given [[code]] for a Type Alias Definition
  into a [[TypeAliasDefinition]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared TypeAliasDefinition? parseTypeAliasDefinition(String code, Anything(JNode,Node) update = noop) {
+shared TypeAliasDefinition? parseTypeAliasDefinition(String code, Anything(JNode, Node) update = noop) {
     if (is JTypeAliasDeclaration jTypeAliasDefinition = createParser(code).declaration()) {
         return typeAliasDefinitionToCeylon(jTypeAliasDefinition, update);
     } else {

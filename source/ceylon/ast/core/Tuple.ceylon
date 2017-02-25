@@ -18,7 +18,7 @@ shared class Tuple(argumentList)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTuple(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is Tuple that) {
             return argumentList == that.argumentList;

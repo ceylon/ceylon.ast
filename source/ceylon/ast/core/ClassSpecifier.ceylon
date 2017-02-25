@@ -19,7 +19,7 @@ shared class ClassSpecifier(target)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitClassSpecifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ClassSpecifier that) {
             return target == that.target;

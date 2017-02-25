@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AnyAttribute|JAnyAttribute]] to a `ceylon.ast` [[AnyValue]]."
-shared AnyValue anyValueToCeylon(JAnyAttribute anyValue, Anything(JNode,Node) update = noop) {
+shared AnyValue anyValueToCeylon(JAnyAttribute anyValue, Anything(JNode, Node) update = noop) {
     assert (is JAttributeDeclaration|JAttributeGetterDefinition anyValue);
     switch (anyValue)
     case (is JAttributeDeclaration) {
@@ -30,7 +30,7 @@ shared AnyValue anyValueToCeylon(JAnyAttribute anyValue, Anything(JNode,Node) up
 "Parses the given [[code]] for Any Value
  into an [[AnyValue]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared AnyValue? parseAnyValue(String code, Anything(JNode,Node) update = noop) {
+shared AnyValue? parseAnyValue(String code, Anything(JNode, Node) update = noop) {
     if (is JAnyAttribute jDeclaration = createParser(code).declaration()) {
         return anyValueToCeylon(jDeclaration, update);
     } else {

@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object entryOperation satisfies ConcreteTest<EntryOperation,JEntryOp> {
     
     String->EntryOperation construct(String->AddingExpression left, String->AddingExpression right)
-            => "``left.key``->``right.key``"->EntryOperation(left.item, right.item);
+            => "``left.key``->``right.key``" -> EntryOperation(left.item, right.item);
     
     shared String->EntryOperation cCharToCStringExpression = construct(characterLiteral.capitalCCharacterLiteral, stringLiteral.capitalCStringLiteral);
     

@@ -16,7 +16,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[LetExpression|JLetExpression]] to a `ceylon.ast` [[LetExpression]]."
-shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anything(JNode,Node) update = noop) {
+shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anything(JNode, Node) update = noop) {
     value letClause = letExpression.letClause;
     value letValues = CeylonIterable(letClause.variables).collect(propagateUpdate(specifiedPatternToCeylon, update));
     "Must have at least one `let` value"
@@ -33,7 +33,7 @@ shared LetExpression letExpressionToCeylon(JLetExpression letExpression, Anythin
 "Parses the given [[code]] for a Let Expression
  into a [[LetExpression]] using the Ceylon compiler
  (more specifically, the rule for a `let`)."
-shared LetExpression? parseLetExpression(String code, Anything(JNode,Node) update = noop) {
+shared LetExpression? parseLetExpression(String code, Anything(JNode, Node) update = noop) {
     if (exists jLet = createParser(code).\ilet()) {
         return letExpressionToCeylon(jLet, update);
     } else {

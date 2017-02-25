@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ElementRange|JElementRange]] to a `ceylon.ast` [[RangeSubscript]]."
-shared RangeSubscript rangeSubscriptToCeylon(JElementRange rangeSubscript, Anything(JNode,Node) update = noop) {
+shared RangeSubscript rangeSubscriptToCeylon(JElementRange rangeSubscript, Anything(JNode, Node) update = noop) {
     // the missing existence and non-existence assertions are done in the individual toCeylon functions
     RangeSubscript result;
     if (rangeSubscript.lowerBound exists) {
@@ -31,7 +31,7 @@ shared RangeSubscript rangeSubscriptToCeylon(JElementRange rangeSubscript, Anyth
 "Parses the given [[code]] for a Range Subscript
  into a [[RangeSubscript]] using the Ceylon compiler
  (more specifically, the rule for an `indexOrIndexRange`)."
-shared RangeSubscript? parseRangeSubscript(String code, Anything(JNode,Node) update = noop) {
+shared RangeSubscript? parseRangeSubscript(String code, Anything(JNode, Node) update = noop) {
     if (is JElementRange jElementOrRange = createParser("[``code``]").indexOrIndexRange().elementOrRange) {
         return rangeSubscriptToCeylon(jElementOrRange, update);
     } else {

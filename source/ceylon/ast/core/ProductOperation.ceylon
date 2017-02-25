@@ -25,17 +25,17 @@ shared class ProductOperation(leftFactor, rightFactor)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitProductOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ProductOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared ProductOperation copy(MultiplyingExpression leftOperand = this.leftOperand, UnioningExpression rightOperand = this.rightOperand) {
         value ret = ProductOperation(leftOperand, rightOperand);

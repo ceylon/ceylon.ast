@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object positionalArguments satisfies ConcreteTest<PositionalArguments,JPositionalArgumentList> {
     
     String->PositionalArguments construct(String->ArgumentList argumentList)
-            => "(``argumentList.key``)"->PositionalArguments(argumentList.item);
+            => "(``argumentList.key``)" -> PositionalArguments(argumentList.item);
     
     shared String->PositionalArguments emptyPositionalArguments = construct(argumentList.emptyArgumentList);
     shared String->PositionalArguments abcPositionalArguments = construct(argumentList.abcArgumentList);

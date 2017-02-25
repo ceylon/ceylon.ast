@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[InitialComprehensionClause|JInitialComprehensionClause]] to a `ceylon.ast` [[InitialComprehensionClause]]."
-shared InitialComprehensionClause initialComprehensionClauseToCeylon(JInitialComprehensionClause initialComprehensionClause, Anything(JNode,Node) update = noop) {
+shared InitialComprehensionClause initialComprehensionClauseToCeylon(JInitialComprehensionClause initialComprehensionClause, Anything(JNode, Node) update = noop) {
     assert (is JForComprehensionClause|JIfComprehensionClause initialComprehensionClause);
     switch (initialComprehensionClause)
     case (is JForComprehensionClause) { return forComprehensionClauseToCeylon(initialComprehensionClause, update); }
@@ -22,7 +22,7 @@ shared InitialComprehensionClause initialComprehensionClauseToCeylon(JInitialCom
 "Parses the given [[code]] for an Initial Comprehension Clause
  into an [[InitialComprehensionClause]] using the Ceylon compiler
  (more specifically, the rule for an `initialComprehensionClause`)."
-shared InitialComprehensionClause? parseInitialComprehensionClause(String code, Anything(JNode,Node) update = noop) {
+shared InitialComprehensionClause? parseInitialComprehensionClause(String code, Anything(JNode, Node) update = noop) {
     if (is JInitialComprehensionClause jComprehensionClause = createParser(code).comprehensionClause()) {
         return initialComprehensionClauseToCeylon(jComprehensionClause, update);
     } else {

@@ -21,7 +21,7 @@ shared class SpanToSubscript(to)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpanToSubscript(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpanToSubscript that) {
             return to == that.to;

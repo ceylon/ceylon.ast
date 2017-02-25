@@ -23,17 +23,17 @@ shared class ExistsCondition(tested, negated = false)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitExistsCondition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ExistsCondition that) {
-            return tested == that.tested && negated == that.negated;
+            return tested==that.tested && negated==that.negated;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (tested.hash + 31 * negated.hash);
+            => 31 * (tested.hash + 31*negated.hash);
     
     shared ExistsCondition copy(SpecifiedPattern|MemberName tested = this.tested, Boolean negated = this.negated) {
         value ret = ExistsCondition(tested, negated);

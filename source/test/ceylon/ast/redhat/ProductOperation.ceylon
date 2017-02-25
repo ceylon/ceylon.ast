@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object productOperation satisfies ConcreteTest<ProductOperation,JProductOp> {
     
     String->ProductOperation construct(String->MultiplyingExpression left, String->UnioningExpression right)
-            => "``left.key``*``right.key``"->ProductOperation(left.item, right.item);
+            => "``left.key``*``right.key``" -> ProductOperation(left.item, right.item);
     
     shared String->ProductOperation aTimesBExpression = construct(baseExpression.aExpression, baseExpression.bExpression);
     shared String->ProductOperation intTimesFloatExpression = construct(integerLiteral._1138IntegerLiteral, floatLiteral.oPointOFortyTwoKFloatLiteral);

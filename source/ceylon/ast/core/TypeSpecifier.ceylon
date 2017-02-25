@@ -17,7 +17,7 @@ shared class TypeSpecifier(type)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitTypeSpecifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is TypeSpecifier that) {
             return type == that.type;

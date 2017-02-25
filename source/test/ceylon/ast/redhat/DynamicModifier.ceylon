@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object dynamicModifier satisfies ConcreteTest<DynamicModifier,JDynamicModifier> {
     
-    shared String->DynamicModifier dynamicModifier = "dynamic"->DynamicModifier();
+    shared String->DynamicModifier dynamicModifier = "dynamic" -> DynamicModifier();
     
     parse = parseDynamicModifier;
     fromCeylon = RedHatTransformer.transformDynamicModifier;

@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object ifComprehensionClause satisfies ConcreteTest<IfComprehensionClause,JIfComprehensionClause> {
     
     String->IfComprehensionClause construct(String->Conditions conditions, String->ComprehensionClause clause)
-            => "if ``conditions.key`` ``clause.key``"->IfComprehensionClause(conditions.item, clause.item);
+            => "if ``conditions.key`` ``clause.key``" -> IfComprehensionClause(conditions.item, clause.item);
     
     shared String->IfComprehensionClause ifTrueCommaAAndBThenIComprehensionClause = construct(conditions.trueCommaAAndBConditions, expressionComprehensionClause.iExpressionComprehensionClause);
     // TODO better tests

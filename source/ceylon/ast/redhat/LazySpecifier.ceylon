@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[LazySpecifierExpression|JLazySpecifierExpression]] to a `ceylon.ast` [[LazySpecifier]]."
-shared LazySpecifier lazySpecifierToCeylon(JLazySpecifierExpression lazySpecifier, Anything(JNode,Node) update = noop) {
+shared LazySpecifier lazySpecifierToCeylon(JLazySpecifierExpression lazySpecifier, Anything(JNode, Node) update = noop) {
     "Must be a “wrapper” Expression, not a grouping Expression"
     assert (!lazySpecifier.expression is JParExpression);
     "Must be a true lazy specifier"
@@ -30,7 +30,7 @@ shared LazySpecifier lazySpecifierToCeylon(JLazySpecifierExpression lazySpecifie
 "Parses the given [[code]] for a Lazy Specifier
  into a [[LazySpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `lazySpecifier`)."
-shared LazySpecifier? parseLazySpecifier(String code, Anything(JNode,Node) update = noop) {
+shared LazySpecifier? parseLazySpecifier(String code, Anything(JNode, Node) update = noop) {
     if (exists jLazySpecifier = createParser(code).lazySpecifier()) {
         "The grammar rule declares only SpecifierExpression, but will always return LazySpecifierExpression"
         assert (is JLazySpecifierExpression jLazySpecifier);

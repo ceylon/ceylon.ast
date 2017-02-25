@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
  
  Warning: RedHat AST’s `SpecifiedArgument` is also used for true specified arguments; this function
  does not convert those and will throw an exception instead!"
-shared AnonymousArgument anonymousArgumentToCeylon(JSpecifiedArgument anonymousArgument, Anything(JNode,Node) update = noop) {
+shared AnonymousArgument anonymousArgumentToCeylon(JSpecifiedArgument anonymousArgument, Anything(JNode, Node) update = noop) {
     "Must be anonymous"
     assert (!anonymousArgument.identifier?.mainToken exists,
         !anonymousArgument.specifierExpression.mainToken exists);
@@ -25,7 +25,7 @@ shared AnonymousArgument anonymousArgumentToCeylon(JSpecifiedArgument anonymousA
 "Parses the given [[code]] for an Anonymous Argument
  into an [[AnonymousArgument]] using the Ceylon compiler
  (more specifically, the rule for an `anonymousArgument`)."
-shared AnonymousArgument? parseAnonymousArgument(String code, Anything(JNode,Node) update = noop) {
+shared AnonymousArgument? parseAnonymousArgument(String code, Anything(JNode, Node) update = noop) {
     if (exists jAnonymousArgument = createParser(code).anonymousArgument()) {
         return anonymousArgumentToCeylon(jAnonymousArgument, update);
     } else {

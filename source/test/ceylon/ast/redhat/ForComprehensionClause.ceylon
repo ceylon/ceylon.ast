@@ -17,7 +17,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object forComprehensionClause satisfies ConcreteTest<ForComprehensionClause,JForComprehensionClause> {
     
     String->ForComprehensionClause construct(String->ForIterator iterator, String->ComprehensionClause clause)
-            => "for ``iterator.key`` ``clause.key``"->ForComprehensionClause(iterator.item, clause.item);
+            => "for ``iterator.key`` ``clause.key``" -> ForComprehensionClause(iterator.item, clause.item);
     
     shared String->ForComprehensionClause forPersonInPeopleComprehensionClause = construct(forIterator.variableIterator, ifComprehensionClause.ifTrueCommaAAndBThenIComprehensionClause);
     // TODO better tests

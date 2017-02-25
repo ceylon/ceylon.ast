@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[PowerOp|JPowerOp]] to a `ceylon.ast` [[ExponentiationOperation]]."
-shared ExponentiationOperation exponentiationOperationToCeylon(JPowerOp exponentiationExpression, Anything(JNode,Node) update = noop) {
+shared ExponentiationOperation exponentiationOperationToCeylon(JPowerOp exponentiationExpression, Anything(JNode, Node) update = noop) {
     assert (is PrePostfixingExpression left = expressionToCeylon(exponentiationExpression.leftTerm, update));
     assert (is ExponentiatingExpression right = expressionToCeylon(exponentiationExpression.rightTerm, update));
     value result = ExponentiationOperation(left, right);
@@ -23,7 +23,7 @@ shared ExponentiationOperation exponentiationOperationToCeylon(JPowerOp exponent
 "Parses the given [[code]] for an Exponentiation Operation
  into an [[ExponentiationOperation]] using the Ceylon compiler
  (more specifically, the rule for an `exponentiationExpression`)."
-shared ExponentiationOperation? parseExponentiationOperation(String code, Anything(JNode,Node) update = noop) {
+shared ExponentiationOperation? parseExponentiationOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JPowerOp jExponentiationExpression = createParser(code).exponentiationExpression()) {
         return exponentiationOperationToCeylon(jExponentiationExpression, update);
     } else {

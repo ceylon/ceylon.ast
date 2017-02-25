@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Pattern|JPattern]] to a `ceylon.ast` [[Pattern]]."
-shared Pattern patternToCeylon(JPattern pattern, Anything(JNode,Node) update = noop) {
+shared Pattern patternToCeylon(JPattern pattern, Anything(JNode, Node) update = noop) {
     assert (is JVariablePattern|JTuplePattern|JKeyValuePattern pattern);
     switch (pattern)
     case (is JVariablePattern) { return variablePatternToCeylon(pattern, update); }
@@ -24,7 +24,7 @@ shared Pattern patternToCeylon(JPattern pattern, Anything(JNode,Node) update = n
 "Parses the given [[code]] for a Pattern
  into a [[Pattern]] using the Ceylon compiler
  (more specifically, the rule for a `pattern`)."
-shared Pattern? parsePattern(String code, Anything(JNode,Node) update = noop) {
+shared Pattern? parsePattern(String code, Anything(JNode, Node) update = noop) {
     if (exists jPattern = createParser(code + ",").pattern()) {
         // the parser needs that comma for some patterns
         return patternToCeylon(jPattern, update);

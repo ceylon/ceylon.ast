@@ -28,7 +28,7 @@ shared class SpreadArgument(argument)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpreadArgument(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is SpreadArgument that) {
             return argument == that.argument;

@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object functionModifier satisfies ConcreteTest<FunctionModifier,JFunctionModifier> {
     
-    shared String->FunctionModifier functionModifier = "function"->FunctionModifier();
+    shared String->FunctionModifier functionModifier = "function" -> FunctionModifier();
     
     parse = parseFunctionModifier;
     fromCeylon = RedHatTransformer.transformFunctionModifier;

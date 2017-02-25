@@ -50,19 +50,19 @@ shared class CallableConstructorDefinition(name, parameters, block, extendedType
     
     shared actual <Annotations|LIdentifier|Parameters|ExtendedType|Block>[] children
             = concatenate(
-        [annotations],
-        emptyOrSingleton(name),
-        [parameters],
-        emptyOrSingleton(extendedType),
-        [block]
-    );
+                [annotations],
+                emptyOrSingleton(name),
+                [parameters],
+                emptyOrSingleton(extendedType),
+                [block]
+            );
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformCallableConstructorDefinition(this);
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCallableConstructorDefinition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CallableConstructorDefinition that) {
             if (exists extendedType) {
@@ -87,14 +87,14 @@ shared class CallableConstructorDefinition(name, parameters, block, extendedType
             } else if (that.name exists) {
                 return false;
             }
-            return parameters == that.parameters && block == that.block && annotations == that.annotations;
+            return parameters==that.parameters && block==that.block && annotations==that.annotations;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * ((name?.hash else 0) + 31 * (parameters.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31 * annotations.hash))));
+            => 31 * ((name?.hash else 0) + 31 * (parameters.hash + 31 * (block.hash + 31 * ((extendedType?.hash else 0) + 31*annotations.hash))));
     
     shared CallableConstructorDefinition copy(LIdentifier? name = this.name, Parameters parameters = this.parameters, Block block = this.block, ExtendedType? extendedType = this.extendedType, Annotations annotations = this.annotations) {
         value ret = CallableConstructorDefinition(name, parameters, block, extendedType, annotations);

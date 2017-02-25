@@ -31,17 +31,17 @@ shared class DivideAssignmentOperation(target, divisor)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitDivideAssignmentOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is DivideAssignmentOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared DivideAssignmentOperation copy(ThenElseExpression leftOperand = this.leftOperand, Expression rightOperand = this.rightOperand) {
         value ret = DivideAssignmentOperation(leftOperand, rightOperand);

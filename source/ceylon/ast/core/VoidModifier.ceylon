@@ -9,7 +9,7 @@ shared class VoidModifier()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitVoidModifier(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is VoidModifier;
     }

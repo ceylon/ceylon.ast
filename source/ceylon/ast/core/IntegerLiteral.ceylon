@@ -17,7 +17,7 @@ shared class IntegerLiteral(text) extends Literal(text) {
     
     shared actual void visit(Visitor visitor)
             => visitor.visitIntegerLiteral(this);
-
+    
     "Integer literals are considered equal iff their [[texts|text]] are equal.
      Two literals with the same integer values but different representations
      (grouping, magnitude, leading zeroes, and/or radix differ) are considered different."

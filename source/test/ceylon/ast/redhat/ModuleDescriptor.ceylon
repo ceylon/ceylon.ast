@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object moduleDescriptor satisfies ConcreteTest<ModuleDescriptor,JModuleDescriptor> {
     
     String->ModuleDescriptor construct(String->FullPackageName name, String->StringLiteral version, String->ModuleBody body = moduleBody.emptyModuleBody, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` module ``name.key````version.key````body.key``"->ModuleDescriptor(name.item, version.item, body.item, annotations.item);
+            => "``annotations.key`` module ``name.key````version.key````body.key``" -> ModuleDescriptor(name.item, version.item, body.item, annotations.item);
     
     shared String->ModuleDescriptor ceylonAstCoreEmptyModuleDescriptor = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral);
     

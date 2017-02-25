@@ -28,7 +28,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
    
    are instead parsed as [[AttributeArguments|Tree.AttributeArgument]] / [[FunctionArguments|Tree.FunctionArgument]]
    with a synthetic ‘`function`’ / ‘`value`’ modifier (`null` token)."""
-shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument, Anything(JNode,Node) update = noop) {
+shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgument, Anything(JNode, Node) update = noop) {
     SpecifiedArgument result;
     if (is JSpecifiedArgument specifiedArgument) {
         value valueSpecification = ValueSpecification(lIdentifierToCeylon(specifiedArgument.identifier, update), specifierToCeylon(specifiedArgument.specifierExpression, update));
@@ -66,7 +66,7 @@ shared SpecifiedArgument specifiedArgumentToCeylon(JNamedArgument specifiedArgum
 "Parses the given [[code]] for a Specified Argument
  into a [[SpecifiedArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgument`)."
-shared SpecifiedArgument? parseSpecifiedArgument(String code, Anything(JNode,Node) update = noop) {
+shared SpecifiedArgument? parseSpecifiedArgument(String code, Anything(JNode, Node) update = noop) {
     if (exists jNamedArgument = createParser(code).namedArgument()) {
         try {
             return specifiedArgumentToCeylon(jNamedArgument, update);

@@ -23,7 +23,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[FunctionalParameterDeclaration|JFunctionalParameterDeclaration]] to a `ceylon.ast` [[CallableParameter]]."
-shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclaration callableParameter, Anything(JNode,Node) update = noop) {
+shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclaration callableParameter, Anything(JNode, Node) update = noop) {
     assert (is JMethodDeclaration dec = callableParameter.typedDeclaration);
     assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = dec.type);
     Type|VoidModifier|FunctionModifier|DynamicModifier type;
@@ -48,7 +48,7 @@ shared CallableParameter callableParameterToCeylon(JFunctionalParameterDeclarati
 "Parses the given [[code]] for a Callable Parameter
  into a [[CallableParameter]] using the Ceylon compiler
  (more specifically, the rule for a `parameter`)."
-shared CallableParameter? parseCallableParameter(String code, Anything(JNode,Node) update = noop) {
+shared CallableParameter? parseCallableParameter(String code, Anything(JNode, Node) update = noop) {
     if (is JFunctionalParameterDeclaration jParameter = createParser(code).parameterDeclarationOrRef()) {
         return callableParameterToCeylon(jParameter, update);
     } else {

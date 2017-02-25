@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[UnionAssignOp|JUnionAssignOp]] to a `ceylon.ast` [[UnionAssignmentOperation]]."
-shared UnionAssignmentOperation unionAssignmentOperationToCeylon(JUnionAssignOp unionAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared UnionAssignmentOperation unionAssignmentOperationToCeylon(JUnionAssignOp unionAssignmentOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ThenElseExpression left = expressionToCeylon(unionAssignmentOperation.leftTerm, update));
     value right = expressionToCeylon(unionAssignmentOperation.rightTerm, update);
@@ -23,7 +23,7 @@ shared UnionAssignmentOperation unionAssignmentOperationToCeylon(JUnionAssignOp 
 "Parses the given [[code]] for an Union Assignment Operation
  into an [[UnionAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared UnionAssignmentOperation? parseUnionAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared UnionAssignmentOperation? parseUnionAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JUnionAssignOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return unionAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

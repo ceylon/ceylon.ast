@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[Body|JBody]] to a `ceylon.ast` [[Body]]."
-shared Body bodyToCeylon(JBody body, Anything(JNode,Node) update = noop) {
+shared Body bodyToCeylon(JBody body, Anything(JNode, Node) update = noop) {
     assert (is JBlock|JClassBody|JInterfaceBody body);
     switch (body)
     case (is JBlock) { return blockToCeylon(body, update); }

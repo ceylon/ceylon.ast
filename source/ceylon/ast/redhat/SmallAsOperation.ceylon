@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[SmallAsOp|JSmallAsOp]] to a `ceylon.ast` [[SmallAsOperation]]."
-shared SmallAsOperation smallAsOperationToCeylon(JSmallAsOp smallAsOperation, Anything(JNode,Node) update = noop) {
+shared SmallAsOperation smallAsOperationToCeylon(JSmallAsOp smallAsOperation, Anything(JNode, Node) update = noop) {
     "Check precedence"
     assert (is ExistsNonemptyExpression left = expressionToCeylon(smallAsOperation.leftTerm, update),
         is ExistsNonemptyExpression right = expressionToCeylon(smallAsOperation.rightTerm, update));
@@ -23,7 +23,7 @@ shared SmallAsOperation smallAsOperationToCeylon(JSmallAsOp smallAsOperation, An
 "Parses the given [[code]] for a Small As Operation
  into a [[SmallAsOperation]] using the Ceylon compiler
  (more specifically, the rule for a `comparisonExpression`)."
-shared SmallAsOperation? parseSmallAsOperation(String code, Anything(JNode,Node) update = noop) {
+shared SmallAsOperation? parseSmallAsOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JSmallAsOp jComparisonExpression = createParser(code).comparisonExpression()) {
         return smallAsOperationToCeylon(jComparisonExpression, update);
     } else {

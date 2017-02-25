@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[AttributeDeclaration|JAttributeDeclaration]] to a `ceylon.ast` [[ValueDeclaration]]."
-shared ValueDeclaration valueDeclarationToCeylon(JAttributeDeclaration valueDeclaration, Anything(JNode,Node) update = noop) {
+shared ValueDeclaration valueDeclarationToCeylon(JAttributeDeclaration valueDeclaration, Anything(JNode, Node) update = noop) {
     "Must not have a specification"
     assert (!valueDeclaration.specifierOrInitializerExpression exists);
     assert (is JStaticType|JSequencedType|JDynamicModifier jType = valueDeclaration.type);
@@ -33,7 +33,7 @@ shared ValueDeclaration valueDeclarationToCeylon(JAttributeDeclaration valueDecl
 "Parses the given [[code]] for a Value Declaration
  into an [[ValueDeclaration]] using the Ceylon compiler
  (more specifically, the rule for a `declaration`)."
-shared ValueDeclaration? parseValueDeclaration(String code, Anything(JNode,Node) update = noop) {
+shared ValueDeclaration? parseValueDeclaration(String code, Anything(JNode, Node) update = noop) {
     if (is JAttributeDeclaration jDeclaration = createParser(code).declaration(),
         !jDeclaration.specifierOrInitializerExpression exists) {
         return valueDeclarationToCeylon(jDeclaration, update);

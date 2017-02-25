@@ -11,7 +11,7 @@ shared class ImportWildcard()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitImportWildcard(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is ImportWildcard;
     }

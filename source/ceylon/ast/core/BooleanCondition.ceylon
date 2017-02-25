@@ -19,7 +19,7 @@ shared class BooleanCondition(condition)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitBooleanCondition(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is BooleanCondition that) {
             return condition == that.condition;

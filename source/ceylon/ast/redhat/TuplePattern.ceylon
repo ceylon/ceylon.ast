@@ -19,7 +19,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TuplePattern|JTuplePattern]] to a `ceylon.ast` [[TuplePattern]]."
-shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JNode,Node) update = noop) {
+shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JNode, Node) update = noop) {
     value patterns = CeylonIterable(tuplePattern.patterns).sequence();
     "Empty tuple pattern not allowed"
     assert (exists lastPattern = patterns.last);
@@ -52,7 +52,7 @@ shared TuplePattern tuplePatternToCeylon(JTuplePattern tuplePattern, Anything(JN
 "Parses the given [[code]] for a Tuple Pattern
  into a [[TuplePattern]] using the Ceylon compiler
  (more specifically, the rule for a `tuplePattern`)."
-shared TuplePattern? parseTuplePattern(String code, Anything(JNode,Node) update = noop) {
+shared TuplePattern? parseTuplePattern(String code, Anything(JNode, Node) update = noop) {
     if (exists jTuplePattern = createParser(code).tuplePattern()) {
         return tuplePatternToCeylon(jTuplePattern, update);
     } else {

@@ -29,7 +29,7 @@ shared class KeySubscript(key)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitKeySubscript(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is KeySubscript that) {
             return key == that.key;

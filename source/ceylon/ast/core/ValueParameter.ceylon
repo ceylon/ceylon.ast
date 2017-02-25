@@ -24,17 +24,17 @@ shared class ValueParameter(type, name, annotations = Annotations())
     
     shared actual void visit(Visitor visitor)
             => visitor.visitValueParameter(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ValueParameter that) {
-            return annotations == that.annotations && type == that.type && name == that.name;
+            return annotations==that.annotations && type==that.type && name==that.name;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (annotations.hash + 31 * (type.hash + 31 * name.hash));
+            => 31 * (annotations.hash + 31 * (type.hash + 31*name.hash));
     
     shared ValueParameter copy(Type|DynamicModifier type = this.type, LIdentifier name = this.name, Annotations annotations = this.annotations) {
         value ret = ValueParameter(type, name, annotations);

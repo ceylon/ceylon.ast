@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object moduleDec satisfies ConcreteTest<ModuleDec,JModuleLiteral> {
     
     String->ModuleDec construct(<String->FullPackageName>? moduleName)
-            => "`module `` moduleName?.key else "" ```"->ModuleDec(moduleName?.item);
+            => "`module `` moduleName?.key else "" ```" -> ModuleDec(moduleName?.item);
     
     shared String->ModuleDec ceylonAstCoreModuleDec = construct(fullPackageName.ceylonAstCorePackageName);
     shared String->ModuleDec currentModuleDec = construct(null);

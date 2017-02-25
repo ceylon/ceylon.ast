@@ -18,7 +18,7 @@ shared class SpreadMemberOperator()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitSpreadMemberOperator(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is SpreadMemberOperator;
     }

@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TypeConstraint|JTypeConstraint]] to a `ceylon.ast` [[TypeConstraint]]."
-shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint, Anything(JNode,Node) update = noop) {
+shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint, Anything(JNode, Node) update = noop) {
     "Lower bound type constraint not supported"
     assert (!typeConstraint.abstractedType exists);
     CaseTypes? caseTypes;
@@ -39,7 +39,7 @@ shared TypeConstraint typeConstraintToCeylon(JTypeConstraint typeConstraint, Any
 "Parses the given [[code]] for a Type Constraint
  into a [[TypeConstraint]] using the Ceylon compiler
  (more specifically, the rule for a `typeConstraint`)."
-shared TypeConstraint? parseTypeConstraint(String code, Anything(JNode,Node) update = noop) {
+shared TypeConstraint? parseTypeConstraint(String code, Anything(JNode, Node) update = noop) {
     if (exists jTypeConstraint = createParser(code).typeConstraint(),
         !jTypeConstraint.abstractedType exists) {
         return typeConstraintToCeylon(jTypeConstraint, update);

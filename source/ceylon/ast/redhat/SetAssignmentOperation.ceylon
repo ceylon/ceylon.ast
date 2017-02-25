@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[BitwiseAssignmentOp|JBitwiseAssignmentOp]] to a `ceylon.ast` [[SetAssignmentOperation]]."
-shared SetAssignmentOperation setAssignmentOperationToCeylon(JBitwiseAssignmentOp setAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared SetAssignmentOperation setAssignmentOperationToCeylon(JBitwiseAssignmentOp setAssignmentOperation, Anything(JNode, Node) update = noop) {
     assert (is JIntersectAssignOp|JUnionAssignOp|JComplementAssignOp setAssignmentOperation);
     switch (setAssignmentOperation)
     case (is JIntersectAssignOp) { return intersectAssignmentOperationToCeylon(setAssignmentOperation, update); }
@@ -24,7 +24,7 @@ shared SetAssignmentOperation setAssignmentOperationToCeylon(JBitwiseAssignmentO
 "Parses the given [[code]] for a Set Assignment Operation
  into a [[SetAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared SetAssignmentOperation? parseSetAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared SetAssignmentOperation? parseSetAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JBitwiseAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return setAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

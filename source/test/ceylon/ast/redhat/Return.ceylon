@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object \ireturn satisfies ConcreteTest<Return,JReturn> {
     
     String->Return construct(<String->Expression>? result = null)
-            => "return `` result?.key else "" ``;"->Return(result?.item);
+            => "return `` result?.key else "" ``;" -> Return(result?.item);
     
     shared String->Return \ireturn = construct();
     shared String->Return returnHelloNameElseWorld = construct(stringTemplate.helloNameElseWorldStringTemplate);

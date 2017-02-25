@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object isCondition satisfies ConcreteTest<IsCondition,JIsCondition> {
     
     String->IsCondition construct(String->LIdentifier name, String->Type type, <String->Specifier>? specifier = null, Boolean negated = false)
-            => "`` negated then "!" else "" ``is ``type.key`` ``name.key`` `` specifier?.key else "" ``"->IsCondition(TypedVariable(name.item, type.item, specifier?.item), negated);
+            => "`` negated then "!" else "" ``is ``type.key`` ``name.key`` `` specifier?.key else "" ``" -> IsCondition(TypedVariable(name.item, type.item, specifier?.item), negated);
     
     shared String->IsCondition isStringNameCondition = construct(identifier.nameLIdentifier, baseType.stringType);
     "    is {Character*} characters = name else \"World\""

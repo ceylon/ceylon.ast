@@ -13,7 +13,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[ImportPath|JImportPath]] to a `ceylon.ast` [[FullPackageName]]."
-shared FullPackageName fullPackageNameToCeylon(JImportPath fullPackageName, Anything(JNode,Node) update = noop) {
+shared FullPackageName fullPackageNameToCeylon(JImportPath fullPackageName, Anything(JNode, Node) update = noop) {
     assert (nonempty components = CeylonIterable(fullPackageName.identifiers).collect(propagateUpdate(pIdentifierToCeylon, update)));
     value result = FullPackageName(components);
     update(fullPackageName, result);
@@ -23,7 +23,7 @@ shared FullPackageName fullPackageNameToCeylon(JImportPath fullPackageName, Anyt
 "Parses the given [[code]] for a Full Package Name
  into a [[FullPackageName]] using the Ceylon compiler
  (more specifically, the rule for a `fullPackageName`)."
-shared FullPackageName? parseFullPackageName(String code, Anything(JNode,Node) update = noop) {
+shared FullPackageName? parseFullPackageName(String code, Anything(JNode, Node) update = noop) {
     if (exists jPackagePath = createParser(code + "\"\"").packagePath()) {
         return fullPackageNameToCeylon(jPackagePath, update);
     } else {

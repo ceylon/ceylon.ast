@@ -26,17 +26,17 @@ shared class QuotientOperation(dividend, divisor)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitQuotientOperation(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is QuotientOperation that) {
-            return leftOperand == that.leftOperand && rightOperand == that.rightOperand;
+            return leftOperand==that.leftOperand && rightOperand==that.rightOperand;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (leftOperand.hash + 31 * rightOperand.hash);
+            => 31 * (leftOperand.hash + 31*rightOperand.hash);
     
     shared QuotientOperation copy(MultiplyingExpression leftOperand = this.leftOperand, UnioningExpression rightOperand = this.rightOperand) {
         value ret = QuotientOperation(leftOperand, rightOperand);

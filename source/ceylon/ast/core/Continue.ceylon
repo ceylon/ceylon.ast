@@ -14,7 +14,7 @@ shared class Continue()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitContinue(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is Continue;
     }

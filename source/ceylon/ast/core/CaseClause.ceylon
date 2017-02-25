@@ -26,17 +26,17 @@ shared class CaseClause(caseItem, block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitCaseClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is CaseClause that) {
-            return caseItem == that.caseItem && block == that.block;
+            return caseItem==that.caseItem && block==that.block;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (caseItem.hash + 31 * block.hash);
+            => 31 * (caseItem.hash + 31*block.hash);
     
     shared CaseClause copy(CaseItem caseItem = this.caseItem, Block block = this.block) {
         value ret = CaseClause(caseItem, block);

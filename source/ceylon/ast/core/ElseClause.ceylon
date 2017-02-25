@@ -24,7 +24,7 @@ shared class ElseClause(child)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitElseClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is ElseClause that) {
             return child == that.child;

@@ -17,7 +17,7 @@ import ceylon.interop.java {
 }
 
 "Converts a RedHat AST [[TupleType|JTupleType]] to a `ceylon.ast` [[TupleType]]."
-shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) update = noop) {
+shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode, Node) update = noop) {
     variable VariadicType? variadicType = null;
     <Type|DefaultedType>[] elementTypes = CeylonIterable(tupleType.elementTypes).collect((Tree.Type jtype) {
             value typeIsh = typeIshToCeylon(jtype, update);
@@ -46,7 +46,7 @@ shared TupleType tupleTypeToCeylon(JTupleType tupleType, Anything(JNode,Node) up
 "Parses the given [[code]] for a Tuple Type
  into a [[TupleType]] using the Ceylon compiler
  (more specifically, the rule for a `tupleType`)."
-shared TupleType? parseTupleType(String code, Anything(JNode,Node) update = noop) {
+shared TupleType? parseTupleType(String code, Anything(JNode, Node) update = noop) {
     if (exists jTupleType = createParser(code).tupleType()) {
         return tupleTypeToCeylon(jTupleType, update);
     } else {

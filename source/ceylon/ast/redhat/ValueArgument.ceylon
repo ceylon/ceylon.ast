@@ -20,7 +20,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 }
 
 "Converts a RedHat AST [[AttributeArgument|JAttributeArgument]] to a `ceylon.ast` [[ValueArgument]]."
-shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Anything(JNode,Node) update = noop) {
+shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Anything(JNode, Node) update = noop) {
     value result = ValueArgument {
         name = lIdentifierToCeylon(valueArgument.identifier, update);
         value type {
@@ -64,7 +64,7 @@ shared ValueArgument valueArgumentToCeylon(JAttributeArgument valueArgument, Any
 "Parses the given [[code]] for a Value Argument
  into a [[ValueArgument]] using the Ceylon compiler
  (more specifically, the rule for a `namedArgumentDeclaration`)."
-shared ValueArgument? parseValueArgument(String code, Anything(JNode,Node) update = noop) {
+shared ValueArgument? parseValueArgument(String code, Anything(JNode, Node) update = noop) {
     if (is JAttributeArgument jNamedArgumentDeclaration = createParser(code).namedArgumentDeclaration()) {
         return valueArgumentToCeylon(jNamedArgumentDeclaration, update);
     } else {

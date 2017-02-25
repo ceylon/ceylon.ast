@@ -15,7 +15,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[ArithmeticAssignmentOp|JArithmeticAssignmentOp]] to a `ceylon.ast` [[ArithmeticAssignmentOperation]]."
-shared ArithmeticAssignmentOperation arithmeticAssignmentOperationToCeylon(JArithmeticAssignmentOp arithmeticAssignmentOperation, Anything(JNode,Node) update = noop) {
+shared ArithmeticAssignmentOperation arithmeticAssignmentOperationToCeylon(JArithmeticAssignmentOp arithmeticAssignmentOperation, Anything(JNode, Node) update = noop) {
     assert (is JAddAssignOp|JSubtractAssignOp|JMultiplyAssignOp|JDivideAssignOp|JRemainderAssignOp arithmeticAssignmentOperation);
     switch (arithmeticAssignmentOperation)
     case (is JAddAssignOp) { return addAssignmentOperationToCeylon(arithmeticAssignmentOperation, update); }
@@ -28,7 +28,7 @@ shared ArithmeticAssignmentOperation arithmeticAssignmentOperationToCeylon(JArit
 "Parses the given [[code]] for an Arithmetic Assignment Operation
  into an [[ArithmeticAssignmentOperation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared ArithmeticAssignmentOperation? parseArithmeticAssignmentOperation(String code, Anything(JNode,Node) update = noop) {
+shared ArithmeticAssignmentOperation? parseArithmeticAssignmentOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JArithmeticAssignmentOp jAssignmentExpression = createParser(code).assignmentExpression()) {
         return arithmeticAssignmentOperationToCeylon(jAssignmentExpression, update);
     } else {

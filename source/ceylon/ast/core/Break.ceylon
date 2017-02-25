@@ -14,7 +14,7 @@ shared class Break()
     
     shared actual void visit(Visitor visitor)
             => visitor.visitBreak(this);
-
+    
     shared actual Boolean equals(Object that) {
         return that is Break;
     }

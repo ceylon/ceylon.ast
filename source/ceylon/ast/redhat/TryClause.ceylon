@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[TryClause|JTryClause]] to a `ceylon.ast` [[TryClause]]."
-shared TryClause tryClauseToCeylon(JTryClause tryClause, Anything(JNode,Node) update = noop) {
+shared TryClause tryClauseToCeylon(JTryClause tryClause, Anything(JNode, Node) update = noop) {
     Resources? resources;
     if (exists jResourceList = tryClause.resourceList) {
         resources = resourcesToCeylon(jResourceList, update);
@@ -26,7 +26,7 @@ shared TryClause tryClauseToCeylon(JTryClause tryClause, Anything(JNode,Node) up
 "Parses the given [[code]] for a Try Clause
  into a [[TryClause]] using the Ceylon compiler
  (more specifically, the rule for a `tryBlock`)."
-shared TryClause? parseTryClause(String code, Anything(JNode,Node) update = noop) {
+shared TryClause? parseTryClause(String code, Anything(JNode, Node) update = noop) {
     if (exists jTryBlock = createParser(code).tryBlock()) {
         return tryClauseToCeylon(jTryBlock, update);
     } else {

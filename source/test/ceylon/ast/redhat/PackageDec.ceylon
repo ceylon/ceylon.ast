@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 shared object packageDec satisfies ConcreteTest<PackageDec,JPackageLiteral> {
     
     String->PackageDec construct(<String->FullPackageName>? packageName)
-            => "`package `` packageName?.key else "" ```"->PackageDec(packageName?.item);
+            => "`package `` packageName?.key else "" ```" -> PackageDec(packageName?.item);
     
     shared String->PackageDec ceylonAstCorePackageDec = construct(fullPackageName.ceylonAstCorePackageName);
     shared String->PackageDec currentPackageDec = construct(null);

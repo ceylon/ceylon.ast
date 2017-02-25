@@ -17,7 +17,7 @@ shared class FinallyClause(block)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitFinallyClause(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is FinallyClause that) {
             return block == that.block;

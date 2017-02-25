@@ -13,7 +13,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 }
 
 "Converts a RedHat AST [[OperatorExpression|JOperatorExpression]] to a `ceylon.ast` [[Operation]]."
-shared Operation operationToCeylon(JOperatorExpression operatorExpression, Anything(JNode,Node) update = noop) {
+shared Operation operationToCeylon(JOperatorExpression operatorExpression, Anything(JNode, Node) update = noop) {
     assert (is JUnaryOperatorExpression|JBinaryOperatorExpression|JWithinOp operatorExpression);
     switch (operatorExpression)
     case (is JUnaryOperatorExpression) { return unaryIshOperationToCeylon(operatorExpression, update); }
@@ -24,7 +24,7 @@ shared Operation operationToCeylon(JOperatorExpression operatorExpression, Anyth
 "Parses the given [[code]] for an Operation
  into an [[Operation]] using the Ceylon compiler
  (more specifically, the rule for an `assignmentExpression`)."
-shared Operation? parseOperation(String code, Anything(JNode,Node) update = noop) {
+shared Operation? parseOperation(String code, Anything(JNode, Node) update = noop) {
     if (is JOperatorExpression jExpression = createParser(code).assignmentExpression()) {
         return operationToCeylon(jExpression, update);
     } else {

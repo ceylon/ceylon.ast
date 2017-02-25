@@ -13,7 +13,7 @@ shared class MemberNameWithTypeArguments(name, typeArguments = null)
     
     shared actual void visit(Visitor visitor)
             => visitor.visitMemberNameWithTypeArguments(this);
-
+    
     shared actual Boolean equals(Object that) {
         if (is MemberNameWithTypeArguments that) {
             if (exists typeArguments) {

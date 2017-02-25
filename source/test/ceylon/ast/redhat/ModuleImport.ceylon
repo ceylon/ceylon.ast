@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Annotations,
     FullPackageName,
     ModuleImport,
-    RepositoryType,
+    Repository,
     StringLiteral
 }
 import ceylon.ast.redhat {
@@ -18,8 +18,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object moduleImport satisfies ConcreteTest<ModuleImport,JImportModule> {
     
-    String->ModuleImport construct(String->FullPackageName|StringLiteral name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations, <String->RepositoryType>? repositoryType = null)
-            => "``annotations.key`` import `` if (exists repositoryType) then "``repositoryType.key``:" else "" `` ``name.key`` ``version.key``;" -> ModuleImport(name.item, version.item, annotations.item, repositoryType?.item);
+    String->ModuleImport construct(String->FullPackageName|StringLiteral name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations, <String->Repository>? repository = null)
+            => "``annotations.key`` import `` if (exists repository) then "``repository.key``:" else "" `` ``name.key`` ``version.key``;" -> ModuleImport(name.item, version.item, annotations.item, repository?.item);
     
     shared String->ModuleImport ceylonAstCore100ModuleImport = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral, annotations.sharedAnnotations);
     shared String->ModuleImport mavenCommonsCodecModuleImport = construct(stringLiteral.commonsCodecCommonsCodecStringLiteral, stringLiteral._14VersionStringLiteral, annotations.emptyAnnotations, identifier.mavenLIdentifier);

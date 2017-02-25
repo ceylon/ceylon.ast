@@ -2,7 +2,7 @@ import ceylon.ast.core {
     FullPackageName,
     ModuleImport,
     Node,
-    RepositoryType,
+    Repository,
     StringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -55,13 +55,13 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
     } else {
         throw AssertionError("Unknown version token type ``versionTokenType``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
     }
-    RepositoryType? repositoryType;
+    Repository? repository;
     if (exists namespace = moduleImport.namespace) {
-        repositoryType = lIdentifierToCeylon(namespace, update);
+        repository = lIdentifierToCeylon(namespace, update);
     } else {
-        repositoryType = null;
+        repository = null;
     }
-    value result = ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null), update), repositoryType);
+    value result = ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null), update), repository);
     update(moduleImport, result);
     return result;
 }

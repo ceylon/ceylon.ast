@@ -2318,8 +2318,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value annotationList = transformAnnotations(that.annotations);
         JImportModule ret = JImportModule(tokens.token("import", importType));
         ret.annotationList = annotationList;
-        if (exists repositoryType = that.repositoryType) {
-            ret.namespace = transformLIdentifier(repositoryType);
+        if (exists repository = that.repository) {
+            ret.namespace = transformLIdentifier(repository);
             tokens.token(":", segment_op);
         }
         value name = that.name;

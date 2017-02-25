@@ -61,7 +61,15 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
     } else {
         repository = null;
     }
-    value result = ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null), update), repository);
+    StringLiteral? artifact;
+    if (exists jArtifact = moduleImport.artifact) {
+        value nameToken = jArtifact.mainToken;
+        assert (nameToken.type == string_literal);
+        artifact = stringLiteralToCeylon(JStringLiteral(nameToken), update);
+    } else {
+        artifact = null;
+    }
+    value result = ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null), update), repository, artifact);
     update(moduleImport, result);
     return result;
 }

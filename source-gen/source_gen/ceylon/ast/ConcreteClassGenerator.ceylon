@@ -72,7 +72,7 @@ class ConcreteClassGenerator(
                      
                      shared actual void visit(Visitor visitor)
                              => visitor.visit``type``(this);
-                 
+                     
                      shared actual Boolean equals(Object that) {");
             if (nonempty params) {
                 value optionalParams = params.select((String->String elem) => elem.key.endsWith("?"));
@@ -114,6 +114,8 @@ class ConcreteClassGenerator(
     String makeEquals([<String->String>+] params) {
         {<String->String>*} optionalParams = params.filter((param) => param.key.endsWith("?"));
         {<String->String>*} requiredParams = params.filter((param) => !param.key.endsWith("?"));
+        "The space in `foo == foo2`, omitted in `foo==foo2 && bar==bar2`."
+        String sp = requiredParams.longerThan(1) then "" else " ";
         return "``"\n".join { for (type->name in optionalParams) "if (exists ``name``) {
                                                                       if (exists ``name``_ = that.``name``) {
                                                                           if (``name`` != ``name``_) {
@@ -125,15 +127,21 @@ class ConcreteClassGenerator(
                                                                   } else if (that.``name`` exists) {
                                                                       return false;
                                                                   }" }``
-                return `` requiredParams.empty then "true" else " && ".join { for (type->name in requiredParams) "``name`` == that.``name``" } ``;".trimLeading('\n'.equals);
+                return `` requiredParams.empty then "true" else " && ".join { for (type->name in requiredParams) "``name````sp``==``sp``that.``name``" } ``;".trimLeading('\n'.equals);
     }
     
-    String makeHash([<String->String>+] params) {
+    String makeHash([<String->String>+] params, operand = false) {
+        "Whether this hash is an operand in a larger hash calculation."
+        Boolean operand;
         value ownHash = params.first.key.endsWith("?") then "(``params.first.item``?.hash else 0)" else "``params.first.item``.hash";
         if (nonempty rest = params.rest) {
-            return "31 * (``ownHash`` + ``makeHash(rest)``)";
+            return "31 * (``ownHash`` + ``makeHash { rest; operand = true; }``)";
         } else {
-            return "31 * ``ownHash``";
+            if (operand) {
+                return "31*``ownHash``";
+            } else {
+                return "31 * ``ownHash``";
+            }
         }
     }
     
@@ -153,7 +161,7 @@ class ConcreteClassGenerator(
                  }
                  
                  \"Converts a RedHat AST [[``type``|J``type``]] to a `ceylon.ast` [[``type``]].\"
-                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``, Anything(JNode,Node) update = noop) {
+                 shared ``type`` ``ltype``ToCeylon(J``type`` ``ltype``, Anything(JNode, Node) update = noop) {
                      value result = ``type``(TODO);
                      update(``ltype``, result);
                      return result;
@@ -162,7 +170,7 @@ class ConcreteClassGenerator(
                  \"Parses the given [[code]] for ``aAn`` ``splitType``
                   into ``aAn`` [[``type``]] using the Ceylon compiler
                   (more specifically, the rule for ``aAn`` \```ltype``\`).\"
-                 shared ``type``? parse``type``(String code, Anything(JNode,Node) update = noop) {
+                 shared ``type``? parse``type``(String code, Anything(JNode, Node) update = noop) {
                      if (exists j``type`` = createParser(code).``ltype``()) {
                          return ``ltype``ToCeylon(j``type``, update);
                      } else {

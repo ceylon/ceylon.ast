@@ -1,8 +1,7 @@
 import ceylon.ast.core {
     Assertion,
-    Node,
-    StringLiteral,
-    StringTemplate
+    AssertionMessage,
+    Node
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
@@ -13,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[Assertion|JAssertion]] to a `ceylon.ast` [[Assertion]]."
 shared Assertion assertionToCeylon(JAssertion assertion, Anything(JNode, Node) update = noop) {
-    StringLiteral|StringTemplate? message;
+    AssertionMessage? message;
     if (exists jAnnotations = assertion.annotationList) {
         "Assertion cannot have regular annotations"
         assert (jAnnotations.annotations.empty);

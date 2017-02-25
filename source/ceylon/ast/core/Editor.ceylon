@@ -103,7 +103,11 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default Assertion transformAssertion(Assertion that)
-            => editNode(that) then that.copy(transformConditions(that.conditions), nullsafeInvoke(that.message, transformStringLiteralOrStringTemplate)) else that;
+            => editNode(that) then that.copy(transformConditions(that.conditions), nullsafeInvoke(that.message, transformAssertionMessage)) else that;
+    shared actual AssertionMessage transformAssertionMessage(AssertionMessage that) {
+        assert (is AssertionMessage ret = super.transformAssertionMessage(that));
+        return ret;
+    }
     shared actual default AssignOperation transformAssignOperation(AssignOperation that)
             => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual AssignmentOperation transformAssignmentOperation(AssignmentOperation that) {
@@ -1043,10 +1047,5 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TuplePattern) { return transformTuplePattern(that); }
         case (is EntryPattern) { return transformEntryPattern(that); }
-    }
-    StringLiteral|StringTemplate transformStringLiteralOrStringTemplate(StringLiteral|StringTemplate that) {
-        switch (that)
-        case (is StringLiteral) { return transformStringLiteral(that); }
-        case (is StringTemplate) { return transformStringTemplate(that); }
     }
 }

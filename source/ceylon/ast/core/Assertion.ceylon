@@ -10,10 +10,10 @@ shared class Assertion(conditions, message = null)
     
     "The conditions that are asserted."
     shared Conditions conditions;
-    "The documentation / failure message of the assertion, if present."
-    shared StringLiteral|StringTemplate? message;
+    "The failure message of the assertion, if present."
+    shared AssertionMessage? message;
     
-    shared actual [Conditions]|[StringLiteral|StringTemplate, Conditions] children
+    shared actual [Conditions]|[AssertionMessage, Conditions] children
             = if (exists message) then [message, conditions] else [conditions];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
@@ -44,7 +44,7 @@ shared class Assertion(conditions, message = null)
     shared actual Integer hash
             => 31 * (conditions.hash + 31 * (message?.hash else 0));
     
-    shared Assertion copy(Conditions conditions = this.conditions, StringLiteral|StringTemplate? message = this.message) {
+    shared Assertion copy(Conditions conditions = this.conditions, AssertionMessage? message = this.message) {
         value ret = Assertion(conditions, message);
         copyExtraInfoTo(ret);
         return ret;

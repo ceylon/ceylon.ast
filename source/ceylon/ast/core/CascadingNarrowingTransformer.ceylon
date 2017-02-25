@@ -83,6 +83,11 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is SumOperation) { return transformSumOperation(that); }
         case (is DifferenceOperation) { return transformDifferenceOperation(that); }
     }
+    shared actual default Result transformAssertionMessage(AssertionMessage that) {
+        switch (that)
+        case (is StringLiteral) { return transformStringLiteral(that); }
+        case (is StringTemplate) { return transformStringTemplate(that); }
+    }
     shared actual default Result transformAssignmentOperation(AssignmentOperation that) {
         switch (that)
         case (is AssignOperation) { return transformAssignOperation(that); }

@@ -1,8 +1,7 @@
 import ceylon.ast.core {
     Assertion,
-    Conditions,
-    StringLiteral,
-    StringTemplate
+    AssertionMessage,
+    Conditions
 }
 import ceylon.ast.redhat {
     RedHatTransformer,
@@ -17,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object assertion satisfies ConcreteTest<Assertion,JAssertion> {
     
-    String->Assertion construct(String->Conditions conditions, <String->StringLiteral|StringTemplate>? message = null)
+    String->Assertion construct(String->Conditions conditions, <String->AssertionMessage>? message = null)
             => "`` message?.key else "" `` assert``conditions.key``;" -> Assertion(conditions.item, message?.item);
     
     shared String->Assertion undocumentedAssertion = construct(conditions.trueCommaAAndBConditions);

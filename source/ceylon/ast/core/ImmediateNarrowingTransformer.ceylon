@@ -35,6 +35,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that)
             => that.transform(this);
+    shared actual default Result transformAssertionMessage(AssertionMessage that)
+            => that.transform(this);
     shared actual default Result transformAssigningExpression(AssigningExpression that)
             => that.transform(this);
     shared actual default Result transformAssignmentOperation(AssignmentOperation that)

@@ -3,6 +3,7 @@ import ceylon.ast.core {
     FullPackageName,
     ModuleBody,
     ModuleDescriptor,
+    ModuleSpecifier,
     StringLiteral
 }
 import ceylon.ast.redhat {
@@ -18,13 +19,22 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object moduleDescriptor satisfies ConcreteTest<ModuleDescriptor,JModuleDescriptor> {
     
-    String->ModuleDescriptor construct(String->FullPackageName name, String->StringLiteral version, String->ModuleBody body = moduleBody.emptyModuleBody, String->Annotations annotations = package.annotations.emptyAnnotations)
-            => "``annotations.key`` module ``name.key````version.key````body.key``" -> ModuleDescriptor(name.item, version.item, body.item, annotations.item);
+    String->ModuleDescriptor construct(String->FullPackageName name, String->StringLiteral version, String->ModuleBody body = moduleBody.emptyModuleBody, String->Annotations annotations = package.annotations.emptyAnnotations, <String->ModuleSpecifier>? specifier = null)
+            => "``annotations.key`` module ``name.key`` `` specifier?.key else "" ``  ``version.key````body.key``" -> ModuleDescriptor(name.item, version.item, body.item, annotations.item, specifier?.item);
     
     shared String->ModuleDescriptor ceylonAstCoreEmptyModuleDescriptor = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral);
+    shared String->ModuleDescriptor orgHibernateCoreModuleDescriptor = construct {
+        name = fullPackageName.orgHibernateCorePackageName;
+        version = stringLiteral._211VersionStringLiteral;
+        specifier = "maven:org.hibernate:\"hibernate-core\"" -> ModuleSpecifier {
+            repository = identifier.mavenLIdentifier.item;
+            moduleName = fullPackageName.orgHibernatePackageName.item;
+            artifact = stringLiteral.hibernateCoreStringLiteral.item;
+        };
+    };
     
     parse = parseModuleDescriptor;
     fromCeylon = RedHatTransformer.transformModuleDescriptor;
     toCeylon = moduleDescriptorToCeylon;
-    codes = [ceylonAstCoreEmptyModuleDescriptor];
+    codes = [ceylonAstCoreEmptyModuleDescriptor, orgHibernateCoreModuleDescriptor];
 }

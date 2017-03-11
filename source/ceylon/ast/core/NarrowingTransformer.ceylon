@@ -16,6 +16,7 @@ shared interface NarrowingTransformer<out Result>
         of ImmediateNarrowingTransformer<Result> | CascadingNarrowingTransformer<Result>
         satisfies Transformer<Result> {
     shared formal Result transformAddingExpression(AddingExpression that);
+    shared formal Result transformArtifact(Artifact that);
     shared formal Result transformAssertionMessage(AssertionMessage that);
     shared formal Result transformAssigningExpression(AssigningExpression that);
     shared formal Result transformComparingExpression(ComparingExpression that);
@@ -26,9 +27,12 @@ shared interface NarrowingTransformer<out Result>
     shared formal Result transformExponentiatingExpression(ExponentiatingExpression that);
     shared formal Result transformIntersectingExpression(IntersectingExpression that);
     shared formal Result transformInvertingExpression(InvertingExpression that);
+    shared formal Result transformModule(Module that);
+    shared formal Result transformModuleName(ModuleName that);
     shared formal Result transformMultiplyingExpression(MultiplyingExpression that);
     shared formal Result transformNegatingExpression(NegatingExpression that);
     shared formal Result transformPrePostfixingExpression(PrePostfixingExpression that);
+    shared formal Result transformRepository(Repository that);
     shared formal Result transformScalingExpression(ScalingExpression that);
     shared formal Result transformSpanningExpression(SpanningExpression that);
     shared formal Result transformStructureExpression(StructureExpression that);

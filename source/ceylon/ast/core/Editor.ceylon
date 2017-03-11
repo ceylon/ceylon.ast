@@ -42,6 +42,14 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
      the default implementations of the edit methods will just return the same node."
     shared default Boolean editNode(Node node) => true;
     
+    shared actual Artifact transformArtifact(Artifact that) {
+        assert (is Artifact ret = super.transformArtifact(that));
+        return ret;
+    }
+    shared actual Repository transformRepository(Repository that) {
+        assert (is Repository ret = super.transformRepository(that));
+        return ret;
+    }
     shared actual default AddAssignmentOperation transformAddAssignmentOperation(AddAssignmentOperation that)
             => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual default AliasDec transformAliasDec(AliasDec that)
@@ -470,16 +478,26 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Modifier ret = super.transformModifier(that));
         return ret;
     }
+    shared actual Module transformModule(Module that) {
+        assert (is Module ret = super.transformModule(that));
+        return ret;
+    }
     shared actual default ModuleBody transformModuleBody(ModuleBody that)
             => editNode(that) then that.copy(that.moduleImports.collect(transformModuleImport)) else that;
     shared actual default ModuleCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that)
             => editNode(that) then that.copy(transformModuleDescriptor(that.moduleDescriptor), that.imports.collect(transformImport)) else that;
     shared actual default ModuleDec transformModuleDec(ModuleDec that)
-            => editNode(that) then that.copy(nullsafeInvoke(that.moduleName, transformFullPackageName)) else that;
+            => editNode(that) then that.copy(nullsafeInvoke(that.moduleName, transformModuleName)) else that;
     shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
-            => editNode(that) then that.copy(transformFullPackageName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations)) else that;
+            => editNode(that) then that.copy(transformModuleName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations), nullsafeInvoke(that.specifier, transformModuleSpecifier)) else that;
     shared actual default ModuleImport transformModuleImport(ModuleImport that)
-            => editNode(that) then that.copy(transformFullPackageNameOrStringLiteral(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations), nullsafeInvoke(that.repository, transformLIdentifier), nullsafeInvoke(that.artifact, transformStringLiteral)) else that;
+            => editNode(that) then that.copy(transformModule(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations), nullsafeInvoke(that.repository, transformLIdentifier), nullsafeInvoke(that.artifact, transformStringLiteral)) else that;
+    shared actual ModuleName transformModuleName(ModuleName that) {
+        assert (is ModuleName ret = super.transformModuleName(that));
+        return ret;
+    }
+    shared actual default ModuleSpecifier transformModuleSpecifier(ModuleSpecifier that)
+            => editNode(that) then that.copy(transformRepository(that.repository), transformModule(that.moduleName), nullsafeInvoke(that.artifact, transformArtifact)) else that;
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {
@@ -947,11 +965,6 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         case (is BaseExpression) { return transformBaseExpression(that); }
         case (is QualifiedExpression) { return transformQualifiedExpression(that); }
         case (is Tuple) { return transformTuple(that); }
-    }
-    FullPackageName|StringLiteral transformFullPackageNameOrStringLiteral(FullPackageName|StringLiteral that) {
-        switch (that)
-        case (is FullPackageName) { return transformFullPackageName(that); }
-        case (is StringLiteral) { return transformStringLiteral(that); }
     }
     PrefixOperation|PostfixOperation transformPrefixOperationOrPostfixOperation(PrefixOperation|PostfixOperation that) {
         switch (that)

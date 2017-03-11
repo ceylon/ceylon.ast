@@ -2309,6 +2309,17 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         JModuleDescriptor ret = JModuleDescriptor(tokens.token("module", moduleType));
         ret.annotationList = annotationList;
         ret.importPath = transformFullPackageName(that.name);
+        if (exists moduleSpecifier = that.specifier) {
+            ret.namespace = transformLIdentifier(moduleSpecifier.repository);
+            tokens.token(":", segment_op);
+            switch (moduleName = moduleSpecifier.moduleName)
+            case (is ModuleName) { ret.groupImportPath = transformFullPackageName(moduleName); }
+            case (is StringLiteral) { ret.groupQuotedLiteral = JQuotedLiteral(transformStringLiteral(moduleName).mainToken); }
+            if (exists artifact = moduleSpecifier.artifact) {
+                tokens.token(":", segment_op);
+                ret.artifact = JQuotedLiteral(transformStringLiteral(artifact).mainToken);
+            }
+        }
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.importModuleList = transformModuleBody(that.body);
         return ret;
@@ -2333,6 +2344,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.endToken = tokens.token(";", semicolon);
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[ModuleSpecifier]];
+     this method throws."
+    shared actual Nothing transformModuleSpecifier(ModuleSpecifier that) {
+        throw AssertionError("ModuleSpecifier has no RedHat AST equivalent!");
     }
     
     shared actual JMultiplyAssignOp transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that) {

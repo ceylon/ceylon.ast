@@ -34,6 +34,8 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     shared String->StringLiteral commaStringLiteral = construct(", ");
     shared String->StringLiteral commonsCodecStringLiteral = construct("commons-codec");
     shared String->StringLiteral _14VersionStringLiteral = construct("1.4");
+    shared String->StringLiteral _211VersionStringLiteral = construct("2.1.1");
+    shared String->StringLiteral hibernateCoreStringLiteral = construct("hibernate-core");
     
     parse = parseStringLiteral;
     fromCeylon = RedHatTransformer.transformStringLiteral;

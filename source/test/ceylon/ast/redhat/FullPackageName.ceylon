@@ -23,6 +23,8 @@ shared object fullPackageName satisfies ConcreteTest<FullPackageName,JImportPath
     // not tested directly, but used by other tests
     shared String->FullPackageName javaLangPackageName = construct(identifier.javaLIdentifier, identifier.langLIdentifier);
     shared String->FullPackageName ceylonCollectionPackageName = construct(identifier.ceylonLIdentifier, identifier.collectionLIdentifier);
+    shared String->FullPackageName orgHibernatePackageName = construct(identifier.orgLIdentifier, identifier.hibernateLIdentifier);
+    shared String->FullPackageName orgHibernateCorePackageName = construct(identifier.orgLIdentifier, identifier.hibernateLIdentifier, identifier.coreLIdentifier);
     
     parse = parseFullPackageName;
     fromCeylon = RedHatTransformer.transformFullPackageName;

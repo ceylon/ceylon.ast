@@ -78,6 +78,8 @@ shared object identifier satisfies ConcreteTest<Identifier,JIdentifier> {
     shared String->LIdentifier originLIdentifier = constructL("origin");
     shared String->LIdentifier processLIdentifier = constructL("process");
     shared String->LIdentifier mavenLIdentifier = constructL("maven");
+    shared String->LIdentifier orgLIdentifier = constructL("org");
+    shared String->LIdentifier hibernateLIdentifier = constructL("hibernate");
     
     parse = parseIdentifier;
     fromCeylon = RedHatTransformer.transformIdentifier;

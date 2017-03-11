@@ -35,6 +35,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformArithmeticOperation(ArithmeticOperation that)
             => that.transform(this);
+    shared actual default Result transformArtifact(Artifact that)
+            => that.transform(this);
     shared actual default Result transformAssertionMessage(AssertionMessage that)
             => that.transform(this);
     shared actual default Result transformAssigningExpression(AssigningExpression that)
@@ -121,6 +123,10 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformModifier(Modifier that)
             => that.transform(this);
+    shared actual default Result transformModule(Module that)
+            => that.transform(this);
+    shared actual default Result transformModuleName(ModuleName that)
+            => that.transform(this);
     shared actual default Result transformMultiplyingExpression(MultiplyingExpression that)
             => that.transform(this);
     shared actual default Result transformNamedArgument(NamedArgument that)
@@ -148,6 +154,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
     shared actual default Result transformPrimaryType(PrimaryType that)
             => that.transform(this);
     shared actual default Result transformRangeSubscript(RangeSubscript that)
+            => that.transform(this);
+    shared actual default Result transformRepository(Repository that)
             => that.transform(this);
     shared actual default Result transformRequiredParameter(RequiredParameter that)
             => that.transform(this);

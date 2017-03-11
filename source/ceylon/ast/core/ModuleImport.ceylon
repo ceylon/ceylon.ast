@@ -19,7 +19,7 @@ shared class ModuleImport(name, version, annotations = Annotations(), repository
      (For proper Ceylon modules, this should be a [[FullPackageName]];
      [[string literals|StringLiteral]] are allowed for interoperation
      with legacy Java code, or other repositories.)"
-    shared FullPackageName|StringLiteral name;
+    shared Module name;
     "The version of the imported module."
     shared StringLiteral version;
     "The annotations on the module import."
@@ -28,9 +28,9 @@ shared class ModuleImport(name, version, annotations = Annotations(), repository
     aliased ("namespace")
     shared Repository? repository;
     "The artifact identifier, if present."
-    shared StringLiteral? artifact;
+    shared Artifact? artifact;
     
-    shared actual [Annotations, Repository, FullPackageName|StringLiteral, StringLiteral, StringLiteral=]|[Annotations, FullPackageName|StringLiteral, StringLiteral, StringLiteral=] children
+    shared actual [Annotations, Repository, Module, StringLiteral, Artifact=]|[Annotations, Module, StringLiteral, Artifact=] children
             = if (exists repository)
             then if (exists artifact) then [annotations, repository, name, artifact, version] else [annotations, repository, name, version]
             else if (exists artifact) then [annotations, name, artifact, version] else [annotations, name, version];
@@ -74,7 +74,7 @@ shared class ModuleImport(name, version, annotations = Annotations(), repository
     shared actual Integer hash
             => 31 * (name.hash + 31 * (version.hash + 31 * (annotations.hash + 31 * ((repository?.hash else 0) + 31 * (artifact?.hash else 0)))));
     
-    shared ModuleImport copy(FullPackageName|StringLiteral name = this.name, StringLiteral version = this.version, Annotations annotations = this.annotations, Repository? repository = this.repository, StringLiteral? artifact = this.artifact) {
+    shared ModuleImport copy(Module name = this.name, StringLiteral version = this.version, Annotations annotations = this.annotations, Repository? repository = this.repository, Artifact? artifact = this.artifact) {
         value ret = ModuleImport(name, version, annotations, repository, artifact);
         copyExtraInfoTo(ret);
         return ret;

@@ -83,6 +83,10 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is SumOperation) { return transformSumOperation(that); }
         case (is DifferenceOperation) { return transformDifferenceOperation(that); }
     }
+    shared actual default Result transformArtifact(Artifact that) {
+        switch (that)
+        case (is StringLiteral) { return transformStringLiteral(that); }
+    }
     shared actual default Result transformAssertionMessage(AssertionMessage that) {
         switch (that)
         case (is StringLiteral) { return transformStringLiteral(that); }
@@ -301,6 +305,15 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is DynamicModifier) { return transformDynamicModifier(that); }
         case (is Variance) { return transformVariance(that); }
     }
+    shared actual default Result transformModule(Module that) {
+        switch (that)
+        case (is ModuleName) { return transformModuleName(that); }
+        case (is StringLiteral) { return transformStringLiteral(that); }
+    }
+    shared actual default Result transformModuleName(ModuleName that) {
+        switch (that)
+        case (is FullPackageName) { return transformFullPackageName(that); }
+    }
     shared actual default Result transformNameWithTypeArguments(NameWithTypeArguments that) {
         switch (that)
         case (is MemberNameWithTypeArguments) { return transformMemberNameWithTypeArguments(that); }
@@ -377,6 +390,7 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is PatternList) { return transformPatternList(that); }
         case (is CaseExpression) { return transformCaseExpression(that); }
         case (is ExtensionOrConstruction) { return transformExtensionOrConstruction(that); }
+        case (is ModuleSpecifier) { return transformModuleSpecifier(that); }
     }
     shared actual default Result transformOperation(Operation that) {
         switch (that)
@@ -421,6 +435,10 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         switch (that)
         case (is InvertingExpression) { return transformInvertingExpression(that); }
         case (is IntersectionOperation) { return transformIntersectionOperation(that); }
+    }
+    shared actual default Result transformRepository(Repository that) {
+        switch (that)
+        case (is LIdentifier) { return transformLIdentifier(that); }
     }
     shared actual default Result transformStructureExpression(StructureExpression that) {
         switch (that)

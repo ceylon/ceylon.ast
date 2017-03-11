@@ -628,18 +628,32 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformModuleDec(ModuleDec that) => "ModuleDec(``transformWithIndent(that.moduleName)``)";
     transformModuleDescriptor(ModuleDescriptor that)
-            => "ModuleDescriptor {
-                `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
-                `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
-                `` indent + indentLevel ``body = ``transformWithIndent(that.body)``;
-                `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                ``indent``}";
+            => if (that.specifier exists)
+            then "ModuleDescriptor {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
+                  `` indent + indentLevel ``body = ``transformWithIndent(that.body)``;
+                  `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                  `` indent + indentLevel ``specifier = ``transformWithIndent(that.specifier)``;
+                  ``indent``}"
+            else "ModuleDescriptor {
+                  `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
+                  `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
+                  `` indent + indentLevel ``body = ``transformWithIndent(that.body)``;
+                  `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
+                  ``indent``}";
     transformModuleImport(ModuleImport that)
             => "ModuleImport {
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
                 `` indent + indentLevel ``repository = ``transformWithIndent(that.repository)``;
+                `` indent + indentLevel ``artifact = ``transformWithIndent(that.artifact)``;
+                ``indent``}";
+    transformModuleSpecifier(ModuleSpecifier that)
+            => "ModuleSpecifier {
+                `` indent + indentLevel ``repository = ``transformWithIndent(that.repository)``;
+                `` indent + indentLevel ``moduleName = ``transformWithIndent(that.moduleName)``;
                 `` indent + indentLevel ``artifact = ``transformWithIndent(that.artifact)``;
                 ``indent``}";
     transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)

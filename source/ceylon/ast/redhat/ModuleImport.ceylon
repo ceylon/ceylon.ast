@@ -1,5 +1,6 @@
 import ceylon.ast.core {
-    FullPackageName,
+    Artifact,
+    Module,
     ModuleImport,
     Node,
     Repository,
@@ -22,7 +23,7 @@ import com.redhat.ceylon.compiler.typechecker.parser {
 
 "Converts a RedHat AST [[ImportModule|JImportModule]] to a `ceylon.ast` [[ModuleImport]]."
 shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JNode, Node) update = noop) {
-    FullPackageName|StringLiteral name;
+    Module name;
     if (exists jName = moduleImport.importPath) {
         "Can’t have both import path and quoted literal"
         assert (!moduleImport.quotedLiteral exists);
@@ -61,7 +62,7 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
     } else {
         repository = null;
     }
-    StringLiteral? artifact;
+    Artifact? artifact;
     if (exists jArtifact = moduleImport.artifact) {
         value nameToken = jArtifact.mainToken;
         assert (nameToken.type == string_literal);

@@ -1,6 +1,7 @@
 import ceylon.ast.core {
     Annotations,
-    FullPackageName,
+    Artifact,
+    Module,
     ModuleImport,
     Repository,
     StringLiteral
@@ -18,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object moduleImport satisfies ConcreteTest<ModuleImport,JImportModule> {
     
-    String->ModuleImport construct(String->FullPackageName|StringLiteral name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations, <String->Repository>? repository = null, <String->StringLiteral>? artifact = null)
+    String->ModuleImport construct(String->Module name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations, <String->Repository>? repository = null, <String->Artifact>? artifact = null)
             => "``annotations.key`` import `` if (exists repository) then "``repository.key``:" else "" `` ``name.key`` `` if (exists artifact) then ":``artifact.key``" else "" `` ``version.key``;" -> ModuleImport(name.item, version.item, annotations.item, repository?.item, artifact?.item);
     
     shared String->ModuleImport ceylonAstCore100ModuleImport = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral, annotations.sharedAnnotations);

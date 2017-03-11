@@ -191,6 +191,7 @@ shared interface Visitor {
     shared default void visitModuleDec(ModuleDec that) => visitDec(that);
     shared default void visitModuleDescriptor(ModuleDescriptor that) => visitNode(that);
     shared default void visitModuleImport(ModuleImport that) => visitNode(that);
+    shared default void visitModuleSpecifier(ModuleSpecifier that) => visitNode(that);
     shared default void visitMultiplyAssignmentOperation(MultiplyAssignmentOperation that) => visitArithmeticAssignmentOperation(that);
     shared default void visitNameWithTypeArguments(NameWithTypeArguments that) => visitTypeIsh(that);
     shared default void visitNamedArgument(NamedArgument that) => visitNode(that);

@@ -1,6 +1,10 @@
 import ceylon.ast.core {
+    Artifact,
+    Module,
     ModuleDescriptor,
+    ModuleSpecifier,
     Node,
+    Repository,
     StringLiteral
 }
 import com.redhat.ceylon.compiler.typechecker.tree {
@@ -33,7 +37,32 @@ shared ModuleDescriptor moduleDescriptorToCeylon(JModuleDescriptor moduleDescrip
     } else {
         throw AssertionError("Unknown version token type ``type``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
     }
-    value result = ModuleDescriptor(fullPackageNameToCeylon(moduleDescriptor.importPath, update), version, moduleBodyToCeylon(moduleDescriptor.importModuleList, update), annotationsToCeylon(moduleDescriptor.annotationList, update));
+    ModuleSpecifier? specifier;
+    if (exists jRepository = moduleDescriptor.namespace) {
+        Repository repository = lIdentifierToCeylon(jRepository, update);
+        Module moduleName;
+        if (exists jGroupImportPath = moduleDescriptor.groupImportPath) {
+            "Module descriptor cannot have both group import path and group quoted literal"
+            assert (!moduleDescriptor.groupQuotedLiteral exists);
+            moduleName = fullPackageNameToCeylon(jGroupImportPath, update);
+        } else {
+            "Module descriptor must have group import path or group quoted literal"
+            assert (exists jGroupQuotedLiteral = moduleDescriptor.groupQuotedLiteral);
+            moduleName = stringLiteralToCeylon(JStringLiteral(jGroupQuotedLiteral.token), update);
+        }
+        Artifact? artifact;
+        if (exists jArtifact = moduleDescriptor.artifact) {
+            artifact = stringLiteralToCeylon(JStringLiteral(jArtifact.token), update);
+        } else {
+            artifact = null;
+        }
+        specifier = ModuleSpecifier(repository, moduleName, artifact);
+        assert (exists specifier); // ceylon/ceylon#3642
+        update(moduleDescriptor, specifier);
+    } else {
+        specifier = null;
+    }
+    value result = ModuleDescriptor(fullPackageNameToCeylon(moduleDescriptor.importPath, update), version, moduleBodyToCeylon(moduleDescriptor.importModuleList, update), annotationsToCeylon(moduleDescriptor.annotationList, update), specifier);
     update(moduleDescriptor, result);
     return result;
 }

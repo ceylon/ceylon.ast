@@ -479,7 +479,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
             => editNode(that) then that.copy(transformFullPackageName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations)) else that;
     shared actual default ModuleImport transformModuleImport(ModuleImport that)
-            => editNode(that) then that.copy(transformFullPackageNameOrStringLiteral(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations)) else that;
+            => editNode(that) then that.copy(transformFullPackageNameOrStringLiteral(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations), nullsafeInvoke(that.repository, transformLIdentifier), nullsafeInvoke(that.artifact, transformStringLiteral)) else that;
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {

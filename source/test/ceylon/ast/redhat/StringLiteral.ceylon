@@ -32,7 +32,7 @@ shared object stringLiteral satisfies ConcreteTest<StringLiteral,JStringLiteral>
     shared String->StringLiteral lucasStringLiteral = construct("Lucas");
     shared String->StringLiteral _100VersionStringLiteral = construct("1.0.0");
     shared String->StringLiteral commaStringLiteral = construct(", ");
-    shared String->StringLiteral commonsCodecCommonsCodecStringLiteral = construct("commons-codec:commons-codec");
+    shared String->StringLiteral commonsCodecStringLiteral = construct("commons-codec");
     shared String->StringLiteral _14VersionStringLiteral = construct("1.4");
     
     parse = parseStringLiteral;

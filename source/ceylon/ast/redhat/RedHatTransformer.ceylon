@@ -2310,15 +2310,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.annotationList = annotationList;
         ret.importPath = transformFullPackageName(that.name);
         if (exists moduleSpecifier = that.specifier) {
-            ret.namespace = transformLIdentifier(moduleSpecifier.repository);
-            tokens.token(":", segment_op);
-            switch (moduleName = moduleSpecifier.moduleName)
-            case (is ModuleName) { ret.groupImportPath = transformFullPackageName(moduleName); }
-            case (is StringLiteral) { ret.groupQuotedLiteral = JQuotedLiteral(transformStringLiteral(moduleName).mainToken); }
-            if (exists artifact = moduleSpecifier.artifact) {
-                tokens.token(":", segment_op);
-                ret.artifact = JQuotedLiteral(transformStringLiteral(artifact).mainToken);
-            }
+            value [jNamespace, jName, jArtifact] = helpTransformModuleSpecifier(moduleSpecifier);
+            ret.namespace = jNamespace;
+            switch (jName)
+            case (is JImportPath) { ret.groupImportPath = jName; }
+            case (is JQuotedLiteral) { ret.groupQuotedLiteral = jName; }
+            ret.artifact = jArtifact;
         }
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.importModuleList = transformModuleBody(that.body);
@@ -2329,17 +2326,20 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         value annotationList = transformAnnotations(that.annotations);
         JImportModule ret = JImportModule(tokens.token("import", importType));
         ret.annotationList = annotationList;
-        if (exists repository = that.repository) {
-            ret.namespace = transformLIdentifier(repository);
-            tokens.token(":", segment_op);
+        switch (name = that.name)
+        case (is ModuleName) {
+            ret.importPath = transformFullPackageName(name);
         }
-        value name = that.name;
-        switch (name)
-        case (is FullPackageName) { ret.importPath = transformFullPackageName(name); }
-        case (is StringLiteral) { ret.quotedLiteral = JQuotedLiteral(transformStringLiteral(name).mainToken); }
-        if (exists artifact = that.artifact) {
-            tokens.token(":", segment_op);
-            ret.artifact = JQuotedLiteral(transformStringLiteral(artifact).mainToken);
+        case (is StringLiteral) {
+            ret.quotedLiteral = JQuotedLiteral(transformStringLiteral(name).mainToken);
+        }
+        case (is ModuleSpecifier) {
+            value [jNamespace, jName, jArtifact] = helpTransformModuleSpecifier(name);
+            ret.namespace = jNamespace;
+            switch (jName)
+            case (is JImportPath) { ret.importPath = jName; }
+            case (is JQuotedLiteral) { ret.quotedLiteral = jName; }
+            ret.artifact = jArtifact;
         }
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.endToken = tokens.token(";", semicolon);
@@ -3847,5 +3847,22 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.append(line);
         }
         return ret.string;
+    }
+    
+    [JIdentifier, JImportPath|JQuotedLiteral, JQuotedLiteral?] helpTransformModuleSpecifier(ModuleSpecifier that) {
+        JIdentifier jNamespace = transformLIdentifier(that.repository);
+        tokens.token(":", segment_op);
+        JImportPath|JQuotedLiteral jName;
+        switch (moduleName = that.moduleName)
+        case (is ModuleName) { jName = transformFullPackageName(moduleName); }
+        case (is StringLiteral) { jName = JQuotedLiteral(transformStringLiteral(moduleName).mainToken); }
+        JQuotedLiteral? jArtifact;
+        if (exists artifact = that.artifact) {
+            tokens.token(":", segment_op);
+            jArtifact = JQuotedLiteral(transformStringLiteral(artifact).mainToken);
+        } else {
+            jArtifact = null;
+        }
+        return [jNamespace, jName, jArtifact];
     }
 }

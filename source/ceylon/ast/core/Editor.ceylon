@@ -491,7 +491,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default ModuleDescriptor transformModuleDescriptor(ModuleDescriptor that)
             => editNode(that) then that.copy(transformModuleName(that.name), transformStringLiteral(that.version), transformModuleBody(that.body), transformAnnotations(that.annotations), nullsafeInvoke(that.specifier, transformModuleSpecifier)) else that;
     shared actual default ModuleImport transformModuleImport(ModuleImport that)
-            => editNode(that) then that.copy(transformModule(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations), nullsafeInvoke(that.repository, transformLIdentifier), nullsafeInvoke(that.artifact, transformStringLiteral)) else that;
+            => editNode(that) then that.copy(transformModuleOrModuleSpecifier(that.name), transformStringLiteral(that.version), transformAnnotations(that.annotations)) else that;
     shared actual ModuleName transformModuleName(ModuleName that) {
         assert (is ModuleName ret = super.transformModuleName(that));
         return ret;
@@ -1060,5 +1060,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         switch (that)
         case (is TuplePattern) { return transformTuplePattern(that); }
         case (is EntryPattern) { return transformEntryPattern(that); }
+    }
+    Module|ModuleSpecifier transformModuleOrModuleSpecifier(Module|ModuleSpecifier that) {
+        switch (that)
+        case (is Module) { return transformModule(that); }
+        case (is ModuleSpecifier) { return transformModuleSpecifier(that); }
     }
 }

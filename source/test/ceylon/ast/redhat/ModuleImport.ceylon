@@ -3,6 +3,7 @@ import ceylon.ast.core {
     Artifact,
     Module,
     ModuleImport,
+    ModuleSpecifier,
     Repository,
     StringLiteral
 }
@@ -19,11 +20,11 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 shared object moduleImport satisfies ConcreteTest<ModuleImport,JImportModule> {
     
-    String->ModuleImport construct(String->Module name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations, <String->Repository>? repository = null, <String->Artifact>? artifact = null)
-            => "``annotations.key`` import `` if (exists repository) then "``repository.key``:" else "" `` ``name.key`` `` if (exists artifact) then ":``artifact.key``" else "" `` ``version.key``;" -> ModuleImport(name.item, version.item, annotations.item, repository?.item, artifact?.item);
+    String->ModuleImport construct(String->Module|ModuleSpecifier name, String->StringLiteral version, String->Annotations annotations = package.annotations.emptyAnnotations)
+            => "``annotations.key`` import ``name.key`` ``version.key``;" -> ModuleImport(name.item, version.item, annotations.item);
     
     shared String->ModuleImport ceylonAstCore100ModuleImport = construct(fullPackageName.ceylonAstCorePackageName, stringLiteral._100VersionStringLiteral, annotations.sharedAnnotations);
-    shared String->ModuleImport mavenCommonsCodecModuleImport = construct(stringLiteral.commonsCodecStringLiteral, stringLiteral._14VersionStringLiteral, annotations.emptyAnnotations, identifier.mavenLIdentifier, stringLiteral.commonsCodecStringLiteral);
+    shared String->ModuleImport mavenCommonsCodecModuleImport = construct(moduleSpecifier.mavenCommonsCodecModuleSpecifier, stringLiteral._14VersionStringLiteral, annotations.emptyAnnotations);
     
     parse = parseModuleImport;
     fromCeylon = RedHatTransformer.transformModuleImport;

@@ -26,11 +26,7 @@ shared object moduleDescriptor satisfies ConcreteTest<ModuleDescriptor,JModuleDe
     shared String->ModuleDescriptor orgHibernateCoreModuleDescriptor = construct {
         name = fullPackageName.orgHibernateCorePackageName;
         version = stringLiteral._211VersionStringLiteral;
-        specifier = "maven:org.hibernate:\"hibernate-core\"" -> ModuleSpecifier {
-            repository = identifier.mavenLIdentifier.item;
-            moduleName = fullPackageName.orgHibernatePackageName.item;
-            artifact = stringLiteral.hibernateCoreStringLiteral.item;
-        };
+        specifier = moduleSpecifier.orgHibernateCoreModuleSpecifier;
     };
     
     parse = parseModuleDescriptor;

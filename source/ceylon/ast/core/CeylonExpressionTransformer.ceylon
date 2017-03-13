@@ -647,8 +647,6 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``name = ``transformWithIndent(that.name)``;
                 `` indent + indentLevel ``version = ``transformWithIndent(that.version)``;
                 `` indent + indentLevel ``annotations = ``transformWithIndent(that.annotations)``;
-                `` indent + indentLevel ``repository = ``transformWithIndent(that.repository)``;
-                `` indent + indentLevel ``artifact = ``transformWithIndent(that.artifact)``;
                 ``indent``}";
     transformModuleSpecifier(ModuleSpecifier that)
             => "ModuleSpecifier {

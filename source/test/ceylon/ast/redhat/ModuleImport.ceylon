@@ -1,10 +1,8 @@
 import ceylon.ast.core {
     Annotations,
-    Artifact,
     Module,
     ModuleImport,
     ModuleSpecifier,
-    Repository,
     StringLiteral
 }
 import ceylon.ast.redhat {

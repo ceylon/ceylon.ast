@@ -29,7 +29,7 @@ shared CaseTypes caseTypesToCeylon(JCaseTypes caseTypes, Anything(JNode, Node) u
      (This trick originally comes from ceylon.formatter.)
      */
     assert (nonempty cases
-                = concatenate(CeylonIterable(caseTypes.types), CeylonIterable(caseTypes.baseMemberExpressions))
+                = concatenate(CeylonIterable(caseTypes.types), CeylonIterable(caseTypes.baseMemberExpressions).narrow<JBaseMemberExpression>())
                     .sort(byIncreasing(compose(Token.tokenIndex, JNode.token))));
     PrimaryType|MemberName primaryTypeOrMemberNameToCeylon(JStaticType|JBaseMemberExpression that, Anything(JNode, Node) update = noop) {
         switch (that)

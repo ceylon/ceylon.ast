@@ -236,6 +236,6 @@ shared void powerOfTwo() {
         message = "Typechecker standard output";
     };
     // the expected err line is ~1800 chars long, we’re not going to compare that :D
-    assert (errString.startsWith("error [specified expression must be assignable to declared type of 'accept':"));
+    assert (errString.startsWith("error [specified expression must be assignable to declared type of 'accept'"));
     assert (errString.contains("is not assignable to 'Accept'"));
 }

@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[CaseClause|JCaseClause]] to a `ceylon.ast` [[CaseClause]]."
 shared CaseClause caseClauseToCeylon(JCaseClause caseClause, Anything(JNode, Node) update = noop) {
-    value result = CaseClause(caseItemToCeylon(caseClause.caseItem, update), blockToCeylon(caseClause.block, update));
+    value result = CaseClause(caseItemToCeylon(caseClause.caseItem, update), blockToCeylon(caseClause.block, update), caseClause.overlapping);
     update(caseClause, result);
     return result;
 }

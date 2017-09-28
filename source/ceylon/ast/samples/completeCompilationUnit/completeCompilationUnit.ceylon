@@ -719,6 +719,7 @@ shared CompilationUnit completeCompilationUnit
                                         CaseClause {
                                             caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
                                             block = Block([]);
+                                            elseCase = true;
                                         }
                                     ];
                                     elseClause = ElseClause(Block([]));
@@ -739,6 +740,7 @@ shared CompilationUnit completeCompilationUnit
                                         CaseClause {
                                             caseItem = IsCase(BaseType(TypeNameWithTypeArguments(UIdentifier("String"))));
                                             block = Block([]);
+                                            elseCase = true;
                                         }
                                     ];
                                     elseClause = ElseClause(Block([]));

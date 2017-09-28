@@ -1,5 +1,5 @@
 "A ‘`case`’ clause of a [[‘`switch`’ statement|SwitchCaseElse]], that is,
- the keyword ‘`case`’, followed by a [[case item|caseItem]] enclosed in parentheses and a [[block]].
+ optionally the keyword ‘`else`’, then the keyword ‘`case`’, followed by a [[case item|caseItem]] enclosed in parentheses and a [[block]].
  
  Examples (multi-line):
  
@@ -7,8 +7,10 @@
          int = parseInteger(val);
      }
  
-     case (null) { return; }"
-shared class CaseClause(caseItem, block)
+     case (null) { return; }
+
+     else case (is Integer) { return val.magnitude; }"
+shared class CaseClause(caseItem, block, elseCase = false)
         extends Node() {
     
     "The case item for this clause."
@@ -18,6 +20,9 @@ shared class CaseClause(caseItem, block)
      The block is entered if the [[case item|caseItem]] matches
      the [[`switch` expression|SwitchClause.expression]]."
     shared Block block;
+    "Whether this is a non-disjoint `else case` clause
+     or a regular disjoint `case` clause."
+    shared Boolean elseCase;
     
     shared actual [CaseItem, Block] children = [caseItem, block];
     
@@ -29,7 +34,7 @@ shared class CaseClause(caseItem, block)
     
     shared actual Boolean equals(Object that) {
         if (is CaseClause that) {
-            return caseItem==that.caseItem && block==that.block;
+            return caseItem==that.caseItem && block==that.block && elseCase==that.elseCase;
         } else {
             return false;
         }
@@ -38,8 +43,8 @@ shared class CaseClause(caseItem, block)
     shared actual Integer hash
             => 31 * (caseItem.hash + 31*block.hash);
     
-    shared CaseClause copy(CaseItem caseItem = this.caseItem, Block block = this.block) {
-        value ret = CaseClause(caseItem, block);
+    shared CaseClause copy(CaseItem caseItem = this.caseItem, Block block = this.block, Boolean elseCase = this.elseCase) {
+        value ret = CaseClause(caseItem, block, elseCase);
         copyExtraInfoTo(ret);
         return ret;
     }

@@ -159,7 +159,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default CallableType transformCallableType(CallableType that)
             => editNode(that) then that.copy(transformPrimaryType(that.returnType), transformTypeListOrSpreadType(that.argumentTypes)) else that;
     shared actual default CaseClause transformCaseClause(CaseClause that)
-            => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformBlock(that.block)) else that;
+            => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformBlock(that.block), that.elseCase) else that;
     shared actual default CaseExpression transformCaseExpression(CaseExpression that)
             => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression)) else that;
     shared actual CaseItem transformCaseItem(CaseItem that) {

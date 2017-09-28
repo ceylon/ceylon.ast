@@ -155,10 +155,16 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 `` indent + indentLevel ``argumentTypes = ``transformWithIndent(that.argumentTypes)``;
                 ``indent``}";
     transformCaseClause(CaseClause that)
-            => "CaseClause {
-                `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
-                `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
-                ``indent``}";
+            => that.elseCase
+                then "CaseClause {
+                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                      `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                      `` indent + indentLevel ``elseCase = true;
+                      ``indent``}"
+                else "CaseClause {
+                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                      `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                      ``indent``}";
     transformCaseExpression(CaseExpression that)
             => "CaseExpression {
                 `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;

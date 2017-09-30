@@ -55,9 +55,9 @@
 by ("Lucas Werkmeister <mail@lucaswerkmeister.de>")
 license ("http://www.apache.org/licenses/LICENSE-2.0.html")
 native ("jvm") module test.ceylon.ast.redhat "1.3.3-SNAPSHOT" {
-    shared import ceylon.test "1.3.3-SNAPSHOT";
+    shared import ceylon.test "1.3.3";
     shared import ceylon.ast.redhat "1.3.3-SNAPSHOT";
     import ceylon.ast.create "1.3.3-SNAPSHOT";
     import ceylon.ast.samples "1.3.3-SNAPSHOT";
-    import ceylon.formatter "1.3.3-SNAPSHOT";
+    import ceylon.formatter "1.3.3";
 }

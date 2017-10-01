@@ -34,5 +34,5 @@
    [[classDefinition]] and [[interfaceDefinition]] functions."""
 module ceylon.ast.create "1.3.3-SNAPSHOT" {
     shared import ceylon.ast.core "1.3.3-SNAPSHOT";
-    import ceylon.collection "1.3.3-SNAPSHOT";
+    import ceylon.collection "1.3.3";
 }

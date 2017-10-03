@@ -44,6 +44,7 @@ shared object qualifiedExpression satisfies ConcreteTest<QualifiedExpression,JQu
     shared String->QualifiedExpression textIndexedQualifiedExpression = construct(baseExpression.textExpression, "indexed");
     shared String->QualifiedExpression personNameQualifiedExpression = construct(baseExpression.personExpression, "name");
     shared String->QualifiedExpression packageNullExpression = construct("package" -> Package(), "null");
+    shared String->QualifiedExpression iMagnitudeExpression = construct(baseExpression.iExpression, "magnitude");
     
     parse = parseQualifiedExpression;
     fromCeylon = RedHatTransformer.transformQualifiedExpression;

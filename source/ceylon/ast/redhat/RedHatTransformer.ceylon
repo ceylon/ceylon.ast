@@ -3766,7 +3766,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     JCaseClause helpTransformCaseExpression(CaseExpression caseExpression) {
+        if (caseExpression.elseCase) {
+            tokens.token("else", else_clause);
+        }
         JCaseClause ret = JCaseClause(tokens.token("case", case_clause));
+        ret.overlapping = caseExpression.elseCase;
         tokens.token("(", lparen);
         ret.caseItem = transformCaseItem(caseExpression.caseItem);
         ret.caseItem.endToken = tokens.token(")", rparen);

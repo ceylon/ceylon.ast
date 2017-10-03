@@ -21,6 +21,7 @@ shared CaseExpression caseExpressionToCeylon(JCaseClause caseExpression, Anythin
             assert (is DisjoiningExpression|IfElseExpression|LetExpression expression);
             return expression;
         }
+        elseCase = caseExpression.overlapping;
     };
     update(caseExpression, result);
     return result;

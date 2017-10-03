@@ -161,7 +161,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
     shared actual default CaseClause transformCaseClause(CaseClause that)
             => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformBlock(that.block), that.elseCase) else that;
     shared actual default CaseExpression transformCaseExpression(CaseExpression that)
-            => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression)) else that;
+            => editNode(that) then that.copy(transformCaseItem(that.caseItem), transformDisjoiningExpressionOrIfElseExpressionOrLetExpression(that.expression), that.elseCase) else that;
     shared actual CaseItem transformCaseItem(CaseItem that) {
         assert (is CaseItem ret = super.transformCaseItem(that));
         return ret;

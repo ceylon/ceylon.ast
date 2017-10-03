@@ -21,6 +21,9 @@ shared object isCase satisfies ConcreteTest<IsCase,JIsCase> {
     shared String->IsCase isStringCase = construct(baseType.stringType);
     shared String->IsCase isStringOrIntegerOrFloatCase = construct(unionType.stringOrIntegerOrFloatUnionType);
     
+    // not tested directly, but used by other tests
+    shared String->IsCase isIntegerCase = construct(baseType.integerType);
+    
     parse = parseIsCase;
     fromCeylon = RedHatTransformer.transformIsCase;
     toCeylon = isCaseToCeylon;

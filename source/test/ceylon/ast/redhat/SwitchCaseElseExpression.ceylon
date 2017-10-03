@@ -22,7 +22,14 @@ shared object switchCaseElseExpression satisfies ConcreteTest<SwitchCaseElseExpr
     String->SwitchCaseElseExpression construct(String->SwitchClause clause, [<String->CaseExpression>+] caseExpressions, <String->DisjoiningExpression|IfElseExpression|LetExpression>? elseExpression = null)
             => "``clause.key`` ``" ".join(caseExpressions*.key)`` ``(if (exists elseExpression) then "else ``elseExpression.key``" else "")``" -> SwitchCaseElseExpression(clause.item, caseExpressions*.item, elseExpression?.item);
     
-    shared String->SwitchCaseElseExpression switchCaseElseExpression = construct(switchClause.switchIClause, ["case (0 | 1) i" -> CaseExpression(matchCase.matchZeroOrOneCase.item, baseExpression.iExpression.item)], baseExpression.nullExpression);
+    shared String->SwitchCaseElseExpression switchCaseElseExpression = construct(
+        switchClause.switchIClause,
+        [
+            "case (0 | 1) i" -> CaseExpression(matchCase.matchZeroOrOneCase.item, baseExpression.iExpression.item),
+            "else case (is Integer) i.magnitude" -> CaseExpression(isCase.isIntegerCase.item, qualifiedExpression.iMagnitudeExpression.item, true)
+        ],
+        baseExpression.nullExpression
+    );
     
     parse = parseSwitchCaseElseExpression;
     fromCeylon = RedHatTransformer.transformSwitchCaseElseExpression;

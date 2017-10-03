@@ -905,6 +905,7 @@ shared CompilationUnit completeCompilationUnit
                                                         CaseExpression {
                                                             caseItem = IsCase(TupleType(TypeList([])));
                                                             expression = StringLiteral("""empty""");
+                                                            elseCase = true;
                                                         }
                                                     ];
                                                     elseExpression = StringLiteral("""nonempty""");

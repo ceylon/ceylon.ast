@@ -41,7 +41,7 @@ shared class CaseClause(caseItem, block, elseCase = false)
     }
     
     shared actual Integer hash
-            => 31 * (caseItem.hash + 31*block.hash);
+            => 31 * (caseItem.hash + 31 * (block.hash + 31*elseCase.hash));
     
     shared CaseClause copy(CaseItem caseItem = this.caseItem, Block block = this.block, Boolean elseCase = this.elseCase) {
         value ret = CaseClause(caseItem, block, elseCase);

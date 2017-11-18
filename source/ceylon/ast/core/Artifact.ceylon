@@ -1,4 +1,4 @@
 "An artifact identifier,
- a string literal with no defined semantics followed by a colon."
+ a string literal with no defined semantics preceded by a colon."
 shared alias Artifact
         => StringLiteral;

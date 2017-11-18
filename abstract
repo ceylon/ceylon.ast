@@ -1,2 +1,2 @@
-#!/bin/sh
-ceylon run source_gen.ceylon.ast --abstract $@ || { ant csg; ceylon run source_gen.ceylon.ast --abstract $@; }
+#!/bin/bash
+ceylon run source_gen.ceylon.ast --abstract "$@" || { ant csg; ceylon run source_gen.ceylon.ast --abstract "$@"; }

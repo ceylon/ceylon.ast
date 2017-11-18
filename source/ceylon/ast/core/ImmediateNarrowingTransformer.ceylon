@@ -55,6 +55,8 @@ shared interface ImmediateNarrowingTransformer<out Result> satisfies NarrowingTr
             => that.transform(this);
     shared actual default Result transformClassOrInterface(ClassOrInterface that)
             => that.transform(this);
+    shared actual default Result transformClassifier(Classifier that)
+            => that.transform(this);
     shared actual default Result transformComparingExpression(ComparingExpression that)
             => that.transform(this);
     shared actual default Result transformComparisonOperation(ComparisonOperation that)

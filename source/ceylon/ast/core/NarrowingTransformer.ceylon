@@ -19,6 +19,7 @@ shared interface NarrowingTransformer<out Result>
     shared formal Result transformArtifact(Artifact that);
     shared formal Result transformAssertionMessage(AssertionMessage that);
     shared formal Result transformAssigningExpression(AssigningExpression that);
+    shared formal Result transformClassifier(Classifier that);
     shared formal Result transformComparingExpression(ComparingExpression that);
     shared formal Result transformConjoiningExpression(ConjoiningExpression that);
     shared formal Result transformDisjoiningExpression(DisjoiningExpression that);

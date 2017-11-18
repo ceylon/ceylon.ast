@@ -148,6 +148,10 @@ shared interface CascadingNarrowingTransformer<out Result> satisfies NarrowingTr
         case (is AnyClass) { return transformAnyClass(that); }
         case (is AnyInterface) { return transformAnyInterface(that); }
     }
+    shared actual default Result transformClassifier(Classifier that) {
+        switch (that)
+        case (is StringLiteral) { return transformStringLiteral(that); }
+    }
     shared actual default Result transformComparisonOperation(ComparisonOperation that) {
         switch (that)
         case (is LargerOperation) { return transformLargerOperation(that); }

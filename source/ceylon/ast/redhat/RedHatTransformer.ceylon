@@ -448,6 +448,11 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
+    shared actual JClassifier transformClassifier(Classifier that) {
+        assert (is JClassifier ret = super.transformClassifier(that));
+        return ret;
+    }
+    
     shared actual JTerm transformAddingExpression(AddingExpression that) {
         assert (is JTerm ret = super.transformAddingExpression(that));
         return ret;

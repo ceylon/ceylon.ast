@@ -46,6 +46,10 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         assert (is Artifact ret = super.transformArtifact(that));
         return ret;
     }
+    shared actual Classifier transformClassifier(Classifier that) {
+        assert (is Classifier ret = super.transformClassifier(that));
+        return ret;
+    }
     shared actual Repository transformRepository(Repository that) {
         assert (is Repository ret = super.transformRepository(that));
         return ret;

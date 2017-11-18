@@ -1,2 +1,8 @@
 #!/bin/bash
+
+if [[ $1 == --help || $1 == -h ]] || (($# < 2)); then
+    printf 'Usage:\n$ %s ClassName SuperClassName ParamType1 paramName1 ParamType2 paramName2 ...\nDocumentation documentation\n\nExamples:\n\n    example code\n^D\n' "$0"
+    exit 0
+fi
+
 ceylon run source_gen.ceylon.ast "$@" || { ant csg; ceylon run source_gen.ceylon.ast "$@"; }

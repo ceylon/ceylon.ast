@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     Artifact,
+    Classifier,
     LIdentifier,
     Module,
     ModuleImport,
@@ -69,7 +70,15 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
         } else {
             artifact = null;
         }
-        name = ModuleSpecifier(repository, onlyName, artifact);
+        Classifier? classifier;
+        if (exists jClassifier = moduleImport.classifier) {
+            value nameToken = jClassifier.mainToken;
+            assert (nameToken.type == string_literal);
+            classifier = stringLiteralToCeylon(JStringLiteral(nameToken), update);
+        } else {
+            classifier = null;
+        }
+        name = ModuleSpecifier(repository, onlyName, artifact, classifier);
         update(moduleImport, name);
     } else {
         assert (is ModuleName onlyName);

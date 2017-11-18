@@ -448,11 +448,6 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JClassifier transformClassifier(Classifier that) {
-        assert (is JClassifier ret = super.transformClassifier(that));
-        return ret;
-    }
-    
     shared actual JTerm transformAddingExpression(AddingExpression that) {
         assert (is JTerm ret = super.transformAddingExpression(that));
         return ret;
@@ -1042,6 +1037,12 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.type = type;
         ret.invocationExpression = invocationExpression;
         return ret;
+    }
+    
+    "The RedHat AST has no direct equivalent of [[Classifier]];
+     this method throws."
+    shared actual Nothing transformClassifier(Classifier that) {
+        throw AssertionError("Classifier has no RedHat AST equivalent!");
     }
     
     shared actual JClosedBound transformClosedBound(ClosedBound that) {
@@ -2319,12 +2320,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.annotationList = annotationList;
         ret.importPath = transformFullPackageName(that.name);
         if (exists moduleSpecifier = that.specifier) {
-            value [jNamespace, jName, jArtifact] = helpTransformModuleSpecifier(moduleSpecifier);
+            value [jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(moduleSpecifier);
             ret.namespace = jNamespace;
             switch (jName)
             case (is JImportPath) { ret.groupImportPath = jName; }
             case (is JQuotedLiteral) { ret.groupQuotedLiteral = jName; }
             ret.artifact = jArtifact;
+            ret.classifier = jClassifier;
         }
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.importModuleList = transformModuleBody(that.body);
@@ -2343,12 +2345,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.quotedLiteral = JQuotedLiteral(transformStringLiteral(name).mainToken);
         }
         case (is ModuleSpecifier) {
-            value [jNamespace, jName, jArtifact] = helpTransformModuleSpecifier(name);
+            value [jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(name);
             ret.namespace = jNamespace;
             switch (jName)
             case (is JImportPath) { ret.importPath = jName; }
             case (is JQuotedLiteral) { ret.quotedLiteral = jName; }
             ret.artifact = jArtifact;
+            ret.classifier = jClassifier;
         }
         ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
         ret.endToken = tokens.token(";", semicolon);
@@ -3862,7 +3865,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret.string;
     }
     
-    [JIdentifier, JImportPath|JQuotedLiteral, JQuotedLiteral?] helpTransformModuleSpecifier(ModuleSpecifier that) {
+    [JIdentifier, JImportPath|JQuotedLiteral, JQuotedLiteral?, JQuotedLiteral?] helpTransformModuleSpecifier(ModuleSpecifier that) {
         JIdentifier jNamespace = transformLIdentifier(that.repository);
         tokens.token(":", segment_op);
         JImportPath|JQuotedLiteral jName;
@@ -3876,6 +3879,13 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         } else {
             jArtifact = null;
         }
-        return [jNamespace, jName, jArtifact];
+        JQuotedLiteral? jClassifier;
+        if (exists classifier = that.classifier) {
+            tokens.token(":", segment_op);
+            jClassifier = JQuotedLiteral(transformStringLiteral(classifier).mainToken);
+        } else {
+            jClassifier = null;
+        }
+        return [jNamespace, jName, jArtifact, jClassifier];
     }
 }

@@ -501,7 +501,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ModuleSpecifier transformModuleSpecifier(ModuleSpecifier that)
-            => editNode(that) then that.copy(transformRepository(that.repository), transformModule(that.moduleName), nullsafeInvoke(that.artifact, transformArtifact)) else that;
+            => editNode(that) then that.copy(transformRepository(that.repository), transformModule(that.moduleName), nullsafeInvoke(that.artifact, transformArtifact), nullsafeInvoke(that.classifier, transformClassifier)) else that;
     shared actual default MultiplyAssignmentOperation transformMultiplyAssignmentOperation(MultiplyAssignmentOperation that)
             => editNode(that) then that.copy(transformThenElseExpression(that.leftOperand), transformExpression(that.rightOperand)) else that;
     shared actual NameWithTypeArguments transformNameWithTypeArguments(NameWithTypeArguments that) {

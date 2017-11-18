@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     Artifact,
+    Classifier,
     Module,
     ModuleDescriptor,
     ModuleSpecifier,
@@ -56,7 +57,13 @@ shared ModuleDescriptor moduleDescriptorToCeylon(JModuleDescriptor moduleDescrip
         } else {
             artifact = null;
         }
-        specifier = ModuleSpecifier(repository, moduleName, artifact);
+        Classifier? classifier;
+        if (exists jClassifier = moduleDescriptor.classifier) {
+            classifier = stringLiteralToCeylon(JStringLiteral(jClassifier.token), update);
+        } else {
+            classifier = null;
+        }
+        specifier = ModuleSpecifier(repository, moduleName, artifact, classifier);
         assert (exists specifier); // ceylon/ceylon#3642
         update(moduleDescriptor, specifier);
     } else {

@@ -156,26 +156,26 @@ shared class CeylonExpressionTransformer(String indentLevel = "    ") satisfies 
                 ``indent``}";
     transformCaseClause(CaseClause that)
             => that.elseCase
-                then "CaseClause {
-                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
-                      `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
-                      `` indent + indentLevel ``elseCase = true;
-                      ``indent``}"
-                else "CaseClause {
-                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
-                      `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
-                      ``indent``}";
+                    then "CaseClause {
+                          `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                          `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                          `` indent + indentLevel ``elseCase = true;
+                          ``indent``}"
+                    else "CaseClause {
+                          `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                          `` indent + indentLevel ``block = ``transformWithIndent(that.block)``;
+                          ``indent``}";
     transformCaseExpression(CaseExpression that)
             => that.elseCase
-                then "CaseExpression {
-                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
-                      `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
-                      `` indent + indentLevel ``elseCase = true;
-                      ``indent``}"
-                else "CaseExpression {
-                      `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
-                      `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
-                      ``indent``}";
+                    then "CaseExpression {
+                          `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                          `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
+                          `` indent + indentLevel ``elseCase = true;
+                          ``indent``}"
+                    else "CaseExpression {
+                          `` indent + indentLevel ``caseItem = ``transformWithIndent(that.caseItem)``;
+                          `` indent + indentLevel ``expression = ``transformWithIndent(that.expression)``;
+                          ``indent``}";
     transformCaseTypes(CaseTypes that) => "CaseTypes(``transformWithIndent(that.caseTypes)``)";
     transformCatchClause(CatchClause that)
             => "CatchClause {

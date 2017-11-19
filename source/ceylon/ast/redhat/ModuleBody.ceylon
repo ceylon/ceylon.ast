@@ -5,6 +5,8 @@ import ceylon.ast.core {
 import com.redhat.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
+        JAnyAttribute=AnyAttribute,
+        JAttributeDeclaration=AttributeDeclaration,
         JImportModuleList=ImportModuleList
     }
 }
@@ -14,7 +16,13 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[ImportModuleList|JImportModuleList]] to a `ceylon.ast` [[ModuleBody]]."
 shared ModuleBody moduleBodyToCeylon(JImportModuleList moduleBody, Anything(JNode, Node) update = noop) {
-    value result = ModuleBody(CeylonIterable(moduleBody.importModules).collect(propagateUpdate(moduleImportToCeylon, update)));
+    value result = ModuleBody(
+        CeylonIterable(moduleBody.importModules).collect(propagateUpdate(moduleImportToCeylon, update)),
+        CeylonIterable(moduleBody.constants).collect((JAnyAttribute constant) {
+                assert (is JAttributeDeclaration constant);
+                return valueDefinitionToCeylon(constant, update);
+            })
+    );
     update(moduleBody, result);
     return result;
 }

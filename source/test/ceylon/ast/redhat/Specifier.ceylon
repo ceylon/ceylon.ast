@@ -35,6 +35,7 @@ shared object specifier satisfies ConcreteTest<Specifier,JSpecifierExpression> {
     shared String->Specifier atan2Specifier = construct(invocation.atan2Invocation);
     shared String->Specifier rTimesCosSpecifier = construct(productOperation.rTimesCosExpression);
     shared String->Specifier rTimesSinSpecifier = construct(productOperation.rTimesSinExpression);
+    shared String->Specifier _133VersionSpecifier = construct(stringLiteral._133VersionStringLiteral);
     
     parse = parseSpecifier;
     fromCeylon = RedHatTransformer.transformSpecifier;

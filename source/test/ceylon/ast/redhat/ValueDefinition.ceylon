@@ -28,6 +28,7 @@ shared object valueDefinition satisfies ConcreteTest<ValueDefinition,JAttributeD
     
     // not tested directly, but used by other tests
     shared String->ValueDefinition stringDefinition = construct(identifier.stringLIdentifier, baseType.stringType, lazySpecifier.xyStringSpecifier, annotations.sharedActualAnnotations);
+    shared String->ValueDefinition languageVersion133Definition = construct(identifier.languageVersionLIdentifier, valueModifier.valueModifier, specifier._133VersionSpecifier, annotations.emptyAnnotations);
     
     parse = parseValueDefinition;
     fromCeylon = RedHatTransformer.transformValueDefinition;

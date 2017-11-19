@@ -487,7 +487,7 @@ shared interface Editor satisfies ImmediateNarrowingTransformer<Node> {
         return ret;
     }
     shared actual default ModuleBody transformModuleBody(ModuleBody that)
-            => editNode(that) then that.copy(that.moduleImports.collect(transformModuleImport)) else that;
+            => editNode(that) then that.copy(that.moduleImports.collect(transformModuleImport), that.constantDefinitions.collect(transformValueDefinition)) else that;
     shared actual default ModuleCompilationUnit transformModuleCompilationUnit(ModuleCompilationUnit that)
             => editNode(that) then that.copy(transformModuleDescriptor(that.moduleDescriptor), that.imports.collect(transformImport)) else that;
     shared actual default ModuleDec transformModuleDec(ModuleDec that)

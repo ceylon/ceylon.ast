@@ -2287,6 +2287,9 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JImportModuleList transformModuleBody(ModuleBody that) {
         JImportModuleList ret = JImportModuleList(tokens.token("{", lbrace));
+        for (constantDefinition in that.constantDefinitions) {
+            ret.addConstant(transformValueDefinition(constantDefinition));
+        }
         for (moduleImport in that.moduleImports) {
             ret.addImportModule(transformModuleImport(moduleImport));
         }

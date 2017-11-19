@@ -59,6 +59,7 @@ shared object baseExpression satisfies ConcreteTest<BaseExpression,JBaseMemberOr
     shared String->BaseExpression sinExpression = construct("sin");
     shared String->BaseExpression cosExpression = construct("cos");
     shared String->BaseExpression emptyExpression = construct("empty");
+    shared String->BaseExpression languageVersionExpression = construct("languageVersion");
     
     parse = parseBaseExpression;
     fromCeylon = RedHatTransformer.transformBaseExpression;

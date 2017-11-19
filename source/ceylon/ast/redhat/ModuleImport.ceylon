@@ -1,5 +1,6 @@
 import ceylon.ast.core {
     Artifact,
+    BaseExpression,
     Classifier,
     LIdentifier,
     Module,
@@ -84,17 +85,25 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
         assert (is ModuleName onlyName);
         name = onlyName;
     }
-    StringLiteral version;
-    value versionToken = moduleImport.version.mainToken;
-    value versionTokenType = versionToken.type;
-    if (versionTokenType == string_literal) {
-        version = stringLiteralToCeylon(JStringLiteral(versionToken), update);
-    } else if (versionTokenType == char_literal) {
-        // TODO again, should we really accept this?
-        versionToken.type = string_literal;
-        version = stringLiteralToCeylon(JStringLiteral(versionToken), update);
+    StringLiteral|BaseExpression version;
+    if ( exists jVersion = moduleImport.version) {
+        "Can’t have both version literal and constant version"
+        assert (!moduleImport.constantVersion exists);
+        value versionToken = moduleImport.version.mainToken;
+        value versionTokenType = versionToken.type;
+        if (versionTokenType == string_literal) {
+            version = stringLiteralToCeylon(JStringLiteral(versionToken), update);
+        } else if (versionTokenType == char_literal) {
+            // TODO again, should we really accept this?
+            versionToken.type = string_literal;
+            version = stringLiteralToCeylon(JStringLiteral(versionToken), update);
+        } else {
+            throw AssertionError("Unknown version token type ``versionTokenType``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
+        }
     } else {
-        throw AssertionError("Unknown version token type ``versionTokenType``, expected STRING_LITERAL (``string_literal``) or CHAR_LITERAL (``char_literal``)");
+        "Must have a version"
+        assert (exists constantVersion = moduleImport.constantVersion);
+        version = baseExpressionToCeylon(constantVersion, update);
     }
     value result = ModuleImport(name, version, annotationsToCeylon(moduleImport.annotationList else JAnnotationList(null), update));
     update(moduleImport, result);

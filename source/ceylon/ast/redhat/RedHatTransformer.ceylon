@@ -2356,7 +2356,14 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.artifact = jArtifact;
             ret.classifier = jClassifier;
         }
-        ret.version = JQuotedLiteral(transformStringLiteral(that.version).mainToken);
+        switch (version = that.version)
+        case (is StringLiteral) {
+            ret.version = JQuotedLiteral(transformStringLiteral(version).mainToken);
+        }
+        case (is BaseExpression) {
+            assert (is JBaseMemberExpression constantVersion = transformBaseExpression(version));
+            ret.constantVersion = constantVersion;
+        }
         ret.endToken = tokens.token(";", semicolon);
         return ret;
     }

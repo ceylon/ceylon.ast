@@ -474,6 +474,7 @@ shared class TuringMachineCreator(
         }
         
         assert (nonempty branches = concatenate(
+                [], // concatenate needs at least one argument and states is declared possibly-empty
                 for (state in states)
                     for (symbol in { null, *allSymbols })
                         createBranch(state, symbol)

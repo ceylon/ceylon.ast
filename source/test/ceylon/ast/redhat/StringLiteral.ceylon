@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     stringLiteralToCeylon,
     parseStringLiteral
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JStringLiteral=StringLiteral
     }

@@ -6,7 +6,7 @@ import ceylon.ast.core {
     Outer,
     Package
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JSelfExpression=SelfExpression,
@@ -16,7 +16,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JPackage=Package
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         thisType=\iTHIS,
         superType=\iSUPER,

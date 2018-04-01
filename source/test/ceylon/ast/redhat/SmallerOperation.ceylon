@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     smallerOperationToCeylon,
     parseSmallerOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSmallerOp=SmallerOp
     }

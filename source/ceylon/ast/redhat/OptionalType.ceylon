@@ -3,7 +3,7 @@ import ceylon.ast.core {
     OptionalType,
     PrimaryType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JOptionalType=OptionalType

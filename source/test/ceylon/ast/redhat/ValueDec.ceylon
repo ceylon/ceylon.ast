@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     valueDecToCeylon,
     parseValueDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JValueLiteral=ValueLiteral
     }

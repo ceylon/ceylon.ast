@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     prefixPostfixStatementToCeylon,
     parsePrefixPostfixStatement
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JExpressionStatement=ExpressionStatement
     }

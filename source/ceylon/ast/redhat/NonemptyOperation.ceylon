@@ -3,7 +3,7 @@ import ceylon.ast.core {
     NonemptyOperation,
     SpanningExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JNonempty=Nonempty

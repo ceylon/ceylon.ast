@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     intersectionTypeToCeylon,
     parseIntersectionType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JIntersectionType=IntersectionType
     }

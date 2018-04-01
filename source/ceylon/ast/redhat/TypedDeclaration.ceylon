@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Node,
     TypedDeclaration
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAnyAttribute=AnyAttribute,
@@ -13,8 +13,8 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[TypedDeclaration|JTypedDeclaration]] to a `ceylon.ast` [[TypedDeclaration]].
  
- (Warning: In the RedHat AST, [[ObjectDefinitions|com.redhat.ceylon.compiler.typechecker.tree::Tree.ObjectDefinition]]
- and [[AttributeSetterDefinitions|com.redhat.ceylon.compiler.typechecker.tree::Tree.AttributeSetterDefinition]]
+ (Warning: In the RedHat AST, [[ObjectDefinitions|org.eclipse.ceylon.compiler.typechecker.tree::Tree.ObjectDefinition]]
+ and [[AttributeSetterDefinitions|org.eclipse.ceylon.compiler.typechecker.tree::Tree.AttributeSetterDefinition]]
  are typed declarations; however, this is not the case in `ceylon.ast`, and this function
  will not accept them.)"
 shared TypedDeclaration typedDeclarationToCeylon(JTypedDeclaration typedDeclaration, Anything(JNode, Node) update = noop) {

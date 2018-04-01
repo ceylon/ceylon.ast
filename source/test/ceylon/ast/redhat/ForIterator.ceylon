@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     forIteratorToCeylon,
     parseForIterator
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JForIterator=ForIterator
     }

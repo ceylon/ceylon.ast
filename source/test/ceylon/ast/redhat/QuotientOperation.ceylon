@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     quotientOperationToCeylon,
     parseQuotientOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JQuotientOp=QuotientOp
     }

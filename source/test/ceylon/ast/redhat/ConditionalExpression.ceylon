@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     conditionalExpressionToCeylon,
     parseConditionalExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JIfExpression=IfExpression,
         JSwitchExpression=SwitchExpression

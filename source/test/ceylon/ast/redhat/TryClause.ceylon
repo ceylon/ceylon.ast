@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     tryClauseToCeylon,
     parseTryClause
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JTryClause=TryClause
     }

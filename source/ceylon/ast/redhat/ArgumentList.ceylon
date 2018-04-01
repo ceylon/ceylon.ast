@@ -5,7 +5,7 @@ import ceylon.ast.core {
     Node,
     SpreadArgument
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JComprehension=Comprehension,
@@ -21,7 +21,7 @@ import ceylon.interop.java {
 
 "Converts a RedHat AST [[SequencedArgument|JSequencedArgument]] to a `ceylon.ast` [[ArgumentList]].
  
- (The RedHat AST [[ArgumentList|com.redhat.ceylon.compiler.typechecker.tree::Tree.ArgumentList]]
+ (The RedHat AST [[ArgumentList|org.eclipse.ceylon.compiler.typechecker.tree::Tree.ArgumentList]]
  does *not* correspond to the `ceylon.ast` [[ArgumentList]]!)"
 shared ArgumentList argumentListToCeylon(JSequencedArgument argumentList, Anything(JNode, Node) update = noop) {
     value arguments = CeylonIterable(argumentList.positionalArguments).sequence();

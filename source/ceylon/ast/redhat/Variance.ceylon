@@ -2,13 +2,13 @@ import ceylon.ast.core {
     Node,
     Variance
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JTypeVariance=TypeVariance
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         in_op=\iIN_OP
     }

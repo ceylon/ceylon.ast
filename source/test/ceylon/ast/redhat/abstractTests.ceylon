@@ -5,7 +5,7 @@ import ceylon.ast.core {
     ScopedKey,
     Visitor
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node
 }
 import ceylon.ast.redhat {

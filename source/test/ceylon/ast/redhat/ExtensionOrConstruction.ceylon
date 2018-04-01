@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     extensionOrConstructionToCeylon,
     parseExtensionOrConstruction
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JInvocationExpression=InvocationExpression,
         JSimpleType=SimpleType

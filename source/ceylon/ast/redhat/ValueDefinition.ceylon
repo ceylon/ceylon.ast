@@ -5,7 +5,7 @@ import ceylon.ast.core {
     ValueDefinition,
     ValueModifier
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAttributeDeclaration=AttributeDeclaration,

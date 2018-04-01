@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Conditions,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JConditionList=ConditionList

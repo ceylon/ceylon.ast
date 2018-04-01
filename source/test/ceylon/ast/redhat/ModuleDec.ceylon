@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     moduleDecToCeylon,
     parseModuleDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JModuleLiteral=ModuleLiteral
     }

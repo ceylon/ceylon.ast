@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     equalityOperationToCeylon,
     parseEqualityOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JEqualityOp=EqualityOp,
         JIdenticalOp=IdenticalOp

@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Node,
     Operation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JBinaryOperatorExpression=BinaryOperatorExpression,

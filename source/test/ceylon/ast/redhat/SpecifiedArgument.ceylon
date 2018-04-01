@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     specifiedArgumentToCeylon,
     parseSpecifiedArgument
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JNamedArgument=NamedArgument
     }

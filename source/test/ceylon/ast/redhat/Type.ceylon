@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     typeToCeylon,
     parseType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JStaticType=StaticType
     }

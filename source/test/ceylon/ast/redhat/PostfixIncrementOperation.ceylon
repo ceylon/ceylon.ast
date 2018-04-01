@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     postfixIncrementOperationToCeylon,
     parsePostfixIncrementOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JPostfixIncrementOp=PostfixIncrementOp
     }

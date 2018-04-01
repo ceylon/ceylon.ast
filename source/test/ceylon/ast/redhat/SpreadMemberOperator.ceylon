@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     spreadMemberOperatorToCeylon,
     parseSpreadMemberOperator
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSpreadOp=SpreadOp
     }

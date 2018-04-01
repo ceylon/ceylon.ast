@@ -3,7 +3,7 @@ import ceylon.ast.core {
     AddingExpression,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JSegmentOp=SegmentOp

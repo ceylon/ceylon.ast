@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     interfaceBodyToCeylon,
     parseInterfaceBody
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JInterfaceBody=InterfaceBody
     }

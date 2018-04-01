@@ -71,7 +71,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                 "import ceylon.ast.core {
                      ``type``
                  }
-                 import com.redhat.ceylon.compiler.typechecker.tree {
+                 import org.eclipse.ceylon.compiler.typechecker.tree {
                      Tree {
                          ``",\n        ".join(sort({ for (klass in { type, *cases }) "J``klass``=``klass``" }))``
                      }
@@ -111,7 +111,7 @@ class AbstractClassGenerator(shared actual String type, shared actual String sup
                      ``ltype``ToCeylon,
                      parse``type``
                  }
-                 import com.redhat.ceylon.compiler.typechecker.tree {
+                 import org.eclipse.ceylon.compiler.typechecker.tree {
                      Tree {
                          J``type``=``type``
                      }

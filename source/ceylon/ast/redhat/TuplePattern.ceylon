@@ -4,7 +4,7 @@ import ceylon.ast.core {
     UnionType,
     VariadicVariable
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JSequencedType=SequencedType,

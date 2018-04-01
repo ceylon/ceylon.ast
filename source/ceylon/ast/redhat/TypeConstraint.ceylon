@@ -4,7 +4,7 @@ import ceylon.ast.core {
     SatisfiedTypes,
     TypeConstraint
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JTypeConstraint=TypeConstraint

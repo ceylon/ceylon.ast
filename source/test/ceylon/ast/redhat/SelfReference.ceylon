@@ -18,7 +18,7 @@ import ceylon.ast.redhat {
     outerToCeylon,
     packageToCeylon
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSelfExpression=SelfExpression,
         JThis=This,

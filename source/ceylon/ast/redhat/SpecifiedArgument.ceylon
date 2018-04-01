@@ -7,7 +7,7 @@ import ceylon.ast.core {
     LazySpecification,
     ValueArgument
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JFunctionModifier=FunctionModifier,

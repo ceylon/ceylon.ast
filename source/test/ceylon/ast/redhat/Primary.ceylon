@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     primaryToCeylon,
     parsePrimary
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JPrimary=Primary
     }

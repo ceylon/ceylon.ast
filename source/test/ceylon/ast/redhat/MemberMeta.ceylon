@@ -15,7 +15,7 @@ import ceylon.ast.redhat {
     memberMetaToCeylon,
     parseMemberMeta
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JMemberLiteral=MemberLiteral
     }

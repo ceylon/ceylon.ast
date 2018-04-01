@@ -3,7 +3,7 @@ import ceylon.ast.core {
     Node,
     ThenElseExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JComplementAssignOp=ComplementAssignOp

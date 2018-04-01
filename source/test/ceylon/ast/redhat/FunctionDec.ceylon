@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     functionDecToCeylon,
     parseFunctionDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionLiteral=FunctionLiteral
     }

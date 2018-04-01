@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     fullPackageNameToCeylon,
     parseFullPackageName
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JImportPath=ImportPath
     }

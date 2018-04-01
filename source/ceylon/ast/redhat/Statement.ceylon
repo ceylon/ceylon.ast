@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Node,
     Statement
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAssertion=Assertion,
@@ -17,10 +17,10 @@ import com.redhat.ceylon.compiler.typechecker.tree {
 
 "Converts a RedHat AST [[ExecutableStatement|JExecutableStatement]] to a `ceylon.ast` [[Statement]].
  
- (RedHat AST’s [[Statement|com.redhat.ceylon.compiler.typechecker.tree::Tree.Statement]]
- is the supertype of [[Declaration|com.redhat.ceylon.compiler.typechecker.tree::Tree.Declaration]]
- and [[ExecutableStatement|com.redhat.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
- and used as `Declaration|Statement` in [[Body|com.redhat.ceylon.compiler.typechecker.tree::Tree.Body]].)"
+ (RedHat AST’s [[Statement|org.eclipse.ceylon.compiler.typechecker.tree::Tree.Statement]]
+ is the supertype of [[Declaration|org.eclipse.ceylon.compiler.typechecker.tree::Tree.Declaration]]
+ and [[ExecutableStatement|org.eclipse.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
+ and used as `Declaration|Statement` in [[Body|org.eclipse.ceylon.compiler.typechecker.tree::Tree.Body]].)"
 shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNode, Node) update = noop) {
     assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement|JDestructure statement);
     switch (statement)

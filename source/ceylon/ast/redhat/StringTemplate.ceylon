@@ -3,14 +3,14 @@ import ceylon.ast.core {
     StringLiteral,
     StringTemplate
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JStringLiteral=StringLiteral,
         JStringTemplate=StringTemplate
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         verbatim_string=\iVERBATIM_STRING
     }

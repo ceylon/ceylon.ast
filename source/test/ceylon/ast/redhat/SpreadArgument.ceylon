@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     spreadArgumentToCeylon,
     parseSpreadArgument
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSpreadArgument=SpreadArgument
     }

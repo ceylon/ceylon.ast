@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     spanSubscriptToCeylon,
     parseSpanSubscript
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JElementRange=ElementRange
     }

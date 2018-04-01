@@ -10,7 +10,7 @@ import ceylon.ast.redhat {
     destructureToCeylon,
     parseDestructure
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JDestructure=Destructure
     }

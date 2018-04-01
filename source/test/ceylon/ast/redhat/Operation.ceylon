@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     operationToCeylon,
     parseOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JOperatorExpression=OperatorExpression
     }

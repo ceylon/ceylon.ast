@@ -2,7 +2,7 @@ import ceylon.ast.core {
     ConstructorDefinition,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JConstructor=Constructor,
         JEnumerated=Enumerated

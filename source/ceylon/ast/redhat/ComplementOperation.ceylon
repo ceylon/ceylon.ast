@@ -4,7 +4,7 @@ import ceylon.ast.core {
     Node,
     UnioningExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JComplementOp=ComplementOp

@@ -11,7 +11,7 @@ import ceylon.ast.core {
     Repository,
     StringLiteral
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAnnotationList=AnnotationList,
@@ -19,7 +19,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JStringLiteral=StringLiteral
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonParser {
         char_literal=\iCHAR_LITERAL,
         string_literal=\iSTRING_LITERAL

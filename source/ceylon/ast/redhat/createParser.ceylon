@@ -2,7 +2,7 @@ import org.antlr.runtime {
     ANTLRStringStream,
     CommonTokenStream
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer,
     CeylonParser
 }

@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     resourcesToCeylon,
     parseResources
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JResourceList=ResourceList
     }

@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Modifier,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier,
@@ -11,7 +11,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JVoidModifier=VoidModifier
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         dynamicModifier=\iDYNAMIC,
         function_modifier=\iFUNCTION_MODIFIER,

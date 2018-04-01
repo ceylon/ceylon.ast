@@ -2,13 +2,13 @@ import ceylon.ast.core {
     IntegerLiteral,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JIntegerLiteral=NaturalLiteral
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         naturalLiteral=\iNATURAL_LITERAL
     }

@@ -2,13 +2,13 @@ import ceylon.ast.core {
     Node,
     StringLiteral
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JStringLiteral=StringLiteral
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         astring_literal=\iASTRING_LITERAL,
         averbatim_string=\iAVERBATIM_STRING,

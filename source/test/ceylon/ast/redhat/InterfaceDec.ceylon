@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     interfaceDecToCeylon,
     parseInterfaceDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JInterfaceLiteral=InterfaceLiteral
     }

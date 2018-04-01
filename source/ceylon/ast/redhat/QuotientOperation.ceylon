@@ -4,7 +4,7 @@ import ceylon.ast.core {
     MultiplyingExpression,
     QuotientOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JQuotientOp=QuotientOp

@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     intersectionOperationToCeylon,
     parseIntersectionOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JIntersectionOp=IntersectionOp
     }

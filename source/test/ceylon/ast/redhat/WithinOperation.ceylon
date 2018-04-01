@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     withinOperationToCeylon,
     parseWithinOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JWithinOp=WithinOp
     }

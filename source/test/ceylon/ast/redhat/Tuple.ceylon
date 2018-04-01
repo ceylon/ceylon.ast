@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     tupleToCeylon,
     parseTuple
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JTuple=Tuple
     }

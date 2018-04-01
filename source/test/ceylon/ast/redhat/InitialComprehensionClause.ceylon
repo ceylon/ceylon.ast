@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     initialComprehensionClauseToCeylon,
     parseInitialComprehensionClause
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JInitialComprehensionClause=InitialComprehensionClause
     }

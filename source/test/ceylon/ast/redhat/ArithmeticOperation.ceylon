@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     arithmeticOperationToCeylon,
     parseArithmeticOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JArithmeticOp=ArithmeticOp
     }

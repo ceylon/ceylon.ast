@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     atomToCeylon,
     parseAtom
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JAtom=Atom
     }

@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     inOperationToCeylon,
     parseInOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JInOp=InOp
     }

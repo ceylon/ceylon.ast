@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     sumOperationToCeylon,
     parseSumOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSumOp=SumOp
     }

@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     prefixDecrementOperationToCeylon,
     parsePrefixDecrementOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JDecrementOp=DecrementOp
     }

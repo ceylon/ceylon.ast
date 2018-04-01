@@ -4,7 +4,7 @@ import ceylon.ast.core {
     PrimaryType,
     UnionType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JStaticType=StaticType,

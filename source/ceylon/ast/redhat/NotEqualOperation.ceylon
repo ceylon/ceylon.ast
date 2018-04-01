@@ -3,7 +3,7 @@ import ceylon.ast.core {
     Node,
     NotEqualOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JNotEqualOp=NotEqualOp

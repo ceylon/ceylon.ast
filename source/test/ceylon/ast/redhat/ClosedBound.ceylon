@@ -5,7 +5,7 @@ import ceylon.ast.redhat {
     RedHatTransformer,
     closedBoundToCeylon
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JClosedBound=ClosedBound
     }

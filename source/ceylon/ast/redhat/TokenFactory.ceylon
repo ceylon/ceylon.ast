@@ -17,7 +17,7 @@ shared interface TokenFactory {
         String text,
         "The type of the token.
          
-         Use the constants from [[com.redhat.ceylon.compiler.typechecker.parser::CeylonLexer]]."
+         Use the constants from [[org.eclipse.ceylon.compiler.typechecker.parser::CeylonLexer]]."
         Integer type,
         """The length of the token.
            

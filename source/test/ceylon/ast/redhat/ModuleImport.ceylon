@@ -11,7 +11,7 @@ import ceylon.ast.redhat {
     moduleImportToCeylon,
     parseModuleImport
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JImportModule=ImportModule
     }

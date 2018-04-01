@@ -1,7 +1,7 @@
 import ceylon.ast.core {
     ...
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JAlias=Alias,
@@ -288,7 +288,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
     },
     JVisitorAdaptor=VisitorAdaptor
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         add_specify=\iADD_SPECIFY,
         aidentifier=\iAIDENTIFIER,

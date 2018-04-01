@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     givenDecToCeylon,
     parseGivenDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JTypeParameterLiteral=TypeParameterLiteral
     }

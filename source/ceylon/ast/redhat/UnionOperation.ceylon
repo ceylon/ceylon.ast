@@ -4,7 +4,7 @@ import ceylon.ast.core {
     UnioningExpression,
     UnionOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JUnionOp=UnionOp

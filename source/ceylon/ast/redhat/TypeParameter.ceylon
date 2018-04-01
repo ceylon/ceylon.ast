@@ -4,7 +4,7 @@ import ceylon.ast.core {
     TypeParameter,
     Variance
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JTypeParameterDeclaration=TypeParameterDeclaration

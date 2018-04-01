@@ -14,7 +14,7 @@ import ceylon.ast.redhat {
     functionArgumentToCeylon,
     parseFunctionArgument
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JMethodArgument=MethodArgument
     }

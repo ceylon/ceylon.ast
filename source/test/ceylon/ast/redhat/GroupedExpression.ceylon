@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     groupedExpressionToCeylon,
     parseGroupedExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JParExpression=ParExpression
     }

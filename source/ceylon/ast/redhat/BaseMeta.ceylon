@@ -6,7 +6,7 @@ import ceylon.ast.core {
     PackageQualifier,
     TypeArguments
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JFunctionLiteral=FunctionLiteral,

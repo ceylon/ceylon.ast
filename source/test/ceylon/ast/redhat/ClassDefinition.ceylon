@@ -15,7 +15,7 @@ import ceylon.ast.redhat {
     classDefinitionToCeylon,
     parseClassDefinition
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JClassDefinition=ClassDefinition
     }

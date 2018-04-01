@@ -6,7 +6,7 @@ import ceylon.ast.core {
     TypeList,
     VariadicType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JTupleType=TupleType

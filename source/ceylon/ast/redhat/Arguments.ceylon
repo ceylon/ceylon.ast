@@ -2,7 +2,7 @@ import ceylon.ast.core {
     Arguments,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     MissingToken,
     JNode=Node,
     Tree {

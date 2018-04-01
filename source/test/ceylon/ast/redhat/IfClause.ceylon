@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     ifClauseToCeylon,
     parseIfClause
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JIfClause=IfClause
     }

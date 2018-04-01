@@ -154,7 +154,7 @@ class ConcreteClassGenerator(
                 "import ceylon.ast.core {
                      ``type``
                  }
-                 import com.redhat.ceylon.compiler.typechecker.tree {
+                 import org.eclipse.ceylon.compiler.typechecker.tree {
                      Tree {
                          J``type``=``type``
                      }
@@ -194,7 +194,7 @@ class ConcreteClassGenerator(
                      ``ltype``ToCeylon,
                      parse``type``
                  }
-                 import com.redhat.ceylon.compiler.typechecker.tree {
+                 import org.eclipse.ceylon.compiler.typechecker.tree {
                      Tree {
                          J``type``=``type``
                      }

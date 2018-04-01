@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     memberDecToCeylon,
     parseMemberDec
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JMemberLiteral=MemberLiteral
     }

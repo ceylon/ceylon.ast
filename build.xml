@@ -12,7 +12,7 @@
         <pathelement location="${dist.libs.dir}/ceylon-ant.jar"/>
     </path>
     
-    <typedef resource="com/redhat/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
+    <typedef resource="org/eclipse/ceylon/ant/antlib.xml" classpathref="ant-tasks"/>
     
     <moduleset id="modules.source.ceylon">
         <module name="ceylon.ast.core"/> 

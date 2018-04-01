@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     callableTypeToCeylon,
     parseCallableType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JFunctionType=FunctionType
     }

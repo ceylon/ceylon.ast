@@ -8,7 +8,7 @@ import ceylon.ast.core {
     Type,
     VoidModifier
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier,
@@ -26,7 +26,7 @@ import ceylon.interop.java {
 "Converts a RedHat AST [[MethodArgument|JMethodArgument]] to a `ceylon.ast` [[FunctionArgument]].
  
  (Warning: The RedHat `MethodArgument` should not be confused with
- [[FunctionArgument|com.redhat.ceylon.compiler.typechecker.tree::Tree.FunctionArgument]],
+ [[FunctionArgument|org.eclipse.ceylon.compiler.typechecker.tree::Tree.FunctionArgument]],
  which corresponds to `ceylon.ast`’s [[ceylon.ast.core::FunctionExpression]].)"
 shared FunctionArgument functionArgumentToCeylon(JMethodArgument functionArgument, Anything(JNode, Node) update = noop) {
     assert (is JStaticType|JFunctionModifier|JVoidModifier|JDynamicModifier jType = functionArgument.type);

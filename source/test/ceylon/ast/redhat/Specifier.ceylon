@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     specifierToCeylon,
     parseSpecifier
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSpecifierExpression=SpecifierExpression
     }

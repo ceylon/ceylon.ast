@@ -11,7 +11,7 @@ import ceylon.ast.redhat {
     moduleDescriptorToCeylon,
     parseModuleDescriptor
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JModuleDescriptor=ModuleDescriptor
     }

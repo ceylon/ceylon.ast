@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     varianceToCeylon,
     parseVariance
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JTypeVariance=TypeVariance
     }

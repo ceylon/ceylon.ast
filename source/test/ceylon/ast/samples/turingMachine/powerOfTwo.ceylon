@@ -20,11 +20,11 @@ import ceylon.ast.redhat {
     RedHatTransformer,
     SimpleTokenFactory
 }
-import com.redhat.ceylon.compiler.typechecker {
+import org.eclipse.ceylon.compiler.typechecker {
     TypeCheckerBuilder,
     TypeChecker
 }
-import com.redhat.ceylon.compiler.typechecker.io {
+import org.eclipse.ceylon.compiler.typechecker.io {
     VirtualFile
 }
 import java.util {
@@ -41,10 +41,10 @@ import java.lang {
 import ceylon.interop.java {
     JavaList
 }
-import com.redhat.ceylon.compiler.typechecker.context {
+import org.eclipse.ceylon.compiler.typechecker.context {
     PhasedUnit
 }
-import com.redhat.ceylon.model.typechecker.util {
+import org.eclipse.ceylon.model.typechecker.util {
     ModuleManager
 }
 

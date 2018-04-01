@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     tryCatchFinallyToCeylon,
     parseTryCatchFinally
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JTryCatchStatement=TryCatchStatement
     }

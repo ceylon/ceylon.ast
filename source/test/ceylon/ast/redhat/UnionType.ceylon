@@ -12,7 +12,7 @@ import ceylon.ast.redhat {
     unionTypeToCeylon,
     parseUnionType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JUnionType=UnionType
     }

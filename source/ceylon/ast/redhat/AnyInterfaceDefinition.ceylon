@@ -8,7 +8,7 @@ import ceylon.ast.core {
     TypeConstraint,
     TypeParameters
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JInterfaceDefinition=InterfaceDefinition

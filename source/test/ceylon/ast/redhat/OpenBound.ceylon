@@ -5,7 +5,7 @@ import ceylon.ast.redhat {
     RedHatTransformer,
     openBoundToCeylon
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JOpenBound=OpenBound
     }

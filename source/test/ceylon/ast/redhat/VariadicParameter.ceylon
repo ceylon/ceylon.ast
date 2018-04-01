@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     variadicParameterToCeylon,
     parseVariadicParameter
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JValueParameterDeclaration=ValueParameterDeclaration
     }

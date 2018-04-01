@@ -3,7 +3,7 @@ import ceylon.ast.core {
     Node,
     StringLiteral
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JLiteral=Literal,
@@ -14,7 +14,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JQuotedLiteral=QuotedLiteral
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         string_literal=\iSTRING_LITERAL,
         verbatim_string_literal=\iVERBATIM_STRING,

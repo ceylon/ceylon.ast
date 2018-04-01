@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     entryPatternToCeylon,
     parseEntryPattern
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JKeyValuePattern=KeyValuePattern
     }

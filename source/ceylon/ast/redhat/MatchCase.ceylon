@@ -9,7 +9,7 @@ import ceylon.ast.core {
     StringLiteral,
     Tuple
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JExpression=Expression,

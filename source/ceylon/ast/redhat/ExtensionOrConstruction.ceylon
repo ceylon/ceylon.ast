@@ -2,7 +2,7 @@ import ceylon.ast.core {
     ExtensionOrConstruction,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     CustomTree {
         JExtendedTypeExpression=ExtendedTypeExpression
     },
@@ -12,7 +12,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JSimpleType=SimpleType
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         lidentifier=\iLIDENTIFIER
     }

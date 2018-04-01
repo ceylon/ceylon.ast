@@ -13,7 +13,7 @@ import ceylon.ast.redhat {
     baseTypeToCeylon,
     parseBaseType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JBaseType=BaseType
     }

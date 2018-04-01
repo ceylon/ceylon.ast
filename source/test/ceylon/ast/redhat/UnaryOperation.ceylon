@@ -6,7 +6,7 @@ import ceylon.ast.redhat {
     unaryOperationToCeylon,
     parseUnaryOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JUnaryOperatorExpression=UnaryOperatorExpression
     }

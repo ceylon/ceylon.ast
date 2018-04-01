@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     optionalTypeToCeylon,
     parseOptionalType
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JOptionalType=OptionalType
     }

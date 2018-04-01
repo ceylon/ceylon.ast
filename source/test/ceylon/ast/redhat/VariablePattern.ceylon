@@ -10,7 +10,7 @@ import ceylon.ast.redhat {
     variablePatternToCeylon,
     parseVariablePattern
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JVariablePattern=VariablePattern
     }

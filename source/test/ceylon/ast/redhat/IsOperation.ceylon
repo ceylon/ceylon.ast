@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     isOperationToCeylon,
     parseIsOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JIsOp=IsOp
     }

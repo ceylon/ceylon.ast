@@ -8,7 +8,7 @@ import ceylon.ast.redhat {
     forClauseToCeylon,
     parseForClause
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JForClause=ForClause
     }

@@ -2,7 +2,7 @@ import ceylon.ast.core {
     LocalModifier,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JFunctionModifier=FunctionModifier,
@@ -10,7 +10,7 @@ import com.redhat.ceylon.compiler.typechecker.tree {
         JValueModifier=ValueModifier
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         function_modifier=\iFUNCTION_MODIFIER,
         value_modifier=\iVALUE_MODIFIER

@@ -10,7 +10,7 @@ import ceylon.ast.redhat {
     qualifiedExpressionToCeylon,
     parseQualifiedExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JQualifiedMemberOrTypeExpression=QualifiedMemberOrTypeExpression
     }

@@ -7,7 +7,7 @@ import ceylon.ast.redhat {
     largerOperationToCeylon,
     parseLargerOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JLargerOp=LargerOp
     }

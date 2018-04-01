@@ -12,7 +12,7 @@ import ceylon.ast.redhat {
     valueGetterDefinitionToCeylon,
     parseValueGetterDefinition
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JAttributeGetterDefinition=AttributeGetterDefinition
     }

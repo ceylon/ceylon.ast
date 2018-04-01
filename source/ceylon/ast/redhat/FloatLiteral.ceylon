@@ -2,13 +2,13 @@ import ceylon.ast.core {
     FloatLiteral,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JFloatLiteral=FloatLiteral
     }
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         float_literal=\iFLOAT_LITERAL
     }

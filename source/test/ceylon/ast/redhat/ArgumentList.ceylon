@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     argumentListToCeylon,
     parseArgumentList
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JSequencedArgument=SequencedArgument
     }

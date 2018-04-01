@@ -9,7 +9,7 @@ import ceylon.ast.redhat {
     objectExpressionToCeylon,
     parseObjectExpression
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     Tree {
         JObjectExpression=ObjectExpression
     }

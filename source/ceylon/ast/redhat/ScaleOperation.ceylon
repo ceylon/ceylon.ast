@@ -4,7 +4,7 @@ import ceylon.ast.core {
     ScalingExpression,
     ScaleOperation
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JScaleOp=ScaleOp

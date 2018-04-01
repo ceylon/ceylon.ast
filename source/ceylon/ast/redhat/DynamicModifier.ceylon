@@ -2,7 +2,7 @@ import ceylon.ast.core {
     DynamicModifier,
     Node
 }
-import com.redhat.ceylon.compiler.typechecker.tree {
+import org.eclipse.ceylon.compiler.typechecker.tree {
     JNode=Node,
     Tree {
         JDynamicModifier=DynamicModifier
@@ -13,7 +13,7 @@ import org.antlr.runtime {
     CommonTokenStream,
     Token
 }
-import com.redhat.ceylon.compiler.typechecker.parser {
+import org.eclipse.ceylon.compiler.typechecker.parser {
     CeylonLexer {
         dynamicType=\iDYNAMIC
     }

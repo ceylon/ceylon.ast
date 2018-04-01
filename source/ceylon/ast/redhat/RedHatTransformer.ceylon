@@ -1033,7 +1033,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JClassSpecifier transformClassSpecifier(ClassSpecifier that) {
         JClassSpecifier ret = JClassSpecifier(tokens.token("=>", compute));
-        value [type, invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        let ([type, invocationExpression] = helpTransformExtensionOrConstruction(that.target));
         ret.type = type;
         ret.invocationExpression = invocationExpression;
         return ret;
@@ -1448,7 +1448,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JExtendedType transformExtendedType(ExtendedType that) {
         JExtendedType ret = JExtendedType(tokens.token("extends", extendsType));
-        value [type, invocationExpression] = helpTransformExtensionOrConstruction(that.target);
+        let ([type, invocationExpression] = helpTransformExtensionOrConstruction(that.target));
         ret.type = type;
         ret.invocationExpression = invocationExpression;
         return ret;
@@ -2323,7 +2323,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         ret.annotationList = annotationList;
         ret.importPath = transformFullPackageName(that.name);
         if (exists moduleSpecifier = that.specifier) {
-            value [jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(moduleSpecifier);
+            let ([jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(moduleSpecifier));
             ret.namespace = jNamespace;
             switch (jName)
             case (is JImportPath) { ret.groupImportPath = jName; }
@@ -2348,7 +2348,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
             ret.quotedLiteral = JQuotedLiteral(transformStringLiteral(name).mainToken);
         }
         case (is ModuleSpecifier) {
-            value [jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(name);
+            let ([jNamespace, jName, jArtifact, jClassifier] = helpTransformModuleSpecifier(name));
             ret.namespace = jNamespace;
             switch (jName)
             case (is JImportPath) { ret.importPath = jName; }

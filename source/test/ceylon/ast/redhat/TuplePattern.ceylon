@@ -22,7 +22,7 @@ shared object tuplePattern satisfies ConcreteTest<TuplePattern,JTuplePattern> {
         if (exists variadicElementPattern) {
             String varCode;
             VariadicVariable varNode;
-            value nameCode->nameNode = variadicElementPattern[0];
+            let (nameCode->nameNode = variadicElementPattern[0]);
             if (exists typeCode->typeNode = variadicElementPattern[1]) {
                 varCode = typeCode + " *" + nameCode;
                 varNode = VariadicVariable(nameNode, typeNode);

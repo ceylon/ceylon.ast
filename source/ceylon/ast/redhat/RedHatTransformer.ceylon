@@ -154,6 +154,7 @@ import org.eclipse.ceylon.compiler.typechecker.tree {
         JLogicalOp=LogicalOp,
         JLiteral=Literal,
         JMatchCase=MatchCase,
+        JMatchList=MatchList,
         JMemberLiteral=MemberLiteral,
         JMemberOp=MemberOp,
         JMemberOperator=MemberOperator,
@@ -2217,7 +2218,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     
     shared actual JMatchCase transformMatchCase(MatchCase that) {
         JMatchCase ret = JMatchCase(null);
-        JExpressionList expressions = JExpressionList(null);
+        JMatchList expressions = JMatchList(null);
         expressions.addExpression(wrapTerm(transformExpression(that.expressions.first)));
         for (expression in that.expressions.rest) {
             expressions.endToken = tokens.token(",", comma);

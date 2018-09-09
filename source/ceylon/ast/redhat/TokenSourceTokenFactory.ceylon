@@ -41,11 +41,11 @@ shared class TokenSourceTokenFactory(initialIndex = 0, initialStartIndex = 0)
     
     Queue<CommonToken> tokens = LinkedList<CommonToken>();
     
-    shared actual CommonToken token(String text, Integer type, Integer length) {
+    shared actual CommonToken token(String text, Integer type) {
         value token = CommonToken(type, text);
         token.tokenIndex = index++;
         token.startIndex = startIndex;
-        token.stopIndex = (startIndex += length) - 1;
+        token.stopIndex = (startIndex += text.size) - 1;
         token.charPositionInLine = 0; // initialized to -1
         tokens.offer(token);
         return token;

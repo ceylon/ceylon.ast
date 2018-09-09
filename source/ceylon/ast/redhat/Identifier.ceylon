@@ -22,27 +22,19 @@ import org.antlr.runtime {
     CommonToken
 }
 
-Boolean isPrefixed(CommonToken token) {
-    return token.text.size != token.stopIndex-token.startIndex+1;
-}
-
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[Identifier]]."
 throws (`class AssertionError`, "If the token type is neither `LIDENTIFIER` nor `UIDENTIFIER`.")
 shared Identifier identifierToCeylon(JIdentifier identifier, Anything(JNode, Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
-     For synthetic nodes produced by the typechecker during desugaring, a token
-     may not exist."
-    assert (is CommonToken? token = identifier.mainToken);
-    // desugaring *always* produces lidentifier's, right? :)
-    value type = token?.type else lidentifier;
+    assert (exists text = identifier.text);
     Identifier result;
-    value prefixed = if (exists token) then isPrefixed(token) else false;
-    if (type == lidentifier) {
-        result = LIdentifier.internal(identifier.text, prefixed);
-    } else if (type == uidentifier) {
-        result = UIdentifier.internal(identifier.text, prefixed);
+    if (text.startsWith("""\I""")) {
+        result = UIdentifier.internal { text[2...]; usePrefix = true; };
+    } else if (text.startsWith("""\i""")) {
+        result = LIdentifier.internal { text[2...]; usePrefix = true; };
+    } else if (text.first?.uppercase else false) {
+        result = UIdentifier.internal(text);
     } else {
-        throw AssertionError("Token type of Identifier token must be LIDENTIFIER (``lidentifier``) or UIDENTIFIER (``uidentifier``)");
+        result = LIdentifier.internal(text);
     }
     update(identifier, result);
     return result;
@@ -51,34 +43,22 @@ shared Identifier identifierToCeylon(JIdentifier identifier, Anything(JNode, Nod
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[LIdentifier]]."
 throws (`class AssertionError`, "If the token type is not `LIDENTIFIER`.")
 shared LIdentifier lIdentifierToCeylon(JIdentifier identifier, Anything(JNode, Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
-     For synthetic nodes produced by the typechecker during desugaring, a token
-     may not exist."
-    assert (is CommonToken? token = identifier.mainToken);
-    if (exists token) {
+    if (exists token = identifier.mainToken) {
         "Must be LIDENTIFIER token"
         assert (token.type == lidentifier);
     }
-    value prefixed = if (exists token) then isPrefixed(token) else false;
-    value result = LIdentifier.internal(identifier.text, prefixed);
-    update(identifier, result);
+    assert (is LIdentifier result = identifierToCeylon(identifier, update));
     return result;
 }
 
 "Converts a RedHat AST [[Identifier|JIdentifier]] to a `ceylon.ast` [[UIdentifier]]."
 throws (`class AssertionError`, "If the token type is not `UIDENTIFIER`.")
 shared UIdentifier uIdentifierToCeylon(JIdentifier identifier, Anything(JNode, Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT).
-     For synthetic nodes produced by the typechecker during desugaring, a token
-     may not exist."
-    assert (is CommonToken? token = identifier.mainToken);
-    if (exists token) {
+    if (exists token = identifier.mainToken) {
         "Must be UIDENTIFIER token"
         assert (token.type == uidentifier);
     }
-    value prefixed = if (exists token) then isPrefixed(token) else false;
-    value result = UIdentifier.internal(identifier.text, prefixed);
-    update(identifier, result);
+    assert (is UIdentifier result = identifierToCeylon(identifier, update));
     return result;
 }
 
@@ -87,12 +67,9 @@ shared UIdentifier uIdentifierToCeylon(JIdentifier identifier, Anything(JNode, N
  There’s no syntactical difference between package and lowercase identifiers, but they have different token types."
 throws (`class AssertionError`, "If the token type is not `PIDENTIFIER`.")
 shared LIdentifier pIdentifierToCeylon(JIdentifier identifier, Anything(JNode, Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
-    assert (is CommonToken token = identifier.mainToken);
     "Must be PIDENTIFIER token"
-    assert (token.type == pidentifier);
-    value result = LIdentifier.internal(identifier.text);
-    update(identifier, result);
+    assert (identifier.mainToken.type == pidentifier);
+    assert (is LIdentifier result = identifierToCeylon(identifier, update));
     return result;
 }
 
@@ -101,12 +78,9 @@ shared LIdentifier pIdentifierToCeylon(JIdentifier identifier, Anything(JNode, N
  There’s no syntactical difference between annotation and lowercase identifiers, but they have different token types."
 throws (`class AssertionError`, "If the token type is not `AIDENTIFIER`.")
 shared LIdentifier aIdentifierToCeylon(JIdentifier identifier, Anything(JNode, Node) update = noop) {
-    "Need CommonToken to get length of token (!= text’s length for \\iCONSTANT)"
-    assert (is CommonToken token = identifier.mainToken);
     "Must be AIDENTIFIER token"
-    assert (token.type == aidentifier);
-    value result = LIdentifier.internal(identifier.text);
-    update(identifier, result);
+    assert (identifier.mainToken.type == aidentifier);
+    assert (is LIdentifier result = identifierToCeylon(identifier, update));
     return result;
 }
 

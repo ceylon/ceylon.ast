@@ -2189,7 +2189,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JIdentifier transformLIdentifier(LIdentifier that)
-            => JIdentifier(tokens.token(that.name, lidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+            => JIdentifier(tokens.token(that.text, lidentifier));
     
     shared actual JLiteral transformLiteral(Literal that) {
         assert (is JLiteral ret = super.transformLiteral(that));
@@ -3373,7 +3373,7 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JIdentifier transformUIdentifier(UIdentifier that)
-            => JIdentifier(tokens.token(that.name, uidentifier, that.usePrefix then that.name.size + 2 else that.name.size));
+            => JIdentifier(tokens.token(that.text, uidentifier));
     
     shared actual JNegativeOp|JPositiveOp transformUnaryArithmeticOperation(UnaryArithmeticOperation that) {
         assert (is JNegativeOp|JPositiveOp ret = super.transformUnaryArithmeticOperation(that));

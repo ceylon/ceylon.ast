@@ -12,6 +12,6 @@ import org.antlr.runtime {
  However, it might be useful if you know that the tokens won’t be used,
  and you just need any token factory."
 shared class BasicTokenFactory() satisfies TokenFactory {
-    shared actual CommonToken token(String text, Integer type, Integer length)
+    shared actual CommonToken token(String text, Integer type)
             => CommonToken(type, text);
 }

@@ -15,8 +15,7 @@ import org.eclipse.ceylon.compiler.typechecker.tree {
 shared Destructure destructureToCeylon(JDestructure destructure, Anything(JNode, Node) update = noop) {
     assert (is TuplePattern|EntryPattern pattern = patternToCeylon(destructure.pattern, update));
     value specifier = specifierToCeylon(destructure.specifierExpression, update);
-    value valueModifier = valueModifierToCeylon(destructure.type, update);
-    value result = Destructure(pattern, specifier, valueModifier);
+    value result = Destructure(pattern, specifier); // TODO #138: valueModifier argument should not be defaulted
     update(destructure, result);
     return result;
 }
@@ -26,7 +25,10 @@ shared Destructure destructureToCeylon(JDestructure destructure, Anything(JNode,
  (more specifically, the rule for a `destructure`)."
 shared Destructure? parseDestructure(String code, Anything(JNode, Node) update = noop) {
     if (exists jDestructure = createParser(code).destructure()) {
-        return destructureToCeylon(jDestructure, update);
+        // TODO #138: support all kinds of destructuring statements
+        assert (jDestructure.variables.size() == 1);
+        assert (is JDestructure jDestructure_ = jDestructure.variables.get(0));
+        return destructureToCeylon(jDestructure_, update);
     } else {
         return null;
     }

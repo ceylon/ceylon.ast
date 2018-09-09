@@ -1255,9 +1255,8 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
     }
     
     shared actual JDestructure transformDestructure(Destructure that) {
-        value vm = transformValueModifier(that.valueModifier);
+        value vm = transformValueModifier(that.valueModifier); // TODO #138: should not be unused
         JDestructure ret = JDestructure(null);
-        ret.type = vm;
         ret.pattern = transformPattern(that.pattern);
         ret.specifierExpression = transformSpecifier(that.specifier);
         return ret;

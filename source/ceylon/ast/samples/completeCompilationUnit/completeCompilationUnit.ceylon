@@ -282,6 +282,7 @@ shared CompilationUnit completeCompilationUnit
                                     invoked = QualifiedExpression {
                                         receiverExpression = BaseExpression(MemberNameWithTypeArguments(LIdentifier("sysout")));
                                         nameAndArgs = MemberNameWithTypeArguments(LIdentifier("println"));
+                                        memberOperator = SafeMemberOperator();
                                     };
                                     arguments = PositionalArguments(ArgumentList([StringLiteral("""Hello, World!""")]));
                                 }),
@@ -811,12 +812,10 @@ shared CompilationUnit completeCompilationUnit
                                                 QualifiedExpression {
                                                     receiverExpression = Outer();
                                                     nameAndArgs = MemberNameWithTypeArguments(LIdentifier("outerReference"));
-                                                    memberOperator = SafeMemberOperator();
                                                 },
                                                 QualifiedExpression {
                                                     receiverExpression = Package();
                                                     nameAndArgs = MemberNameWithTypeArguments(LIdentifier("packageReference"));
-                                                    memberOperator = SpreadMemberOperator();
                                                 }
                                             ])));
                                 annotations = Annotations();

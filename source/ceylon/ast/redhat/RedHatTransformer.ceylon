@@ -148,6 +148,7 @@ import org.eclipse.ceylon.compiler.typechecker.tree {
         JLazySpecifierExpression=LazySpecifierExpression,
         JLetClause=LetClause,
         JLetExpression=LetExpression,
+        JLetStatement=LetStatement,
         JListedArgument=ListedArgument,
         JLocalModifier=LocalModifier,
         JLogicalAssignmentOp=LogicalAssignmentOp,
@@ -1255,11 +1256,16 @@ shared class RedHatTransformer(TokenFactory tokens) satisfies ImmediateNarrowing
         return ret;
     }
     
-    shared actual JDestructure transformDestructure(Destructure that) {
-        value vm = transformValueModifier(that.valueModifier); // TODO #138: should not be unused
-        JDestructure ret = JDestructure(null);
-        ret.pattern = transformPattern(that.pattern);
-        ret.specifierExpression = transformSpecifier(that.specifier);
+    shared actual JLetStatement transformDestructure(Destructure that) {
+        JLetStatement ret = JLetStatement(tokens.token("let", letType));
+        ret.endToken = tokens.token("(", lparen);
+        ret.addVariable(helpTransformSpecifiedPattern(that.patterns.patterns.first));
+        for (pattern in that.patterns.patterns.rest) {
+            ret.endToken = tokens.token(",", comma);
+            ret.addVariable(helpTransformSpecifiedPattern(pattern));
+        }
+        ret.endToken = tokens.token(")", rparen);
+        ret.endToken = tokens.token(";", semicolon);
         return ret;
     }
     

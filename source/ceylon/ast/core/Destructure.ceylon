@@ -1,26 +1,18 @@
 "A destructuring statement, that is,
- a [[‘`value`’ modifier|valueModifier]], followed by a [[pattern]] and a [[specifier]],
+ the keyword ‘`let`’, followed by a [[list of patterns|patterns]]
  and terminated by a semicolon.
  
  Examples:
  
-     value name->[lat, lon] = observatories.first;
-     value [x,y,z] = pos;"
-shared class Destructure(pattern, specifier, valueModifier = ValueModifier())
+     let (name->[lat, lon] = observatories.first);
+     let ([x,y,z] = pos, [α,β,γ] = dir);"
+shared class Destructure(patterns)
         extends Statement() {
     
-    "The pattern to be instantiated.
-     
-     (This may not be a simple [[VariablePattern]]
-     because this could be ambiguous
-     with a regular [[ValueDefinition]].)"
-    shared TuplePattern|EntryPattern pattern;
-    "The specifier that’s assigned to the [[pattern]]."
-    shared Specifier specifier;
-    "The ‘`value`’ modifier."
-    shared ValueModifier valueModifier;
+    "The patterns that the destructuring statement introduces."
+    shared PatternList patterns;
     
-    shared actual [ValueModifier, TuplePattern|EntryPattern, Specifier] children = [valueModifier, pattern, specifier];
+    shared actual [PatternList] children = [patterns];
     
     shared actual Result transform<out Result>(Transformer<Result> transformer)
             => transformer.transformDestructure(this);
@@ -30,17 +22,17 @@ shared class Destructure(pattern, specifier, valueModifier = ValueModifier())
     
     shared actual Boolean equals(Object that) {
         if (is Destructure that) {
-            return pattern==that.pattern && specifier==that.specifier && valueModifier==that.valueModifier;
+            return patterns == that.patterns;
         } else {
             return false;
         }
     }
     
     shared actual Integer hash
-            => 31 * (pattern.hash + 31 * (specifier.hash + 31*valueModifier.hash));
+            => 31 * patterns.hash;
     
-    shared Destructure copy(TuplePattern|EntryPattern pattern = this.pattern, Specifier specifier = this.specifier, ValueModifier valueModifier = this.valueModifier) {
-        value ret = Destructure(pattern, specifier, valueModifier);
+    shared Destructure copy(PatternList patterns = this.patterns) {
+        value ret = Destructure(patterns);
         copyExtraInfoTo(ret);
         return ret;
     }

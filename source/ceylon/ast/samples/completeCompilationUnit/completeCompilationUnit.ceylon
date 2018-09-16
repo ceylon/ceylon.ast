@@ -913,13 +913,15 @@ shared CompilationUnit completeCompilationUnit
                                             ])));
                                 annotations = Annotations();
                             },
-                            Destructure {
-                                pattern = TuplePattern {
-                                    elementPatterns = [VariablePattern(UnspecifiedVariable(LIdentifier("destructureFirst")))];
-                                    variadicElementPattern = VariadicVariable(LIdentifier("destructureRest"));
-                                };
-                                specifier = Specifier(IntegerLiteral("1"));
-                            }
+                            Destructure(PatternList([
+                                        SpecifiedPattern {
+                                            pattern = TuplePattern {
+                                                elementPatterns = [VariablePattern(UnspecifiedVariable(LIdentifier("destructureFirst")))];
+                                                variadicElementPattern = VariadicVariable(LIdentifier("destructureRest"));
+                                            };
+                                            specifier = Specifier(IntegerLiteral("1"));
+                                        }
+                                    ]))
                         ]);
                     caseTypes = CaseTypes([
                             LIdentifier("myTrue"),

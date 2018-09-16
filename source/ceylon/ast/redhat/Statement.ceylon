@@ -11,6 +11,7 @@ import org.eclipse.ceylon.compiler.typechecker.tree {
         JDirective=Directive,
         JExecutableStatement=ExecutableStatement,
         JExpressionStatement=ExpressionStatement,
+        JLetStatement=LetStatement,
         JSpecifierStatement=SpecifierStatement
     }
 }
@@ -22,14 +23,14 @@ import org.eclipse.ceylon.compiler.typechecker.tree {
  and [[ExecutableStatement|org.eclipse.ceylon.compiler.typechecker.tree::Tree.ExecutableStatement]]
  and used as `Declaration|Statement` in [[Body|org.eclipse.ceylon.compiler.typechecker.tree::Tree.Body]].)"
 shared Statement statementToCeylon(JExecutableStatement statement, Anything(JNode, Node) update = noop) {
-    assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement|JDestructure statement);
+    assert (is JSpecifierStatement|JExpressionStatement|JAssertion|JDirective|JControlStatement|JLetStatement statement);
     switch (statement)
     case (is JSpecifierStatement) { return specificationToCeylon(statement, update); }
     case (is JExpressionStatement) { return expressionStatementToCeylon(statement, update); }
     case (is JAssertion) { return assertionToCeylon(statement, update); }
     case (is JDirective) { return directiveToCeylon(statement, update); }
     case (is JControlStatement) { return controlStructureToCeylon(statement, update); }
-    case (is JDestructure) { return destructureToCeylon(statement, update); }
+    case (is JLetStatement) { return destructureToCeylon(statement, update); }
 }
 
 "Parses the given [[code]] for a Statement

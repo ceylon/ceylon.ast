@@ -26,10 +26,10 @@ shared AnySpecifier anySpecifierToCeylon(JSpecifierExpression anySpecifier, Anyt
  into an [[AnySpecifier]] using the Ceylon compiler
  (more specifically, the rule for a `specifier` or `lazySpecifier`)."
 shared AnySpecifier? parseAnySpecifier(String code, Anything(JNode, Node) update = noop) {
-    if (exists jSpecifier = createParser(code).specifier()) {
-        return anySpecifierToCeylon(jSpecifier, update);
-    } else if (exists jLazySpecifier = createParser(code).lazySpecifier()) {
+    if (exists jLazySpecifier = createParser(code).lazySpecifier()) {
         return anySpecifierToCeylon(jLazySpecifier, update);
+    } else if (exists jSpecifier = createParser(code).specifier()) {
+        return anySpecifierToCeylon(jSpecifier, update);
     } else {
         return null;
     }

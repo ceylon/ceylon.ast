@@ -23,7 +23,8 @@ shared Type typeToCeylon(JStaticType type, Anything(JNode, Node) update = noop) 
  into a [[Type]] using the Ceylon compiler
  (more specifically, the rule for a `type`)."
 shared Type? parseType(String code, Anything(JNode, Node) update = noop) {
-    if (exists jType = createParser(code).type()) {
+    if (exists jType = createParser(code + ",").type()) {
+        // the parser needs that comma for grouped types (eclipse/ceylon#7413)
         return typeToCeylon(jType, update);
     } else {
         return null;

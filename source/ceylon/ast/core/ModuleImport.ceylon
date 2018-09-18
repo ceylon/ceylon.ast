@@ -28,7 +28,7 @@ shared class ModuleImport(name, version, annotations = Annotations())
     shared StringLiteral|BaseExpression version;
     "The annotations on the module import."
     shared Annotations annotations;
-
+    
     if (is BaseExpression version) {
         "The version constant must be a lowercase identifier without type arguments"
         assert (version.nameAndArgs.name is LIdentifier,

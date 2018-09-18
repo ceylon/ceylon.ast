@@ -86,7 +86,7 @@ shared ModuleImport moduleImportToCeylon(JImportModule moduleImport, Anything(JN
         name = onlyName;
     }
     StringLiteral|BaseExpression version;
-    if ( exists jVersion = moduleImport.version) {
+    if (exists jVersion = moduleImport.version) {
         "Can’t have both version literal and constant version"
         assert (!moduleImport.constantVersion exists);
         value versionToken = moduleImport.version.mainToken;
